@@ -1,3 +1,4 @@
+/* general */
 html, body {
 	margin: 0;
 	padding: 0;
@@ -13,11 +14,31 @@ html, body {
 	height: 100%;
 }
 
+/* layout */
 .container {
 	padding: 0 20px;
 }
-
 .container h3 {
 	font-weight: 300;
 	font-size: 20px;
+}
+.container .accounts {
+	display: flex;
+	flex-direction: column;
+}
+.container .accounts > div {
+	padding: 8px 10px;
+	margin-bottom: 20px;
+	background: #38383d;
+	border-radius: 4px;
+	box-shadow: 0 8px 15px -8px #1d1d1f;
+	transition: all .2s;
+}
+
+/* utilities */
+.text-small {
+	font-size: .8em;
+}
+.text-secondary {
+	color: #cdcdd3
 }

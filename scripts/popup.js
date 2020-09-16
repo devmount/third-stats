@@ -12,9 +12,19 @@ var app = new Vue({
 			{ attrs: { class: 'container' } },
 			[
 				h('h3', 'Accounts'),
-				h('ul', this.accounts.map(a => {
-					return h('li', a.name + ' (' + a.folderCount + ')')
-				})),
+				h(
+					'div',
+					{ attrs: { class: 'accounts' } },
+					this.accounts.map(a => {
+						return h(
+							'div',
+							[
+								h('div', a.name),
+								h('div', { attrs: { class: 'text-small text-secondary' } }, a.messageCount + ' messages in ' + a.folderCount + ' folders'),
+							]
+						)
+					})
+				),
 			]
 		)
 	},
@@ -33,9 +43,11 @@ var app = new Vue({
 			accounts = accounts.filter(a => a.type != 'none')
 			accounts.map(a => {
 				a.folderCount = a.folders.length
+				a.messageCount = 999 // TODO
 				if (a.folders.length > 0) {
 					a.folders.map(f => {
 						a.folderCount += this.subfolderCount(f)
+						a.messageCount += 0 //TODO
 					})
 				}
 			})
