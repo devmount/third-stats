@@ -34,6 +34,14 @@ html, body {
 	box-shadow: 0 8px 15px -8px #1d1d1f;
 	transition: all .2s;
 }
+.container .accounts > div:hover {
+	background: #0865e0;
+	cursor: pointer;
+}
+.container .accounts > div:hover,
+.container .accounts > div:hover .text-secondary {
+	color: white;
+}
 
 /* utilities */
 .text-small {

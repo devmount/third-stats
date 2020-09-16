@@ -41,6 +41,7 @@ var app = new Vue({
 			let accounts = await browser.accounts.list()
 			// only consider non local accounts
 			accounts = accounts.filter(a => a.type != 'none')
+			// calculate folder and message count and append to account object
 			accounts.map(a => {
 				a.folderCount = a.folders.length
 				a.messageCount = 999 // TODO
