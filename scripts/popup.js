@@ -1,4 +1,9 @@
 
+// vue global configuration
+Vue.config.productionTip = false
+Vue.config.devtools = false
+
+// app logic
 var app = new Vue({
 	el: '#app',
 	render (h) {
