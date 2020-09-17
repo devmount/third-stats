@@ -11,6 +11,7 @@ var app = new Vue({
 			'div',
 			{ attrs: { class: 'container' } },
 			[
+				h('div', { attrs: { class: this.waiting ? 'loading' : 'completed' } }),
 				h('h3', 'Accounts'),
 				h(
 					'div',
@@ -30,7 +31,7 @@ var app = new Vue({
 	},
 	data: {
 		accounts: [],
-
+		waiting: true,
 	},
 	created () {
 		this.getAccounts()
@@ -43,14 +44,16 @@ var app = new Vue({
 			accounts = accounts.filter(a => a.type != 'none')
 			// calculate folder and message count and append to account object
 			let self = this
-			await Promise.all(accounts.map(async a => {
+			Promise.all(accounts.map(async a => {
 				let folders = self.traverseAccount(a)
 				a.folderCount = folders.length
 				a.messageCount = 0
 				await Promise.all(folders.map(async f => {
 					a.messageCount = await self.countMessages(f)
 				}))
-			}))
+			})).then(() => {
+				this.waiting = false
+			})
 			this.accounts = accounts
 		},
 		// count all messages of a folder

@@ -7,6 +7,7 @@ html, body {
 	color: #f9f9fa;
 	font-weight: 300;
 	font-size: 16px;
+	min-width: 300px;
 }
 
 #app {
@@ -21,6 +22,15 @@ html, body {
 .container h3 {
 	font-weight: 300;
 	font-size: 20px;
+}
+.container .loading {
+	float: right;
+	height: 16px;
+	width: 16px;
+	border: 4px solid rgba(150, 150, 150, 0.2);
+	border-radius: 50%;
+	border-top-color: rgb(150, 150, 150);
+	animation: rotate 1s 0s infinite linear;
 }
 .container .accounts {
 	display: flex;
@@ -49,4 +59,8 @@ html, body {
 }
 .text-secondary {
 	color: #cdcdd3
+}
+@keyframes rotate {
+	0%   { transform: rotate(0);      }
+	100% { transform: rotate(360deg); }
 }
