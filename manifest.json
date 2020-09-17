@@ -12,13 +12,16 @@
 	},
 	"browser_action": {
 			"default_popup": "popup.html",
-			"default_title": "Thunderbird E-Mail Statistics",
+			"default_title": "Third Stats",
 			"default_icon": "images/icon.svg"
 	},
 	"permissions": [
 		"accountsRead",
 		"accountsFolders",
-		"messagesRead"
+		"messagesRead",
+		"activeTab",
+		"tabs",
+		"tabHide"
 	],
 	"icons": {
 			"64": "images/icon.svg",

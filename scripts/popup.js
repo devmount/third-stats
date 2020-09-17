@@ -19,6 +19,7 @@ var app = new Vue({
 					this.accounts.map(a => {
 						return h(
 							'div',
+							{ on: { '!click': this.openTab } },
 							[
 								h('div', a.name),
 								h('div', { attrs: { class: 'text-small text-secondary' } }, a.messageCount + ' messages in ' + a.folderCount + ' folders'),
@@ -80,6 +81,13 @@ var app = new Vue({
 			}
 			traverse(account.folders)
 			return arrayOfFolders
+		},
+		openTab: async function (event) {
+			event.preventDefault()
+			await browser.tabs.create({
+				active: true,
+				url: 'stats.html'
+			})
 		}
 	}
 })
