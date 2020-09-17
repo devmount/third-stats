@@ -49,7 +49,8 @@ var app = new Vue({
 				a.folderCount = folders.length
 				a.messageCount = 0
 				await Promise.all(folders.map(async f => {
-					a.messageCount = await self.countMessages(f)
+					let c = await self.countMessages(f)
+					a.messageCount += c
 				}))
 			})).then(() => {
 				this.waiting = false
