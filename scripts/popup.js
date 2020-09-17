@@ -42,41 +42,40 @@ var app = new Vue({
 			// only consider non local accounts
 			accounts = accounts.filter(a => a.type != 'none')
 			// calculate folder and message count and append to account object
-			accounts.map(a => {
-				a.folderCount = a.folders.length
-				a.messageCount = 999 // TODO
-				if (a.folders.length > 0) {
-					a.folders.map(f => {
-						a.folderCount += this.subfolderCount(f)
-						a.messageCount += 0 //TODO
-					})
-				}
-			})
+			let self = this
+			await Promise.all(accounts.map(async a => {
+				let folders = self.traverseAccount(a)
+				a.folderCount = folders.length
+				a.messageCount = 0
+				await Promise.all(folders.map(async f => {
+					a.messageCount = await self.countMessages(f)
+				}))
+			}))
 			this.accounts = accounts
 		},
-		// recursive function to count subfolders of given folder
-		subfolderCount (folder) {
-			let count = folder.subFolders.length
-			if (count == 0) return 0
-			else {
-				folder.subFolders.map(s => {
-					count += this.subfolderCount(s)
-				})
+		// count all messages of a folder
+		countMessages: async function (folder) {
+			let page = await browser.messages.list(folder)
+			let count = page.messages.length
+			while (page.id) {
+				page = await browser.messages.continueList(page.id)
+				count += page.messages.length
 			}
 			return count
 		},
-		// iterable to get all messages of a folder
-		listMessages: async function* (folder) {
-			let page = await browser.messages.list(folder);
-			for (let message of page.messages) {
-				yield message;
-			}
-			while (page.id) {
-				page = await browser.messages.continueList(page.id);
-				for (let message of page.messages) {
-					yield message;
+		// function to flatten folder hierarchie
+		traverseAccount (account) {
+			let arrayOfFolders = []
+			// recursive function to traverse all subfolders
+			function traverse(folders) {
+				if (!folders) return
+				for (let f of folders) {
+					arrayOfFolders.push(f)
+					traverse(f.subFolders)
 				}
 			}
+			traverse(account.folders)
+			return arrayOfFolders
 		}
 	}
 })

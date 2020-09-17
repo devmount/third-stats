@@ -16,7 +16,9 @@
 			"default_icon": "images/icon.svg"
 	},
 	"permissions": [
-		"accountsRead"
+		"accountsRead",
+		"accountsFolders",
+		"messagesRead"
 	],
 	"icons": {
 			"64": "images/icon.svg",
