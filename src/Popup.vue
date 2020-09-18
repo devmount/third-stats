@@ -1,0 +1,146 @@
+<template>
+	<div id='popup'>
+		<div class='container'>
+			<div v-if='waiting' class='loading'></div>
+			<h3>{{ accounts.length }} Accounts</h3>
+			<div class='accounts'>
+				<div v-for='a in accounts' :key='a.id' @click.prevent="openTab">
+					<div>{{ a.name }}</div>
+					<div class='text-small text-secondary'>{{ a.messageCount }} messages in {{ a.folderCount }} folders</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+	name: 'Popup',
+	data () {
+		return {
+			accounts: [],
+			waiting: true,
+		}
+	},
+	created () {
+		this.getAccounts()
+	},
+	methods: {
+		// function to get all thunderbird accounts
+		getAccounts: async function () {
+			let accounts = await browser.accounts.list()
+			// only consider non local accounts
+			accounts = accounts.filter(a => a.type != 'none')
+			// calculate folder and message count and append to account object
+			let self = this
+			Promise.all(accounts.map(async a => {
+				let folders = self.traverseAccount(a)
+				a.folderCount = folders.length
+				a.messageCount = 0
+				await Promise.all(folders.map(async f => {
+					let c = await self.countMessages(f)
+					a.messageCount += c
+				}))
+			})).then(() => {
+				this.waiting = false
+			})
+			this.accounts = accounts
+		},
+		// count all messages of a folder
+		countMessages: async function (folder) {
+			let page = await browser.messages.list(folder)
+			let count = page.messages.length
+			while (page.id) {
+				page = await browser.messages.continueList(page.id)
+				count += page.messages.length
+			}
+			return count
+		},
+		// function to flatten folder hierarchie
+		traverseAccount (account) {
+			let arrayOfFolders = []
+			// recursive function to traverse all subfolders
+			function traverse(folders) {
+				if (!folders) return
+				for (let f of folders) {
+					arrayOfFolders.push(f)
+					traverse(f.subFolders)
+				}
+			}
+			traverse(account.folders)
+			return arrayOfFolders
+		},
+		openTab: async function (event) {
+			event.preventDefault()
+			await browser.tabs.create({
+				active: true,
+				url: 'stats.html'
+			})
+		}
+	}
+}
+</script>
+
+<style lang='stylus'>
+// general
+html, body
+	margin 0
+	padding 0
+	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+	background #2f2f33
+	color #f9f9fa
+	font-weight 300
+	font-size 16px
+	min-width 300px
+	overflow hidden
+
+// layout
+#popup
+	width 100%
+	height 100%
+
+	.container
+		padding 0 20px
+		h3
+			font-weight 300
+			font-size 20px
+		.loading
+			float right
+			height 16px
+			width 16px
+			border 4px solid rgba(150, 150, 150, 0.2)
+			border-radius 50%
+			border-top-color rgb(150, 150, 150)
+			animation rotate 1s 0s infinite linear
+		.accounts
+			display flex
+			flex-direction column
+			& > div
+				padding 8px 10px
+				margin-bottom 20px
+				background #38383d
+				border-radius 4px
+				box-shadow 0 8px 15px -8px #1d1d1f
+				transition all .2s
+				&:hover
+					background #0865e0
+					cursor pointer
+					color white
+					.text-secondary
+						color white
+
+// utilities
+.text-small
+	font-size .8em
+.text-secondary
+	color #cdcdd3
+
+@keyframes rotate {
+	0% {
+		transform rotate(0)
+	}
+	100% {
+		transform rotate(360deg)
+	}
+}
+</style>
