@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "ThirdStats",
+	"description": "Simple but beautiful Statistics for your Thunderbird Email Accounts",
+	"version": "0.1.0",
+	"author": "Andreas Müller",
+	"applications": {
+			"gecko": {
+					"id": "thirdstats@devmount.com",
+					"strict_min_version": "78.0"
+			}
+	},
+	"browser_action": {
+			"default_popup": "popup.html",
+			"default_title": "Third Stats",
+			"default_icon": "icon.svg"
+	},
+	"permissions": [
+		"accountsRead",
+		"accountsFolders",
+		"messagesRead",
+		"activeTab",
+		"tabs",
+		"tabHide"
+	],
+	"icons": {
+			"64": "icon.svg",
+			"32": "icon.svg",
+			"16": "icon.svg"
+	}
+}
