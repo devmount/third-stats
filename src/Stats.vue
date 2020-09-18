@@ -1,42 +1,45 @@
 <template>
 	<div id='stats'>
-		<h1>Th<span class='text-gray'>underb</span>ird Stats <span v-if='waiting'>(...)</span></h1>
-		<section class="numbers">
+		<h1>
+			<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
+			<span v-if='waiting' class='loading'></span>
+		</h1>
+		<section class='numbers'>
 			<!-- total -->
 			<div>
-				<div class="text-gray">Mails total</div>
-				<div class="featured">{{ numbers.total.toLocaleString() }}</div>
-				<div class="text-gray">within {{ oneDigit(years) }} years</div>
+				<div class='text-gray'>Mails total</div>
+				<div class='featured'>{{ numbers.total.toLocaleString() }}</div>
+				<div class='text-gray'>within {{ oneDigit(years) }} years</div>
 			</div>
 			<!-- unread -->
 			<div>
-				<div class="text-gray">Mails unread</div>
-				<div class="featured">{{ numbers.unread.toLocaleString() }}</div>
-				<div class="text-gray" v-if='numbers.unread == 0'>Nice work!</div>
+				<div class='text-gray'>Mails unread</div>
+				<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
+				<div class='text-gray' v-if='numbers.unread == 0'>Nice work!</div>
 			</div>
 			<!-- received -->
 			<div>
-				<div class="text-gray">Mails received</div>
-				<div class="featured text-primary">{{ numbers.received.toLocaleString() }}</div>
-				<div class="text-gray">{{ receivedPercentage }}% of total</div>
+				<div class='text-gray'>Mails received</div>
+				<div class='featured text-primary'>{{ numbers.received.toLocaleString() }}</div>
+				<div class='text-gray'>{{ receivedPercentage }}% of total</div>
 			</div>
 			<!-- sent -->
 			<div>
-				<div class="text-gray">Mails sent</div>
-				<div class="featured text-secondary">{{ numbers.sent.toLocaleString() }}</div>
-				<div class="text-gray">{{ sentPercentage }}% of total</div>
+				<div class='text-gray'>Mails sent</div>
+				<div class='featured text-secondary'>{{ numbers.sent.toLocaleString() }}</div>
+				<div class='text-gray'>{{ sentPercentage }}% of total</div>
 			</div>
 			<!-- per month / per year -->
 			<div>
-				<div class="text-gray">Mails per Month</div>
-				<div class="featured">{{ perMonth }}</div>
-				<div class="text-gray">{{ perYear }} mails/year</div>
+				<div class='text-gray'>Mails per Month</div>
+				<div class='featured'>{{ perMonth }}</div>
+				<div class='text-gray'>{{ perYear }} mails/year</div>
 			</div>
 			<!-- per day / per week -->
 			<div>
-				<div class="text-gray">Mails per day</div>
-				<div class="featured">{{ perDay }}</div>
-				<div class="text-gray">{{ perWeek }} mails/week</div>
+				<div class='text-gray'>Mails per day</div>
+				<div class='featured'>{{ perDay }}</div>
+				<div class='text-gray'>{{ perWeek }} mails/week</div>
 			</div>
 		</div>
 	</div>
@@ -176,6 +179,18 @@ html, body
 	max-width 1200px
 	margin 0 auto
 
+	h1
+		& > span
+			vertical-align middle
+		.loading
+			display inline-block
+			height 20px
+			width 20px
+			border 4px solid rgba(150, 150, 150, 0.2)
+			border-radius 50%
+			border-top-color rgb(150, 150, 150)
+			animation rotate 1s 0s infinite linear
+
 	.numbers
 		display flex
 		flex-direction row
@@ -194,4 +209,14 @@ html, body
 	color #0a84ff
 .text-secondary
 	color #ec213b
+.mr-1
+	margin-right 1rem
+.mr-2
+	margin-right 2rem
+
+@keyframes rotate
+	0%
+		transform rotate(0)
+	100%
+		transform rotate(360deg)
 </style>
