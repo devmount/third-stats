@@ -1,6 +1,6 @@
 <template>
 	<div id='stats'>
-		<h1>Th<span class='text-gray'>underb</span>ird Stats</h1>
+		<h1>Th<span class='text-gray'>underb</span>ird Stats <span v-if='waiting'>(...)</span></h1>
 		<section class="numbers">
 			<!-- total -->
 			<div>
@@ -29,36 +29,73 @@
 			<!-- per month / per year -->
 			<div>
 				<div class="text-gray">Mails per Month</div>
-				<div class="featured">{{ oneDigit(numbers.total/months) }}</div>
-				<div class="text-gray">{{ oneDigit(numbers.total/years) }} mails/year</div>
+				<div class="featured">{{ perMonth }}</div>
+				<div class="text-gray">{{ perYear }} mails/year</div>
 			</div>
 			<!-- per day / per week -->
 			<div>
 				<div class="text-gray">Mails per day</div>
-				<div class="featured">{{ oneDigit(numbers.total/days) }}</div>
-				<div class="text-gray">{{ oneDigit(numbers.total/weeks) }} mails/week</div>
+				<div class="featured">{{ perDay }}</div>
+				<div class="text-gray">{{ perWeek }} mails/week</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import { traverseAccount } from './utils';
+
 export default {
 	name: 'Stats',
 	data () {
 		return {
-			activeAccount: null,
+			waiting: true,
 			numbers: {
 				total: 0,
 				unread: 0,
 				received: 0,
 				sent: 0,
-				start: new Date('1990-01-01'),
+				start: new Date(),
 			}
 		}
 	},
 	created () {
-		// this.getAccount('account3')
+		this.getAccount('account3')
+	},
+	methods: {
+		getAccount: async function (id) {
+			let a = await browser.accounts.get(id)
+			let identities = a.identities.map(i => i.email)
+			let folders = traverseAccount(a)
+			let self = this
+			await Promise.all(folders.map(async f => {
+				await self.processMessages(f, identities)
+			})).then(() => {
+				this.waiting = false
+			})
+		},
+		// process all messages of a folder
+		processMessages: async function (folder, identities) {
+			let self = this
+			let page = await browser.messages.list(folder)
+			page.messages.map(m => self.analyzeMessage(m, identities))
+			while (page.id) {
+				page = await browser.messages.continueList(page.id)
+				page.messages.map(m => self.analyzeMessage(m, identities))
+			}
+		},
+		// extract information of a single message
+		analyzeMessage (m, identities) {
+			this.numbers.total++
+			if (m.read === false) this.numbers.unread++
+			let author = m.author
+			if (author.lastIndexOf("<")>=0 && author.lastIndexOf(">")>=0) {
+				author = author.substring(author.lastIndexOf("<") + 1, author.lastIndexOf(">"))
+			}
+			if (identities.includes(author)) this.numbers.sent++
+			else this.numbers.received++
+			if (m.date.getTime() < this.numbers.start.getTime()) this.numbers.start = m.date
+		}
 	},
 	computed: {
 		days () {
@@ -77,14 +114,42 @@ export default {
 		},
 		receivedPercentage () {
 			if (this.numbers.total > 0) {
-				return this.twoDigit(this.numbers.received/this.numbers.total)
+				return this.twoDigit(this.numbers.received*100/this.numbers.total)
 			} else {
 				return 0
 			}
 		},
 		sentPercentage () {
 			if (this.numbers.total > 0) {
-				return this.twoDigit(this.numbers.sent/this.numbers.total)
+				return this.twoDigit(this.numbers.sent*100/this.numbers.total)
+			} else {
+				return 0
+			}
+		},
+		perDay () {
+			if (this.numbers.total > 0 && this.days > 0) {
+				return this.oneDigit(this.numbers.total/this.days)
+			} else {
+				return 0
+			}
+		},
+		perWeek () {
+			if (this.numbers.total > 0 && this.weeks > 0) {
+				return this.oneDigit(this.numbers.total/this.weeks)
+			} else {
+				return 0
+			}
+		},
+		perMonth () {
+			if (this.numbers.total > 0 && this.months > 0) {
+				return this.oneDigit(this.numbers.total/this.months)
+			} else {
+				return 0
+			}
+		},
+		perYear () {
+			if (this.numbers.total > 0 && this.years > 0) {
+				return this.oneDigit(this.numbers.total/this.years)
 			} else {
 				return 0
 			}
