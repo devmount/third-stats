@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { traverseAccount } from './utils';
+
 export default {
 	name: 'Popup',
 	data () {
@@ -34,7 +36,7 @@ export default {
 			// calculate folder and message count and append to account object
 			let self = this
 			Promise.all(accounts.map(async a => {
-				let folders = self.traverseAccount(a)
+				let folders = traverseAccount(a)
 				a.folderCount = folders.length
 				a.messageCount = 0
 				await Promise.all(folders.map(async f => {
@@ -55,20 +57,6 @@ export default {
 				count += page.messages.length
 			}
 			return count
-		},
-		// function to flatten folder hierarchie
-		traverseAccount (account) {
-			let arrayOfFolders = []
-			// recursive function to traverse all subfolders
-			function traverse(folders) {
-				if (!folders) return
-				for (let f of folders) {
-					arrayOfFolders.push(f)
-					traverse(f.subFolders)
-				}
-			}
-			traverse(account.folders)
-			return arrayOfFolders
 		},
 		openTab: async function (event) {
 			event.preventDefault()
