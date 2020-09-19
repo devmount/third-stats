@@ -4,6 +4,7 @@
 			<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
 			<span v-if='waiting' class='loading'></span>
 		</h1>
+		<!-- fetured numbers -->
 		<section class='numbers'>
 			<!-- total -->
 			<div>
@@ -41,15 +42,43 @@
 				<div class='featured'>{{ perDay }}</div>
 				<div class='text-gray'>{{ perWeek }} mails/week</div>
 			</div>
-		</div>
+		</section>
+		<!-- number of mails per year -->
+		<section class='charts'>
+			<LineChart
+				title="Years"
+				description="Total number of emails per year"
+				:datasets="yearsChartData.datasets"
+				:labels="yearsChartData.labels"
+			/>
+		</section>
 	</div>
 </template>
 
 <script>
+// internal components
 import { traverseAccount } from './utils';
+import LineChart from './charts/LineChart'
+
+// initialize Chart.js with global configuration
+import Chart from 'chart.js'
+Chart.defaults.global.defaultFontColor = "#7e8d97"
+Chart.defaults.global.elements.arc.borderWidth = 0
+Chart.defaults.global.legend.display = false
+Chart.defaults.global.tooltips.mode = 'index'
+Chart.defaults.global.tooltips.intersect = false
+Chart.defaults.global.tooltips.multiKeyBackground = '#000'
+Chart.defaults.global.tooltips.titleMarginBottom = 10
+Chart.defaults.global.tooltips.xPadding = 10
+Chart.defaults.global.tooltips.yPadding = 10
+Chart.defaults.global.tooltips.cornerRadius = 2
+Chart.defaults.global.hover.mode = 'index'
 
 export default {
 	name: 'Stats',
+	components: {
+		LineChart,
+	},
 	data () {
 		return {
 			waiting: true,
@@ -59,6 +88,10 @@ export default {
 				received: 0,
 				sent: 0,
 				start: new Date(),
+			},
+			yearsData: {
+				received: {},
+				sent: {},
 			}
 		}
 	},
@@ -89,15 +122,29 @@ export default {
 		},
 		// extract information of a single message
 		analyzeMessage (m, identities) {
+			let type = ''
+			// numbers
 			this.numbers.total++
 			if (m.read === false) this.numbers.unread++
 			let author = m.author
 			if (author.lastIndexOf("<")>=0 && author.lastIndexOf(">")>=0) {
 				author = author.substring(author.lastIndexOf("<") + 1, author.lastIndexOf(">"))
 			}
-			if (identities.includes(author)) this.numbers.sent++
-			else this.numbers.received++
+			if (identities.includes(author)) {
+				this.numbers.sent++
+				type = 'sent'
+			} else {
+				this.numbers.received++
+				type = 'received'
+			}
 			if (m.date.getTime() < this.numbers.start.getTime()) this.numbers.start = m.date
+			// years
+			let y = m.date.getFullYear()
+			if (!(y in this.yearsData[type])) {
+				this.yearsData[type][y] = 1
+			} else {
+				this.yearsData[type][y]++
+			}
 		}
 	},
 	computed: {
@@ -155,6 +202,24 @@ export default {
 				return this.oneDigit(this.numbers.total/this.years)
 			} else {
 				return 0
+			}
+		},
+		yearsChartData () {
+			let r = this.yearsData.received
+			let s = this.yearsData.sent
+			let today = new Date()
+			let years = [], dsin = [], dsout = []
+			for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				years.push(y)
+				dsin.push(r.hasOwnProperty(y) ? r[y] : 0)
+				dsout.push(s.hasOwnProperty(y) ? s[y] : 0)
+			}
+			return {
+				datasets: [
+					{ label: 'Mails sent', data: dsout, color: 'rgb(237, 47, 71)', bcolor: 'rgb(237, 47, 71, .2)' },
+					{ label: 'Mails received', data: dsin, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: years
 			}
 		},
 	}
