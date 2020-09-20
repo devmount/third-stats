@@ -5,7 +5,7 @@
 			<span v-if='waiting' class='loading'></span>
 		</h1>
 		<!-- fetured numbers -->
-		<section class='numbers'>
+		<section class='numbers mt-2'>
 			<!-- total -->
 			<div>
 				<div class='text-gray'>Mails total</div>
@@ -44,7 +44,7 @@
 			</div>
 		</section>
 		<!-- number of mails per year -->
-		<section class='charts'>
+		<section class='charts mt-2'>
 			<LineChart
 				title='Years'
 				description='Total number of emails per year'
@@ -52,6 +52,10 @@
 				:labels='yearsChartData.labels'
 			/>
 		</section>
+		<!-- footer -->
+		<footer class="mt-4">
+			<div class='text-gray'>ThirdStats v{{ appVersion }}</div>
+		</footer>
 	</div>
 </template>
 
@@ -62,7 +66,7 @@ import LineChart from './charts/LineChart'
 
 // initialize Chart.js with global configuration
 import Chart from 'chart.js'
-Chart.defaults.global.defaultFontColor = "#7e8d97"
+Chart.defaults.global.defaultFontColor = "#8a8a97"
 Chart.defaults.global.elements.arc.borderWidth = 0
 Chart.defaults.global.legend.display = false
 Chart.defaults.global.tooltips.mode = 'index'
@@ -148,6 +152,9 @@ export default {
 		}
 	},
 	computed: {
+		appVersion () {
+			return process.env.PACKAGE_VERSION;
+		},
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
 			let today = new Date()
@@ -271,6 +278,15 @@ html, body
 				line-height: 1em;
 				font-weight: 500;
 
+	.charts
+		display grid
+		grid-template-columns 1fr 1fr
+		.chart
+			h2
+				margin-bottom 0
+			p
+				margin-top 0
+
 // utilities
 .text-gray
 	color #8a8a97
@@ -282,6 +298,10 @@ html, body
 	text-align center
 .mr-1
 	margin-right 1rem
+.mt-2
+	margin-top 2rem
+.mt-4
+	margin-top 4rem
 .mr-2
 	margin-right 2rem
 
