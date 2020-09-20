@@ -51,9 +51,15 @@
 				:datasets='yearsChartData.datasets'
 				:labels='yearsChartData.labels'
 			/>
+			<LineChart
+				title='Months'
+				description='Total number of emails per month'
+				:datasets='monthsChartData.datasets'
+				:labels='monthsChartData.labels'
+			/>
 		</section>
 		<!-- footer -->
-		<footer class="mt-4">
+		<footer class="mt-4 text-center">
 			<div class='text-gray'>ThirdStats v{{ appVersion }}</div>
 		</footer>
 	</div>
@@ -96,7 +102,11 @@ export default {
 			yearsData: {
 				received: {},
 				sent: {},
-			}
+			},
+			monthsData: {
+				received: {},
+				sent: {},
+			},
 		}
 	},
 	created () {
@@ -148,6 +158,18 @@ export default {
 				this.yearsData[type][y] = 1
 			} else {
 				this.yearsData[type][y]++
+			}
+			// months
+			let mo = m.date.getMonth()
+			if (!(y in this.monthsData[type])) {
+				this.monthsData[type][y] = {}
+				this.monthsData[type][y][mo] = 1
+			} else {
+				if (!(mo in this.monthsData[type][y])) {
+					this.monthsData[type][y][mo] = 1
+				} else {
+					this.monthsData[type][y][mo]++
+				}
 			}
 		}
 	},
@@ -230,6 +252,39 @@ export default {
 						{ label: 'Mails received', data: Object.values(r), color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
 					],
 					labels: Object.keys(r)
+				}
+			}
+		},
+		monthsChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.monthsData.received
+				let s = this.monthsData.sent
+				let labels = [], dr = [], ds = []
+				let monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+				let today = new Date()
+				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+					for (let m = 0; m < 12; ++m) {
+						// trim months before start date
+						if (y == this.numbers.start.getFullYear() && m < this.numbers.start.getMonth()) continue
+						// trim months in future
+						if (y == today.getFullYear() && m > today.getMonth()) break
+						// organize labels and data
+						labels.push(y + ' ' + monthNames[m])
+						dr.push(y in r && m in r[y] ? r[y][m] : 0)
+						ds.push(y in s && m in s[y] ? s[y][m] : 0)
+					}
+				}
+				return {
+					datasets: [
+						{ label: 'Mails sent', data: ds, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: 'Mails received', data: dr, color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
+					],
+					labels: labels
 				}
 			}
 		},
