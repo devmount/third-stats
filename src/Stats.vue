@@ -17,6 +17,7 @@
 				<div class='text-gray'>Mails unread</div>
 				<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
 				<div class='text-gray' v-if='numbers.unread == 0'>Nice work!</div>
+				<div class='text-gray' v-else>{{ unreadPercentage }}% of received</div>
 			</div>
 			<!-- received -->
 			<div>
@@ -201,6 +202,13 @@ export default {
 		sentPercentage () {
 			if (this.numbers.total > 0) {
 				return this.twoDigit(this.numbers.sent*100/this.numbers.total)
+			} else {
+				return 0
+			}
+		},
+		unreadPercentage () {
+			if (this.numbers.received > 0) {
+				return this.twoDigit(this.numbers.unread*100/this.numbers.received)
 			} else {
 				return 0
 			}
