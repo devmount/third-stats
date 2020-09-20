@@ -1,6 +1,6 @@
 <template>
 <div class="chart">
-	<h3 v-if="title">{{ title }}</h3>
+	<h3 v-if="title" class="text-center">{{ title }}</h3>
 	<p v-if="description" class="text-gray text-center">{{ description }}</p>
 	<canvas :id='id'></canvas>
 </div>

@@ -20,14 +20,14 @@
 			</div>
 			<!-- received -->
 			<div>
-				<div class='text-gray'>Mails received</div>
-				<div class='featured text-primary'>{{ numbers.received.toLocaleString() }}</div>
+				<div class='text-gray text-secondary'>Mails received</div>
+				<div class='featured text-secondary'>{{ numbers.received.toLocaleString() }}</div>
 				<div class='text-gray'>{{ receivedPercentage }}% of total</div>
 			</div>
 			<!-- sent -->
 			<div>
-				<div class='text-gray'>Mails sent</div>
-				<div class='featured text-secondary'>{{ numbers.sent.toLocaleString() }}</div>
+				<div class='text-gray text-primary'>Mails sent</div>
+				<div class='featured text-primary'>{{ numbers.sent.toLocaleString() }}</div>
 				<div class='text-gray'>{{ sentPercentage }}% of total</div>
 			</div>
 			<!-- per month / per year -->
@@ -46,10 +46,10 @@
 		<!-- number of mails per year -->
 		<section class='charts'>
 			<LineChart
-				title="Years"
-				description="Total number of emails per year"
-				:datasets="yearsChartData.datasets"
-				:labels="yearsChartData.labels"
+				title='Years'
+				description='Total number of emails per year'
+				:datasets='yearsChartData.datasets'
+				:labels='yearsChartData.labels'
 			/>
 		</section>
 	</div>
@@ -205,21 +205,25 @@ export default {
 			}
 		},
 		yearsChartData () {
-			let r = this.yearsData.received
-			let s = this.yearsData.sent
-			let today = new Date()
-			let years = [], dsin = [], dsout = []
-			for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
-				years.push(y)
-				dsin.push(r.hasOwnProperty(y) ? r[y] : 0)
-				dsout.push(s.hasOwnProperty(y) ? s[y] : 0)
-			}
-			return {
-				datasets: [
-					{ label: 'Mails sent', data: dsout, color: 'rgb(237, 47, 71)', bcolor: 'rgb(237, 47, 71, .2)' },
-					{ label: 'Mails received', data: dsin, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-				],
-				labels: years
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.yearsData.received, s = this.yearsData.sent
+				let today = new Date()
+				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+					if (!r[y]) r[y] = 0
+					if (!s[y]) s[y] = 0
+				}
+				return {
+					datasets: [
+						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: 'Mails received', data: Object.values(r), color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
+					],
+					labels: Object.keys(r)
+				}
 			}
 		},
 	}
@@ -273,7 +277,9 @@ html, body
 .text-primary
 	color #0a84ff
 .text-secondary
-	color #ec213b
+	color #8fc6ff
+.text-center
+	text-align center
 .mr-1
 	margin-right 1rem
 .mr-2
