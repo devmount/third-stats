@@ -70,10 +70,23 @@
 				:datasets='weekdayChartData.datasets'
 				:labels='weekdayChartData.labels'
 			/>
+			<HeatMap
+				title='Temporal Distribution'
+				description='Number of incoming emails per weekday per hour'
+				rgb='10, 132, 255'
+				:dataset='weekdayPerHourChartData.received'
+			/>
+			<HeatMap
+				title='Temporal Distribution'
+				description='Number of outgoing emails per weekday per hour'
+				rgb='230, 77, 185'
+				:dataset='weekdayPerHourChartData.sent'
+			/>
 		</section>
 		<!-- footer -->
-		<footer class="mt-4 text-center">
+		<footer class="my-6 text-center">
 			<div class='text-gray'>ThirdStats v{{ appVersion }}</div>
+			<div class="text-gray">Star and fork this project on <a href="https://github.com/devmount/third-stats">Github</a></div>
 		</footer>
 	</div>
 </template>
@@ -83,6 +96,7 @@
 import { traverseAccount } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
+import HeatMap from './charts/HeatMap'
 
 // initialize Chart.js with global configuration
 import Chart from 'chart.js'
@@ -100,9 +114,11 @@ Chart.defaults.global.hover.mode = 'index'
 
 // define helper classes for object generation
 class NumberedObject {
-	constructor(n) {
+	constructor(n, m=null) {
 		const a = [...Array(n).keys()]
-		a.map(e => { this[e] = 0 })
+		a.map(e => {
+			this[e] = m === null ? 0 : new Array(m).fill(0)
+		})
 	}
 }
 
@@ -111,6 +127,7 @@ export default {
 	components: {
 		LineChart,
 		BarChart,
+		HeatMap,
 	},
 	data () {
 		return {
@@ -137,6 +154,10 @@ export default {
 			weekdayData: {
 				received: new NumberedObject(7),
 				sent: new NumberedObject(7),
+			},
+			weekdayPerHourData: {
+				received: new NumberedObject(7,24),
+				sent: new NumberedObject(7,24),
 			},
 		}
 	},
@@ -208,6 +229,8 @@ export default {
 			// weekday
 			let wd = m.date.getDay()
 			this.weekdayData[type][wd]++
+			// weekday per hour
+			this.weekdayPerHourData[type][wd][dt]++
 		}
 	},
 	computed: {
@@ -370,6 +393,24 @@ export default {
 				}
 			}
 		},
+		weekdayPerHourChartData () {
+			if (this.waiting) {
+				return {
+					received: new NumberedObject(7,24),
+					sent: new NumberedObject(7,24),
+				}
+			} else {
+				let r = Object.values(this.weekdayPerHourData.received)
+				let s = Object.values(this.weekdayPerHourData.sent)
+				// start week with monday instead of sunday
+				r.push(r.shift())
+				s.push(s.shift())
+				return {
+					received: r,
+					sent: s,
+				}
+			}
+		},
 	}
 }
 </script>
@@ -418,7 +459,7 @@ html, body
 	.charts
 		display grid
 		grid-template-columns 1fr 1fr
-		column-gap 1rem
+		column-gap 2rem
 		row-gap 1rem
 		.chart
 			h2
@@ -435,14 +476,23 @@ html, body
 	color #0a84ff
 .text-center
 	text-align center
+.text-right
+	text-align right
+.text-small
+	font-size .75em
 .mr-1
 	margin-right 1rem
+.mt-1
+	margin-top 1rem
 .mt-2
 	margin-top 2rem
-.mt-4
-	margin-top 4rem
+.mr-1
+	margin-right 1rem
 .mr-2
 	margin-right 2rem
+.my-6
+	margin-top 6rem
+	margin-bottom 6rem
 
 @keyframes rotate
 	0%
