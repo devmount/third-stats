@@ -64,6 +64,12 @@
 				:datasets='daytimeChartData.datasets'
 				:labels='daytimeChartData.labels'
 			/>
+			<BarChart
+				title='Weekday'
+				description='Number of emails per day of week'
+				:datasets='weekdayChartData.datasets'
+				:labels='weekdayChartData.labels'
+			/>
 		</section>
 		<!-- footer -->
 		<footer class="mt-4 text-center">
@@ -93,7 +99,12 @@ Chart.defaults.global.tooltips.cornerRadius = 2
 Chart.defaults.global.hover.mode = 'index'
 
 // define helper classes for object generation
-class Daytimes { constructor(a) { a.map(e => { this[e] = 0 }) } }
+class NumberedObject {
+	constructor(n) {
+		const a = [...Array(n).keys()]
+		a.map(e => { this[e] = 0 })
+	}
+}
 
 export default {
 	name: 'Stats',
@@ -120,8 +131,12 @@ export default {
 				sent: {},
 			},
 			daytimeData: {
-				received: new Daytimes([...Array(24).keys()]),
-				sent: new Daytimes([...Array(24).keys()]),
+				received: new NumberedObject(24),
+				sent: new NumberedObject(24),
+			},
+			weekdayData: {
+				received: new NumberedObject(7),
+				sent: new NumberedObject(7),
 			},
 		}
 	},
@@ -190,6 +205,9 @@ export default {
 			// daytime
 			let dt = m.date.getHours()
 			this.daytimeData[type][dt]++
+			// weekday
+			let wd = m.date.getDay()
+			this.weekdayData[type][wd]++
 		}
 	},
 	computed: {
@@ -328,6 +346,27 @@ export default {
 						{ label: 'Mails received', data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: Object.keys(r)
+				}
+			}
+		},
+		weekdayChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = Object.values(this.weekdayData.received)
+				let s = Object.values(this.weekdayData.sent)
+				// start week with monday instead of sunday
+				r.push(r.shift())
+				s.push(s.shift())
+				return {
+					datasets: [
+						{ label: 'Mails sent', data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: 'Mails received', data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 				}
 			}
 		},
