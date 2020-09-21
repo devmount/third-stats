@@ -380,7 +380,7 @@ html, body
 	margin 0
 	padding 0 1rem
 	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-	background #2f2f33
+	background #202023
 	color #f9f9fa
 	font-weight 300
 	font-size 16px
