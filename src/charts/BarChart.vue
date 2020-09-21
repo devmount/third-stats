@@ -34,11 +34,11 @@ export default {
 				datasets.push({
 					label: dataset.label,
 					data: dataset.data,
-					borderColor: dataset.color,
-					borderWidth: 2,
-					lineTension: 0.15,
-					pointRadius: 0,
 					backgroundColor: dataset.bcolor,
+					borderWidth: { top: 2 },
+					borderColor: dataset.color,
+					barPercentage: 1,
+					categoryPercentage: .6,
 				})
 			}
 			return datasets
@@ -47,7 +47,7 @@ export default {
 	methods: {
 		draw () {
 			this.chart = new Chart(this.id, {
-				type: 'line',
+				type: 'bar',
 				data: {
 					datasets: this.currentData,
 					labels: this.labels,
@@ -74,7 +74,7 @@ export default {
 					}
 				}
 			})
-		}
+		},
 	},
 	watch: {
 		// update chart if data changes

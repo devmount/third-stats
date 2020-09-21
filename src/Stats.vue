@@ -58,6 +58,12 @@
 				:datasets='monthsChartData.datasets'
 				:labels='monthsChartData.labels'
 			/>
+			<BarChart
+				title='Daytime'
+				description='Number of emails per time of day'
+				:datasets='daytimeChartData.datasets'
+				:labels='daytimeChartData.labels'
+			/>
 		</section>
 		<!-- footer -->
 		<footer class="mt-4 text-center">
@@ -70,6 +76,7 @@
 // internal components
 import { traverseAccount } from './utils';
 import LineChart from './charts/LineChart'
+import BarChart from './charts/BarChart'
 
 // initialize Chart.js with global configuration
 import Chart from 'chart.js'
@@ -85,10 +92,14 @@ Chart.defaults.global.tooltips.yPadding = 10
 Chart.defaults.global.tooltips.cornerRadius = 2
 Chart.defaults.global.hover.mode = 'index'
 
+// define helper classes for object generation
+class Daytimes { constructor(a) { a.map(e => { this[e] = 0 }) } }
+
 export default {
 	name: 'Stats',
 	components: {
 		LineChart,
+		BarChart,
 	},
 	data () {
 		return {
@@ -107,6 +118,10 @@ export default {
 			monthsData: {
 				received: {},
 				sent: {},
+			},
+			daytimeData: {
+				received: new Daytimes([...Array(24).keys()]),
+				sent: new Daytimes([...Array(24).keys()]),
 			},
 		}
 	},
@@ -172,6 +187,9 @@ export default {
 					this.monthsData[type][y][mo]++
 				}
 			}
+			// daytime
+			let dt = m.date.getHours()
+			this.daytimeData[type][dt]++
 		}
 	},
 	computed: {
@@ -296,6 +314,23 @@ export default {
 				}
 			}
 		},
+		daytimeChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.daytimeData.received, s = this.daytimeData.sent
+				return {
+					datasets: [
+						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: 'Mails received', data: Object.values(r), color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
+					],
+					labels: Object.keys(r)
+				}
+			}
+		},
 	}
 }
 </script>
@@ -337,13 +372,15 @@ html, body
 		&>div
 			text-align center
 			.featured
-				font-size: 3.25em;
-				line-height: 1em;
-				font-weight: 500;
+				font-size 3.25em
+				line-height 1em
+				font-weight 500
 
 	.charts
 		display grid
 		grid-template-columns 1fr 1fr
+		column-gap 1rem
+		row-gap 1rem
 		.chart
 			h2
 				margin-bottom 0
