@@ -274,8 +274,8 @@ export default {
 				}
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-						{ label: 'Mails received', data: Object.values(r), color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
+						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: 'Mails received', data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: Object.keys(r)
 				}
@@ -307,8 +307,8 @@ export default {
 				}
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: ds, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-						{ label: 'Mails received', data: dr, color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
+						{ label: 'Mails sent', data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: 'Mails received', data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: labels
 				}
@@ -324,8 +324,8 @@ export default {
 				let r = this.daytimeData.received, s = this.daytimeData.sent
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-						{ label: 'Mails received', data: Object.values(r), color: 'rgb(143, 198, 255)', bcolor: 'rgb(143, 198, 255, .2)' },
+						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: 'Mails received', data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: Object.keys(r)
 				}
@@ -391,9 +391,9 @@ html, body
 .text-gray
 	color #8a8a97
 .text-primary
-	color #0a84ff
+	color #e64db9
 .text-secondary
-	color #8fc6ff
+	color #0a84ff
 .text-center
 	text-align center
 .mr-1
