@@ -3,6 +3,9 @@
 		<h1>
 			<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
 			<span v-if='waiting' class='loading'></span>
+			<select v-model='activeAccount' name='account' :disabled='waiting'>
+				<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
+			</select>
 		</h1>
 		<!-- fetured numbers -->
 		<section class='numbers mt-2'>
@@ -131,41 +134,31 @@ export default {
 	},
 	data () {
 		return {
+			accounts: [],
+			activeAccount: null,
 			waiting: true,
-			numbers: {
-				total: 0,
-				unread: 0,
-				received: 0,
-				sent: 0,
-				start: new Date(),
-			},
-			yearsData: {
-				received: {},
-				sent: {},
-			},
-			monthsData: {
-				received: {},
-				sent: {},
-			},
-			daytimeData: {
-				received: new NumberedObject(24),
-				sent: new NumberedObject(24),
-			},
-			weekdayData: {
-				received: new NumberedObject(7),
-				sent: new NumberedObject(7),
-			},
-			weekdayPerHourData: {
-				received: new NumberedObject(7,24),
-				sent: new NumberedObject(7,24),
-			},
+			numbers: {},
+			yearsData: {},
+			monthsData: {},
+			daytimeData: {},
+			weekdayData: {},
+			weekdayPerHourData: {},
 		}
 	},
 	created () {
-		this.getAccount('account3')
+		this.reset()
+		this.getAccounts()
 	},
 	methods: {
-		getAccount: async function (id) {
+		getAccounts: async function () {
+			let accounts = await browser.accounts.list()
+			// only consider non local accounts
+			accounts = accounts.filter(a => a.type != 'none')
+			this.accounts = accounts
+			this.activeAccount = accounts[0].id
+		},
+		processAccount: async function (id) {
+			this.waiting = true
 			let a = await browser.accounts.get(id)
 			let identities = a.identities.map(i => i.email)
 			let folders = traverseAccount(a)
@@ -231,7 +224,36 @@ export default {
 			this.weekdayData[type][wd]++
 			// weekday per hour
 			this.weekdayPerHourData[type][wd][dt]++
-		}
+		},
+		reset () {
+			this.numbers = {
+				total: 0,
+				unread: 0,
+				received: 0,
+				sent: 0,
+				start: new Date(),
+			}
+			this.yearsData = {
+				received: {},
+				sent: {},
+			}
+			this.monthsData = {
+				received: {},
+				sent: {},
+			}
+			this.daytimeData = {
+				received: new NumberedObject(24),
+				sent: new NumberedObject(24),
+			}
+			this.weekdayData = {
+				received: new NumberedObject(7),
+				sent: new NumberedObject(7),
+			}
+			this.weekdayPerHourData = {
+				received: new NumberedObject(7,24),
+				sent: new NumberedObject(7,24),
+			}
+		},
 	},
 	computed: {
 		appVersion () {
@@ -411,6 +433,12 @@ export default {
 				}
 			}
 		},
+	},
+	watch: {
+		activeAccount (a) {
+			this.reset()
+			this.processAccount(a)
+		}
 	}
 }
 </script>
