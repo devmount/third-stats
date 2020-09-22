@@ -2,7 +2,15 @@
 	<div id='popup'>
 		<div class='container'>
 			<div v-if='waiting' class='loading'></div>
-			<h3>{{ accounts.length }} Accounts</h3>
+			<h3 @click.prevent="openTab">
+				<span class='mr-1'>{{ accounts.length }} Accounts</span>
+				<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+					<line x1="10" y1="14" x2="20" y2="4" />
+					<polyline points="15 4 20 4 20 9" />
+				</svg>
+			</h3>
 			<div class='accounts'>
 				<div v-for='a in accounts' :key='a.id' @click.prevent="openTab">
 					<div>{{ a.name }}</div>
@@ -92,6 +100,12 @@ html, body
 		h3
 			font-weight 300
 			font-size 20px
+			transition color .2s
+			cursor pointer
+			&:hover
+				color #0865e0
+			&>*
+				vertical-align middle
 		.loading
 			float right
 			height 16px
@@ -122,6 +136,8 @@ html, body
 	font-size .8em
 .text-secondary
 	color #cdcdd3
+.mr-1
+	margin-right 1rem
 
 @keyframes rotate
 	0%
