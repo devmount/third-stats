@@ -2,10 +2,14 @@
 	<div id='stats'>
 		<h1>
 			<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-			<span v-if='waiting' class='loading'></span>
 			<select v-model='activeAccount' name='account' :disabled='waiting'>
 				<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 			</select>
+			<span v-if='waiting' class='loading'></span>
+			<svg v-else class='ready' width='36' height='36' viewBox='0 0 24 24' stroke-width='3' stroke='#8a8a97' fill='none' stroke-linecap='round' stroke-linejoin='round'>
+				<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+				<path d='M5 12l5 5l10 -10' />
+			</svg>
 		</h1>
 		<!-- fetured numbers -->
 		<section class='numbers mt-2'>
@@ -462,16 +466,34 @@ html, body
 	margin 0 auto
 
 	h1
-		& > span
-			vertical-align middle
+		display grid
+		grid-template-columns 1fr 1fr 55px
+		align-items center
+		justify-content start
 		.loading
 			display inline-block
 			height 20px
 			width 20px
-			border 4px solid rgba(150, 150, 150, 0.2)
+			border 4px solid #2a2a2e
 			border-radius 50%
-			border-top-color rgb(150, 150, 150)
+			border-top-color #8a8a97
 			animation rotate 1s 0s infinite linear
+		.loading, .ready
+			justify-self center
+		select
+			justify-self end
+			appearance none
+			border none
+			border-radius 4px
+			color inherit
+			padding .5rem
+			outline none
+			background #2a2a2e
+			box-shadow 0 8px 15px -8px #1d1d1f
+			&:focus
+				box-shadow: 0 0 0 .35rem rgba(#f9f9fa, .2)
+			&[disabled]
+				color #8a8a97
 
 	.numbers
 		display flex
