@@ -2,7 +2,7 @@
 	<div id='popup'>
 		<div class='container'>
 			<div v-if='waiting' class='loading'></div>
-			<h3 @click.prevent="openTab">
+			<h3 @click.prevent="openTab(0)">
 				<span class='mr-1'>{{ accounts.length }} Accounts</span>
 				<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -12,7 +12,7 @@
 				</svg>
 			</h3>
 			<div class='accounts'>
-				<div v-for='a in accounts' :key='a.id' @click.prevent="openTab">
+				<div v-for='(a, i) in accounts' :key='a.id' @click.prevent="openTab(i)">
 					<div>{{ a.name }}</div>
 					<div class='text-small text-secondary'>{{ a.messageCount }} messages in {{ a.folderCount }} folders</div>
 				</div>
@@ -66,11 +66,12 @@ export default {
 			}
 			return count
 		},
-		openTab: async function (event) {
-			event.preventDefault()
-			await browser.tabs.create({
+		openTab (accountPosition) {
+			let url = 'stats.html'
+			if (accountPosition) url += '?a=' + accountPosition
+			browser.tabs.create({
 				active: true,
-				url: 'stats.html'
+				url: url
 			})
 		}
 	}

@@ -158,8 +158,13 @@ export default {
 			let accounts = await browser.accounts.list()
 			// only consider non local accounts
 			accounts = accounts.filter(a => a.type != 'none')
+			// check if a specific account was given
+			let uri = window.location.search.substring(1)
+			let params = new URLSearchParams(uri)
+			let accountPosition = Number(params.get('a'))
+			// assign accounts
 			this.accounts = accounts
-			this.activeAccount = accounts[0].id
+			this.activeAccount = accounts[accountPosition].id
 		},
 		processAccount: async function (id) {
 			this.waiting = true
