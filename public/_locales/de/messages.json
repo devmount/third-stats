@@ -1,5 +1,7 @@
 {
 	"extensionDescription": {
 		"message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
-	}
+	},
+	"account": "Konto | Konten",
+	"messagesInFolder": "{messageCount} Nachrichten in {folderCount} Ordnern"
 }
