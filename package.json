@@ -9,7 +9,8 @@
   "dependencies": {
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-i18n": "^8.21.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
