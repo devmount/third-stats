@@ -8,7 +8,7 @@ A Thunderbird 78+ add-on for beautifully visualized email account stats. Downloa
 
 <p>&nbsp;</p>
 
-[![release](https://img.shields.io/badge/release-v0.3.0-0a84ff.svg?style=flat-square)](https://github.com/devmount/third-stats/releases) [![last commit](https://img.shields.io/github/last-commit/devmount/third-stats?label=updated&color=0a84ff&style=flat-square)](https://github.com/devmount/third-stats/commits/master) [![license](https://img.shields.io/badge/license-MIT-e64db9.svg?style=flat-square)](./LICENSE) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-e64db9.svg?style=flat-square)](./.github/CONTRIBUTING.md)
+[![release](https://img.shields.io/badge/release-v0.3.1-0a84ff.svg?style=flat-square)](https://github.com/devmount/third-stats/releases) [![last commit](https://img.shields.io/github/last-commit/devmount/third-stats?label=updated&color=0a84ff&style=flat-square)](https://github.com/devmount/third-stats/commits/master) [![license](https://img.shields.io/badge/license-MIT-e64db9.svg?style=flat-square)](./LICENSE) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-e64db9.svg?style=flat-square)](./.github/CONTRIBUTING.md)
 
 ## Get started
 
