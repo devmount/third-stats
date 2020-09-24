@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "ThirdStats",
 	"description": "Simple but beautiful Statistics for your Thunderbird Email Accounts",
-	"version": "0.2.5",
+	"version": "0.3.0",
 	"author": "Andreas Müller",
 	"applications": {
 			"gecko": {
