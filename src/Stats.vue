@@ -15,77 +15,77 @@
 		<section class='numbers mt-2'>
 			<!-- total -->
 			<div>
-				<div class='text-gray'>Mails total</div>
+				<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
 				<div class='featured'>{{ numbers.total.toLocaleString() }}</div>
-				<div class='text-gray'>within {{ oneDigit(years) }} years</div>
+				<div class='text-gray'>{{ $t('stats.withinYears', [oneDigit(years)]) }}</div>
 			</div>
 			<!-- unread -->
 			<div>
-				<div class='text-gray'>Mails unread</div>
+				<div class='text-gray'>{{ $t('stats.mailsUnread') }}</div>
 				<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
-				<div class='text-gray' v-if='numbers.unread == 0'>Nice work!</div>
-				<div class='text-gray' v-else>{{ unreadPercentage }}% of received</div>
+				<div class='text-gray' v-if='numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
+				<div class='text-gray' v-else>{{ $t('stats.percentOfReceived', [unreadPercentage]) }}</div>
 			</div>
 			<!-- received -->
 			<div>
-				<div class='text-gray text-secondary'>Mails received</div>
+				<div class='text-gray text-secondary'>{{ $t('stats.mailsReceived') }}</div>
 				<div class='featured text-secondary'>{{ numbers.received.toLocaleString() }}</div>
-				<div class='text-gray'>{{ receivedPercentage }}% of total</div>
+				<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
 			</div>
 			<!-- sent -->
 			<div>
-				<div class='text-gray text-primary'>Mails sent</div>
+				<div class='text-gray text-primary'>{{ $t('stats.mailsSent') }}</div>
 				<div class='featured text-primary'>{{ numbers.sent.toLocaleString() }}</div>
-				<div class='text-gray'>{{ sentPercentage }}% of total</div>
+				<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
 			</div>
 			<!-- per month / per year -->
 			<div>
-				<div class='text-gray'>Mails per Month</div>
+				<div class='text-gray'>{{ $t('stats.mailsPerMonth') }}</div>
 				<div class='featured'>{{ perMonth }}</div>
-				<div class='text-gray'>{{ perYear }} mails/year</div>
+				<div class='text-gray'>{{ perYear }} {{ $t('stats.mailsYear') }}</div>
 			</div>
 			<!-- per day / per week -->
 			<div>
-				<div class='text-gray'>Mails per day</div>
+				<div class='text-gray'>{{ $t('stats.mailsPerDay') }}</div>
 				<div class='featured'>{{ perDay }}</div>
-				<div class='text-gray'>{{ perWeek }} mails/week</div>
+				<div class='text-gray'>{{ perWeek }} {{ $t('stats.mailsWeek') }}</div>
 			</div>
 		</section>
 		<!-- number of mails per year -->
 		<section class='charts mt-2'>
 			<LineChart
-				title='Years'
-				description='Total number of emails per year'
+				:title='$t("stats.charts.years.title")'
+				:description='$t("stats.charts.years.description")'
 				:datasets='yearsChartData.datasets'
 				:labels='yearsChartData.labels'
 			/>
 			<LineChart
-				title='Months'
-				description='Total number of emails per month'
+				:title='$t("stats.charts.months.title")'
+				:description='$t("stats.charts.months.description")'
 				:datasets='monthsChartData.datasets'
 				:labels='monthsChartData.labels'
 			/>
 			<BarChart
-				title='Daytime'
-				description='Number of emails per time of day'
+				:title='$t("stats.charts.daytime.title")'
+				:description='$t("stats.charts.daytime.description")'
 				:datasets='daytimeChartData.datasets'
 				:labels='daytimeChartData.labels'
 			/>
 			<BarChart
-				title='Weekday'
-				description='Number of emails per day of week'
+				:title='$t("stats.charts.weekday.title")'
+				:description='$t("stats.charts.weekday.description")'
 				:datasets='weekdayChartData.datasets'
 				:labels='weekdayChartData.labels'
 			/>
 			<HeatMap
-				title='Temporal Distribution'
-				description='Number of incoming emails per weekday per hour'
+				:title='$t("stats.charts.temporalDistribution.title")'
+				:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
 				rgb='10, 132, 255'
 				:dataset='weekdayPerHourChartData.received'
 			/>
 			<HeatMap
-				title='Temporal Distribution'
-				description='Number of outgoing emails per weekday per hour'
+				:title='$t("stats.charts.temporalDistribution.title")'
+				:description='$t("stats.charts.temporalDistribution.descriptionSent")'
 				rgb='230, 77, 185'
 				:dataset='weekdayPerHourChartData.sent'
 			/>
@@ -93,7 +93,7 @@
 		<!-- footer -->
 		<footer class="my-6 text-center">
 			<div class='text-gray'>ThirdStats v{{ appVersion }}</div>
-			<div class="text-gray">Star and fork this project on <a href="https://github.com/devmount/third-stats">Github</a></div>
+			<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
 		</footer>
 	</div>
 </template>
@@ -346,8 +346,8 @@ export default {
 				}
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: 'Mails received', data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: Object.keys(r)
 				}
@@ -379,8 +379,8 @@ export default {
 				}
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: 'Mails received', data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: labels
 				}
@@ -396,8 +396,8 @@ export default {
 				let r = this.daytimeData.received, s = this.daytimeData.sent
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: 'Mails received', data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: Object.keys(r)
 				}
@@ -417,8 +417,8 @@ export default {
 				s.push(s.shift())
 				return {
 					datasets: [
-						{ label: 'Mails sent', data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: 'Mails received', data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 				}
