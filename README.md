@@ -3,7 +3,7 @@
 <img src='https://user-images.githubusercontent.com/5441654/93929028-837a5c00-fd1b-11ea-9ae1-3d209ccba1db.png' />
 </a>
 <p align="center">
-A Thunderbird 78+ add-on for beautifully visualized email account stats. Download from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made on GitHub. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
+A Thunderbird 78+ add-on for beautifully visualized email account stats. Download soon from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
 </p>
 
 <p>&nbsp;</p>
