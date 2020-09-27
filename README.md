@@ -20,6 +20,8 @@ Install ThirdStats from the Thunderbird Add-ons repository:
 
 To properly recognize emails as *sent*, make sure to configure all email adresses you write from as identities for your email account. You can do so under *account settings* > select your account > click button *more identities* at the bottom and add or modify identities as you need.
 
+Also keep in mind, that the processing of large mailboxes can take a lot of time.
+
 ## Features
 
 - Total numbers of emails and folders for all of your Thunderbird accounts
@@ -32,10 +34,9 @@ Here is how ThirdStats looks like an the Thunderbird default dark theme:
 
 ![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/93931445-14066b80-fd1f-11ea-8fe7-bde8674b26f4.png)
 
-## Additional notes
+## Improve this project
 
-- Keep in mind, that the processing of large mailboxes can take a lot of time.
-- Contributions are very welcome. If you encounter a problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
+Contributions are very welcome! See the [Contribution Guidelines](./.github/CONTRIBUTING.md) for more information, how to help making this add-on even better. If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
 
 ## Licence
 
@@ -43,4 +44,4 @@ Here is how ThirdStats looks like an the Thunderbird default dark theme:
 
 ---
 
-This add-on is completely free to use. If you enjoy it, please consider [donating via Paypal](https://paypal.me/devmount) or [sponsoring me](https://github.com/sponsors/devmount) for further development. :green_heart:
+This add-on is completely free to use. If you enjoy it and don't have the time to contribute, please consider [donating via Paypal](https://paypal.me/devmount) or [sponsoring me](https://github.com/sponsors/devmount) for further development. :green_heart:
