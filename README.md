@@ -1,14 +1,17 @@
 <p align="center">
-<a href="https://devmount.de" target="_blank">
+<a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">
 <img src='https://user-images.githubusercontent.com/5441654/93929028-837a5c00-fd1b-11ea-9ae1-3d209ccba1db.png' />
 </a>
 <p align="center">
 A Thunderbird 78+ add-on for beautifully visualized email account stats. Download soon from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
 </p>
 
-<p>&nbsp;</p>
-
-[![release](https://img.shields.io/badge/release-v0.3.2-0a84ff.svg?style=flat-square)](https://github.com/devmount/third-stats/releases) [![last commit](https://img.shields.io/github/last-commit/devmount/third-stats?label=updated&color=0a84ff&style=flat-square)](https://github.com/devmount/third-stats/commits/master) [![license](https://img.shields.io/badge/license-MIT-e64db9.svg?style=flat-square)](./LICENSE) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-e64db9.svg?style=flat-square)](./.github/CONTRIBUTING.md)
+<p align="center">
+<a href="https://github.com/devmount/third-stats/releases" target="_blank"><img src="https://img.shields.io/badge/release-v0.3.2-0a84ff.svg?style=flat-square" alt="release" /></a>
+<a href="https://github.com/devmount/third-stats/commits/master" target="_blank"><img src="https://img.shields.io/github/last-commit/devmount/third-stats?label=updated&color=0a84ff&style=flat-square" alt="last commit" /></a>
+<a href="./LICENSE" target="_blank"><img src="https://img.shields.io/badge/license-MIT-e64db9.svg?style=flat-square" alt="license" /></a>
+<a href="./.github/CONTRIBUTING.md" target="_blank"><img src="https://img.shields.io/badge/contributions-welcome-e64db9.svg?style=flat-square" alt="contributions welcome" /></a>
+</p>
 
 ## Get started
 
@@ -30,7 +33,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Temporal distribution of received and sent emails per weekday per hour
 - Switch between all Thunderbird accounts
 
-Here is how ThirdStats looks like an the Thunderbird default dark theme:
+Here is how ThirdStats looks like on the Thunderbird default dark theme:
 
 ![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/93931445-14066b80-fd1f-11ea-8fe7-bde8674b26f4.png)
 
