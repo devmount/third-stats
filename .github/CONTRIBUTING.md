@@ -8,6 +8,7 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Pull Requests](#pull-requests)
+  - [Adding a new Translation](#adding-a-new-translation)
   
 ## How to contribute
 
