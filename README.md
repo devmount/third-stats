@@ -39,7 +39,24 @@ Here is how ThirdStats looks like on the Thunderbird default dark theme:
 
 ## Improve this project
 
-Contributions are very welcome! See the [Contribution Guidelines](./.github/CONTRIBUTING.md) for more information, how to help making this add-on even better. If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
+Contributions are very welcome! See the [Contribution Guidelines](./.github/CONTRIBUTING.md) for more information, how to help making this add-on even better.
+
+### Here on GitHub
+
+If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
+
+### Local development environment
+
+1. [Clone](https://help.github.com/en/articles/cloning-a-repository) this project with Git
+2. Install dependencies with [Yarn](https://yarnpkg.com/getting-started) by running `yarn` within the cloned directory `third-stats/`
+3. Start the development server with `yarn serve`
+4. Open development site by going to <http://localhost:8080> in your browser
+
+Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-webextensions.readthedocs.io/en/latest/index.html). This means that some JavaScript objects won't be available in your browser as development environment. If you want to test your changes in Thunderbird, do the following:
+
+5. Save all your changes and run `yarn build` to create a production build in the `dist/` directory
+6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
+7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session
 
 ## Licence
 
