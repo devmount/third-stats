@@ -1,0 +1,49 @@
+{
+	"extensionDescription": {
+		"message": "Krásně vizualizované statistiky pro vaše e-mailové účty Thunderbird"
+	},
+	"popup": {
+		"message": "",
+		"account": "Účet | Účty",
+		"messagesInFolder": "{0} zpráv v {1} složce"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "Celkem e-mailů",
+		"withinYears": "do {0} let",
+		"mailsUnread": "Nepřečtené e-maily",
+		"niceWork": "Pěkná práce!",
+		"percentOfReceived": "{0}% přijatých",
+		"mailsReceived": "Přijaté e-maily",
+		"percentOfTotal": "{0}% z celkového počtu",
+		"mailsSent": "E-maily odeslány",
+		"mailsPerMonth": "E-maily za měsíc",
+		"mailsYear": "maily/rok",
+		"mailsPerDay": "mailů za den",
+		"mailsWeek": "e-maily/týden",
+		"charts": {
+			"years": {
+				"title": "Let",
+				"description": "Celkový počet e-mailů za rok"
+			},
+			"months": {
+				"title": "Měsíce",
+				"description": "Celkový počet e-mailů za měsíc"
+			},
+			"daytime": {
+				"title": "Během dne",
+				"description": "Počet e-mailů za denní dobu"
+			},
+			"weekday": {
+				"title": "Všední den",
+				"description": "Počet e-mailů za den v týdnu"
+			},
+			"temporalDistribution": {
+				"title": "Časová distribuce",
+				"descriptionReceived": "Počet příchozích e-mailů za den v týdnu za hodinu",
+				"descriptionSent": "Počet odchozích e-mailů za den v týdnu za hodinu"
+			}
+		},
+		"starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>"
+	}
+}
