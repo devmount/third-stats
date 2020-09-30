@@ -5,45 +5,45 @@
 	"popup": {
 		"message": "",
 		"account": "Účet | Účty",
-		"messagesInFolder": "{0} messages in {1} folders"
+		"messagesInFolder": "{0} zpráv v {1} složce"
 	},
 	"stats": {
 		"message": "",
-		"mailsTotal": "Mails total",
-		"withinYears": "within {0} years",
-		"mailsUnread": "Mails unread",
-		"niceWork": "Nice work!",
-		"percentOfReceived": "{0}% of received",
-		"mailsReceived": "Mails received",
-		"percentOfTotal": "{0}% of total",
-		"mailsSent": "Mails sent",
-		"mailsPerMonth": "Mails per month",
+		"mailsTotal": "Celkem e-mailů",``
+		"withinYears": "do {0} let",
+		"mailsUnread": "Nepřečtené e-maily",
+		"niceWork": "Pěkná práce!",
+		"percentOfReceived": "{0}% přijatých",
+		"mailsReceived": "Přijaté e-maily",
+		"percentOfTotal": "{0}% z celkového počtu",
+		"mailsSent": "E-maily odeslány",
+		"mailsPerMonth": "E-maily za měsíc",
 		"mailsYear": "mails/year",
-		"mailsPerDay": "Mails per day",
-		"mailsWeek": "mails/week",
+		"mailsPerDay": "mailů za den",
+		"mailsWeek": "e-maily/týden",
 		"charts": {
 			"years": {
-				"title": "Years",
-				"description": "Total number of emails per year"
+				"title": "Let",
+				"description": "Celkový počet e-mailů za rok"
 			},
 			"months": {
-				"title": "Months",
-				"description": "Total number of emails per month"
+				"title": "Měsíce",
+				"description": "Celkový počet e-mailů za měsíc"
 			},
 			"daytime": {
-				"title": "Daytime",
-				"description": "Number of emails per time of day"
+				"title": "Během dne",
+				"description": "Počet e-mailů za denní dobu"
 			},
 			"weekday": {
-				"title": "Weekday",
-				"description": "Number of emails per day of week"
+				"title": "Všední den",
+				"description": "Počet e-mailů za den v týdnu"
 			},
 			"temporalDistribution": {
-				"title": "Temporal distribution",
-				"descriptionReceived": "Number of incoming emails per weekday per hour",
-				"descriptionSent": "Number of outgoing emails per weekday per hour"
+				"title": "Časová distribuce",
+				"descriptionReceived": "Počet příchozích e-mailů za den v týdnu za hodinu",
+				"descriptionSent": "Počet odchozích e-mailů za den v týdnu za hodinu"
 			}
 		},
-		"starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"
+		"starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>"
 	}
 }
