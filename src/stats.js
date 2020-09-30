@@ -18,8 +18,12 @@ Vue.mixin({
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 let messages = {
-	en: require('../public/_locales/en/messages.json'),
+	cs: require('../public/_locales/cs/messages.json'),
 	de: require('../public/_locales/de/messages.json'),
+	en: require('../public/_locales/en/messages.json'),
+	fr: require('../public/_locales/fr/messages.json'),
+	ru: require('../public/_locales/ru/messages.json'),
+	th: require('../public/_locales/th/messages.json'),
 }
 const i18n = new VueI18n({
 	locale: browser.i18n.getUILanguage(),
