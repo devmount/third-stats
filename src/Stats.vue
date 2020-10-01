@@ -505,25 +505,33 @@ body
 	#stats
 		max-width 2500px
 		.charts
-			grid-template-columns 1fr 1fr 1fr 1fr 1fr
+			grid-template-columns repeat(5, 1fr)
 @media (max-width: 2500px)
 	#stats
 		max-width 2200px
 		.charts
-			grid-template-columns 1fr 1fr 1fr 1fr
+			grid-template-columns repeat(4, 1fr)
 @media (max-width: 2000px)
 	#stats
 		max-width 1750px
 		.charts
-			grid-template-columns 1fr 1fr 1fr
+			grid-template-columns repeat(3, 1fr)
 @media (max-width: 1500px)
 	#stats
 		max-width 1200px
 		.charts
-			grid-template-columns 1fr 1fr
+			grid-template-columns repeat(2, 1fr)
+@media (min-width: 961px)
+	#stats
+		.numbers
+			max-width 1500px
+			grid-template-columns repeat(6, 1fr)
+@media (max-width: 960px)
+	#stats
+		.numbers
+			grid-template-columns repeat(3, 1fr)
 @media (max-width: 720px)
 	#stats
-		max-width 100%
 		.charts
 			grid-template-columns 1fr
 
@@ -537,7 +545,7 @@ body
 
 	h1
 		display grid
-		grid-template-columns 1fr 1fr 55px
+		grid-template-columns 1fr auto 55px
 		align-items center
 		justify-content start
 		.loading
@@ -566,9 +574,9 @@ body
 				color #8a8a97
 
 	.numbers
-		display flex
-		flex-direction row
-		justify-content space-between
+		display grid
+		column-gap 1rem
+		row-gap 2rem
 		&>div
 			text-align center
 			.featured
