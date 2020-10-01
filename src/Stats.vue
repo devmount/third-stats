@@ -491,19 +491,39 @@ export default {
 // general
 html, body
 	margin 0
-	padding 0 1rem
+	padding 0
+body
 	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 	background #202023
 	color #f9f9fa
 	font-weight 300
 	font-size 16px
+	overflow-x hidden
 
 // layout
+@media (min-width: 1601px)
+	#stats
+		max-width 1600px
+		.charts
+			grid-template-columns 1fr 1fr 1fr
+@media (max-width: 1600px)
+	#stats
+		max-width 1200px
+		.charts
+			grid-template-columns 1fr 1fr
+@media (max-width: 720px)
+	#stats
+		max-width 100%
+		.charts
+			grid-template-columns 1fr
+
+// content
 #stats
 	width 100%
 	height 100%
-	max-width 1200px
+	padding 0 2rem
 	margin 0 auto
+	box-sizing border-box
 
 	h1
 		display grid
@@ -548,7 +568,6 @@ html, body
 
 	.charts
 		display grid
-		grid-template-columns 1fr 1fr
 		column-gap 2rem
 		row-gap 1rem
 		.chart
