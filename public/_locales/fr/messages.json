@@ -30,6 +30,10 @@
 				"title": "Mois",
 				"description": "Nombre total de messages par mois"
 			},
+			"monthsTotal": {
+				"title": "Mois",
+				"description": "Nombre total de messages par mois"
+			},
 			"daytime": {
 				"title": "Journée",
 				"description": "Nombre de messages par heure de la journée"

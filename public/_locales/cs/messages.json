@@ -30,6 +30,10 @@
 				"title": "Měsíce",
 				"description": "Celkový počet e-mailů za měsíc"
 			},
+			"monthsTotal": {
+				"title": "Měsíce",
+				"description": "Celkový počet e-mailů za měsíc"
+			},
 			"daytime": {
 				"title": "Během dne",
 				"description": "Počet e-mailů za denní dobu"
