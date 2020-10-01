@@ -30,6 +30,10 @@
 				"title": "Mesi",
 				"description": "Numero di mail al mese"
 			},
+			"monthsTotal": {
+				"title": "Mesi",
+				"description": "Numero di mail al mese"
+			},
 			"daytime": {
 				"title": "Orari",
 				"description": "Numero di mail per orario del giorno"

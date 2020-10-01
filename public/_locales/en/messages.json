@@ -30,6 +30,10 @@
 				"title": "Months",
 				"description": "Total number of emails per month"
 			},
+			"monthsTotal": {
+				"title": "Months",
+				"description": "Total number of emails per month"
+			},
 			"daytime": {
 				"title": "Daytime",
 				"description": "Number of emails per time of day"

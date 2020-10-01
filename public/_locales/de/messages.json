@@ -30,6 +30,10 @@
 				"title": "Monate",
 				"description": "Gesamtanzahl aller E-Mails pro Monat"
 			},
+			"monthsTotal": {
+				"title": "Monate",
+				"description": "Gesamtanzahl aller E-Mails pro Monat"
+			},
 			"daytime": {
 				"title": "Uhrzeit",
 				"description": "Anzahl aller E-Mails pro Stunde am Tag"

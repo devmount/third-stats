@@ -89,6 +89,12 @@
 				rgb='230, 77, 185'
 				:dataset='weekdayPerHourChartData.sent'
 			/>
+			<BarChart
+				:title='$t("stats.charts.monthsTotal.title")'
+				:description='$t("stats.charts.monthsTotal.description")'
+				:datasets='monthsTotalChartData.datasets'
+				:labels='monthsTotalChartData.labels'
+			/>
 		</section>
 		<!-- footer -->
 		<footer class="my-6 text-center">
@@ -381,6 +387,37 @@ export default {
 						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: labels
+				}
+			}
+		},
+		monthsTotalChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.monthsData.received
+				let s = this.monthsData.sent
+				let dr = [], ds = []
+				let today = new Date()
+				for (let m = 0; m < 12; ++m) {
+					let mtr = 0, mts = 0
+					for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+						if (y == this.numbers.start.getFullYear() && m < this.numbers.start.getMonth()) continue
+						if (y == today.getFullYear() && m > today.getMonth()) break
+						mtr += y in r && m in r[y] ? r[y][m] : 0
+						mts += y in s && m in s[y] ? s[y][m] : 0
+					}
+					dr.push(mtr)
+					ds.push(mts)
+				}
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 				}
 			}
 		},

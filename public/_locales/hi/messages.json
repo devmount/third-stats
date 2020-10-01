@@ -31,6 +31,10 @@
 				"title": "महीने",
 				"description": "प्रति माह ईमेल की संख्या"
 			},
+			"monthsTotal": {
+				"title": "महीने",
+				"description": "प्रति माह ईमेल की संख्या"
+			},
 			"daytime": {
 				"title": "दिन",
 				"description": "प्रति दिन, समय के हिसाब से ईमेल की संख्या"
