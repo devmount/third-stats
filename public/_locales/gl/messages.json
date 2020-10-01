@@ -30,6 +30,10 @@
         "title": "Meses",
         "description": "Número total de correos por mes"
       },
+      "monthsTotal": {
+        "title": "Meses",
+        "description": "Número total de correos por mes"
+      },
       "daytime": {
         "title": "Hora do día",
         "description": "Número de correos por hora"
