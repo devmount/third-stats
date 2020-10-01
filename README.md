@@ -3,7 +3,7 @@
 <img src='https://user-images.githubusercontent.com/5441654/94365551-3f4bda80-00d2-11eb-8d51-685cd9d95331.png' />
 </a>
 <p align="center">
-ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account stats. Download  from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
+ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account stats. Download from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
 </p>
 
 <p align="center">
@@ -56,7 +56,7 @@ Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-we
 
 5. Save all your changes and run `yarn build` to create a production build in the `dist/` directory
 6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
-7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session
+7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
 
 ## Licence
 
