@@ -156,8 +156,6 @@ export default {
 	methods: {
 		getAccounts: async function () {
 			let accounts = await browser.accounts.list()
-			// only consider non local accounts
-			accounts = accounts.filter(a => a.type != 'none')
 			// check if a specific account was given
 			let uri = window.location.search.substring(1)
 			let params = new URLSearchParams(uri)
