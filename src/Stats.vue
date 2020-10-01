@@ -501,12 +501,22 @@ body
 	overflow-x hidden
 
 // layout
-@media (min-width: 1601px)
+@media (min-width: 2501px)
 	#stats
-		max-width 1600px
+		max-width 2500px
+		.charts
+			grid-template-columns 1fr 1fr 1fr 1fr 1fr
+@media (max-width: 2500px)
+	#stats
+		max-width 2200px
+		.charts
+			grid-template-columns 1fr 1fr 1fr 1fr
+@media (max-width: 2000px)
+	#stats
+		max-width 1750px
 		.charts
 			grid-template-columns 1fr 1fr 1fr
-@media (max-width: 1600px)
+@media (max-width: 1500px)
 	#stats
 		max-width 1200px
 		.charts
