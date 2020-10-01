@@ -3,7 +3,7 @@
 <img src='https://user-images.githubusercontent.com/5441654/94365551-3f4bda80-00d2-11eb-8d51-685cd9d95331.png' />
 </a>
 <p align="center">
-ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account stats. Download soon from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
+ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account stats. Download  from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@ ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account 
 
 Install ThirdStats from the Thunderbird Add-ons repository:
 
-1. Open the menu and click Add-ons
+1. Open the menu and click on Add-ons
 2. Search for *ThirdStats*
 3. Click *Add to Thunderbird* and enjoy your email account stats
 
