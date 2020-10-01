@@ -1,0 +1,49 @@
+{
+	"extensionDescription": {
+		"message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
+	},
+	"popup": {
+		"message": "",
+		"account": "Conta | Contas",
+		"messagesInFolder": "{0} mensagens em {1} pastas"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "Total de e-mails",
+		"withinYears": "Dentro de {0} anos",
+		"mailsUnread": "E-mails não lidos",
+		"niceWork": "Bom trabalho!",
+		"percentOfReceived": "{0}% de recebidos",
+		"mailsReceived": "E-mails recebidos",
+		"percentOfTotal": "{0}% do total",
+		"mailsSent": "E-mails enviados",
+		"mailsPerMonth": "E-mails por mês",
+		"mailsYear": "E-mails/ano",
+		"mailsPerDay": "E-mails por dia",
+		"mailsWeek": "E-mails/semana",
+		"charts": {
+			"years": {
+				"title": "Anos",
+				"description": "Total de e-mails por ano"
+			},
+			"months": {
+				"title": "Meses",
+				"description": "Total de e-mails por mês"
+			},
+			"daytime": {
+				"title": "Dia",
+				"description": "Número de e-mails por hora do dia"
+			},
+			"weekday": {
+				"title": "Dia da Semana",
+				"description": "Número de e-mails por dia da semana"
+			},
+			"temporalDistribution": {
+				"title": "Distribuição Temporal",
+				"descriptionReceived": "Número de e-mails recebidos por semana por hora",
+				"descriptionSent": "Número de e-mails enviados por semana por hora"
+			}
+		},
+		"starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>"
+	}
+}
