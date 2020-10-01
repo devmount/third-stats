@@ -1,0 +1,49 @@
+{
+	"extensionDescription": {
+		"message": "Estadísticas visualmente bellas para sus cuentas de correo electrónico de Thunderbird"
+	},
+	"popup": {
+		"message": "",
+		"account": "Cuenta | Cuentas",
+		"messagesInFolder": "{0} mensajes en {1} carpetas"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "Total de correos",
+		"withinYears": "en {0} años",
+		"mailsUnread": "Correos no leídos",
+		"niceWork": "Excelente trabajo!",
+		"percentOfReceived": "{0}% de recibidos",
+		"mailsReceived": "Correos recibidos",
+		"percentOfTotal": "{0}% del total",
+		"mailsSent": "Correos enviados",
+		"mailsPerMonth": "Correos al mes",
+		"mailsYear": "correos/año",
+		"mailsPerDay": "Correos al día",
+		"mailsWeek": "correos/semana",
+		"charts": {
+			"years": {
+				"title": "Años",
+				"description": "Total de correos por año"
+			},
+			"months": {
+				"title": "Meses",
+				"description": "Total de correos por mes"
+			},
+			"daytime": {
+				"title": "Hora",
+				"description": "Total de correos por hora del día"
+			},
+			"weekday": {
+				"title": "Día de semana",
+				"description": "Total de correos por día de semana"
+			},
+			"temporalDistribution": {
+				"title": "Distribución temporal",
+				"descriptionReceived": "Correos recibidos por día de semana y hora",
+				"descriptionSent": "Correos enviados por día de semana y hora"
+			}
+		},
+		"starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>"
+	}
+}
