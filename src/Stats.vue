@@ -272,6 +272,22 @@ export default {
 		appVersion () {
 			return process.env.PACKAGE_VERSION;
 		},
+		monthNames () {
+			let names = []
+			for (let m = 1; m <= 12; m++) {
+				let d = new Date(1970, m, 0)
+				names.push(d.toLocaleDateString(this.$i18n.locale, { month: 'short' }))
+			}
+			return names
+		},
+		weekdayNames () {
+			let names = []
+			for (let m = 1; m <= 7; m++) {
+				let d = new Date(1970, m, 0)
+				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'short' }))
+			}
+			return names
+		},
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
 			let today = new Date()
@@ -367,7 +383,6 @@ export default {
 				let r = this.monthsData.received
 				let s = this.monthsData.sent
 				let labels = [], dr = [], ds = []
-				let monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 				let today = new Date()
 				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let m = 0; m < 12; ++m) {
@@ -376,7 +391,7 @@ export default {
 						// trim months in future
 						if (y == today.getFullYear() && m > today.getMonth()) break
 						// organize labels and data
-						labels.push(y + ' ' + monthNames[m])
+						labels.push(y + ' ' + this.monthNames[m])
 						dr.push(y in r && m in r[y] ? r[y][m] : 0)
 						ds.push(y in s && m in s[y] ? s[y][m] : 0)
 					}
@@ -417,7 +432,7 @@ export default {
 						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+					labels: this.monthNames
 				}
 			}
 		},
@@ -455,7 +470,7 @@ export default {
 						{ label: this.$t('stats.mailsSent'), data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 						{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+					labels: this.weekdayNames
 				}
 			}
 		},
