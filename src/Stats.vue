@@ -51,8 +51,19 @@
 				<div class='text-gray'>{{ perWeek }} {{ $t('stats.mailsWeek') }}</div>
 			</div>
 		</section>
-		<!-- number of mails per year -->
-		<section v-if='!waiting && numbers.total == 0' class='empty mt-5'>
+		<!-- still processing -->
+		<section v-if='waiting' class='mt-5'>
+			<svg class="icon icon-huge d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
+				<polyline points="4 12 7 8 11 10 16 4 20 8" />
+			</svg>
+			<div class="text-center text-gray">
+				{{ $t("stats.loadingInProgress") }}
+			</div>
+		</section>
+		<!-- empty account -->
+		<section v-else-if='numbers.total == 0' class='mt-5'>
 			<svg class="icon icon-huge d-block m-0-auto" viewBox="0 0 24 24">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 				<rect x="4" y="4" width="16" height="16" rx="2" />
@@ -62,6 +73,7 @@
 				{{ $t("stats.accountEmpty") }}
 			</div>
 		</section>
+		<!-- charts -->
 		<section v-else class='charts mt-2'>
 			<LineChart
 				:title='$t("stats.charts.years.title")'
@@ -664,10 +676,19 @@ body
 		width 10rem
 		height 10rem
 
+	&.icon-animated-color-transition
+		animation colorFading 1s 0s infinite ease alternate
+
+
 // animations
 @keyframes rotate
 	0%
 		transform rotate(0)
 	100%
 		transform rotate(360deg)
+@keyframes colorFading
+	0%
+		stroke #0a84ff
+	100%
+		stroke #e64db9
 </style>
