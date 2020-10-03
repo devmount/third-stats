@@ -2,13 +2,13 @@
 <div class='chart heatmap'>
 	<h2 v-if='title' class='text-center'>{{ title }}</h2>
 	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
-	<div v-for='r in 7' :key='r' class='row'>
-		<div class='legend text-gray text-small text-right mr-1'>{{ weekdays[r-1] }}</div>
+	<div v-for='(r, i) in labels.y' :key='r' class='row'>
+		<div class='legend text-gray text-small text-right mr-1'>{{ r }}</div>
 		<div
-			v-for='c in 24'
+			v-for='(c, j) in labels.x'
 			:key='c'
-			:style="'background: rgba(' + rgb + ', ' + opacity(dataset[r-1][c-1]) + ')'"
-			:data-tooltip="weekdays[r-1] + ', ' + (c-1) + ':00\n' + dataset[r-1][c-1] + ' mails'"
+			:style="'background: rgba(' + rgb + ', ' + opacity(dataset[i][j]) + ')'"
+			:data-tooltip="r + ', ' + (j) + ':00\n' + dataset[i][j] + ' mails'"
 			class='cell tooltip'
 		></div>
 	</div>
@@ -28,6 +28,7 @@ export default {
 		description: String,
 		rgb: String,
 		dataset: Object,
+		labels: Object, // {y: [], x: []}
 	},
 	methods: {
 		opacity (v) {
@@ -43,9 +44,6 @@ export default {
 			}
 			return max
 		},
-		weekdays () {
-			return ['Mo','Tu','We','Th','Fr','Sa','Su']
-		}
 	}
 }
 </script>

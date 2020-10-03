@@ -104,12 +104,14 @@
 				:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
 				rgb='10, 132, 255'
 				:dataset='weekdayPerHourChartData.received'
+				:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 			/>
 			<HeatMap
 				:title='$t("stats.charts.temporalDistribution.title")'
 				:description='$t("stats.charts.temporalDistribution.descriptionSent")'
 				rgb='230, 77, 185'
 				:dataset='weekdayPerHourChartData.sent'
+				:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 			/>
 			<BarChart
 				:title='$t("stats.charts.monthsTotal.title")'
@@ -297,15 +299,15 @@ export default {
 		monthNames () {
 			let names = []
 			for (let m = 1; m <= 12; m++) {
-				let d = new Date(1970, m, 0)
+				let d = new Date(1970, m, 0) // choose a date to retrieve months from, starting in January
 				names.push(d.toLocaleDateString(this.$i18n.locale, { month: 'short' }))
 			}
 			return names
 		},
 		weekdayNames () {
 			let names = []
-			for (let m = 1; m <= 7; m++) {
-				let d = new Date(1970, m, 0)
+			for (let wd = 1; wd <= 7; wd++) {
+				let d = new Date(1970, 1, 1+wd) // choose a date to retrieve weekdays from, starting on a Monday
 				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'short' }))
 			}
 			return names
