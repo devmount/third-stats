@@ -297,15 +297,15 @@ export default {
 		monthNames () {
 			let names = []
 			for (let m = 1; m <= 12; m++) {
-				let d = new Date(1970, m, 0)
+				let d = new Date(1970, m, 0) // choose a date to retrieve months from, starting in January
 				names.push(d.toLocaleDateString(this.$i18n.locale, { month: 'short' }))
 			}
 			return names
 		},
 		weekdayNames () {
 			let names = []
-			for (let m = 1; m <= 7; m++) {
-				let d = new Date(1970, m, 0)
+			for (let wd = 1; wd <= 7; wd++) {
+				let d = new Date(1970, 1, 1+wd) // choose a date to retrieve weekdays from, starting on a Monday
 				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'short' }))
 			}
 			return names
