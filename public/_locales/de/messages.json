@@ -21,6 +21,7 @@
 		"mailsYear": "E-Mails/Jahr",
 		"mailsPerDay": "E-Mails pro Tag",
 		"mailsWeek": "E-Mails/Woche",
+		"accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
 		"charts": {
 			"years": {
 				"title": "Jahre",

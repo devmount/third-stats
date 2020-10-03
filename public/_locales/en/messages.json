@@ -21,6 +21,7 @@
 		"mailsYear": "mails/year",
 		"mailsPerDay": "Mails per day",
 		"mailsWeek": "mails/week",
+		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
 				"title": "Years",
