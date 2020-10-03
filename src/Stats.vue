@@ -59,7 +59,7 @@
 				<path d="M4 13h3l3 3h4l3 -3h3" />
 			</svg>
 			<div class="text-center text-gray">
-				This account is empty, no emails here.
+				{{ $t("stats.accountEmpty") }}
 			</div>
 		</section>
 		<section v-else class='charts mt-2'>
