@@ -52,7 +52,17 @@
 			</div>
 		</section>
 		<!-- number of mails per year -->
-		<section class='charts mt-2'>
+		<section v-if='!waiting && numbers.total == 0' class='empty mt-5'>
+			<svg class="icon icon-huge d-block m-0-auto" viewBox="0 0 24 24">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+				<rect x="4" y="4" width="16" height="16" rx="2" />
+				<path d="M4 13h3l3 3h4l3 -3h3" />
+			</svg>
+			<div class="text-center text-gray">
+				This account is empty, no emails here.
+			</div>
+		</section>
+		<section v-else class='charts mt-2'>
 			<LineChart
 				:title='$t("stats.charts.years.title")'
 				:description='$t("stats.charts.years.description")'
@@ -628,6 +638,8 @@ body
 	margin-top 1rem
 .mt-2
 	margin-top 2rem
+.mt-5
+	margin-top 5rem
 .mr-1
 	margin-right 1rem
 .mr-2
@@ -635,7 +647,24 @@ body
 .my-6
 	margin-top 6rem
 	margin-bottom 6rem
+.m-0-auto
+	margin 0 auto
+.d-block
+	display block
 
+// icons
+.icon
+	stroke-width 1.5
+	stroke #494951
+	fill none
+	stroke-linecap round
+	stroke-linejoin round
+
+	&.icon-huge
+		width 10rem
+		height 10rem
+
+// animations
 @keyframes rotate
 	0%
 		transform rotate(0)
