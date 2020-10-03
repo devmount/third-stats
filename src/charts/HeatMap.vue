@@ -28,7 +28,7 @@ export default {
 		description: String,
 		rgb: String,
 		dataset: Object,
-		labels: Object, // {y: [1,2,3,...], x: [2,4,6,...]}
+		labels: Object, // {y: [], x: []}
 	},
 	methods: {
 		opacity (v) {
