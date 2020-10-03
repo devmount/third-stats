@@ -21,6 +21,7 @@
 		"mailsYear": "mails/year",
 		"mailsPerDay": "Mails per day",
 		"mailsWeek": "mails/week",
+		"loadingInProgress": "Loading of all emails from this account in progress...",
 		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
