@@ -1,0 +1,54 @@
+{
+	"extensionDescription": {
+		"message": "आपके थंडरबर्ड ईमेल खातों के लिए सरल और सुंदर आँकड़े"
+	},
+
+	"popup": {
+		"message": "",
+		"account": "खाता | खाते",
+		"messagesInFolder": "{1} फ़ोल्डर में {0} संदेश"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "कुल मेल",
+		"withinYears": "{0} साल के भीतर",
+		"mailsUnread": "अपठित मेल्स",
+		"niceWork": "बोहोत ख़ूब!",
+		"percentOfReceived": "{0}% प्राप्त किया",
+		"mailsReceived": "मेल्स प्राप्त हुए",
+		"percentOfTotal": "कुल का {0}%",
+		"mailsSent": "मेल्स भेज दिए गए",
+		"mailsPerMonth": "मेल्स प्रति महिना",
+		"mailsYear": "मेल्स/साल",
+		"mailsPerDay": "मेल्स प्रति दिन",
+		"mailsWeek": "मेल्स/सप्ताह",
+		"charts": {
+			"years": {
+				"title": "साल",
+				"description": "प्रति वर्ष ईमेल की संख्या"
+			},
+			"months": {
+				"title": "महीने",
+				"description": "प्रति माह ईमेल की संख्या"
+			},
+			"monthsTotal": {
+				"title": "महीने",
+				"description": "प्रति माह ईमेल की संख्या"
+			},
+			"daytime": {
+				"title": "दिन",
+				"description": "प्रति दिन, समय के हिसाब से ईमेल की संख्या"
+			},
+			"weekday": {
+				"title": "सप्ताह",
+				"description": "प्रति सप्ताह, दिन के हिसाब से ईमेल की संख्या"
+			},
+			"temporalDistribution": {
+				"title": "अस्थायी वितरण",
+				"descriptionReceived": "हर सप्ताह में प्रति घंटे आने वाले ईमेल की संख्या",
+				"descriptionSent": "हर सप्ताह में प्रति घंटे जाने वाले ईमेल की संख्या"
+			}
+		},
+		"starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें"
+	}
+}

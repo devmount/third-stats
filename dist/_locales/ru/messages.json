@@ -1,0 +1,53 @@
+{
+	"extensionDescription": {
+		"message": "Красиво визуализированная статистика для ваших аккаунтов в Thunderbird Email"
+	},
+	"popup": {
+		"message": "",
+		"account": "Аккаунт | Аккаунты",
+		"messagesInFolder": "{0} писем в {1} папках"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "Всего писем",
+		"withinYears": "за {0} лет",
+		"mailsUnread": "Непрочитанных писем",
+		"niceWork": "Хорошая работа!",
+		"percentOfReceived": "{0}% входящих",
+		"mailsReceived": "Входящих писем",
+		"percentOfTotal": "{0}% от общего количества",
+		"mailsSent": "Исходящих писем",
+		"mailsPerMonth": "Писем за месяц",
+		"mailsYear": "писем в год",
+		"mailsPerDay": "Писем за день",
+		"mailsWeek": "писем в неделю",
+		"charts": {
+			"years": {
+				"title": "Годы",
+				"description": "Общее количество писем за год"
+			},
+			"months": {
+				"title": "Месяцы",
+				"description": "Общее количество писем за месяц"
+			},
+			"monthsTotal": {
+				"title": "Месяцы",
+				"description": "Общее количество писем за месяц"
+			},
+			"daytime": {
+				"title": "День",
+				"description": "Количество писем за каждый день"
+			},
+			"weekday": {
+				"title": "День недели",
+				"description": "Количество писем за день недели"
+			},
+			"temporalDistribution": {
+				"title": "Временное распределение",
+				"descriptionReceived": "Количество входящих писем за день недели за час",
+				"descriptionSent": "Количество исходящих писем за день недели за час"
+			}
+		},
+		"starAndImprove": "Оцените и улучшите этот проект на <a href='{0}' target='_blank'>Github</a>"
+	}
+}

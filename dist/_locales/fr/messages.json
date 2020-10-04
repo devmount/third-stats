@@ -1,0 +1,53 @@
+{
+	"extensionDescription": {
+		"message": "Statistiques magnifiquement affichées pour vos comptes de courrier Thunderbird"
+	},
+	"popup": {
+		"message": "",
+		"account": "Compte | Comptes",
+		"messagesInFolder": "{0} messages dans {1} dossiers"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "Total des messages",
+		"withinYears": "en {0} ans",
+		"mailsUnread": "Messages non lus",
+		"niceWork": "Beau travail !",
+		"percentOfReceived": "{0}% des reçus",
+		"mailsReceived": "Messages reçus",
+		"percentOfTotal": "{0}% du total",
+		"mailsSent": "Messages envoyés",
+		"mailsPerMonth": "Messages par mois",
+		"mailsYear": "messages/ans",
+		"mailsPerDay": "Messages par jour",
+		"mailsWeek": "messages/semaine",
+		"charts": {
+			"years": {
+				"title": "Ans",
+				"description": "Nombre total de messages par an"
+			},
+			"months": {
+				"title": "Mois",
+				"description": "Nombre total de messages par mois"
+			},
+			"monthsTotal": {
+				"title": "Mois",
+				"description": "Nombre total de messages par mois"
+			},
+			"daytime": {
+				"title": "Journée",
+				"description": "Nombre de messages par heure de la journée"
+			},
+			"weekday": {
+				"title": "Jour de la semaine",
+				"description": "Nombre de messages par jour de la semaine"
+			},
+			"temporalDistribution": {
+				"title": "Distribution temporelle",
+				"descriptionReceived": "Nombre de messages entrants par jour de la semaine par heure",
+				"descriptionSent": "Nombre de messages sortants par jour de la semaine par heure"
+			}
+		},
+		"starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>"
+	}
+}

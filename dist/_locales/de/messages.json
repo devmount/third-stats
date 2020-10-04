@@ -21,12 +21,18 @@
 		"mailsYear": "E-Mails/Jahr",
 		"mailsPerDay": "E-Mails pro Tag",
 		"mailsWeek": "E-Mails/Woche",
+		"loadingInProgress": "E-Mails für dieses Konto werden geladen...",
+		"accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
 		"charts": {
 			"years": {
 				"title": "Jahre",
 				"description": "Gesamtanzahl aller E-Mails pro Jahr"
 			},
 			"months": {
+				"title": "Monate",
+				"description": "Gesamtanzahl aller E-Mails pro Monat"
+			},
+			"monthsTotal": {
 				"title": "Monate",
 				"description": "Gesamtanzahl aller E-Mails pro Monat"
 			},
