@@ -30,7 +30,6 @@ let messages = {
 	it: require('../public/_locales/it/messages.json'),
 	pl: require('../public/_locales/pl/messages.json'),
 	pt: require('../public/_locales/pt/messages.json'),
-	ru: require('../public/_locales/ru/messages.json'),
 	th: require('../public/_locales/th/messages.json'),
 }
 const i18n = new VueI18n({
