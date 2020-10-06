@@ -224,8 +224,6 @@ export default {
 				await self.processMessages(f, identities)
 			})).then(() => {
 				this.waiting = false
-				console.log(this.leaderboardReceived)
-				console.log(this.leaderboardSent)
 			})
 		},
 		// process all messages of a folder
