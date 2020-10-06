@@ -2,7 +2,9 @@
 <div class='chart'>
 	<h2 v-if='title' class='text-center'>{{ title }}</h2>
 	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
-	<canvas :id='id'></canvas>
+	<div class="chart-container">
+		<canvas :id='id'></canvas>
+	</div>
 </div>
 </template>
 
@@ -22,7 +24,7 @@ export default {
 		}
 	},
 	mounted () {
-		if (this.title != '' && this.labels && this.datasets) {
+		if (this.labels && this.datasets) {
 			this.draw()
 		}
 	},
@@ -53,6 +55,8 @@ export default {
 					labels: this.labels,
 				},
 				options: {
+					responsive: true,
+					maintainAspectRatio: false,
 					scales: {
 						xAxes: [{
 							stacked: false,
@@ -61,7 +65,8 @@ export default {
 							},
 							ticks: {
 								maxRotation: 0,
-								autoSkipPadding: 10
+								autoSkipPadding: 10,
+								beginAtZero: true,
 							}
 						}],
 						yAxes: [{
@@ -102,3 +107,14 @@ export default {
 	}
 }
 </script>
+
+<style lang="stylus">
+.chart
+	display flex
+	flex-flow column
+	&>h2, &>p
+		flex 0 1 auto
+	&>.chart-container
+		position relative
+		flex 1 1 auto
+</style>
