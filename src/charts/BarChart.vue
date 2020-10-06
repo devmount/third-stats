@@ -75,6 +75,9 @@ export default {
 							stacked: false,
 							gridLines: {
 								display: false,
+							},
+							ticks: {
+								beginAtZero: true,
 							}
 						}]
 					}
