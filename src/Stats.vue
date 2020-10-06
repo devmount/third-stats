@@ -708,6 +708,7 @@ body
 		display grid
 		column-gap 1rem
 		row-gap 2rem
+		margin 0 auto
 		&>div
 			text-align center
 			.featured
