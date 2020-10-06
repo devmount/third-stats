@@ -111,13 +111,13 @@
 				<div class="chart-group">
 					<HeatMap
 						:title='$t("stats.charts.temporalDistribution.title")'
-						:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
+						:description='$t("stats.charts.temporalDistribution.description.received")'
 						rgb='10, 132, 255'
 						:dataset='weekdayPerHourChartData.received'
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 					/>
 					<HeatMap
-						:description='$t("stats.charts.temporalDistribution.descriptionSent")'
+						:description='$t("stats.charts.temporalDistribution.description.sent")'
 						rgb='230, 77, 185'
 						:dataset='weekdayPerHourChartData.sent'
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'

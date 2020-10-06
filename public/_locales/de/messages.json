@@ -46,8 +46,20 @@
 			},
 			"temporalDistribution": {
 				"title": "Zeitliche Verteilung",
-				"descriptionReceived": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
-				"descriptionSent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
+				"description": {
+					"received": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
+					"sent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
+				}
+			},
+			"leader": {
+				"received": {
+					"title": "Am meisten erhalten",
+					"description": "Anzahl empfangener E-Mails pro Absender"
+				},
+				"sent": {
+					"title": "Am meisten gesendet",
+					"description": "Anzahl gesendeter E-Mails pro Empfänger"
+				}
 			}
 		},
 		"starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"
