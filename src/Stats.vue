@@ -119,6 +119,18 @@
 				:datasets='monthsTotalChartData.datasets'
 				:labels='monthsTotalChartData.labels'
 			/>
+			<BarChart
+				:title='$t("stats.charts.leader.received.title")'
+				:description='$t("stats.charts.leader.received.description")'
+				:datasets='receivedContactLeadersChartData.datasets'
+				:labels='receivedContactLeadersChartData.labels'
+			/>
+			<BarChart
+				:title='$t("stats.charts.leader.sent.title")'
+				:description='$t("stats.charts.leader.sent.description")'
+				:datasets='sentContactLeadersChartData.datasets'
+				:labels='sentContactLeadersChartData.labels'
+			/>
 		</section>
 		<!-- footer -->
 		<footer class="my-6 text-center">
@@ -130,7 +142,7 @@
 
 <script>
 // internal components
-import { traverseAccount } from './utils';
+import { traverseAccount, extractEmailAddress } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -177,6 +189,7 @@ export default {
 			daytimeData: {},
 			weekdayData: {},
 			weekdayPerHourData: {},
+			contacts: {},
 		}
 	},
 	created () {
@@ -204,6 +217,8 @@ export default {
 				await self.processMessages(f, identities)
 			})).then(() => {
 				this.waiting = false
+				console.log(this.leaderboardReceived)
+				console.log(this.leaderboardSent)
 			})
 		},
 		// process all messages of a folder
@@ -222,10 +237,7 @@ export default {
 			// numbers
 			this.numbers.total++
 			if (m.read === false) this.numbers.unread++
-			let author = m.author
-			if (author.lastIndexOf("<")>=0 && author.lastIndexOf(">")>=0) {
-				author = author.substring(author.lastIndexOf("<") + 1, author.lastIndexOf(">"))
-			}
+			let author = extractEmailAddress(m.author)
 			if (identities.includes(author)) {
 				this.numbers.sent++
 				type = 'sent'
@@ -261,6 +273,29 @@ export default {
 			this.weekdayData[type][wd]++
 			// weekday per hour
 			this.weekdayPerHourData[type][wd][dt]++
+			// contacts
+			switch (type) {
+				case 'sent':
+					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
+					recipients.map(r => {
+						if (!(r in this.contacts['sent'])) {
+							this.contacts['sent'][r] = 1
+						} else {
+							this.contacts['sent'][r]++
+						}
+					})
+					break;
+				case 'received':
+					let a = author.toLowerCase()
+					if (!(a in this.contacts['received'])) {
+						this.contacts['received'][a] = 1
+					} else {
+						this.contacts['received'][a]++
+					}
+					break;
+				default:
+					break;
+			}
 		},
 		reset () {
 			this.numbers = {
@@ -289,6 +324,10 @@ export default {
 			this.weekdayPerHourData = {
 				received: new NumberedObject(7,24),
 				sent: new NumberedObject(7,24),
+			},
+			this.contacts = {
+				received: {},
+				sent: {},
 			}
 		},
 	},
@@ -374,6 +413,16 @@ export default {
 			} else {
 				return 0
 			}
+		},
+		leaderboardReceived () {
+			return Object.entries(this.contacts.received)
+				.sort(([,a],[,b]) => b-a)
+				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+		},
+		leaderboardSent () {
+			return Object.entries(this.contacts.sent)
+				.sort(([,a],[,b]) => b-a)
+				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 		},
 		yearsChartData () {
 			if (this.waiting) {
@@ -513,6 +562,40 @@ export default {
 				return {
 					received: r,
 					sent: s,
+				}
+			}
+		},
+		receivedContactLeadersChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				const leaderCount = 10
+				let r = this.leaderboardReceived
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r).slice(0, leaderCount), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: Object.keys(r).slice(0, leaderCount)
+				}
+			}
+		},
+		sentContactLeadersChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				const leaderCount = 10
+				let s = this.leaderboardSent
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s).slice(0, leaderCount), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					],
+					labels: Object.keys(s).slice(0, leaderCount)
 				}
 			}
 		},
