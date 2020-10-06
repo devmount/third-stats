@@ -634,12 +634,12 @@ body
 	#stats
 		max-width 2500px
 		#chart-area-main
-			grid-template-columns repeat(5, 1fr)
+			grid-template-columns repeat(6, 1fr)
 @media (max-width: 2500px)
 	#stats
 		max-width 2200px
 		#chart-area-main
-			grid-template-columns repeat(4, 1fr)
+			grid-template-columns repeat(3, 1fr)
 @media (max-width: 2000px)
 	#stats
 		max-width 1750px
