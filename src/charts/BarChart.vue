@@ -2,7 +2,9 @@
 <div class='chart'>
 	<h2 v-if='title' class='text-center'>{{ title }}</h2>
 	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
-	<canvas :id='id'></canvas>
+	<div class="chart-container">
+		<canvas :id='id'></canvas>
+	</div>
 </div>
 </template>
 
@@ -14,6 +16,7 @@ export default {
 		description: String,
 		labels: Array,
 		datasets: Array,
+		horizontal: Boolean,
 	},
 	data () {
 		return {
@@ -22,7 +25,7 @@ export default {
 		}
 	},
 	mounted () {
-		if (this.title != '' && this.labels && this.datasets) {
+		if (this.labels && this.datasets) {
 			this.draw()
 		}
 	},
@@ -35,7 +38,7 @@ export default {
 					label: dataset.label,
 					data: dataset.data,
 					backgroundColor: dataset.bcolor,
-					borderWidth: { top: 2 },
+					borderWidth: this.horizontal ? { right: 2} : { top: 2 },
 					borderColor: dataset.color,
 					barPercentage: 1,
 					categoryPercentage: .6,
@@ -47,12 +50,14 @@ export default {
 	methods: {
 		draw () {
 			this.chart = new Chart(this.id, {
-				type: 'bar',
+				type: this.horizontal ? 'horizontalBar' : 'bar',
 				data: {
 					datasets: this.currentData,
 					labels: this.labels,
 				},
 				options: {
+					responsive: true,
+					maintainAspectRatio: false,
 					scales: {
 						xAxes: [{
 							stacked: false,
@@ -61,11 +66,12 @@ export default {
 							},
 							ticks: {
 								maxRotation: 0,
-								autoSkipPadding: 10
+								autoSkipPadding: 10,
+								beginAtZero: true,
 							}
 						}],
 						yAxes: [{
-							display: false,
+							display: this.horizontal,
 							stacked: false,
 							gridLines: {
 								display: false,
@@ -102,3 +108,14 @@ export default {
 	}
 }
 </script>
+
+<style lang="stylus">
+.chart
+	display flex
+	flex-flow column
+	&>h2, &>p
+		flex 0 1 auto
+	&>.chart-container
+		position relative
+		flex 1 1 auto
+</style>

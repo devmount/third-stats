@@ -126,12 +126,14 @@
 				:description='$t("stats.charts.leader.received.description")'
 				:datasets='receivedContactLeadersChartData.datasets'
 				:labels='receivedContactLeadersChartData.labels'
+				:horizontal='true'
 			/>
 			<BarChart
 				:title='$t("stats.charts.leader.sent.title")'
 				:description='$t("stats.charts.leader.sent.description")'
 				:datasets='sentContactLeadersChartData.datasets'
 				:labels='sentContactLeadersChartData.labels'
+				:horizontal='true'
 			/>
 		</section>
 		<!-- footer -->
@@ -574,7 +576,7 @@ export default {
 					labels: []
 				}
 			} else {
-				const leaderCount = 10
+				const leaderCount = 20
 				let r = this.leaderboardReceived
 				return {
 					datasets: [
@@ -591,7 +593,7 @@ export default {
 					labels: []
 				}
 			} else {
-				const leaderCount = 10
+				const leaderCount = 20
 				let s = this.leaderboardSent
 				return {
 					datasets: [
@@ -712,6 +714,8 @@ body
 		display grid
 		column-gap 2rem
 		row-gap 1rem
+		&>*
+			min-height 380px
 		.chart
 			h2
 				margin-bottom 0
