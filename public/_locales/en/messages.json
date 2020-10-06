@@ -46,8 +46,20 @@
 			},
 			"temporalDistribution": {
 				"title": "Temporal distribution",
-				"descriptionReceived": "Number of incoming emails per weekday per hour",
-				"descriptionSent": "Number of outgoing emails per weekday per hour"
+				"description": {
+					"received": "Number of incoming emails per weekday per hour",
+					"sent": "Number of outgoing emails per weekday per hour"
+				}
+			},
+			"leader": {
+				"received": {
+					"title": "Most received from",
+					"description": "Number of emails received per sender"
+				},
+				"sent": {
+					"title": "Most sent to",
+					"description": "Number of emails sent per recipient"
+				}
 			}
 		},
 		"starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"

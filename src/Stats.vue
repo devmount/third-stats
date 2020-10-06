@@ -75,50 +75,69 @@
 		</section>
 		<!-- charts -->
 		<section v-else class='charts mt-2'>
-			<LineChart
-				:title='$t("stats.charts.years.title")'
-				:description='$t("stats.charts.years.description")'
-				:datasets='yearsChartData.datasets'
-				:labels='yearsChartData.labels'
-			/>
-			<LineChart
-				:title='$t("stats.charts.months.title")'
-				:description='$t("stats.charts.months.description")'
-				:datasets='monthsChartData.datasets'
-				:labels='monthsChartData.labels'
-			/>
-			<BarChart
-				:title='$t("stats.charts.daytime.title")'
-				:description='$t("stats.charts.daytime.description")'
-				:datasets='daytimeChartData.datasets'
-				:labels='daytimeChartData.labels'
-			/>
-			<BarChart
-				:title='$t("stats.charts.weekday.title")'
-				:description='$t("stats.charts.weekday.description")'
-				:datasets='weekdayChartData.datasets'
-				:labels='weekdayChartData.labels'
-			/>
-			<HeatMap
-				:title='$t("stats.charts.temporalDistribution.title")'
-				:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
-				rgb='10, 132, 255'
-				:dataset='weekdayPerHourChartData.received'
-				:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
-			/>
-			<HeatMap
-				:title='$t("stats.charts.temporalDistribution.title")'
-				:description='$t("stats.charts.temporalDistribution.descriptionSent")'
-				rgb='230, 77, 185'
-				:dataset='weekdayPerHourChartData.sent'
-				:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
-			/>
-			<BarChart
-				:title='$t("stats.charts.monthsTotal.title")'
-				:description='$t("stats.charts.monthsTotal.description")'
-				:datasets='monthsTotalChartData.datasets'
-				:labels='monthsTotalChartData.labels'
-			/>
+			<div id='chart-area-top' class='chart-area'>
+				<LineChart
+					:title='$t("stats.charts.years.title")'
+					:description='$t("stats.charts.years.description")'
+					:datasets='yearsChartData.datasets'
+					:labels='yearsChartData.labels'
+				/>
+				<LineChart
+					:title='$t("stats.charts.months.title")'
+					:description='$t("stats.charts.months.description")'
+					:datasets='monthsChartData.datasets'
+					:labels='monthsChartData.labels'
+				/>
+			</div>
+			<div id='chart-area-main' class='chart-area'>
+				<BarChart
+					:title='$t("stats.charts.daytime.title")'
+					:description='$t("stats.charts.daytime.description")'
+					:datasets='daytimeChartData.datasets'
+					:labels='daytimeChartData.labels'
+				/>
+				<BarChart
+					:title='$t("stats.charts.weekday.title")'
+					:description='$t("stats.charts.weekday.description")'
+					:datasets='weekdayChartData.datasets'
+					:labels='weekdayChartData.labels'
+				/>
+				<BarChart
+					:title='$t("stats.charts.monthsTotal.title")'
+					:description='$t("stats.charts.monthsTotal.description")'
+					:datasets='monthsTotalChartData.datasets'
+					:labels='monthsTotalChartData.labels'
+				/>
+				<div class="chart-group">
+					<HeatMap
+						:title='$t("stats.charts.temporalDistribution.title")'
+						:description='$t("stats.charts.temporalDistribution.description.received")'
+						rgb='10, 132, 255'
+						:dataset='weekdayPerHourChartData.received'
+						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+					/>
+					<HeatMap
+						:description='$t("stats.charts.temporalDistribution.description.sent")'
+						rgb='230, 77, 185'
+						:dataset='weekdayPerHourChartData.sent'
+						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+					/>
+				</div>
+				<BarChart
+					:title='$t("stats.charts.leader.received.title")'
+					:description='$t("stats.charts.leader.received.description")'
+					:datasets='receivedContactLeadersChartData.datasets'
+					:labels='receivedContactLeadersChartData.labels'
+					:horizontal='true'
+				/>
+				<BarChart
+					:title='$t("stats.charts.leader.sent.title")'
+					:description='$t("stats.charts.leader.sent.description")'
+					:datasets='sentContactLeadersChartData.datasets'
+					:labels='sentContactLeadersChartData.labels'
+					:horizontal='true'
+				/>
+			</div>
 		</section>
 		<!-- footer -->
 		<footer class="my-6 text-center">
@@ -130,7 +149,7 @@
 
 <script>
 // internal components
-import { traverseAccount } from './utils';
+import { traverseAccount, extractEmailAddress } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -177,6 +196,7 @@ export default {
 			daytimeData: {},
 			weekdayData: {},
 			weekdayPerHourData: {},
+			contacts: {},
 		}
 	},
 	created () {
@@ -204,6 +224,8 @@ export default {
 				await self.processMessages(f, identities)
 			})).then(() => {
 				this.waiting = false
+				console.log(this.leaderboardReceived)
+				console.log(this.leaderboardSent)
 			})
 		},
 		// process all messages of a folder
@@ -222,10 +244,7 @@ export default {
 			// numbers
 			this.numbers.total++
 			if (m.read === false) this.numbers.unread++
-			let author = m.author
-			if (author.lastIndexOf("<")>=0 && author.lastIndexOf(">")>=0) {
-				author = author.substring(author.lastIndexOf("<") + 1, author.lastIndexOf(">"))
-			}
+			let author = extractEmailAddress(m.author)
 			if (identities.includes(author)) {
 				this.numbers.sent++
 				type = 'sent'
@@ -261,6 +280,29 @@ export default {
 			this.weekdayData[type][wd]++
 			// weekday per hour
 			this.weekdayPerHourData[type][wd][dt]++
+			// contacts
+			switch (type) {
+				case 'sent':
+					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
+					recipients.map(r => {
+						if (!(r in this.contacts['sent'])) {
+							this.contacts['sent'][r] = 1
+						} else {
+							this.contacts['sent'][r]++
+						}
+					})
+					break;
+				case 'received':
+					let a = author.toLowerCase()
+					if (!(a in this.contacts['received'])) {
+						this.contacts['received'][a] = 1
+					} else {
+						this.contacts['received'][a]++
+					}
+					break;
+				default:
+					break;
+			}
 		},
 		reset () {
 			this.numbers = {
@@ -289,6 +331,10 @@ export default {
 			this.weekdayPerHourData = {
 				received: new NumberedObject(7,24),
 				sent: new NumberedObject(7,24),
+			},
+			this.contacts = {
+				received: {},
+				sent: {},
 			}
 		},
 	},
@@ -374,6 +420,16 @@ export default {
 			} else {
 				return 0
 			}
+		},
+		leaderboardReceived () {
+			return Object.entries(this.contacts.received)
+				.sort(([,a],[,b]) => b-a)
+				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+		},
+		leaderboardSent () {
+			return Object.entries(this.contacts.sent)
+				.sort(([,a],[,b]) => b-a)
+				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 		},
 		yearsChartData () {
 			if (this.waiting) {
@@ -516,6 +572,40 @@ export default {
 				}
 			}
 		},
+		receivedContactLeadersChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				const leaderCount = 20
+				let r = this.leaderboardReceived
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r).slice(0, leaderCount), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: Object.keys(r).slice(0, leaderCount)
+				}
+			}
+		},
+		sentContactLeadersChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				const leaderCount = 20
+				let s = this.leaderboardSent
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s).slice(0, leaderCount), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					],
+					labels: Object.keys(s).slice(0, leaderCount)
+				}
+			}
+		},
 	},
 	watch: {
 		activeAccount (a) {
@@ -543,35 +633,39 @@ body
 @media (min-width: 2501px)
 	#stats
 		max-width 2500px
-		.charts
-			grid-template-columns repeat(5, 1fr)
+		#chart-area-main
+			grid-template-columns repeat(6, 1fr)
 @media (max-width: 2500px)
 	#stats
 		max-width 2200px
-		.charts
-			grid-template-columns repeat(4, 1fr)
+		#chart-area-main
+			grid-template-columns repeat(3, 1fr)
 @media (max-width: 2000px)
 	#stats
 		max-width 1750px
-		.charts
+		#chart-area-main
 			grid-template-columns repeat(3, 1fr)
 @media (max-width: 1500px)
 	#stats
 		max-width 1200px
-		.charts
+		#chart-area-main
 			grid-template-columns repeat(2, 1fr)
 @media (min-width: 961px)
 	#stats
 		.numbers
 			max-width 1500px
 			grid-template-columns repeat(6, 1fr)
+		#chart-area-top
+			grid-template-columns 1fr 2fr
 @media (max-width: 960px)
 	#stats
 		.numbers
 			grid-template-columns repeat(3, 1fr)
+		#chart-area-top
+			grid-template-columns 1fr
 @media (max-width: 720px)
 	#stats
-		.charts
+		#chart-area-main
 			grid-template-columns 1fr
 
 // content
@@ -624,14 +718,17 @@ body
 				font-weight 500
 
 	.charts
-		display grid
-		column-gap 2rem
-		row-gap 1rem
-		.chart
-			h2
-				margin-bottom 0
-			p
-				margin-top 0
+		.chart-area
+			display grid
+			column-gap 2rem
+			row-gap 1rem
+			& > *
+				min-height 380px
+			.chart
+				h2
+					margin-bottom 0
+				p
+					margin-top 0
 
 // utilities
 .text-gray
