@@ -75,66 +75,69 @@
 		</section>
 		<!-- charts -->
 		<section v-else class='charts mt-2'>
-			<LineChart
-				:title='$t("stats.charts.years.title")'
-				:description='$t("stats.charts.years.description")'
-				:datasets='yearsChartData.datasets'
-				:labels='yearsChartData.labels'
-			/>
-			<LineChart
-				:title='$t("stats.charts.months.title")'
-				:description='$t("stats.charts.months.description")'
-				:datasets='monthsChartData.datasets'
-				:labels='monthsChartData.labels'
-			/>
-			<BarChart
-				:title='$t("stats.charts.daytime.title")'
-				:description='$t("stats.charts.daytime.description")'
-				:datasets='daytimeChartData.datasets'
-				:labels='daytimeChartData.labels'
-			/>
-			<BarChart
-				:title='$t("stats.charts.weekday.title")'
-				:description='$t("stats.charts.weekday.description")'
-				:datasets='weekdayChartData.datasets'
-				:labels='weekdayChartData.labels'
-			/>
-			<BarChart
-				:title='$t("stats.charts.monthsTotal.title")'
-				:description='$t("stats.charts.monthsTotal.description")'
-				:datasets='monthsTotalChartData.datasets'
-				:labels='monthsTotalChartData.labels'
-			/>
-			<div class="chart-divider"></div>
-			<div class="chart-group">
-				<HeatMap
-					:title='$t("stats.charts.temporalDistribution.title")'
-					:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
-					rgb='10, 132, 255'
-					:dataset='weekdayPerHourChartData.received'
-					:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+			<div id='chart-area-top' class='chart-area'>
+				<LineChart
+					:title='$t("stats.charts.years.title")'
+					:description='$t("stats.charts.years.description")'
+					:datasets='yearsChartData.datasets'
+					:labels='yearsChartData.labels'
 				/>
-				<HeatMap
-					:description='$t("stats.charts.temporalDistribution.descriptionSent")'
-					rgb='230, 77, 185'
-					:dataset='weekdayPerHourChartData.sent'
-					:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+				<LineChart
+					:title='$t("stats.charts.months.title")'
+					:description='$t("stats.charts.months.description")'
+					:datasets='monthsChartData.datasets'
+					:labels='monthsChartData.labels'
 				/>
 			</div>
-			<BarChart
-				:title='$t("stats.charts.leader.received.title")'
-				:description='$t("stats.charts.leader.received.description")'
-				:datasets='receivedContactLeadersChartData.datasets'
-				:labels='receivedContactLeadersChartData.labels'
-				:horizontal='true'
-			/>
-			<BarChart
-				:title='$t("stats.charts.leader.sent.title")'
-				:description='$t("stats.charts.leader.sent.description")'
-				:datasets='sentContactLeadersChartData.datasets'
-				:labels='sentContactLeadersChartData.labels'
-				:horizontal='true'
-			/>
+			<div id='chart-area-main' class='chart-area'>
+				<BarChart
+					:title='$t("stats.charts.daytime.title")'
+					:description='$t("stats.charts.daytime.description")'
+					:datasets='daytimeChartData.datasets'
+					:labels='daytimeChartData.labels'
+				/>
+				<BarChart
+					:title='$t("stats.charts.weekday.title")'
+					:description='$t("stats.charts.weekday.description")'
+					:datasets='weekdayChartData.datasets'
+					:labels='weekdayChartData.labels'
+				/>
+				<BarChart
+					:title='$t("stats.charts.monthsTotal.title")'
+					:description='$t("stats.charts.monthsTotal.description")'
+					:datasets='monthsTotalChartData.datasets'
+					:labels='monthsTotalChartData.labels'
+				/>
+				<div class="chart-group">
+					<HeatMap
+						:title='$t("stats.charts.temporalDistribution.title")'
+						:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
+						rgb='10, 132, 255'
+						:dataset='weekdayPerHourChartData.received'
+						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+					/>
+					<HeatMap
+						:description='$t("stats.charts.temporalDistribution.descriptionSent")'
+						rgb='230, 77, 185'
+						:dataset='weekdayPerHourChartData.sent'
+						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+					/>
+				</div>
+				<BarChart
+					:title='$t("stats.charts.leader.received.title")'
+					:description='$t("stats.charts.leader.received.description")'
+					:datasets='receivedContactLeadersChartData.datasets'
+					:labels='receivedContactLeadersChartData.labels'
+					:horizontal='true'
+				/>
+				<BarChart
+					:title='$t("stats.charts.leader.sent.title")'
+					:description='$t("stats.charts.leader.sent.description")'
+					:datasets='sentContactLeadersChartData.datasets'
+					:labels='sentContactLeadersChartData.labels'
+					:horizontal='true'
+				/>
+			</div>
 		</section>
 		<!-- footer -->
 		<footer class="my-6 text-center">
@@ -630,35 +633,39 @@ body
 @media (min-width: 2501px)
 	#stats
 		max-width 2500px
-		.charts
+		#chart-area-main
 			grid-template-columns repeat(5, 1fr)
 @media (max-width: 2500px)
 	#stats
 		max-width 2200px
-		.charts
+		#chart-area-main
 			grid-template-columns repeat(4, 1fr)
 @media (max-width: 2000px)
 	#stats
 		max-width 1750px
-		.charts
+		#chart-area-main
 			grid-template-columns repeat(3, 1fr)
 @media (max-width: 1500px)
 	#stats
 		max-width 1200px
-		.charts
+		#chart-area-main
 			grid-template-columns repeat(2, 1fr)
 @media (min-width: 961px)
 	#stats
 		.numbers
 			max-width 1500px
 			grid-template-columns repeat(6, 1fr)
+		#chart-area-top
+			grid-template-columns 1fr 2fr
 @media (max-width: 960px)
 	#stats
 		.numbers
 			grid-template-columns repeat(3, 1fr)
+		#chart-area-top
+			grid-template-columns 1fr
 @media (max-width: 720px)
 	#stats
-		.charts
+		#chart-area-main
 			grid-template-columns 1fr
 
 // content
@@ -711,16 +718,17 @@ body
 				font-weight 500
 
 	.charts
-		display grid
-		column-gap 2rem
-		row-gap 1rem
-		&>*
-			min-height 380px
-		.chart
-			h2
-				margin-bottom 0
-			p
-				margin-top 0
+		.chart-area
+			display grid
+			column-gap 2rem
+			row-gap 1rem
+			& > *
+				min-height 380px
+			.chart
+				h2
+					margin-bottom 0
+				p
+					margin-top 0
 
 // utilities
 .text-gray
