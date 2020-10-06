@@ -99,26 +99,28 @@
 				:datasets='weekdayChartData.datasets'
 				:labels='weekdayChartData.labels'
 			/>
-			<HeatMap
-				:title='$t("stats.charts.temporalDistribution.title")'
-				:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
-				rgb='10, 132, 255'
-				:dataset='weekdayPerHourChartData.received'
-				:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
-			/>
-			<HeatMap
-				:title='$t("stats.charts.temporalDistribution.title")'
-				:description='$t("stats.charts.temporalDistribution.descriptionSent")'
-				rgb='230, 77, 185'
-				:dataset='weekdayPerHourChartData.sent'
-				:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
-			/>
 			<BarChart
 				:title='$t("stats.charts.monthsTotal.title")'
 				:description='$t("stats.charts.monthsTotal.description")'
 				:datasets='monthsTotalChartData.datasets'
 				:labels='monthsTotalChartData.labels'
 			/>
+			<div class="chart-divider"></div>
+			<div class="chart-group">
+				<HeatMap
+					:title='$t("stats.charts.temporalDistribution.title")'
+					:description='$t("stats.charts.temporalDistribution.descriptionReceived")'
+					rgb='10, 132, 255'
+					:dataset='weekdayPerHourChartData.received'
+					:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+				/>
+				<HeatMap
+					:description='$t("stats.charts.temporalDistribution.descriptionSent")'
+					rgb='230, 77, 185'
+					:dataset='weekdayPerHourChartData.sent'
+					:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+				/>
+			</div>
 			<BarChart
 				:title='$t("stats.charts.leader.received.title")'
 				:description='$t("stats.charts.leader.received.description")'
