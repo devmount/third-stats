@@ -21,6 +21,8 @@
 		"mailsYear": "wiadomości / rok",
 		"mailsPerDay": "wiadomości dziennie",
 		"mailsWeek": "wiadomości tygodniowo",
+		"loadingInProgress": "Loading of all emails from this account in progress...",
+		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
 				"title": "Rocznie",
@@ -28,10 +30,6 @@
 			},
 			"months": {
 				"title": "Miesięcznie",
-				"description": "Wszystkich wiadomości miesięcznie"
-			},
-			"monthsTotal": {
-				"title": "Miesiąc",
 				"description": "Wszystkich wiadomości miesięcznie"
 			},
 			"daytime": {
@@ -42,10 +40,26 @@
 				"title": "Dni Robocze",
 				"description": "Maile w dni robocze"
 			},
+			"month": {
+				"title": "Miesiąc",
+				"description": "Wszystkich wiadomości miesięcznie"
+			},
 			"temporalDistribution": {
 				"title": "Rozkład w czasie",
-				"descriptionReceived": "Liczba wiadomości przychodzących per dzień per godzina",
-				"descriptionSent": "Liczba wychodzących wiadomości per dzień per godzina"
+				"description": {
+					"received": "Liczba wiadomości przychodzących per dzień per godzina",
+					"sent": "Liczba wychodzących wiadomości per dzień per godzina"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
+				},
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
+				}
 			}
 		},
 		"starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>"

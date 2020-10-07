@@ -21,16 +21,14 @@
 		"mailsYear": "писем в год",
 		"mailsPerDay": "Писем за день",
 		"mailsWeek": "писем в неделю",
+		"loadingInProgress": "Loading of all emails from this account in progress...",
+		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
 				"title": "Годы",
 				"description": "Общее количество писем за год"
 			},
 			"months": {
-				"title": "Месяцы",
-				"description": "Общее количество писем за месяц"
-			},
-			"monthsTotal": {
 				"title": "Месяцы",
 				"description": "Общее количество писем за месяц"
 			},
@@ -42,10 +40,26 @@
 				"title": "День недели",
 				"description": "Количество писем за день недели"
 			},
+			"month": {
+				"title": "Месяцы",
+				"description": "Общее количество писем за месяц"
+			},
 			"temporalDistribution": {
 				"title": "Временное распределение",
-				"descriptionReceived": "Количество входящих писем за день недели за час",
-				"descriptionSent": "Количество исходящих писем за день недели за час"
+				"description": {
+					"received": "Количество входящих писем за день недели за час",
+					"sent": "Количество исходящих писем за день недели за час"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
+				},
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
+				}
 			}
 		},
 		"starAndImprove": "Оцените и улучшите этот проект на <a href='{0}' target='_blank'>Github</a>"

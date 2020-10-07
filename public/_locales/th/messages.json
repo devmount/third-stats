@@ -21,16 +21,14 @@
 		"mailsYear": "Mel̒ / pī",
 		"mailsPerDay": "Mel̒ t̀x wạn",
 		"mailsWeek": "Mel̒ / s̄ạpdāh̄̒",
+		"loadingInProgress": "Loading of all emails from this account in progress...",
+		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
 				"title": "Pī",
 				"description": "Cảnwn xīmel thậngh̄md t̀x pī"
 			},
 			"months": {
-				"title": "Deụ̄xn",
-				"description": "Cảnwn xīmel thậngh̄md t̀x deụ̄xn"
-			},
-			"monthsTotal": {
 				"title": "Deụ̄xn",
 				"description": "Cảnwn xīmel thậngh̄md t̀x deụ̄xn"
 			},
@@ -42,10 +40,26 @@
 				"title": "Wạn ṭhrrmdā",
 				"description": "Cảnwn xīmel t̀x wạn nı s̄ạpdāh̄̒"
 			},
+			"month": {
+				"title": "Deụ̄xn",
+				"description": "Cảnwn xīmel thậngh̄md t̀x deụ̄xn"
+			},
 			"temporalDistribution": {
 				"title": "Kārk ra cāy chạ̀wkhrāw",
-				"descriptionReceived": "Cảnwn xīmel k̄hā k̄hêā t̀x wạn t̀x chạ̀wmong",
-				"descriptionSent": "Cảnwn xīmel k̄hā xxk t̀x wạn t̀x chạ̀wmong"
+				"description": {
+					"received": "Cảnwn xīmel k̄hā k̄hêā t̀x wạn t̀x chạ̀wmong",
+					"sent": "Cảnwn xīmel k̄hā xxk t̀x wạn t̀x chạ̀wmong"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
+				},
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
+				}
 			}
 		},
 		"starAndImprove": "Tid dāw læa prạbprung por cĕkt̒ nī̂ bn <a href='{0}' target='_blank'>Github</a>"
