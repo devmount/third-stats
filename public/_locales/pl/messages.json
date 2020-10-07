@@ -1,67 +1,67 @@
 {
-	"extensionDescription": {
-		"message": "Wspaniale ukazane statystyki dla twoich kont pocztowych w Thunderbirdzie"
-	},
-	"popup": {
-		"message": "",
-		"account": "Konto | Konta",
-		"messagesInFolder": "{0} wiadomości w {1} folderach"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "Wszystkich wiadomości",
-		"withinYears": "z {0} lat",
-		"mailsUnread": "Nieprzeczytanych wiadomości",
-		"niceWork": "Dobra robota!",
-		"percentOfReceived": "{0}% otrzymanych",
-		"mailsReceived": "Otrzymanych",
-		"percentOfTotal": "{0}% wszystkich",
-		"mailsSent": "Wysłanych wiadomości",
-		"mailsPerMonth": "Wiadomości na miesiąc",
-		"mailsYear": "wiadomości / rok",
-		"mailsPerDay": "wiadomości dziennie",
-		"mailsWeek": "wiadomości tygodniowo",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
-		"charts": {
-			"years": {
-				"title": "Rocznie",
-				"description": "Wszystkich wiadomości na rocznie"
-			},
-			"months": {
-				"title": "Miesięcznie",
-				"description": "Wszystkich wiadomości miesięcznie"
-			},
-			"daytime": {
-				"title": "Dziennie",
-				"description": "Wiadomości dziennie"
-			},
-			"weekday": {
-				"title": "Dni Robocze",
-				"description": "Maile w dni robocze"
-			},
-			"month": {
-				"title": "Miesiąc",
-				"description": "Wszystkich wiadomości miesięcznie"
-			},
-			"temporalDistribution": {
-				"title": "Rozkład w czasie",
-				"description": {
-					"received": "Liczba wiadomości przychodzących per dzień per godzina",
-					"sent": "Liczba wychodzących wiadomości per dzień per godzina"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
-				},
-				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
-				}
-			}
-		},
-		"starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>"
-	}
+    "extensionDescription": {
+        "message": "Wspaniale ukazane statystyki dla twoich kont pocztowych w Thunderbirdzie"
+    },
+    "popup": {
+        "message": "",
+        "account": "Konto | Konta",
+        "messagesInFolder": "{0} wiadomości w {1} folderach"
+    },
+    "stats": {
+        "message": "",
+        "mailsTotal": "Wszystkich wiadomości",
+        "withinYears": "z {0} lat",
+        "mailsUnread": "Nieprzeczytanych wiadomości",
+        "niceWork": "Dobra robota!",
+        "percentOfReceived": "{0}% otrzymanych",
+        "mailsReceived": "Otrzymanych",
+        "percentOfTotal": "{0}% wszystkich",
+        "mailsSent": "Wysłanych wiadomości",
+        "mailsPerMonth": "Wiadomości na miesiąc",
+        "mailsYear": "wiadomości / rok",
+        "mailsPerDay": "wiadomości dziennie",
+        "mailsWeek": "wiadomości tygodniowo",
+        "loadingInProgress": "Trwa wczytywanie wszystkich e-maili z tego konta...",
+        "accountEmpty": "To konto jest puste, nie ma żadnych e-maili",
+        "charts": {
+            "years": {
+                "title": "Rocznie",
+                "description": "Wszystkich wiadomości na rocznie"
+            },
+            "months": {
+                "title": "Miesięcznie",
+                "description": "Wszystkich wiadomości miesięcznie"
+            },
+            "daytime": {
+                "title": "Dziennie",
+                "description": "Wiadomości dziennie"
+            },
+            "weekday": {
+                "title": "Dni Robocze",
+                "description": "Maile w dni robocze"
+            },
+            "month": {
+                "title": "Miesiąc",
+                "description": "Wszystkich wiadomości miesięcznie"
+            },
+            "temporalDistribution": {
+                "title": "Rozkład w czasie",
+                "description": {
+                    "received": "Liczba wiadomości przychodzących per dzień per godzina",
+                    "sent": "Liczba wychodzących wiadomości per dzień per godzina"
+                }
+            },
+            "leader": {
+                "title": {
+                    "received": "Najwięcej odebranych od",
+                    "sent": "Najwięcej wysłanych do"
+                },
+                "description": {
+                    "received": "Liczba wysłanych e-maili na odbiorce",
+                    "sent": "Liczba otrzymanych e-maili na odbiorce"
+                }
+            }
+        },
+        "starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>"
+    }
 }
