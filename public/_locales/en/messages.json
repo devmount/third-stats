@@ -32,10 +32,6 @@
 				"title": "Months",
 				"description": "Total number of emails per month"
 			},
-			"monthsTotal": {
-				"title": "Months",
-				"description": "Total number of emails per month"
-			},
 			"daytime": {
 				"title": "Daytime",
 				"description": "Number of emails per time of day"
@@ -43,6 +39,10 @@
 			"weekday": {
 				"title": "Weekday",
 				"description": "Number of emails per day of week"
+			},
+			"month": {
+				"title": "Month",
+				"description": "Number of emails per month of year"
 			},
 			"temporalDistribution": {
 				"title": "Temporal distribution",
@@ -52,13 +52,13 @@
 				}
 			},
 			"leader": {
-				"received": {
-					"title": "Most received from",
-					"description": "Number of emails received per sender"
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
 				},
-				"sent": {
-					"title": "Most sent to",
-					"description": "Number of emails sent per recipient"
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
 				}
 			}
 		},

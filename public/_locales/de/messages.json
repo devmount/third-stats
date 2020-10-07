@@ -32,10 +32,6 @@
 				"title": "Monate",
 				"description": "Gesamtanzahl aller E-Mails pro Monat"
 			},
-			"monthsTotal": {
-				"title": "Monate",
-				"description": "Gesamtanzahl aller E-Mails pro Monat"
-			},
 			"daytime": {
 				"title": "Uhrzeit",
 				"description": "Anzahl aller E-Mails pro Stunde am Tag"
@@ -43,6 +39,10 @@
 			"weekday": {
 				"title": "Wochentag",
 				"description": "Anzahl aller E-Mails pro Wochentag"
+			},
+			"month": {
+				"title": "Monat",
+				"description": "Anzahl aller E-Mails pro Monat im Jahr"
 			},
 			"temporalDistribution": {
 				"title": "Zeitliche Verteilung",
@@ -52,13 +52,13 @@
 				}
 			},
 			"leader": {
-				"received": {
-					"title": "Am meisten erhalten",
-					"description": "Anzahl empfangener E-Mails pro Absender"
+				"title": {
+					"received": "Am meisten erhalten",
+					"sent": "Am meisten gesendet"
 				},
-				"sent": {
-					"title": "Am meisten gesendet",
-					"description": "Anzahl gesendeter E-Mails pro Empfänger"
+				"description": {
+					"received": "Anzahl gesendeter E-Mails pro Empfänger",
+					"sent": "Anzahl empfangener E-Mails pro Absender"
 				}
 			}
 		},

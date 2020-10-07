@@ -21,16 +21,14 @@
 		"mailsYear": "correos/año",
 		"mailsPerDay": "Correos al día",
 		"mailsWeek": "correos/semana",
+		"loadingInProgress": "Loading of all emails from this account in progress...",
+		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
 				"title": "Años",
 				"description": "Total de correos por año"
 			},
 			"months": {
-				"title": "Meses",
-				"description": "Total de correos por mes"
-			},
-			"monthsTotal": {
 				"title": "Meses",
 				"description": "Total de correos por mes"
 			},
@@ -42,10 +40,26 @@
 				"title": "Día de semana",
 				"description": "Total de correos por día de semana"
 			},
+			"month": {
+				"title": "Meses",
+				"description": "Total de correos por mes"
+			},
 			"temporalDistribution": {
 				"title": "Distribución temporal",
-				"descriptionReceived": "Correos recibidos por día de semana y hora",
-				"descriptionSent": "Correos enviados por día de semana y hora"
+				"description": {
+					"received": "Correos recibidos por día de semana y hora",
+					"sent": "Correos enviados por día de semana y hora"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
+				},
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
+				}
 			}
 		},
 		"starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>"

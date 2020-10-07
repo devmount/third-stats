@@ -18,19 +18,19 @@ Vue.mixin({
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 let messages = {
-	ca: require('../public/_locales/ca/messages.json'),
-	cs: require('../public/_locales/cs/messages.json'),
-	de: require('../public/_locales/de/messages.json'),
-	en: require('../public/_locales/en/messages.json'),
-	es: require('../public/_locales/es/messages.json'),
-	fr: require('../public/_locales/fr/messages.json'),
-	gl: require('../public/_locales/gl/messages.json'),
-	ru: require('../public/_locales/ru/messages.json'),
-	hi: require('../public/_locales/hi/messages.json'),
-	it: require('../public/_locales/it/messages.json'),
-	pl: require('../public/_locales/pl/messages.json'),
-	pt: require('../public/_locales/pt/messages.json'),
-	th: require('../public/_locales/th/messages.json'),
+	ca: require('../public/_locales/ca/messages.json'), // Catalan
+	cs: require('../public/_locales/cs/messages.json'), // Czech
+	de: require('../public/_locales/de/messages.json'), // German
+	en: require('../public/_locales/en/messages.json'), // English
+	es: require('../public/_locales/es/messages.json'), // Spanish
+	fr: require('../public/_locales/fr/messages.json'), // French
+	gl: require('../public/_locales/gl/messages.json'), // Galician
+	hi: require('../public/_locales/hi/messages.json'), // Hindi
+	it: require('../public/_locales/it/messages.json'), // Italian
+	pl: require('../public/_locales/pl/messages.json'), // Polish
+	pt: require('../public/_locales/pt/messages.json'), // Portuguese
+	ru: require('../public/_locales/ru/messages.json'), // Russian
+	th: require('../public/_locales/th/messages.json'), // Thai
 }
 const i18n = new VueI18n({
 	locale: browser.i18n.getUILanguage(),

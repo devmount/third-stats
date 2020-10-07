@@ -21,16 +21,14 @@
 		"mailsYear": "correus/any",
 		"mailsPerDay": "Correus al dia",
 		"mailsWeek": "correus/setmana",
+		"loadingInProgress": "Loading of all emails from this account in progress...",
+		"accountEmpty": "This account is empty, no emails here.",
 		"charts": {
 			"years": {
 				"title": "Anys",
 				"description": "Nombre total de corrus electrònics per any"
 			},
 			"months": {
-				"title": "Mesos",
-				"description": "Nombre total de correus electrònics al mes"
-			},
-			"monthsTotal": {
 				"title": "Mesos",
 				"description": "Nombre total de correus electrònics al mes"
 			},
@@ -42,10 +40,26 @@
 				"title": "Dia de la setmana",
 				"description": "Nombre de correus electrònics per dia de la setmana"
 			},
+			"month": {
+				"title": "Mesos",
+				"description": "Nombre total de correus electrònics al mes"
+			},
 			"temporalDistribution": {
 				"title": "Distribució temporal",
-				"descriptionReceived": "Nombre de correus rebuts per dia de setmana i hora",
-				"descriptionSent": "Nombre de correus enviats per dia de setmana i hora"
+				"description": {
+					"received": "Nombre de correus rebuts per dia de setmana i hora",
+					"sent": "Nombre de correus enviats per dia de setmana i hora"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
+				},
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
+				}
 			}
 		},
 		"starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>"
