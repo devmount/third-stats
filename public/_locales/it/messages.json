@@ -21,8 +21,8 @@
 		"mailsYear": "mail/anno",
 		"mailsPerDay": "Mail al giorno",
 		"mailsWeek": "mail/settimana",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "Caricamento di tutte le email da questo account in corso...",
+		"accountEmpty": "Questo account è vuoto, non ci sono email qui.",
 		"charts": {
 			"years": {
 				"title": "Anni",
@@ -53,15 +53,15 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "Più ricevute da",
+					"sent": "Più inviate a"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "Numero di email ricevute per indirizzo",
+					"sent": "Numero di email inviate per indirizzo"
 				}
 			}
 		},
-		"starAndImprove": "Aggiungi una Stella e milgiora questo progetto su <a href='{0}' target='_blank'>Github</a>"
+		"starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>"
 	}
 }
