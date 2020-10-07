@@ -21,8 +21,8 @@
 		"mailsYear": "maily/rok",
 		"mailsPerDay": "mailů za den",
 		"mailsWeek": "e-maily/týden",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "Načítám všechny e-mail z tohoto účtu...",
+		"accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
 		"charts": {
 			"years": {
 				"title": "Let",
@@ -53,12 +53,12 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "Nejvíce přijato",
+					"sent": "Nejvíce odesláno"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "Počet e-mailů odeslaných jednotlivým příjemcům",
+					"sent": "Počet e-mailů přijatých od jednotlivých odesílatelů"
 				}
 			}
 		},
