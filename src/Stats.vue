@@ -76,12 +76,14 @@
 		<!-- charts -->
 		<section v-else class='charts mt-2'>
 			<div id='chart-area-top' class='chart-area'>
+				<!-- emails per year over total time -->
 				<LineChart
 					:title='$t("stats.charts.years.title")'
 					:description='$t("stats.charts.years.description")'
 					:datasets='yearsChartData.datasets'
 					:labels='yearsChartData.labels'
 				/>
+				<!-- emails per month over total time -->
 				<LineChart
 					:title='$t("stats.charts.months.title")'
 					:description='$t("stats.charts.months.description")'
@@ -90,25 +92,29 @@
 				/>
 			</div>
 			<div id='chart-area-main' class='chart-area'>
+				<!-- emails per time of day -->
 				<BarChart
 					:title='$t("stats.charts.daytime.title")'
 					:description='$t("stats.charts.daytime.description")'
 					:datasets='daytimeChartData.datasets'
 					:labels='daytimeChartData.labels'
 				/>
+				<!-- emails per day of week -->
 				<BarChart
 					:title='$t("stats.charts.weekday.title")'
 					:description='$t("stats.charts.weekday.description")'
 					:datasets='weekdayChartData.datasets'
 					:labels='weekdayChartData.labels'
 				/>
+				<!-- emails per month of year -->
 				<BarChart
-					:title='$t("stats.charts.monthsTotal.title")'
-					:description='$t("stats.charts.monthsTotal.description")'
-					:datasets='monthsTotalChartData.datasets'
-					:labels='monthsTotalChartData.labels'
+					:title='$t("stats.charts.month.title")'
+					:description='$t("stats.charts.month.description")'
+					:datasets='monthChartData.datasets'
+					:labels='monthChartData.labels'
 				/>
 				<div class="chart-group">
+					<!-- emails per weekday per hour received -->
 					<HeatMap
 						:title='$t("stats.charts.temporalDistribution.title")'
 						:description='$t("stats.charts.temporalDistribution.description.received")'
@@ -116,6 +122,7 @@
 						:dataset='weekdayPerHourChartData.received'
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 					/>
+					<!-- emails per weekday per hour sent -->
 					<HeatMap
 						:description='$t("stats.charts.temporalDistribution.description.sent")'
 						rgb='230, 77, 185'
@@ -123,16 +130,18 @@
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 					/>
 				</div>
+				<!-- contacts most emails received from -->
 				<BarChart
-					:title='$t("stats.charts.leader.received.title")'
-					:description='$t("stats.charts.leader.received.description")'
+					:title='$t("stats.charts.leader.title.received")'
+					:description='$t("stats.charts.leader.description.received")'
 					:datasets='receivedContactLeadersChartData.datasets'
 					:labels='receivedContactLeadersChartData.labels'
 					:horizontal='true'
 				/>
+				<!-- contacts most emails sent to -->
 				<BarChart
-					:title='$t("stats.charts.leader.sent.title")'
-					:description='$t("stats.charts.leader.sent.description")'
+					:title='$t("stats.charts.leader.title.sent")'
+					:description='$t("stats.charts.leader.description.sent")'
 					:datasets='sentContactLeadersChartData.datasets'
 					:labels='sentContactLeadersChartData.labels'
 					:horizontal='true'
@@ -483,7 +492,7 @@ export default {
 				}
 			}
 		},
-		monthsTotalChartData () {
+		monthChartData () {
 			if (this.waiting) {
 				return {
 					datasets: [],
