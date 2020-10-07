@@ -21,8 +21,8 @@
 		"mailsYear": "писем в год",
 		"mailsPerDay": "Писем за день",
 		"mailsWeek": "писем в неделю",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "Идет обработка писем...",
+		"accountEmpty": "Пустой аккаунт, писем нет.",
 		"charts": {
 			"years": {
 				"title": "Годы",
@@ -34,7 +34,7 @@
 			},
 			"daytime": {
 				"title": "День",
-				"description": "Количество писем за каждый день"
+				"description": "Количество писем по часам дня"
 			},
 			"weekday": {
 				"title": "День недели",
@@ -53,12 +53,12 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "Наибольшее число входящих",
+					"sent": "Наибольшее число исходящих"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "Количество писем, полученных от",
+					"sent": "Количество писем, отправленных адресату"
 				}
 			}
 		},
