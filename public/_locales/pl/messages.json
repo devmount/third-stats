@@ -21,8 +21,8 @@
 		"mailsYear": "wiadomości / rok",
 		"mailsPerDay": "wiadomości dziennie",
 		"mailsWeek": "wiadomości tygodniowo",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "Trwa wczytywanie wszystkich e-maili z tego konta...",
+		"accountEmpty": "To konto jest puste, nie ma żadnych e-maili.",
 		"charts": {
 			"years": {
 				"title": "Rocznie",
@@ -53,12 +53,12 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "Najwięcej odebranych od",
+					"sent": "Najwięcej wysłanych do"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "Liczba wysłanych e-maili na odbiorce",
+					"sent": "Liczba otrzymanych e-maili na odbiorce"
 				}
 			}
 		},
