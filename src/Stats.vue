@@ -642,6 +642,8 @@ body
 		max-width 2500px
 		#chart-area-main
 			grid-template-columns repeat(6, 1fr)
+			.chart
+				min-width calc((2500px - (2rem * 7))  / 6)
 @media (max-width: 2500px)
 	#stats
 		max-width 2200px
@@ -664,6 +666,8 @@ body
 			grid-template-columns repeat(6, 1fr)
 		#chart-area-top
 			grid-template-columns 1fr 2fr
+			.chart
+				min-width 30vw
 @media (max-width: 960px)
 	#stats
 		.numbers
