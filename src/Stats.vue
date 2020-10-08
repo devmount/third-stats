@@ -733,6 +733,7 @@ body
 			& > *
 				min-height 380px
 			.chart
+				min-width 0
 				h2
 					margin-bottom 0
 				p
