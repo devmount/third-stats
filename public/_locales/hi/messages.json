@@ -21,8 +21,8 @@
 		"mailsYear": "मेल्स/साल",
 		"mailsPerDay": "मेल्स प्रति दिन",
 		"mailsWeek": "मेल्स/सप्ताह",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "इस खाते के सभी मेल प्राप्त किए जा रहे है...",
+		"accountEmpty": "इस खाते में कोई मेल नहीं है।",
 		"charts": {
 			"years": {
 				"title": "साल",
@@ -53,12 +53,12 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "द्वारा सबसे ज़्यादा प्राप्त किए गए है",
+					"sent": "को सबसे ज़्यादा भेजे गए है"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "प्रत्येक प्राप्तकर्ता को भेजे गए मेल।",
+					"sent": "प्रत्येक प्रेषक के द्वारा पाए गए मेल।"
 				}
 			}
 		},
