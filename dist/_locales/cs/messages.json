@@ -21,16 +21,14 @@
 		"mailsYear": "maily/rok",
 		"mailsPerDay": "mailů za den",
 		"mailsWeek": "e-maily/týden",
+		"loadingInProgress": "Načítám všechny e-mail z tohoto účtu...",
+		"accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
 		"charts": {
 			"years": {
 				"title": "Let",
 				"description": "Celkový počet e-mailů za rok"
 			},
 			"months": {
-				"title": "Měsíce",
-				"description": "Celkový počet e-mailů za měsíc"
-			},
-			"monthsTotal": {
 				"title": "Měsíce",
 				"description": "Celkový počet e-mailů za měsíc"
 			},
@@ -42,10 +40,26 @@
 				"title": "Všední den",
 				"description": "Počet e-mailů za den v týdnu"
 			},
+			"month": {
+				"title": "Měsíce",
+				"description": "Celkový počet e-mailů za měsíc"
+			},
 			"temporalDistribution": {
 				"title": "Časová distribuce",
-				"descriptionReceived": "Počet příchozích e-mailů za den v týdnu za hodinu",
-				"descriptionSent": "Počet odchozích e-mailů za den v týdnu za hodinu"
+				"description": {
+					"received": "Počet příchozích e-mailů za den v týdnu za hodinu",
+					"sent": "Počet odchozích e-mailů za den v týdnu za hodinu"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Nejvíce přijato",
+					"sent": "Nejvíce odesláno"
+				},
+				"description": {
+					"received": "Počet e-mailů odeslaných jednotlivým příjemcům",
+					"sent": "Počet e-mailů přijatých od jednotlivých odesílatelů"
+				}
 			}
 		},
 		"starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>"

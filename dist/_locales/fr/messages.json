@@ -21,16 +21,14 @@
 		"mailsYear": "messages/ans",
 		"mailsPerDay": "Messages par jour",
 		"mailsWeek": "messages/semaine",
+		"loadingInProgress": "Chargement des emails du compte en cours...",
+		"accountEmpty": "Ce compte est vide, il n'y a pas d'emails.",
 		"charts": {
 			"years": {
 				"title": "Ans",
 				"description": "Nombre total de messages par an"
 			},
 			"months": {
-				"title": "Mois",
-				"description": "Nombre total de messages par mois"
-			},
-			"monthsTotal": {
 				"title": "Mois",
 				"description": "Nombre total de messages par mois"
 			},
@@ -42,10 +40,26 @@
 				"title": "Jour de la semaine",
 				"description": "Nombre de messages par jour de la semaine"
 			},
+			"month": {
+				"title": "Mois",
+				"description": "Nombre total de messages par mois"
+			},
 			"temporalDistribution": {
 				"title": "Distribution temporelle",
-				"descriptionReceived": "Nombre de messages entrants par jour de la semaine par heure",
-				"descriptionSent": "Nombre de messages sortants par jour de la semaine par heure"
+				"description": {
+					"received": "Nombre de messages entrants par jour de la semaine par heure",
+					"sent": "Nombre de messages sortants par jour de la semaine par heure"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "La plupart ont été reçus de",
+					"sent": "La plupart ont été envoyés à"
+				},
+				"description": {
+					"received": "Nombre d'emails envoyés par destinataire",
+					"sent": "Nombre d'emails envoyés par expéditeur"
+				}
 			}
 		},
 		"starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>"

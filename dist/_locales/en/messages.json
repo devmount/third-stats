@@ -32,10 +32,6 @@
 				"title": "Months",
 				"description": "Total number of emails per month"
 			},
-			"monthsTotal": {
-				"title": "Months",
-				"description": "Total number of emails per month"
-			},
 			"daytime": {
 				"title": "Daytime",
 				"description": "Number of emails per time of day"
@@ -44,10 +40,26 @@
 				"title": "Weekday",
 				"description": "Number of emails per day of week"
 			},
+			"month": {
+				"title": "Month",
+				"description": "Number of emails per month of year"
+			},
 			"temporalDistribution": {
 				"title": "Temporal distribution",
-				"descriptionReceived": "Number of incoming emails per weekday per hour",
-				"descriptionSent": "Number of outgoing emails per weekday per hour"
+				"description": {
+					"received": "Number of incoming emails per weekday per hour",
+					"sent": "Number of outgoing emails per weekday per hour"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Most received from",
+					"sent": "Most sent to"
+				},
+				"description": {
+					"received": "Number of emails sent per recipient",
+					"sent": "Number of emails received per sender"
+				}
 			}
 		},
 		"starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"

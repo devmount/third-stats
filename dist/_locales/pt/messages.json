@@ -21,16 +21,14 @@
 		"mailsYear": "E-mails/ano",
 		"mailsPerDay": "E-mails por dia",
 		"mailsWeek": "E-mails/semana",
+		"loadingInProgress": "Carregamento de todos os e-mails dessa conta em andamento...",
+		"accountEmpty": "Essa conta está vazia, sem e-mails aqui.",
 		"charts": {
 			"years": {
 				"title": "Anos",
 				"description": "Total de e-mails por ano"
 			},
 			"months": {
-				"title": "Meses",
-				"description": "Total de e-mails por mês"
-			},
-			"monthsTotal": {
 				"title": "Meses",
 				"description": "Total de e-mails por mês"
 			},
@@ -42,10 +40,26 @@
 				"title": "Dia da Semana",
 				"description": "Número de e-mails por dia da semana"
 			},
+			"month": {
+				"title": "Meses",
+				"description": "Total de e-mails por mês"
+			},
 			"temporalDistribution": {
 				"title": "Distribuição Temporal",
-				"descriptionReceived": "Número de e-mails recebidos por semana por hora",
-				"descriptionSent": "Número de e-mails enviados por semana por hora"
+				"description": {
+					"received": "Número de e-mails recebidos por semana por hora",
+					"sent": "Número de e-mails enviados por semana por hora"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Mais recebido de",
+					"sent": "Mais enviado para"
+				},
+				"description": {
+					"received": "Número de e-mails enviado por destinatário",
+					"sent": "Número de e-mails recebidos por remetente"
+				}
 			}
 		},
 		"starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>"

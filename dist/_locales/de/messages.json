@@ -32,10 +32,6 @@
 				"title": "Monate",
 				"description": "Gesamtanzahl aller E-Mails pro Monat"
 			},
-			"monthsTotal": {
-				"title": "Monate",
-				"description": "Gesamtanzahl aller E-Mails pro Monat"
-			},
 			"daytime": {
 				"title": "Uhrzeit",
 				"description": "Anzahl aller E-Mails pro Stunde am Tag"
@@ -44,10 +40,26 @@
 				"title": "Wochentag",
 				"description": "Anzahl aller E-Mails pro Wochentag"
 			},
+			"month": {
+				"title": "Monat",
+				"description": "Anzahl aller E-Mails pro Monat im Jahr"
+			},
 			"temporalDistribution": {
 				"title": "Zeitliche Verteilung",
-				"descriptionReceived": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
-				"descriptionSent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
+				"description": {
+					"received": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
+					"sent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Am meisten erhalten",
+					"sent": "Am meisten gesendet"
+				},
+				"description": {
+					"received": "Anzahl gesendeter E-Mails pro Empfänger",
+					"sent": "Anzahl empfangener E-Mails pro Absender"
+				}
 			}
 		},
 		"starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"

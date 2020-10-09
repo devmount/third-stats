@@ -21,16 +21,14 @@
 		"mailsYear": "mail/anno",
 		"mailsPerDay": "Mail al giorno",
 		"mailsWeek": "mail/settimana",
+		"loadingInProgress": "Caricamento di tutte le email da questo account in corso...",
+		"accountEmpty": "Questo account è vuoto, non ci sono email qui.",
 		"charts": {
 			"years": {
 				"title": "Anni",
 				"description": "Numero di email all'anno"
 			},
 			"months": {
-				"title": "Mesi",
-				"description": "Numero di mail al mese"
-			},
-			"monthsTotal": {
 				"title": "Mesi",
 				"description": "Numero di mail al mese"
 			},
@@ -42,12 +40,28 @@
 				"title": "Giorni",
 				"description": "Numero di mail per giorno della settimana"
 			},
+			"month": {
+				"title": "Mesi",
+				"description": "Numero di mail al mese"
+			},
 			"temporalDistribution": {
 				"title": "Distribuzione temporale",
-				"descriptionReceived": "Numero di email ricevute per giorno della settimana e orario",
-				"descriptionSent": "Numero di email inviate per giorno della settimana e orario"
+				"description": {
+					"received": "Numero di email ricevute per giorno della settimana e orario",
+					"sent": "Numero di email inviate per giorno della settimana e orario"
+				}
+			},
+			"leader": {
+				"title": {
+					"received": "Più ricevute da",
+					"sent": "Più inviate a"
+				},
+				"description": {
+					"received": "Numero di email ricevute per indirizzo",
+					"sent": "Numero di email inviate per indirizzo"
+				}
 			}
 		},
-		"starAndImprove": "Aggiungi una Stella e milgiora questo progetto su <a href='{0}' target='_blank'>Github</a>"
+		"starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>"
 	}
 }
