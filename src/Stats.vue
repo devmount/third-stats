@@ -121,6 +121,7 @@
 						rgb='10, 132, 255'
 						:dataset='weekdayPerHourChartData.received'
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+						class='mb-05'
 					/>
 					<!-- emails per weekday per hour sent -->
 					<HeatMap
@@ -574,8 +575,8 @@ export default {
 				r.push(r.shift())
 				s.push(s.shift())
 				return {
-					received: r,
-					sent: s,
+					received: { label: this.$t('stats.mailsReceived'), data: r },
+					sent: { label: this.$t('stats.mailsSent'), data: s },
 				}
 			}
 		},
@@ -764,6 +765,8 @@ body
 	margin-right 1rem
 .mr-2
 	margin-right 2rem
+.mb-05
+	margin-bottom .5rem
 .my-6
 	margin-top 6rem
 	margin-bottom 6rem

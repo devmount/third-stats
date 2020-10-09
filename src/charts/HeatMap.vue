@@ -7,18 +7,20 @@
 		:style="'grid-template-columns: repeat(' + width + ', 1fr); grid-template-rows: repeat(' + height + ', 1fr);'"
 	>
 		<template v-for='(y, n, i) in labels.y' :key='i'>
-			<div class="text-gray text-small text-right mr-1">{{ y }}</div>
+			<div class="y-label text-gray text-small text-right">
+				<div>{{ y }}</div>
+			</div>
 			<template v-for='(x, m, j) in labels.x' :key='j'>
 				<div
-					:style="'background: rgba(' + rgb + ', ' + opacity(dataset[n][m]) + ')'"
-					:data-tooltip="y + ', ' + (x) + ':00\n' + dataset[n][m] + ' mails'"
+					:style="'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ')'"
+					:data-tooltip="y + ', ' + (x) + ':00\n' + dataset.label + ': ' + dataset.data[n][m]"
 					class='cell tooltip'
 				></div>
 			</template>
 		</template>
 		<div></div>
-		<div v-for='(x, k) in labels.x' :key='k' class="text-gray text-small text-center">
-			<div v-if='k%2==1' class="x-label">{{ x }}</div>
+		<div v-for='(x, k) in labels.x' :key='k' class="x-label text-gray text-small text-center">
+			<div v-if='k%2==1'>{{ x }}</div>
 		</div>
 	</div>
 </div>
@@ -30,7 +32,7 @@ export default {
 		title: String,
 		description: String,
 		rgb: String,
-		dataset: Object,
+		dataset: Object, // {data: [[],[],...], label: ''}
 		labels: Object, // {y: [], x: []}
 	},
 	methods: {
@@ -43,8 +45,8 @@ export default {
 		// maximum value in given dataset
 		max () {
 			let max = 0
-			for (let d in this.dataset) {
-				let m = Math.max(...this.dataset[d])
+			for (let d in this.dataset.data) {
+				let m = Math.max(...this.dataset.data[d])
 				max = m > max ? m : max
 			}
 			return max
@@ -91,5 +93,12 @@ export default {
 					opacity 1
 					transform translate(-50%, -.4rem)
 	.x-label
-		margin-top .5em
+		&>div
+			margin-top .8em
+	.y-label
+		display flex
+		justify-content flex-end
+		align-items center
+		&>div
+			margin-right 1em
 </style>
