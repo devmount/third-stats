@@ -215,7 +215,7 @@ export default {
 	},
 	methods: {
 		getAccounts: async function () {
-			let accounts = await browser.accounts.list()
+			let accounts = await messenger.accounts.list()
 			// check if a specific account was given
 			let uri = window.location.search.substring(1)
 			let params = new URLSearchParams(uri)
@@ -226,7 +226,7 @@ export default {
 		},
 		processAccount: async function (id) {
 			this.waiting = true
-			let a = await browser.accounts.get(id)
+			let a = await messenger.accounts.get(id)
 			let identities = a.identities.map(i => i.email)
 			let folders = traverseAccount(a)
 			let self = this
@@ -234,15 +234,16 @@ export default {
 				await self.processMessages(f, identities)
 			})).then(() => {
 				this.waiting = false
+				console.log(messenger)
 			})
 		},
 		// process all messages of a folder
 		processMessages: async function (folder, identities) {
 			let self = this
-			let page = await browser.messages.list(folder)
+			let page = await messenger.messages.list(folder)
 			page.messages.map(m => self.analyzeMessage(m, identities))
 			while (page.id) {
-				page = await browser.messages.continueList(page.id)
+				page = await messenger.messages.continueList(page.id)
 				page.messages.map(m => self.analyzeMessage(m, identities))
 			}
 		},

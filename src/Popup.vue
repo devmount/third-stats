@@ -38,7 +38,7 @@ export default {
 	methods: {
 		// function to get all thunderbird accounts
 		getAccounts: async function () {
-			let accounts = await browser.accounts.list()
+			let accounts = await messenger.accounts.list()
 			// calculate folder and message count and append to account object
 			let self = this
 			Promise.all(accounts.map(async a => {
@@ -56,10 +56,10 @@ export default {
 		},
 		// count all messages of a folder
 		countMessages: async function (folder) {
-			let page = await browser.messages.list(folder)
+			let page = await messenger.messages.list(folder)
 			let count = page.messages.length
 			while (page.id) {
-				page = await browser.messages.continueList(page.id)
+				page = await messenger.messages.continueList(page.id)
 				count += page.messages.length
 			}
 			return count
@@ -67,7 +67,7 @@ export default {
 		openTab (accountPosition) {
 			let url = 'stats.html'
 			if (accountPosition) url += '?a=' + accountPosition
-			browser.tabs.create({
+			messenger.tabs.create({
 				active: true,
 				url: url
 			})

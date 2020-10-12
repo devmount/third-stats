@@ -34,7 +34,7 @@ let messages = {
 	'zh-tw': require('../public/_locales/zh-tw/messages.json'), // Traditional Chinese
 }
 const i18n = new VueI18n({
-	locale: browser.i18n.getUILanguage(),
+	locale: messenger.i18n.getUILanguage(),
 	fallbackLocale: 'en',
 	messages,
 })
