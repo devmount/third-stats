@@ -163,7 +163,7 @@
 
 <script>
 // internal components
-import { traverseAccount, extractEmailAddress, LegacyPrefs } from './utils';
+import { traverseAccount, extractEmailAddress } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
