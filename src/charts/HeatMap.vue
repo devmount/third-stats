@@ -7,7 +7,7 @@
 		:style="
 			'grid-template-columns: auto repeat(' + width + ', 1fr);'
 			+ 'grid-template-rows: repeat(' + height + ', 1fr) auto;'
-			+ 'grid-gap: ' + spacing + 'px;'
+			+ 'grid-gap: ' + spacing + ';'
 		"
 	>
 		<template v-for='(y, n, i) in labels.y' :key='i'>
