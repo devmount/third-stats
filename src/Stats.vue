@@ -119,6 +119,7 @@
 						:title='$t("stats.charts.temporalDistribution.title")'
 						:description='$t("stats.charts.temporalDistribution.description.received")'
 						rgb='10, 132, 255'
+						:spacing='1'
 						:dataset='weekdayPerHourChartData.received'
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 						class='mb-05'
@@ -127,6 +128,7 @@
 					<HeatMap
 						:description='$t("stats.charts.temporalDistribution.description.sent")'
 						rgb='230, 77, 185'
+						:spacing='1'
 						:dataset='weekdayPerHourChartData.sent'
 						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
 					/>
@@ -234,7 +236,6 @@ export default {
 				await self.processMessages(f, identities)
 			})).then(() => {
 				this.waiting = false
-				console.log(messenger)
 			})
 		},
 		// process all messages of a folder

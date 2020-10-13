@@ -4,7 +4,11 @@
 	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
 	<div 
 		class="heatmap"
-		:style="'grid-template-columns: repeat(' + width + ', 1fr); grid-template-rows: repeat(' + height + ', 1fr);'"
+		:style="
+			'grid-template-columns: auto repeat(' + width + ', 1fr);'
+			+ 'grid-template-rows: repeat(' + height + ', 1fr) auto;'
+			+ 'grid-gap: ' + spacing + 'px;'
+		"
 	>
 		<template v-for='(y, n, i) in labels.y' :key='i'>
 			<div class="y-label text-gray text-small text-right">
@@ -32,6 +36,7 @@ export default {
 		title: String,
 		description: String,
 		rgb: String,
+		spacing: Number,
 		dataset: Object, // {data: [[],[],...], label: ''}
 		labels: Object, // {y: [], x: []}
 	},
@@ -53,11 +58,11 @@ export default {
 		},
 		// total number of cells in x direction
 		width () {
-			return this.labels.x.length+1
+			return this.labels.x.length
 		},
 		// total number of cells in y direction
 		height () {
-			return this.labels.y.length+1
+			return this.labels.y.length
 		},
 	}
 }
@@ -99,11 +104,11 @@ export default {
 					transform translate(-50%, -.4rem)
 	.x-label
 		&>div
-			margin-top .8em
+			padding-top 5px
 	.y-label
 		display flex
 		justify-content flex-end
 		align-items center
 		&>div
-			margin-right 1em
+			padding-right 5px
 </style>
