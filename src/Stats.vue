@@ -640,6 +640,12 @@ body
 	font-weight 300
 	font-size 16px
 	overflow-x hidden
+a, a:visited
+	text-decoration none
+	transition color .2s
+	color #0a84ff
+	&:hover
+		color #e64db9
 
 // layout
 @media (min-width: 2501px)
