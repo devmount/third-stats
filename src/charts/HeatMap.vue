@@ -67,8 +67,13 @@ export default {
 .heatmap
 	display grid
 	.cell
-		height 25px
+		position relative
+		box-sizing border-box
 		transition background .8s ease
+		&::before
+			content ''
+			display block
+			padding-top 100%
 		&.tooltip
 			position relative
 			&::after
