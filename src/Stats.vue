@@ -163,7 +163,7 @@
 
 <script>
 // internal components
-import { traverseAccount, extractEmailAddress } from './utils';
+import { traverseAccount, extractEmailAddress, LegacyPrefs } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -211,13 +211,23 @@ export default {
 			weekdayData: {},
 			weekdayPerHourData: {},
 			contacts: {},
+			preferences: {
+				week: {
+					start: 1
+				}
+			}
 		}
 	},
 	created () {
 		this.reset()
+		this.getPreferences()
 		this.getAccounts()
 	},
 	methods: {
+		getPreferences: async function () {
+			let c = await messenger.LegacyPrefs.getUserPref("calendar.week.start")
+			this.preferences.week.start = c
+		},
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
 			// check if a specific account was given

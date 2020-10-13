@@ -1,0 +1,52 @@
+[
+  {
+    "namespace": "LegacyPrefs",
+    "functions": [
+      {
+        "name": "getUserPref",
+        "type": "function",
+        "async": true,
+        "description": "Gets a user value from the legacy pref system.",
+        "parameters": [
+          {
+            "name": "aName",
+            "type": "string",
+            "description": "Name of the preference."
+          }
+        ]
+			},
+			{
+        "name": "getPref",
+        "type": "function",
+        "async": true,
+        "description": "Gets a value from the legacy pref system.",
+        "parameters": [
+          {
+            "name": "aName",
+            "type": "string",
+            "description": "Name of the preference."
+          },
+          {
+            "name": "aFallback",
+            "type": "string",
+            "description": "Value to be returned, if the requested preference does not exist.",
+            "optional": true,
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "clearUserPref",
+        "type": "function",
+        "description": "Removes a user value from the legacy pref system.",
+        "parameters": [
+          {
+            "name": "aName",
+            "type": "string",
+            "description": "Name of the preference."
+          }
+        ]
+      }
+    ]
+  }
+]
