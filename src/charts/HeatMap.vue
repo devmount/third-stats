@@ -16,7 +16,10 @@
 			</div>
 			<template v-for='(x, m, j) in labels.x' :key='j'>
 				<div
-					:style="'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ')'"
+					:style="
+						'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ');'
+						+ 'border-radius: ' + rounding + ';'
+					"
 					:data-tooltip="y + ', ' + (x) + ':00\n' + dataset.label + ': ' + dataset.data[n][m]"
 					class='cell tooltip'
 				></div>
@@ -36,7 +39,8 @@ export default {
 		title: String,
 		description: String,
 		rgb: String,
-		spacing: Number,
+		spacing: String,
+		rounding: String,
 		dataset: Object, // {data: [[],[],...], label: ''}
 		labels: Object, // {y: [], x: []}
 	},
