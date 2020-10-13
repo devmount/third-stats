@@ -122,7 +122,7 @@
 						spacing='1px'
 						rounding='5px'
 						:dataset='weekdayPerHourChartData.received'
-						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+						:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
 						class='mb-05'
 					/>
 					<!-- emails per weekday per hour sent -->
@@ -132,7 +132,7 @@
 						spacing='1px'
 						rounding='5px'
 						:dataset='weekdayPerHourChartData.sent'
-						:labels='{ y: weekdayNames, x: Array.from(Array(24).keys())}'
+						:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
 					/>
 				</div>
 				<!-- contacts most emails received from -->
@@ -211,13 +211,23 @@ export default {
 			weekdayData: {},
 			weekdayPerHourData: {},
 			contacts: {},
+			preferences: {
+				week: {
+					start: 1
+				}
+			}
 		}
 	},
 	created () {
 		this.reset()
+		this.getPreferences()
 		this.getAccounts()
 	},
 	methods: {
+		getPreferences: async function () {
+			let c = await messenger.LegacyPrefs.getUserPref("calendar.week.start")
+			this.preferences.week.start = c
+		},
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
 			// check if a specific account was given
@@ -365,7 +375,7 @@ export default {
 		weekdayNames () {
 			let names = []
 			for (let wd = 1; wd <= 7; wd++) {
-				let d = new Date(1970, 1, 1+wd) // choose a date to retrieve weekdays from, starting on a Monday
+				let d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
 				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'short' }))
 			}
 			return names
@@ -554,15 +564,19 @@ export default {
 			} else {
 				let r = Object.values(this.weekdayData.received)
 				let s = Object.values(this.weekdayData.sent)
-				// start week with monday instead of sunday
-				r.push(r.shift())
-				s.push(s.shift())
+				let labels = [...this.weekdayNames]
+				// start week with user defined day of week
+				for (let d = 0; d < this.preferences.week.start; d++) {
+					r.push(r.shift())
+					s.push(s.shift())
+					labels.push(labels.shift())
+				}
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 						{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: this.weekdayNames
+					labels: labels
 				}
 			}
 		},
@@ -575,12 +589,17 @@ export default {
 			} else {
 				let r = Object.values(this.weekdayPerHourData.received)
 				let s = Object.values(this.weekdayPerHourData.sent)
-				// start week with monday instead of sunday
-				r.push(r.shift())
-				s.push(s.shift())
+				let labels = [...this.weekdayNames]
+				// start week with user defined day of week
+				for (let d = 0; d < this.preferences.week.start; d++) {
+					r.push(r.shift())
+					s.push(s.shift())
+					labels.push(labels.shift())
+				}
 				return {
 					received: { label: this.$t('stats.mailsReceived'), data: r },
 					sent: { label: this.$t('stats.mailsSent'), data: s },
+					labels: labels
 				}
 			}
 		},
