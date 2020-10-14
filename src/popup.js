@@ -22,6 +22,7 @@ let messages = {
 	'pl':    require('../public/_locales/pl/messages.json'),    // Polish
 	'pt':    require('../public/_locales/pt/messages.json'),    // Portuguese
 	'ru':    require('../public/_locales/ru/messages.json'),    // Russian
+	'sv':    require('../public/_locales/sv/messages.json'),    // Swedish
 	'th':    require('../public/_locales/th/messages.json'),    // Thai
 	'zh-tw': require('../public/_locales/zh-tw/messages.json'), // Traditional Chinese
 }

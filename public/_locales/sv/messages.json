@@ -1,6 +1,6 @@
 {
 	"extensionDescription": {
-		"message": "Vackert visualiserad statistik fˆr dina e-postkonton i Thunderbird"
+		"message": "Vackert visualiserad statistik f√∂r dina e-postkonton i Thunderbird"
 	},
 	"popup": {
 		"message": "",
@@ -10,58 +10,58 @@
 	"stats": {
 		"message": "",
 		"mailsTotal": "Mejl totalt",
-		"withinYears": "inom {0} Âr",
-		"mailsUnread": "Ol‰sta mejl",
+		"withinYears": "inom {0} √•r",
+		"mailsUnread": "Ol√§sta mejl",
 		"niceWork": "Bra jobbat!",
 		"percentOfReceived": "{0}% av mottagna",
 		"mailsReceived": "Mejl mottagna",
 		"percentOfTotal": "{0}% av total",
 		"mailsSent": "Mejl skickade",
-		"mailsPerMonth": "Mejl per mÂnad",
-		"mailsYear": "mejl/Âr",
+		"mailsPerMonth": "Mejl per m√•nad",
+		"mailsYear": "mejl/√•r",
 		"mailsPerDay": "Mejl per dag",
 		"mailsWeek": "mejl/vecka",
-		"loadingInProgress": "Inl‰sning av alla mejl frÂn detta konto pÂgÂr...",
-		"accountEmpty": "Detta konto ‰r tomt, inga mejl hittas.",
+		"loadingInProgress": "Inl√§sning av alla mejl fr√•n detta konto p√•g√•r...",
+		"accountEmpty": "Detta konto √§r tomt, inga mejl hittas.",
 		"charts": {
 			"years": {
-				"title": "≈r",
-				"description": "Totala antalet mejl per Âr"
+				"title": "√Ör",
+				"description": "Totala antalet mejl per √•r"
 			},
 			"months": {
-				"title": "MÂnader",
-				"description": "Totala antalet mejl per mÂnad"
+				"title": "M√•nader",
+				"description": "Totala antalet mejl per m√•nad"
 			},
 			"daytime": {
 				"title": "Dag",
-				"description": "Antal mejl per tid pÂ dagen"
+				"description": "Antal mejl per tid p√• dagen"
 			},
 			"weekday": {
 				"title": "Veckodag",
-				"description": "Antal mejl per dag pÂ veckan"
+				"description": "Antal mejl per dag p√• veckan"
 			},
 			"month": {
-				"title": "MÂnad",
-				"description": "Antal mejl per mÂnad pÂ Âret"
+				"title": "M√•nad",
+				"description": "Antal mejl per m√•nad p√• √•ret"
 			},
 			"temporalDistribution": {
-				"title": "Timlig fˆrdelning",
+				"title": "Timlig f√∂rdelning",
 				"description": {
 					"received": "Antal inkomna mejl per veckodag per timme",
-					"sent": "Antal utgÂende mejl per veckodag per timme"
+					"sent": "Antal utg√•ende mejl per veckodag per timme"
 				}
 			},
 			"leader": {
 				"title": {
-					"received": "Mest mottaget frÂn",
+					"received": "Mest mottaget fr√•n",
 					"sent": "Mest skickat till"
 				},
 				"description": {
 					"received": "Antal mejl skickat per mottagare",
-					"sent": "Antal mejl mottagna per avs‰ndare"
+					"sent": "Antal mejl mottagna per avs√§ndare"
 				}
 			}
 		},
-		"starAndImprove": "Ge en 'Stj‰rna' och fˆrb‰ttra detta projekt pÂ <a href='{0}' target='_blank'>Github</a>"
+		"starAndImprove": "Ge en 'Stj√§rna' och f√∂rb√§ttra detta projekt p√• <a href='{0}' target='_blank'>Github</a>"
 	}
 }
