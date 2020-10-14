@@ -1,67 +1,67 @@
 {
 	"extensionDescription": {
-		"message": "S̄t̄hiti thī̀ mxng h̄ĕn dị̂ xỳāng s̄wyngām s̄ảh̄rạb bạỵchī xīmel Thunderbird k̄hxng khuṇ"
+		"message": "สถิติภาพที่สวยงามให้เมล Thunderbird ของคุณ"
 	},
 	"popup": {
 		"message": "",
-		"account": "Bạỵchī p̄hū̂ chı̂ | Bạỵchī",
-		"messagesInFolder": "{0} K̄ĥxkhwām nı {1} Foldex"
+		"account": "บัญชีผู้ใช้ | บัญชี",
+		"messagesInFolder": "{0} ข้อความใน {1} โฟลเดอร์"
 	},
 	"stats": {
 		"message": "",
-		"mailsTotal": "Xīmel thậngh̄md",
-		"withinYears": "P̣hāynı {0} Pī",
-		"mailsUnread": "Xīmel yạng mị̀ dị̂ x̀ān",
-		"niceWork": "Thảdị̂ dī māk!",
-		"percentOfReceived": "{0}% K̄hxng thī̀ dị̂ rạb",
-		"mailsReceived": "Dị̂ rạb xīmel læ̂w",
-		"percentOfTotal": "{0}% K̄hxng thậngh̄md",
-		"mailsSent": "S̄̀ng xīmel læ̂w",
-		"mailsPerMonth": "Xīmel t̀x deụ̄xn",
-		"mailsYear": "Mel̒ / pī",
-		"mailsPerDay": "Mel̒ t̀x wạn",
-		"mailsWeek": "Mel̒ / s̄ạpdāh̄̒",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"mailsTotal": "เมลทั้งหมด",
+		"withinYears": "ภายใน {0} ปี",
+		"mailsUnread": "เมลที่ไม่ได้อ่าน",
+		"niceWork": "ทำได้ดีมาก!",
+		"percentOfReceived": "{0}% ของที่ได้รับ",
+		"mailsReceived": "เมลที่ได้รับ",
+		"percentOfTotal": "{0}% ของทั้งหมด",
+		"mailsSent": "ส่งเมลแล้ว",
+		"mailsPerMonth": "เมลต่อเดือน",
+		"mailsYear": "เมล / ปี",
+		"mailsPerDay": "เมล / วัน",
+		"mailsWeek": "เมล / สัปดาห์",
+		"loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้...",
+		"accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
 		"charts": {
 			"years": {
-				"title": "Pī",
-				"description": "Cảnwn xīmel thậngh̄md t̀x pī"
+				"title": "ปี",
+				"description": "จำนวนอีเมลทั้งหมดต่อปี"
 			},
 			"months": {
-				"title": "Deụ̄xn",
-				"description": "Cảnwn xīmel thậngh̄md t̀x deụ̄xn"
+				"title": "เดือน",
+				"description": "จำนวนอีเมลทั้งหมดต่อเดือน"
 			},
 			"daytime": {
-				"title": "Klāngwạn",
-				"description": "Cảnwn xīmel t̀x ch̀wng welā k̄hxng wạn"
+				"title": "วัน",
+				"description": "จำนวนอีเมลต่อวัน"
 			},
 			"weekday": {
-				"title": "Wạn ṭhrrmdā",
-				"description": "Cảnwn xīmel t̀x wạn nı s̄ạpdāh̄̒"
+				"title": "สัปดาห์",
+				"description": "จำนวนอีเมลต่อสัปดาห์"
 			},
 			"month": {
-				"title": "Deụ̄xn",
-				"description": "Cảnwn xīmel thậngh̄md t̀x deụ̄xn"
+				"title": "เดือน",
+				"description": "จำนวนอีเมลต่อเดือน"
 			},
 			"temporalDistribution": {
-				"title": "Kārk ra cāy chạ̀wkhrāw",
+				"title": "การกระจายชั่วขณะ",
 				"description": {
-					"received": "Cảnwn xīmel k̄hā k̄hêā t̀x wạn t̀x chạ̀wmong",
-					"sent": "Cảnwn xīmel k̄hā xxk t̀x wạn t̀x chạ̀wmong"
+					"received": "จำนวนเมลที่รับต่อวันต่อชั่วโมง",
+					"sent": "จำนวนเมลที่ส่งต่อวันต่อชั่วโมง"
 				}
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "รับมากที่สุดจาก",
+					"sent": "ส่งมากที่สุดถึง"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "จำนวนเมลที่ส่งจากผู้ส่ง",
+					"sent": "จำนวนเมลที่รับจากผู้ส่ง"
 				}
 			}
 		},
-		"starAndImprove": "Tid dāw læa prạbprung por cĕkt̒ nī̂ bn <a href='{0}' target='_blank'>Github</a>"
+		"starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>"
 	}
 }
