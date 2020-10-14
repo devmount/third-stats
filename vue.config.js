@@ -21,7 +21,11 @@ module.exports = {
 					PACKAGE_VERSION: '"' + version + '"'
 				}
 			})
-		]
+		],
+		performance: {
+			maxEntrypointSize: 1024000,
+			maxAssetSize: 1024000
+		}
 	},
 	publicPath: '',
 }
