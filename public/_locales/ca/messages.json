@@ -21,8 +21,8 @@
 		"mailsYear": "correus/any",
 		"mailsPerDay": "Correus al dia",
 		"mailsWeek": "correus/setmana",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs...",
+		"accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
 		"charts": {
 			"years": {
 				"title": "Anys",
@@ -53,12 +53,12 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "La majoria rebuts de",
+					"sent": "La majoria enviats a"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "Nombre de correus electrònics enviats per destinatari",
+					"sent": "Nombre de correus electrònics rebuts per remitent"
 				}
 			}
 		},
