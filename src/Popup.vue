@@ -2,7 +2,7 @@
 	<div id='popup'>
 		<div class='container'>
 			<div v-if='waiting' class='loading'></div>
-			<h3 @click.prevent="openTab(0)">
+			<h3 @click.prevent="openTab(0)" class="text-hover-accent2">
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
 				<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -12,9 +12,16 @@
 				</svg>
 			</h3>
 			<div class='accounts'>
-				<div v-for='(a, i) in accounts' :key='a.id' @click.prevent="openTab(i)">
+				<div
+					class="background-gray background-hover-accent2 text-hover-highlight shadow"
+					v-for='(a, i) in accounts'
+					:key='a.id'
+					@click.prevent="openTab(i)"
+				>
 					<div>{{ a.name }}</div>
-					<div class='text-small text-secondary'>{{ $t('popup.messagesInFolder', [a.messageCount, a.folderCount] ) }}</div>
+					<div class='text-small text-secondary text-hover-highlight'>
+						{{ $t('popup.messagesInFolder', [a.messageCount, a.folderCount] ) }}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -77,15 +84,10 @@ export default {
 </script>
 
 <style lang='stylus'>
+@require "assets/global"
+
 // general
 html, body
-	margin 0
-	padding 0
-	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-	background #2f2f33
-	color #f9f9fa
-	font-weight 300
-	font-size 16px
 	min-width 300px
 	overflow hidden
 
@@ -101,46 +103,20 @@ html, body
 			font-size 20px
 			transition color .2s
 			cursor pointer
-			&:hover
-				color #0865e0
 			&>*
 				vertical-align middle
 		.loading
 			float right
-			height 16px
-			width 16px
-			border 4px solid rgba(150, 150, 150, 0.2)
-			border-radius 50%
-			border-top-color rgb(150, 150, 150)
-			animation rotate 1s 0s infinite linear
+			loader(16px)
 		.accounts
 			display flex
 			flex-direction column
 			& > div
 				padding 8px 10px
 				margin-bottom 20px
-				background #38383d
 				border-radius 4px
-				box-shadow 0 8px 15px -8px #1d1d1f
 				transition all .2s
 				&:hover
-					background #0865e0
 					cursor pointer
-					color white
-					.text-secondary
-						color white
 
-// utilities
-.text-small
-	font-size .8em
-.text-secondary
-	color #cdcdd3
-.mr-1
-	margin-right 1rem
-
-@keyframes rotate
-	0%
-		transform rotate(0)
-	100%
-		transform rotate(360deg)
 </style>
