@@ -8,6 +8,7 @@ $c-gray      = #8a8a97
 $b-gray      = #38383d
 $b-accent    = #2a2a2e
 $b-normal    = #202023
+$b-secundary = #000000
 
 // general
 html, body
@@ -128,3 +129,28 @@ loader(size)
 	border-radius 50%
 	border-top-color $c-gray
 	animation rotate 1s 0s infinite linear
+
+// tooltip
+tooltip()
+	position relative
+	&::after
+		background rgba($b-secundary, .75)
+		border-radius 3px
+		bottom 100%
+		color $c-highlight
+		content attr(data-tooltip)
+		display block
+		font-size .75em
+		left 50%
+		opacity 0
+		padding .5em
+		pointer-events none
+		position absolute
+		transform translate(-50%, .8rem)
+		transition opacity .2s, transform .2s
+		white-space pre
+		z-index 5
+	&:focus, &:hover
+		&::after
+			opacity 1
+			transform translate(-50%, -.4rem)
