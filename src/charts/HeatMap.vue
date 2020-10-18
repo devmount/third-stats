@@ -73,6 +73,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@require "../assets/global"
+
 .heatmap
 	display grid
 	.cell
@@ -84,28 +86,7 @@ export default {
 			display block
 			padding-top 100%
 		&.tooltip
-			position relative
-			&::after
-				background rgba(0,0,0, .75)
-				border-radius 3px
-				bottom 100%
-				color white
-				content attr(data-tooltip)
-				display block
-				font-size .75em
-				left 50%
-				opacity 0
-				padding .5em
-				pointer-events none
-				position absolute
-				transform translate(-50%, .8rem)
-				transition opacity .2s, transform .2s
-				white-space pre
-				z-index 5
-			&:focus, &:hover
-				&::after
-					opacity 1
-					transform translate(-50%, -.4rem)
+			tooltip()
 	.x-label
 		&>div
 			padding-top 5px

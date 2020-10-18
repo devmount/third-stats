@@ -2,7 +2,7 @@
 	<div id='stats'>
 		<h1>
 			<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-			<select v-model='activeAccount' name='account' :disabled='waiting'>
+			<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow focus-shadow">
 				<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 			</select>
 			<span v-if='waiting' class='loading'></span>
@@ -28,14 +28,14 @@
 			</div>
 			<!-- received -->
 			<div>
-				<div class='text-gray text-secondary'>{{ $t('stats.mailsReceived') }}</div>
-				<div class='featured text-secondary'>{{ numbers.received.toLocaleString() }}</div>
+				<div class='text-accent2'>{{ $t('stats.mailsReceived') }}</div>
+				<div class='featured text-accent2'>{{ numbers.received.toLocaleString() }}</div>
 				<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
 			</div>
 			<!-- sent -->
 			<div>
-				<div class='text-gray text-primary'>{{ $t('stats.mailsSent') }}</div>
-				<div class='featured text-primary'>{{ numbers.sent.toLocaleString() }}</div>
+				<div class='text-accent1'>{{ $t('stats.mailsSent') }}</div>
+				<div class='featured text-accent1'>{{ numbers.sent.toLocaleString() }}</div>
 				<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
 			</div>
 			<!-- per month / per year -->
@@ -648,23 +648,11 @@ export default {
 </script>
 
 <style lang='stylus'>
+@require "assets/global"
+
 // general
-html, body
-	margin 0
-	padding 0
 body
-	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-	background #202023
-	color #f9f9fa
-	font-weight 300
-	font-size 16px
 	overflow-x hidden
-a, a:visited
-	text-decoration none
-	transition color .2s
-	color #0a84ff
-	&:hover
-		color #e64db9
 
 // layout
 @media (min-width: 2501px)
@@ -719,29 +707,11 @@ a, a:visited
 		align-items center
 		justify-content start
 		.loading
-			display inline-block
-			height 20px
-			width 20px
-			border 4px solid #2a2a2e
-			border-radius 50%
-			border-top-color #8a8a97
-			animation rotate 1s 0s infinite linear
+			loader(20px)
 		.loading, .ready
 			justify-self center
 		select
 			justify-self end
-			appearance none
-			border none
-			border-radius 4px
-			color inherit
-			padding .5rem
-			outline none
-			background #2a2a2e
-			box-shadow 0 8px 15px -8px #1d1d1f
-			&:focus
-				box-shadow: 0 0 0 .35rem rgba(#f9f9fa, .2)
-			&[disabled]
-				color #8a8a97
 
 	.numbers
 		display grid
@@ -769,66 +739,4 @@ a, a:visited
 				p
 					margin-top 0
 
-// utilities
-.text-gray
-	color #8a8a97
-.text-primary
-	color #e64db9
-.text-secondary
-	color #0a84ff
-.text-center
-	text-align center
-.text-right
-	text-align right
-.text-small
-	font-size .75em
-.mr-1
-	margin-right 1rem
-.mt-1
-	margin-top 1rem
-.mt-2
-	margin-top 2rem
-.mt-5
-	margin-top 5rem
-.mr-1
-	margin-right 1rem
-.mr-2
-	margin-right 2rem
-.mb-05
-	margin-bottom .5rem
-.my-6
-	margin-top 6rem
-	margin-bottom 6rem
-.m-0-auto
-	margin 0 auto
-.d-block
-	display block
-
-// icons
-.icon
-	stroke-width 1.5
-	stroke #494951
-	fill none
-	stroke-linecap round
-	stroke-linejoin round
-
-	&.icon-huge
-		width 10rem
-		height 10rem
-
-	&.icon-animated-color-transition
-		animation colorFading 1s 0s infinite ease alternate
-
-
-// animations
-@keyframes rotate
-	0%
-		transform rotate(0)
-	100%
-		transform rotate(360deg)
-@keyframes colorFading
-	0%
-		stroke #0a84ff
-	100%
-		stroke #e64db9
 </style>
