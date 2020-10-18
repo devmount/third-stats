@@ -1,19 +1,30 @@
+// definitions
+$c-accent1   = #e64db9
+$c-accent2   = #0a84ff
+$c-highlight = #ffffff
+$c-normal    = #f9f9fa
+$c-secondary = #cdcdd3
+$c-gray      = #8a8a97
+$b-gray      = #38383d
+$b-accent    = #2a2a2e
+$b-normal    = #202023
+
 // general
 html, body
 	margin 0
 	padding 0
 body
 	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-	background #202023
-	color #f9f9fa
+	background $b-normal
+	color $c-normal
 	font-weight 300
 	font-size 16px
 a, a:visited
 	text-decoration none
 	transition color .2s
-	color #0a84ff
+	color $c-accent2
 	&:hover
-		color #e64db9
+		color $c-accent1
 
 // animations
 @keyframes rotate
@@ -23,24 +34,24 @@ a, a:visited
 		transform rotate(360deg)
 @keyframes colorFading
 	0%
-		stroke #0a84ff
+		stroke $c-accent2
 	100%
-		stroke #e64db9
+		stroke $c-accent1
 
-// colors
+// coloring
 .text-accent1,
 .text-hover-accent1:hover
-	color #e64db9
+	color $c-accent1
 .text-accent2,
 .text-hover-accent2:hover
-	color #0a84ff
+	color $c-accent2
 .text-secondary
-	color #cdcdd3
+	color $c-secondary
 .text-gray
-	color #8a8a97
+	color $c-gray
 .text-highlight,
 .text-hover-highlight:hover
-	color white
+	color $c-highlight
 .text-center
 	text-align center
 .text-right
@@ -48,9 +59,9 @@ a, a:visited
 .text-small
 	font-size .75em
 .background-hover-accent2:hover
-	background #0a84ff
+	background $c-accent2
 .background-gray
-	background #38383d
+	background $b-gray
 
 // positioning
 .mr-1
@@ -78,7 +89,7 @@ a, a:visited
 // icons
 .icon
 	stroke-width 1.5
-	stroke #494951
+	stroke $b-gray
 	fill none
 	stroke-linecap round
 	stroke-linejoin round
@@ -94,26 +105,26 @@ a, a:visited
 .shadow
 	box-shadow 0 8px 15px -8px #1d1d1f
 .focus-shadow:focus
-	box-shadow: 0 0 0 .35rem rgba(#f9f9fa, .2)
+	box-shadow: 0 0 0 .35rem rgba($c-normal, .2)
 
 // form
 select
 	appearance none
-	background #2a2a2e
+	background $b-accent
 	border none
 	border-radius 4px
 	color inherit
 	padding .5rem
 	outline none
 	&[disabled]
-		color #8a8a97
+		color $c-gray
 
 // loader
 loader(size)
 	display inline-block
 	height size
 	width size
-	border 4px solid #2a2a2e
+	border 4px solid $b-accent
 	border-radius 50%
-	border-top-color #8a8a97
+	border-top-color $c-gray
 	animation rotate 1s 0s infinite linear
