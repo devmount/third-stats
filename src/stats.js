@@ -33,6 +33,7 @@ let messages = {
 	'ru':    require('../public/_locales/ru/messages.json'),    // Russian
 	'sv':    require('../public/_locales/sv/messages.json'),    // Swedish
 	'th':    require('../public/_locales/th/messages.json'),    // Thai
+	'zh-cn': require('../public/_locales/zh-cn/messages.json'), // Simplified Chinese
 	'zh-tw': require('../public/_locales/zh-tw/messages.json'), // Traditional Chinese
 }
 const i18n = new VueI18n({
