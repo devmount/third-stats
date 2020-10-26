@@ -2,7 +2,7 @@
 	<div id='popup'>
 		<div class='container pt-1'>
 			<div v-if='waiting' class='dark loading'></div>
-			<h3 @click.prevent="openTab(0)" class="text-hover-accent2">
+			<h3 @click.prevent="openTab(0)" class="text-hover-accent2 cursor-pointer">
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
 				<svg class='icon icon-thin icon-small' viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -13,7 +13,7 @@
 			</h3>
 			<div class='accounts'>
 				<div
-					class="background-gray background-hover-accent2 text-hover-highlight shadow"
+					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow"
 					v-for='(a, i) in accounts'
 					:key='a.id'
 					@click.prevent="openTab(i)"
@@ -110,7 +110,6 @@ html, body
 			font-weight 300
 			font-size 20px
 			transition color .2s
-			cursor pointer
 			&>*
 				vertical-align middle
 		.loading
@@ -124,7 +123,5 @@ html, body
 				margin-bottom 20px
 				border-radius 4px
 				transition all .2s
-				&:hover
-					cursor pointer
 
 </style>

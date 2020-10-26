@@ -12,7 +12,6 @@
 					<path d='M5 12l5 5l10 -10' />
 				</svg>
 			</h1>
-			<button @click='preferences.dark = !preferences.dark'>Switch</button>
 			<!-- fetured numbers -->
 			<section class='numbers mt-2'>
 				<!-- total -->
@@ -157,7 +156,28 @@
 			</section>
 			<!-- footer -->
 			<footer class="mt-6 text-center">
-				<div class='text-gray'>ThirdStats v{{ appVersion }}</div>
+				<div class='text-gray'>
+					<span class='text-middle mr-1'>ThirdStats v{{ appVersion }}</span>
+					<svg
+						v-if='preferences.dark'
+						class='icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer'
+						viewBox='0 0 24 24'
+						@click.prevent='preferences.dark = false'
+					>
+						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+						<circle cx='12' cy='12' r='4' />
+						<path d='M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7' />
+					</svg>
+					<svg
+						v-else
+						class='icon icon-light icon-text icon-thin d-inline text-middle cursor-pointer'
+						viewBox='0 0 24 24'
+						@click.prevent='preferences.dark = true'
+					>
+						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+						<path d='M12 3c0.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z' />
+					</svg>
+				</div>
 				<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
 			</footer>
 		</div>
@@ -218,7 +238,7 @@ export default {
 				week: {
 					start: 1
 				},
-				dark: false
+				dark: true
 			}
 		}
 	},

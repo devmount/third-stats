@@ -12,6 +12,7 @@ mode = {
 		secondary1: #cdcdd3
 		secondary2: #000000
 		shade:      #1d1d1f
+		icon:       #ffeb3b
 	}
 	light: {
 		accent1:    #e64db9
@@ -25,6 +26,7 @@ mode = {
 		secondary1: #2a2a2e
 		secondary2: #ffffff
 		shade:      #6d6d6f
+		icon:       #607d8b
 	}
 }
 
@@ -87,6 +89,8 @@ for m, c in mode
 // positioning and size
 .text-center
 	text-align: center
+.text-middle
+	vertical-align: middle
 .text-right
 	text-align: right
 .text-small
@@ -120,6 +124,12 @@ for m, c in mode
 	padding-bottom: 6rem
 .d-block
 	display: block
+.d-inline
+	display: inline
+
+// cursor
+.cursor-pointer
+	cursor: pointer
 
 // icons
 .icon
@@ -151,6 +161,9 @@ for m, c in mode
 
 	for m, c in mode
 		.{m} &
+			&.icon-{m}
+				color: c.icon
+
 			&.icon-gray
 				stroke: c.gray2
 
