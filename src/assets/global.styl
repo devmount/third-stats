@@ -1,156 +1,217 @@
-// definitions
-$c-accent1   = #e64db9
-$c-accent2   = #0a84ff
-$c-highlight = #ffffff
-$c-normal    = #f9f9fa
-$c-secondary = #cdcdd3
-$c-gray      = #8a8a97
-$b-gray      = #38383d
-$b-accent    = #2a2a2e
-$b-normal    = #202023
-$b-secondary = #000000
+// color definitions
+mode = {
+	dark: {
+		accent1:    #e64db9
+		accent2:    #0a84ff
+		back:       #202023
+		front:      #f9f9fa
+		gray1:      #8a8a97
+		gray2:      #38383d
+		gray3:      #2a2a2e
+		highlight:  #ffffff
+		secondary1: #cdcdd3
+		secondary2: #000000
+		shade:      #1d1d1f
+	}
+	light: {
+		accent1:    #e64db9
+		accent2:    #0a84ff
+		back:       #f9f9fa
+		front:      #202023
+		gray1:      #58585d
+		gray2:      #8a8a97
+		gray3:      #cdcdd3
+		highlight:  #000000
+		secondary1: #2a2a2e
+		secondary2: #ffffff
+		shade:      #6d6d6f
+	}
+}
 
 // general
 html, body
-	margin 0
-	padding 0
+	margin: 0
+	padding: 0
 body
-	font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-	background $b-normal
-	color $c-normal
-	font-weight 300
-	font-size 16px
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+	font-weight: 300
+	font-size: 16px
 a, a:visited
-	text-decoration none
-	transition color .2s
-	color $c-accent2
-	&:hover
-		color $c-accent1
+	text-decoration: none
+	transition: color .2s
+	for m, c in mode
+		.{m} &
+			color: c.accent2
+			&:hover
+				color: c.accent1
 
 // animations
 @keyframes rotate
 	0%
-		transform rotate(0)
+		transform: rotate(0)
 	100%
-		transform rotate(360deg)
-@keyframes colorFading
-	0%
-		stroke $c-accent2
-	100%
-		stroke $c-accent1
+		transform: rotate(360deg)
+
+for m, c in mode
+	@keyframes {m}ColorFading
+		0%
+			stroke: c.accent2
+		100%
+			stroke: c.accent1
 
 // coloring
-.text-accent1,
-.text-hover-accent1:hover
-	color $c-accent1
-.text-accent2,
-.text-hover-accent2:hover
-	color $c-accent2
-.text-secondary
-	color $c-secondary
-.text-gray
-	color $c-gray
-.text-highlight,
-.text-hover-highlight:hover
-	color $c-highlight
-.text-center
-	text-align center
-.text-right
-	text-align right
-.text-small
-	font-size .75em
-.background-hover-accent2:hover
-	background $c-accent2
-.background-gray
-	background $b-gray
+for m, c in mode
+	.{m}
+		.text-normal, &.text-normal
+			color: c.front
+		.text-accent1,
+		.text-hover-accent1:hover
+			color: c.accent1 !important
+		.text-accent2,
+		.text-hover-accent2:hover
+			color: c.accent2 !important
+		.text-secondary
+			color: c.secondary1
+		.text-gray
+			color: c.gray1
+		.text-highlight,
+		.text-hover-highlight:hover
+			color: c.highlight !important
+		.background-normal, &.background-normal
+			background: c.back
+		.background-hover-accent2:hover
+			background: c.accent2 !important
+		.background-gray
+			background: c.gray2
 
-// positioning
+// positioning and size
+.text-center
+	text-align: center
+.text-right
+	text-align: right
+.text-small
+	font-size: .75em
 .mr-1
-	margin-right 1rem
+	margin-right: 1rem
 .mt-1
-	margin-top 1rem
+	margin-top: 1rem
 .mt-2
-	margin-top 2rem
+	margin-top: 2rem
 .mt-5
-	margin-top 5rem
+	margin-top: 5rem
 .mr-1
-	margin-right 1rem
+	margin-right: 1rem
 .mr-2
-	margin-right 2rem
+	margin-right: 2rem
 .mb-05
-	margin-bottom .5rem
+	margin-bottom: .5rem
+.mt-6
+	margin-top: 6rem
 .my-6
-	margin-top 6rem
-	margin-bottom 6rem
+	margin-top: 6rem
+	margin-bottom: 6rem
 .m-0-auto
-	margin 0 auto
+	margin: 0 auto
+.pt-1
+	padding-top: 1rem
+.pt-2
+	padding-top: 2rem
+.pb-6
+	padding-bottom: 6rem
 .d-block
-	display block
+	display: block
 
 // icons
 .icon
-	stroke-width 1.5
-	stroke $b-gray
-	fill none
-	stroke-linecap round
-	stroke-linejoin round
+	stroke-width: 1.5
+	fill: none
+	stroke: currentColor
+	stroke-linecap: round
+	stroke-linejoin: round
+	width: 2rem
+	height: 2rem
+
+	&.icon-text
+		width: 1rem
+		height: 1rem
+
+	&.icon-small
+		width: 1.5rem
+		height: 1.5rem
 
 	&.icon-huge
-		width 10rem
-		height 10rem
+		width: 10rem
+		height: 10rem
+	
+	&.icon-thin
+		stroke-width: 1
+	
+	&.icon-strong
+		stroke-width: 3
 
-	&.icon-animated-color-transition
-		animation colorFading 1s 0s infinite ease alternate
+	for m, c in mode
+		.{m} &
+			&.icon-gray
+				stroke: c.gray2
+
+			&.icon-animated-color-transition
+				animation: unquote(m+ColorFading) 1s 0s infinite ease alternate
 
 // shadows
-.shadow
-	box-shadow 0 8px 15px -8px #1d1d1f
-.focus-shadow:focus
-	box-shadow: 0 0 0 .35rem rgba($c-normal, .2)
+for m, c in mode
+	.{m}
+		.shadow
+			box-shadow: 0 8px 15px -8px c.shade
+		.focus-shadow:focus
+			box-shadow: 0 0 0 .35rem rgba(c.front, .1)
 
 // form
 select
-	appearance none
-	background $b-accent
-	border none
-	border-radius 4px
-	color inherit
-	padding .5rem
-	outline none
-	&[disabled]
-		color $c-gray
+	appearance: none
+	border: none
+	border-radius: 4px
+	color: inherit
+	padding: .5rem
+	outline: none
+	for m, c in mode
+		.{m} &
+			background: c.gray3
+			&.disabled
+				color: c.gray1
 
 // loader
 loader(size)
-	display inline-block
-	height size
-	width size
-	border 4px solid $b-accent
-	border-radius 50%
-	border-top-color $c-gray
-	animation rotate 1s 0s infinite linear
+	display: inline-block
+	height: size
+	width: size
+	border-radius: 50%
+	animation: rotate 1s 0s infinite linear
+	for m, c in mode
+		&.{m}
+			border: 4px solid c.gray3
+			border-top-color: c.gray1
 
 // tooltip
 tooltip()
-	position relative
+	position: relative
 	&::after
-		background rgba($b-secondary, .75)
-		border-radius 3px
-		bottom 100%
-		color $c-highlight
-		content attr(data-tooltip)
-		display block
-		font-size .75em
-		left 50%
-		opacity 0
-		padding .5em
-		pointer-events none
-		position absolute
-		transform translate(-50%, .8rem)
-		transition opacity .2s, transform .2s
-		white-space pre
-		z-index 5
+		border-radius: 3px
+		bottom: 100%
+		content: attr(data-tooltip)
+		display: block
+		font-size: .75em
+		left: 50%
+		opacity: 0
+		padding: .5em
+		pointer-events: none
+		position: absolute
+		transform: translate(-50%, .8rem)
+		transition: opacity .2s, transform .2s
+		white-space: pre
+		z-index: 5
+		color: mode.dark.highlight
+		background: rgba(mode.dark.secondary2, .75)
 	&:focus, &:hover
 		&::after
-			opacity 1
-			transform translate(-50%, -.4rem)
+			opacity: 1
+			transform: translate(-50%, -.4rem)

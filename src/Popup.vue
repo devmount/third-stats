@@ -1,10 +1,10 @@
 <template>
 	<div id='popup'>
-		<div class='container'>
-			<div v-if='waiting' class='loading'></div>
+		<div class='container pt-1'>
+			<div v-if='waiting' class='dark loading'></div>
 			<h3 @click.prevent="openTab(0)" class="text-hover-accent2">
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
-				<svg width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<svg class='icon icon-thin icon-small' viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
 					<line x1="10" y1="14" x2="20" y2="4" />
@@ -37,6 +37,7 @@ export default {
 		return {
 			accounts: [],
 			waiting: true,
+			dark: true
 		}
 	},
 	created () {
@@ -79,6 +80,11 @@ export default {
 				url: url
 			})
 		}
+	},
+	computed: {
+		scheme () {
+			return this.dark ? 'dark' : 'light'
+		}
 	}
 }
 </script>
@@ -97,8 +103,10 @@ html, body
 	height 100%
 
 	.container
-		padding 0 20px
+		padding-left 20px
+		padding-right 20px
 		h3
+			margin-top 0
 			font-weight 300
 			font-size 20px
 			transition color .2s
@@ -107,7 +115,7 @@ html, body
 				vertical-align middle
 		.loading
 			float right
-			loader(16px)
+			loader 16px
 		.accounts
 			display flex
 			flex-direction column
