@@ -32,8 +32,9 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Sum of received and sent emails per daytime and per weekday
 - Temporal distribution of received and sent emails per weekday per hour
 - Leaderboards of most contacted email addresses
-- Switch between all Thunderbird accounts
-- Language support for Catalan, Czech, English, French, Galician, German, Hindi, Italian, Polish, Portuguese, Russian, Spanish, Thai and Traditional Chinese
+- Switch between all Thunderbird accounts (local accounts included)
+- Switch between a dark and a light theme
+- Language support for Catalan, Czech, English, French, Galician, German, Hindi, Italian, Polish, Portuguese, Russian, Spanish, Thai, simplified Chinese and traditional Chinese
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme on Windows:
 
