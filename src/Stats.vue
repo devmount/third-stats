@@ -298,7 +298,10 @@ export default {
 				this.numbers.received++
 				type = 'received'
 			}
-			if (m.date.getTime() < this.numbers.start.getTime()) this.numbers.start = m.date
+			// calculate starting date (= date of oldest email)
+			if (m.date && m.date.getTime() > 0 && m.date.getTime() < this.numbers.start.getTime()) {
+				this.numbers.start = m.date
+			}
 			// years
 			let y = m.date.getFullYear()
 			if (!(y in this.yearsData[type])) {
