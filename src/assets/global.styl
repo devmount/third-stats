@@ -38,6 +38,8 @@ body
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 	font-weight: 300
 	font-size: 16px
+	*
+		transition: color .2s, background .2s, background-color .2s
 a, a:visited
 	text-decoration: none
 	transition: color .2s
@@ -66,18 +68,24 @@ for m, c in mode
 	.{m}
 		.text-normal, &.text-normal
 			color: c.front
-		.text-accent1,
-		.text-hover-accent1:hover
+		.text-accent1
+			color: c.accent1
+		.text-hover-accent1:hover,
+		.text-hover-accent1:hover *
 			color: c.accent1 !important
-		.text-accent2,
-		.text-hover-accent2:hover
+		.text-accent2
+			color: c.accent2
+		.text-hover-accent2:hover,
+		.text-hover-accent2:hover *
 			color: c.accent2 !important
 		.text-secondary
 			color: c.secondary1
 		.text-gray
 			color: c.gray1
-		.text-highlight,
-		.text-hover-highlight:hover
+		.text-highlight
+			color: c.highlight
+		.text-hover-highlight:hover,
+		.text-hover-highlight:hover *
 			color: c.highlight !important
 		.background-normal, &.background-normal
 			background: c.back

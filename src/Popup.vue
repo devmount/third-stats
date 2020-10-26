@@ -19,7 +19,7 @@
 					@click.prevent="openTab(i)"
 				>
 					<div>{{ a.name }}</div>
-					<div class='text-small text-secondary text-hover-highlight'>
+					<div class='text-small text-secondary'>
 						{{ $t('popup.messagesInFolder', [a.messageCount, a.folderCount] ) }}
 					</div>
 				</div>
