@@ -1,163 +1,186 @@
 <template>
-	<div id='stats'>
-		<h1>
-			<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-			<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow focus-shadow">
-				<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
-			</select>
-			<span v-if='waiting' class='loading'></span>
-			<svg v-else class='ready' width='36' height='36' viewBox='0 0 24 24' stroke-width='3' stroke='#8a8a97' fill='none' stroke-linecap='round' stroke-linejoin='round'>
-				<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-				<path d='M5 12l5 5l10 -10' />
-			</svg>
-		</h1>
-		<!-- fetured numbers -->
-		<section class='numbers mt-2'>
-			<!-- total -->
-			<div>
-				<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
-				<div class='featured'>{{ numbers.total.toLocaleString() }}</div>
-				<div class='text-gray'>{{ $t('stats.withinYears', [oneDigit(years)]) }}</div>
-			</div>
-			<!-- unread -->
-			<div>
-				<div class='text-gray'>{{ $t('stats.mailsUnread') }}</div>
-				<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
-				<div class='text-gray' v-if='numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
-				<div class='text-gray' v-else>{{ $t('stats.percentOfReceived', [unreadPercentage]) }}</div>
-			</div>
-			<!-- received -->
-			<div>
-				<div class='text-accent2'>{{ $t('stats.mailsReceived') }}</div>
-				<div class='featured text-accent2'>{{ numbers.received.toLocaleString() }}</div>
-				<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
-			</div>
-			<!-- sent -->
-			<div>
-				<div class='text-accent1'>{{ $t('stats.mailsSent') }}</div>
-				<div class='featured text-accent1'>{{ numbers.sent.toLocaleString() }}</div>
-				<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
-			</div>
-			<!-- per month / per year -->
-			<div>
-				<div class='text-gray'>{{ $t('stats.mailsPerMonth') }}</div>
-				<div class='featured'>{{ perMonth }}</div>
-				<div class='text-gray'>{{ perYear }} {{ $t('stats.mailsYear') }}</div>
-			</div>
-			<!-- per day / per week -->
-			<div>
-				<div class='text-gray'>{{ $t('stats.mailsPerDay') }}</div>
-				<div class='featured'>{{ perDay }}</div>
-				<div class='text-gray'>{{ perWeek }} {{ $t('stats.mailsWeek') }}</div>
-			</div>
-		</section>
-		<!-- still processing -->
-		<section v-if='waiting' class='mt-5'>
-			<svg class="icon icon-huge d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-				<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
-				<polyline points="4 12 7 8 11 10 16 4 20 8" />
-			</svg>
-			<div class="text-center text-gray">
-				{{ $t("stats.loadingInProgress") }}
-			</div>
-		</section>
-		<!-- empty account -->
-		<section v-else-if='numbers.total == 0' class='mt-5'>
-			<svg class="icon icon-huge d-block m-0-auto" viewBox="0 0 24 24">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-				<rect x="4" y="4" width="16" height="16" rx="2" />
-				<path d="M4 13h3l3 3h4l3 -3h3" />
-			</svg>
-			<div class="text-center text-gray">
-				{{ $t("stats.accountEmpty") }}
-			</div>
-		</section>
-		<!-- charts -->
-		<section v-else class='charts mt-2'>
-			<div id='chart-area-top' class='chart-area'>
-				<!-- emails per year over total time -->
-				<LineChart
-					:title='$t("stats.charts.years.title")'
-					:description='$t("stats.charts.years.description")'
-					:datasets='yearsChartData.datasets'
-					:labels='yearsChartData.labels'
-				/>
-				<!-- emails per month over total time -->
-				<LineChart
-					:title='$t("stats.charts.months.title")'
-					:description='$t("stats.charts.months.description")'
-					:datasets='monthsChartData.datasets'
-					:labels='monthsChartData.labels'
-				/>
-			</div>
-			<div id='chart-area-main' class='chart-area'>
-				<!-- emails per time of day -->
-				<BarChart
-					:title='$t("stats.charts.daytime.title")'
-					:description='$t("stats.charts.daytime.description")'
-					:datasets='daytimeChartData.datasets'
-					:labels='daytimeChartData.labels'
-				/>
-				<!-- emails per day of week -->
-				<BarChart
-					:title='$t("stats.charts.weekday.title")'
-					:description='$t("stats.charts.weekday.description")'
-					:datasets='weekdayChartData.datasets'
-					:labels='weekdayChartData.labels'
-				/>
-				<!-- emails per month of year -->
-				<BarChart
-					:title='$t("stats.charts.month.title")'
-					:description='$t("stats.charts.month.description")'
-					:datasets='monthChartData.datasets'
-					:labels='monthChartData.labels'
-				/>
-				<div class="chart-group">
-					<!-- emails per weekday per hour received -->
-					<HeatMap
-						:title='$t("stats.charts.temporalDistribution.title")'
-						:description='$t("stats.charts.temporalDistribution.description.received")'
-						rgb='10, 132, 255'
-						spacing='1px'
-						rounding='5px'
-						:dataset='weekdayPerHourChartData.received'
-						:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-						class='mb-05'
+	<div id='stats' :class='scheme + " text-normal background-normal"'>
+		<div class='container pt-2 pb-6'>
+			<h1>
+				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
+				<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow focus-shadow" :class='{ disabled: waiting }'>
+					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
+				</select>
+				<div v-if='waiting' :class='scheme + " loading"'></div>
+				<svg v-else class='ready icon icon-strong icon-gray' viewBox='0 0 24 24'>
+					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+					<path d='M5 12l5 5l10 -10' />
+				</svg>
+			</h1>
+			<!-- fetured numbers -->
+			<section class='numbers mt-2'>
+				<!-- total -->
+				<div>
+					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
+					<div class='featured'>{{ numbers.total.toLocaleString() }}</div>
+					<div class='text-gray'>{{ $t('stats.withinYears', [oneDigit(years)]) }}</div>
+				</div>
+				<!-- unread -->
+				<div>
+					<div class='text-gray'>{{ $t('stats.mailsUnread') }}</div>
+					<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
+					<div class='text-gray' v-if='numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
+					<div class='text-gray' v-else>{{ $t('stats.percentOfReceived', [unreadPercentage]) }}</div>
+				</div>
+				<!-- received -->
+				<div>
+					<div class='text-accent2'>{{ $t('stats.mailsReceived') }}</div>
+					<div class='featured text-accent2'>{{ numbers.received.toLocaleString() }}</div>
+					<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
+				</div>
+				<!-- sent -->
+				<div>
+					<div class='text-accent1'>{{ $t('stats.mailsSent') }}</div>
+					<div class='featured text-accent1'>{{ numbers.sent.toLocaleString() }}</div>
+					<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
+				</div>
+				<!-- per month / per year -->
+				<div>
+					<div class='text-gray'>{{ $t('stats.mailsPerMonth') }}</div>
+					<div class='featured'>{{ perMonth }}</div>
+					<div class='text-gray'>{{ perYear }} {{ $t('stats.mailsYear') }}</div>
+				</div>
+				<!-- per day / per week -->
+				<div>
+					<div class='text-gray'>{{ $t('stats.mailsPerDay') }}</div>
+					<div class='featured'>{{ perDay }}</div>
+					<div class='text-gray'>{{ perWeek }} {{ $t('stats.mailsWeek') }}</div>
+				</div>
+			</section>
+			<!-- still processing -->
+			<section v-if='waiting' class='mt-5'>
+				<svg class="icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
+					<polyline points="4 12 7 8 11 10 16 4 20 8" />
+				</svg>
+				<div class="text-center text-gray">
+					{{ $t("stats.loadingInProgress") }}
+				</div>
+			</section>
+			<!-- empty account -->
+			<section v-else-if='numbers.total == 0' class='mt-5'>
+				<svg class="icon icon-huge icon-gray d-block m-0-auto" viewBox="0 0 24 24">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+					<rect x="4" y="4" width="16" height="16" rx="2" />
+					<path d="M4 13h3l3 3h4l3 -3h3" />
+				</svg>
+				<div class="text-center text-gray">
+					{{ $t("stats.accountEmpty") }}
+				</div>
+			</section>
+			<!-- charts -->
+			<section v-else class='charts mt-2'>
+				<div id='chart-area-top' class='chart-area'>
+					<!-- emails per year over total time -->
+					<LineChart
+						:title='$t("stats.charts.years.title")'
+						:description='$t("stats.charts.years.description")'
+						:datasets='yearsChartData.datasets'
+						:labels='yearsChartData.labels'
 					/>
-					<!-- emails per weekday per hour sent -->
-					<HeatMap
-						:description='$t("stats.charts.temporalDistribution.description.sent")'
-						rgb='230, 77, 185'
-						spacing='1px'
-						rounding='5px'
-						:dataset='weekdayPerHourChartData.sent'
-						:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+					<!-- emails per month over total time -->
+					<LineChart
+						:title='$t("stats.charts.months.title")'
+						:description='$t("stats.charts.months.description")'
+						:datasets='monthsChartData.datasets'
+						:labels='monthsChartData.labels'
 					/>
 				</div>
-				<!-- contacts most emails received from -->
-				<BarChart
-					:title='$t("stats.charts.leader.title.received")'
-					:description='$t("stats.charts.leader.description.received")'
-					:datasets='receivedContactLeadersChartData.datasets'
-					:labels='receivedContactLeadersChartData.labels'
-					:horizontal='true'
-				/>
-				<!-- contacts most emails sent to -->
-				<BarChart
-					:title='$t("stats.charts.leader.title.sent")'
-					:description='$t("stats.charts.leader.description.sent")'
-					:datasets='sentContactLeadersChartData.datasets'
-					:labels='sentContactLeadersChartData.labels'
-					:horizontal='true'
-				/>
-			</div>
-		</section>
-		<!-- footer -->
-		<footer class="my-6 text-center">
-			<div class='text-gray'>ThirdStats v{{ appVersion }}</div>
-			<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
-		</footer>
+				<div id='chart-area-main' class='chart-area'>
+					<!-- emails per time of day -->
+					<BarChart
+						:title='$t("stats.charts.daytime.title")'
+						:description='$t("stats.charts.daytime.description")'
+						:datasets='daytimeChartData.datasets'
+						:labels='daytimeChartData.labels'
+					/>
+					<!-- emails per day of week -->
+					<BarChart
+						:title='$t("stats.charts.weekday.title")'
+						:description='$t("stats.charts.weekday.description")'
+						:datasets='weekdayChartData.datasets'
+						:labels='weekdayChartData.labels'
+					/>
+					<!-- emails per month of year -->
+					<BarChart
+						:title='$t("stats.charts.month.title")'
+						:description='$t("stats.charts.month.description")'
+						:datasets='monthChartData.datasets'
+						:labels='monthChartData.labels'
+					/>
+					<div class="chart-group">
+						<!-- emails per weekday per hour received -->
+						<HeatMap
+							:title='$t("stats.charts.temporalDistribution.title")'
+							:description='$t("stats.charts.temporalDistribution.description.received")'
+							rgb='10, 132, 255'
+							spacing='1px'
+							rounding='5px'
+							:dataset='weekdayPerHourChartData.received'
+							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+							class='mb-05'
+						/>
+						<!-- emails per weekday per hour sent -->
+						<HeatMap
+							:description='$t("stats.charts.temporalDistribution.description.sent")'
+							rgb='230, 77, 185'
+							spacing='1px'
+							rounding='5px'
+							:dataset='weekdayPerHourChartData.sent'
+							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+						/>
+					</div>
+					<!-- contacts most emails received from -->
+					<BarChart
+						:title='$t("stats.charts.leader.title.received")'
+						:description='$t("stats.charts.leader.description.received")'
+						:datasets='receivedContactLeadersChartData.datasets'
+						:labels='receivedContactLeadersChartData.labels'
+						:horizontal='true'
+					/>
+					<!-- contacts most emails sent to -->
+					<BarChart
+						:title='$t("stats.charts.leader.title.sent")'
+						:description='$t("stats.charts.leader.description.sent")'
+						:datasets='sentContactLeadersChartData.datasets'
+						:labels='sentContactLeadersChartData.labels'
+						:horizontal='true'
+					/>
+				</div>
+			</section>
+			<!-- footer -->
+			<footer class="mt-6 text-center">
+				<div class='text-gray'>
+					<span class='text-middle mr-1'>ThirdStats v{{ appVersion }}</span>
+					<svg
+						v-if='preferences.dark'
+						class='icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer'
+						viewBox='0 0 24 24'
+						@click.prevent='preferences.dark = false'
+					>
+						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+						<circle cx='12' cy='12' r='4' />
+						<path d='M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7' />
+					</svg>
+					<svg
+						v-else
+						class='icon icon-light icon-text icon-thin d-inline text-middle cursor-pointer'
+						viewBox='0 0 24 24'
+						@click.prevent='preferences.dark = true'
+					>
+						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+						<path d='M12 3c0.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z' />
+					</svg>
+				</div>
+				<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
+			</footer>
+		</div>
 	</div>
 </template>
 
@@ -214,7 +237,8 @@ export default {
 			preferences: {
 				week: {
 					start: 1
-				}
+				},
+				dark: true
 			}
 		}
 	},
@@ -637,6 +661,9 @@ export default {
 				}
 			}
 		},
+		scheme () {
+			return this.preferences.dark ? 'dark' : 'light'
+		}
 	},
 	watch: {
 		activeAccount (a) {
@@ -654,89 +681,85 @@ export default {
 body
 	overflow-x hidden
 
-// layout
-@media (min-width: 2501px)
-	#stats
-		max-width 2500px
-		#chart-area-main
-			grid-template-columns repeat(6, 1fr)
-@media (max-width: 2500px)
-	#stats
-		max-width 2200px
-		#chart-area-main
-			grid-template-columns repeat(3, 1fr)
-@media (max-width: 2000px)
-	#stats
-		max-width 1750px
-		#chart-area-main
-			grid-template-columns repeat(3, 1fr)
-@media (max-width: 1500px)
-	#stats
-		max-width 1200px
-		#chart-area-main
-			grid-template-columns repeat(2, 1fr)
-@media (min-width: 961px)
-	#stats
-		.numbers
-			max-width 1500px
-			grid-template-columns repeat(6, 1fr)
-		#chart-area-top
-			grid-template-columns 1fr 2fr
-@media (max-width: 960px)
-	#stats
-		.numbers
-			grid-template-columns repeat(3, 1fr)
-		#chart-area-top
-			grid-template-columns 1fr
-@media (max-width: 720px)
-	#stats
-		#chart-area-main
-			grid-template-columns 1fr
-
-// content
+// layout and content
 #stats
-	width 100%
-	height 100%
-	padding 0 2rem
-	margin 0 auto
-	box-sizing border-box
+	min-height 100vh
 
-	h1
-		display grid
-		grid-template-columns 1fr auto 55px
-		align-items center
-		justify-content start
-		.loading
-			loader(20px)
-		.loading, .ready
-			justify-self center
-		select
-			justify-self end
-
-	.numbers
-		display grid
-		column-gap 1rem
-		row-gap 2rem
+	.container
+		width 100%
+		height 100%
 		margin 0 auto
-		&>div
-			text-align center
-			.featured
-				font-size 3.25em
-				line-height 1em
-				font-weight 500
+		box-sizing border-box
 
-	.charts
-		.chart-area
+		@media (min-width: 2501px)
+			max-width 2500px
+			#chart-area-main
+				grid-template-columns repeat(6, 1fr)
+		@media (max-width: 2500px)
+			max-width 2200px
+			#chart-area-main
+				grid-template-columns repeat(3, 1fr)
+		@media (max-width: 2000px)
+			max-width 1750px
+			#chart-area-main
+				grid-template-columns repeat(3, 1fr)
+		@media (max-width: 1500px)
+			max-width 1200px
+			#chart-area-main
+				grid-template-columns repeat(2, 1fr)
+		@media (min-width: 961px)
+			.numbers
+				max-width 1500px
+				grid-template-columns repeat(6, 1fr)
+			#chart-area-top
+				grid-template-columns 1fr 2fr
+		@media (max-width: 960px)
+			.numbers
+				grid-template-columns repeat(3, 1fr)
+			#chart-area-top
+				grid-template-columns 1fr
+		@media (max-width: 720px)
+			#chart-area-main
+				grid-template-columns 1fr
+
+		h1
+			margin-top 0
 			display grid
-			column-gap 2rem
-			row-gap 1rem
-			& > *
-				min-height 380px
-			.chart
-				min-width 0
-				h2
-					margin-bottom 0
-				p
-					margin-top 0
+			grid-template-columns 1fr auto 55px
+			align-items center
+			justify-content start
+			.loading
+				loader 20px
+				justify-self center
+			.ready
+				justify-self center
+			select
+				justify-self end
+
+		.numbers
+			display grid
+			column-gap 1rem
+			row-gap 2rem
+			margin 0 auto
+			&>div
+				text-align center
+				.featured
+					font-size 3.25em
+					line-height 1em
+					font-weight 500
+
+		.charts
+			.chart-area
+				display grid
+				column-gap 2rem
+				row-gap 1rem
+				& > *
+					min-height 380px
+				.chart
+					min-width 0
+					h2
+						margin-bottom 0
+					p
+						margin-top 0
 
 </style>
