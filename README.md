@@ -7,7 +7,7 @@ ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account 
 </p>
 
 <p align="center">
-<a href="https://github.com/devmount/third-stats/releases" target="_blank"><img src="https://img.shields.io/badge/ThirdStats-v0.5.0-0a84ff.svg?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAADDUlEQVRoge1ZMW7bQBAcB+lYyC2r6AdxXhC6YcnQL0j8A6m+InLBOv6B4h84LNlEeYGlH1gVW7m4WsERy+B0uj3eCQgpARzAMEQuyZ272dmldLXf73HJeHfR2Y8EzgAjgaHxfqjn11mVA3gEsAOwiMv0+ZT7DGKjdVYlAH4bh+/jMv0Zeq/eJVRn1Q0A22ov66z6Fnq/XgnUWXUNQK3yhAkJJtH3DqiV/9gRE0SiNwJ1VqmV/2wc/qO0bwn3JtELAUrmq3F4AyCnwj2ZxH93IcZx3gAkcZmutTiV7NJyC6c7BRMgF1EerhJbKS+Py3TniF1ZivY2LlN13IznSNxxfSJIQpTQC4DvpGf1/7XOqgU5jB7LOc69LXkFh5xuuJy8CVBCtlWYMERsjvPU1awcJKzwllCdVSqhLx6hSt9rm+PEZZr4JkajRrvyK27XvAjUWTUD8MM4rFxk6mhKZmyi10pU4GAWksK6u53oJKDpXsdWW50Z/XFEjhwnKmCdhaRA8CzkJEB6Vg/+YJz6ZFjgtYPIgeNERbNra4ZwMIkuAjbdz+MyfWTiWyIJJflsJH9NtuoaJ4JIsAQYT/4Vl2nue3MTUdEkZnZkG7xJuGx0anxWug8ed1tERbMztnFibglfRoXfs1xvZGZ3zQ0XOerIUhxd08YmFhdTxZ1LgdeoaK4zd1uRQNdOuCQ0pRXfkQ/rLmJzpjd6RTwg4ijaWymg1wc7C7lInDTMRUWTEFeI/4jQZ1vRzqXAkRE4SNxxfSKYQFRgQaNDF7iO/CQFr2+GxFaKo5psEDTMkXTM5LeUrImJJfkN2SwLkos5C5l96DQCNF2ayMmxHhgiLdqitRa6jpA+4E2ApGNq+UEKrFVSUjTnXUQax/F9ni+8aoBxnY0U9jmdOu5Ms9iV7jg+iAocJCYFrmyX+X4zZ9tSthBJJouQhE9Fp4Rc0ukjwS44CTCusyG9nwW6diBIOkOArQFGOgovaka5hB1wNpxzwaX8wLHlTnTtgKuz9gXne8j4O/HQGAkMjZHA0BgJDAoAfwGoiFbuo7sc2QAAAABJRU5ErkJggg==" alt="release" /></a>
+<a href="https://github.com/devmount/third-stats/releases" target="_blank"><img src="https://img.shields.io/badge/ThirdStats-v0.6.0-0a84ff.svg?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAADDUlEQVRoge1ZMW7bQBAcB+lYyC2r6AdxXhC6YcnQL0j8A6m+InLBOv6B4h84LNlEeYGlH1gVW7m4WsERy+B0uj3eCQgpARzAMEQuyZ272dmldLXf73HJeHfR2Y8EzgAjgaHxfqjn11mVA3gEsAOwiMv0+ZT7DGKjdVYlAH4bh+/jMv0Zeq/eJVRn1Q0A22ov66z6Fnq/XgnUWXUNQK3yhAkJJtH3DqiV/9gRE0SiNwJ1VqmV/2wc/qO0bwn3JtELAUrmq3F4AyCnwj2ZxH93IcZx3gAkcZmutTiV7NJyC6c7BRMgF1EerhJbKS+Py3TniF1ZivY2LlN13IznSNxxfSJIQpTQC4DvpGf1/7XOqgU5jB7LOc69LXkFh5xuuJy8CVBCtlWYMERsjvPU1awcJKzwllCdVSqhLx6hSt9rm+PEZZr4JkajRrvyK27XvAjUWTUD8MM4rFxk6mhKZmyi10pU4GAWksK6u53oJKDpXsdWW50Z/XFEjhwnKmCdhaRA8CzkJEB6Vg/+YJz6ZFjgtYPIgeNERbNra4ZwMIkuAjbdz+MyfWTiWyIJJflsJH9NtuoaJ4JIsAQYT/4Vl2nue3MTUdEkZnZkG7xJuGx0anxWug8ed1tERbMztnFibglfRoXfs1xvZGZ3zQ0XOerIUhxd08YmFhdTxZ1LgdeoaK4zd1uRQNdOuCQ0pRXfkQ/rLmJzpjd6RTwg4ijaWymg1wc7C7lInDTMRUWTEFeI/4jQZ1vRzqXAkRE4SNxxfSKYQFRgQaNDF7iO/CQFr2+GxFaKo5psEDTMkXTM5LeUrImJJfkN2SwLkos5C5l96DQCNF2ayMmxHhgiLdqitRa6jpA+4E2ApGNq+UEKrFVSUjTnXUQax/F9ni+8aoBxnY0U9jmdOu5Ms9iV7jg+iAocJCYFrmyX+X4zZ9tSthBJJouQhE9Fp4Rc0ukjwS44CTCusyG9nwW6diBIOkOArQFGOgovaka5hB1wNpxzwaX8wLHlTnTtgKuz9gXne8j4O/HQGAkMjZHA0BgJDAoAfwGoiFbuo7sc2QAAAABJRU5ErkJggg==" alt="release" /></a>
 <a href="https://github.com/devmount/third-stats/commits/master" target="_blank"><img src="https://img.shields.io/github/last-commit/devmount/third-stats?label=updated&color=0a84ff&style=flat-square" alt="last commit" /></a>
 <a href="./LICENSE" target="_blank"><img src="https://img.shields.io/badge/license-MIT-e64db9.svg?style=flat-square" alt="license" /></a>
 <a href="./.github/CONTRIBUTING.md" target="_blank"><img src="https://img.shields.io/badge/contributions-welcome-e64db9.svg?style=flat-square" alt="contributions welcome" /></a>
@@ -36,9 +36,9 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Switch between a dark and a light theme
 - Language support for Catalan, Czech, English, French, Galician, German, Hindi, Italian, Polish, Portuguese, Russian, Spanish, Thai, simplified Chinese and traditional Chinese
 
-Here is how ThirdStats looks like on the Thunderbird default dark theme on Windows:
+Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
-![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/95656941-cefd7a00-0b11-11eb-8714-e41967241f90.png)
+![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/97261501-3ceab680-181f-11eb-950c-2abcc4605da7.png)
 
 ## Improve this project
 
