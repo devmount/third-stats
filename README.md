@@ -34,7 +34,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Leaderboards of most contacted email addresses
 - Switch between all Thunderbird accounts (local accounts included)
 - Switch between a dark and a light theme
-- Language support for Catalan, Czech, English, French, Galician, German, Hindi, Italian, Polish, Portuguese, Russian, Spanish, Thai, simplified Chinese and traditional Chinese
+- Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Italian, Polish, Portuguese, Russian, Spanish, Swedish, and Thai
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
