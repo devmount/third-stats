@@ -692,6 +692,8 @@ body
 		width 100%
 		height 100%
 		margin 0 auto
+		padding-left 1rem
+		padding-right 1rem
 		box-sizing border-box
 
 		@media (min-width: 2501px)
