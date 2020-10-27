@@ -18,5 +18,15 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	],
+	"babel": {
+		"presets": [
+			"@vue/cli-plugin-babel/preset"
+		]
+	}
 }
