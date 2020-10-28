@@ -25,23 +25,23 @@
 		"accountEmpty": "Bu hesap boş, e-posta yok.",
 		"charts": {
 			"years": {
-				"title": "Yıl",
+				"title": "Yıllık",
 				"description": "Yıllık toplam e-posta sayısı"
 			},
 			"months": {
-				"title": "Months",
+				"title": "Aylık",
 				"description": "Aylık toplam e-posta sayısı"
 			},
 			"daytime": {
-				"title": "Daytime",
+				"title": "Saatlik",
 				"description": "Saat başına e-posta sayısı"
 			},
 			"weekday": {
-				"title": "Weekday",
+				"title": "Gün",
 				"description": "Gün başına e-posta sayısı"
 			},
 			"month": {
-				"title": "Month",
+				"title": "Ay",
 				"description": "Ay başına e-posta sayısı"
 			},
 			"temporalDistribution": {
