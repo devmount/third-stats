@@ -253,7 +253,7 @@ export default {
 		// get all add-on settings
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
-			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',') : ''
+			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 			this.preferences.dark = result.options.dark ? true : false
 		},
 		// get legacy preferences
@@ -274,7 +274,7 @@ export default {
 		processAccount: async function (id) {
 			this.waiting = true
 			let a = await messenger.accounts.get(id)
-			let identities = a.identities.map(i => i.email)
+			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
 			await Promise.all(folders.map(async f => {
