@@ -63,5 +63,23 @@
 			}
 		},
 		"starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"
+	},
+	"options": {
+		"message": "",
+		"switch": {
+			"on": "On",
+			"off": "Off"
+		},
+		"button": {
+			"save": "Save"
+		},
+		"darkMode": {
+			"label": "Dark Mode",
+			"description": ""
+		},
+		"localIdentities": {
+			"label": "Local Identities",
+			"description": ""
+		}
 	}
 }

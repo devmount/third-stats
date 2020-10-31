@@ -11,25 +11,25 @@
 	>
 		<div class='container p-1'>
 			<section class='entry'>
-				<label for='dark'>Dark mode</label>
+				<label for='dark'>{{ $t('options.darkMode.label') }}</label>
 				<div class='action'>
 					<label class='switch'>
 						<input type='checkbox' id='dark' v-model='dark' />
-						<span class='switch-label' data-on='On' data-off='Off'></span> 
+						<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
 						<span class='switch-handle'></span> 
 					</label>
 				</div>
 			</section>
 			<section class='entry'>
-				<label for='dark'>Local Identities</label>
+				<label for='dark'>{{ $t('options.localIdentities.label') }}</label>
 				<div class='action'>
-					<textarea v-model='addresses' placeholder='email1@example.com, email2@example.com'></textarea>
+					<textarea v-model='addresses' placeholder='hello@devmount.de, another@example.com'></textarea>
 				</div>
 			</section>
 			<section class='entry mt-5'>
 				<div></div>
-				<div class="action text-right">
-					<button @click='saveSettings'>Save</button>
+				<div class='action text-right'>
+					<button @click='saveSettings'>{{ $t('options.button.save') }}</button>
 				</div>
 			</section>
 		</div>
