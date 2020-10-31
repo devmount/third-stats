@@ -63,5 +63,23 @@
 			}
 		},
 		"starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"
+	},
+	"options": {
+		"message": "",
+		"switch": {
+			"on": "An",
+			"off": "Aus"
+		},
+		"button": {
+			"save": "Speichern"
+		},
+		"darkMode": {
+			"label": "Nachtmodus",
+			"description": "Auswahl eines hellen oder dunklen Farbschemas"
+		},
+		"localIdentities": {
+			"label": "Lokale Identitäten",
+			"description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
+		}
 	}
 }
