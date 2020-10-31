@@ -238,16 +238,25 @@ export default {
 				week: {
 					start: 1
 				},
-				dark: true
+				dark: true,
+				localIdentities: []
 			}
 		}
 	},
 	created () {
 		this.reset()
+		this.getSettings()
 		this.getPreferences()
 		this.getAccounts()
 	},
 	methods: {
+		// get all add-on settings
+		getSettings: async function () {
+			let result = await messenger.storage.local.get('options')
+			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',') : ''
+			this.preferences.dark = result.options.dark ? true : false
+		},
+		// get legacy preferences
 		getPreferences: async function () {
 			let c = await messenger.LegacyPrefs.getUserPref("calendar.week.start")
 			this.preferences.week.start = c

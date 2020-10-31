@@ -60,7 +60,6 @@ export default {
 			let result = await messenger.storage.local.get('options')
 			this.addresses = result.options.addresses ? result.options.addresses : ''
 			this.dark = result.options.dark ? true : false
-			console.log(result.options);
 		},
 		// save current add-on settings
 		saveSettings: async function () {
@@ -70,7 +69,6 @@ export default {
 					dark: this.dark
 				}
 			})
-			console.log('saved');
 		}
 	}
 }
