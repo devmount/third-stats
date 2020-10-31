@@ -11,7 +11,7 @@
 		"
 	>
 		<template v-for='(y, n, i) in labels.y' :key='i'>
-			<div class="y-label text-gray text-small text-right">
+			<div class="y-label text-gray text-tiny text-right">
 				<div>{{ y }}</div>
 			</div>
 			<template v-for='(x, m, j) in labels.x' :key='j'>
@@ -26,7 +26,7 @@
 			</template>
 		</template>
 		<div></div>
-		<div v-for='(x, k) in labels.x' :key='k' class="x-label text-gray text-small text-center">
+		<div v-for='(x, k) in labels.x' :key='k' class="x-label text-gray text-tiny text-center">
 			<div v-if='k%2==1'>{{ x }}</div>
 		</div>
 	</div>
