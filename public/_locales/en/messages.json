@@ -63,5 +63,23 @@
 			}
 		},
 		"starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"
+	},
+	"options": {
+		"message": "",
+		"switch": {
+			"on": "On",
+			"off": "Off"
+		},
+		"button": {
+			"save": "Save"
+		},
+		"darkMode": {
+			"label": "Dark Mode",
+			"description": "Switch between dark and light theme"
+		},
+		"localIdentities": {
+			"label": "Local Identities",
+			"description": "A comma seperated list of email addresses to recognize as 'sent from' for local accounts"
+		}
 	}
 }

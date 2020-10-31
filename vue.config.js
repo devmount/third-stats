@@ -13,6 +13,10 @@ module.exports = {
 			entry: './src/stats.js',
 			template: './public/stats.html'
 		},
+		options: {
+			entry: './src/options.js',
+			template: './public/options.html'
+		},
 	},
 	configureWebpack: {
 		plugins: [

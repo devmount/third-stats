@@ -89,6 +89,10 @@ for m, c in mode
 			color: c.highlight !important
 		.background-normal, &.background-normal
 			background: c.back
+		.background-highlight, &.background-highlight
+			background: c.highlight
+		.background-highlight-contrast, &.background-highlight-contrast
+			background: c.secondary2
 		.background-modal, &.background-modal
 			background: c.gray3
 		.background-gray
@@ -126,6 +130,11 @@ for m, c in mode
 	margin-bottom: 6rem
 .m-0-auto
 	margin: 0 auto
+.p-1
+	padding: 1rem
+.py-1
+	padding-top: 1rem
+	padding-bottom: 1rem
 .pt-1
 	padding-top: 1rem
 .pt-2
@@ -189,10 +198,27 @@ for m, c in mode
 			box-shadow: 0 0 0 .35rem rgba(c.front, .1)
 
 // form
+button
+	appearance: none
+	border: none
+	border-radius: 2px
+	padding: 1rem 2rem
+	transition: background .2s
+	color: mode.dark.highlight
+	for m, c in mode
+		.{m} &
+			background: c.accent2
+		.{m} &:hover
+			background: darken(c.accent2, 20%)
+		.{m} &:active
+			background: lighten(c.accent2, 25%)
+		.{m} &:focus
+			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
+
 select
 	appearance: none
 	border: none
-	border-radius: 4px
+	border-radius: 2px
 	color: inherit
 	padding: .5rem
 	outline: none
@@ -201,6 +227,108 @@ select
 			background: c.gray3
 			&.disabled
 				color: c.gray1
+
+textarea
+	appearance: none
+	border: solid 1px
+	border-radius: 2px
+	width: 100%
+	padding: .5rem
+	font-size: .9rem
+	for m, c in mode
+		.{m} &
+			background: c.back
+			color: c.front
+			if m is 'dark'
+				border-color: c.gray2
+			else
+				border-color: c.gray3
+		.{m} &:focus
+			border-color: c.accent2
+			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
+
+.switch
+	padding: 0
+	position: relative
+	display: inline-block
+	vertical-align: top
+	width: 60px
+	height: h = 24px
+	border-radius: (h/2)
+	cursor: pointer
+	transition: all 0.2s ease
+	.switch-label
+		border: solid 1px
+		position: relative
+		display: block
+		height: inherit
+		font-size: 10px
+		text-transform: uppercase
+		border-radius: inherit
+		transition: inherit
+		&::before, &::after
+			position: absolute
+			top: 45%
+			transform: translateY(-50%)
+			transition: inherit
+		&::before
+			content: attr(data-off)
+			right: (h/4)
+		&::after
+			content: attr(data-on)
+			left: (h/4)
+			opacity: 0
+	.switch-handle
+		position: absolute
+		border-radius: 100%
+		top: 4px
+		left: 4px
+		width: (h*2/3)
+		height: (h*2/3)
+		transition: inherit
+	input
+		position: absolute
+		top: 0
+		left: 0
+		opacity: 0
+		&:checked
+			~ .switch-label
+				&::before
+					opacity: 0
+				&::after
+					opacity: 1
+			~ .switch-handle
+				left: 40px
+	for m, c in mode
+		.{m} &
+			.switch-label
+				border-color: c.gray3
+				if m is 'dark'
+					background: c.gray2
+				else
+					background: c.back
+				&::before
+					color: c.gray1
+				&::after
+					if m is 'dark'
+						color: c.highlight
+					else
+						color: c.secondary2
+			.switch-handle
+				if m is 'dark'
+					background: c.front
+				else
+					background: c.gray2
+			input
+				&:checked
+					~ .switch-label
+						background: c.accent2
+						border-color: c.accent2
+					~ .switch-handle
+						if m is 'dark'
+							background: c.highlight
+						else
+							background: c.secondary2
 
 // loader
 loader(size)
@@ -219,6 +347,7 @@ tooltip()
 	position: relative
 	&::after
 		border-radius: 3px
+		top: auto
 		bottom: 100%
 		content: attr(data-tooltip)
 		display: block
@@ -238,3 +367,10 @@ tooltip()
 		&::after
 			opacity: 1
 			transform: translate(-50%, -.4rem)
+	&.tooltip-bottom
+		&::after
+			bottom: auto
+			top: 100%
+		&:focus, &:hover
+			&::after
+				transform: translate(-50%, .4rem)
