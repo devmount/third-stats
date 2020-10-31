@@ -11,7 +11,10 @@
 	>
 		<div class='container p-1'>
 			<section class='entry'>
-				<label for='dark'>{{ $t('options.darkMode.label') }}</label>
+				<label for='dark'>
+					{{ $t('options.darkMode.label') }}
+					<span class="d-block text-gray text-small">{{ $t('options.darkMode.description') }}</span>
+				</label>
 				<div class='action'>
 					<label class='switch'>
 						<input type='checkbox' id='dark' v-model='dark' />
@@ -21,7 +24,10 @@
 				</div>
 			</section>
 			<section class='entry'>
-				<label for='dark'>{{ $t('options.localIdentities.label') }}</label>
+				<label for='dark'>
+					{{ $t('options.localIdentities.label') }}
+					<span class="d-block text-gray text-small">{{ $t('options.localIdentities.description') }}</span>
+				</label>
 				<div class='action'>
 					<textarea v-model='addresses' placeholder='hello@devmount.de, another@example.com'></textarea>
 				</div>
@@ -85,7 +91,11 @@ html, body
 
 	.entry
 		display: grid
-		grid-template-columns: 1fr 2fr
+		grid-template-columns: 2fr 3fr
+		column-gap: 1rem
 		margin-bottom: 1rem
+
+		.action
+			align-self: center
 
 </style>

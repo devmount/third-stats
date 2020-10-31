@@ -75,11 +75,11 @@
 		},
 		"darkMode": {
 			"label": "Dark Mode",
-			"description": ""
+			"description": "Switch between dark and light theme"
 		},
 		"localIdentities": {
 			"label": "Local Identities",
-			"description": ""
+			"description": "A comma seperated list of email addresses to recognize as 'sent from' for local accounts"
 		}
 	}
 }

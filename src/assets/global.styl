@@ -347,6 +347,7 @@ tooltip()
 	position: relative
 	&::after
 		border-radius: 3px
+		top: auto
 		bottom: 100%
 		content: attr(data-tooltip)
 		display: block
@@ -366,3 +367,10 @@ tooltip()
 		&::after
 			opacity: 1
 			transform: translate(-50%, -.4rem)
+	&.tooltip-bottom
+		&::after
+			bottom: auto
+			top: 100%
+		&:focus, &:hover
+			&::after
+				transform: translate(-50%, .4rem)
