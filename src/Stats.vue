@@ -285,12 +285,16 @@ export default {
 		},
 		// process all messages of a folder
 		processMessages: async function (folder, identities) {
-			let self = this
-			let page = await messenger.messages.list(folder)
-			page.messages.map(m => self.analyzeMessage(m, identities))
-			while (page.id) {
-				page = await messenger.messages.continueList(page.id)
+			if (folder) {
+				let self = this
+				let page = await messenger.messages.list(folder)
 				page.messages.map(m => self.analyzeMessage(m, identities))
+				while (page.id) {
+					page = await messenger.messages.continueList(page.id)
+					page.messages.map(m => self.analyzeMessage(m, identities))
+				}
+			} else {
+				console.error('This folder doesn\'t exist')
 			}
 		},
 		// extract information of a single message
