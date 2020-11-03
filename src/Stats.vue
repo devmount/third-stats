@@ -80,18 +80,13 @@
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
+								v-for='(active, label) in tabs'
+								:key='label'
 								class='tab-item cursor-pointer'
-								:class='{ "active": tabs.years }'
-								@click='tabs.years=true;tabs.months=false'
+								:class='{ "active": active }'
+								@click='activateTab(label)'
 							>
-								<span>{{ $t('stats.charts.years.title') }}</span>
-							</li>
-							<li
-								class='tab-item cursor-pointer'
-								:class='{ "active": tabs.months }'
-								@click='tabs.years=false;tabs.months=true'
-							>
-								<span>{{ $t('stats.charts.months.title') }}</span>
+								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
 							</li>
 						</ul>
 						<div class='tab-content'>
@@ -425,6 +420,11 @@ export default {
 				sent: {},
 			}
 		},
+		activateTab (label) {
+			let self = this
+			Object.keys(this.tabs).map(t => self.tabs[t] = false)
+			this.tabs[label] = true
+		}
 	},
 	computed: {
 		appVersion () {
