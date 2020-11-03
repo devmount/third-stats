@@ -77,20 +77,42 @@
 			<!-- charts -->
 			<section v-else class='charts mt-2'>
 				<div id='chart-area-top' class='chart-area'>
-					<!-- emails per year over total time -->
-					<LineChart
-						:title='$t("stats.charts.years.title")'
-						:description='$t("stats.charts.years.description")'
-						:datasets='yearsChartData.datasets'
-						:labels='yearsChartData.labels'
-					/>
-					<!-- emails per month over total time -->
-					<LineChart
-						:title='$t("stats.charts.months.title")'
-						:description='$t("stats.charts.months.description")'
-						:datasets='monthsChartData.datasets'
-						:labels='monthsChartData.labels'
-					/>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								class='tab-item cursor-pointer'
+								:class='{ "active": tabs.years }'
+								@click='tabs.years=true;tabs.months=false'
+							>
+								<span>{{ $t('stats.charts.years.title') }}</span>
+							</li>
+							<li
+								class='tab-item cursor-pointer'
+								:class='{ "active": tabs.months }'
+								@click='tabs.years=false;tabs.months=true'
+							>
+								<span>{{ $t('stats.charts.months.title') }}</span>
+							</li>
+						</ul>
+						<div class='tab-content'>
+							<!-- emails per year over total time -->
+							<LineChart
+								v-if='tabs.years'
+								:title='$t("stats.charts.years.title")'
+								:description='$t("stats.charts.years.description")'
+								:datasets='yearsChartData.datasets'
+								:labels='yearsChartData.labels'
+							/>
+							<!-- emails per month over total time -->
+							<LineChart
+								v-if='tabs.months'
+								:title='$t("stats.charts.months.title")'
+								:description='$t("stats.charts.months.description")'
+								:datasets='monthsChartData.datasets'
+								:labels='monthsChartData.labels'
+							/>
+						</div>
+					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area'>
 					<!-- emails per time of day -->
@@ -234,6 +256,10 @@ export default {
 			weekdayData: {},
 			weekdayPerHourData: {},
 			contacts: {},
+			tabs: {
+				years: true,
+				months: false,
+			},
 			preferences: {
 				week: {
 					start: 1
@@ -730,7 +756,7 @@ body
 				max-width 1500px
 				grid-template-columns repeat(6, 1fr)
 			#chart-area-top
-				grid-template-columns 1fr 2fr
+				grid-template-columns 1fr 1fr
 		@media (max-width: 960px)
 			.numbers
 				grid-template-columns repeat(3, 1fr)
@@ -771,7 +797,7 @@ body
 				display grid
 				column-gap 2rem
 				row-gap 1rem
-				& > *
+				& > *, .tab-content > *
 					min-height 380px
 				.chart
 					min-width 0
