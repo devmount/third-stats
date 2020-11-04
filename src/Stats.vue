@@ -98,6 +98,14 @@
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 							/>
+							<!-- emails per quarter over total time -->
+							<LineChart
+								v-if='tabs.quarters'
+								:title='$t("stats.charts.quarters.title")'
+								:description='$t("stats.charts.quarters.description")'
+								:datasets='quartersChartData.datasets'
+								:labels='quartersChartData.labels'
+							/>
 							<!-- emails per month over total time -->
 							<LineChart
 								v-if='tabs.months'
@@ -211,7 +219,7 @@
 
 <script>
 // internal components
-import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear } from './utils';
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -254,6 +262,7 @@ export default {
 			waiting: true,
 			numbers: {},
 			yearsData: {},
+			quartersData: {},
 			monthsData: {},
 			weeksData: {},
 			daytimeData: {},
@@ -262,6 +271,7 @@ export default {
 			contacts: {},
 			tabs: {
 				years: true,
+				quarters: false,
 				months: false,
 				weeks: false,
 			},
@@ -353,6 +363,18 @@ export default {
 			} else {
 				this.yearsData[type][y]++
 			}
+			// quarters
+			let qn = quarterNumber(m.date)
+			if (!(y in this.quartersData[type])) {
+				this.quartersData[type][y] = {}
+				this.quartersData[type][y][qn] = 1
+			} else {
+				if (!(qn in this.quartersData[type][y])) {
+					this.quartersData[type][y][qn] = 1
+				} else {
+					this.quartersData[type][y][qn]++
+				}
+			}
 			// months
 			let mo = m.date.getMonth()
 			if (!(y in this.monthsData[type])) {
@@ -418,6 +440,10 @@ export default {
 				start: new Date(),
 			}
 			this.yearsData = {
+				received: {},
+				sent: {},
+			}
+			this.quartersData = {
 				received: {},
 				sent: {},
 			}
@@ -564,6 +590,38 @@ export default {
 						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: Object.keys(r)
+				}
+			}
+		},
+		quartersChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.quartersData.received
+				let s = this.quartersData.sent
+				let labels = [], dr = [], ds = []
+				let today = new Date()
+				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+					for (let q = 1; q <= 4; ++q) {
+						// trim quarters before start date
+						if (y == this.numbers.start.getFullYear() && q < quarterNumber(this.numbers.start)) continue
+						// trim quarters in future
+						if (y == today.getFullYear() && q > quarterNumber(today)) break
+						// organize labels and data
+						labels.push(y + ' Q' + q)
+						dr.push(y in r && q in r[y] ? r[y][q] : 0)
+						ds.push(y in s && q in s[y] ? s[y][q] : 0)
+					}
+				}
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: labels
 				}
 			}
 		},

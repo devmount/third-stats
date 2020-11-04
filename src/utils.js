@@ -37,4 +37,10 @@ let weeksInYear = (year) => {
 	return weekNumber(d) == 1 ? 52 : 53
 }
 
-export { traverseAccount, extractEmailAddress, weekNumber, weeksInYear }
+// function to get week number for given date
+let quarterNumber = (d) => {
+	let month = d.getMonth() + 1
+	return (Math.ceil(month / 3))
+}
+
+export { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber }

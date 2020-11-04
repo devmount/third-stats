@@ -28,6 +28,10 @@
 				"title": "Years",
 				"description": "Total number of emails per year"
 			},
+			"quarters": {
+				"title": "Quarters",
+				"description": "Total number of emails per quarter"
+			},
 			"months": {
 				"title": "Months",
 				"description": "Total number of emails per month"
