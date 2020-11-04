@@ -106,6 +106,14 @@
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 							/>
+							<!-- emails per week over total time -->
+							<LineChart
+								v-if='tabs.weeks'
+								:title='$t("stats.charts.weeks.title")'
+								:description='$t("stats.charts.weeks.description")'
+								:datasets='weeksChartData.datasets'
+								:labels='weeksChartData.labels'
+							/>
 						</div>
 					</div>
 				</div>
@@ -203,7 +211,7 @@
 
 <script>
 // internal components
-import { traverseAccount, extractEmailAddress } from './utils';
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -247,6 +255,7 @@ export default {
 			numbers: {},
 			yearsData: {},
 			monthsData: {},
+			weeksData: {},
 			daytimeData: {},
 			weekdayData: {},
 			weekdayPerHourData: {},
@@ -254,6 +263,7 @@ export default {
 			tabs: {
 				years: true,
 				months: false,
+				weeks: false,
 			},
 			preferences: {
 				week: {
@@ -355,6 +365,18 @@ export default {
 					this.monthsData[type][y][mo]++
 				}
 			}
+			// weeks
+			let wn = weekNumber(m.date)
+			if (!(y in this.weeksData[type])) {
+				this.weeksData[type][y] = {}
+				this.weeksData[type][y][wn] = 1
+			} else {
+				if (!(wn in this.weeksData[type][y])) {
+					this.weeksData[type][y][wn] = 1
+				} else {
+					this.weeksData[type][y][wn]++
+				}
+			}
 			// daytime
 			let dt = m.date.getHours()
 			this.daytimeData[type][dt]++
@@ -400,6 +422,10 @@ export default {
 				sent: {},
 			}
 			this.monthsData = {
+				received: {},
+				sent: {},
+			}
+			this.weeksData = {
 				received: {},
 				sent: {},
 			}
@@ -562,6 +588,38 @@ export default {
 						labels.push(y + ' ' + this.monthNames[m])
 						dr.push(y in r && m in r[y] ? r[y][m] : 0)
 						ds.push(y in s && m in s[y] ? s[y][m] : 0)
+					}
+				}
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: labels
+				}
+			}
+		},
+		weeksChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.weeksData.received
+				let s = this.weeksData.sent
+				let labels = [], dr = [], ds = []
+				let today = new Date()
+				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+					for (let w = 1; w <= weeksInYear(y); ++w) {
+						// trim weeks before start date
+						if (y == this.numbers.start.getFullYear() && w < weekNumber(this.numbers.start)) continue
+						// trim weeks in future
+						if (y == today.getFullYear() && w > weekNumber(today)) break
+						// organize labels and data
+						labels.push(y + ' W' + w)
+						dr.push(y in r && w in r[y] ? r[y][w] : 0)
+						ds.push(y in s && w in s[y] ? s[y][w] : 0)
 					}
 				}
 				return {

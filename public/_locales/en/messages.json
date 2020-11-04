@@ -32,6 +32,10 @@
 				"title": "Months",
 				"description": "Total number of emails per month"
 			},
+			"weeks": {
+				"title": "Weeks",
+				"description": "Total number of emails per week"
+			},
 			"daytime": {
 				"title": "Daytime",
 				"description": "Number of emails per time of day"
