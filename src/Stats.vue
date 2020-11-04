@@ -267,6 +267,7 @@ export default {
 			weeksData: {},
 			daytimeData: {},
 			weekdayData: {},
+			monthData: {},
 			weekdayPerHourData: {},
 			contacts: {},
 			tabs: {
@@ -405,6 +406,8 @@ export default {
 			// weekday
 			let wd = m.date.getDay()
 			this.weekdayData[type][wd]++
+			// month
+			this.monthData[type][mo]++
 			// weekday per hour
 			this.weekdayPerHourData[type][wd][dt]++
 			// contacts
@@ -462,6 +465,10 @@ export default {
 			this.weekdayData = {
 				received: new NumberedObject(7),
 				sent: new NumberedObject(7),
+			}
+			this.monthData = {
+				received: new NumberedObject(12),
+				sent: new NumberedObject(12),
 			}
 			this.weekdayPerHourData = {
 				received: new NumberedObject(7,24),
@@ -689,37 +696,6 @@ export default {
 				}
 			}
 		},
-		monthChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let r = this.monthsData.received
-				let s = this.monthsData.sent
-				let dr = [], ds = []
-				let today = new Date()
-				for (let m = 0; m < 12; ++m) {
-					let mtr = 0, mts = 0
-					for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
-						if (y == this.numbers.start.getFullYear() && m < this.numbers.start.getMonth()) continue
-						if (y == today.getFullYear() && m > today.getMonth()) break
-						mtr += y in r && m in r[y] ? r[y][m] : 0
-						mts += y in s && m in s[y] ? s[y][m] : 0
-					}
-					dr.push(mtr)
-					ds.push(mts)
-				}
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: this.monthNames
-				}
-			}
-		},
 		daytimeChartData () {
 			if (this.waiting) {
 				return {
@@ -759,6 +735,23 @@ export default {
 						{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: labels
+				}
+			}
+		},
+		monthChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.monthData.received, s = this.monthData.sent
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: this.monthNames
 				}
 			}
 		},
@@ -872,7 +865,7 @@ body
 				max-width 1500px
 				grid-template-columns repeat(6, 1fr)
 			#chart-area-top
-				grid-template-columns 1fr 1fr
+				grid-template-columns 1fr 2fr
 		@media (max-width: 960px)
 			.numbers
 				grid-template-columns repeat(3, 1fr)
