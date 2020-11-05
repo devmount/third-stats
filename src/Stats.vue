@@ -147,7 +147,7 @@
 					</div>
 					<div v-show='!preferences.sections.total.expand'></div>
 				</div>
-				<div id='chart-area-main' class='chart-area'>
+				<div id='chart-area-main' class='chart-area mt-2'>
 					<!-- emails per time of day -->
 					<BarChart
 						:title='$t("stats.charts.daytime.title")'

@@ -342,13 +342,11 @@ textarea
 // tabs
 .tab
 	align-items: center
-	border-bottom: 1px solid mode.dark.gray3
-	color: mode.dark.gray1
 	display: flex
 	flex-wrap: wrap
 	list-style: none
 	margin-bottom: 0
-
+	border-bottom: 1px solid
 	.tab-item
 		margin-top: 0
 		> span
@@ -358,11 +356,13 @@ textarea
 			margin: 0 1rem -1px 0
 			padding: .5rem 1rem
 			text-decoration: none
-			&:focus, &:hover
-				color: $link-color
-		&.active > span
-			border-bottom-color: mode.dark.accent2
-			color: mode.dark.accent2
+	for m, c in mode
+		.{m} &
+			border-bottom-color: c.gray3
+			color: c.gray1
+			.tab-item.active > span
+				border-bottom-color: c.accent2
+				color: c.accent2
 
 // loader
 loader(size)
