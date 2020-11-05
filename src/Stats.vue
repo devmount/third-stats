@@ -82,7 +82,8 @@
 							<li
 								v-for='(active, label) in tabs'
 								:key='label'
-								class='tab-item cursor-pointer'
+								class='tab-item cursor-pointer tooltip tooltip-bottom'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
 								:class='{ "active": active }'
 								@click='activateTab(label)'
 							>
@@ -93,32 +94,24 @@
 							<!-- emails per year over total time -->
 							<LineChart
 								v-if='tabs.years'
-								:title='$t("stats.charts.years.title")'
-								:description='$t("stats.charts.years.description")'
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
 								v-if='tabs.quarters'
-								:title='$t("stats.charts.quarters.title")'
-								:description='$t("stats.charts.quarters.description")'
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
 								v-if='tabs.months'
-								:title='$t("stats.charts.months.title")'
-								:description='$t("stats.charts.months.description")'
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
 								v-if='tabs.weeks'
-								:title='$t("stats.charts.weeks.title")'
-								:description='$t("stats.charts.weeks.description")'
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
 							/>

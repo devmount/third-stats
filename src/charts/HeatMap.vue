@@ -85,8 +85,6 @@ export default {
 			content ''
 			display block
 			padding-top 100%
-		&.tooltip
-			tooltip()
 	.x-label
 		&>div
 			padding-top 5px
