@@ -76,21 +76,49 @@
 			</section>
 			<!-- charts -->
 			<section v-else class='charts mt-2'>
-				<div id='chart-area-top' class='chart-area'>
+				<div
+					id='chart-area-top'
+					class='chart-area'
+					:class='{ "first-column-only": preferences.sections.total.expand }'
+				>
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
 								v-for='(active, label) in tabs'
 								:key='label'
-								class='tab-item cursor-pointer tooltip tooltip-bottom'
+								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
 								:data-tooltip='$t("stats.charts." + label + ".description")'
 								:class='{ "active": active }'
 								@click='activateTab(label)'
 							>
 								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
 							</li>
+							<li
+								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								:data-tooltip='
+									!preferences.sections.total.expand
+									? $t("stats.tooltips.expand")
+									: $t("stats.tooltips.shrink")
+								'
+								@click='preferences.sections.total.expand=!preferences.sections.total.expand'
+							>
+								<svg v-show='!preferences.sections.total.expand' class='icon icon-text icon-arrows-maximize' viewBox='0 0 24 24'>
+									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+									<polyline points='16 4 20 4 20 8' /><line x1='14' y1='10' x2='20' y2='4' />
+									<polyline points='8 20 4 20 4 16' /><line x1='4' y1='20' x2='10' y2='14' />
+									<polyline points='16 20 20 20 20 16' /><line x1='14' y1='14' x2='20' y2='20' />
+									<polyline points='8 4 4 4 4 8' /><line x1='4' y1='4' x2='10' y2='10' />
+								</svg>
+								<svg v-show='preferences.sections.total.expand' class='icon icon-text icon-arrows-minimize' viewBox='0 0 24 24'>
+									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+									<polyline points='5 9 9 9 9 5' /><line x1='3' y1='3' x2='9' y2='9' />
+									<polyline points='5 15 9 15 9 19' /><line x1='3' y1='21' x2='9' y2='15' />
+									<polyline points='19 9 15 9 15 5' /><line x1='15' y1='9' x2='21' y2='3' />
+									<polyline points='19 15 15 15 15 19' /><line x1='15' y1='15' x2='21' y2='21' />
+								</svg>
+							</li>
 						</ul>
-						<div class='tab-content'>
+						<div class='tab-content mt-1'>
 							<!-- emails per year over total time -->
 							<LineChart
 								v-if='tabs.years'
@@ -117,6 +145,7 @@
 							/>
 						</div>
 					</div>
+					<div v-show='!preferences.sections.total.expand'></div>
 				</div>
 				<div id='chart-area-main' class='chart-area'>
 					<!-- emails per time of day -->
@@ -270,6 +299,11 @@ export default {
 				weeks: false,
 			},
 			preferences: {
+				sections: {
+					total: {
+						expand: false
+					}
+				},
 				week: {
 					start: 1
 				},
@@ -858,12 +892,18 @@ body
 				max-width 1500px
 				grid-template-columns repeat(6, 1fr)
 			#chart-area-top
-				grid-template-columns 1fr 2fr
+				grid-template-columns calc(33.33% - 1rem) calc(66.66% - 1rem)
+				&.first-column-only
+					grid-template-columns calc(100%-1rem) 0%
+				.resizer
+					display: list-item
 		@media (max-width: 960px)
 			.numbers
 				grid-template-columns repeat(3, 1fr)
 			#chart-area-top
-				grid-template-columns 1fr
+				grid-template-columns calc(100%-1rem)
+				.resizer
+					display: none
 		@media (max-width: 720px)
 			#chart-area-main
 				grid-template-columns 1fr
@@ -899,6 +939,7 @@ body
 				display grid
 				column-gap 2rem
 				row-gap 1rem
+				transition grid-template-columns .2s
 				& > *, .tab-content > *
 					min-height 380px
 				.chart
