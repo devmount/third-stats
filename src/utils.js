@@ -22,7 +22,7 @@ let extractEmailAddress = (s) => {
 	}
 }
 
-// function to get week number for given date
+// function to get week number for given date (1 - 53)
 let weekNumber = (d) => {
 	d = new Date(+d)
 	d.setHours(0, 0, 0, 0)
@@ -37,10 +37,16 @@ let weeksInYear = (year) => {
 	return weekNumber(d) == 1 ? 52 : 53
 }
 
-// function to get week number for given date
+// function to get quarter number for given date
 let quarterNumber = (d) => {
 	let month = d.getMonth() + 1
 	return (Math.ceil(month / 3))
 }
 
-export { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber }
+export {
+	traverseAccount,
+	extractEmailAddress,
+	weekNumber,
+	weeksInYear,
+	quarterNumber
+}

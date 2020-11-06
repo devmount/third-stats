@@ -145,7 +145,33 @@
 							/>
 						</div>
 					</div>
-					<div v-show='!preferences.sections.total.expand'></div>
+					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
+						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-05 right-05 shadow focus-shadow">
+							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
+						</select>
+						<!-- emails per weekday per hour received -->
+						<HeatMap
+							:title='$t("stats.charts.days.title", [preferences.sections.days.year])'
+							:description='$t("stats.charts.days.description.received")'
+							rgb='10, 132, 255'
+							spacing='1px'
+							rounding='5px'
+							:dataset='daysChartData.received'
+							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+							class='mb-05 upper-chart'
+						/>
+						<!-- emails per weekday per hour sent -->
+						<HeatMap
+							:description='$t("stats.charts.days.description.sent")'
+							rgb='230, 77, 185'
+							spacing='1px'
+							rounding='5px'
+							:dataset='daysChartData.sent'
+							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+						/>
+					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area mt-2'>
 					<!-- emails per time of day -->
@@ -179,6 +205,7 @@
 							rounding='5px'
 							:dataset='weekdayPerHourChartData.received'
 							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+							:tooltips='"{y}, {x}:00\n{label}: {value}"'
 							class='mb-05'
 						/>
 						<!-- emails per weekday per hour sent -->
@@ -189,6 +216,7 @@
 							rounding='5px'
 							:dataset='weekdayPerHourChartData.sent'
 							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+							:tooltips='"{y}, {x}:00\n{label}: {value}"'
 						/>
 					</div>
 					<!-- contacts most emails received from -->
@@ -287,6 +315,7 @@ export default {
 			quartersData: {},
 			monthsData: {},
 			weeksData: {},
+			daysData: {},
 			daytimeData: {},
 			weekdayData: {},
 			monthData: {},
@@ -302,6 +331,9 @@ export default {
 				sections: {
 					total: {
 						expand: false
+					},
+					days: {
+						year: (new Date()).getFullYear()
 					}
 				},
 				week: {
@@ -435,6 +467,11 @@ export default {
 			this.weekdayData[type][wd]++
 			// month
 			this.monthData[type][mo]++
+			// weekday per calendar week
+			if (!(y in this.daysData[type])) {
+				this.daysData[type][y] = new NumberedObject(7,53)
+			}
+			this.daysData[type][y][wd][wn-1]++
 			// weekday per hour
 			this.weekdayPerHourData[type][wd][dt]++
 			// contacts
@@ -485,6 +522,10 @@ export default {
 				received: {},
 				sent: {},
 			}
+			this.daysData = {
+				received: {},
+				sent: {},
+			}
 			this.daytimeData = {
 				received: new NumberedObject(24),
 				sent: new NumberedObject(24),
@@ -500,11 +541,13 @@ export default {
 			this.weekdayPerHourData = {
 				received: new NumberedObject(7,24),
 				sent: new NumberedObject(7,24),
-			},
+			}
 			this.contacts = {
 				received: {},
 				sent: {},
 			}
+			this.preferences.sections.total.expand = false
+			this.preferences.sections.days.year = (new Date()).getFullYear()
 		},
 		activateTab (label) {
 			let self = this
@@ -645,7 +688,7 @@ export default {
 						// trim quarters in future
 						if (y == today.getFullYear() && q > quarterNumber(today)) break
 						// organize labels and data
-						labels.push(y + ' Q' + q)
+						labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
 						dr.push(y in r && q in r[y] ? r[y][q] : 0)
 						ds.push(y in s && q in s[y] ? s[y][q] : 0)
 					}
@@ -709,7 +752,7 @@ export default {
 						// trim weeks in future
 						if (y == today.getFullYear() && w > weekNumber(today)) break
 						// organize labels and data
-						labels.push(y + ' W' + w)
+						labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
 						dr.push(y in r && w in r[y] ? r[y][w] : 0)
 						ds.push(y in s && w in s[y] ? s[y][w] : 0)
 					}
@@ -782,6 +825,36 @@ export default {
 				}
 			}
 		},
+		daysChartData () {
+			if (this.waiting) {
+				return {
+					received: new NumberedObject(7,53),
+					sent: new NumberedObject(7,53),
+				}
+			} else {
+				let r = this.preferences.sections.days.year in this.daysData.received
+					? Object.values(this.daysData.received[this.preferences.sections.days.year])
+					: Object.values(new NumberedObject(7,53))
+				let s = this.preferences.sections.days.year in this.daysData.sent
+					? Object.values(this.daysData.sent[this.preferences.sections.days.year])
+					: Object.values(new NumberedObject(7,53))
+				let ylabels = [...this.weekdayNames]
+				let xlabels = Array.from(Array(54).keys())
+				xlabels.shift()
+				// start week with user defined day of week
+				for (let d = 0; d < this.preferences.week.start; d++) {
+					r.push(r.shift())
+					s.push(s.shift())
+					ylabels.push(ylabels.shift())
+				}
+				return {
+					received: { label: this.$t('stats.mailsReceived'), data: r },
+					sent: { label: this.$t('stats.mailsSent'), data: s },
+					ylabels: ylabels,
+					xlabels: xlabels,
+				}
+			}
+		},
 		weekdayPerHourChartData () {
 			if (this.waiting) {
 				return {
@@ -841,6 +914,10 @@ export default {
 		},
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
+		},
+		yearsList () {
+			let years = JSON.parse(JSON.stringify(this.yearsChartData.labels))
+			return years.reverse()
 		}
 	},
 	watch: {
@@ -948,5 +1025,7 @@ body
 						margin-bottom 0
 					p
 						margin-top 0
+				.chart-group .upper-chart h2
+					margin-top .5rem
 
 </style>

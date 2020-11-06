@@ -40,6 +40,13 @@
 				"title": "Weeks",
 				"description": "Total number of emails per week"
 			},
+			"days": {
+				"title": "Activity in {0}",
+				"description": {
+					"received": "Number of incoming emails per day",
+					"sent": "Number of outgoing emails per day"
+				}
+			},
 			"daytime": {
 				"title": "Daytime",
 				"description": "Number of emails per time of day"
@@ -73,6 +80,10 @@
 		"tooltips": {
 			"expand": "Expand chart area",
 			"shrink": "Shrink chart area"
+		},
+		"abbreviations": {
+			"calendarWeek": "W",
+			"quarter": "Q"
 		},
 		"starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"
 	},
