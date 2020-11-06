@@ -20,7 +20,7 @@
 						'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ');'
 						+ 'border-radius: ' + rounding + ';'
 					"
-					:data-tooltip="y + ', ' + (x) + ':00\n' + dataset.label + ': ' + dataset.data[n][m]"
+					:data-tooltip="buildTooltip(x, y, dataset.label, dataset.data[n][m])"
 					class='cell tooltip'
 				></div>
 			</template>
@@ -41,14 +41,20 @@ export default {
 		rgb: String,
 		spacing: String,
 		rounding: String,
-		dataset: Object, // {data: [[],[],...], label: ''}
-		labels: Object, // {y: [], x: []}
+		dataset: Object,  // {data: [[],[],...], label: ''}
+		labels: Object,   // {y: [], x: []}
+		tooltips: String, // template for tooltip of single data point. placeholders: {y},{x},{label},{value}
 	},
 	methods: {
 		// calculate opacity for given value based on max value
 		opacity (v) {
 			return this.max == 0 ? 0 : v/this.max
-		}
+		},
+		// build tooltip based on given template
+		buildTooltip (x, y, label, value) {
+			let replacements = { '{x}': x, '{y}': y, '{label}': label, '{value}': value }
+			return this.tooltips.replace(/{\w+}/g, all => replacements[all])
+		},
 	},
 	computed: {
 		// maximum value in given dataset
@@ -80,7 +86,7 @@ export default {
 	.cell
 		position relative
 		box-sizing border-box
-		transition background .8s ease
+		transition background .4s ease
 		&::before
 			content ''
 			display block
