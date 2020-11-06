@@ -123,8 +123,12 @@ for m, c in mode
 	margin-right: 1rem
 .mr-2
 	margin-right: 2rem
+.ml-auto
+	margin-left: auto
 .mb-05
 	margin-bottom: .5rem
+.mb-1
+	margin-bottom: 1rem
 .mt-6
 	margin-top: 6rem
 .my-6
@@ -137,6 +141,9 @@ for m, c in mode
 .py-1
 	padding-top: 1rem
 	padding-bottom: 1rem
+.px-1
+	padding-left: 1rem
+	padding-right: 1rem
 .pt-1
 	padding-top: 1rem
 .pt-2
@@ -147,6 +154,14 @@ for m, c in mode
 	display: block
 .d-inline
 	display: inline
+.position-absolute
+	position: absolute
+.position-relative
+	position: relative
+.top-05
+	top: .5rem
+.right-05
+	right: .5rem
 
 // cursor
 .cursor-pointer
@@ -332,6 +347,32 @@ textarea
 						else
 							background: c.secondary2
 
+// tabs
+.tab
+	align-items: center
+	display: flex
+	flex-wrap: wrap
+	list-style: none
+	margin-bottom: 0
+	border-bottom: 1px solid
+	padding-left: 1rem
+	.tab-item
+		margin-top: 0
+		> span
+			border-bottom: 2px solid transparent
+			color: inherit
+			display: block
+			margin-bottom: -1px
+			padding: .5rem 1rem
+			text-decoration: none
+	for m, c in mode
+		.{m} &
+			border-bottom-color: c.gray3
+			color: c.gray1
+			.tab-item.active > span
+				border-bottom-color: c.accent2
+				color: c.accent2
+
 // loader
 loader(size)
 	display: inline-block
@@ -345,7 +386,7 @@ loader(size)
 			border-top-color: c.gray1
 
 // tooltip
-tooltip()
+.tooltip
 	position: relative
 	&::after
 		border-radius: 3px
