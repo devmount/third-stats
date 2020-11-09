@@ -5,7 +5,7 @@
 	"popup": {
 		"message": "",
 		"account": "Compte | Comptes",
-		"messagesInFolder": "{0} messages dans {1} dossiers"
+		"messagesInFolder": "{0} message(s) dans {1} dossier(s)"
 	},
 	"stats": {
 		"message": "",
@@ -16,11 +16,11 @@
 		"percentOfReceived": "{0}% des reçus",
 		"mailsReceived": "Messages reçus",
 		"percentOfTotal": "{0}% du total",
-		"mailsSent": "Messages envoyés",
-		"mailsPerMonth": "Messages par mois",
-		"mailsYear": "messages/ans",
-		"mailsPerDay": "Messages par jour",
-		"mailsWeek": "messages/semaine",
+		"mailsSent": "Message(s) envoyé(s)",
+		"mailsPerMonth": "Message(s) par mois",
+		"mailsYear": "message(s)/an(s)",
+		"mailsPerDay": "Message(s) par jour",
+		"mailsWeek": "message(s)/semaine",
 		"loadingInProgress": "Chargement des emails du compte en cours...",
 		"accountEmpty": "Ce compte est vide, il n'y a pas d'emails.",
 		"charts": {
@@ -29,22 +29,22 @@
 				"description": "Nombre total de messages par an"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "Trimestre",
+				"description": "Nombre total de messages par trimestre"
 			},
 			"months": {
 				"title": "Mois",
 				"description": "Nombre total de messages par mois"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "Semaine",
+				"description": "Nombre total de messages par semaine"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "Activité dans {0}",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "Nombre de messages reçus par jour",
+					"sent": "Nombre de messages envoyés par jour"
 				}
 			},
 			"daytime": {
@@ -62,8 +62,8 @@
 			"temporalDistribution": {
 				"title": "Distribution temporelle",
 				"description": {
-					"received": "Nombre de messages entrants par jour de la semaine par heure",
-					"sent": "Nombre de messages sortants par jour de la semaine par heure"
+					"received": "Nombre de messages reçus par jour de la semaine par heure",
+					"sent": "Nombre de messages envoyés par jour de la semaine par heure"
 				}
 			},
 			"leader": {
@@ -72,37 +72,37 @@
 					"sent": "La plupart ont été envoyés à"
 				},
 				"description": {
-					"received": "Nombre d'emails envoyés par destinataire",
+					"received": "Nombre d'emails reçus par destinataire",
 					"sent": "Nombre d'emails envoyés par expéditeur"
 				}
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "Agrandir la zone du graphique",
+			"shrink": "Rétrécir la zone du graphique"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
+			"calendarWeek": "S",
+			"quarter": "T"
 		},
 		"starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>"
 	},
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "Marche",
+			"off": "Arrêt"
 		},
 		"button": {
-			"save": "Save"
+			"save": "Sauvegarder"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "Mode sombre",
+			"description": "Passer du mode sombre au mode clair"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "Identités locales",
+			"description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux"
 		}
 	}
 }
