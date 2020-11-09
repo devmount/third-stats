@@ -29,22 +29,22 @@
 				"description": "每年邮件总数"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "季度",
+				"description": "每季度邮件总数"
 			},
 			"months": {
 				"title": "月",
 				"description": "每月邮件总数"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "周",
+				"description": "每周邮件总数"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "活动于 {0}",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "每日收取邮件数",
+					"sent": "每日发送邮件数"
 				}
 			},
 			"daytime": {
@@ -78,31 +78,31 @@
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "放大图表范围",
+			"shrink": "缩小图表范围"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
+			"calendarWeek": "周",
+			"quarter": "季"
 		},
 		"starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案"
 	},
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "开",
+			"off": "关"
 		},
 		"button": {
-			"save": "Save"
+			"save": "储存"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "深色主题",
+			"description": "切换深色与浅色主题"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "本地身份",
+			"description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”"
 		}
 	}
 }
