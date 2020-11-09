@@ -26,25 +26,25 @@
 		"charts": {
 			"years": {
 				"title": "Anys",
-				"description": "Nombre total de corrus electrònics per any"
+				"description": "Nombre total de correus electrònics per any"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "quadrimestre",
+				"description": "Nombre total de correus electrònics per quadrimestre"
 			},
 			"months": {
 				"title": "Mesos",
 				"description": "Nombre total de correus electrònics al mes"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "Setmanes",
+				"description": "Nombre total de correus electrònics per setmanes"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "Activitat en {0}",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "Nombre de correus rebuts per dia",
+					"sent": "Nombre de correus enviats per dia"
 				}
 			},
 			"daytime": {
@@ -58,7 +58,7 @@
 			"month": {
 				"title": "Mesos",
 				"description": "Nombre total de correus electrònics al mes"
-			},
+			,
 			"temporalDistribution": {
 				"title": "Distribució temporal",
 				"description": {
@@ -78,11 +78,11 @@
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "Amplia l'àrea del gràfic",
+			"shrink": "Redueix l'àrea del gràfic"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
+			"calendarWeek": "S",
 			"quarter": "Q"
 		},
 		"starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>"
@@ -90,19 +90,19 @@
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "Activar",
+			"off": "Desactivar"
 		},
 		"button": {
-			"save": "Save"
+			"save": "Guardar"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "Mode fosc",
+			"description": "Canvia entre l'esquema de colors fosc i clar"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "Identitats locals",
+			"description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals"
 		}
 	}
 }
