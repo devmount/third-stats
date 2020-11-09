@@ -25,26 +25,26 @@
 		"accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
 		"charts": {
 			"years": {
-				"title": "Let",
+				"title": "Roky",
 				"description": "Celkový počet e-mailů za rok"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "Kvartály",
+				"description": "Celkový počet e-mailů za kvartál"
 			},
 			"months": {
 				"title": "Měsíce",
 				"description": "Celkový počet e-mailů za měsíc"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "Týdny",
+				"description": "Celkový počet e-mailů za týden"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "Aktivita {0}",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "Počet příchozích e-mailů za den",
+					"sent": "Počet odchozích e-mailů za den"
 				}
 			},
 			"daytime": {
@@ -78,8 +78,8 @@
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "Zvětšit graf",
+			"shrink": "Zmenšit graf"
 		},
 		"abbreviations": {
 			"calendarWeek": "W",
@@ -90,19 +90,19 @@
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "Zapnuto",
+			"off": "Vypnuto"
 		},
 		"button": {
-			"save": "Save"
+			"save": "Uložit"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "Tmavý režím",
+			"description": "Přepíná mezi tmavým a světlým barevným schématem"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "Místní identity",
+			"description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')"
 		}
 	}
 }
