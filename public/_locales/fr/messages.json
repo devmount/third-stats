@@ -102,7 +102,7 @@
     },
     "localIdentities": {
       "label": "Identités locales",
-      "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme "envoyées de" pour les comptes locaux"
+      "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux"
     }
   }
 }
