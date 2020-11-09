@@ -29,22 +29,22 @@
 				"description": "Yıllık toplam e-posta sayısı"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "Çeyrek",
+				"description": "Üç aylık toplam e-posta sayısı"
 			},
 			"months": {
 				"title": "Aylık",
 				"description": "Aylık toplam e-posta sayısı"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "Haftalık",
+				"description": "Haftalık toplam e-posta sayısı"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "{0} Etkinlik",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "Günlük gelen e-posta sayısı",
+					"sent": "Günlük giden e-posta sayısı"
 				}
 			},
 			"daytime": {
@@ -78,31 +78,31 @@
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "Grafik alanını genişlet",
+			"shrink": "Grafik alanını küçült"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
+			"calendarWeek": "H",
+			"quarter": "Ç"
 		},
 		"starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin"
 	},
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "Aç",
+			"off": "Kapat"
 		},
 		"button": {
-			"save": "Save"
+			"save": "Kaydet"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "Karanlık Modu",
+			"description": "Koyu ve açık renk düzeni arasında geçiş yapın"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "Yerel Kimlikler",
+			"description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi"
 		}
 	}
 }
