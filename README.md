@@ -62,6 +62,29 @@ Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-we
 6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
 7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
 
+## Special Thanks
+
+Many thanks especially to those who helped translating this add-on and making it more accessable for people around the globe:
+
+- Catalan: @altmas5 @Leos1113
+- Czech: @ajyan @martinsustek
+- German: @devmount
+- English: @devmount
+- Spanish: @roninJosue @SabrinaFZ
+- French: @antoinevth @aurelienrouze
+- Galician: @uveic
+- Hindi: @kunaljain0212 @mdfaizan7
+- Italian: @leobia @edmael
+- Japanese: @marcelstoer
+- Polish: @dfoltynski @wikiyu
+- Portuguese: @printf-ana @di3goCS
+- Russian: @kerlon5 @maria-muravyova
+- Swedish: @FrejBjornsson
+- Thai: @kerlos
+- Turkish: @tosbaha
+- Simplified Chinese: @jswildcards
+- Traditional Chinese: @Hsins
+
 ## Licence
 
 [MIT License](./LICENSE)
