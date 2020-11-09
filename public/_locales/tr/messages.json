@@ -28,9 +28,24 @@
 				"title": "Yıllık",
 				"description": "Yıllık toplam e-posta sayısı"
 			},
+			"quarters": {
+				"title": "Quarters",
+				"description": "Total number of emails per quarter"
+			},
 			"months": {
 				"title": "Aylık",
 				"description": "Aylık toplam e-posta sayısı"
+			},
+			"weeks": {
+				"title": "Weeks",
+				"description": "Total number of emails per week"
+			},
+			"days": {
+				"title": "Activity in {0}",
+				"description": {
+					"received": "Number of incoming emails per day",
+					"sent": "Number of outgoing emails per day"
+				}
 			},
 			"daytime": {
 				"title": "Saatlik",
@@ -62,6 +77,32 @@
 				}
 			}
 		},
+		"tooltips": {
+			"expand": "Expand chart area",
+			"shrink": "Shrink chart area"
+		},
+		"abbreviations": {
+			"calendarWeek": "W",
+			"quarter": "Q"
+		},
 		"starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin"
+	},
+	"options": {
+		"message": "",
+		"switch": {
+			"on": "On",
+			"off": "Off"
+		},
+		"button": {
+			"save": "Save"
+		},
+		"darkMode": {
+			"label": "Dark Mode",
+			"description": "Switch between dark and light color scheme"
+		},
+		"localIdentities": {
+			"label": "Local Identities",
+			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+		}
 	}
 }

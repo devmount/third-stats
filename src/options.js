@@ -1,18 +1,9 @@
 import Vue from 'vue'
-import Stats from './Stats.vue'
+import Options from './Options.vue'
 
 // vue configuration
 Vue.config.productionTip = false
 Vue.config.devtools = false
-
-// global mixins
-Vue.mixin({
-	methods: {
-		twoDigit: n => n.toFixed(2),
-		oneDigit: n => n.toFixed(1),
-		round: (n,d) => Number(Math.round(n + "e+" + d) + "e-" + d),
-	},
-})
 
 // internationalization
 import VueI18n from 'vue-i18n'
@@ -45,5 +36,5 @@ const i18n = new VueI18n({
 
 new Vue({
 	i18n,
-	render: h => h(Stats),
-}).$mount('#stats')
+	render: h => h(Options),
+}).$mount('#options')

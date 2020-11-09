@@ -1,6 +1,9 @@
 .DS_Store
+
+# build files
 node_modules
 dist
+deploy.sh
 
 # local env files
 .env.local

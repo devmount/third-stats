@@ -35,7 +35,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Leaderboards of most contacted email addresses
 - Switch between all Thunderbird accounts (local accounts included)
 - Switch between a dark and a light theme
-- Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Italian, Polish, Portuguese, Russian, Spanish, Swedish, and Thai
+- Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Italian, Japanese, Polish, Portuguese, Russian, Spanish, Swedish, Thai and Turkish
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
@@ -61,6 +61,29 @@ Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-we
 5. Save all your changes and run `yarn build` to create a production build in the `dist/` directory
 6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
 7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
+
+## Special Thanks
+
+Many thanks especially to those who helped translating this add-on and making it more accessable for people around the globe:
+
+- Catalan: @altmas5 @Leos1113
+- Czech: @ajyan @martinsustek
+- German: @devmount
+- English: @devmount
+- Spanish: @roninJosue @SabrinaFZ
+- French: @antoinevth @aurelienrouze
+- Galician: @uveic
+- Hindi: @kunaljain0212 @mdfaizan7
+- Italian: @leobia @edmael
+- Japanese: @marcelstoer
+- Polish: @dfoltynski @wikiyu
+- Portuguese: @printf-ana @di3goCS
+- Russian: @kerlon5 @maria-muravyova
+- Swedish: @FrejBjornsson
+- Thai: @kerlos
+- Turkish: @tosbaha
+- Simplified Chinese: @jswildcards
+- Traditional Chinese: @Hsins
 
 ## Licence
 

@@ -76,23 +76,104 @@
 			</section>
 			<!-- charts -->
 			<section v-else class='charts mt-2'>
-				<div id='chart-area-top' class='chart-area'>
-					<!-- emails per year over total time -->
-					<LineChart
-						:title='$t("stats.charts.years.title")'
-						:description='$t("stats.charts.years.description")'
-						:datasets='yearsChartData.datasets'
-						:labels='yearsChartData.labels'
-					/>
-					<!-- emails per month over total time -->
-					<LineChart
-						:title='$t("stats.charts.months.title")'
-						:description='$t("stats.charts.months.description")'
-						:datasets='monthsChartData.datasets'
-						:labels='monthsChartData.labels'
-					/>
+				<div
+					id='chart-area-top'
+					class='chart-area'
+					:class='{ "first-column-only": preferences.sections.total.expand }'
+				>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs'
+								:key='label'
+								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active }'
+								@click='activateTab(label)'
+							>
+								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
+							</li>
+							<li
+								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								:data-tooltip='
+									!preferences.sections.total.expand
+									? $t("stats.tooltips.expand")
+									: $t("stats.tooltips.shrink")
+								'
+								@click='preferences.sections.total.expand=!preferences.sections.total.expand'
+							>
+								<svg v-show='!preferences.sections.total.expand' class='icon icon-text icon-arrows-maximize' viewBox='0 0 24 24'>
+									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+									<polyline points='16 4 20 4 20 8' /><line x1='14' y1='10' x2='20' y2='4' />
+									<polyline points='8 20 4 20 4 16' /><line x1='4' y1='20' x2='10' y2='14' />
+									<polyline points='16 20 20 20 20 16' /><line x1='14' y1='14' x2='20' y2='20' />
+									<polyline points='8 4 4 4 4 8' /><line x1='4' y1='4' x2='10' y2='10' />
+								</svg>
+								<svg v-show='preferences.sections.total.expand' class='icon icon-text icon-arrows-minimize' viewBox='0 0 24 24'>
+									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+									<polyline points='5 9 9 9 9 5' /><line x1='3' y1='3' x2='9' y2='9' />
+									<polyline points='5 15 9 15 9 19' /><line x1='3' y1='21' x2='9' y2='15' />
+									<polyline points='19 9 15 9 15 5' /><line x1='15' y1='9' x2='21' y2='3' />
+									<polyline points='19 15 15 15 15 19' /><line x1='15' y1='15' x2='21' y2='21' />
+								</svg>
+							</li>
+						</ul>
+						<div class='tab-content mt-1'>
+							<!-- emails per year over total time -->
+							<LineChart
+								v-if='tabs.years'
+								:datasets='yearsChartData.datasets'
+								:labels='yearsChartData.labels'
+							/>
+							<!-- emails per quarter over total time -->
+							<LineChart
+								v-if='tabs.quarters'
+								:datasets='quartersChartData.datasets'
+								:labels='quartersChartData.labels'
+							/>
+							<!-- emails per month over total time -->
+							<LineChart
+								v-if='tabs.months'
+								:datasets='monthsChartData.datasets'
+								:labels='monthsChartData.labels'
+							/>
+							<!-- emails per week over total time -->
+							<LineChart
+								v-if='tabs.weeks'
+								:datasets='weeksChartData.datasets'
+								:labels='weeksChartData.labels'
+							/>
+						</div>
+					</div>
+					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
+						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-05 right-05 shadow focus-shadow">
+							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
+						</select>
+						<!-- emails per weekday per hour received -->
+						<HeatMap
+							:title='$t("stats.charts.days.title", [preferences.sections.days.year])'
+							:description='$t("stats.charts.days.description.received")'
+							rgb='10, 132, 255'
+							spacing='1px'
+							rounding='5px'
+							:dataset='daysChartData.received'
+							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+							class='mb-05 upper-chart'
+						/>
+						<!-- emails per weekday per hour sent -->
+						<HeatMap
+							:description='$t("stats.charts.days.description.sent")'
+							rgb='230, 77, 185'
+							spacing='1px'
+							rounding='5px'
+							:dataset='daysChartData.sent'
+							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+						/>
+					</div>
 				</div>
-				<div id='chart-area-main' class='chart-area'>
+				<div id='chart-area-main' class='chart-area mt-2'>
 					<!-- emails per time of day -->
 					<BarChart
 						:title='$t("stats.charts.daytime.title")'
@@ -124,6 +205,7 @@
 							rounding='5px'
 							:dataset='weekdayPerHourChartData.received'
 							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+							:tooltips='"{y}, {x}:00\n{label}: {value}"'
 							class='mb-05'
 						/>
 						<!-- emails per weekday per hour sent -->
@@ -134,6 +216,7 @@
 							rounding='5px'
 							:dataset='weekdayPerHourChartData.sent'
 							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+							:tooltips='"{y}, {x}:00\n{label}: {value}"'
 						/>
 					</div>
 					<!-- contacts most emails received from -->
@@ -186,7 +269,7 @@
 
 <script>
 // internal components
-import { traverseAccount, extractEmailAddress } from './utils';
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -229,25 +312,52 @@ export default {
 			waiting: true,
 			numbers: {},
 			yearsData: {},
+			quartersData: {},
 			monthsData: {},
+			weeksData: {},
+			daysData: {},
 			daytimeData: {},
 			weekdayData: {},
+			monthData: {},
 			weekdayPerHourData: {},
 			contacts: {},
+			tabs: {
+				years: true,
+				quarters: false,
+				months: false,
+				weeks: false,
+			},
 			preferences: {
+				sections: {
+					total: {
+						expand: false
+					},
+					days: {
+						year: (new Date()).getFullYear()
+					}
+				},
 				week: {
 					start: 1
 				},
-				dark: true
+				dark: true,
+				localIdentities: []
 			}
 		}
 	},
 	created () {
 		this.reset()
+		this.getSettings()
 		this.getPreferences()
 		this.getAccounts()
 	},
 	methods: {
+		// get all add-on settings
+		getSettings: async function () {
+			let result = await messenger.storage.local.get('options')
+			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
+			this.preferences.dark = result.options.dark ? true : false
+		},
+		// get legacy preferences
 		getPreferences: async function () {
 			let c = await messenger.LegacyPrefs.getUserPref("calendar.week.start")
 			this.preferences.week.start = c
@@ -265,7 +375,7 @@ export default {
 		processAccount: async function (id) {
 			this.waiting = true
 			let a = await messenger.accounts.get(id)
-			let identities = a.identities.map(i => i.email)
+			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
 			await Promise.all(folders.map(async f => {
@@ -276,12 +386,16 @@ export default {
 		},
 		// process all messages of a folder
 		processMessages: async function (folder, identities) {
-			let self = this
-			let page = await messenger.messages.list(folder)
-			page.messages.map(m => self.analyzeMessage(m, identities))
-			while (page.id) {
-				page = await messenger.messages.continueList(page.id)
+			if (folder) {
+				let self = this
+				let page = await messenger.messages.list(folder)
 				page.messages.map(m => self.analyzeMessage(m, identities))
+				while (page.id) {
+					page = await messenger.messages.continueList(page.id)
+					page.messages.map(m => self.analyzeMessage(m, identities))
+				}
+			} else {
+				console.error('This folder doesn\'t exist')
 			}
 		},
 		// extract information of a single message
@@ -309,6 +423,18 @@ export default {
 			} else {
 				this.yearsData[type][y]++
 			}
+			// quarters
+			let qn = quarterNumber(m.date)
+			if (!(y in this.quartersData[type])) {
+				this.quartersData[type][y] = {}
+				this.quartersData[type][y][qn] = 1
+			} else {
+				if (!(qn in this.quartersData[type][y])) {
+					this.quartersData[type][y][qn] = 1
+				} else {
+					this.quartersData[type][y][qn]++
+				}
+			}
 			// months
 			let mo = m.date.getMonth()
 			if (!(y in this.monthsData[type])) {
@@ -321,12 +447,31 @@ export default {
 					this.monthsData[type][y][mo]++
 				}
 			}
+			// weeks
+			let wn = weekNumber(m.date)
+			if (!(y in this.weeksData[type])) {
+				this.weeksData[type][y] = {}
+				this.weeksData[type][y][wn] = 1
+			} else {
+				if (!(wn in this.weeksData[type][y])) {
+					this.weeksData[type][y][wn] = 1
+				} else {
+					this.weeksData[type][y][wn]++
+				}
+			}
 			// daytime
 			let dt = m.date.getHours()
 			this.daytimeData[type][dt]++
 			// weekday
 			let wd = m.date.getDay()
 			this.weekdayData[type][wd]++
+			// month
+			this.monthData[type][mo]++
+			// weekday per calendar week
+			if (!(y in this.daysData[type])) {
+				this.daysData[type][y] = new NumberedObject(7,53)
+			}
+			this.daysData[type][y][wd][wn-1]++
 			// weekday per hour
 			this.weekdayPerHourData[type][wd][dt]++
 			// contacts
@@ -365,7 +510,19 @@ export default {
 				received: {},
 				sent: {},
 			}
+			this.quartersData = {
+				received: {},
+				sent: {},
+			}
 			this.monthsData = {
+				received: {},
+				sent: {},
+			}
+			this.weeksData = {
+				received: {},
+				sent: {},
+			}
+			this.daysData = {
 				received: {},
 				sent: {},
 			}
@@ -377,15 +534,26 @@ export default {
 				received: new NumberedObject(7),
 				sent: new NumberedObject(7),
 			}
+			this.monthData = {
+				received: new NumberedObject(12),
+				sent: new NumberedObject(12),
+			}
 			this.weekdayPerHourData = {
 				received: new NumberedObject(7,24),
 				sent: new NumberedObject(7,24),
-			},
+			}
 			this.contacts = {
 				received: {},
 				sent: {},
 			}
+			this.preferences.sections.total.expand = false
+			this.preferences.sections.days.year = (new Date()).getFullYear()
 		},
+		activateTab (label) {
+			let self = this
+			Object.keys(this.tabs).map(t => self.tabs[t] = false)
+			this.tabs[label] = true
+		}
 	},
 	computed: {
 		appVersion () {
@@ -502,6 +670,38 @@ export default {
 				}
 			}
 		},
+		quartersChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.quartersData.received
+				let s = this.quartersData.sent
+				let labels = [], dr = [], ds = []
+				let today = new Date()
+				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+					for (let q = 1; q <= 4; ++q) {
+						// trim quarters before start date
+						if (y == this.numbers.start.getFullYear() && q < quarterNumber(this.numbers.start)) continue
+						// trim quarters in future
+						if (y == today.getFullYear() && q > quarterNumber(today)) break
+						// organize labels and data
+						labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
+						dr.push(y in r && q in r[y] ? r[y][q] : 0)
+						ds.push(y in s && q in s[y] ? s[y][q] : 0)
+					}
+				}
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: labels
+				}
+			}
+		},
 		monthsChartData () {
 			if (this.waiting) {
 				return {
@@ -534,34 +734,35 @@ export default {
 				}
 			}
 		},
-		monthChartData () {
+		weeksChartData () {
 			if (this.waiting) {
 				return {
 					datasets: [],
 					labels: []
 				}
 			} else {
-				let r = this.monthsData.received
-				let s = this.monthsData.sent
-				let dr = [], ds = []
+				let r = this.weeksData.received
+				let s = this.weeksData.sent
+				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let m = 0; m < 12; ++m) {
-					let mtr = 0, mts = 0
-					for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
-						if (y == this.numbers.start.getFullYear() && m < this.numbers.start.getMonth()) continue
-						if (y == today.getFullYear() && m > today.getMonth()) break
-						mtr += y in r && m in r[y] ? r[y][m] : 0
-						mts += y in s && m in s[y] ? s[y][m] : 0
+				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+					for (let w = 1; w <= weeksInYear(y); ++w) {
+						// trim weeks before start date
+						if (y == this.numbers.start.getFullYear() && w < weekNumber(this.numbers.start)) continue
+						// trim weeks in future
+						if (y == today.getFullYear() && w > weekNumber(today)) break
+						// organize labels and data
+						labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+						dr.push(y in r && w in r[y] ? r[y][w] : 0)
+						ds.push(y in s && w in s[y] ? s[y][w] : 0)
 					}
-					dr.push(mtr)
-					ds.push(mts)
 				}
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: this.monthNames
+					labels: labels
 				}
 			}
 		},
@@ -604,6 +805,53 @@ export default {
 						{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
 					labels: labels
+				}
+			}
+		},
+		monthChartData () {
+			if (this.waiting) {
+				return {
+					datasets: [],
+					labels: []
+				}
+			} else {
+				let r = this.monthData.received, s = this.monthData.sent
+				return {
+					datasets: [
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					],
+					labels: this.monthNames
+				}
+			}
+		},
+		daysChartData () {
+			if (this.waiting) {
+				return {
+					received: new NumberedObject(7,53),
+					sent: new NumberedObject(7,53),
+				}
+			} else {
+				let r = this.preferences.sections.days.year in this.daysData.received
+					? Object.values(this.daysData.received[this.preferences.sections.days.year])
+					: Object.values(new NumberedObject(7,53))
+				let s = this.preferences.sections.days.year in this.daysData.sent
+					? Object.values(this.daysData.sent[this.preferences.sections.days.year])
+					: Object.values(new NumberedObject(7,53))
+				let ylabels = [...this.weekdayNames]
+				let xlabels = Array.from(Array(54).keys())
+				xlabels.shift()
+				// start week with user defined day of week
+				for (let d = 0; d < this.preferences.week.start; d++) {
+					r.push(r.shift())
+					s.push(s.shift())
+					ylabels.push(ylabels.shift())
+				}
+				return {
+					received: { label: this.$t('stats.mailsReceived'), data: r },
+					sent: { label: this.$t('stats.mailsSent'), data: s },
+					ylabels: ylabels,
+					xlabels: xlabels,
 				}
 			}
 		},
@@ -666,6 +914,10 @@ export default {
 		},
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
+		},
+		yearsList () {
+			let years = JSON.parse(JSON.stringify(this.yearsChartData.labels))
+			return years.reverse()
 		}
 	},
 	watch: {
@@ -717,12 +969,18 @@ body
 				max-width 1500px
 				grid-template-columns repeat(6, 1fr)
 			#chart-area-top
-				grid-template-columns 1fr 2fr
+				grid-template-columns calc(33.33% - 1rem) calc(66.66% - 1rem)
+				&.first-column-only
+					grid-template-columns calc(100%-1rem) 0%
+				.resizer
+					display: list-item
 		@media (max-width: 960px)
 			.numbers
 				grid-template-columns repeat(3, 1fr)
 			#chart-area-top
-				grid-template-columns 1fr
+				grid-template-columns calc(100%-1rem)
+				.resizer
+					display: none
 		@media (max-width: 720px)
 			#chart-area-main
 				grid-template-columns 1fr
@@ -758,7 +1016,8 @@ body
 				display grid
 				column-gap 2rem
 				row-gap 1rem
-				& > *
+				transition grid-template-columns .2s
+				& > *, .tab-content > *
 					min-height 380px
 				.chart
 					min-width 0
@@ -766,5 +1025,7 @@ body
 						margin-bottom 0
 					p
 						margin-top 0
+				.chart-group .upper-chart h2
+					margin-top .5rem
 
 </style>

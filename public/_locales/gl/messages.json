@@ -1,56 +1,71 @@
 {
-  "extensionDescription": {
-    "message": "Estatísticas visualmente atractivas para as túas contas de correo en Thunderbird"
-  },
-  "popup": {
-    "message": "",
-    "account": "Conta | Contas",
-    "messagesInFolder": "{0} mensaxes en {1} cartafoles"
-  },
-  "stats": {
-    "message": "",
-    "mailsTotal": "Total correos",
-    "withinYears": "nos últimos {0} anos",
-    "mailsUnread": "Correos sen ler",
-    "niceWork": "Bo traballo!",
-    "percentOfReceived": "{0}% dos recibidos",
-    "mailsReceived": "Correos recibidos",
-    "percentOfTotal": "{0}% do total",
-    "mailsSent": "Correos enviados",
-    "mailsPerMonth": "Correos por mes",
-    "mailsYear": "correos/ano",
-    "mailsPerDay": "Correos por día",
-    "mailsWeek": "correos/semana",
+	"extensionDescription": {
+		"message": "Estatísticas visualmente atractivas para as túas contas de correo en Thunderbird"
+	},
+	"popup": {
+		"message": "",
+		"account": "Conta | Contas",
+		"messagesInFolder": "{0} mensaxes en {1} cartafoles"
+	},
+	"stats": {
+		"message": "",
+		"mailsTotal": "Total correos",
+		"withinYears": "nos últimos {0} anos",
+		"mailsUnread": "Correos sen ler",
+		"niceWork": "Bo traballo!",
+		"percentOfReceived": "{0}% dos recibidos",
+		"mailsReceived": "Correos recibidos",
+		"percentOfTotal": "{0}% do total",
+		"mailsSent": "Correos enviados",
+		"mailsPerMonth": "Correos por mes",
+		"mailsYear": "correos/ano",
+		"mailsPerDay": "Correos por día",
+		"mailsWeek": "correos/semana",
 		"loadingInProgress": "Loading of all emails from this account in progress...",
 		"accountEmpty": "This account is empty, no emails here.",
-    "charts": {
-      "years": {
-        "title": "Anos",
-        "description": "Número total de correos por ano"
-      },
-      "months": {
-        "title": "Meses",
-        "description": "Número total de correos por mes"
-      },
-      "daytime": {
-        "title": "Hora do día",
-        "description": "Número de correos por hora"
-      },
-      "weekday": {
-        "title": "Día (da semana)",
-        "description": "Número de correos por día (da semana)"
-      },
-      "month": {
-        "title": "Meses",
-        "description": "Número total de correos por mes"
-      },
-      "temporalDistribution": {
-        "title": "Distribución temporal",
-        "description": {
-          "received": "Correos recibidos por día e hora",
-          "sent": "Correos enviados por día e hora"
-        }
-      },
+		"charts": {
+			"years": {
+				"title": "Anos",
+				"description": "Número total de correos por ano"
+			},
+			"quarters": {
+				"title": "Quarters",
+				"description": "Total number of emails per quarter"
+			},
+			"months": {
+				"title": "Meses",
+				"description": "Número total de correos por mes"
+			},
+			"weeks": {
+				"title": "Weeks",
+				"description": "Total number of emails per week"
+			},
+			"days": {
+				"title": "Activity in {0}",
+				"description": {
+					"received": "Number of incoming emails per day",
+					"sent": "Number of outgoing emails per day"
+				}
+			},
+			"daytime": {
+				"title": "Hora do día",
+				"description": "Número de correos por hora"
+			},
+			"weekday": {
+				"title": "Día (da semana)",
+				"description": "Número de correos por día (da semana)"
+			},
+			"month": {
+				"title": "Meses",
+				"description": "Número total de correos por mes"
+			},
+			"temporalDistribution": {
+				"title": "Distribución temporal",
+				"description": {
+					"received": "Correos recibidos por día e hora",
+					"sent": "Correos enviados por día e hora"
+				}
+			},
 			"leader": {
 				"title": {
 					"received": "Most received from",
@@ -61,7 +76,33 @@
 					"sent": "Number of emails received per sender"
 				}
 			}
-    },
-    "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>"
-  }
+		},
+		"tooltips": {
+			"expand": "Expand chart area",
+			"shrink": "Shrink chart area"
+		},
+		"abbreviations": {
+			"calendarWeek": "W",
+			"quarter": "Q"
+		},
+		"starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>"
+	},
+	"options": {
+		"message": "",
+		"switch": {
+			"on": "On",
+			"off": "Off"
+		},
+		"button": {
+			"save": "Save"
+		},
+		"darkMode": {
+			"label": "Dark Mode",
+			"description": "Switch between dark and light color scheme"
+		},
+		"localIdentities": {
+			"label": "Local Identities",
+			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+		}
+	}
 }

@@ -13,6 +13,10 @@ module.exports = {
 			entry: './src/stats.js',
 			template: './public/stats.html'
 		},
+		options: {
+			entry: './src/options.js',
+			template: './public/options.html'
+		},
 	},
 	configureWebpack: {
 		plugins: [
@@ -25,7 +29,12 @@ module.exports = {
 		performance: {
 			maxEntrypointSize: 1024000,
 			maxAssetSize: 1024000
-		}
+		},
+		output: {
+			filename: 'js/[name].js',
+			chunkFilename: 'js/[name].bundle.js',
+		},
 	},
+	productionSourceMap: false,
 	publicPath: '',
 }

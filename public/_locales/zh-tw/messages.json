@@ -28,9 +28,24 @@
 				"title": "年",
 				"description": "每年的郵件總數"
 			},
+			"quarters": {
+				"title": "季",
+				"description": "每季的郵件總數"
+			},
 			"months": {
 				"title": "月",
 				"description": "每月的郵件總數"
+			},
+			"weeks": {
+				"title": "週",
+				"description": "每週的郵件總數"
+			},
+			"days": {
+				"title": "{0} 天內的活躍狀況",
+				"description": {
+					"received": "每天收到的郵件數",
+					"sent": "每天寄送的郵件數"
+				}
 			},
 			"daytime": {
 				"title": "天",
@@ -62,6 +77,32 @@
 				}
 			}
 		},
+		"tooltips": {
+			"expand": "展開圖表區域",
+			"shrink": "收起圖表區域"
+		},
+		"abbreviations": {
+			"calendarWeek": "W",
+			"quarter": "Q"
+		},
 		"starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善"
+	},
+	"options": {
+		"message": "",
+		"switch": {
+			"on": "開啟",
+			"off": "關閉"
+		},
+		"button": {
+			"save": "儲存"
+		},
+		"darkMode": {
+			"label": "深色模式",
+			"description": "切換淺色與深色佈景主題"
+		},
+		"localIdentities": {
+			"label": "本機帳號",
+			"description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識"
+		}
 	}
 }

@@ -64,6 +64,7 @@ export default {
 		},
 		// count all messages of a folder
 		countMessages: async function (folder) {
+			if (!folder) return 0
 			let page = await messenger.messages.list(folder)
 			let count = page.messages.length
 			while (page.id) {
