@@ -58,7 +58,7 @@
 			"month": {
 				"title": "Mesos",
 				"description": "Nombre total de correus electrònics al mes"
-			,
+            },
 			"temporalDistribution": {
 				"title": "Distribució temporal",
 				"description": {
