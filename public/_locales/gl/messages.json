@@ -21,30 +21,30 @@
 		"mailsYear": "correos/ano",
 		"mailsPerDay": "Correos por día",
 		"mailsWeek": "correos/semana",
-		"loadingInProgress": "Loading of all emails from this account in progress...",
-		"accountEmpty": "This account is empty, no emails here.",
+		"loadingInProgress": "Cargando todos os correos desta conta...",
+		"accountEmpty": "Esta conta non ten ningún correo.",
 		"charts": {
 			"years": {
 				"title": "Anos",
 				"description": "Número total de correos por ano"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "Trimestres",
+				"description": "Número total de correos por trimestre"
 			},
 			"months": {
 				"title": "Meses",
 				"description": "Número total de correos por mes"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "Semanas",
+				"description": "Número total de correos por semanas"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "Actividade en {0}",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "Número de correos recibidos por día",
+					"sent": "Número de correos enviados por día"
 				}
 			},
 			"daytime": {
@@ -68,41 +68,41 @@
 			},
 			"leader": {
 				"title": {
-					"received": "Most received from",
-					"sent": "Most sent to"
+					"received": "Máis correos recibidos de",
+					"sent": "Máis correos enviados a"
 				},
 				"description": {
-					"received": "Number of emails sent per recipient",
-					"sent": "Number of emails received per sender"
+					"received": "Número de correos enviados por destinatario",
+					"sent": "Número de correos recibidos por remitente"
 				}
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "Aumentar área da gráfica",
+			"shrink": "Diminuír área da gráfica"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
+			"calendarWeek": "S",
+			"quarter": "T"
 		},
 		"starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>"
 	},
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "Acendido",
+			"off": "Apagado"
 		},
 		"button": {
-			"save": "Save"
+			"save": "Gardar"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "Modo escuro",
+			"description": "Cambia entre o modo escuro e claro"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "Identidades locais",
+			"description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais"
 		}
 	}
 }
