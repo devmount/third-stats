@@ -29,22 +29,22 @@
 				"description": "Totala antalet mejl per år"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "Kvartal",
+				"description": "Totalt antal mejl per kvartal"
 			},
 			"months": {
 				"title": "Månader",
 				"description": "Totala antalet mejl per månad"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "Veckor",
+				"description": "Totala antalet mejl per vecka"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "Aktivitet i {0}",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "Antal inkommande mejl per dag",
+					"sent": "Antal utgående mejl per dag"
 				}
 			},
 			"daytime": {
@@ -78,31 +78,31 @@
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "Expandera diagramområdet",
+			"shrink": "Krymp diagramområdet"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
+			"calendarWeek": "V",
+			"quarter": "K"
 		},
 		"starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>"
 	},
 	"options": {
 		"message": "",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "På",
+			"off": "Av"
 		},
 		"button": {
-			"save": "Save"
+			"save": "Spara"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "Mörkt Läge",
+			"description": "Växla mellan mörkt och ljust färgschema"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "Lokala Identiteter",
+			"description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
 		}
 	}
 }
