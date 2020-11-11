@@ -3,12 +3,12 @@
 		"message": "Thunderbirdメールアカウントの統計"
 	},
 	"popup": {
-		"message": "",
+		"message": "メール",
 		"account": "アカウント | アカウント",
 		"messagesInFolder": "{0} メッセージ / {1} フォールダー"
 	},
 	"stats": {
-		"message": "",
+		"message": "メール",
 		"mailsTotal": "メッセージ全件数",
 		"withinYears": "過去{0}年間",
 		"mailsUnread": "未読メール",
@@ -29,22 +29,22 @@
 				"description": "年間のメールの総数"
 			},
 			"quarters": {
-				"title": "Quarters",
-				"description": "Total number of emails per quarter"
+				"title": "四半期",
+				"description": "四半期間のメールの総数"
 			},
 			"months": {
 				"title": "月間",
 				"description": "月間のメールの総数"
 			},
 			"weeks": {
-				"title": "Weeks",
-				"description": "Total number of emails per week"
+				"title": "週",
+				"description": "1週間のメールの総数"
 			},
 			"days": {
-				"title": "Activity in {0}",
+				"title": "{0}年のメール総数",
 				"description": {
-					"received": "Number of incoming emails per day",
-					"sent": "Number of outgoing emails per day"
+					"received": "1日の時間あたりの受信メール数",
+					"sent": "1日の時間あたりの送信メール数"
 				}
 			},
 			"daytime": {
@@ -78,31 +78,31 @@
 			}
 		},
 		"tooltips": {
-			"expand": "Expand chart area",
-			"shrink": "Shrink chart area"
+			"expand": "チャートを拡張",
+			"shrink": "チャートを縮小"
 		},
 		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
+			"calendarWeek": "曜日",
+			"quarter": "四半期"
 		},
 		"starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください"
 	},
 	"options": {
-		"message": "",
+		"message": "メール",
 		"switch": {
-			"on": "On",
-			"off": "Off"
+			"on": "オン",
+			"off": "オフ"
 		},
 		"button": {
-			"save": "Save"
+			"save": "保存する"
 		},
 		"darkMode": {
-			"label": "Dark Mode",
-			"description": "Switch between dark and light color scheme"
+			"label": "ダークとライトのスキーム",
+			"description": "ダークスキームかライトスキームを選択"
 		},
 		"localIdentities": {
-			"label": "Local Identities",
-			"description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+			"label": "ローカルID",
+			"description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください"
 		}
 	}
 }
