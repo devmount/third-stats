@@ -3,12 +3,12 @@
     "message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Conta | Contas",
     "messagesInFolder": "{0} mensagens em {1} pastas"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Total de e-mails",
     "withinYears": "Dentro de {0} anos",
     "mailsUnread": "E-mails não lidos",
@@ -29,22 +29,22 @@
         "description": "Total de e-mails por ano"
       },
       "quarters": {
-        "title": "",
-        "description": ""
+        "title": "Trimestre",
+        "description": "Total de e-mails por trimestre"
       },
       "months": {
         "title": "Meses",
         "description": "Total de e-mails por mês"
       },
       "weeks": {
-        "title": "",
-        "description": ""
+        "title": "Semanas",
+        "description": "Total de e-mails por semana"
       },
       "days": {
-        "title": "",
+        "title": "Atividade em {0}",
         "description": {
-          "received": "",
-          "sent": ""
+          "received": "E-mails recebidos por dia",
+          "sent": "E-mails enviados por dia"
         }
       },
       "daytime": {
@@ -78,31 +78,30 @@
       }
     },
     "tooltips": {
-      "expand": "",
-      "shrink": ""
+      "expand": "Expandir área do gráfico",
+      "shrink": "Diminuir área do gráfico"
     },
     "abbreviations": {
-      "calendarWeek": "",
-      "quarter": ""
+      "calendarWeek": "S",
+      "quarter": "T"
     },
     "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
     "switch": {
-      "on": "",
-      "off": ""
+      "on": "Ligado",
+      "off": "Desligado"
     },
     "button": {
-      "save": ""
+      "save": "Salvar"
     },
     "darkMode": {
-      "label": "",
-      "description": ""
+      "label": "Modo Escuro",
+      "description": "Alternar entre modo escuro e modo claro"
     },
     "localIdentities": {
-      "label": "",
-      "description": ""
+      "label": "Identidades Locais",
+      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais"
     }
   }
 }
