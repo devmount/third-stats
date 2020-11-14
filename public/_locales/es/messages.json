@@ -3,12 +3,11 @@
     "message": "Estadísticas visualmente bellas para sus cuentas de correo electrónico de Thunderbird"
   },
   "popup": {
-    "message": "-",
     "account": "Cuenta | Cuentas",
-    "messagesInFolder": "{0} mensajes en {1} carpetas"
+    "messagesInFolder": "{0} mensajes en {1} carpetas",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Total de correos",
     "withinYears": "en {0} años",
     "mailsUnread": "Correos no leídos",
@@ -29,22 +28,22 @@
         "description": "Total de correos por año"
       },
       "quarters": {
-        "title": "",
-        "description": ""
+        "title": "Cuatrimestre",
+        "description": "Total de correos por cuatrimestre"
       },
       "months": {
         "title": "Meses",
         "description": "Total de correos por mes"
       },
       "weeks": {
-        "title": "",
-        "description": ""
+        "title": "Semanas",
+        "description": "Total de correos por semana"
       },
       "days": {
-        "title": "",
+        "title": "Actividad en {0}",
         "description": {
-          "received": "",
-          "sent": ""
+          "received": "Número de correos entrantes por día",
+          "sent": "Número de correos salientes por día"
         }
       },
       "daytime": {
@@ -78,31 +77,32 @@
       }
     },
     "tooltips": {
-      "expand": "",
-      "shrink": ""
+      "expand": "Expandir área del gráfico",
+      "shrink": "Reducir área del gráfico"
     },
     "abbreviations": {
-      "calendarWeek": "",
-      "quarter": ""
+      "calendarWeek": "S",
+      "quarter": "C"
     },
-    "starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
-      "on": "",
-      "off": ""
+      "on": "Activar",
+      "off": "Desactivar"
     },
     "button": {
-      "save": ""
+      "save": "Guardar"
     },
     "darkMode": {
-      "label": "",
-      "description": ""
+      "label": "Modo obscuro",
+      "description": "Cambiar entre esquema de color obscuro y claro"
     },
     "localIdentities": {
-      "label": "",
-      "description": ""
-    }
+      "label": "Indetidades locales",
+      "description": "Una lista de direcciones de correos separados por coma para reconocer como 'enviados desde' para cuentas locales"
+    },
+    "message": "-"
   }
 }
