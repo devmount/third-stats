@@ -3,12 +3,12 @@
     "message": "Красиво визуализированная статистика для ваших аккаунтов в Thunderbird Email"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Аккаунт | Аккаунты",
     "messagesInFolder": "{0} писем в {1} папках"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Всего писем",
     "withinYears": "за {0} лет",
     "mailsUnread": "Непрочитанных писем",
@@ -88,7 +88,7 @@
     "starAndImprove": "Оцените и улучшите этот проект на <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "",
       "off": ""

@@ -3,12 +3,12 @@
     "message": "精美地呈现您 Thunderbird 邮件账号数据"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "账号 | 账号",
     "messagesInFolder": "{0} 则讯息于 {1} 个资料夹内"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "邮件总数",
     "withinYears": "{0} 年内",
     "mailsUnread": "邮件未读取",
@@ -88,7 +88,7 @@
     "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "开",
       "off": "关"

@@ -3,12 +3,12 @@
     "message": "Uno splendido modo di visualizzare le statistiche per i tuoi account su Thunderbird"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Account | Account",
     "messagesInFolder": "{0} messaggi in {1} cartelle"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Mail totali",
     "withinYears": "in {0} anni",
     "mailsUnread": "Mail non lette",
@@ -88,7 +88,7 @@
     "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "On",
       "off": "Off"

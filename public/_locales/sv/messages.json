@@ -3,12 +3,12 @@
     "message": "Vackert visualiserad statistik för dina e-postkonton i Thunderbird"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Konto | Konton",
     "messagesInFolder": "{0} meddelanden i {1} mappar"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Mejl totalt",
     "withinYears": "inom {0} år",
     "mailsUnread": "Olästa mejl",
@@ -88,7 +88,7 @@
     "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "På",
       "off": "Av"

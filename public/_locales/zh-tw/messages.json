@@ -3,12 +3,12 @@
     "message": "視覺化您 Thunderbird 電子郵件帳號的統計資訊"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "帳號 | 帳號",
     "messagesInFolder": "{0} 則訊息在 {1} 個資料夾中"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "郵件總數",
     "withinYears": "{0} 年內",
     "mailsUnread": "未閱讀郵件",
@@ -88,7 +88,7 @@
     "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "開啟",
       "off": "關閉"

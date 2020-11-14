@@ -3,12 +3,12 @@
     "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Konto | Konten",
     "messagesInFolder": "{0} Nachrichten in {1} Ordnern"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "E-Mails gesamt",
     "withinYears": "in {0} Jahren",
     "mailsUnread": "E-Mails ungelesen",
@@ -88,7 +88,7 @@
     "starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "An",
       "off": "Aus"

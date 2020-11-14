@@ -3,12 +3,12 @@
     "message": "Estadístiques visualment belles per als seus comptes de correu electrònic del Thunderbird"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Compte | Comptes",
     "messagesInFolder": "{0} missatges en {1} carpetes"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Correus en total",
     "withinYears": "en {0} anys",
     "mailsUnread": "Correus no llegits",
@@ -88,7 +88,7 @@
     "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "Activar",
       "off": "Desactivar"

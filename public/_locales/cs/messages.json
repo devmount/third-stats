@@ -3,12 +3,12 @@
     "message": "Krásně vizualizované statistiky pro vaše e-mailové účty Thunderbird"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Účet | Účty",
     "messagesInFolder": "{0} zpráv v {1} složce"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Celkem e-mailů",
     "withinYears": "do {0} let",
     "mailsUnread": "Nepřečtené e-maily",
@@ -88,7 +88,7 @@
     "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "Zapnuto",
       "off": "Vypnuto"

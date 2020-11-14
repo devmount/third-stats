@@ -3,12 +3,12 @@
     "message": "สถิติภาพที่สวยงามให้เมล Thunderbird ของคุณ"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "บัญชีผู้ใช้ | บัญชี",
     "messagesInFolder": "{0} ข้อความใน {1} โฟลเดอร์"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "เมลทั้งหมด",
     "withinYears": "ภายใน {0} ปี",
     "mailsUnread": "เมลที่ไม่ได้อ่าน",
@@ -88,7 +88,7 @@
     "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "",
       "off": ""

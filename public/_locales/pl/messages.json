@@ -3,12 +3,12 @@
     "message": "Wspaniale ukazane statystyki dla twoich kont pocztowych w Thunderbirdzie"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Konto | Konta",
     "messagesInFolder": "{0} wiadomości w {1} folderach"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Wszystkich wiadomości",
     "withinYears": "z {0} lat",
     "mailsUnread": "Nieprzeczytanych wiadomości",
@@ -88,7 +88,7 @@
     "starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "",
       "off": ""

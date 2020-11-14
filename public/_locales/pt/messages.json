@@ -88,6 +88,7 @@
     "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>"
   },
   "options": {
+    "message": "-",
     "switch": {
       "on": "Ligado",
       "off": "Desligado"

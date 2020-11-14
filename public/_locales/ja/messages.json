@@ -3,12 +3,12 @@
     "message": "Thunderbirdメールアカウントの統計"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "アカウント | アカウント",
     "messagesInFolder": "{0} メッセージ / {1} フォールダー"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "メッセージ全件数",
     "withinYears": "過去{0}年間",
     "mailsUnread": "未読メール",
@@ -88,7 +88,7 @@
     "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "オン",
       "off": "オフ"

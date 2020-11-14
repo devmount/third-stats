@@ -3,12 +3,12 @@
     "message": "आपके थंडरबर्ड ईमेल खातों के लिए सरल और सुंदर आँकड़े"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "खाता | खाते",
     "messagesInFolder": "{1} फ़ोल्डर में {0} संदेश"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "कुल मेल",
     "withinYears": "{0} साल के भीतर",
     "mailsUnread": "अपठित मेल्स",
@@ -88,7 +88,7 @@
     "starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "",
       "off": ""

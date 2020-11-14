@@ -3,12 +3,12 @@
     "message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
   },
   "popup": {
-    "message": "",
+    "message": "-",
     "account": "Hesap | Hesaplar",
     "messagesInFolder": "{1} klasörde {0} mesaj"
   },
   "stats": {
-    "message": "",
+    "message": "-",
     "mailsTotal": "Toplam e-posta",
     "withinYears": "{0} yıl içersinde",
     "mailsUnread": "Okunmamış e-posta",
@@ -88,7 +88,7 @@
     "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin"
   },
   "options": {
-    "message": "",
+    "message": "-",
     "switch": {
       "on": "Aç",
       "off": "Kapat"
