@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
-	},
-	"popup": {
-		"message": "",
-		"account": "Hesap | Hesaplar",
-		"messagesInFolder": "{1} klasörde {0} mesaj"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "Toplam e-posta",
-		"withinYears": "{0} yıl içersinde",
-		"mailsUnread": "Okunmamış e-posta",
-		"niceWork": "İyi İş!",
-		"percentOfReceived": "%{0} alındı",
-		"mailsReceived": "Alınan E-posta",
-		"percentOfTotal": "Toplamın %{0}",
-		"mailsSent": "Gönderilen E-posta",
-		"mailsPerMonth": "Aylık E-posta",
-		"mailsYear": "e-posta/yıl",
-		"mailsPerDay": "Günlük E-posta",
-		"mailsWeek": "e-posta/hafta",
-		"loadingInProgress": "Bu hesaptan e-postaların yüklenmesi devam ediyor...",
-		"accountEmpty": "Bu hesap boş, e-posta yok.",
-		"charts": {
-			"years": {
-				"title": "Yıllık",
-				"description": "Yıllık toplam e-posta sayısı"
-			},
-			"quarters": {
-				"title": "Çeyrek",
-				"description": "Üç aylık toplam e-posta sayısı"
-			},
-			"months": {
-				"title": "Aylık",
-				"description": "Aylık toplam e-posta sayısı"
-			},
-			"weeks": {
-				"title": "Haftalık",
-				"description": "Haftalık toplam e-posta sayısı"
-			},
-			"days": {
-				"title": "{0} Etkinlik",
-				"description": {
-					"received": "Günlük gelen e-posta sayısı",
-					"sent": "Günlük giden e-posta sayısı"
-				}
-			},
-			"daytime": {
-				"title": "Saatlik",
-				"description": "Saat başına e-posta sayısı"
-			},
-			"weekday": {
-				"title": "Gün",
-				"description": "Gün başına e-posta sayısı"
-			},
-			"month": {
-				"title": "Ay",
-				"description": "Ay başına e-posta sayısı"
-			},
-			"temporalDistribution": {
-				"title": "Zamansal dağılım",
-				"description": {
-					"received": "Hafta içi her saatte gelen e-posta sayısı",
-					"sent": "Hafta içi her saatte giden e-posta sayısı"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "En çok gelen",
-					"sent": "En çok gönderilen"
-				},
-				"description": {
-					"received": "Alıcı başına gönderilen e-posta sayısı",
-					"sent": "Gönderen başına alınan e-posta sayısı"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "Grafik alanını genişlet",
-			"shrink": "Grafik alanını küçült"
-		},
-		"abbreviations": {
-			"calendarWeek": "H",
-			"quarter": "Ç"
-		},
-		"starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "Aç",
-			"off": "Kapat"
-		},
-		"button": {
-			"save": "Kaydet"
-		},
-		"darkMode": {
-			"label": "Karanlık Modu",
-			"description": "Koyu ve açık renk düzeni arasında geçiş yapın"
-		},
-		"localIdentities": {
-			"label": "Yerel Kimlikler",
-			"description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi"
-		}
-	}
+  "extensionDescription": {
+    "message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
+  },
+  "popup": {
+    "message": "",
+    "account": "Hesap | Hesaplar",
+    "messagesInFolder": "{1} klasörde {0} mesaj"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "Toplam e-posta",
+    "withinYears": "{0} yıl içersinde",
+    "mailsUnread": "Okunmamış e-posta",
+    "niceWork": "İyi İş!",
+    "percentOfReceived": "%{0} alındı",
+    "mailsReceived": "Alınan E-posta",
+    "percentOfTotal": "Toplamın %{0}",
+    "mailsSent": "Gönderilen E-posta",
+    "mailsPerMonth": "Aylık E-posta",
+    "mailsYear": "e-posta/yıl",
+    "mailsPerDay": "Günlük E-posta",
+    "mailsWeek": "e-posta/hafta",
+    "loadingInProgress": "Bu hesaptan e-postaların yüklenmesi devam ediyor...",
+    "accountEmpty": "Bu hesap boş, e-posta yok.",
+    "charts": {
+      "years": {
+        "title": "Yıllık",
+        "description": "Yıllık toplam e-posta sayısı"
+      },
+      "quarters": {
+        "title": "Çeyrek",
+        "description": "Üç aylık toplam e-posta sayısı"
+      },
+      "months": {
+        "title": "Aylık",
+        "description": "Aylık toplam e-posta sayısı"
+      },
+      "weeks": {
+        "title": "Haftalık",
+        "description": "Haftalık toplam e-posta sayısı"
+      },
+      "days": {
+        "title": "{0} Etkinlik",
+        "description": {
+          "received": "Günlük gelen e-posta sayısı",
+          "sent": "Günlük giden e-posta sayısı"
+        }
+      },
+      "daytime": {
+        "title": "Saatlik",
+        "description": "Saat başına e-posta sayısı"
+      },
+      "weekday": {
+        "title": "Gün",
+        "description": "Gün başına e-posta sayısı"
+      },
+      "month": {
+        "title": "Ay",
+        "description": "Ay başına e-posta sayısı"
+      },
+      "temporalDistribution": {
+        "title": "Zamansal dağılım",
+        "description": {
+          "received": "Hafta içi her saatte gelen e-posta sayısı",
+          "sent": "Hafta içi her saatte giden e-posta sayısı"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "En çok gelen",
+          "sent": "En çok gönderilen"
+        },
+        "description": {
+          "received": "Alıcı başına gönderilen e-posta sayısı",
+          "sent": "Gönderen başına alınan e-posta sayısı"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "Grafik alanını genişlet",
+      "shrink": "Grafik alanını küçült"
+    },
+    "abbreviations": {
+      "calendarWeek": "H",
+      "quarter": "Ç"
+    },
+    "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "Aç",
+      "off": "Kapat"
+    },
+    "button": {
+      "save": "Kaydet"
+    },
+    "darkMode": {
+      "label": "Karanlık Modu",
+      "description": "Koyu ve açık renk düzeni arasında geçiş yapın"
+    },
+    "localIdentities": {
+      "label": "Yerel Kimlikler",
+      "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi"
+    }
+  }
 }

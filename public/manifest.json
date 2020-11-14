@@ -7,15 +7,15 @@
 	"homepage_url": "https://github.com/devmount/third-stats",
 	"default_locale": "en",
 	"applications": {
-			"gecko": {
-					"id": "thirdstats@devmount.de",
-					"strict_min_version": "78.0"
-			}
+		"gecko": {
+			"id": "thirdstats@devmount.de",
+			"strict_min_version": "78.0"
+		}
 	},
 	"browser_action": {
-			"default_popup": "popup.html",
-			"default_title": "ThirdStats",
-			"default_icon": "icon.svg"
+		"default_popup": "popup.html",
+		"default_title": "ThirdStats",
+		"default_icon": "icon.svg"
 	},
 	"options_ui": {
 		"page": "options.html"
@@ -27,9 +27,9 @@
 		"storage"
 	],
 	"icons": {
-			"64": "icon.svg",
-			"32": "icon.svg",
-			"16": "icon.svg"
+		"64": "icon.svg",
+		"32": "icon.svg",
+		"16": "icon.svg"
 	},
 	"experiment_apis": {
 		"LegacyPrefs": {

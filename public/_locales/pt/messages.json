@@ -3,10 +3,12 @@
     "message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
   },
   "popup": {
+    "message": "-",
     "account": "Conta | Contas",
     "messagesInFolder": "{0} mensagens em {1} pastas"
   },
   "stats": {
+    "message": "-",
     "mailsTotal": "Total de e-mails",
     "withinYears": "Dentro de {0} anos",
     "mailsUnread": "E-mails não lidos",

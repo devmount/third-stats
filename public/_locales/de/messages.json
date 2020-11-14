@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
-	},
-	"popup": {
-		"message": "",
-		"account": "Konto | Konten",
-		"messagesInFolder": "{0} Nachrichten in {1} Ordnern"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "E-Mails gesamt",
-		"withinYears": "in {0} Jahren",
-		"mailsUnread": "E-Mails ungelesen",
-		"niceWork": "Gute Arbeit!",
-		"percentOfReceived": "{0}% von Empfangenen",
-		"mailsReceived": "E-Mails empfangen",
-		"percentOfTotal": "{0}% von Gesamt",
-		"mailsSent": "E-Mails gesendet",
-		"mailsPerMonth": "E-Mails pro Monat",
-		"mailsYear": "E-Mails/Jahr",
-		"mailsPerDay": "E-Mails pro Tag",
-		"mailsWeek": "E-Mails/Woche",
-		"loadingInProgress": "E-Mails für dieses Konto werden geladen...",
-		"accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
-		"charts": {
-			"years": {
-				"title": "Jahre",
-				"description": "Gesamtanzahl aller E-Mails pro Jahr"
-			},
-			"quarters": {
-				"title": "Quartale",
-				"description": "Gesamtanzahl aller E-Mails pro Quartal"
-			},
-			"months": {
-				"title": "Monate",
-				"description": "Gesamtanzahl aller E-Mails pro Monat"
-			},
-			"weeks": {
-				"title": "Wochen",
-				"description": "Gesamtanzahl aller E-Mails pro Woche"
-			},
-			"days": {
-				"title": "Aktivitäten in {0}",
-				"description": {
-					"received": "Anzahl empfangener E-Mails pro Tag",
-					"sent": "Anzahl gesendeter E-Mails pro Tag"
-				}
-			},
-			"daytime": {
-				"title": "Uhrzeit",
-				"description": "Anzahl aller E-Mails pro Stunde am Tag"
-			},
-			"weekday": {
-				"title": "Wochentag",
-				"description": "Anzahl aller E-Mails pro Wochentag"
-			},
-			"month": {
-				"title": "Monat",
-				"description": "Anzahl aller E-Mails pro Monat im Jahr"
-			},
-			"temporalDistribution": {
-				"title": "Zeitliche Verteilung",
-				"description": {
-					"received": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
-					"sent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "Am meisten erhalten",
-					"sent": "Am meisten gesendet"
-				},
-				"description": {
-					"received": "Anzahl gesendeter E-Mails pro Empfänger",
-					"sent": "Anzahl empfangener E-Mails pro Absender"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "Bereich vergrößern",
-			"shrink": "Bereich verkleiner"
-		},
-		"abbreviations": {
-			"calendarWeek": "KW",
-			"quarter": "Q"
-		},
-		"starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "An",
-			"off": "Aus"
-		},
-		"button": {
-			"save": "Speichern"
-		},
-		"darkMode": {
-			"label": "Nachtmodus",
-			"description": "Auswahl eines hellen oder dunklen Farbschemas"
-		},
-		"localIdentities": {
-			"label": "Lokale Identitäten",
-			"description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
-		}
-	}
+  "extensionDescription": {
+    "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
+  },
+  "popup": {
+    "message": "",
+    "account": "Konto | Konten",
+    "messagesInFolder": "{0} Nachrichten in {1} Ordnern"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "E-Mails gesamt",
+    "withinYears": "in {0} Jahren",
+    "mailsUnread": "E-Mails ungelesen",
+    "niceWork": "Gute Arbeit!",
+    "percentOfReceived": "{0}% von Empfangenen",
+    "mailsReceived": "E-Mails empfangen",
+    "percentOfTotal": "{0}% von Gesamt",
+    "mailsSent": "E-Mails gesendet",
+    "mailsPerMonth": "E-Mails pro Monat",
+    "mailsYear": "E-Mails/Jahr",
+    "mailsPerDay": "E-Mails pro Tag",
+    "mailsWeek": "E-Mails/Woche",
+    "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
+    "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
+    "charts": {
+      "years": {
+        "title": "Jahre",
+        "description": "Gesamtanzahl aller E-Mails pro Jahr"
+      },
+      "quarters": {
+        "title": "Quartale",
+        "description": "Gesamtanzahl aller E-Mails pro Quartal"
+      },
+      "months": {
+        "title": "Monate",
+        "description": "Gesamtanzahl aller E-Mails pro Monat"
+      },
+      "weeks": {
+        "title": "Wochen",
+        "description": "Gesamtanzahl aller E-Mails pro Woche"
+      },
+      "days": {
+        "title": "Aktivitäten in {0}",
+        "description": {
+          "received": "Anzahl empfangener E-Mails pro Tag",
+          "sent": "Anzahl gesendeter E-Mails pro Tag"
+        }
+      },
+      "daytime": {
+        "title": "Uhrzeit",
+        "description": "Anzahl aller E-Mails pro Stunde am Tag"
+      },
+      "weekday": {
+        "title": "Wochentag",
+        "description": "Anzahl aller E-Mails pro Wochentag"
+      },
+      "month": {
+        "title": "Monat",
+        "description": "Anzahl aller E-Mails pro Monat im Jahr"
+      },
+      "temporalDistribution": {
+        "title": "Zeitliche Verteilung",
+        "description": {
+          "received": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
+          "sent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "Am meisten erhalten",
+          "sent": "Am meisten gesendet"
+        },
+        "description": {
+          "received": "Anzahl gesendeter E-Mails pro Empfänger",
+          "sent": "Anzahl empfangener E-Mails pro Absender"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "Bereich vergrößern",
+      "shrink": "Bereich verkleiner"
+    },
+    "abbreviations": {
+      "calendarWeek": "KW",
+      "quarter": "Q"
+    },
+    "starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "An",
+      "off": "Aus"
+    },
+    "button": {
+      "save": "Speichern"
+    },
+    "darkMode": {
+      "label": "Nachtmodus",
+      "description": "Auswahl eines hellen oder dunklen Farbschemas"
+    },
+    "localIdentities": {
+      "label": "Lokale Identitäten",
+      "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
+    }
+  }
 }

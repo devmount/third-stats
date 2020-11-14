@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "Estadístiques visualment belles per als seus comptes de correu electrònic del Thunderbird"
-	},
-	"popup": {
-		"message": "",
-		"account": "Compte | Comptes",
-		"messagesInFolder": "{0} missatges en {1} carpetes"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "Correus en total",
-		"withinYears": "en {0} anys",
-		"mailsUnread": "Correus no llegits",
-		"niceWork": "Bon treball!",
-		"percentOfReceived": "{0}% de rebuts",
-		"mailsReceived": "Correus rebuts",
-		"percentOfTotal": "{0}% de total",
-		"mailsSent": "Correus enviats",
-		"mailsPerMonth": "Correus al mes",
-		"mailsYear": "correus/any",
-		"mailsPerDay": "Correus al dia",
-		"mailsWeek": "correus/setmana",
-		"loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs...",
-		"accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
-		"charts": {
-			"years": {
-				"title": "Anys",
-				"description": "Nombre total de correus electrònics per any"
-			},
-			"quarters": {
-				"title": "quadrimestre",
-				"description": "Nombre total de correus electrònics per quadrimestre"
-			},
-			"months": {
-				"title": "Mesos",
-				"description": "Nombre total de correus electrònics al mes"
-			},
-			"weeks": {
-				"title": "Setmanes",
-				"description": "Nombre total de correus electrònics per setmanes"
-			},
-			"days": {
-				"title": "Activitat en {0}",
-				"description": {
-					"received": "Nombre de correus rebuts per dia",
-					"sent": "Nombre de correus enviats per dia"
-				}
-			},
-			"daytime": {
-				"title": "Hora",
-				"description": "Nombre de correus electrònics per hora del dia"
-			},
-			"weekday": {
-				"title": "Dia de la setmana",
-				"description": "Nombre de correus electrònics per dia de la setmana"
-			},
-			"month": {
-				"title": "Mesos",
-				"description": "Nombre total de correus electrònics al mes"
-            },
-			"temporalDistribution": {
-				"title": "Distribució temporal",
-				"description": {
-					"received": "Nombre de correus rebuts per dia de setmana i hora",
-					"sent": "Nombre de correus enviats per dia de setmana i hora"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "La majoria rebuts de",
-					"sent": "La majoria enviats a"
-				},
-				"description": {
-					"received": "Nombre de correus electrònics enviats per destinatari",
-					"sent": "Nombre de correus electrònics rebuts per remitent"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "Amplia l'àrea del gràfic",
-			"shrink": "Redueix l'àrea del gràfic"
-		},
-		"abbreviations": {
-			"calendarWeek": "S",
-			"quarter": "Q"
-		},
-		"starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "Activar",
-			"off": "Desactivar"
-		},
-		"button": {
-			"save": "Guardar"
-		},
-		"darkMode": {
-			"label": "Mode fosc",
-			"description": "Canvia entre l'esquema de colors fosc i clar"
-		},
-		"localIdentities": {
-			"label": "Identitats locals",
-			"description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals"
-		}
-	}
+  "extensionDescription": {
+    "message": "Estadístiques visualment belles per als seus comptes de correu electrònic del Thunderbird"
+  },
+  "popup": {
+    "message": "",
+    "account": "Compte | Comptes",
+    "messagesInFolder": "{0} missatges en {1} carpetes"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "Correus en total",
+    "withinYears": "en {0} anys",
+    "mailsUnread": "Correus no llegits",
+    "niceWork": "Bon treball!",
+    "percentOfReceived": "{0}% de rebuts",
+    "mailsReceived": "Correus rebuts",
+    "percentOfTotal": "{0}% de total",
+    "mailsSent": "Correus enviats",
+    "mailsPerMonth": "Correus al mes",
+    "mailsYear": "correus/any",
+    "mailsPerDay": "Correus al dia",
+    "mailsWeek": "correus/setmana",
+    "loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs...",
+    "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
+    "charts": {
+      "years": {
+        "title": "Anys",
+        "description": "Nombre total de correus electrònics per any"
+      },
+      "quarters": {
+        "title": "quadrimestre",
+        "description": "Nombre total de correus electrònics per quadrimestre"
+      },
+      "months": {
+        "title": "Mesos",
+        "description": "Nombre total de correus electrònics al mes"
+      },
+      "weeks": {
+        "title": "Setmanes",
+        "description": "Nombre total de correus electrònics per setmanes"
+      },
+      "days": {
+        "title": "Activitat en {0}",
+        "description": {
+          "received": "Nombre de correus rebuts per dia",
+          "sent": "Nombre de correus enviats per dia"
+        }
+      },
+      "daytime": {
+        "title": "Hora",
+        "description": "Nombre de correus electrònics per hora del dia"
+      },
+      "weekday": {
+        "title": "Dia de la setmana",
+        "description": "Nombre de correus electrònics per dia de la setmana"
+      },
+      "month": {
+        "title": "Mesos",
+        "description": "Nombre total de correus electrònics al mes"
+      },
+      "temporalDistribution": {
+        "title": "Distribució temporal",
+        "description": {
+          "received": "Nombre de correus rebuts per dia de setmana i hora",
+          "sent": "Nombre de correus enviats per dia de setmana i hora"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "La majoria rebuts de",
+          "sent": "La majoria enviats a"
+        },
+        "description": {
+          "received": "Nombre de correus electrònics enviats per destinatari",
+          "sent": "Nombre de correus electrònics rebuts per remitent"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "Amplia l'àrea del gràfic",
+      "shrink": "Redueix l'àrea del gràfic"
+    },
+    "abbreviations": {
+      "calendarWeek": "S",
+      "quarter": "Q"
+    },
+    "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "Activar",
+      "off": "Desactivar"
+    },
+    "button": {
+      "save": "Guardar"
+    },
+    "darkMode": {
+      "label": "Mode fosc",
+      "description": "Canvia entre l'esquema de colors fosc i clar"
+    },
+    "localIdentities": {
+      "label": "Identitats locals",
+      "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals"
+    }
+  }
 }

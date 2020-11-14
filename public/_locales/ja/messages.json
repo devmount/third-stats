@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "Thunderbirdメールアカウントの統計"
-	},
-	"popup": {
-		"message": "",
-		"account": "アカウント | アカウント",
-		"messagesInFolder": "{0} メッセージ / {1} フォールダー"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "メッセージ全件数",
-		"withinYears": "過去{0}年間",
-		"mailsUnread": "未読メール",
-		"niceWork": "ナイスワーク！",
-		"percentOfReceived": "全体の{0}%",
-		"mailsReceived": "受信メール",
-		"percentOfTotal": "全体の{0}%",
-		"mailsSent": "送信メール",
-		"mailsPerMonth": "1か月あたりのメール数",
-		"mailsYear": "1年あたりのメール数",
-		"mailsPerDay": "1日あたりのメール数",
-		"mailsWeek": "1週間あたりのメール数",
-		"loadingInProgress": "このアカウントからのすべてのメールを読み込み中です。",
-		"accountEmpty": "このアカウントにはメールはありません。",
-		"charts": {
-			"years": {
-				"title": "年間",
-				"description": "年間のメールの総数"
-			},
-			"quarters": {
-				"title": "四半期",
-				"description": "四半期間のメールの総数"
-			},
-			"months": {
-				"title": "月間",
-				"description": "月間のメールの総数"
-			},
-			"weeks": {
-				"title": "週",
-				"description": "1週間のメールの総数"
-			},
-			"days": {
-				"title": "{0}年のメール総数",
-				"description": {
-					"received": "1日の時間あたりの受信メール数",
-					"sent": "1日の時間あたりの送信メール数"
-				}
-			},
-			"daytime": {
-				"title": "日中",
-				"description": "1日の時間あたりのメール数"
-			},
-			"weekday": {
-				"title": "週日",
-				"description": "1日あたりのメール数"
-			},
-			"month": {
-				"title": "月間",
-				"description": "月間のメールの総数"
-			},
-			"temporalDistribution": {
-				"title": "時間分配",
-				"description": {
-					"received": "平日1時間あたりの受信メールの数",
-					"sent": "平日1時間あたりの送信メールの数"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "最多受信先メール",
-					"sent": "最多送信先メール"
-				},
-				"description": {
-					"received": "受信者あたりのメール送信数",
-					"sent": "送信者あたりのメール受信数"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "チャートを拡張",
-			"shrink": "チャートを縮小"
-		},
-		"abbreviations": {
-			"calendarWeek": "曜日",
-			"quarter": "四半期"
-		},
-		"starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "オン",
-			"off": "オフ"
-		},
-		"button": {
-			"save": "保存する"
-		},
-		"darkMode": {
-			"label": "ダークとライトのスキーム",
-			"description": "ダークスキームかライトスキームを選択"
-		},
-		"localIdentities": {
-			"label": "ローカルID",
-			"description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください"
-		}
-	}
+  "extensionDescription": {
+    "message": "Thunderbirdメールアカウントの統計"
+  },
+  "popup": {
+    "message": "",
+    "account": "アカウント | アカウント",
+    "messagesInFolder": "{0} メッセージ / {1} フォールダー"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "メッセージ全件数",
+    "withinYears": "過去{0}年間",
+    "mailsUnread": "未読メール",
+    "niceWork": "ナイスワーク！",
+    "percentOfReceived": "全体の{0}%",
+    "mailsReceived": "受信メール",
+    "percentOfTotal": "全体の{0}%",
+    "mailsSent": "送信メール",
+    "mailsPerMonth": "1か月あたりのメール数",
+    "mailsYear": "1年あたりのメール数",
+    "mailsPerDay": "1日あたりのメール数",
+    "mailsWeek": "1週間あたりのメール数",
+    "loadingInProgress": "このアカウントからのすべてのメールを読み込み中です。",
+    "accountEmpty": "このアカウントにはメールはありません。",
+    "charts": {
+      "years": {
+        "title": "年間",
+        "description": "年間のメールの総数"
+      },
+      "quarters": {
+        "title": "四半期",
+        "description": "四半期間のメールの総数"
+      },
+      "months": {
+        "title": "月間",
+        "description": "月間のメールの総数"
+      },
+      "weeks": {
+        "title": "週",
+        "description": "1週間のメールの総数"
+      },
+      "days": {
+        "title": "{0}年のメール総数",
+        "description": {
+          "received": "1日の時間あたりの受信メール数",
+          "sent": "1日の時間あたりの送信メール数"
+        }
+      },
+      "daytime": {
+        "title": "日中",
+        "description": "1日の時間あたりのメール数"
+      },
+      "weekday": {
+        "title": "週日",
+        "description": "1日あたりのメール数"
+      },
+      "month": {
+        "title": "月間",
+        "description": "月間のメールの総数"
+      },
+      "temporalDistribution": {
+        "title": "時間分配",
+        "description": {
+          "received": "平日1時間あたりの受信メールの数",
+          "sent": "平日1時間あたりの送信メールの数"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "最多受信先メール",
+          "sent": "最多送信先メール"
+        },
+        "description": {
+          "received": "受信者あたりのメール送信数",
+          "sent": "送信者あたりのメール受信数"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "チャートを拡張",
+      "shrink": "チャートを縮小"
+    },
+    "abbreviations": {
+      "calendarWeek": "曜日",
+      "quarter": "四半期"
+    },
+    "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "オン",
+      "off": "オフ"
+    },
+    "button": {
+      "save": "保存する"
+    },
+    "darkMode": {
+      "label": "ダークとライトのスキーム",
+      "description": "ダークスキームかライトスキームを選択"
+    },
+    "localIdentities": {
+      "label": "ローカルID",
+      "description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください"
+    }
+  }
 }

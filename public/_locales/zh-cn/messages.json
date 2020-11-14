@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "精美地呈现您 Thunderbird 邮件账号数据"
-	},
-	"popup": {
-		"message": "",
-		"account": "账号 | 账号",
-		"messagesInFolder": "{0} 则讯息于 {1} 个资料夹内"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "邮件总数",
-		"withinYears": "{0} 年内",
-		"mailsUnread": "邮件未读取",
-		"niceWork": "做得不错！",
-		"percentOfReceived": "已收取 {0}%",
-		"mailsReceived": "邮件已收取",
-		"percentOfTotal": "占总数 {0}%",
-		"mailsSent": "邮件已发送",
-		"mailsPerMonth": "每月邮件",
-		"mailsYear": "邮件/年",
-		"mailsPerDay": "每日邮件",
-		"mailsWeek": "邮件/周",
-		"loadingInProgress": "正在加载此账号所有邮件……",
-		"accountEmpty": "此账号为空，没有邮件。",
-		"charts": {
-			"years": {
-				"title": "年",
-				"description": "每年邮件总数"
-			},
-			"quarters": {
-				"title": "季度",
-				"description": "每季度邮件总数"
-			},
-			"months": {
-				"title": "月",
-				"description": "每月邮件总数"
-			},
-			"weeks": {
-				"title": "周",
-				"description": "每周邮件总数"
-			},
-			"days": {
-				"title": "活动于 {0}",
-				"description": {
-					"received": "每日收取邮件数",
-					"sent": "每日发送邮件数"
-				}
-			},
-			"daytime": {
-				"title": "一天内",
-				"description": "一天内每时间段邮件数"
-			},
-			"weekday": {
-				"title": "一周内",
-				"description": "一周内每日邮件数"
-			},
-			"month": {
-				"title": "每月",
-				"description": "一年内每月邮件数"
-			},
-			"temporalDistribution": {
-				"title": "时间分布",
-				"description": {
-					"received": "每周每小时收取邮件数",
-					"sent": "每周每小时发送邮件数"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "最多收取来自",
-					"sent": "最多发送送往"
-				},
-				"description": {
-					"received": "每位收件人发送邮件数",
-					"sent": "每位寄件人收取邮件数"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "放大图表范围",
-			"shrink": "缩小图表范围"
-		},
-		"abbreviations": {
-			"calendarWeek": "周",
-			"quarter": "季"
-		},
-		"starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "开",
-			"off": "关"
-		},
-		"button": {
-			"save": "储存"
-		},
-		"darkMode": {
-			"label": "深色主题",
-			"description": "切换深色与浅色主题"
-		},
-		"localIdentities": {
-			"label": "本地身份",
-			"description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”"
-		}
-	}
+  "extensionDescription": {
+    "message": "精美地呈现您 Thunderbird 邮件账号数据"
+  },
+  "popup": {
+    "message": "",
+    "account": "账号 | 账号",
+    "messagesInFolder": "{0} 则讯息于 {1} 个资料夹内"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "邮件总数",
+    "withinYears": "{0} 年内",
+    "mailsUnread": "邮件未读取",
+    "niceWork": "做得不错！",
+    "percentOfReceived": "已收取 {0}%",
+    "mailsReceived": "邮件已收取",
+    "percentOfTotal": "占总数 {0}%",
+    "mailsSent": "邮件已发送",
+    "mailsPerMonth": "每月邮件",
+    "mailsYear": "邮件/年",
+    "mailsPerDay": "每日邮件",
+    "mailsWeek": "邮件/周",
+    "loadingInProgress": "正在加载此账号所有邮件……",
+    "accountEmpty": "此账号为空，没有邮件。",
+    "charts": {
+      "years": {
+        "title": "年",
+        "description": "每年邮件总数"
+      },
+      "quarters": {
+        "title": "季度",
+        "description": "每季度邮件总数"
+      },
+      "months": {
+        "title": "月",
+        "description": "每月邮件总数"
+      },
+      "weeks": {
+        "title": "周",
+        "description": "每周邮件总数"
+      },
+      "days": {
+        "title": "活动于 {0}",
+        "description": {
+          "received": "每日收取邮件数",
+          "sent": "每日发送邮件数"
+        }
+      },
+      "daytime": {
+        "title": "一天内",
+        "description": "一天内每时间段邮件数"
+      },
+      "weekday": {
+        "title": "一周内",
+        "description": "一周内每日邮件数"
+      },
+      "month": {
+        "title": "每月",
+        "description": "一年内每月邮件数"
+      },
+      "temporalDistribution": {
+        "title": "时间分布",
+        "description": {
+          "received": "每周每小时收取邮件数",
+          "sent": "每周每小时发送邮件数"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "最多收取来自",
+          "sent": "最多发送送往"
+        },
+        "description": {
+          "received": "每位收件人发送邮件数",
+          "sent": "每位寄件人收取邮件数"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "放大图表范围",
+      "shrink": "缩小图表范围"
+    },
+    "abbreviations": {
+      "calendarWeek": "周",
+      "quarter": "季"
+    },
+    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "开",
+      "off": "关"
+    },
+    "button": {
+      "save": "储存"
+    },
+    "darkMode": {
+      "label": "深色主题",
+      "description": "切换深色与浅色主题"
+    },
+    "localIdentities": {
+      "label": "本地身份",
+      "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”"
+    }
+  }
 }

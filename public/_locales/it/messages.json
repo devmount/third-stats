@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "Uno splendido modo di visualizzare le statistiche per i tuoi account su Thunderbird"
-	},
-	"popup": {
-		"message": "",
-		"account": "Account | Account",
-		"messagesInFolder": "{0} messaggi in {1} cartelle"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "Mail totali",
-		"withinYears": "in {0} anni",
-		"mailsUnread": "Mail non lette",
-		"niceWork": "Ottimo lavoro!",
-		"percentOfReceived": "{0}% delle ricevute",
-		"mailsReceived": "Mail ricevute",
-		"percentOfTotal": "{0}% del totale",
-		"mailsSent": "Mail inviate",
-		"mailsPerMonth": "Mail al mese",
-		"mailsYear": "mail/anno",
-		"mailsPerDay": "Mail al giorno",
-		"mailsWeek": "mail/settimana",
-		"loadingInProgress": "Caricamento di tutte le email da questo account in corso...",
-		"accountEmpty": "Questo account è vuoto, non ci sono email qui.",
-		"charts": {
-			"years": {
-				"title": "Anni",
-				"description": "Numero di email all'anno"
-			},
-			"quarters": {
-				"title": "Trimestri",
-				"description": "Numero totale di email per trimestre"
-			},
-			"months": {
-				"title": "Mesi",
-				"description": "Numero di mail al mese"
-			},
-			"weeks": {
-				"title": "Settimane",
-				"description": "Numero totale di email per settimana"
-			},
-			"days": {
-				"title": "Attività in {0}",
-				"description": {
-					"received": "Numero di email in entrata al giorno",
-					"sent": "Numero di email in uscita al giorno"
-				}
-			},
-			"daytime": {
-				"title": "Orari",
-				"description": "Numero di mail per orario del giorno"
-			},
-			"weekday": {
-				"title": "Giorni",
-				"description": "Numero di mail per giorno della settimana"
-			},
-			"month": {
-				"title": "Mesi",
-				"description": "Numero di mail al mese"
-			},
-			"temporalDistribution": {
-				"title": "Distribuzione temporale",
-				"description": {
-					"received": "Numero di email ricevute per giorno della settimana e orario",
-					"sent": "Numero di email inviate per giorno della settimana e orario"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "Più ricevute da",
-					"sent": "Più inviate a"
-				},
-				"description": {
-					"received": "Numero di email ricevute per indirizzo",
-					"sent": "Numero di email inviate per indirizzo"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "Espandi area grafici",
-			"shrink": "Riduci area grafici"
-		},
-		"abbreviations": {
-			"calendarWeek": "W",
-			"quarter": "Q"
-		},
-		"starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "On",
-			"off": "Off"
-		},
-		"button": {
-			"save": "Salva"
-		},
-		"darkMode": {
-			"label": "Modalità scura",
-			"description": "Passa dalla combinazione di colori chiari e scuri"
-		},
-		"localIdentities": {
-			"label": "Identità locali",
-			"description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali"
-		}
-	}
+  "extensionDescription": {
+    "message": "Uno splendido modo di visualizzare le statistiche per i tuoi account su Thunderbird"
+  },
+  "popup": {
+    "message": "",
+    "account": "Account | Account",
+    "messagesInFolder": "{0} messaggi in {1} cartelle"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "Mail totali",
+    "withinYears": "in {0} anni",
+    "mailsUnread": "Mail non lette",
+    "niceWork": "Ottimo lavoro!",
+    "percentOfReceived": "{0}% delle ricevute",
+    "mailsReceived": "Mail ricevute",
+    "percentOfTotal": "{0}% del totale",
+    "mailsSent": "Mail inviate",
+    "mailsPerMonth": "Mail al mese",
+    "mailsYear": "mail/anno",
+    "mailsPerDay": "Mail al giorno",
+    "mailsWeek": "mail/settimana",
+    "loadingInProgress": "Caricamento di tutte le email da questo account in corso...",
+    "accountEmpty": "Questo account è vuoto, non ci sono email qui.",
+    "charts": {
+      "years": {
+        "title": "Anni",
+        "description": "Numero di email all'anno"
+      },
+      "quarters": {
+        "title": "Trimestri",
+        "description": "Numero totale di email per trimestre"
+      },
+      "months": {
+        "title": "Mesi",
+        "description": "Numero di mail al mese"
+      },
+      "weeks": {
+        "title": "Settimane",
+        "description": "Numero totale di email per settimana"
+      },
+      "days": {
+        "title": "Attività in {0}",
+        "description": {
+          "received": "Numero di email in entrata al giorno",
+          "sent": "Numero di email in uscita al giorno"
+        }
+      },
+      "daytime": {
+        "title": "Orari",
+        "description": "Numero di mail per orario del giorno"
+      },
+      "weekday": {
+        "title": "Giorni",
+        "description": "Numero di mail per giorno della settimana"
+      },
+      "month": {
+        "title": "Mesi",
+        "description": "Numero di mail al mese"
+      },
+      "temporalDistribution": {
+        "title": "Distribuzione temporale",
+        "description": {
+          "received": "Numero di email ricevute per giorno della settimana e orario",
+          "sent": "Numero di email inviate per giorno della settimana e orario"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "Più ricevute da",
+          "sent": "Più inviate a"
+        },
+        "description": {
+          "received": "Numero di email ricevute per indirizzo",
+          "sent": "Numero di email inviate per indirizzo"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "Espandi area grafici",
+      "shrink": "Riduci area grafici"
+    },
+    "abbreviations": {
+      "calendarWeek": "W",
+      "quarter": "Q"
+    },
+    "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "On",
+      "off": "Off"
+    },
+    "button": {
+      "save": "Salva"
+    },
+    "darkMode": {
+      "label": "Modalità scura",
+      "description": "Passa dalla combinazione di colori chiari e scuri"
+    },
+    "localIdentities": {
+      "label": "Identità locali",
+      "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali"
+    }
+  }
 }
