@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "สถิติภาพที่สวยงามให้เมล Thunderbird ของคุณ"
-	},
-	"popup": {
-		"message": "",
-		"account": "บัญชีผู้ใช้ | บัญชี",
-		"messagesInFolder": "{0} ข้อความใน {1} โฟลเดอร์"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "เมลทั้งหมด",
-		"withinYears": "ภายใน {0} ปี",
-		"mailsUnread": "เมลที่ไม่ได้อ่าน",
-		"niceWork": "ทำได้ดีมาก!",
-		"percentOfReceived": "{0}% ของที่ได้รับ",
-		"mailsReceived": "เมลที่ได้รับ",
-		"percentOfTotal": "{0}% ของทั้งหมด",
-		"mailsSent": "ส่งเมลแล้ว",
-		"mailsPerMonth": "เมลต่อเดือน",
-		"mailsYear": "เมล / ปี",
-		"mailsPerDay": "เมล / วัน",
-		"mailsWeek": "เมล / สัปดาห์",
-		"loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้...",
-		"accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
-		"charts": {
-			"years": {
-				"title": "ปี",
-				"description": "จำนวนอีเมลทั้งหมดต่อปี"
-			},
-			"quarters": {
-				"title": "",
-				"description": ""
-			},
-			"months": {
-				"title": "เดือน",
-				"description": "จำนวนอีเมลทั้งหมดต่อเดือน"
-			},
-			"weeks": {
-				"title": "",
-				"description": ""
-			},
-			"days": {
-				"title": "",
-				"description": {
-					"received": "",
-					"sent": ""
-				}
-			},
-			"daytime": {
-				"title": "วัน",
-				"description": "จำนวนอีเมลต่อวัน"
-			},
-			"weekday": {
-				"title": "สัปดาห์",
-				"description": "จำนวนอีเมลต่อสัปดาห์"
-			},
-			"month": {
-				"title": "เดือน",
-				"description": "จำนวนอีเมลต่อเดือน"
-			},
-			"temporalDistribution": {
-				"title": "การกระจายชั่วขณะ",
-				"description": {
-					"received": "จำนวนเมลที่รับต่อวันต่อชั่วโมง",
-					"sent": "จำนวนเมลที่ส่งต่อวันต่อชั่วโมง"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "รับมากที่สุดจาก",
-					"sent": "ส่งมากที่สุดถึง"
-				},
-				"description": {
-					"received": "จำนวนเมลที่ส่งจากผู้ส่ง",
-					"sent": "จำนวนเมลที่รับจากผู้ส่ง"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "",
-			"shrink": ""
-		},
-		"abbreviations": {
-			"calendarWeek": "",
-			"quarter": ""
-		},
-		"starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "",
-			"off": ""
-		},
-		"button": {
-			"save": ""
-		},
-		"darkMode": {
-			"label": "",
-			"description": ""
-		},
-		"localIdentities": {
-			"label": "",
-			"description": ""
-		}
-	}
+  "extensionDescription": {
+    "message": "สถิติภาพที่สวยงามให้เมล Thunderbird ของคุณ"
+  },
+  "popup": {
+    "message": "",
+    "account": "บัญชีผู้ใช้ | บัญชี",
+    "messagesInFolder": "{0} ข้อความใน {1} โฟลเดอร์"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "เมลทั้งหมด",
+    "withinYears": "ภายใน {0} ปี",
+    "mailsUnread": "เมลที่ไม่ได้อ่าน",
+    "niceWork": "ทำได้ดีมาก!",
+    "percentOfReceived": "{0}% ของที่ได้รับ",
+    "mailsReceived": "เมลที่ได้รับ",
+    "percentOfTotal": "{0}% ของทั้งหมด",
+    "mailsSent": "ส่งเมลแล้ว",
+    "mailsPerMonth": "เมลต่อเดือน",
+    "mailsYear": "เมล / ปี",
+    "mailsPerDay": "เมล / วัน",
+    "mailsWeek": "เมล / สัปดาห์",
+    "loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้...",
+    "accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
+    "charts": {
+      "years": {
+        "title": "ปี",
+        "description": "จำนวนอีเมลทั้งหมดต่อปี"
+      },
+      "quarters": {
+        "title": "",
+        "description": ""
+      },
+      "months": {
+        "title": "เดือน",
+        "description": "จำนวนอีเมลทั้งหมดต่อเดือน"
+      },
+      "weeks": {
+        "title": "",
+        "description": ""
+      },
+      "days": {
+        "title": "",
+        "description": {
+          "received": "",
+          "sent": ""
+        }
+      },
+      "daytime": {
+        "title": "วัน",
+        "description": "จำนวนอีเมลต่อวัน"
+      },
+      "weekday": {
+        "title": "สัปดาห์",
+        "description": "จำนวนอีเมลต่อสัปดาห์"
+      },
+      "month": {
+        "title": "เดือน",
+        "description": "จำนวนอีเมลต่อเดือน"
+      },
+      "temporalDistribution": {
+        "title": "การกระจายชั่วขณะ",
+        "description": {
+          "received": "จำนวนเมลที่รับต่อวันต่อชั่วโมง",
+          "sent": "จำนวนเมลที่ส่งต่อวันต่อชั่วโมง"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "รับมากที่สุดจาก",
+          "sent": "ส่งมากที่สุดถึง"
+        },
+        "description": {
+          "received": "จำนวนเมลที่ส่งจากผู้ส่ง",
+          "sent": "จำนวนเมลที่รับจากผู้ส่ง"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "",
+      "shrink": ""
+    },
+    "abbreviations": {
+      "calendarWeek": "",
+      "quarter": ""
+    },
+    "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "",
+      "off": ""
+    },
+    "button": {
+      "save": ""
+    },
+    "darkMode": {
+      "label": "",
+      "description": ""
+    },
+    "localIdentities": {
+      "label": "",
+      "description": ""
+    }
+  }
 }

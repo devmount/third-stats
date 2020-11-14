@@ -1,108 +1,108 @@
 {
-	"extensionDescription": {
-		"message": "Vackert visualiserad statistik för dina e-postkonton i Thunderbird"
-	},
-	"popup": {
-		"message": "",
-		"account": "Konto | Konton",
-		"messagesInFolder": "{0} meddelanden i {1} mappar"
-	},
-	"stats": {
-		"message": "",
-		"mailsTotal": "Mejl totalt",
-		"withinYears": "inom {0} år",
-		"mailsUnread": "Olästa mejl",
-		"niceWork": "Bra jobbat!",
-		"percentOfReceived": "{0}% av mottagna",
-		"mailsReceived": "Mejl mottagna",
-		"percentOfTotal": "{0}% av total",
-		"mailsSent": "Mejl skickade",
-		"mailsPerMonth": "Mejl per månad",
-		"mailsYear": "mejl/år",
-		"mailsPerDay": "Mejl per dag",
-		"mailsWeek": "mejl/vecka",
-		"loadingInProgress": "Inläsning av alla mejl från detta konto pågår...",
-		"accountEmpty": "Detta konto är tomt, inga mejl hittas.",
-		"charts": {
-			"years": {
-				"title": "År",
-				"description": "Totala antalet mejl per år"
-			},
-			"quarters": {
-				"title": "Kvartal",
-				"description": "Totalt antal mejl per kvartal"
-			},
-			"months": {
-				"title": "Månader",
-				"description": "Totala antalet mejl per månad"
-			},
-			"weeks": {
-				"title": "Veckor",
-				"description": "Totala antalet mejl per vecka"
-			},
-			"days": {
-				"title": "Aktivitet i {0}",
-				"description": {
-					"received": "Antal inkommande mejl per dag",
-					"sent": "Antal utgående mejl per dag"
-				}
-			},
-			"daytime": {
-				"title": "Dag",
-				"description": "Antal mejl per tid på dagen"
-			},
-			"weekday": {
-				"title": "Veckodag",
-				"description": "Antal mejl per dag på veckan"
-			},
-			"month": {
-				"title": "Månad",
-				"description": "Antal mejl per månad på året"
-			},
-			"temporalDistribution": {
-				"title": "Timlig fördelning",
-				"description": {
-					"received": "Antal inkomna mejl per veckodag per timme",
-					"sent": "Antal utgående mejl per veckodag per timme"
-				}
-			},
-			"leader": {
-				"title": {
-					"received": "Mest mottaget från",
-					"sent": "Mest skickat till"
-				},
-				"description": {
-					"received": "Antal mejl skickat per mottagare",
-					"sent": "Antal mejl mottagna per avsändare"
-				}
-			}
-		},
-		"tooltips": {
-			"expand": "Expandera diagramområdet",
-			"shrink": "Krymp diagramområdet"
-		},
-		"abbreviations": {
-			"calendarWeek": "V",
-			"quarter": "K"
-		},
-		"starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>"
-	},
-	"options": {
-		"message": "",
-		"switch": {
-			"on": "På",
-			"off": "Av"
-		},
-		"button": {
-			"save": "Spara"
-		},
-		"darkMode": {
-			"label": "Mörkt Läge",
-			"description": "Växla mellan mörkt och ljust färgschema"
-		},
-		"localIdentities": {
-			"label": "Lokala Identiteter",
-			"description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
-		}
-	}
+  "extensionDescription": {
+    "message": "Vackert visualiserad statistik för dina e-postkonton i Thunderbird"
+  },
+  "popup": {
+    "message": "",
+    "account": "Konto | Konton",
+    "messagesInFolder": "{0} meddelanden i {1} mappar"
+  },
+  "stats": {
+    "message": "",
+    "mailsTotal": "Mejl totalt",
+    "withinYears": "inom {0} år",
+    "mailsUnread": "Olästa mejl",
+    "niceWork": "Bra jobbat!",
+    "percentOfReceived": "{0}% av mottagna",
+    "mailsReceived": "Mejl mottagna",
+    "percentOfTotal": "{0}% av total",
+    "mailsSent": "Mejl skickade",
+    "mailsPerMonth": "Mejl per månad",
+    "mailsYear": "mejl/år",
+    "mailsPerDay": "Mejl per dag",
+    "mailsWeek": "mejl/vecka",
+    "loadingInProgress": "Inläsning av alla mejl från detta konto pågår...",
+    "accountEmpty": "Detta konto är tomt, inga mejl hittas.",
+    "charts": {
+      "years": {
+        "title": "År",
+        "description": "Totala antalet mejl per år"
+      },
+      "quarters": {
+        "title": "Kvartal",
+        "description": "Totalt antal mejl per kvartal"
+      },
+      "months": {
+        "title": "Månader",
+        "description": "Totala antalet mejl per månad"
+      },
+      "weeks": {
+        "title": "Veckor",
+        "description": "Totala antalet mejl per vecka"
+      },
+      "days": {
+        "title": "Aktivitet i {0}",
+        "description": {
+          "received": "Antal inkommande mejl per dag",
+          "sent": "Antal utgående mejl per dag"
+        }
+      },
+      "daytime": {
+        "title": "Dag",
+        "description": "Antal mejl per tid på dagen"
+      },
+      "weekday": {
+        "title": "Veckodag",
+        "description": "Antal mejl per dag på veckan"
+      },
+      "month": {
+        "title": "Månad",
+        "description": "Antal mejl per månad på året"
+      },
+      "temporalDistribution": {
+        "title": "Timlig fördelning",
+        "description": {
+          "received": "Antal inkomna mejl per veckodag per timme",
+          "sent": "Antal utgående mejl per veckodag per timme"
+        }
+      },
+      "leader": {
+        "title": {
+          "received": "Mest mottaget från",
+          "sent": "Mest skickat till"
+        },
+        "description": {
+          "received": "Antal mejl skickat per mottagare",
+          "sent": "Antal mejl mottagna per avsändare"
+        }
+      }
+    },
+    "tooltips": {
+      "expand": "Expandera diagramområdet",
+      "shrink": "Krymp diagramområdet"
+    },
+    "abbreviations": {
+      "calendarWeek": "V",
+      "quarter": "K"
+    },
+    "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>"
+  },
+  "options": {
+    "message": "",
+    "switch": {
+      "on": "På",
+      "off": "Av"
+    },
+    "button": {
+      "save": "Spara"
+    },
+    "darkMode": {
+      "label": "Mörkt Läge",
+      "description": "Växla mellan mörkt och ljust färgschema"
+    },
+    "localIdentities": {
+      "label": "Lokala Identiteter",
+      "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
+    }
+  }
 }
