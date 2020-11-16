@@ -8,7 +8,7 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Pull Requests](#pull-requests)
-  - [Adding a new Translation](#adding-a-new-translation)
+  - [Providing Translations](#providing-translations)
   
 ## How to contribute
 
@@ -41,12 +41,12 @@ Simply fill in [the required template](PULL_REQUEST_TEMPLATE.md). Please do not 
   - 👕 `:shirt:` when refactoring or removing linter warnings
   - ❌ `:x:` when removing code or files
 
-### Adding a new Translation
+### Providing Translations
 
-You can add a new translation by taking the following steps:
+You can add a new translation or improve an existing one by taking the following steps:
 
-0. Make sure, the language you want to add doesn't already exist under `public/_locales/`
-1. Fork this repository
-2. Add a folder named like the [two-letter code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of the language you want to add under `public/_locales/`, e.g. `de` for German
-3. Copy the file `public/_locales/en/messages.json` to your new folder
-4. Translate all values of that file (please leave the keys untouched!) and create a pull request
+1. Head over to [GitLocalize](https://gitlocalize.com/repo/5505), the localization platform used for this project
+2. Click the *Sign in with GitHub* button in the upper right corner
+3. Give GitLocalize the necessary permissions to access your GitHub by clicking the green *Authorize GitLocalize App* button
+4. [Drop a quick comment "I'm in"](https://github.com/devmount/third-stats/issues/135), you will then be added to the translation team
+5. Now you can choose a language and complete missing translations or improve existing ones
