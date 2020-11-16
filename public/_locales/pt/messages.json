@@ -3,12 +3,11 @@
     "message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
   },
   "popup": {
-    "message": "-",
     "account": "Conta | Contas",
-    "messagesInFolder": "{0} mensagens em {1} pastas"
+    "messagesInFolder": "{0} mensagens em {1} pastas",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Total de e-mails",
     "withinYears": "Dentro de {0} anos",
     "mailsUnread": "E-mails não lidos",
@@ -29,7 +28,7 @@
         "description": "Total de e-mails por ano"
       },
       "quarters": {
-        "title": "Trimestre",
+        "title": "Trimestres",
         "description": "Total de e-mails por trimestre"
       },
       "months": {
@@ -85,10 +84,10 @@
       "calendarWeek": "S",
       "quarter": "T"
     },
-    "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "Ligado",
       "off": "Desligado"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Identidades Locais",
       "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais"
-    }
+    },
+    "message": "-"
   }
 }
