@@ -3,12 +3,11 @@
     "message": "Красиво визуализированная статистика для ваших аккаунтов в Thunderbird Email"
   },
   "popup": {
-    "message": "-",
     "account": "Аккаунт | Аккаунты",
-    "messagesInFolder": "{0} писем в {1} папках"
+    "messagesInFolder": "{0} писем в {1} папках",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Всего писем",
     "withinYears": "за {0} лет",
     "mailsUnread": "Непрочитанных писем",
@@ -29,22 +28,22 @@
         "description": "Общее количество писем за год"
       },
       "quarters": {
-        "title": "",
-        "description": ""
+        "title": "Кварталы",
+        "description": "Количество писем за квартал"
       },
       "months": {
         "title": "Месяцы",
         "description": "Общее количество писем за месяц"
       },
       "weeks": {
-        "title": "",
-        "description": ""
+        "title": "Недели",
+        "description": "Количество писем за неделю"
       },
       "days": {
-        "title": "",
+        "title": "Активность в {0}",
         "description": {
-          "received": "",
-          "sent": ""
+          "received": "Количество входящих сообщений за день",
+          "sent": "Количество исходящих собщений за день"
         }
       },
       "daytime": {
@@ -78,31 +77,32 @@
       }
     },
     "tooltips": {
-      "expand": "",
-      "shrink": ""
+      "expand": "Развернуть",
+      "shrink": "Свернуть"
     },
     "abbreviations": {
-      "calendarWeek": "",
-      "quarter": ""
+      "calendarWeek": "Н",
+      "quarter": "К"
     },
-    "starAndImprove": "Оцените и улучшите этот проект на <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Оцените и улучшите этот проект на <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
-      "on": "",
-      "off": ""
+      "on": "Вкл",
+      "off": "Выкл"
     },
     "button": {
-      "save": ""
+      "save": "Сохранить"
     },
     "darkMode": {
-      "label": "",
-      "description": ""
+      "label": "Тёмная тема",
+      "description": "Переключение между светлой и темной темами"
     },
     "localIdentities": {
-      "label": "",
-      "description": ""
-    }
+      "label": "Локальный данные логина",
+      "description": "Список имейлов через запятую, распознаваемых как 'отправлено от' для локального аккаунта"
+    },
+    "message": "-"
   }
 }
