@@ -3,12 +3,11 @@
     "message": "आपके थंडरबर्ड ईमेल खातों के लिए सरल और सुंदर आँकड़े"
   },
   "popup": {
-    "message": "-",
     "account": "खाता | खाते",
-    "messagesInFolder": "{1} फ़ोल्डर में {0} संदेश"
+    "messagesInFolder": "{1} फ़ोल्डर में {0} संदेश",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "कुल मेल",
     "withinYears": "{0} साल के भीतर",
     "mailsUnread": "अपठित मेल्स",
@@ -29,22 +28,22 @@
         "description": "प्रति वर्ष ईमेल की संख्या"
       },
       "quarters": {
-        "title": "",
-        "description": ""
+        "title": "त्रिमास",
+        "description": "प्रति त्रिमास ईमेल की संख्या"
       },
       "months": {
         "title": "महीने",
         "description": "प्रति माह ईमेल की संख्या"
       },
       "weeks": {
-        "title": "",
-        "description": ""
+        "title": "सप्ताह",
+        "description": "प्रति सप्ताह ईमेल की संख्या"
       },
       "days": {
-        "title": "",
+        "title": "{0} में गतिविधि",
         "description": {
-          "received": "",
-          "sent": ""
+          "received": "प्रति दिन आने वाले ईमेलो की संख्या",
+          "sent": "प्रति दिन आउटगोइंग ईमेलो की संख्या"
         }
       },
       "daytime": {
@@ -78,31 +77,32 @@
       }
     },
     "tooltips": {
-      "expand": "",
-      "shrink": ""
+      "expand": "चार्ट क्षेत्र का विस्तार करें",
+      "shrink": "चार्ट क्षेत्र सिकोड़ें"
     },
     "abbreviations": {
-      "calendarWeek": "",
-      "quarter": ""
+      "calendarWeek": "W",
+      "quarter": "Q"
     },
-    "starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें"
+    "starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
-      "on": "",
-      "off": ""
+      "on": "चालू करे",
+      "off": "बंद करे"
     },
     "button": {
-      "save": ""
+      "save": "सहेजें"
     },
     "darkMode": {
-      "label": "",
-      "description": ""
+      "label": "डार्क मोड",
+      "description": "डार्क और लाइट कलर स्कीम के बीच स्विच करें"
     },
     "localIdentities": {
-      "label": "",
-      "description": ""
-    }
+      "label": "स्थानीय पहचान",
+      "description": "स्थानीय खातों के लिए 'से भेजा' के रूप में पहचान करने के लिए एक कॉमा सेपरेटेड ईमेल पतों की सूची"
+    },
+    "message": "-"
   }
 }
