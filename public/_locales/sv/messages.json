@@ -3,12 +3,11 @@
     "message": "Vackert visualiserad statistik för dina e-postkonton i Thunderbird"
   },
   "popup": {
-    "message": "-",
     "account": "Konto | Konton",
-    "messagesInFolder": "{0} meddelanden i {1} mappar"
+    "messagesInFolder": "{0} meddelanden i {1} mappar",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Mejl totalt",
     "withinYears": "inom {0} år",
     "mailsUnread": "Olästa mejl",
@@ -85,10 +84,10 @@
       "calendarWeek": "V",
       "quarter": "K"
     },
-    "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "På",
       "off": "Av"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Lokala Identiteter",
       "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
-    }
+    },
+    "message": "-"
   }
 }

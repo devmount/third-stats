@@ -3,12 +3,11 @@
     "message": "視覺化您 Thunderbird 電子郵件帳號的統計資訊"
   },
   "popup": {
-    "message": "-",
     "account": "帳號 | 帳號",
-    "messagesInFolder": "{0} 則訊息在 {1} 個資料夾中"
+    "messagesInFolder": "{0} 則訊息在 {1} 個資料夾中",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "郵件總數",
     "withinYears": "{0} 年內",
     "mailsUnread": "未閱讀郵件",
@@ -85,10 +84,10 @@
       "calendarWeek": "W",
       "quarter": "Q"
     },
-    "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善"
+    "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "開啟",
       "off": "關閉"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "本機帳號",
       "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識"
-    }
+    },
+    "message": "-"
   }
 }

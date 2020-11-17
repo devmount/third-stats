@@ -3,12 +3,11 @@
     "message": "精美地呈现您 Thunderbird 邮件账号数据"
   },
   "popup": {
-    "message": "-",
     "account": "账号 | 账号",
-    "messagesInFolder": "{0} 则讯息于 {1} 个资料夹内"
+    "messagesInFolder": "{0} 则讯息于 {1} 个资料夹内",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "邮件总数",
     "withinYears": "{0} 年内",
     "mailsUnread": "邮件未读取",
@@ -85,10 +84,10 @@
       "calendarWeek": "周",
       "quarter": "季"
     },
-    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案"
+    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "开",
       "off": "关"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "本地身份",
       "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”"
-    }
+    },
+    "message": "-"
   }
 }

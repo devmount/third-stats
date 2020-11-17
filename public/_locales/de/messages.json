@@ -3,12 +3,11 @@
     "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
   },
   "popup": {
-    "message": "-",
     "account": "Konto | Konten",
-    "messagesInFolder": "{0} Nachrichten in {1} Ordnern"
+    "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "E-Mails gesamt",
     "withinYears": "in {0} Jahren",
     "mailsUnread": "E-Mails ungelesen",
@@ -85,10 +84,10 @@
       "calendarWeek": "KW",
       "quarter": "Q"
     },
-    "starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "An",
       "off": "Aus"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Lokale Identitäten",
       "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
-    }
+    },
+    "message": "-"
   }
 }

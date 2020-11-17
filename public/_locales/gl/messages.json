@@ -3,12 +3,11 @@
     "message": "Estatísticas visualmente atractivas para as túas contas de correo en Thunderbird"
   },
   "popup": {
-    "message": "-",
     "account": "Conta | Contas",
-    "messagesInFolder": "{0} mensaxes en {1} cartafoles"
+    "messagesInFolder": "{0} mensaxes en {1} cartafoles",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Total correos",
     "withinYears": "nos últimos {0} anos",
     "mailsUnread": "Correos sen ler",
@@ -85,10 +84,10 @@
       "calendarWeek": "S",
       "quarter": "T"
     },
-    "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "Acendido",
       "off": "Apagado"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Identidades locais",
       "description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais"
-    }
+    },
+    "message": "-"
   }
 }

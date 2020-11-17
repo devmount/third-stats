@@ -3,12 +3,11 @@
     "message": "Krásně vizualizované statistiky pro vaše e-mailové účty Thunderbird"
   },
   "popup": {
-    "message": "-",
     "account": "Účet | Účty",
-    "messagesInFolder": "{0} zpráv v {1} složce"
+    "messagesInFolder": "{0} zpráv v {1} složce",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Celkem e-mailů",
     "withinYears": "do {0} let",
     "mailsUnread": "Nepřečtené e-maily",
@@ -85,10 +84,10 @@
       "calendarWeek": "W",
       "quarter": "Q"
     },
-    "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "Zapnuto",
       "off": "Vypnuto"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Místní identity",
       "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')"
-    }
+    },
+    "message": "-"
   }
 }

@@ -3,12 +3,11 @@
     "message": "Estadístiques visualment belles per als seus comptes de correu electrònic del Thunderbird"
   },
   "popup": {
-    "message": "-",
     "account": "Compte | Comptes",
-    "messagesInFolder": "{0} missatges en {1} carpetes"
+    "messagesInFolder": "{0} missatges en {1} carpetes",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Correus en total",
     "withinYears": "en {0} anys",
     "mailsUnread": "Correus no llegits",
@@ -85,10 +84,10 @@
       "calendarWeek": "S",
       "quarter": "Q"
     },
-    "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "Activar",
       "off": "Desactivar"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Identitats locals",
       "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals"
-    }
+    },
+    "message": "-"
   }
 }

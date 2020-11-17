@@ -3,12 +3,11 @@
     "message": "Beautifully visualized statistics for your Thunderbird Email Accounts"
   },
   "popup": {
-    "message": "-",
     "account": "Account | Accounts",
-    "messagesInFolder": "{0} messages in {1} folders"
+    "messagesInFolder": "{0} messages in {1} folders",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Mails total",
     "withinYears": "within {0} years",
     "mailsUnread": "Mails unread",
@@ -85,10 +84,10 @@
       "calendarWeek": "W",
       "quarter": "Q"
     },
-    "starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>"
+    "starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "On",
       "off": "Off"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Local Identities",
       "description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
-    }
+    },
+    "message": "-"
   }
 }

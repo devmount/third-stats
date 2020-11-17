@@ -3,12 +3,11 @@
     "message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
   },
   "popup": {
-    "message": "-",
     "account": "Hesap | Hesaplar",
-    "messagesInFolder": "{1} klasörde {0} mesaj"
+    "messagesInFolder": "{1} klasörde {0} mesaj",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "Toplam e-posta",
     "withinYears": "{0} yıl içersinde",
     "mailsUnread": "Okunmamış e-posta",
@@ -85,10 +84,10 @@
       "calendarWeek": "H",
       "quarter": "Ç"
     },
-    "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin"
+    "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "Aç",
       "off": "Kapat"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "Yerel Kimlikler",
       "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi"
-    }
+    },
+    "message": "-"
   }
 }

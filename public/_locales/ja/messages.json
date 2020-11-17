@@ -3,12 +3,11 @@
     "message": "Thunderbirdメールアカウントの統計"
   },
   "popup": {
-    "message": "-",
     "account": "アカウント | アカウント",
-    "messagesInFolder": "{0} メッセージ / {1} フォールダー"
+    "messagesInFolder": "{0} メッセージ / {1} フォールダー",
+    "message": "-"
   },
   "stats": {
-    "message": "-",
     "mailsTotal": "メッセージ全件数",
     "withinYears": "過去{0}年間",
     "mailsUnread": "未読メール",
@@ -85,10 +84,10 @@
       "calendarWeek": "曜日",
       "quarter": "四半期"
     },
-    "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください"
+    "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください",
+    "message": "-"
   },
   "options": {
-    "message": "-",
     "switch": {
       "on": "オン",
       "off": "オフ"
@@ -103,6 +102,7 @@
     "localIdentities": {
       "label": "ローカルID",
       "description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください"
-    }
+    },
+    "message": "-"
   }
 }
