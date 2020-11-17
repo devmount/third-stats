@@ -2,6 +2,7 @@
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
 			<h1>
+				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
 				<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow focus-shadow" :class='{ disabled: waiting }'>
 					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
@@ -341,7 +342,8 @@ export default {
 				},
 				dark: true,
 				localIdentities: []
-			}
+			},
+			publicPath: process.env.BASE_URL
 		}
 	},
 	created () {
@@ -988,9 +990,11 @@ body
 		h1
 			margin-top 0
 			display grid
-			grid-template-columns 1fr auto 55px
+			grid-template-columns auto 1fr auto 55px
 			align-items center
 			justify-content start
+			.logo
+				height 48px
 			.loading
 				loader 20px
 				justify-self center
