@@ -3,23 +3,23 @@
     "message": "Krásně vizualizované statistiky pro vaše e-mailové účty Thunderbird"
   },
   "popup": {
-    "account": "Účet | Účty",
-    "messagesInFolder": "{0} zpráv v {1} složce",
+    "account": "Účet | Účtů",
+    "messagesInFolder": "{0} zpráv v {1} složkách",
     "message": "-"
   },
   "stats": {
     "mailsTotal": "Celkem e-mailů",
-    "withinYears": "do {0} let",
-    "mailsUnread": "Nepřečtené e-maily",
+    "withinYears": "během {0} let",
+    "mailsUnread": "Nepřečtené",
     "niceWork": "Pěkná práce!",
     "percentOfReceived": "{0}% přijatých",
-    "mailsReceived": "Přijaté e-maily",
+    "mailsReceived": "Přijaté",
     "percentOfTotal": "{0}% z celkového počtu",
-    "mailsSent": "E-maily odeslány",
-    "mailsPerMonth": "E-maily za měsíc",
-    "mailsYear": "maily/rok",
-    "mailsPerDay": "mailů za den",
-    "mailsWeek": "e-maily/týden",
+    "mailsSent": "Odeslané",
+    "mailsPerMonth": "E-mailů za měsíc",
+    "mailsYear": "za rok",
+    "mailsPerDay": "E-mailů za den",
+    "mailsWeek": "za týden",
     "loadingInProgress": "Načítám všechny e-mail z tohoto účtu...",
     "accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
     "charts": {
@@ -40,7 +40,7 @@
         "description": "Celkový počet e-mailů za týden"
       },
       "days": {
-        "title": "Aktivita {0}",
+        "title": "Aktivita za {0}",
         "description": {
           "received": "Počet příchozích e-mailů za den",
           "sent": "Počet odchozích e-mailů za den"
@@ -48,21 +48,21 @@
       },
       "daytime": {
         "title": "Během dne",
-        "description": "Počet e-mailů za denní dobu"
+        "description": "Počet e-mailů dle denní doby"
       },
       "weekday": {
-        "title": "Všední den",
-        "description": "Počet e-mailů za den v týdnu"
+        "title": "Týden",
+        "description": "Počet e-mailů dle dní v týdnu"
       },
       "month": {
         "title": "Měsíce",
-        "description": "Celkový počet e-mailů za měsíc"
+        "description": "Celkový počet e-mailů podle měsíců"
       },
       "temporalDistribution": {
         "title": "Časová distribuce",
         "description": {
-          "received": "Počet příchozích e-mailů za den v týdnu za hodinu",
-          "sent": "Počet odchozích e-mailů za den v týdnu za hodinu"
+          "received": "Počet příchozích e-mailů dle dní v týdnu a denní doby",
+          "sent": "Počet odchozích e-mailů dle dní v týdnu a denní doby"
         }
       },
       "leader": {
