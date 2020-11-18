@@ -107,6 +107,8 @@ for m, c in mode
 	vertical-align: middle
 .text-right
 	text-align: right
+.text-base
+	font-size: 1em
 .text-small
 	font-size: .85em
 .text-tiny
@@ -211,8 +213,6 @@ for m, c in mode
 	.{m}
 		.shadow
 			box-shadow: 0 8px 15px -8px c.shade
-		.focus-shadow:focus
-			box-shadow: 0 0 0 .35rem rgba(c.front, .1)
 
 // form
 button
@@ -234,16 +234,23 @@ button
 
 select
 	appearance: none
-	border: none
+	border: solid 1px
 	border-radius: 2px
 	color: inherit
-	padding: .5rem
+	padding: .5rem 1.5rem .5rem .5rem
 	outline: none
 	for m, c in mode
 		.{m} &
-			background: c.gray3
-			&.disabled
-				color: c.gray1
+			color: c.front
+			if m is 'dark'
+				background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
+				border-color: c.gray2
+			else
+				background: c.back url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray3),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
+				border-color: c.gray3
+		.{m} &:focus
+			border-color: c.accent2
+			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
 
 textarea
 	appearance: none
