@@ -103,6 +103,10 @@
       "label": "Lokale Identitäten",
       "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
     },
-    "message": "-"
+    "message": "-",
+    "startOfWeek": {
+      "label": "Die Woche startet am",
+      "description": "Benutzerdefinierter Wochenstart für alle wochentagsbezogenen Diagramme"
+    }
   }
 }
