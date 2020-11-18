@@ -30,15 +30,5 @@
 		"64": "icon.svg",
 		"32": "icon.svg",
 		"16": "icon.svg"
-	},
-	"experiment_apis": {
-		"LegacyPrefs": {
-			"schema": "api/LegacyPrefs/schema.json",
-			"parent": {
-				"scopes": ["addon_parent"],
-				"paths": [["LegacyPrefs"]],
-				"script": "api/LegacyPrefs/implementation.js"
-			}
-		}
 	}
 }

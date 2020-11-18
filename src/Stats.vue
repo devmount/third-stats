@@ -4,7 +4,7 @@
 			<h1>
 				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-				<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow focus-shadow" :class='{ disabled: waiting }'>
+				<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow" :class='{ disabled: waiting }'>
 					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 				</select>
 				<div v-if='waiting' :class='scheme + " loading"'></div>
@@ -147,7 +147,7 @@
 						</div>
 					</div>
 					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
-						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-05 right-05 shadow focus-shadow">
+						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-05 right-05 shadow">
 							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
 						</select>
 						<!-- emails per weekday per hour received -->
@@ -337,11 +337,9 @@ export default {
 						year: (new Date()).getFullYear()
 					}
 				},
-				week: {
-					start: 1
-				},
 				dark: true,
-				localIdentities: []
+				localIdentities: [],
+				startOfWeek: 0
 			},
 			publicPath: process.env.BASE_URL
 		}
@@ -349,7 +347,6 @@ export default {
 	created () {
 		this.reset()
 		this.getSettings()
-		this.getPreferences()
 		this.getAccounts()
 	},
 	methods: {
@@ -358,11 +355,7 @@ export default {
 			let result = await messenger.storage.local.get('options')
 			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 			this.preferences.dark = result.options.dark ? true : false
-		},
-		// get legacy preferences
-		getPreferences: async function () {
-			let c = await messenger.LegacyPrefs.getUserPref("calendar.week.start")
-			this.preferences.week.start = c
+			this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 		},
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
@@ -796,7 +789,7 @@ export default {
 				let s = Object.values(this.weekdayData.sent)
 				let labels = [...this.weekdayNames]
 				// start week with user defined day of week
-				for (let d = 0; d < this.preferences.week.start; d++) {
+				for (let d = 0; d < this.preferences.startOfWeek; d++) {
 					r.push(r.shift())
 					s.push(s.shift())
 					labels.push(labels.shift())
@@ -844,7 +837,7 @@ export default {
 				let xlabels = Array.from(Array(54).keys())
 				xlabels.shift()
 				// start week with user defined day of week
-				for (let d = 0; d < this.preferences.week.start; d++) {
+				for (let d = 0; d < this.preferences.startOfWeek; d++) {
 					r.push(r.shift())
 					s.push(s.shift())
 					ylabels.push(ylabels.shift())
@@ -868,7 +861,7 @@ export default {
 				let s = Object.values(this.weekdayPerHourData.sent)
 				let labels = [...this.weekdayNames]
 				// start week with user defined day of week
-				for (let d = 0; d < this.preferences.week.start; d++) {
+				for (let d = 0; d < this.preferences.startOfWeek; d++) {
 					r.push(r.shift())
 					s.push(s.shift())
 					labels.push(labels.shift())

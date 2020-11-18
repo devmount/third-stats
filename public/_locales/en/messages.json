@@ -103,6 +103,10 @@
       "label": "Local Identities",
       "description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
     },
+    "startOfWeek": {
+      "label": "Start the Week on",
+      "description": "Custom start of week for all weekday related charts"
+    },
     "message": "-"
   }
 }

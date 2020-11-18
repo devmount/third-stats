@@ -24,12 +24,23 @@
 				</div>
 			</section>
 			<section class='entry'>
-				<label for='dark'>
+				<label for='local'>
 					{{ $t('options.localIdentities.label') }}
 					<span class="d-block text-gray text-small">{{ $t('options.localIdentities.description') }}</span>
 				</label>
 				<div class='action'>
-					<textarea v-model='addresses' placeholder='hello@devmount.de, another@example.com'></textarea>
+					<textarea v-model='addresses' placeholder='hello@devmount.de, another@example.com' id='local'></textarea>
+				</div>
+			</section>
+			<section class='entry'>
+				<label for='start'>
+					{{ $t('options.startOfWeek.label') }}
+					<span class="d-block text-gray text-small">{{ $t('options.startOfWeek.description') }}</span>
+				</label>
+				<div class='action'>
+					<select v-model='startOfWeek' id='start'>
+						<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
+					</select>
 				</div>
 			</section>
 			<section class='entry mt-5'>
@@ -49,6 +60,7 @@ export default {
 		return {
 			addresses: '',
 			dark: true,
+			startOfWeek: 0,
 		}
 	},
 	created () {
@@ -60,16 +72,28 @@ export default {
 			let result = await messenger.storage.local.get('options')
 			this.addresses = result.options.addresses ? result.options.addresses : ''
 			this.dark = result.options.dark ? true : false
+			this.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 		},
 		// save current add-on settings
 		saveSettings: async function () {
 			await messenger.storage.local.set({
 				options: {
 					addresses: this.addresses,
-					dark: this.dark
+					dark: this.dark,
+					startOfWeek: this.startOfWeek,
 				}
 			})
 		}
+	},
+	computed: {
+		weekdayNames () {
+			let names = []
+			for (let wd = 1; wd <= 7; wd++) {
+				let d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
+				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'long' }))
+			}
+			return names
+		},
 	}
 }
 </script>
