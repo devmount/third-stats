@@ -347,7 +347,6 @@ export default {
 	created () {
 		this.reset()
 		this.getSettings()
-		this.getPreferences()
 		this.getAccounts()
 	},
 	methods: {
@@ -357,11 +356,6 @@ export default {
 			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 			this.preferences.dark = result.options.dark ? true : false
 			this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
-		},
-		// get legacy preferences
-		getPreferences: async function () {
-			let c = await messenger.LegacyPrefs.getUserPref("calendar.week.start")
-			this.preferences.week.start = c
 		},
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
