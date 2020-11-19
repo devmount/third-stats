@@ -345,6 +345,7 @@ export default {
 		}
 	},
 	created () {
+		document.title = 'ThirdStats'
 		this.reset()
 		this.getSettings()
 		this.getAccounts()
@@ -370,6 +371,7 @@ export default {
 		processAccount: async function (id) {
 			this.waiting = true
 			let a = await messenger.accounts.get(id)
+			document.title = 'ThirdStats: ' + a.name
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
