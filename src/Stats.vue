@@ -385,8 +385,15 @@ export default {
 		processMessages: async function (folder, identities) {
 			if (folder) {
 				let self = this
-				let page = await messenger.messages.list(folder)
-				page.messages.map(m => self.analyzeMessage(m, identities))
+				let page = null
+				try {
+					page = await messenger.messages.list(folder)
+				} catch (error) {
+					console.error(error)
+				}
+				if (page) {
+					page.messages.map(m => self.analyzeMessage(m, identities))
+				}
 				while (page.id) {
 					page = await messenger.messages.continueList(page.id)
 					page.messages.map(m => self.analyzeMessage(m, identities))
