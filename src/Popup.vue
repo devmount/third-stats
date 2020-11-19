@@ -1,14 +1,15 @@
 <template>
 	<div id='popup'>
 		<div class='container pt-1'>
-			<div v-if='waiting' class='dark loading'></div>
 			<h3 @click.prevent="openTab(0)" class="text-hover-accent2 cursor-pointer">
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
-				<svg class='icon icon-thin icon-small' viewBox="0 0 24 24">
+				<span v-if='waiting' class='dark loading'></span>
+				<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
-					<line x1="10" y1="14" x2="20" y2="4" />
-					<polyline points="15 4 20 4 20 9" />
+					<rect x="4" y="4" width="6" height="6" rx="1" />
+					<rect x="14" y="4" width="6" height="6" rx="1" />
+					<rect x="4" y="14" width="6" height="6" rx="1" />
+					<rect x="14" y="14" width="6" height="6" rx="1" />
 				</svg>
 			</h3>
 			<div class='accounts'>
@@ -95,34 +96,33 @@ export default {
 
 // general
 html, body
-	min-width 300px
-	overflow hidden
+	min-width: 300px
+	overflow: hidden
 
 // layout
 #popup
-	width 100%
-	height 100%
+	width: 100%
+	height: 100%
 
 	.container
-		padding-left 20px
-		padding-right 20px
+		padding-left: 20px
+		padding-right: 20px
 		h3
-			margin-top 0
-			font-weight 300
-			font-size 20px
-			transition color .2s
-			&>*
-				vertical-align middle
+			margin-top: 0
+			font-weight: 300
+			font-size: 20px
+			transition: color .2s
+			display: flex
+			flex-wrap: nowrap
 		.loading
-			float right
 			loader 16px
 		.accounts
-			display flex
-			flex-direction column
+			display: flex
+			flex-direction: column
 			& > div
-				padding 8px 10px
-				margin-bottom 20px
-				border-radius 4px
-				transition all .2s
+				padding: 8px 10px
+				margin-bottom: 20px
+				border-radius: 4px
+				transition: all .2s
 
 </style>
