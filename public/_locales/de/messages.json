@@ -5,7 +5,8 @@
   "popup": {
     "account": "Konto | Konten",
     "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
-    "message": "-"
+    "message": "-",
+    "linkDescription": "Alle Statistiken in einem neuen Tab öffnen"
   },
   "stats": {
     "mailsTotal": "E-Mails gesamt",
