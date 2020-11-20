@@ -1,15 +1,17 @@
 <template>
 	<div id='popup'>
 		<div class='container pt-1'>
-			<h3 @click.prevent="openTab(0)" class="text-hover-accent2 cursor-pointer">
+			<h3
+				@click.prevent="openTab(0)"
+				class="text-hover-accent2 cursor-pointer tooltip tooltip-bottom"
+				:data-tooltip='$t("popup.linkDescription")'
+			>
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
 				<span v-if='waiting' class='dark loading'></span>
 				<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-					<rect x="4" y="4" width="6" height="6" rx="1" />
-					<rect x="14" y="4" width="6" height="6" rx="1" />
-					<rect x="4" y="14" width="6" height="6" rx="1" />
-					<rect x="14" y="14" width="6" height="6" rx="1" />
+					<line x1="4" y1="19" x2="20" y2="19" />
+					<polyline points="4 15 8 9 12 11 16 6 20 10 20 15 4 15" />
 				</svg>
 			</h3>
 			<div class='accounts'>
