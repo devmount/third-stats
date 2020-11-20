@@ -81,8 +81,8 @@
       "shrink": "收起圖表區域"
     },
     "abbreviations": {
-      "calendarWeek": "W",
-      "quarter": "Q"
+      "calendarWeek": "週",
+      "quarter": "季"
     },
     "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
     "message": "-"
@@ -103,6 +103,10 @@
       "label": "本機帳號",
       "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識"
     },
-    "message": "-"
+    "message": "-",
+    "startOfWeek": {
+      "label": "每一週的起始日為",
+      "description": "自定義工作日相關圖表的週起始日"
+    }
   }
 }
