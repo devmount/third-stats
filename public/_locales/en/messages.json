@@ -4,6 +4,7 @@
   },
   "popup": {
     "account": "Account | Accounts",
+    "linkDescription": "Open all stats in new tab",
     "messagesInFolder": "{0} messages in {1} folders",
     "message": "-"
   },
