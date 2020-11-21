@@ -5,7 +5,8 @@
   "popup": {
     "account": "Konto | Konton",
     "messagesInFolder": "{0} meddelanden i {1} mappar",
-    "message": "-"
+    "message": "-",
+    "linkDescription": "Öppna all statistik i ny flik"
   },
   "stats": {
     "mailsTotal": "Mejl totalt",
@@ -103,6 +104,10 @@
       "label": "Lokala Identiteter",
       "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
     },
-    "message": "-"
+    "message": "-",
+    "startOfWeek": {
+      "label": "Starta Veckan på",
+      "description": "Anpassad start av vecka för alla veckodagsrelaterade diagram"
+    }
   }
 }
