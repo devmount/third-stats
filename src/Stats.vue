@@ -1,7 +1,6 @@
 <template>
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
-			{{ display }}
 			<h1>
 				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
@@ -392,6 +391,7 @@ export default {
 				this.display.contacts.sent = Object.keys(this.display.contacts.sent)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = this.display.contacts.sent[key]; return result; }, {})
+				// processing finished
 				this.waiting = false
 			})
 		},
@@ -596,7 +596,8 @@ export default {
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
 			let today = new Date()
-			return Math.round(Math.abs((this.display.numbers.start - today) / oneDay))
+			let start = new Date(this.display.numbers.start)
+			return Math.round(Math.abs((start - today) / oneDay))
 		},
 		weeks () {
 			return this.days/7
@@ -675,7 +676,8 @@ export default {
 			} else {
 				let r = this.display.yearsData.received, s = this.display.yearsData.sent
 				let today = new Date()
-				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					if (!r[y]) r[y] = 0
 					if (!s[y]) s[y] = 0
 				}
@@ -699,10 +701,11 @@ export default {
 				let s = this.display.quartersData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let q = 1; q <= 4; ++q) {
 						// trim quarters before start date
-						if (y == this.display.numbers.start.getFullYear() && q < quarterNumber(this.display.numbers.start)) continue
+						if (y == start.getFullYear() && q < quarterNumber(start)) continue
 						// trim quarters in future
 						if (y == today.getFullYear() && q > quarterNumber(today)) break
 						// organize labels and data
@@ -731,10 +734,11 @@ export default {
 				let s = this.display.monthsData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let m = 0; m < 12; ++m) {
 						// trim months before start date
-						if (y == this.display.numbers.start.getFullYear() && m < this.display.numbers.start.getMonth()) continue
+						if (y == start.getFullYear() && m < start.getMonth()) continue
 						// trim months in future
 						if (y == today.getFullYear() && m > today.getMonth()) break
 						// organize labels and data
@@ -763,10 +767,11 @@ export default {
 				let s = this.display.weeksData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let w = 1; w <= weeksInYear(y); ++w) {
 						// trim weeks before start date
-						if (y == this.display.numbers.start.getFullYear() && w < weekNumber(this.display.numbers.start)) continue
+						if (y == start.getFullYear() && w < weekNumber(start)) continue
 						// trim weeks in future
 						if (y == today.getFullYear() && w > weekNumber(today)) break
 						// organize labels and data
@@ -937,9 +942,18 @@ export default {
 		}
 	},
 	watch: {
-		activeAccount (a) {
-			this.reset()
-			this.processAccount(a)
+		activeAccount: async function (id) {
+			let result = await messenger.storage.local.get('stats-' + id)
+			if (result['stats-' + id]) {
+				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
+				this.waiting = false
+			} else {
+				this.reset()
+				await this.processAccount(id)
+				let stats = {}
+				stats['stats-' + id] = JSON.parse(JSON.stringify(this.display))
+				await messenger.storage.local.set(stats)
+			}
 		}
 	}
 }
