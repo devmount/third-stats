@@ -1,6 +1,7 @@
 <template>
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
+			{{ display }}
 			<h1>
 				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
@@ -337,6 +338,9 @@ export default {
 					},
 					days: {
 						year: (new Date()).getFullYear()
+					},
+					contacts: {
+						leaderCount: 20
 					}
 				},
 				dark: true,
@@ -378,8 +382,16 @@ export default {
 			let folders = traverseAccount(a)
 			let self = this
 			await Promise.all(folders.map(async f => {
+				// analyze all messages in all folders
 				await self.processMessages(f, identities)
 			})).then(() => {
+				// post processing: reduce size of contacts to configured limit
+				this.display.contacts.received = Object.keys(this.display.contacts.received)
+					.slice(0, this.preferences.sections.contacts.leaderCount)
+					.reduce((result, key) => { result[key] = this.display.contacts.received[key]; return result; }, {})
+				this.display.contacts.sent = Object.keys(this.display.contacts.sent)
+					.slice(0, this.preferences.sections.contacts.leaderCount)
+					.reduce((result, key) => { result[key] = this.display.contacts.sent[key]; return result; }, {})
 				this.waiting = false
 			})
 		},
@@ -891,13 +903,12 @@ export default {
 					labels: []
 				}
 			} else {
-				const leaderCount = 20
 				let r = this.leaderboardReceived
 				return {
 					datasets: [
-						{ label: this.$t('stats.mailsReceived'), data: Object.values(r).slice(0, leaderCount), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: Object.keys(r).slice(0, leaderCount)
+					labels: Object.keys(r)
 				}
 			}
 		},
@@ -908,13 +919,12 @@ export default {
 					labels: []
 				}
 			} else {
-				const leaderCount = 20
 				let s = this.leaderboardSent
 				return {
 					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: Object.values(s).slice(0, leaderCount), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 					],
-					labels: Object.keys(s).slice(0, leaderCount)
+					labels: Object.keys(s)
 				}
 			}
 		},
