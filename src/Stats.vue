@@ -385,12 +385,18 @@ export default {
 				await self.processMessages(f, identities)
 			})).then(() => {
 				// post processing: reduce size of contacts to configured limit
-				this.display.contacts.received = Object.keys(this.display.contacts.received)
+				let r = Object.entries(this.display.contacts.received)
+					.sort(([,a],[,b]) => b-a)
+					.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+				this.display.contacts.received = Object.keys(r)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
-					.reduce((result, key) => { result[key] = this.display.contacts.received[key]; return result; }, {})
-				this.display.contacts.sent = Object.keys(this.display.contacts.sent)
+					.reduce((result, key) => { result[key] = r[key]; return result; }, {})
+				let s = Object.entries(this.display.contacts.sent)
+					.sort(([,a],[,b]) => b-a)
+					.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+				this.display.contacts.sent = Object.keys(s)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
-					.reduce((result, key) => { result[key] = this.display.contacts.sent[key]; return result; }, {})
+					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
 				// processing finished
 				this.waiting = false
 			})
@@ -657,16 +663,6 @@ export default {
 				return 0
 			}
 		},
-		leaderboardReceived () {
-			return Object.entries(this.display.contacts.received)
-				.sort(([,a],[,b]) => b-a)
-				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-		},
-		leaderboardSent () {
-			return Object.entries(this.display.contacts.sent)
-				.sort(([,a],[,b]) => b-a)
-				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-		},
 		yearsChartData () {
 			if (this.waiting) {
 				return {
@@ -908,7 +904,7 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.leaderboardReceived
+				let r = this.display.contacts.received
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
@@ -924,7 +920,7 @@ export default {
 					labels: []
 				}
 			} else {
-				let s = this.leaderboardSent
+				let s = this.display.contacts.sent
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
