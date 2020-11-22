@@ -18,26 +18,26 @@
 				<!-- total -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
-					<div class='featured'>{{ numbers.total.toLocaleString() }}</div>
+					<div class='featured'>{{ display.numbers.total.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.withinYears', [oneDigit(years)]) }}</div>
 				</div>
 				<!-- unread -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsUnread') }}</div>
-					<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
-					<div class='text-gray' v-if='numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
+					<div class='featured'>{{ display.numbers.unread.toLocaleString() }}</div>
+					<div class='text-gray' v-if='display.numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
 					<div class='text-gray' v-else>{{ $t('stats.percentOfReceived', [unreadPercentage]) }}</div>
 				</div>
 				<!-- received -->
 				<div>
 					<div class='text-accent2'>{{ $t('stats.mailsReceived') }}</div>
-					<div class='featured text-accent2'>{{ numbers.received.toLocaleString() }}</div>
+					<div class='featured text-accent2'>{{ display.numbers.received.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
 				</div>
 				<!-- sent -->
 				<div>
 					<div class='text-accent1'>{{ $t('stats.mailsSent') }}</div>
-					<div class='featured text-accent1'>{{ numbers.sent.toLocaleString() }}</div>
+					<div class='featured text-accent1'>{{ display.numbers.sent.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
 				</div>
 				<!-- per month / per year -->
@@ -65,7 +65,7 @@
 				</div>
 			</section>
 			<!-- empty account -->
-			<section v-else-if='numbers.total == 0' class='mt-5'>
+			<section v-else-if='display.numbers.total == 0' class='mt-5'>
 				<svg class="icon icon-huge icon-gray d-block m-0-auto" viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<rect x="4" y="4" width="16" height="16" rx="2" />
@@ -311,17 +311,19 @@ export default {
 			accounts: [],
 			activeAccount: null,
 			waiting: true,
-			numbers: {},
-			yearsData: {},
-			quartersData: {},
-			monthsData: {},
-			weeksData: {},
-			daysData: {},
-			daytimeData: {},
-			weekdayData: {},
-			monthData: {},
-			weekdayPerHourData: {},
-			contacts: {},
+			display: {
+				numbers: {},
+				yearsData: {},
+				quartersData: {},
+				monthsData: {},
+				weeksData: {},
+				daysData: {},
+				daytimeData: {},
+				weekdayData: {},
+				monthData: {},
+				weekdayPerHourData: {},
+				contacts: {},
+			},
 			tabs: {
 				years: true,
 				quarters: false,
@@ -406,96 +408,96 @@ export default {
 		analyzeMessage (m, identities) {
 			let type = ''
 			// numbers
-			this.numbers.total++
-			if (m.read === false) this.numbers.unread++
+			this.display.numbers.total++
+			if (m.read === false) this.display.numbers.unread++
 			let author = extractEmailAddress(m.author)
 			if (identities.includes(author)) {
-				this.numbers.sent++
+				this.display.numbers.sent++
 				type = 'sent'
 			} else {
-				this.numbers.received++
+				this.display.numbers.received++
 				type = 'received'
 			}
 			// calculate starting date (= date of oldest email)
-			if (m.date && m.date.getTime() > 0 && m.date.getTime() < this.numbers.start.getTime()) {
-				this.numbers.start = m.date
+			if (m.date && m.date.getTime() > 0 && m.date.getTime() < this.display.numbers.start.getTime()) {
+				this.display.numbers.start = m.date
 			}
 			// years
 			let y = m.date.getFullYear()
-			if (!(y in this.yearsData[type])) {
-				this.yearsData[type][y] = 1
+			if (!(y in this.display.yearsData[type])) {
+				this.display.yearsData[type][y] = 1
 			} else {
-				this.yearsData[type][y]++
+				this.display.yearsData[type][y]++
 			}
 			// quarters
 			let qn = quarterNumber(m.date)
-			if (!(y in this.quartersData[type])) {
-				this.quartersData[type][y] = {}
-				this.quartersData[type][y][qn] = 1
+			if (!(y in this.display.quartersData[type])) {
+				this.display.quartersData[type][y] = {}
+				this.display.quartersData[type][y][qn] = 1
 			} else {
-				if (!(qn in this.quartersData[type][y])) {
-					this.quartersData[type][y][qn] = 1
+				if (!(qn in this.display.quartersData[type][y])) {
+					this.display.quartersData[type][y][qn] = 1
 				} else {
-					this.quartersData[type][y][qn]++
+					this.display.quartersData[type][y][qn]++
 				}
 			}
 			// months
 			let mo = m.date.getMonth()
-			if (!(y in this.monthsData[type])) {
-				this.monthsData[type][y] = {}
-				this.monthsData[type][y][mo] = 1
+			if (!(y in this.display.monthsData[type])) {
+				this.display.monthsData[type][y] = {}
+				this.display.monthsData[type][y][mo] = 1
 			} else {
-				if (!(mo in this.monthsData[type][y])) {
-					this.monthsData[type][y][mo] = 1
+				if (!(mo in this.display.monthsData[type][y])) {
+					this.display.monthsData[type][y][mo] = 1
 				} else {
-					this.monthsData[type][y][mo]++
+					this.display.monthsData[type][y][mo]++
 				}
 			}
 			// weeks
 			let wn = weekNumber(m.date)
-			if (!(y in this.weeksData[type])) {
-				this.weeksData[type][y] = {}
-				this.weeksData[type][y][wn] = 1
+			if (!(y in this.display.weeksData[type])) {
+				this.display.weeksData[type][y] = {}
+				this.display.weeksData[type][y][wn] = 1
 			} else {
-				if (!(wn in this.weeksData[type][y])) {
-					this.weeksData[type][y][wn] = 1
+				if (!(wn in this.display.weeksData[type][y])) {
+					this.display.weeksData[type][y][wn] = 1
 				} else {
-					this.weeksData[type][y][wn]++
+					this.display.weeksData[type][y][wn]++
 				}
 			}
 			// daytime
 			let dt = m.date.getHours()
-			this.daytimeData[type][dt]++
+			this.display.daytimeData[type][dt]++
 			// weekday
 			let wd = m.date.getDay()
-			this.weekdayData[type][wd]++
+			this.display.weekdayData[type][wd]++
 			// month
-			this.monthData[type][mo]++
+			this.display.monthData[type][mo]++
 			// weekday per calendar week
-			if (!(y in this.daysData[type])) {
-				this.daysData[type][y] = new NumberedObject(7,53)
+			if (!(y in this.display.daysData[type])) {
+				this.display.daysData[type][y] = new NumberedObject(7,53)
 			}
-			this.daysData[type][y][wd][wn-1]++
+			this.display.daysData[type][y][wd][wn-1]++
 			// weekday per hour
-			this.weekdayPerHourData[type][wd][dt]++
+			this.display.weekdayPerHourData[type][wd][dt]++
 			// contacts
 			switch (type) {
 				case 'sent':
 					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
 					recipients.map(r => {
-						if (!(r in this.contacts['sent'])) {
-							this.contacts['sent'][r] = 1
+						if (!(r in this.display.contacts['sent'])) {
+							this.display.contacts['sent'][r] = 1
 						} else {
-							this.contacts['sent'][r]++
+							this.display.contacts['sent'][r]++
 						}
 					})
 					break;
 				case 'received':
 					let a = author.toLowerCase()
-					if (!(a in this.contacts['received'])) {
-						this.contacts['received'][a] = 1
+					if (!(a in this.display.contacts['received'])) {
+						this.display.contacts['received'][a] = 1
 					} else {
-						this.contacts['received'][a]++
+						this.display.contacts['received'][a]++
 					}
 					break;
 				default:
@@ -503,50 +505,50 @@ export default {
 			}
 		},
 		reset () {
-			this.numbers = {
+			this.display.numbers = {
 				total: 0,
 				unread: 0,
 				received: 0,
 				sent: 0,
 				start: new Date(),
 			}
-			this.yearsData = {
+			this.display.yearsData = {
 				received: {},
 				sent: {},
 			}
-			this.quartersData = {
+			this.display.quartersData = {
 				received: {},
 				sent: {},
 			}
-			this.monthsData = {
+			this.display.monthsData = {
 				received: {},
 				sent: {},
 			}
-			this.weeksData = {
+			this.display.weeksData = {
 				received: {},
 				sent: {},
 			}
-			this.daysData = {
+			this.display.daysData = {
 				received: {},
 				sent: {},
 			}
-			this.daytimeData = {
+			this.display.daytimeData = {
 				received: new NumberedObject(24),
 				sent: new NumberedObject(24),
 			}
-			this.weekdayData = {
+			this.display.weekdayData = {
 				received: new NumberedObject(7),
 				sent: new NumberedObject(7),
 			}
-			this.monthData = {
+			this.display.monthData = {
 				received: new NumberedObject(12),
 				sent: new NumberedObject(12),
 			}
-			this.weekdayPerHourData = {
+			this.display.weekdayPerHourData = {
 				received: new NumberedObject(7,24),
 				sent: new NumberedObject(7,24),
 			}
-			this.contacts = {
+			this.display.contacts = {
 				received: {},
 				sent: {},
 			}
@@ -582,7 +584,7 @@ export default {
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
 			let today = new Date()
-			return Math.round(Math.abs((this.numbers.start - today) / oneDay))
+			return Math.round(Math.abs((this.display.numbers.start - today) / oneDay))
 		},
 		weeks () {
 			return this.days/7
@@ -594,61 +596,61 @@ export default {
 			return this.days/365
 		},
 		receivedPercentage () {
-			if (this.numbers.total > 0) {
-				return this.twoDigit(this.numbers.received*100/this.numbers.total)
+			if (this.display.numbers.total > 0) {
+				return this.twoDigit(this.display.numbers.received*100/this.display.numbers.total)
 			} else {
 				return 0
 			}
 		},
 		sentPercentage () {
-			if (this.numbers.total > 0) {
-				return this.twoDigit(this.numbers.sent*100/this.numbers.total)
+			if (this.display.numbers.total > 0) {
+				return this.twoDigit(this.display.numbers.sent*100/this.display.numbers.total)
 			} else {
 				return 0
 			}
 		},
 		unreadPercentage () {
-			if (this.numbers.received > 0) {
-				return this.twoDigit(this.numbers.unread*100/this.numbers.received)
+			if (this.display.numbers.received > 0) {
+				return this.twoDigit(this.display.numbers.unread*100/this.display.numbers.received)
 			} else {
 				return 0
 			}
 		},
 		perDay () {
-			if (this.numbers.total > 0 && this.days > 0) {
-				return this.oneDigit(this.numbers.total/this.days)
+			if (this.display.numbers.total > 0 && this.days > 0) {
+				return this.oneDigit(this.display.numbers.total/this.days)
 			} else {
 				return 0
 			}
 		},
 		perWeek () {
-			if (this.numbers.total > 0 && this.weeks > 0) {
-				return this.oneDigit(this.numbers.total/this.weeks)
+			if (this.display.numbers.total > 0 && this.weeks > 0) {
+				return this.oneDigit(this.display.numbers.total/this.weeks)
 			} else {
 				return 0
 			}
 		},
 		perMonth () {
-			if (this.numbers.total > 0 && this.months > 0) {
-				return this.oneDigit(this.numbers.total/this.months)
+			if (this.display.numbers.total > 0 && this.months > 0) {
+				return this.oneDigit(this.display.numbers.total/this.months)
 			} else {
 				return 0
 			}
 		},
 		perYear () {
-			if (this.numbers.total > 0 && this.years > 0) {
-				return this.oneDigit(this.numbers.total/this.years)
+			if (this.display.numbers.total > 0 && this.years > 0) {
+				return this.oneDigit(this.display.numbers.total/this.years)
 			} else {
 				return 0
 			}
 		},
 		leaderboardReceived () {
-			return Object.entries(this.contacts.received)
+			return Object.entries(this.display.contacts.received)
 				.sort(([,a],[,b]) => b-a)
 				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 		},
 		leaderboardSent () {
-			return Object.entries(this.contacts.sent)
+			return Object.entries(this.display.contacts.sent)
 				.sort(([,a],[,b]) => b-a)
 				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 		},
@@ -659,9 +661,9 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.yearsData.received, s = this.yearsData.sent
+				let r = this.display.yearsData.received, s = this.display.yearsData.sent
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
 					if (!r[y]) r[y] = 0
 					if (!s[y]) s[y] = 0
 				}
@@ -681,14 +683,14 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.quartersData.received
-				let s = this.quartersData.sent
+				let r = this.display.quartersData.received
+				let s = this.display.quartersData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let q = 1; q <= 4; ++q) {
 						// trim quarters before start date
-						if (y == this.numbers.start.getFullYear() && q < quarterNumber(this.numbers.start)) continue
+						if (y == this.display.numbers.start.getFullYear() && q < quarterNumber(this.display.numbers.start)) continue
 						// trim quarters in future
 						if (y == today.getFullYear() && q > quarterNumber(today)) break
 						// organize labels and data
@@ -713,14 +715,14 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.monthsData.received
-				let s = this.monthsData.sent
+				let r = this.display.monthsData.received
+				let s = this.display.monthsData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let m = 0; m < 12; ++m) {
 						// trim months before start date
-						if (y == this.numbers.start.getFullYear() && m < this.numbers.start.getMonth()) continue
+						if (y == this.display.numbers.start.getFullYear() && m < this.display.numbers.start.getMonth()) continue
 						// trim months in future
 						if (y == today.getFullYear() && m > today.getMonth()) break
 						// organize labels and data
@@ -745,14 +747,14 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.weeksData.received
-				let s = this.weeksData.sent
+				let r = this.display.weeksData.received
+				let s = this.display.weeksData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				for (let y = this.display.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let w = 1; w <= weeksInYear(y); ++w) {
 						// trim weeks before start date
-						if (y == this.numbers.start.getFullYear() && w < weekNumber(this.numbers.start)) continue
+						if (y == this.display.numbers.start.getFullYear() && w < weekNumber(this.display.numbers.start)) continue
 						// trim weeks in future
 						if (y == today.getFullYear() && w > weekNumber(today)) break
 						// organize labels and data
@@ -777,7 +779,7 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.daytimeData.received, s = this.daytimeData.sent
+				let r = this.display.daytimeData.received, s = this.display.daytimeData.sent
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
@@ -794,8 +796,8 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = Object.values(this.weekdayData.received)
-				let s = Object.values(this.weekdayData.sent)
+				let r = Object.values(this.display.weekdayData.received)
+				let s = Object.values(this.display.weekdayData.sent)
 				let labels = [...this.weekdayNames]
 				// start week with user defined day of week
 				for (let d = 0; d < this.preferences.startOfWeek; d++) {
@@ -819,7 +821,7 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.monthData.received, s = this.monthData.sent
+				let r = this.display.monthData.received, s = this.display.monthData.sent
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
@@ -836,11 +838,11 @@ export default {
 					sent: new NumberedObject(7,53),
 				}
 			} else {
-				let r = this.preferences.sections.days.year in this.daysData.received
-					? Object.values(this.daysData.received[this.preferences.sections.days.year])
+				let r = this.preferences.sections.days.year in this.display.daysData.received
+					? Object.values(this.display.daysData.received[this.preferences.sections.days.year])
 					: Object.values(new NumberedObject(7,53))
-				let s = this.preferences.sections.days.year in this.daysData.sent
-					? Object.values(this.daysData.sent[this.preferences.sections.days.year])
+				let s = this.preferences.sections.days.year in this.display.daysData.sent
+					? Object.values(this.display.daysData.sent[this.preferences.sections.days.year])
 					: Object.values(new NumberedObject(7,53))
 				let ylabels = [...this.weekdayNames]
 				let xlabels = Array.from(Array(54).keys())
@@ -866,8 +868,8 @@ export default {
 					sent: new NumberedObject(7,24),
 				}
 			} else {
-				let r = Object.values(this.weekdayPerHourData.received)
-				let s = Object.values(this.weekdayPerHourData.sent)
+				let r = Object.values(this.display.weekdayPerHourData.received)
+				let s = Object.values(this.display.weekdayPerHourData.sent)
 				let labels = [...this.weekdayNames]
 				// start week with user defined day of week
 				for (let d = 0; d < this.preferences.startOfWeek; d++) {
