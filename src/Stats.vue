@@ -310,7 +310,7 @@ export default {
 		return {
 			accounts: [],
 			activeAccount: null,
-			waiting: true,
+			waiting: false,
 			display: {
 				numbers: {},
 				yearsData: {},
@@ -373,10 +373,7 @@ export default {
 			this.accounts = accounts
 			this.activeAccount = accounts[accountPosition].id
 		},
-		processAccount: async function (id) {
-			this.waiting = true
-			let a = await messenger.accounts.get(id)
-			document.title = 'ThirdStats: ' + a.name
+		processAccount: async function (a) {
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
@@ -397,8 +394,6 @@ export default {
 				this.display.contacts.sent = Object.keys(s)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
-				// processing finished
-				this.waiting = false
 			})
 		},
 		// process all messages of a folder
@@ -939,16 +934,19 @@ export default {
 	},
 	watch: {
 		activeAccount: async function (id) {
+			let account = await messenger.accounts.get(id)
+			document.title = 'ThirdStats: ' + account.name
 			let result = await messenger.storage.local.get('stats-' + id)
 			if (result['stats-' + id]) {
 				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
-				this.waiting = false
 			} else {
+				this.waiting = true
 				this.reset()
-				await this.processAccount(id)
+				await this.processAccount(account)
 				let stats = {}
 				stats['stats-' + id] = JSON.parse(JSON.stringify(this.display))
 				await messenger.storage.local.set(stats)
+				this.waiting = false
 			}
 		}
 	}
