@@ -988,104 +988,104 @@ export default {
 
 // general
 body
-	overflow-x hidden
+	overflow-x: hidden
 
 // layout and content
 #stats
-	min-height 100vh
+	min-height: 100vh
 
 	.container
-		width 100%
-		height 100%
-		margin 0 auto
-		padding-left 1rem
-		padding-right 1rem
-		box-sizing border-box
+		width: 100%
+		height: 100%
+		margin: 0 auto
+		padding-left: 1rem
+		padding-right: 1rem
+		box-sizing: border-box
 
 		@media (min-width: 2501px)
-			max-width 2500px
+			max-width: 2500px
 			#chart-area-main
-				grid-template-columns repeat(6, 1fr)
+				grid-template-columns: repeat(6, 1fr)
 		@media (max-width: 2500px)
-			max-width 2200px
+			max-width: 2200px
 			#chart-area-main
-				grid-template-columns repeat(3, 1fr)
+				grid-template-columns: repeat(3, 1fr)
 		@media (max-width: 2000px)
-			max-width 1750px
+			max-width: 1750px
 			#chart-area-main
-				grid-template-columns repeat(3, 1fr)
+				grid-template-columns: repeat(3, 1fr)
 		@media (max-width: 1500px)
-			max-width 1200px
+			max-width: 1200px
 			#chart-area-main
-				grid-template-columns repeat(2, 1fr)
+				grid-template-columns: repeat(2, 1fr)
 		@media (min-width: 961px)
 			.numbers
-				max-width 1500px
-				grid-template-columns repeat(6, 1fr)
+				max-width: 1500px
+				grid-template-columns: repeat(6, 1fr)
 			#chart-area-top
-				grid-template-columns calc(33.33% - 1rem) calc(66.66% - 1rem)
+				grid-template-columns: calc(33.33% - 1rem) calc(66.66% - 1rem)
 				&.first-column-only
-					grid-template-columns calc(100%-1rem) 0%
+					grid-template-columns: calc(100%-1rem) 0%
 				.resizer
 					display: list-item
 		@media (max-width: 960px)
 			.numbers
-				grid-template-columns repeat(3, 1fr)
+				grid-template-columns: repeat(3, 1fr)
 			#chart-area-top
-				grid-template-columns calc(100%-1rem)
+				grid-template-columns: calc(100%-1rem)
 				.resizer
 					display: none
 		@media (max-width: 720px)
 			#chart-area-main
-				grid-template-columns 1fr
+				grid-template-columns: 1fr
 
 		h1
-			margin-top 0
-			display grid
-			grid-template-columns auto 1fr auto 55px
-			align-items center
-			justify-content start
+			margin-top: 0
+			display: grid
+			grid-template-columns: auto 1fr auto 55px
+			align-items: center
+			justify-content: start
 			.logo
-				height 48px
+				height: 48px
 			.loading
 				loader 21px 3px
-				justify-self center
-				vertical-align text-top
+				justify-self: center
+				vertical-align: text-top
 			.refresh
-				justify-self center
+				justify-self: center
 				svg
-					vertical-align text-top
-					margin-top 1px
+					vertical-align: text-top
+					margin-top: 1px
 			select
-				justify-self end
+				justify-self: end
 
 		.numbers
-			display grid
-			column-gap 1rem
-			row-gap 2rem
-			margin 0 auto
+			display: grid
+			column-gap: 1rem
+			row-gap: 2rem
+			margin: 0 auto
 			&>div
-				text-align center
+				text-align: center
 				.featured
-					font-size 3.25em
-					line-height 1em
-					font-weight 500
+					font-size: 3.25em
+					line-height: 1em
+					font-weight: 500
 
 		.charts
 			.chart-area
-				display grid
-				column-gap 2rem
-				row-gap 1rem
-				transition grid-template-columns .2s
+				display: grid
+				column-gap: 2rem
+				row-gap: 1rem
+				transition: grid-template-columns .2s
 				& > *, .tab-content > *
-					min-height 380px
+					min-height: 380px
 				.chart
-					min-width 0
+					min-width: 0
 					h2
-						margin-bottom 0
+						margin-bottom: 0
 					p
-						margin-top 0
+						margin-top: 0
 				.chart-group .upper-chart h2
-					margin-top .5rem
+					margin-top: .5rem
 
 </style>
