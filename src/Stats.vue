@@ -359,9 +359,11 @@ export default {
 		// get all add-on settings
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
-			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
-			this.preferences.dark = result.options.dark ? true : false
-			this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+			if (result && result.options) {
+				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
+				this.preferences.dark = result.options.dark ? true : false
+				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+			}
 		},
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
