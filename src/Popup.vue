@@ -125,7 +125,7 @@ html, body
 			display: flex
 			flex-wrap: nowrap
 		.loading
-			loader 16px
+			loader 16px 3px
 		.accounts
 			display: flex
 			flex-direction: column

@@ -156,6 +156,8 @@ for m, c in mode
 	display: block
 .d-inline
 	display: inline
+.d-inline-block
+	display: inline-block
 .position-absolute
 	position: absolute
 .position-relative
@@ -194,6 +196,9 @@ for m, c in mode
 	&.icon-thin
 		stroke-width: 1
 	
+	&.icon-bold
+		stroke-width: 2
+
 	&.icon-strong
 		stroke-width: 3
 
@@ -381,7 +386,7 @@ textarea
 				color: c.accent2
 
 // loader
-loader(size)
+loader(size, border)
 	display: inline-block
 	height: size
 	width: size
@@ -389,7 +394,7 @@ loader(size)
 	animation: rotate 1s 0s infinite linear
 	for m, c in mode
 		&.{m}
-			border: 4px solid c.gray3
+			border: border solid c.gray3
 			border-top-color: c.gray1
 
 // tooltip

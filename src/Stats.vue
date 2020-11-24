@@ -4,14 +4,21 @@
 			<h1>
 				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-				<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow" :class='{ disabled: waiting }'>
+				<select v-model='activeAccount' name='account' :disabled='waiting || loading' class="shadow" :class='{ disabled: waiting || loading }'>
 					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 				</select>
-				<div v-if='waiting' :class='scheme + " loading"'></div>
-				<svg v-else class='ready icon icon-strong icon-gray' viewBox='0 0 24 24'>
-					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-					<path d='M5 12l5 5l10 -10' />
-				</svg>
+				<div v-show='waiting || loading' :class='scheme + " loading"'></div>
+				<div v-show='!waiting && !loading' class='refresh cursor-pointer' @click='refresh(true)'>
+					<svg class='icon icon-bold icon-gray' viewBox='0 0 24 24'>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
+						<line x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
+						<line x1="4.06" y1="11" x2="4.06" y2="11.01" />
+						<line x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
+						<line x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
+						<line x1="11" y1="19.94" x2="11" y2="19.95" />
+					</svg>
+				</div>
 			</h1>
 			<!-- fetured numbers -->
 			<section class='numbers mt-2'>
@@ -310,20 +317,10 @@ export default {
 		return {
 			accounts: [],
 			activeAccount: null,
-			waiting: false,
-			display: {
-				numbers: {},
-				yearsData: {},
-				quartersData: {},
-				monthsData: {},
-				weeksData: {},
-				daysData: {},
-				daytimeData: {},
-				weekdayData: {},
-				monthData: {},
-				weekdayPerHourData: {},
-				contacts: {},
-			},
+			waiting: false, // hides all charts and processes data in foreground
+			loading: false, // keeps showing charts and processes data in background
+			display: {}, // processed data to show in foreground
+			store: {}, // data store for background processing
 			tabs: {
 				years: true,
 				quarters: false,
@@ -351,7 +348,7 @@ export default {
 	},
 	created () {
 		document.title = 'ThirdStats'
-		this.reset()
+		this.reset(false)
 		this.getSettings()
 		this.getAccounts()
 	},
@@ -375,31 +372,36 @@ export default {
 			this.accounts = accounts
 			this.activeAccount = accounts[accountPosition].id
 		},
-		processAccount: async function (a) {
+		processAccount: async function (a, hidden) {
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
 			await Promise.all(folders.map(async f => {
 				// analyze all messages in all folders
-				await self.processMessages(f, identities)
+				await self.processMessages(f, identities, hidden)
 			})).then(() => {
+				let store = hidden ? this.store : this.display
 				// post processing: reduce size of contacts to configured limit
-				let r = Object.entries(this.display.contacts.received)
+				let r = Object.entries(store.contacts.received)
 					.sort(([,a],[,b]) => b-a)
 					.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-				this.display.contacts.received = Object.keys(r)
+				store.contacts.received = Object.keys(r)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = r[key]; return result; }, {})
-				let s = Object.entries(this.display.contacts.sent)
+				let s = Object.entries(store.contacts.sent)
 					.sort(([,a],[,b]) => b-a)
 					.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-				this.display.contacts.sent = Object.keys(s)
+				store.contacts.sent = Object.keys(s)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
+				// post processing: display data now if it was processed in background
+				if (hidden) {
+					this.display = JSON.parse(JSON.stringify(this.store))
+				}
 			})
 		},
 		// process all messages of a folder
-		processMessages: async function (folder, identities) {
+		processMessages: async function (folder, identities, hidden) {
 			if (folder) {
 				let self = this
 				let page = null
@@ -409,166 +411,196 @@ export default {
 					console.error(error)
 				}
 				if (page) {
-					page.messages.map(m => self.analyzeMessage(m, identities))
+					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
 				}
 				while (page.id) {
 					page = await messenger.messages.continueList(page.id)
-					page.messages.map(m => self.analyzeMessage(m, identities))
+					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
 				}
 			} else {
 				console.error('This folder doesn\'t exist')
 			}
 		},
 		// extract information of a single message
-		analyzeMessage (m, identities) {
+		analyzeMessage (m, identities, hidden) {
 			let type = ''
+			let store = hidden ? this.store : this.display
 			// numbers
-			this.display.numbers.total++
-			if (m.read === false) this.display.numbers.unread++
+			store.numbers.total++
+			if (m.read === false) store.numbers.unread++
 			let author = extractEmailAddress(m.author)
 			if (identities.includes(author)) {
-				this.display.numbers.sent++
+				store.numbers.sent++
 				type = 'sent'
 			} else {
-				this.display.numbers.received++
+				store.numbers.received++
 				type = 'received'
 			}
 			// calculate starting date (= date of oldest email)
-			if (m.date && m.date.getTime() > 0 && m.date.getTime() < this.display.numbers.start.getTime()) {
-				this.display.numbers.start = m.date
+			let start = new Date(store.numbers.start)
+			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
+				store.numbers.start = m.date
 			}
 			// years
 			let y = m.date.getFullYear()
-			if (!(y in this.display.yearsData[type])) {
-				this.display.yearsData[type][y] = 1
+			if (!(y in store.yearsData[type])) {
+				store.yearsData[type][y] = 1
 			} else {
-				this.display.yearsData[type][y]++
+				store.yearsData[type][y]++
 			}
 			// quarters
 			let qn = quarterNumber(m.date)
-			if (!(y in this.display.quartersData[type])) {
-				this.display.quartersData[type][y] = {}
-				this.display.quartersData[type][y][qn] = 1
+			if (!(y in store.quartersData[type])) {
+				store.quartersData[type][y] = {}
+				store.quartersData[type][y][qn] = 1
 			} else {
-				if (!(qn in this.display.quartersData[type][y])) {
-					this.display.quartersData[type][y][qn] = 1
+				if (!(qn in store.quartersData[type][y])) {
+					store.quartersData[type][y][qn] = 1
 				} else {
-					this.display.quartersData[type][y][qn]++
+					store.quartersData[type][y][qn]++
 				}
 			}
 			// months
 			let mo = m.date.getMonth()
-			if (!(y in this.display.monthsData[type])) {
-				this.display.monthsData[type][y] = {}
-				this.display.monthsData[type][y][mo] = 1
+			if (!(y in store.monthsData[type])) {
+				store.monthsData[type][y] = {}
+				store.monthsData[type][y][mo] = 1
 			} else {
-				if (!(mo in this.display.monthsData[type][y])) {
-					this.display.monthsData[type][y][mo] = 1
+				if (!(mo in store.monthsData[type][y])) {
+					store.monthsData[type][y][mo] = 1
 				} else {
-					this.display.monthsData[type][y][mo]++
+					store.monthsData[type][y][mo]++
 				}
 			}
 			// weeks
 			let wn = weekNumber(m.date)
-			if (!(y in this.display.weeksData[type])) {
-				this.display.weeksData[type][y] = {}
-				this.display.weeksData[type][y][wn] = 1
+			if (!(y in store.weeksData[type])) {
+				store.weeksData[type][y] = {}
+				store.weeksData[type][y][wn] = 1
 			} else {
-				if (!(wn in this.display.weeksData[type][y])) {
-					this.display.weeksData[type][y][wn] = 1
+				if (!(wn in store.weeksData[type][y])) {
+					store.weeksData[type][y][wn] = 1
 				} else {
-					this.display.weeksData[type][y][wn]++
+					store.weeksData[type][y][wn]++
 				}
 			}
 			// daytime
 			let dt = m.date.getHours()
-			this.display.daytimeData[type][dt]++
+			store.daytimeData[type][dt]++
 			// weekday
 			let wd = m.date.getDay()
-			this.display.weekdayData[type][wd]++
+			store.weekdayData[type][wd]++
 			// month
-			this.display.monthData[type][mo]++
+			store.monthData[type][mo]++
 			// weekday per calendar week
-			if (!(y in this.display.daysData[type])) {
-				this.display.daysData[type][y] = new NumberedObject(7,53)
+			if (!(y in store.daysData[type])) {
+				store.daysData[type][y] = new NumberedObject(7,53)
 			}
-			this.display.daysData[type][y][wd][wn-1]++
+			store.daysData[type][y][wd][wn-1]++
 			// weekday per hour
-			this.display.weekdayPerHourData[type][wd][dt]++
+			store.weekdayPerHourData[type][wd][dt]++
 			// contacts
 			switch (type) {
 				case 'sent':
 					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
 					recipients.map(r => {
-						if (!(r in this.display.contacts['sent'])) {
-							this.display.contacts['sent'][r] = 1
+						if (!(r in store.contacts['sent'])) {
+							store.contacts['sent'][r] = 1
 						} else {
-							this.display.contacts['sent'][r]++
+							store.contacts['sent'][r]++
 						}
 					})
 					break;
 				case 'received':
 					let a = author.toLowerCase()
-					if (!(a in this.display.contacts['received'])) {
-						this.display.contacts['received'][a] = 1
+					if (!(a in store.contacts['received'])) {
+						store.contacts['received'][a] = 1
 					} else {
-						this.display.contacts['received'][a]++
+						store.contacts['received'][a]++
 					}
 					break;
 				default:
 					break;
 			}
 		},
-		reset () {
-			this.display.numbers = {
-				total: 0,
-				unread: 0,
-				received: 0,
-				sent: 0,
-				start: new Date(),
+		// reset process data to initial state, only reset store if processed in background (hidden)
+		reset (hidden) {
+			let initObject = { 
+				numbers: {
+					total: 0,
+					unread: 0,
+					received: 0,
+					sent: 0,
+					start: new Date(),
+				},
+				yearsData: {
+					received: {},
+					sent: {},
+				},
+				quartersData: {
+					received: {},
+					sent: {},
+				},
+				monthsData: {
+					received: {},
+					sent: {},
+				},
+				weeksData: {
+					received: {},
+					sent: {},
+				},
+				daysData: {
+					received: {},
+					sent: {},
+				},
+				daytimeData: {
+					received: new NumberedObject(24),
+					sent: new NumberedObject(24),
+				},
+				weekdayData: {
+					received: new NumberedObject(7),
+					sent: new NumberedObject(7),
+				},
+				monthData: {
+					received: new NumberedObject(12),
+					sent: new NumberedObject(12),
+				},
+				weekdayPerHourData: {
+					received: new NumberedObject(7,24),
+					sent: new NumberedObject(7,24),
+				},
+				contacts: {
+					received: {},
+					sent: {},
+				}
 			}
-			this.display.yearsData = {
-				received: {},
-				sent: {},
+			if (!hidden) {
+				this.display = JSON.parse(JSON.stringify(initObject))
 			}
-			this.display.quartersData = {
-				received: {},
-				sent: {},
-			}
-			this.display.monthsData = {
-				received: {},
-				sent: {},
-			}
-			this.display.weeksData = {
-				received: {},
-				sent: {},
-			}
-			this.display.daysData = {
-				received: {},
-				sent: {},
-			}
-			this.display.daytimeData = {
-				received: new NumberedObject(24),
-				sent: new NumberedObject(24),
-			}
-			this.display.weekdayData = {
-				received: new NumberedObject(7),
-				sent: new NumberedObject(7),
-			}
-			this.display.monthData = {
-				received: new NumberedObject(12),
-				sent: new NumberedObject(12),
-			}
-			this.display.weekdayPerHourData = {
-				received: new NumberedObject(7,24),
-				sent: new NumberedObject(7,24),
-			}
-			this.display.contacts = {
-				received: {},
-				sent: {},
-			}
+			this.store = JSON.parse(JSON.stringify(initObject))
 			this.preferences.sections.total.expand = false
 			this.preferences.sections.days.year = (new Date()).getFullYear()
+		},
+		// retrieve and process data again in background (hidden) or foreground (!hidden)
+		refresh: async function (hidden) {
+			// show loading indication
+			if (hidden) {
+				this.loading = true
+			} else {
+				this.waiting = true
+			} 
+			this.reset(hidden)
+			let account = await messenger.accounts.get(this.activeAccount)
+			await this.processAccount(account, hidden)
+			let stats = {}
+			stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
+			await messenger.storage.local.set(stats)
+			// hide loading indication
+			if (hidden) {
+				this.loading = false
+			} else {
+				this.waiting = false
+			} 
 		},
 		activateTab (label) {
 			let self = this
@@ -940,15 +972,11 @@ export default {
 			document.title = 'ThirdStats: ' + account.name
 			let result = await messenger.storage.local.get('stats-' + id)
 			if (result['stats-' + id]) {
+				// if data already exists in storage, display it directly
 				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
 			} else {
-				this.waiting = true
-				this.reset()
-				await this.processAccount(account)
-				let stats = {}
-				stats['stats-' + id] = JSON.parse(JSON.stringify(this.display))
-				await messenger.storage.local.set(stats)
-				this.waiting = false
+				// otherwise retrieve it
+				await this.refresh(false)
 			}
 		}
 	}
@@ -1020,10 +1048,14 @@ body
 			.logo
 				height 48px
 			.loading
-				loader 20px
+				loader 21px 3px
 				justify-self center
-			.ready
+				vertical-align text-top
+			.refresh
 				justify-self center
+				svg
+					vertical-align text-top
+					margin-top 1px
 			select
 				justify-self end
 
