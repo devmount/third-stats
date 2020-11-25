@@ -1,10 +1,11 @@
 <template>
 	<div id='popup'>
 		<div class='container pt-1'>
+			<!-- header containing number of accounts and linking to stats page -->
 			<h3
-				@click.prevent="openTab(0)"
 				class="text-hover-accent2 cursor-pointer tooltip tooltip-bottom"
 				:data-tooltip='$t("popup.linkDescription")'
+				@click.prevent="openTab(0)"
 			>
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
 				<span v-if='waiting' class='dark loading'></span>
@@ -14,6 +15,7 @@
 					<polyline points="4 15 8 9 12 11 16 6 20 10 20 15 4 15" />
 				</svg>
 			</h3>
+			<!-- list of all accounts -->
 			<div class='accounts'>
 				<div
 					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow"
@@ -38,12 +40,13 @@ export default {
 	name: 'Popup',
 	data () {
 		return {
-			accounts: [],
-			waiting: true,
-			dark: true
+			accounts: [],  // list of all existing accounts
+			waiting: true, // processessing folder and message counts indication
+			dark: true     // theme, always dark due to non colorable popup caret
 		}
 	},
 	created () {
+		// initially start account processing
 		this.getAccounts()
 	},
 	methods: {
@@ -65,16 +68,11 @@ export default {
 			})
 			this.accounts = accounts
 		},
-		// count all messages of a folder
+		// count all messages of given <folder>
 		countMessages: async function (folder) {
 			if (!folder) return 0
-			let page = null
 			let count = 0
-			try {
-				page = await messenger.messages.list(folder)
-			} catch (error) {
-				console.error(error)
-			}
+			let page  = await messenger.messages.list(folder)
 			if (page) {
 				count = page.messages.length
 			}
@@ -84,6 +82,7 @@ export default {
 			}
 			return count
 		},
+		// open the stats page as new tab with accounts appended as GET parameter
 		openTab (accountPosition) {
 			let url = 'stats.html'
 			if (accountPosition) url += '?a=' + accountPosition
@@ -91,11 +90,6 @@ export default {
 				active: true,
 				url: url
 			})
-		}
-	},
-	computed: {
-		scheme () {
-			return this.dark ? 'dark' : 'light'
 		}
 	}
 }

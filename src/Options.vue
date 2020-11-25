@@ -10,6 +10,7 @@
 		}'
 	>
 		<div class='container p-1'>
+			<!-- option: dark -->
 			<section class='entry'>
 				<label for='dark'>
 					{{ $t('options.darkMode.label') }}
@@ -23,6 +24,7 @@
 					</label>
 				</div>
 			</section>
+			<!-- option: addresses -->
 			<section class='entry'>
 				<label for='local'>
 					{{ $t('options.localIdentities.label') }}
@@ -32,6 +34,7 @@
 					<textarea v-model='addresses' placeholder='hello@devmount.de, another@example.com' id='local'></textarea>
 				</div>
 			</section>
+			<!-- option: startOfWeek -->
 			<section class='entry'>
 				<label for='start'>
 					{{ $t('options.startOfWeek.label') }}
@@ -43,6 +46,7 @@
 					</select>
 				</div>
 			</section>
+			<!-- save options -->
 			<section class='entry mt-5'>
 				<div></div>
 				<div class='action text-right'>
@@ -58,21 +62,25 @@ export default {
 	name: 'Options',
 	data () {
 		return {
-			addresses: '',
 			dark: true,
+			addresses: '',
 			startOfWeek: 0,
 		}
 	},
 	created () {
+		// initially load settings
 		this.getSettings()
 	},
 	methods: {
 		// get all add-on settings
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
-			this.addresses = result.options.addresses ? result.options.addresses : ''
-			this.dark = result.options.dark ? true : false
-			this.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+		// only load options if they have been set, otherwise default settings will be kept
+			if (result && result.options) {
+				this.addresses = result.options.addresses ? result.options.addresses : ''
+				this.dark = result.options.dark ? true : false
+				this.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+			}
 		},
 		// save current add-on settings
 		saveSettings: async function () {
@@ -86,6 +94,7 @@ export default {
 		}
 	},
 	computed: {
+		// array of localized, short day of week names
 		weekdayNames () {
 			let names = []
 			for (let wd = 1; wd <= 7; wd++) {

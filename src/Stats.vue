@@ -1,6 +1,7 @@
 <template>
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
+			<!-- title heading -->
 			<h1>
 				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
@@ -308,27 +309,23 @@ class NumberedObject {
 
 export default {
 	name: 'Stats',
-	components: {
-		LineChart,
-		BarChart,
-		HeatMap,
-	},
+	components: { LineChart, BarChart, HeatMap },
 	data () {
 		return {
-			accounts: [],
-			activeAccount: null,
-			waiting: false, // hides all charts and processes data in foreground
-			loading: false, // keeps showing charts and processes data in background
-			display: {}, // processed data to show in foreground
-			store: {}, // data store for background processing
-			tabs: {
+			accounts: [],        // list of all existing accounts
+			activeAccount: null, // currently selected account
+			waiting: false,      // hides all charts and processes data in foreground
+			loading: false,      // keeps showing charts and processes data in background
+			display: {},         // processed data to show in foreground
+			store: {},           // data store for background processing (same structure as display)
+			tabs: {              // tab navigation containing one active tab
 				years: true,
 				quarters: false,
 				months: false,
 				weeks: false,
 			},
-			preferences: {
-				sections: {
+			preferences: {       // preferences set for this page
+				sections: {        // preferences that can be set on this page
 					total: {
 						expand: false
 					},
@@ -339,7 +336,7 @@ export default {
 						leaderCount: 20
 					}
 				},
-				dark: true,
+				dark: true,        // preferences loaded from options
 				localIdentities: [],
 				startOfWeek: 0
 			},
@@ -347,21 +344,25 @@ export default {
 		}
 	},
 	created () {
+		// set initial tab title
 		document.title = 'ThirdStats'
+		// initially reset everything (stored and displayed data)
 		this.reset(false)
 		this.getSettings()
 		this.getAccounts()
 	},
 	methods: {
-		// get all add-on settings
+		// get all add-on settings from the options page
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
+			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 			}
 		},
+		// get all accounts, get active account from URL get parameter
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
 			// check if a specific account was given
@@ -372,7 +373,9 @@ export default {
 			this.accounts = accounts
 			this.activeAccount = accounts[accountPosition].id
 		},
+		// iterate through all folders of a given account <a>, do it in background <hidden=true> or in foreground <hidden=false>
 		processAccount: async function (a, hidden) {
+			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
@@ -382,15 +385,11 @@ export default {
 			})).then(() => {
 				let store = hidden ? this.store : this.display
 				// post processing: reduce size of contacts to configured limit
-				let r = Object.entries(store.contacts.received)
-					.sort(([,a],[,b]) => b-a)
-					.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+				let r = Object.entries(store.contacts.received).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 				store.contacts.received = Object.keys(r)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = r[key]; return result; }, {})
-				let s = Object.entries(store.contacts.sent)
-					.sort(([,a],[,b]) => b-a)
-					.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+				let s = Object.entries(store.contacts.sent).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 				store.contacts.sent = Object.keys(s)
 					.slice(0, this.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
@@ -400,16 +399,11 @@ export default {
 				}
 			})
 		},
-		// process all messages of a folder
+		// process all messages of a given <folder> with its <identities> in background <hidden=true> or in foreground <hidden=false>
 		processMessages: async function (folder, identities, hidden) {
 			if (folder) {
 				let self = this
-				let page = null
-				try {
-					page = await messenger.messages.list(folder)
-				} catch (error) {
-					console.error(error)
-				}
+				let page = await messenger.messages.list(folder)
 				if (page) {
 					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
 				}
@@ -499,7 +493,7 @@ export default {
 			store.daysData[type][y][wd][wn-1]++
 			// weekday per hour
 			store.weekdayPerHourData[type][wd][dt]++
-			// contacts
+			// contacts (leaderboards)
 			switch (type) {
 				case 'sent':
 					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
@@ -523,7 +517,7 @@ export default {
 					break;
 			}
 		},
-		// reset process data to initial state, only reset store if processed in background (hidden)
+		// reset processed data to initial state, only reset store if processed in background <hidden=true>
 		reset (hidden) {
 			let initObject = { 
 				numbers: {
@@ -581,9 +575,9 @@ export default {
 			this.preferences.sections.total.expand = false
 			this.preferences.sections.days.year = (new Date()).getFullYear()
 		},
-		// retrieve and process data again in background (hidden) or foreground (!hidden)
+		// retrieve and process data again in background <hidden=true> or foreground <hidden=false>
 		refresh: async function (hidden) {
-			// show loading indication
+			// start loading indication
 			if (hidden) {
 				this.loading = true
 			} else {
@@ -595,23 +589,26 @@ export default {
 			let stats = {}
 			stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
 			await messenger.storage.local.set(stats)
-			// hide loading indication
+			// stop loading indication
 			if (hidden) {
 				this.loading = false
 			} else {
 				this.waiting = false
 			} 
 		},
-		activateTab (label) {
+		// activate tab of given <key>
+		activateTab (key) {
 			let self = this
 			Object.keys(this.tabs).map(t => self.tabs[t] = false)
-			this.tabs[label] = true
+			this.tabs[key] = true
 		}
 	},
 	computed: {
+		// current app version
 		appVersion () {
 			return process.env.PACKAGE_VERSION;
 		},
+		// array of localized, short month names
 		monthNames () {
 			let names = []
 			for (let m = 1; m <= 12; m++) {
@@ -620,6 +617,7 @@ export default {
 			}
 			return names
 		},
+		// array of localized, short day of week names
 		weekdayNames () {
 			let names = []
 			for (let wd = 1; wd <= 7; wd++) {
@@ -628,21 +626,26 @@ export default {
 			}
 			return names
 		},
+		// number of days from oldest email till today
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
 			let today = new Date()
 			let start = new Date(this.display.numbers.start)
 			return Math.round(Math.abs((start - today) / oneDay))
 		},
+		// number of weeks from oldest email till today
 		weeks () {
 			return this.days/7
 		},
+		// number of months from oldest email till today
 		months () {
 			return this.days/(365/12)
 		},
+		// number of years from oldest email till today
 		years () {
 			return this.days/365
 		},
+		// percentage of number of received/total emails
 		receivedPercentage () {
 			if (this.display.numbers.total > 0) {
 				return this.twoDigit(this.display.numbers.received*100/this.display.numbers.total)
@@ -650,6 +653,7 @@ export default {
 				return 0
 			}
 		},
+		// percentage of number of sent/total emails
 		sentPercentage () {
 			if (this.display.numbers.total > 0) {
 				return this.twoDigit(this.display.numbers.sent*100/this.display.numbers.total)
@@ -657,6 +661,7 @@ export default {
 				return 0
 			}
 		},
+		// percentage of number of unread/received emails
 		unreadPercentage () {
 			if (this.display.numbers.received > 0) {
 				return this.twoDigit(this.display.numbers.unread*100/this.display.numbers.received)
@@ -664,6 +669,7 @@ export default {
 				return 0
 			}
 		},
+		// average number of emails/day
 		perDay () {
 			if (this.display.numbers.total > 0 && this.days > 0) {
 				return this.oneDigit(this.display.numbers.total/this.days)
@@ -671,6 +677,7 @@ export default {
 				return 0
 			}
 		},
+		// average number of emails/week
 		perWeek () {
 			if (this.display.numbers.total > 0 && this.weeks > 0) {
 				return this.oneDigit(this.display.numbers.total/this.weeks)
@@ -678,6 +685,7 @@ export default {
 				return 0
 			}
 		},
+		// average number of emails/month
 		perMonth () {
 			if (this.display.numbers.total > 0 && this.months > 0) {
 				return this.oneDigit(this.display.numbers.total/this.months)
@@ -685,6 +693,7 @@ export default {
 				return 0
 			}
 		},
+		// average number of emails/year
 		perYear () {
 			if (this.display.numbers.total > 0 && this.years > 0) {
 				return this.oneDigit(this.display.numbers.total/this.years)
@@ -692,6 +701,7 @@ export default {
 				return 0
 			}
 		},
+		// prepare data for years line chart
 		yearsChartData () {
 			if (this.waiting) {
 				return {
@@ -715,6 +725,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for quarters line chart
 		quartersChartData () {
 			if (this.waiting) {
 				return {
@@ -748,6 +759,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for months line chart
 		monthsChartData () {
 			if (this.waiting) {
 				return {
@@ -781,6 +793,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for weeks line chart
 		weeksChartData () {
 			if (this.waiting) {
 				return {
@@ -814,6 +827,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for daytime bar chart
 		daytimeChartData () {
 			if (this.waiting) {
 				return {
@@ -831,6 +845,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for weekday bar chart
 		weekdayChartData () {
 			if (this.waiting) {
 				return {
@@ -856,6 +871,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for month bar chart
 		monthChartData () {
 			if (this.waiting) {
 				return {
@@ -873,6 +889,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for activity heatmaps
 		daysChartData () {
 			if (this.waiting) {
 				return {
@@ -903,6 +920,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for weekday/hour heatmaps
 		weekdayPerHourChartData () {
 			if (this.waiting) {
 				return {
@@ -926,6 +944,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for received emails leaderboard horizontal bar chart
 		receivedContactLeadersChartData () {
 			if (this.waiting) {
 				return {
@@ -942,6 +961,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for sent emails leaderboard horizontal bar chart
 		sentContactLeadersChartData () {
 			if (this.waiting) {
 				return {
@@ -958,15 +978,18 @@ export default {
 				}
 			}
 		},
+		// convert theme preference into scheme name
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
 		},
+		// array of years descending from oldest emails year till todays year
 		yearsList () {
 			let years = JSON.parse(JSON.stringify(this.yearsChartData.labels))
 			return years.reverse()
 		}
 	},
 	watch: {
+		// on change of active account switch displayed data accordingly
 		activeAccount: async function (id) {
 			let account = await messenger.accounts.get(id)
 			document.title = 'ThirdStats: ' + account.name
