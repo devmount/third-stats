@@ -75,10 +75,10 @@ export default {
 			let page  = await messenger.messages.list(folder)
 			if (page) {
 				count = page.messages.length
-			}
-			while (page.id) {
-				page = await messenger.messages.continueList(page.id)
-				count += page.messages.length
+				while (page.id) {
+					page = await messenger.messages.continueList(page.id)
+					count += page.messages.length
+				}
 			}
 			return count
 		},

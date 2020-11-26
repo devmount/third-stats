@@ -406,10 +406,10 @@ export default {
 				let page = await messenger.messages.list(folder)
 				if (page) {
 					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
-				}
-				while (page.id) {
-					page = await messenger.messages.continueList(page.id)
-					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
+					while (page.id) {
+						page = await messenger.messages.continueList(page.id)
+						page.messages.map(m => self.analyzeMessage(m, identities, hidden))
+					}
 				}
 			} else {
 				console.error('This folder doesn\'t exist')
