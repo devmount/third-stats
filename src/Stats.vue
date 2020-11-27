@@ -383,19 +383,19 @@ export default {
 				// analyze all messages in all folders
 				await self.processMessages(f, identities, hidden)
 			})).then(() => {
-				let store = hidden ? this.store : this.display
+				let store = hidden ? self.store : self.display
 				// post processing: reduce size of contacts to configured limit
 				let r = Object.entries(store.contacts.received).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 				store.contacts.received = Object.keys(r)
-					.slice(0, this.preferences.sections.contacts.leaderCount)
+					.slice(0, self.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = r[key]; return result; }, {})
 				let s = Object.entries(store.contacts.sent).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 				store.contacts.sent = Object.keys(s)
-					.slice(0, this.preferences.sections.contacts.leaderCount)
+					.slice(0, self.preferences.sections.contacts.leaderCount)
 					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
 				// post processing: display data now if it was processed in background
 				if (hidden) {
-					this.display = JSON.parse(JSON.stringify(this.store))
+					self.display = JSON.parse(JSON.stringify(self.store))
 				}
 			})
 		},
@@ -411,8 +411,6 @@ export default {
 						page.messages.map(m => self.analyzeMessage(m, identities, hidden))
 					}
 				}
-			} else {
-				console.error('This folder doesn\'t exist')
 			}
 		},
 		// extract information of a single message
@@ -582,10 +580,14 @@ export default {
 				this.loading = true
 			} else {
 				this.waiting = true
-			} 
+			}
+			// reset already processed data
 			this.reset(hidden)
+			// get currently selected account
 			let account = await messenger.accounts.get(this.activeAccount)
+			// process data of this account again and update this.display
 			await this.processAccount(account, hidden)
+			// store reprocessed data
 			let stats = {}
 			stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
 			await messenger.storage.local.set(stats)
@@ -594,7 +596,7 @@ export default {
 				this.loading = false
 			} else {
 				this.waiting = false
-			} 
+			}
 		},
 		// activate tab of given <key>
 		activateTab (key) {
