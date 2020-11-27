@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Vackert visualiserad statistik för dina e-postkonton i Thunderbird"
+    "message": "Vackert visualiserad statistik för dina E-postkonton i Thunderbird"
   },
   "popup": {
     "account": "Konto | Konton",
@@ -9,14 +9,14 @@
     "linkDescription": "Öppna all statistik i ny flik"
   },
   "stats": {
-    "mailsTotal": "Mejl totalt",
+    "mailsTotal": "Antal mejl",
     "withinYears": "inom {0} år",
     "mailsUnread": "Olästa mejl",
     "niceWork": "Bra jobbat!",
     "percentOfReceived": "{0}% av mottagna",
-    "mailsReceived": "Mejl mottagna",
-    "percentOfTotal": "{0}% av total",
-    "mailsSent": "Mejl skickade",
+    "mailsReceived": "Mottagna mejl",
+    "percentOfTotal": "{0}% av totalen",
+    "mailsSent": "Skickade mejl",
     "mailsPerMonth": "Mejl per månad",
     "mailsYear": "mejl/år",
     "mailsPerDay": "Mejl per dag",
@@ -41,7 +41,7 @@
         "description": "Totala antalet mejl per vecka"
       },
       "days": {
-        "title": "Aktivitet i {0}",
+        "title": "Aktivitet under {0}",
         "description": {
           "received": "Antal inkommande mejl per dag",
           "sent": "Antal utgående mejl per dag"
@@ -72,7 +72,7 @@
           "sent": "Mest skickat till"
         },
         "description": {
-          "received": "Antal mejl skickat per mottagare",
+          "received": "Antal mejl skickade per mottagare",
           "sent": "Antal mejl mottagna per avsändare"
         }
       }
