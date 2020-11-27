@@ -180,6 +180,7 @@ for m, c in mode
 	stroke-linejoin: round
 	width: 2rem
 	height: 2rem
+	transition: all 0.2s ease
 
 	&.icon-text
 		width: 1rem
@@ -206,10 +207,19 @@ for m, c in mode
 		.{m} &
 			&.icon-{m}
 				color: c.icon
-
 			&.icon-gray
 				stroke: c.gray2
-
+			&.icon-hover-accent > *
+				transition: inherit
+			&.icon-hover-accent:hover
+				.icon-part-accent1
+					stroke: c.accent1
+				.icon-part-accent1-dark
+					stroke: darken(c.accent1, 60%)
+				.icon-part-accent2
+					stroke: c.accent2
+				.icon-part-accent2-dark
+					stroke: darken(c.accent2, 60%)
 			&.icon-animated-color-transition
 				animation: unquote(m+ColorFading) 1s 0s infinite ease alternate
 
@@ -392,10 +402,14 @@ loader(size, border)
 	width: size
 	border-radius: 50%
 	animation: rotate 1s 0s infinite linear
+	border: border solid
 	for m, c in mode
 		&.{m}
-			border: border solid c.gray3
+			border-color: c.gray3
 			border-top-color: c.gray1
+			&.loader-accent2
+				border-color: darken(c.accent2, 60%)
+				border-top-color: c.accent2
 
 // tooltip
 .tooltip
@@ -406,10 +420,11 @@ loader(size, border)
 		bottom: 100%
 		content: attr(data-tooltip)
 		display: block
-		font-size: .75em
+		font-size: .7rem
+		font-weight: normal
 		left: 50%
 		opacity: 0
-		padding: .5em
+		padding: .5rem
 		pointer-events: none
 		position: absolute
 		transform: translate(-50%, .8rem)

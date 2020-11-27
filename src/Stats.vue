@@ -8,16 +8,21 @@
 				<select v-model='activeAccount' name='account' :disabled='waiting || loading' class="shadow" :class='{ disabled: waiting || loading }'>
 					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 				</select>
-				<div v-show='waiting || loading' :class='scheme + " loading"'></div>
-				<div v-show='!waiting && !loading' class='refresh cursor-pointer' @click='refresh(true)'>
-					<svg class='icon icon-bold icon-gray' viewBox='0 0 24 24'>
+				<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
+				<div
+					v-show='!waiting && !loading'
+					class='refresh cursor-pointer tooltip tooltip-bottom'
+					:data-tooltip='$t("stats.tooltips.refresh")'
+					@click='refresh(true)'
+				>
+					<svg class='icon icon-bold icon-gray icon-hover-accent2' viewBox='0 0 24 24'>
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<path d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
-						<line x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
-						<line x1="4.06" y1="11" x2="4.06" y2="11.01" />
-						<line x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
-						<line x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
-						<line x1="11" y1="19.94" x2="11" y2="19.95" />
+						<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
+						<line class="icon-part-accent2-dark" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
+						<line class="icon-part-accent2-dark" x1="4.06" y1="11" x2="4.06" y2="11.01" />
+						<line class="icon-part-accent2-dark" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
+						<line class="icon-part-accent2-dark" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
+						<line class="icon-part-accent2-dark" x1="11" y1="19.94" x2="11" y2="19.95" />
 					</svg>
 				</div>
 			</h1>
