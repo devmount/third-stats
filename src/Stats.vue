@@ -343,7 +343,8 @@ export default {
 				},
 				dark: true,        // preferences loaded from options
 				localIdentities: [],
-				startOfWeek: 0
+				startOfWeek: 0,
+				cache: true
 			},
 			publicPath: process.env.BASE_URL
 		}
@@ -365,6 +366,7 @@ export default {
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+				this.preferences.cache = result.options.cache ? true : false
 			}
 		},
 		// get all accounts, get active account from URL get parameter
@@ -592,10 +594,12 @@ export default {
 			let account = await messenger.accounts.get(this.activeAccount)
 			// process data of this account again and update this.display
 			await this.processAccount(account, hidden)
-			// store reprocessed data
-			let stats = {}
-			stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
-			await messenger.storage.local.set(stats)
+			// store reprocessed data if cache is enabled
+			if (this.preferences.cache) {
+				let stats = {}
+				stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
+				await messenger.storage.local.set(stats)
+			}
 			// stop loading indication
 			if (hidden) {
 				this.loading = false
@@ -1000,12 +1004,13 @@ export default {
 		activeAccount: async function (id) {
 			let account = await messenger.accounts.get(id)
 			document.title = 'ThirdStats: ' + account.name
-			let result = await messenger.storage.local.get('stats-' + id)
-			if (result['stats-' + id]) {
-				// if data already exists in storage, display it directly
+			// only check storage if cache is enabled
+			let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
+			if (result && result['stats-' + id]) {
+				// if cache is enabled and data already exists in storage, display it directly
 				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
 			} else {
-				// otherwise retrieve it
+				// otherwise retrieve it first
 				await this.refresh(false)
 			}
 		}

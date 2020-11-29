@@ -48,6 +48,12 @@ a, a:visited
 			color: c.accent2
 			&:hover
 				color: c.accent1
+hr
+	border: none
+	height: 1px
+	for m, c in mode
+		.{m} &
+			background: c.gray2
 
 // animations
 @keyframes rotate
@@ -113,12 +119,16 @@ for m, c in mode
 	font-size: .85em
 .text-tiny
 	font-size: .75em
+.text-thin
+	font-weight: 300
 .mr-1
 	margin-right: 1rem
 .mt-1
 	margin-top: 1rem
 .mt-2
 	margin-top: 2rem
+.mt-3
+	margin-top: 3rem
 .mt-5
 	margin-top: 5rem
 .mr-1
@@ -133,6 +143,9 @@ for m, c in mode
 	margin-bottom: 1rem
 .mt-6
 	margin-top: 6rem
+.my-3
+	margin-top: 3rem
+	margin-bottom: 3rem
 .my-6
 	margin-top: 6rem
 	margin-bottom: 6rem
@@ -158,6 +171,10 @@ for m, c in mode
 	display: inline
 .d-inline-block
 	display: inline-block
+.d-flex
+	display: flex
+.flex-grow
+	flex-grow: 1
 .position-absolute
 	position: absolute
 .position-relative
@@ -237,6 +254,8 @@ button
 	padding: 1rem 2rem
 	transition: background .2s
 	color: mode.dark.highlight
+	&.button-inline
+		padding: .5rem
 	for m, c in mode
 		.{m} &
 			background: c.accent2
@@ -267,13 +286,13 @@ select
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
 
+input[type=text],
+input[type=email],
 textarea
 	appearance: none
 	border: solid 1px
 	border-radius: 2px
-	width: 100%
 	padding: .5rem
-	font-size: .9rem
 	for m, c in mode
 		.{m} &
 			background: c.back
@@ -285,6 +304,9 @@ textarea
 		.{m} &:focus
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
+textarea
+	width: 100%
+	font-size: .9rem
 
 .switch
 	padding: 0
@@ -394,6 +416,21 @@ textarea
 			.tab-item.active > span
 				border-bottom-color: c.accent2
 				color: c.accent2
+
+// tags
+.tag
+	display: inline-block
+	margin: .5rem .5rem 0 0
+	padding: .2rem .2rem .2rem .5rem
+	&>*
+		vertical-align: middle
+	for m, c in mode
+		.{m} &
+			color: c.front
+			if m is 'dark'
+				background: c.gray3
+			else
+				background: c.back
 
 // loader
 loader(size, border)

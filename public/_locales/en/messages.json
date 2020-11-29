@@ -90,12 +90,18 @@
     "message": "-"
   },
   "options": {
+    "headings": {
+      "appearance": "Appearance & Experience",
+      "stats": "Charts & Figures",
+      "storage": "Storage & Cache"
+    },
     "switch": {
       "on": "On",
       "off": "Off"
     },
     "button": {
-      "save": "Save"
+      "save": "Save",
+      "clearCache": "Clear Cache"
     },
     "darkMode": {
       "label": "Dark Mode",
@@ -103,11 +109,23 @@
     },
     "localIdentities": {
       "label": "Local Identities",
-      "description": "A comma separated list of email addresses to recognize as 'sent from' for local accounts"
+      "description": "A list of email addresses to recognize as 'sent from' for local accounts"
     },
     "startOfWeek": {
       "label": "Start the Week on",
       "description": "Custom start of week for all weekday related charts"
+    },
+    "cache": {
+      "label": "Activate Cache",
+      "description": "Enable caching system for faster display of already processed stats data."
+    },
+    "clearCache": {
+      "label": "Clear Cache",
+      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again."
+    },
+    "note": {
+      "title": "Note",
+      "reloadStatsPage": "Options are automatically saved. If the stats page is already open, you have to reopen or reload it for changes to be applied."
     },
     "message": "-"
   }
