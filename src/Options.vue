@@ -136,7 +136,7 @@ export default {
 		// get all add-on settings
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
-		// only load options if they have been set, otherwise default settings will be kept
+			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.options.dark = result.options.dark ? true : false
 				this.options.addresses = result.options.addresses ? result.options.addresses : ''
@@ -271,7 +271,6 @@ html, body
 #options
 	width 100%
 	height 100%
-	// min-height: 300px
 
 	.container > h2
 		font-weight: 300
