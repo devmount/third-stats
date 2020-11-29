@@ -1,43 +1,56 @@
 <template>
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
+			<!-- title heading -->
 			<h1>
 				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
 				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-				<select v-model='activeAccount' name='account' :disabled='waiting' class="shadow" :class='{ disabled: waiting }'>
+				<select v-model='activeAccount' name='account' :disabled='waiting || loading' class="shadow" :class='{ disabled: waiting || loading }'>
 					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 				</select>
-				<div v-if='waiting' :class='scheme + " loading"'></div>
-				<svg v-else class='ready icon icon-strong icon-gray' viewBox='0 0 24 24'>
-					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-					<path d='M5 12l5 5l10 -10' />
-				</svg>
+				<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
+				<div
+					v-show='!waiting && !loading'
+					class='refresh cursor-pointer tooltip tooltip-bottom'
+					:data-tooltip='$t("stats.tooltips.refresh")'
+					@click='refresh(true)'
+				>
+					<svg class='icon icon-bold icon-gray icon-hover-accent2' viewBox='0 0 24 24'>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
+						<line class="icon-part-accent2-dark" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
+						<line class="icon-part-accent2-dark" x1="4.06" y1="11" x2="4.06" y2="11.01" />
+						<line class="icon-part-accent2-dark" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
+						<line class="icon-part-accent2-dark" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
+						<line class="icon-part-accent2-dark" x1="11" y1="19.94" x2="11" y2="19.95" />
+					</svg>
+				</div>
 			</h1>
 			<!-- fetured numbers -->
 			<section class='numbers mt-2'>
 				<!-- total -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
-					<div class='featured'>{{ numbers.total.toLocaleString() }}</div>
+					<div class='featured'>{{ display.numbers.total.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.withinYears', [oneDigit(years)]) }}</div>
 				</div>
 				<!-- unread -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsUnread') }}</div>
-					<div class='featured'>{{ numbers.unread.toLocaleString() }}</div>
-					<div class='text-gray' v-if='numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
+					<div class='featured'>{{ display.numbers.unread.toLocaleString() }}</div>
+					<div class='text-gray' v-if='display.numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
 					<div class='text-gray' v-else>{{ $t('stats.percentOfReceived', [unreadPercentage]) }}</div>
 				</div>
 				<!-- received -->
 				<div>
 					<div class='text-accent2'>{{ $t('stats.mailsReceived') }}</div>
-					<div class='featured text-accent2'>{{ numbers.received.toLocaleString() }}</div>
+					<div class='featured text-accent2'>{{ display.numbers.received.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
 				</div>
 				<!-- sent -->
 				<div>
 					<div class='text-accent1'>{{ $t('stats.mailsSent') }}</div>
-					<div class='featured text-accent1'>{{ numbers.sent.toLocaleString() }}</div>
+					<div class='featured text-accent1'>{{ display.numbers.sent.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
 				</div>
 				<!-- per month / per year -->
@@ -65,7 +78,7 @@
 				</div>
 			</section>
 			<!-- empty account -->
-			<section v-else-if='numbers.total == 0' class='mt-5'>
+			<section v-else-if='display.numbers.total == 0' class='mt-5'>
 				<svg class="icon icon-huge icon-gray d-block m-0-auto" viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<rect x="4" y="4" width="16" height="16" rx="2" />
@@ -301,63 +314,62 @@ class NumberedObject {
 
 export default {
 	name: 'Stats',
-	components: {
-		LineChart,
-		BarChart,
-		HeatMap,
-	},
+	components: { LineChart, BarChart, HeatMap },
 	data () {
 		return {
-			accounts: [],
-			activeAccount: null,
-			waiting: true,
-			numbers: {},
-			yearsData: {},
-			quartersData: {},
-			monthsData: {},
-			weeksData: {},
-			daysData: {},
-			daytimeData: {},
-			weekdayData: {},
-			monthData: {},
-			weekdayPerHourData: {},
-			contacts: {},
-			tabs: {
+			accounts: [],        // list of all existing accounts
+			activeAccount: null, // currently selected account
+			waiting: false,      // hides all charts and processes data in foreground
+			loading: false,      // keeps showing charts and processes data in background
+			display: {},         // processed data to show in foreground
+			store: {},           // data store for background processing (same structure as display)
+			tabs: {              // tab navigation containing one active tab
 				years: true,
 				quarters: false,
 				months: false,
 				weeks: false,
 			},
-			preferences: {
-				sections: {
+			preferences: {       // preferences set for this page
+				sections: {        // preferences that can be set on this page
 					total: {
 						expand: false
 					},
 					days: {
 						year: (new Date()).getFullYear()
+					},
+					contacts: {
+						leaderCount: 20
 					}
 				},
-				dark: true,
+				dark: true,        // preferences loaded from options
 				localIdentities: [],
-				startOfWeek: 0
+				startOfWeek: 0,
+				cache: true
 			},
 			publicPath: process.env.BASE_URL
 		}
 	},
 	created () {
+		// set initial tab title
 		document.title = 'ThirdStats'
-		this.reset()
+		// initially reset everything (stored and displayed data)
+		this.reset(false)
 		this.getSettings()
 		this.getAccounts()
 	},
 	methods: {
-		// get all add-on settings
+		// get all add-on settings from the options page
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
-			this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
-			this.preferences.dark = result.options.dark ? true : false
-			this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+			// only load options if they have been set, otherwise default settings will be kept
+			if (result && result.options) {
+				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
+				this.preferences.dark = result.options.dark ? true : false
+				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+				this.preferences.cache = result.options.cache ? true : false
+			}
 		},
+		// get all accounts, get active account from URL get parameter
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
 			// check if a specific account was given
@@ -368,201 +380,246 @@ export default {
 			this.accounts = accounts
 			this.activeAccount = accounts[accountPosition].id
 		},
-		processAccount: async function (id) {
-			this.waiting = true
-			let a = await messenger.accounts.get(id)
-			document.title = 'ThirdStats: ' + a.name
+		// iterate through all folders of a given account <a>, do it in background <hidden=true> or in foreground <hidden=false>
+		processAccount: async function (a, hidden) {
+			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			let folders = traverseAccount(a)
 			let self = this
 			await Promise.all(folders.map(async f => {
-				await self.processMessages(f, identities)
+				// analyze all messages in all folders
+				await self.processMessages(f, identities, hidden)
 			})).then(() => {
-				this.waiting = false
+				let store = hidden ? self.store : self.display
+				// post processing: reduce size of contacts to configured limit
+				let r = Object.entries(store.contacts.received).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+				store.contacts.received = Object.keys(r)
+					.slice(0, self.preferences.sections.contacts.leaderCount)
+					.reduce((result, key) => { result[key] = r[key]; return result; }, {})
+				let s = Object.entries(store.contacts.sent).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+				store.contacts.sent = Object.keys(s)
+					.slice(0, self.preferences.sections.contacts.leaderCount)
+					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
+				// post processing: display data now if it was processed in background
+				if (hidden) {
+					self.display = JSON.parse(JSON.stringify(self.store))
+				}
 			})
 		},
-		// process all messages of a folder
-		processMessages: async function (folder, identities) {
+		// process all messages of a given <folder> with its <identities> in background <hidden=true> or in foreground <hidden=false>
+		processMessages: async function (folder, identities, hidden) {
 			if (folder) {
 				let self = this
-				let page = null
-				try {
-					page = await messenger.messages.list(folder)
-				} catch (error) {
-					console.error(error)
-				}
+				let page = await messenger.messages.list(folder)
 				if (page) {
-					page.messages.map(m => self.analyzeMessage(m, identities))
+					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
+					while (page.id) {
+						page = await messenger.messages.continueList(page.id)
+						page.messages.map(m => self.analyzeMessage(m, identities, hidden))
+					}
 				}
-				while (page.id) {
-					page = await messenger.messages.continueList(page.id)
-					page.messages.map(m => self.analyzeMessage(m, identities))
-				}
-			} else {
-				console.error('This folder doesn\'t exist')
 			}
 		},
 		// extract information of a single message
-		analyzeMessage (m, identities) {
+		analyzeMessage (m, identities, hidden) {
 			let type = ''
+			let store = hidden ? this.store : this.display
 			// numbers
-			this.numbers.total++
-			if (m.read === false) this.numbers.unread++
+			store.numbers.total++
+			if (m.read === false) store.numbers.unread++
 			let author = extractEmailAddress(m.author)
 			if (identities.includes(author)) {
-				this.numbers.sent++
+				store.numbers.sent++
 				type = 'sent'
 			} else {
-				this.numbers.received++
+				store.numbers.received++
 				type = 'received'
 			}
 			// calculate starting date (= date of oldest email)
-			if (m.date && m.date.getTime() > 0 && m.date.getTime() < this.numbers.start.getTime()) {
-				this.numbers.start = m.date
+			let start = new Date(store.numbers.start)
+			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
+				store.numbers.start = m.date
 			}
 			// years
 			let y = m.date.getFullYear()
-			if (!(y in this.yearsData[type])) {
-				this.yearsData[type][y] = 1
+			if (!(y in store.yearsData[type])) {
+				store.yearsData[type][y] = 1
 			} else {
-				this.yearsData[type][y]++
+				store.yearsData[type][y]++
 			}
 			// quarters
 			let qn = quarterNumber(m.date)
-			if (!(y in this.quartersData[type])) {
-				this.quartersData[type][y] = {}
-				this.quartersData[type][y][qn] = 1
+			if (!(y in store.quartersData[type])) {
+				store.quartersData[type][y] = {}
+				store.quartersData[type][y][qn] = 1
 			} else {
-				if (!(qn in this.quartersData[type][y])) {
-					this.quartersData[type][y][qn] = 1
+				if (!(qn in store.quartersData[type][y])) {
+					store.quartersData[type][y][qn] = 1
 				} else {
-					this.quartersData[type][y][qn]++
+					store.quartersData[type][y][qn]++
 				}
 			}
 			// months
 			let mo = m.date.getMonth()
-			if (!(y in this.monthsData[type])) {
-				this.monthsData[type][y] = {}
-				this.monthsData[type][y][mo] = 1
+			if (!(y in store.monthsData[type])) {
+				store.monthsData[type][y] = {}
+				store.monthsData[type][y][mo] = 1
 			} else {
-				if (!(mo in this.monthsData[type][y])) {
-					this.monthsData[type][y][mo] = 1
+				if (!(mo in store.monthsData[type][y])) {
+					store.monthsData[type][y][mo] = 1
 				} else {
-					this.monthsData[type][y][mo]++
+					store.monthsData[type][y][mo]++
 				}
 			}
 			// weeks
 			let wn = weekNumber(m.date)
-			if (!(y in this.weeksData[type])) {
-				this.weeksData[type][y] = {}
-				this.weeksData[type][y][wn] = 1
+			if (!(y in store.weeksData[type])) {
+				store.weeksData[type][y] = {}
+				store.weeksData[type][y][wn] = 1
 			} else {
-				if (!(wn in this.weeksData[type][y])) {
-					this.weeksData[type][y][wn] = 1
+				if (!(wn in store.weeksData[type][y])) {
+					store.weeksData[type][y][wn] = 1
 				} else {
-					this.weeksData[type][y][wn]++
+					store.weeksData[type][y][wn]++
 				}
 			}
 			// daytime
 			let dt = m.date.getHours()
-			this.daytimeData[type][dt]++
+			store.daytimeData[type][dt]++
 			// weekday
 			let wd = m.date.getDay()
-			this.weekdayData[type][wd]++
+			store.weekdayData[type][wd]++
 			// month
-			this.monthData[type][mo]++
+			store.monthData[type][mo]++
 			// weekday per calendar week
-			if (!(y in this.daysData[type])) {
-				this.daysData[type][y] = new NumberedObject(7,53)
+			if (!(y in store.daysData[type])) {
+				store.daysData[type][y] = new NumberedObject(7,53)
 			}
-			this.daysData[type][y][wd][wn-1]++
+			store.daysData[type][y][wd][wn-1]++
 			// weekday per hour
-			this.weekdayPerHourData[type][wd][dt]++
-			// contacts
+			store.weekdayPerHourData[type][wd][dt]++
+			// contacts (leaderboards)
 			switch (type) {
 				case 'sent':
 					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
 					recipients.map(r => {
-						if (!(r in this.contacts['sent'])) {
-							this.contacts['sent'][r] = 1
+						if (!(r in store.contacts['sent'])) {
+							store.contacts['sent'][r] = 1
 						} else {
-							this.contacts['sent'][r]++
+							store.contacts['sent'][r]++
 						}
 					})
 					break;
 				case 'received':
 					let a = author.toLowerCase()
-					if (!(a in this.contacts['received'])) {
-						this.contacts['received'][a] = 1
+					if (!(a in store.contacts['received'])) {
+						store.contacts['received'][a] = 1
 					} else {
-						this.contacts['received'][a]++
+						store.contacts['received'][a]++
 					}
 					break;
 				default:
 					break;
 			}
 		},
-		reset () {
-			this.numbers = {
-				total: 0,
-				unread: 0,
-				received: 0,
-				sent: 0,
-				start: new Date(),
+		// reset processed data to initial state, only reset store if processed in background <hidden=true>
+		reset (hidden) {
+			let initObject = { 
+				numbers: {
+					total: 0,
+					unread: 0,
+					received: 0,
+					sent: 0,
+					start: new Date(),
+				},
+				yearsData: {
+					received: {},
+					sent: {},
+				},
+				quartersData: {
+					received: {},
+					sent: {},
+				},
+				monthsData: {
+					received: {},
+					sent: {},
+				},
+				weeksData: {
+					received: {},
+					sent: {},
+				},
+				daysData: {
+					received: {},
+					sent: {},
+				},
+				daytimeData: {
+					received: new NumberedObject(24),
+					sent: new NumberedObject(24),
+				},
+				weekdayData: {
+					received: new NumberedObject(7),
+					sent: new NumberedObject(7),
+				},
+				monthData: {
+					received: new NumberedObject(12),
+					sent: new NumberedObject(12),
+				},
+				weekdayPerHourData: {
+					received: new NumberedObject(7,24),
+					sent: new NumberedObject(7,24),
+				},
+				contacts: {
+					received: {},
+					sent: {},
+				}
 			}
-			this.yearsData = {
-				received: {},
-				sent: {},
+			if (!hidden) {
+				this.display = JSON.parse(JSON.stringify(initObject))
 			}
-			this.quartersData = {
-				received: {},
-				sent: {},
-			}
-			this.monthsData = {
-				received: {},
-				sent: {},
-			}
-			this.weeksData = {
-				received: {},
-				sent: {},
-			}
-			this.daysData = {
-				received: {},
-				sent: {},
-			}
-			this.daytimeData = {
-				received: new NumberedObject(24),
-				sent: new NumberedObject(24),
-			}
-			this.weekdayData = {
-				received: new NumberedObject(7),
-				sent: new NumberedObject(7),
-			}
-			this.monthData = {
-				received: new NumberedObject(12),
-				sent: new NumberedObject(12),
-			}
-			this.weekdayPerHourData = {
-				received: new NumberedObject(7,24),
-				sent: new NumberedObject(7,24),
-			}
-			this.contacts = {
-				received: {},
-				sent: {},
-			}
+			this.store = JSON.parse(JSON.stringify(initObject))
 			this.preferences.sections.total.expand = false
 			this.preferences.sections.days.year = (new Date()).getFullYear()
 		},
-		activateTab (label) {
+		// retrieve and process data again in background <hidden=true> or foreground <hidden=false>
+		refresh: async function (hidden) {
+			// start loading indication
+			if (hidden) {
+				this.loading = true
+			} else {
+				this.waiting = true
+			}
+			// reset already processed data
+			this.reset(hidden)
+			// get currently selected account
+			let account = await messenger.accounts.get(this.activeAccount)
+			// process data of this account again and update this.display
+			await this.processAccount(account, hidden)
+			// store reprocessed data if cache is enabled
+			if (this.preferences.cache) {
+				let stats = {}
+				stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
+				await messenger.storage.local.set(stats)
+			}
+			// stop loading indication
+			if (hidden) {
+				this.loading = false
+			} else {
+				this.waiting = false
+			}
+		},
+		// activate tab of given <key>
+		activateTab (key) {
 			let self = this
 			Object.keys(this.tabs).map(t => self.tabs[t] = false)
-			this.tabs[label] = true
+			this.tabs[key] = true
 		}
 	},
 	computed: {
+		// current app version
 		appVersion () {
 			return process.env.PACKAGE_VERSION;
 		},
+		// array of localized, short month names
 		monthNames () {
 			let names = []
 			for (let m = 1; m <= 12; m++) {
@@ -571,6 +628,7 @@ export default {
 			}
 			return names
 		},
+		// array of localized, short day of week names
 		weekdayNames () {
 			let names = []
 			for (let wd = 1; wd <= 7; wd++) {
@@ -579,79 +637,82 @@ export default {
 			}
 			return names
 		},
+		// number of days from oldest email till today
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
 			let today = new Date()
-			return Math.round(Math.abs((this.numbers.start - today) / oneDay))
+			let start = new Date(this.display.numbers.start)
+			return Math.round(Math.abs((start - today) / oneDay))
 		},
+		// number of weeks from oldest email till today
 		weeks () {
 			return this.days/7
 		},
+		// number of months from oldest email till today
 		months () {
 			return this.days/(365/12)
 		},
+		// number of years from oldest email till today
 		years () {
 			return this.days/365
 		},
+		// percentage of number of received/total emails
 		receivedPercentage () {
-			if (this.numbers.total > 0) {
-				return this.twoDigit(this.numbers.received*100/this.numbers.total)
+			if (this.display.numbers.total > 0) {
+				return this.twoDigit(this.display.numbers.received*100/this.display.numbers.total)
 			} else {
 				return 0
 			}
 		},
+		// percentage of number of sent/total emails
 		sentPercentage () {
-			if (this.numbers.total > 0) {
-				return this.twoDigit(this.numbers.sent*100/this.numbers.total)
+			if (this.display.numbers.total > 0) {
+				return this.twoDigit(this.display.numbers.sent*100/this.display.numbers.total)
 			} else {
 				return 0
 			}
 		},
+		// percentage of number of unread/received emails
 		unreadPercentage () {
-			if (this.numbers.received > 0) {
-				return this.twoDigit(this.numbers.unread*100/this.numbers.received)
+			if (this.display.numbers.received > 0) {
+				return this.twoDigit(this.display.numbers.unread*100/this.display.numbers.received)
 			} else {
 				return 0
 			}
 		},
+		// average number of emails/day
 		perDay () {
-			if (this.numbers.total > 0 && this.days > 0) {
-				return this.oneDigit(this.numbers.total/this.days)
+			if (this.display.numbers.total > 0 && this.days > 0) {
+				return this.oneDigit(this.display.numbers.total/this.days)
 			} else {
 				return 0
 			}
 		},
+		// average number of emails/week
 		perWeek () {
-			if (this.numbers.total > 0 && this.weeks > 0) {
-				return this.oneDigit(this.numbers.total/this.weeks)
+			if (this.display.numbers.total > 0 && this.weeks > 0) {
+				return this.oneDigit(this.display.numbers.total/this.weeks)
 			} else {
 				return 0
 			}
 		},
+		// average number of emails/month
 		perMonth () {
-			if (this.numbers.total > 0 && this.months > 0) {
-				return this.oneDigit(this.numbers.total/this.months)
+			if (this.display.numbers.total > 0 && this.months > 0) {
+				return this.oneDigit(this.display.numbers.total/this.months)
 			} else {
 				return 0
 			}
 		},
+		// average number of emails/year
 		perYear () {
-			if (this.numbers.total > 0 && this.years > 0) {
-				return this.oneDigit(this.numbers.total/this.years)
+			if (this.display.numbers.total > 0 && this.years > 0) {
+				return this.oneDigit(this.display.numbers.total/this.years)
 			} else {
 				return 0
 			}
 		},
-		leaderboardReceived () {
-			return Object.entries(this.contacts.received)
-				.sort(([,a],[,b]) => b-a)
-				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-		},
-		leaderboardSent () {
-			return Object.entries(this.contacts.sent)
-				.sort(([,a],[,b]) => b-a)
-				.reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-		},
+		// prepare data for years line chart
 		yearsChartData () {
 			if (this.waiting) {
 				return {
@@ -659,9 +720,10 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.yearsData.received, s = this.yearsData.sent
+				let r = this.display.yearsData.received, s = this.display.yearsData.sent
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					if (!r[y]) r[y] = 0
 					if (!s[y]) s[y] = 0
 				}
@@ -674,6 +736,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for quarters line chart
 		quartersChartData () {
 			if (this.waiting) {
 				return {
@@ -681,14 +744,15 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.quartersData.received
-				let s = this.quartersData.sent
+				let r = this.display.quartersData.received
+				let s = this.display.quartersData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let q = 1; q <= 4; ++q) {
 						// trim quarters before start date
-						if (y == this.numbers.start.getFullYear() && q < quarterNumber(this.numbers.start)) continue
+						if (y == start.getFullYear() && q < quarterNumber(start)) continue
 						// trim quarters in future
 						if (y == today.getFullYear() && q > quarterNumber(today)) break
 						// organize labels and data
@@ -706,6 +770,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for months line chart
 		monthsChartData () {
 			if (this.waiting) {
 				return {
@@ -713,14 +778,15 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.monthsData.received
-				let s = this.monthsData.sent
+				let r = this.display.monthsData.received
+				let s = this.display.monthsData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let m = 0; m < 12; ++m) {
 						// trim months before start date
-						if (y == this.numbers.start.getFullYear() && m < this.numbers.start.getMonth()) continue
+						if (y == start.getFullYear() && m < start.getMonth()) continue
 						// trim months in future
 						if (y == today.getFullYear() && m > today.getMonth()) break
 						// organize labels and data
@@ -738,6 +804,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for weeks line chart
 		weeksChartData () {
 			if (this.waiting) {
 				return {
@@ -745,14 +812,15 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.weeksData.received
-				let s = this.weeksData.sent
+				let r = this.display.weeksData.received
+				let s = this.display.weeksData.sent
 				let labels = [], dr = [], ds = []
 				let today = new Date()
-				for (let y = this.numbers.start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let start = new Date(this.display.numbers.start)
+				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
 					for (let w = 1; w <= weeksInYear(y); ++w) {
 						// trim weeks before start date
-						if (y == this.numbers.start.getFullYear() && w < weekNumber(this.numbers.start)) continue
+						if (y == start.getFullYear() && w < weekNumber(start)) continue
 						// trim weeks in future
 						if (y == today.getFullYear() && w > weekNumber(today)) break
 						// organize labels and data
@@ -770,6 +838,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for daytime bar chart
 		daytimeChartData () {
 			if (this.waiting) {
 				return {
@@ -777,7 +846,7 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.daytimeData.received, s = this.daytimeData.sent
+				let r = this.display.daytimeData.received, s = this.display.daytimeData.sent
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
@@ -787,6 +856,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for weekday bar chart
 		weekdayChartData () {
 			if (this.waiting) {
 				return {
@@ -794,8 +864,8 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = Object.values(this.weekdayData.received)
-				let s = Object.values(this.weekdayData.sent)
+				let r = Object.values(this.display.weekdayData.received)
+				let s = Object.values(this.display.weekdayData.sent)
 				let labels = [...this.weekdayNames]
 				// start week with user defined day of week
 				for (let d = 0; d < this.preferences.startOfWeek; d++) {
@@ -812,6 +882,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for month bar chart
 		monthChartData () {
 			if (this.waiting) {
 				return {
@@ -819,7 +890,7 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.monthData.received, s = this.monthData.sent
+				let r = this.display.monthData.received, s = this.display.monthData.sent
 				return {
 					datasets: [
 						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
@@ -829,6 +900,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for activity heatmaps
 		daysChartData () {
 			if (this.waiting) {
 				return {
@@ -836,11 +908,11 @@ export default {
 					sent: new NumberedObject(7,53),
 				}
 			} else {
-				let r = this.preferences.sections.days.year in this.daysData.received
-					? Object.values(this.daysData.received[this.preferences.sections.days.year])
+				let r = this.preferences.sections.days.year in this.display.daysData.received
+					? Object.values(this.display.daysData.received[this.preferences.sections.days.year])
 					: Object.values(new NumberedObject(7,53))
-				let s = this.preferences.sections.days.year in this.daysData.sent
-					? Object.values(this.daysData.sent[this.preferences.sections.days.year])
+				let s = this.preferences.sections.days.year in this.display.daysData.sent
+					? Object.values(this.display.daysData.sent[this.preferences.sections.days.year])
 					: Object.values(new NumberedObject(7,53))
 				let ylabels = [...this.weekdayNames]
 				let xlabels = Array.from(Array(54).keys())
@@ -859,6 +931,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for weekday/hour heatmaps
 		weekdayPerHourChartData () {
 			if (this.waiting) {
 				return {
@@ -866,8 +939,8 @@ export default {
 					sent: new NumberedObject(7,24),
 				}
 			} else {
-				let r = Object.values(this.weekdayPerHourData.received)
-				let s = Object.values(this.weekdayPerHourData.sent)
+				let r = Object.values(this.display.weekdayPerHourData.received)
+				let s = Object.values(this.display.weekdayPerHourData.sent)
 				let labels = [...this.weekdayNames]
 				// start week with user defined day of week
 				for (let d = 0; d < this.preferences.startOfWeek; d++) {
@@ -882,6 +955,7 @@ export default {
 				}
 			}
 		},
+		// prepare data for received emails leaderboard horizontal bar chart
 		receivedContactLeadersChartData () {
 			if (this.waiting) {
 				return {
@@ -889,16 +963,16 @@ export default {
 					labels: []
 				}
 			} else {
-				const leaderCount = 20
-				let r = this.leaderboardReceived
+				let r = this.display.contacts.received
 				return {
 					datasets: [
-						{ label: this.$t('stats.mailsReceived'), data: Object.values(r).slice(0, leaderCount), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: Object.keys(r).slice(0, leaderCount)
+					labels: Object.keys(r)
 				}
 			}
 		},
+		// prepare data for sent emails leaderboard horizontal bar chart
 		sentContactLeadersChartData () {
 			if (this.waiting) {
 				return {
@@ -906,28 +980,39 @@ export default {
 					labels: []
 				}
 			} else {
-				const leaderCount = 20
-				let s = this.leaderboardSent
+				let s = this.display.contacts.sent
 				return {
 					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: Object.values(s).slice(0, leaderCount), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 					],
-					labels: Object.keys(s).slice(0, leaderCount)
+					labels: Object.keys(s)
 				}
 			}
 		},
+		// convert theme preference into scheme name
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
 		},
+		// array of years descending from oldest emails year till todays year
 		yearsList () {
 			let years = JSON.parse(JSON.stringify(this.yearsChartData.labels))
 			return years.reverse()
 		}
 	},
 	watch: {
-		activeAccount (a) {
-			this.reset()
-			this.processAccount(a)
+		// on change of active account switch displayed data accordingly
+		activeAccount: async function (id) {
+			let account = await messenger.accounts.get(id)
+			document.title = 'ThirdStats: ' + account.name
+			// only check storage if cache is enabled
+			let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
+			if (result && result['stats-' + id]) {
+				// if cache is enabled and data already exists in storage, display it directly
+				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
+			} else {
+				// otherwise retrieve it first
+				await this.refresh(false)
+			}
 		}
 	}
 }
@@ -938,100 +1023,104 @@ export default {
 
 // general
 body
-	overflow-x hidden
+	overflow-x: hidden
 
 // layout and content
 #stats
-	min-height 100vh
+	min-height: 100vh
 
 	.container
-		width 100%
-		height 100%
-		margin 0 auto
-		padding-left 1rem
-		padding-right 1rem
-		box-sizing border-box
+		width: 100%
+		height: 100%
+		margin: 0 auto
+		padding-left: 1rem
+		padding-right: 1rem
+		box-sizing: border-box
 
 		@media (min-width: 2501px)
-			max-width 2500px
+			max-width: 2500px
 			#chart-area-main
-				grid-template-columns repeat(6, 1fr)
+				grid-template-columns: repeat(6, 1fr)
 		@media (max-width: 2500px)
-			max-width 2200px
+			max-width: 2200px
 			#chart-area-main
-				grid-template-columns repeat(3, 1fr)
+				grid-template-columns: repeat(3, 1fr)
 		@media (max-width: 2000px)
-			max-width 1750px
+			max-width: 1750px
 			#chart-area-main
-				grid-template-columns repeat(3, 1fr)
+				grid-template-columns: repeat(3, 1fr)
 		@media (max-width: 1500px)
-			max-width 1200px
+			max-width: 1200px
 			#chart-area-main
-				grid-template-columns repeat(2, 1fr)
+				grid-template-columns: repeat(2, 1fr)
 		@media (min-width: 961px)
 			.numbers
-				max-width 1500px
-				grid-template-columns repeat(6, 1fr)
+				max-width: 1500px
+				grid-template-columns: repeat(6, 1fr)
 			#chart-area-top
-				grid-template-columns calc(33.33% - 1rem) calc(66.66% - 1rem)
+				grid-template-columns: calc(33.33% - 1rem) calc(66.66% - 1rem)
 				&.first-column-only
-					grid-template-columns calc(100%-1rem) 0%
+					grid-template-columns: calc(100%-1rem) 0%
 				.resizer
 					display: list-item
 		@media (max-width: 960px)
 			.numbers
-				grid-template-columns repeat(3, 1fr)
+				grid-template-columns: repeat(3, 1fr)
 			#chart-area-top
-				grid-template-columns calc(100%-1rem)
+				grid-template-columns: calc(100%-1rem)
 				.resizer
 					display: none
 		@media (max-width: 720px)
 			#chart-area-main
-				grid-template-columns 1fr
+				grid-template-columns: 1fr
 
 		h1
-			margin-top 0
-			display grid
-			grid-template-columns auto 1fr auto 55px
-			align-items center
-			justify-content start
+			margin-top: 0
+			display: grid
+			grid-template-columns: auto 1fr auto 55px
+			align-items: center
+			justify-content: start
 			.logo
-				height 48px
+				height: 48px
 			.loading
-				loader 20px
-				justify-self center
-			.ready
-				justify-self center
+				loader 21px 3px
+				justify-self: center
+				vertical-align: text-top
+			.refresh
+				justify-self: center
+				svg
+					vertical-align: text-top
+					margin-top: 1px
 			select
-				justify-self end
+				justify-self: end
 
 		.numbers
-			display grid
-			column-gap 1rem
-			row-gap 2rem
-			margin 0 auto
+			display: grid
+			column-gap: 1rem
+			row-gap: 2rem
+			margin: 0 auto
 			&>div
-				text-align center
+				text-align: center
 				.featured
-					font-size 3.25em
-					line-height 1em
-					font-weight 500
+					font-size: 3.25em
+					line-height: 1em
+					font-weight: 500
 
 		.charts
 			.chart-area
-				display grid
-				column-gap 2rem
-				row-gap 1rem
-				transition grid-template-columns .2s
+				display: grid
+				column-gap: 2rem
+				row-gap: 1rem
+				transition: grid-template-columns .2s
 				& > *, .tab-content > *
-					min-height 380px
+					min-height: 380px
 				.chart
-					min-width 0
+					min-width: 0
 					h2
-						margin-bottom 0
+						margin-bottom: 0
 					p
-						margin-top 0
+						margin-top: 0
 				.chart-group .upper-chart h2
-					margin-top .5rem
+					margin-top: .5rem
 
 </style>
