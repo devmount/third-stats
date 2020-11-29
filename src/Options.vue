@@ -92,19 +92,24 @@
 					<span class="d-block text-gray text-small">{{ $t('options.clearCache.description') }}</span>
 				</label>
 				<div class='action'>
-					<button @click='clearCache'>{{ $t('options.button.clearCache') }}</button>
+					<button @click='clearCache' class='mb-1'>{{ $t('options.button.clearCache') }}</button>
+					<div class='text-gray text-small'>
+						<span v-if='cacheSize > 0'>{{ $t('options.clearCache.size', [formattedCacheSize]) }}</span>
+						<span v-else>{{ $t('options.clearCache.empty') }}</span>
+					</div>
 				</div>
 			</section>
 			<hr class='my-3' />
-			<footer class='text-gray'>
-				<h4 class='text-thin mb-05'>{{ $t('options.note.title') }}</h4>
-				<div class='text-tiny'>{{ $t('options.note.reloadStatsPage') }}</div>
+			<footer>
+				<h3 class='text-thin mb-05'>{{ $t('options.note.title') }}</h3>
+				<div class='text-gray text-small'>{{ $t('options.note.reloadStatsPage') }}</div>
 			</footer>
 		</div>
 	</div>
 </template>
 
 <script>
+import { formatBytes } from './utils'
 export default {
 	name: 'Options',
 	data () {
@@ -117,12 +122,15 @@ export default {
 				addresses: '',
 				startOfWeek: 0,
 				cache: true,
-			}
+			},
+			cacheSize: -1
 		}
 	},
 	created () {
 		// initially load settings
 		this.getSettings()
+		// initially load cache size
+		this.getCacheSize()
 	},
 	methods: {
 		// get all add-on settings
@@ -135,6 +143,20 @@ export default {
 				this.options.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.options.cache = result.options.cache ? true : false
 			}
+		},
+		// get size of all cached account data
+		getCacheSize: async function () {
+			let allEntriesSize = new TextEncoder().encode(
+				Object.entries(await messenger.storage.local.get())
+					.map(([key, value]) => key + JSON.stringify(value))
+					.join('')
+			).length
+			let optionsSize = new TextEncoder().encode(
+				Object.entries(await messenger.storage.local.get('options'))
+					.map(([key, value]) => key + JSON.stringify(value))
+					.join('')
+			).length
+			this.cacheSize = allEntriesSize - optionsSize
 		},
 		// add configured email address to list of addresses and save
 		addAddress: async function () {
@@ -181,6 +203,8 @@ export default {
 					cache: this.options.cache,
 				}
 			})
+			// recalculate cache size
+			this.getCacheSize()
 		}
 	},
 	computed: {
@@ -196,6 +220,9 @@ export default {
 		// array of email addresses configured for local account identities
 		addressList () {
 			return this.options.addresses ? this.options.addresses.split(',') : []
+		},
+		formattedCacheSize () {
+			return formatBytes(this.cacheSize)
 		}
 	},
 	watch: {

@@ -121,7 +121,9 @@
     },
     "clearCache": {
       "label": "Clear Cache",
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again."
+      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
+      "empty": "Cache is empty",
+      "size": "Cache size is {0}"
     },
     "note": {
       "title": "Note",
