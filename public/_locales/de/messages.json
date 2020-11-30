@@ -79,7 +79,8 @@
     },
     "tooltips": {
       "expand": "Bereich vergrößern",
-      "shrink": "Bereich verkleiner"
+      "shrink": "Bereich verkleiner",
+      "refresh": "Daten aktualisieren"
     },
     "abbreviations": {
       "calendarWeek": "KW",
@@ -94,7 +95,8 @@
       "off": "Aus"
     },
     "button": {
-      "save": "Speichern"
+      "save": "Speichern",
+      "clearCache": "Cache leeren"
     },
     "darkMode": {
       "label": "Nachtmodus",
@@ -108,6 +110,25 @@
     "startOfWeek": {
       "label": "Die Woche startet am",
       "description": "Benutzerdefinierter Wochenstart für alle wochentagsbezogenen Diagramme"
+    },
+    "headings": {
+      "appearance": "Aussehen & Nutzererlebnis",
+      "stats": "Diagramme & Daten",
+      "storage": "Speicher & Cache"
+    },
+    "cache": {
+      "label": "Cache aktivieren",
+      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen"
+    },
+    "clearCache": {
+      "label": "Cache leeren",
+      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
+      "empty": "Der Cache ist leer",
+      "size": "Die Größe des Caches beträgt {0}"
+    },
+    "note": {
+      "title": "Hinweis",
+      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
     }
   }
 }
