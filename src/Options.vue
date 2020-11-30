@@ -28,6 +28,18 @@
 			</section>
 			<!-- section related to the stats page -->
 			<h2 class='mt-3'>{{ $t('options.headings.stats') }}</h2>
+			<!-- option: startOfWeek -->
+			<section class='entry'>
+				<label for='start'>
+					{{ $t('options.startOfWeek.label') }}
+					<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
+				</label>
+				<div class='action d-flex'>
+					<select class='flex-grow' v-model='options.startOfWeek' id='start'>
+						<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
+					</select>
+				</div>
+			</section>
 			<!-- option: addresses -->
 			<section class='entry'>
 				<label for='local'>
@@ -57,18 +69,7 @@
 					</div>
 				</div>
 			</section>
-			<!-- option: startOfWeek -->
-			<section class='entry'>
-				<label for='start'>
-					{{ $t('options.startOfWeek.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
-				</label>
-				<div class='action d-flex'>
-					<select class='flex-grow' v-model='options.startOfWeek' id='start'>
-						<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
-					</select>
-				</div>
-			</section>
+			<!-- option: account selection -->
 			<!-- section related to store processed data -->
 			<h2 class='mt-3'>{{ $t('options.headings.storage') }}</h2>
 			<!-- option: cache -->
@@ -119,8 +120,9 @@ export default {
 			},
 			options: {
 				dark: true,
-				addresses: '',
 				startOfWeek: 0,
+				addresses: '',
+				accounts: [],
 				cache: true,
 			},
 			cacheSize: -1
@@ -133,15 +135,24 @@ export default {
 		this.getCacheSize()
 	},
 	methods: {
-		// get all add-on settings
+		// create options object with given values or default values
+		optionsObject (dark, startOfWeek, addresses, accounts, cache) {
+			return {
+				options: {
+					dark: dark === null ? this.options.dark : dark,
+					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
+					addresses: addresses === null ? this.options.addresses : addresses,
+					accounts: accounts === null ? this.options.accounts : accounts,
+					cache: cache === null ? this.options.cache : cache,
+				}
+			}
+		},
+		// get all saved add-on settings
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
-				this.options.dark = result.options.dark ? true : false
-				this.options.addresses = result.options.addresses ? result.options.addresses : ''
-				this.options.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
-				this.options.cache = result.options.cache ? true : false
+				this.options = result.options
 			}
 		},
 		// get size of all cached account data
@@ -163,14 +174,7 @@ export default {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
-				await messenger.storage.local.set({
-					options: {
-						dark: this.options.dark,
-						addresses: addresses,
-						startOfWeek: this.options.startOfWeek,
-						cache: this.options.cache,
-					}
-				})
+				await messenger.storage.local.set(this.optionsObject(null, null, addresses, null, null))
 				this.options.addresses = addresses
 				this.input.address = ''
 			}
@@ -180,14 +184,7 @@ export default {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: this.options.cache,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(null, null, addresses, null, null))
 			this.options.addresses = addresses
 		},
 		// clear all cached stats entries
@@ -195,14 +192,7 @@ export default {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: this.options.addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: this.options.cache,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null))
 			// recalculate cache size
 			this.getCacheSize()
 		}
@@ -227,34 +217,13 @@ export default {
 	},
 	watch: {
 		'options.dark': async function (val) {
-			await messenger.storage.local.set({
-				options: {
-					dark: val,
-					addresses: this.options.addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: this.options.cache,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(val, null, null, null, null))
 		},
 		'options.startOfWeek': async function (val) {
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: this.options.addresses,
-					startOfWeek: val,
-					cache: this.options.cache,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(null, val, null, null, null))
 		},
 		'options.cache': async function (val) {
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: this.options.addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: val,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(null, null, null, null, val))
 		},
 	}
 }
