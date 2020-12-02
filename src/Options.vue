@@ -242,15 +242,13 @@ export default {
 		}
 	},
 	watch: {
-		'options.dark': async function (val) {
-			await messenger.storage.local.set(this.optionsObject(val, null, null, null, null))
-		},
-		'options.startOfWeek': async function (val) {
-			await messenger.storage.local.set(this.optionsObject(null, val, null, null, null))
-		},
-		'options.cache': async function (val) {
-			await messenger.storage.local.set(this.optionsObject(null, null, null, null, val))
-		},
+		options: {
+			handler: function () {
+				messenger.storage.local.set(this.optionsObject(null, null, null, null, null))
+			},
+			deep: true,
+			immediate: false
+		}
 	}
 }
 </script>
