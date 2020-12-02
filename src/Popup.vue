@@ -40,19 +40,36 @@ export default {
 	name: 'Popup',
 	data () {
 		return {
-			accounts: [],  // list of all existing accounts
-			waiting: true, // processessing folder and message counts indication
-			dark: true     // theme, always dark due to non colorable popup caret
+			accounts: [],   // list of all existing accounts
+			waiting: true,  // processessing folder and message counts indication
+			options: {			// add-on options
+				accounts: [], // accounts to process
+				dark: true    // theme, always dark due to non colorable popup caret
+			}
 		}
 	},
-	created () {
+	created: async function () {
+		// get stored options
+		await this.getOptions()
 		// initially start account processing
 		this.getAccounts()
 	},
 	methods: {
+		// get all stored add-on options
+		getOptions: async function () {
+			let result = await messenger.storage.local.get('options')
+			// only load needed options if they have been set, otherwise default settings will be kept
+			if (result && result.options) {
+				this.options.accounts = result.options.accounts ? result.options.accounts : []
+			}
+		},
 		// function to get all thunderbird accounts
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
+			// filter list of accounts if user configured custom list
+			if (this.options.accounts.length > 0) {
+				accounts = accounts.filter(a => this.options.accounts.includes(a.id))
+			}
 			// calculate folder and message count and append to account object
 			let self = this
 			Promise.all(accounts.map(async a => {
