@@ -50,7 +50,7 @@
 					<div class="d-flex">
 						<input  class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
 						<button @click='addAddress' class='button-inline'>
-							<svg class="icon icon-small d-block m-0-auto" viewBox="0 0 24 24">
+							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<line x1="12" y1="5" x2="12" y2="19" />
 								<line x1="5" y1="12" x2="19" y2="12" />
@@ -70,6 +70,18 @@
 				</div>
 			</section>
 			<!-- option: account selection -->
+			<section class='entry'>
+				<label>
+					{{ $t('options.activeAccounts.label') }}
+					<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
+				</label>
+				<div class='action'>
+					<div v-for='a in allAccounts' :key='a.id'>
+						<input type='checkbox' :id='a.id' :value='a.id' v-model='options.accounts' />
+						<label :for='a.id'>{{ a.name }}</label>
+					</div>
+				</div>
+			</section>
 			<!-- section related to store processed data -->
 			<h2 class='mt-3'>{{ $t('options.headings.storage') }}</h2>
 			<!-- option: cache -->
@@ -125,12 +137,15 @@ export default {
 				accounts: [],
 				cache: true,
 			},
+			allAccounts: [],
 			cacheSize: -1
 		}
 	},
-	created () {
+	created: async function () {
 		// initially load settings
-		this.getSettings()
+		await this.getSettings()
+		// initially load accounts
+		this.getAccounts()
 		// initially load cache size
 		this.getCacheSize()
 	},
@@ -153,6 +168,17 @@ export default {
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.options = result.options
+			}
+		},
+		// get all existing accounts
+		getAccounts: async function () {
+			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
+			this.allAccounts = accounts
+			// default accounts activated are all non local accounts
+			if (!this.options.accounts.length) {
+				accounts.map(a => {
+					if (a.type != 'none') this.options.accounts.push(a.id)
+				})
 			}
 		},
 		// get size of all cached account data
