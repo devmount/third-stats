@@ -77,8 +77,10 @@
 				</label>
 				<div class='action'>
 					<div v-for='a in allAccounts' :key='a.id'>
-						<input type='checkbox' :id='a.id' :value='a.id' v-model='options.accounts' />
-						<label :for='a.id'>{{ a.name }}</label>
+						<label class="checkbox">
+							<input type='checkbox' :value='a.id' v-model='options.accounts' />
+							<i class="checkbox-icon"></i> {{ a.name }}
+						</label>
 					</div>
 				</div>
 			</section>
