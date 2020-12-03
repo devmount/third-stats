@@ -5,7 +5,8 @@
   "popup": {
     "account": "账号 | 账号",
     "messagesInFolder": "{0} 则讯息于 {1} 个资料夹内",
-    "message": "-"
+    "message": "-",
+    "linkDescription": "于新分页打开所有数据"
   },
   "stats": {
     "mailsTotal": "邮件总数",
@@ -78,7 +79,8 @@
     },
     "tooltips": {
       "expand": "放大图表范围",
-      "shrink": "缩小图表范围"
+      "shrink": "缩小图表范围",
+      "refresh": "刷新资料"
     },
     "abbreviations": {
       "calendarWeek": "周",
@@ -93,7 +95,8 @@
       "off": "关"
     },
     "button": {
-      "save": "储存"
+      "save": "储存",
+      "clearCache": "清除缓存"
     },
     "darkMode": {
       "label": "深色主题",
@@ -103,6 +106,29 @@
       "label": "本地身份",
       "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”"
     },
-    "message": "-"
+    "message": "-",
+    "startOfWeek": {
+      "label": "一周开始于",
+      "description": "自订所有星期相关图表的开始日子"
+    },
+    "headings": {
+      "appearance": "外观与体验",
+      "stats": "图表与资料",
+      "storage": "存储与缓存"
+    },
+    "cache": {
+      "label": "激活缓存",
+      "description": "启用缓存系统以加快显示已处理数据资料。"
+    },
+    "clearCache": {
+      "label": "清除缓存",
+      "description": "清除来自所有账号的所有缓存数据资料，将会于再次开启数据页面时重构。",
+      "empty": "缓存为空",
+      "size": "缓存大小是 {0}"
+    },
+    "note": {
+      "title": "注意",
+      "reloadStatsPage": "选项已自动储存。如果数据页面已经开启，你需要重新开启或刷新页面以应用最新选项。"
+    }
   }
 }
