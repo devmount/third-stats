@@ -176,11 +176,15 @@ export default {
 		getAccounts: async function () {
 			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
 			this.allAccounts = accounts
-			// default accounts activated are all non local accounts
+			// default accounts activated are all non local accounts ...
 			if (!this.options.accounts.length) {
 				accounts.map(a => {
 					if (a.type != 'none') this.options.accounts.push(a.id)
 				})
+			}
+			// unless there is only one local account
+			if (this.options.accounts.length == 1 && this.options.accounts[0].type == 'none') {
+				this.options.accounts.push(this.options.accounts[0].id)
 			}
 		},
 		// get size of all cached account data

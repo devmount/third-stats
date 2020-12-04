@@ -42,7 +42,7 @@ export default {
 		return {
 			accounts: [],   // list of all existing accounts
 			waiting: true,  // processessing folder and message counts indication
-			options: {			// add-on options
+			options: {      // add-on options
 				accounts: [], // accounts to process
 				dark: true    // theme, always dark due to non colorable popup caret
 			}
