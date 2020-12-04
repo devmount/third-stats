@@ -1,4 +1,4 @@
-// color definitions
+// definitions
 mode = {
 	dark: {
 		accent1:    #e64db9
@@ -29,6 +29,10 @@ mode = {
 		icon:       #607d8b
 	}
 }
+transition = {
+	duration: .2s
+	function: ease
+}
 
 // general
 html, body
@@ -39,10 +43,10 @@ body
 	font-weight: 300
 	font-size: 16px
 	*
-		transition: color .2s, background .2s, background-color .2s
+		transition: color transition.duration transition.function, background transition.duration transition.function, background-color transition.duration transition.function
 a, a:visited
 	text-decoration: none
-	transition: color .2s
+	transition: color transition.duration transition.function
 	for m, c in mode
 		.{m} &
 			color: c.accent2
@@ -197,7 +201,7 @@ for m, c in mode
 	stroke-linejoin: round
 	width: 2rem
 	height: 2rem
-	transition: all 0.2s ease
+	transition: all transition.duration transition.function
 
 	&.icon-text
 		width: 1rem
@@ -252,7 +256,7 @@ button
 	border: none
 	border-radius: 2px
 	padding: 1rem 2rem
-	transition: background .2s
+	transition: all transition.duration transition.function
 	cursor: pointer
 	color: mode.dark.highlight
 	&.button-inline
@@ -274,6 +278,7 @@ select
 	color: inherit
 	padding: .5rem 1.5rem .5rem .5rem
 	outline: none
+	transition: all transition.duration transition.function
 	for m, c in mode
 		.{m} &
 			color: c.front
@@ -283,6 +288,8 @@ select
 			else
 				background: c.back url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray3),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
 				border-color: c.gray3
+		.{m} &:hover
+			border-color: c.gray1
 		.{m} &:focus
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
@@ -294,6 +301,7 @@ textarea
 	border: solid 1px
 	border-radius: 2px
 	padding: .5rem
+	transition: all transition.duration transition.function
 	for m, c in mode
 		.{m} &
 			background: c.back
@@ -302,6 +310,8 @@ textarea
 				border-color: c.gray2
 			else
 				border-color: c.gray3
+		.{m} &:hover
+			border-color: c.gray1
 		.{m} &:focus
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
@@ -326,7 +336,7 @@ textarea
 		cursor: pointer
 		display: inline-block
 		position: absolute
-		transition: all 0.2s ease
+		transition: all transition.duration transition.function
 	input
 		clip: rect(0, 0, 0, 0)
 		height: 1px
@@ -359,7 +369,11 @@ textarea
 				border-color: c.accent2
 				&::before
 					border-color: mode.dark.highlight
-
+		.{m} &:hover .checkbox-icon
+			border-color: c.gray1
+		.{m} input:focus
+			border-color: c.accent2
+			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
 
 .switch
 	padding: 0
@@ -370,7 +384,7 @@ textarea
 	height: h = 24px
 	border-radius: (h/2)
 	cursor: pointer
-	transition: all 0.2s ease
+	transition: all transition.duration transition.function
 	.switch-label
 		border: solid 1px
 		position: relative
@@ -428,21 +442,22 @@ textarea
 						color: c.highlight
 					else
 						color: c.secondary2
+			&:hover .switch-label
+				border-color: c.gray1
 			.switch-handle
 				if m is 'dark'
 					background: c.front
 				else
 					background: c.gray2
-			input
-				&:checked
-					~ .switch-label
-						background: c.accent2
-						border-color: c.accent2
-					~ .switch-handle
-						if m is 'dark'
-							background: c.highlight
-						else
-							background: c.secondary2
+			input:checked
+				~ .switch-label
+					background: c.accent2
+					border-color: c.accent2
+				~ .switch-handle
+					if m is 'dark'
+						background: c.highlight
+					else
+						background: c.secondary2
 
 // tabs
 .tab
@@ -518,7 +533,7 @@ loader(size, border)
 		pointer-events: none
 		position: absolute
 		transform: translate(-50%, .8rem)
-		transition: opacity .2s, transform .2s
+		transition: opacity transition.duration transition.function, transform transition.duration transition.function
 		white-space: pre
 		z-index: 5
 		color: mode.dark.highlight
