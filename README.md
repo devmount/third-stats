@@ -41,7 +41,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
-![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/97261501-3ceab680-181f-11eb-950c-2abcc4605da7.png)
+![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/101175960-1bfb5980-3646-11eb-9a00-463a54d69da5.png)
 
 ## Support this project
 
