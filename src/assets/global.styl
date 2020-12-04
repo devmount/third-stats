@@ -369,9 +369,11 @@ textarea
 				border-color: c.accent2
 				&::before
 					border-color: mode.dark.highlight
-		.{m} &:hover .checkbox-icon
-			border-color: c.gray1
-		.{m} input:focus
+			&:hover .checkbox-icon
+				border-color: c.gray1
+			&:hover input:checked + .checkbox-icon
+				border-color: c.highlight
+		.{m} input:focus + .checkbox-icons
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
 
@@ -442,8 +444,11 @@ textarea
 						color: c.highlight
 					else
 						color: c.secondary2
-			&:hover .switch-label
-				border-color: c.gray1
+			&:hover
+				.switch-label
+					border-color: c.gray1
+				input:checked ~ .switch-label
+					border-color: c.highlight
 			.switch-handle
 				if m is 'dark'
 					background: c.front
