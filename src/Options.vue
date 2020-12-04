@@ -28,6 +28,18 @@
 			</section>
 			<!-- section related to the stats page -->
 			<h2 class='mt-3'>{{ $t('options.headings.stats') }}</h2>
+			<!-- option: startOfWeek -->
+			<section class='entry'>
+				<label for='start'>
+					{{ $t('options.startOfWeek.label') }}
+					<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
+				</label>
+				<div class='action d-flex'>
+					<select class='flex-grow' v-model='options.startOfWeek' id='start'>
+						<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
+					</select>
+				</div>
+			</section>
 			<!-- option: addresses -->
 			<section class='entry'>
 				<label for='local'>
@@ -38,7 +50,7 @@
 					<div class="d-flex">
 						<input  class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
 						<button @click='addAddress' class='button-inline'>
-							<svg class="icon icon-small d-block m-0-auto" viewBox="0 0 24 24">
+							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<line x1="12" y1="5" x2="12" y2="19" />
 								<line x1="5" y1="12" x2="19" y2="12" />
@@ -57,16 +69,19 @@
 					</div>
 				</div>
 			</section>
-			<!-- option: startOfWeek -->
+			<!-- option: account selection -->
 			<section class='entry'>
-				<label for='start'>
-					{{ $t('options.startOfWeek.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
+				<label>
+					{{ $t('options.activeAccounts.label') }}
+					<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
 				</label>
-				<div class='action d-flex'>
-					<select class='flex-grow' v-model='options.startOfWeek' id='start'>
-						<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
-					</select>
+				<div class='action'>
+					<div v-for='a in allAccounts' :key='a.id'>
+						<label class="checkbox">
+							<input type='checkbox' :value='a.id' v-model='options.accounts' />
+							<i class="checkbox-icon"></i> {{ a.name }}
+						</label>
+					</div>
 				</div>
 			</section>
 			<!-- section related to store processed data -->
@@ -119,29 +134,57 @@ export default {
 			},
 			options: {
 				dark: true,
-				addresses: '',
 				startOfWeek: 0,
+				addresses: '',
+				accounts: [],
 				cache: true,
 			},
+			allAccounts: [],
 			cacheSize: -1
 		}
 	},
-	created () {
+	created: async function () {
 		// initially load settings
-		this.getSettings()
+		await this.getSettings()
+		// initially load accounts
+		this.getAccounts()
 		// initially load cache size
 		this.getCacheSize()
 	},
 	methods: {
-		// get all add-on settings
+		// create options object with given values or default values
+		optionsObject (dark, startOfWeek, addresses, accounts, cache) {
+			return {
+				options: {
+					dark: dark === null ? this.options.dark : dark,
+					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
+					addresses: addresses === null ? this.options.addresses : addresses,
+					accounts: accounts === null ? this.options.accounts : accounts,
+					cache: cache === null ? this.options.cache : cache,
+				}
+			}
+		},
+		// get all saved add-on settings
 		getSettings: async function () {
 			let result = await messenger.storage.local.get('options')
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
-				this.options.dark = result.options.dark ? true : false
-				this.options.addresses = result.options.addresses ? result.options.addresses : ''
-				this.options.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
-				this.options.cache = result.options.cache ? true : false
+				this.options = result.options
+			}
+		},
+		// get all existing accounts
+		getAccounts: async function () {
+			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
+			this.allAccounts = accounts
+			// default accounts activated are all non local accounts ...
+			if (!this.options.accounts.length) {
+				accounts.map(a => {
+					if (a.type != 'none') this.options.accounts.push(a.id)
+				})
+			}
+			// unless there is only one local account
+			if (this.options.accounts.length == 1 && this.options.accounts[0].type == 'none') {
+				this.options.accounts.push(this.options.accounts[0].id)
 			}
 		},
 		// get size of all cached account data
@@ -163,14 +206,7 @@ export default {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
-				await messenger.storage.local.set({
-					options: {
-						dark: this.options.dark,
-						addresses: addresses,
-						startOfWeek: this.options.startOfWeek,
-						cache: this.options.cache,
-					}
-				})
+				await messenger.storage.local.set(this.optionsObject(null, null, addresses, null, null))
 				this.options.addresses = addresses
 				this.input.address = ''
 			}
@@ -180,14 +216,7 @@ export default {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: this.options.cache,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(null, null, addresses, null, null))
 			this.options.addresses = addresses
 		},
 		// clear all cached stats entries
@@ -195,14 +224,7 @@ export default {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: this.options.addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: this.options.cache,
-				}
-			})
+			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null))
 			// recalculate cache size
 			this.getCacheSize()
 		}
@@ -226,36 +248,13 @@ export default {
 		}
 	},
 	watch: {
-		'options.dark': async function (val) {
-			await messenger.storage.local.set({
-				options: {
-					dark: val,
-					addresses: this.options.addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: this.options.cache,
-				}
-			})
-		},
-		'options.startOfWeek': async function (val) {
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: this.options.addresses,
-					startOfWeek: val,
-					cache: this.options.cache,
-				}
-			})
-		},
-		'options.cache': async function (val) {
-			await messenger.storage.local.set({
-				options: {
-					dark: this.options.dark,
-					addresses: this.options.addresses,
-					startOfWeek: this.options.startOfWeek,
-					cache: val,
-				}
-			})
-		},
+		options: {
+			handler: function () {
+				messenger.storage.local.set(this.optionsObject(null, null, null, null, null))
+			},
+			deep: true,
+			immediate: false
+		}
 	}
 }
 </script>

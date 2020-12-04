@@ -17,8 +17,15 @@
 		"default_title": "ThirdStats",
 		"default_icon": "icon.svg"
 	},
+	"background": {
+		"scripts": [
+			"./js/background.js"
+		]
+	},
 	"options_ui": {
-		"page": "options.html"
+		"page": "./options.html",
+		"open_in_tab": false,
+		"browser_style": true
 	},
 	"permissions": [
 		"accountsRead",

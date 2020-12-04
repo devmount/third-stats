@@ -115,6 +115,10 @@
       "label": "Start the Week on",
       "description": "Custom start of week for all weekday related charts"
     },
+    "activeAccounts": {
+      "label": "Active Accounts",
+      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats."
+    },
     "cache": {
       "label": "Activate Cache",
       "description": "Enable caching system for faster display of already processed stats data."

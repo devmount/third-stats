@@ -309,6 +309,58 @@ textarea
 	width: 100%
 	font-size: .9rem
 
+.checkbox
+	display: block
+	line-height: 24px
+	margin: 1px 0 4px 0
+	min-height: 24px
+	padding: 0 0 0 32px
+	position: relative
+	.checkbox-icon
+		border-radius: 2px
+		height: 24px
+		left: 0
+		top: 0
+		width: 24px
+		border: 1px solid
+		cursor: pointer
+		display: inline-block
+		position: absolute
+		transition: all 0.2s ease
+	input
+		clip: rect(0, 0, 0, 0)
+		height: 1px
+		margin: -1px
+		overflow: hidden
+		position: absolute
+		width: 1px
+		&:checked + .checkbox-icon::before
+			background-clip: padding-box
+			border: 2px solid
+			border-left-width: 0
+			border-top-width: 0
+			content: ""
+			height: 15px
+			left: 6px
+			position: absolute
+			top: 0
+			transform: rotate(45deg)
+			width: 8px
+	for m, c in mode
+		.{m} &
+			.checkbox-icon
+				background: c.back
+				if m is 'dark'
+					border-color: c.gray2
+				else
+					border-color: c.gray3
+			input:checked + .checkbox-icon
+				background: c.accent2
+				border-color: c.accent2
+				&::before
+					border-color: mode.dark.highlight
+
+
 .switch
 	padding: 0
 	position: relative

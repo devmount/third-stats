@@ -341,37 +341,45 @@ export default {
 						leaderCount: 20
 					}
 				},
-				dark: true,        // preferences loaded from options
-				localIdentities: [],
+				dark: true,        // preferences loaded from stored options
 				startOfWeek: 0,
+				localIdentities: [],
+				accounts: [],
 				cache: true
 			},
 			publicPath: process.env.BASE_URL
 		}
 	},
-	created () {
+	created: async function () {
 		// set initial tab title
 		document.title = 'ThirdStats'
 		// initially reset everything (stored and displayed data)
 		this.reset(false)
-		this.getSettings()
+		// get stored options
+		await this.getOptions()
+		// get all accounts
 		this.getAccounts()
 	},
 	methods: {
 		// get all add-on settings from the options page
-		getSettings: async function () {
+		getOptions: async function () {
 			let result = await messenger.storage.local.get('options')
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
-				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
+				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
 				this.preferences.cache = result.options.cache ? true : false
 			}
 		},
 		// get all accounts, get active account from URL get parameter
 		getAccounts: async function () {
 			let accounts = await messenger.accounts.list()
+			// filter list of accounts if user configured custom list
+			if (this.preferences.accounts.length > 0) {
+				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
+			}
 			// check if a specific account was given
 			let uri = window.location.search.substring(1)
 			let params = new URLSearchParams(uri)
