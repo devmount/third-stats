@@ -129,6 +129,10 @@
     "note": {
       "title": "Hinweis",
       "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
+    },
+    "activeAccounts": {
+      "label": "Aktive Konten",
+      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen."
     }
   }
 }
