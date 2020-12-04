@@ -28,26 +28,30 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 
 ## Features
 
-- Total numbers of emails and folders for all of your Thunderbird accounts
-- Sum of received and sent emails per year and per month
-- Sum of received and sent emails per daytime and per weekday
-- Temporal distribution of received and sent emails per weekday per hour
-- Leaderboards of most contacted email addresses
-- Switch between all Thunderbird accounts (local accounts included)
-- Switch between a dark and a light theme
+- Showing various stats in different chart types:
+  - Total numbers of emails and folders per account
+  - Sum of received and sent emails per year and per month
+  - Sum of received and sent emails per daytime and per weekday
+  - Temporal distribution of received and sent emails per weekday per hour
+  - Leaderboards of most contacted email addresses
+- Activate all accounts that should be included (add-on option)
+- Use a dark or a light theme (add-on option)
+- Use a caching system to store already processed data (add-on option)
 - Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Italian, Japanese, Polish, Portuguese, Russian, Spanish, Swedish, Thai and Turkish
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
 ![thirdstats screenshot](https://user-images.githubusercontent.com/5441654/97261501-3ceab680-181f-11eb-950c-2abcc4605da7.png)
 
-## Improve this project
+## Support this project
 
 Contributions are very welcome! See the [Contribution Guidelines](./.github/CONTRIBUTING.md) for more information, how to help making this add-on even better.
 
 ### Here on GitHub
 
-If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
+Give this project a star ⭐!
+
+If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md). If you have ideas for additional features, please [issue a feature request](https://github.com/devmount/third-stats/issues/new?template=feature_request.md).
 
 ### Local development environment
 
