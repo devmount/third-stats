@@ -16,7 +16,7 @@
 							<path d='M4 13h3l3 3h4l3 -3h3' />
 						</svg>
 					</label>
-					<select v-model='activeAccount' name='account' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='account'>
+					<select v-model='activeAccount' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='account'>
 						<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 					</select>
 					<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
@@ -36,6 +36,16 @@
 							<line class='icon-part-accent2-dark' x1='11' y1='19.94' x2='11' y2='19.95' />
 						</svg>
 					</div>
+					<!-- folder selection -->
+					<label for='folder' class='d-inline-flex ml-2'>
+						<svg class='icon icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+							<path d='M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2' />
+						</svg>
+					</label>
+					<select v-model='activeFolder' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='folder'>
+						<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
+					</select>
 				</div>
 			</header>
 			<!-- fetured numbers -->
@@ -332,6 +342,7 @@ export default {
 			accounts: [],        // list of all existing accounts
 			activeAccount: null, // currently selected account
 			activeFolder: null,  // currently selected folder
+			activePeriod: null,  // currently selected period of time
 			waiting: false,      // hides all charts and processes data in foreground
 			loading: false,      // keeps showing charts and processes data in background
 			display: {},         // processed data to show in foreground
