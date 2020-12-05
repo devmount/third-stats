@@ -41,6 +41,20 @@ const i18n = new VueI18n({
 	locale: messenger.i18n.getUILanguage(),
 	fallbackLocale: 'en',
 	messages,
+	pluralizationRules: {
+		'pl': (choice) => {
+			if (choice === 1) {
+				return 1;
+			}
+
+			const endsWith = choice % 10;
+			if (([2, 3, 4].indexOf(endsWith) >= 0) && (choice < 12) && (choice > 14)) {
+				return 2;
+			}
+
+			return 0;
+		}
+	}
 })
 
 new Vue({
