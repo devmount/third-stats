@@ -298,6 +298,7 @@ select
 
 input[type=text],
 input[type=email],
+input[type=date],
 textarea
 	appearance: none
 	border: solid 1px
@@ -317,6 +318,9 @@ textarea
 		.{m} &:focus
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
+		.{m} &::placeholder
+			color: c.gray2
+			opacity: 1
 textarea
 	width: 100%
 	font-size: .9rem

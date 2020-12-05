@@ -46,6 +46,19 @@
 					<select v-model='activeFolder' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='folder'>
 						<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
 					</select>
+					<!-- time period selection -->
+					<label for='start' class='d-inline-flex ml-2'>
+						<svg class='icon icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<rect x="4" y="5" width="16" height="16" rx="2" />
+							<line x1="16" y1="3" x2="16" y2="7" />
+							<line x1="8" y1="3" x2="8" y2="7" />
+							<line x1="4" y1="11" x2="20" y2="11" />
+							<rect x="8" y="15" width="2" height="2" />
+						</svg>
+					</label>
+					<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' />
+					<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' />
 				</div>
 			</header>
 			<!-- fetured numbers -->
@@ -342,7 +355,8 @@ export default {
 			accounts: [],        // list of all existing accounts
 			activeAccount: null, // currently selected account
 			activeFolder: null,  // currently selected folder
-			activePeriod: null,  // currently selected period of time
+			activeStart: null,   // currently configured start of period of time
+			activeEnd: null,     // currently configured end of period of time
 			waiting: false,      // hides all charts and processes data in foreground
 			loading: false,      // keeps showing charts and processes data in background
 			display: {},         // processed data to show in foreground
