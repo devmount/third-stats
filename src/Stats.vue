@@ -2,30 +2,42 @@
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading -->
-			<h1>
-				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
-				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-				<select v-model='activeAccount' name='account' :disabled='waiting || loading' class="shadow" :class='{ disabled: waiting || loading }'>
-					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
-				</select>
-				<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
-				<div
-					v-show='!waiting && !loading'
-					class='refresh cursor-pointer tooltip tooltip-bottom'
-					:data-tooltip='$t("stats.tooltips.refresh")'
-					@click='refresh(true)'
-				>
-					<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
-						<line class="icon-part-accent2-dark" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
-						<line class="icon-part-accent2-dark" x1="4.06" y1="11" x2="4.06" y2="11.01" />
-						<line class="icon-part-accent2-dark" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
-						<line class="icon-part-accent2-dark" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
-						<line class="icon-part-accent2-dark" x1="11" y1="19.94" x2="11" y2="19.95" />
-					</svg>
+			<header>
+				<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
+				<h1 class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</h1>
+				<div class='space'></div>
+				<!-- filter area -->
+				<div class='filter'>
+					<!-- account selection -->
+					<label for='account' class='d-inline-flex'>
+						<svg class='icon icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+							<rect x='4' y='4' width='16' height='16' rx='2' />
+							<path d='M4 13h3l3 3h4l3 -3h3' />
+						</svg>
+					</label>
+					<select v-model='activeAccount' name='account' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='account'>
+						<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
+					</select>
+					<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
+					<div
+						v-show='!waiting && !loading'
+						class='refresh cursor-pointer tooltip tooltip-bottom d-inline-flex'
+						:data-tooltip='$t("stats.tooltips.refresh")'
+						@click='refresh(true)'
+					>
+						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+							<path class='icon-part-accent2' d='M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5' />
+							<line class='icon-part-accent2-dark' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
+							<line class='icon-part-accent2-dark' x1='4.06' y1='11' x2='4.06' y2='11.01' />
+							<line class='icon-part-accent2-dark' x1='4.63' y1='15.1' x2='4.63' y2='15.11' />
+							<line class='icon-part-accent2-dark' x1='7.16' y1='18.37' x2='7.16' y2='18.38' />
+							<line class='icon-part-accent2-dark' x1='11' y1='19.94' x2='11' y2='19.95' />
+						</svg>
+					</div>
 				</div>
-			</h1>
+			</header>
 			<!-- fetured numbers -->
 			<section class='numbers mt-2'>
 				<!-- total -->
@@ -68,13 +80,13 @@
 			</section>
 			<!-- still processing -->
 			<section v-if='waiting' class='mt-5'>
-				<svg class="icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
-					<polyline points="4 12 7 8 11 10 16 4 20 8" />
+				<svg class='icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition' viewBox='0 0 24 24'>
+					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+					<polyline points='4 19 8 13 12 15 16 10 20 14 20 19 4 19' />
+					<polyline points='4 12 7 8 11 10 16 4 20 8' />
 				</svg>
-				<div class="text-center text-gray">
-					{{ $t("stats.loadingInProgress") }}
+				<div class='text-center text-gray'>
+					{{ $t('stats.loadingInProgress') }}
 				</div>
 			</section>
 			<!-- empty account -->
@@ -319,6 +331,7 @@ export default {
 		return {
 			accounts: [],        // list of all existing accounts
 			activeAccount: null, // currently selected account
+			activeFolder: null,  // currently selected folder
 			waiting: false,      // hides all charts and processes data in foreground
 			loading: false,      // keeps showing charts and processes data in background
 			display: {},         // processed data to show in foreground
@@ -1082,25 +1095,25 @@ body
 			#chart-area-main
 				grid-template-columns: 1fr
 
-		h1
+		header
 			margin-top: 0
 			display: grid
-			grid-template-columns: auto 1fr auto 55px
+			grid-template-columns: auto 1fr auto auto
 			align-items: center
 			justify-content: start
 			.logo
 				height: 48px
-			.loading
-				loader 21px 3px
-				justify-self: center
-				vertical-align: text-top
-			.refresh
-				justify-self: center
-				svg
-					vertical-align: text-top
-					margin-top: 1px
-			select
-				justify-self: end
+			.filter
+				display: flex
+				flex-direction: row
+				align-items: center
+				label
+					margin-right: 2px
+				.loading
+					loader 21px 3px
+					margin: 4px 4px 4px 8px
+				.refresh
+					margin-left: 3px
 
 		.numbers
 			display: grid
