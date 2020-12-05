@@ -28,10 +28,14 @@ let messages = {
 	'zh-cn': require('../public/_locales/zh-cn/messages.json'), // Simplified Chinese
 	'zh-tw': require('../public/_locales/zh-tw/messages.json'), // Traditional Chinese
 }
+import { pluralizationPolish } from './utils'
 const i18n = new VueI18n({
 	locale: messenger.i18n.getUILanguage(),
 	fallbackLocale: 'en',
 	messages,
+	pluralizationRules: {
+		'pl': (choice) => pluralizationPolish(choice)
+	}
 })
 
 new Vue({

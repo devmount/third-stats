@@ -53,11 +53,24 @@ let formatBytes = (bytes, decimals=2) => {
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
+// special pluralization rules
+let pluralizationPolish = (n) => {
+	if (n === 1) {
+		return 1
+	}
+	const endsWith = n % 10
+	if (([2, 3, 4].indexOf(endsWith) >= 0) && (n < 12) && (n > 14)) {
+		return 2
+	}
+	return 0
+}
+
 export {
 	traverseAccount,
 	extractEmailAddress,
 	weekNumber,
 	weeksInYear,
 	quarterNumber,
-	formatBytes
+	formatBytes,
+	pluralizationPolish
 }
