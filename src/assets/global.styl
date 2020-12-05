@@ -20,8 +20,8 @@ mode = {
 		back:       #f9f9fa
 		front:      #202023
 		gray1:      #58585d
-		gray2:      #8a8a97
-		gray3:      #cdcdd3
+		gray2:      #aaaab7
+		gray3:      #ededf3
 		highlight:  #000000
 		secondary1: #2a2a2e
 		secondary2: #ffffff
@@ -284,12 +284,8 @@ select
 	for m, c in mode
 		.{m} &
 			color: c.front
-			if m is 'dark'
-				background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
-				border-color: c.gray2
-			else
-				background: c.back url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray3),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
-				border-color: c.gray3
+			background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
+			border-color: c.gray2
 		.{m} &:hover
 			border-color: c.gray1
 		.{m} &:focus
@@ -309,10 +305,7 @@ textarea
 		.{m} &
 			background: c.back
 			color: c.front
-			if m is 'dark'
-				border-color: c.gray2
-			else
-				border-color: c.gray3
+			border-color: c.gray2
 		.{m} &:hover
 			border-color: c.gray1
 		.{m} &:focus
@@ -366,10 +359,7 @@ textarea
 		.{m} &
 			.checkbox-icon
 				background: c.back
-				if m is 'dark'
-					border-color: c.gray2
-				else
-					border-color: c.gray3
+				border-color: c.gray2
 			input:checked + .checkbox-icon
 				background: c.accent2
 				border-color: c.accent2
@@ -438,37 +428,25 @@ textarea
 	for m, c in mode
 		.{m} &
 			.switch-label
-				border-color: c.gray3
-				if m is 'dark'
-					background: c.gray2
-				else
-					background: c.back
+				border-color: c.gray2
+				background: c.gray3
 				&::before
 					color: c.gray1
 				&::after
-					if m is 'dark'
-						color: c.highlight
-					else
-						color: c.secondary2
+					color: mode.dark.highlight
 			&:hover
 				.switch-label
 					border-color: c.gray1
 				input:checked ~ .switch-label
 					border-color: c.highlight
 			.switch-handle
-				if m is 'dark'
-					background: c.front
-				else
-					background: c.gray2
+				background: c.front
 			input:checked
 				~ .switch-label
 					background: c.accent2
 					border-color: c.accent2
 				~ .switch-handle
-					if m is 'dark'
-						background: c.highlight
-					else
-						background: c.secondary2
+						background: mode.dark.highlight
 
 // tabs
 .tab
