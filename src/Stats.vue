@@ -2,7 +2,7 @@
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading -->
-			<header>
+			<header class='mb-1'>
 				<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
 				<h1 class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</h1>
 				<div class='space'></div>
@@ -62,7 +62,7 @@
 				</div>
 			</header>
 			<!-- fetured numbers -->
-			<section class='numbers mt-2'>
+			<section class='numbers'>
 				<!-- total -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
@@ -1131,14 +1131,17 @@ body
 			.filter
 				display: flex
 				flex-direction: row
-				align-items: center
+				align-items: stretch
 				label
 					margin-right: 2px
+					align-self: center
 				.loading
-					loader 21px 3px
-					margin: 4px 4px 4px 8px
+					loader 18px 3px
+					margin: 4px 4px 4px 7px
+					align-self: center
 				.refresh
 					margin-left: 3px
+					align-self: center
 
 		.numbers
 			display: grid
