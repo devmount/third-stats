@@ -2,21 +2,15 @@
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading -->
-			<header class='mb-1'>
+			<header class='mb-1-5'>
 				<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
 				<h1 class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</h1>
 				<div class='space'></div>
 				<!-- filter area -->
 				<div class='filter'>
 					<!-- account selection -->
-					<label for='account' class='d-inline-flex'>
-						<svg class='icon icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-							<rect x='4' y='4' width='16' height='16' rx='2' />
-							<path d='M4 13h3l3 3h4l3 -3h3' />
-						</svg>
-					</label>
-					<select v-model='activeAccount' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='account'>
+					<label for='account' class='text-gray p-0-5'>Account</label>
+					<select v-model='activeAccount' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
 						<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 					</select>
 					<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
@@ -37,28 +31,20 @@
 						</svg>
 					</div>
 					<!-- folder selection -->
-					<label for='folder' class='d-inline-flex ml-2'>
-						<svg class='icon icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-							<path d='M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2' />
-						</svg>
-					</label>
-					<select v-model='activeFolder' :disabled='waiting || loading' class='shadow' :class='{ disabled: waiting || loading }' id='folder'>
+					<label for='folder' class='ml-2 text-gray p-0-5'>Folder</label>
+					<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
 						<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
 					</select>
 					<!-- time period selection -->
-					<label for='start' class='d-inline-flex ml-2'>
-						<svg class='icon icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+					<label for='start' class='ml-2 text-gray p-0-5'>Time Period</label>
+					<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='w-6' />
+					<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='w-6' />
+					<button @click='' class='button-secondary p-0-5'>
+						<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<rect x="4" y="5" width="16" height="16" rx="2" />
-							<line x1="16" y1="3" x2="16" y2="7" />
-							<line x1="8" y1="3" x2="8" y2="7" />
-							<line x1="4" y1="11" x2="20" y2="11" />
-							<rect x="8" y="15" width="2" height="2" />
+							<path d="M5 12l5 5l10 -10" />
 						</svg>
-					</label>
-					<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' />
-					<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' />
+					</button>
 				</div>
 			</header>
 			<!-- fetured numbers -->
@@ -195,7 +181,7 @@
 						</div>
 					</div>
 					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
-						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-05 right-05 shadow">
+						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-0-5 right-0-5 shadow">
 							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
 						</select>
 						<!-- emails per weekday per hour received -->
@@ -208,7 +194,7 @@
 							:dataset='daysChartData.received'
 							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
 							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-							class='mb-05 upper-chart'
+							class='mb-0-5 upper-chart'
 						/>
 						<!-- emails per weekday per hour sent -->
 						<HeatMap
@@ -255,7 +241,7 @@
 							:dataset='weekdayPerHourChartData.received'
 							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
 							:tooltips='"{y}, {x}:00\n{label}: {value}"'
-							class='mb-05'
+							class='mb-0-5'
 						/>
 						<!-- emails per weekday per hour sent -->
 						<HeatMap
@@ -1133,7 +1119,6 @@ body
 				flex-direction: row
 				align-items: stretch
 				label
-					margin-right: 2px
 					align-self: center
 				.loading
 					loader 18px 3px

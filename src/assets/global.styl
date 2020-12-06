@@ -141,10 +141,14 @@ for m, c in mode
 	margin-left: 2rem
 .ml-auto
 	margin-left: auto
-.mb-05
+.mb-0-5
 	margin-bottom: .5rem
 .mb-1
 	margin-bottom: 1rem
+.mb-1-5
+	margin-bottom: 1.5rem
+.mr-0-5
+	margin-right: .5rem
 .mr-1
 	margin-right: 1rem
 .mr-2
@@ -157,6 +161,8 @@ for m, c in mode
 	margin-bottom: 6rem
 .m-0-auto
 	margin: 0 auto
+.p-0-5
+	padding: .5rem
 .p-1
 	padding: 1rem
 .py-1
@@ -171,6 +177,8 @@ for m, c in mode
 	padding-top: 2rem
 .pb-6
 	padding-bottom: 6rem
+.w-6
+	width: 6rem
 .d-block
 	display: block
 .d-inline
@@ -187,9 +195,9 @@ for m, c in mode
 	position: absolute
 .position-relative
 	position: relative
-.top-05
+.top-0-5
 	top: .5rem
-.right-05
+.right-0-5
 	right: .5rem
 
 // cursor
@@ -265,11 +273,11 @@ button
 	color: mode.dark.highlight
 	&:focus
 		z-index: 50
-	&.button-inline
-		padding: .5rem
 	for m, c in mode
 		.{m} &
 			background: c.accent2
+		.{m} &.button-secondary
+			background: c.gray2
 		.{m} &:hover
 			background: darken(c.accent2, 20%)
 		.{m} &:active
