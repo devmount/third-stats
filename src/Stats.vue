@@ -35,14 +35,14 @@
 					</div>
 					<!-- folder selection -->
 					<div class='filter-folder ml-2'>
-						<label for='folder' class=' text-gray p-0-5'>Folder</label>
+						<label for='folder' class='text-gray p-0-5'>Folder</label>
 						<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
 							<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
 						</select>
 					</div>
 					<!-- time period selection -->
 					<div class='filter-period ml-2'>
-						<label for='start' class=' text-gray p-0-5'>Time Period</label>
+						<label for='start' class='text-gray p-0-5'>Time Period</label>
 						<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='w-6' />
 						<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='w-6' />
 						<button @click='' class='button-secondary p-0-5'>
