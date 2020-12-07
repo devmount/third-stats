@@ -10,11 +10,11 @@
 			+ 'grid-gap: ' + spacing + ';'
 		"
 	>
-		<template v-for='(y, n, i) in labels.y' :key='i'>
+		<template v-for='(y, n) in labels.y'>
 			<div class="y-label text-gray text-tiny text-right">
 				<div>{{ y }}</div>
 			</div>
-			<template v-for='(x, m, j) in labels.x' :key='j'>
+			<template v-for='(x, m) in labels.x'>
 				<div
 					:style="
 						'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ');'
