@@ -3,48 +3,55 @@
 		<div class='container pt-2 pb-6'>
 			<!-- title heading -->
 			<header class='mb-1-5'>
-				<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
-				<h1 class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</h1>
-				<div class='space'></div>
+				<h1 class='mr-2'>
+					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
+					Th<span class='text-gray'>underb</span>ird Stats
+				</h1>
 				<!-- filter area -->
 				<div class='filter'>
 					<!-- account selection -->
-					<label for='account' class='text-gray p-0-5'>Account</label>
-					<select v-model='activeAccount' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
-						<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
-					</select>
-					<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
-					<div
-						v-show='!waiting && !loading'
-						class='refresh cursor-pointer tooltip tooltip-bottom d-inline-flex'
-						:data-tooltip='$t("stats.tooltips.refresh")'
-						@click='refresh(true)'
-					>
-						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-							<path class='icon-part-accent2' d='M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5' />
-							<line class='icon-part-accent2-dark' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
-							<line class='icon-part-accent2-dark' x1='4.06' y1='11' x2='4.06' y2='11.01' />
-							<line class='icon-part-accent2-dark' x1='4.63' y1='15.1' x2='4.63' y2='15.11' />
-							<line class='icon-part-accent2-dark' x1='7.16' y1='18.37' x2='7.16' y2='18.38' />
-							<line class='icon-part-accent2-dark' x1='11' y1='19.94' x2='11' y2='19.95' />
-						</svg>
+					<div class='filter-account'>
+						<label for='account' class='text-gray p-0-5'>Account</label>
+						<select v-model='activeAccount' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
+							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
+						</select>
+						<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
+						<div
+							v-show='!waiting && !loading'
+							class='refresh cursor-pointer tooltip tooltip-bottom d-inline-flex'
+							:data-tooltip='$t("stats.tooltips.refresh")'
+							@click='refresh(true)'
+						>
+							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<path class='icon-part-accent2' d='M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5' />
+								<line class='icon-part-accent2-dark' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
+								<line class='icon-part-accent2-dark' x1='4.06' y1='11' x2='4.06' y2='11.01' />
+								<line class='icon-part-accent2-dark' x1='4.63' y1='15.1' x2='4.63' y2='15.11' />
+								<line class='icon-part-accent2-dark' x1='7.16' y1='18.37' x2='7.16' y2='18.38' />
+								<line class='icon-part-accent2-dark' x1='11' y1='19.94' x2='11' y2='19.95' />
+							</svg>
+						</div>
 					</div>
 					<!-- folder selection -->
-					<label for='folder' class='ml-2 text-gray p-0-5'>Folder</label>
-					<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
-						<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
-					</select>
+					<div class='filter-folder ml-2'>
+						<label for='folder' class=' text-gray p-0-5'>Folder</label>
+						<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
+							<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
+						</select>
+					</div>
 					<!-- time period selection -->
-					<label for='start' class='ml-2 text-gray p-0-5'>Time Period</label>
-					<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='w-6' />
-					<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='w-6' />
-					<button @click='' class='button-secondary p-0-5'>
-						<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path d="M5 12l5 5l10 -10" />
-						</svg>
-					</button>
+					<div class='filter-period ml-2'>
+						<label for='start' class=' text-gray p-0-5'>Time Period</label>
+						<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='w-6' />
+						<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='w-6' />
+						<button @click='' class='button-secondary p-0-5'>
+							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<path d="M5 12l5 5l10 -10" />
+							</svg>
+						</button>
+					</div>
 				</div>
 			</header>
 			<!-- fetured numbers -->
@@ -1081,8 +1088,21 @@ body
 			max-width: 1750px
 			#chart-area-main
 				grid-template-columns: repeat(3, 1fr)
+		@media (min-width: 1501px)
+			header
+				grid-template-columns: 1fr 2fr
+				.filter
+					justify-content: flex-end
 		@media (max-width: 1500px)
 			max-width: 1200px
+			header
+				grid-template-columns: 1fr
+				h1
+					justify-content: center
+				.filter
+					justify-content: space-around
+					&>*
+						margin: 0 0 1rem 0
 			#chart-area-main
 				grid-template-columns: repeat(2, 1fr)
 		@media (min-width: 961px)
@@ -1109,15 +1129,19 @@ body
 		header
 			margin-top: 0
 			display: grid
-			grid-template-columns: auto 1fr auto auto
 			align-items: center
-			justify-content: start
-			.logo
-				height: 48px
+			h1
+				display: flex
+				align-items: center
+				.logo
+					height: 48px
 			.filter
 				display: flex
-				flex-direction: row
-				align-items: stretch
+				flex-wrap: wrap
+				&>*
+					display: flex
+					flex-direction: row
+					align-items: stretch
 				label
 					align-self: center
 				.loading
