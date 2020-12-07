@@ -2,32 +2,60 @@
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading -->
-			<h1>
-				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
-				<span class='mr-2'>Th<span class='text-gray'>underb</span>ird Stats</span>
-				<select v-model='activeAccount' name='account' :disabled='waiting || loading' class="shadow" :class='{ disabled: waiting || loading }'>
-					<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
-				</select>
-				<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
-				<div
-					v-show='!waiting && !loading'
-					class='refresh cursor-pointer tooltip tooltip-bottom'
-					:data-tooltip='$t("stats.tooltips.refresh")'
-					@click='refresh(true)'
-				>
-					<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
-						<line class="icon-part-accent2-dark" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
-						<line class="icon-part-accent2-dark" x1="4.06" y1="11" x2="4.06" y2="11.01" />
-						<line class="icon-part-accent2-dark" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
-						<line class="icon-part-accent2-dark" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
-						<line class="icon-part-accent2-dark" x1="11" y1="19.94" x2="11" y2="19.95" />
-					</svg>
+			<header class='mb-1-5'>
+				<h1 class='mr-2'>
+					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
+					Th<span class='text-gray'>underb</span>ird Stats
+				</h1>
+				<!-- filter area -->
+				<div class='filter'>
+					<!-- account selection -->
+					<div class='filter-account'>
+						<label for='account' class='text-gray p-0-5'>Account</label>
+						<select v-model='activeAccount' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
+							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
+						</select>
+						<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
+						<div
+							v-show='!waiting && !loading'
+							class='refresh cursor-pointer tooltip tooltip-bottom d-inline-flex'
+							:data-tooltip='$t("stats.tooltips.refresh")'
+							@click='refresh(true)'
+						>
+							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<path class='icon-part-accent2' d='M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5' />
+								<line class='icon-part-accent2-dark' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
+								<line class='icon-part-accent2-dark' x1='4.06' y1='11' x2='4.06' y2='11.01' />
+								<line class='icon-part-accent2-dark' x1='4.63' y1='15.1' x2='4.63' y2='15.11' />
+								<line class='icon-part-accent2-dark' x1='7.16' y1='18.37' x2='7.16' y2='18.38' />
+								<line class='icon-part-accent2-dark' x1='11' y1='19.94' x2='11' y2='19.95' />
+							</svg>
+						</div>
+					</div>
+					<!-- folder selection -->
+					<div class='filter-folder ml-2'>
+						<label for='folder' class='text-gray p-0-5'>Folder</label>
+						<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
+							<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
+						</select>
+					</div>
+					<!-- time period selection -->
+					<div class='filter-period ml-2'>
+						<label for='start' class='text-gray p-0-5'>Time Period</label>
+						<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='w-6' />
+						<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='w-6' />
+						<button @click='' class='button-secondary p-0-5'>
+							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<path d="M5 12l5 5l10 -10" />
+							</svg>
+						</button>
+					</div>
 				</div>
-			</h1>
+			</header>
 			<!-- fetured numbers -->
-			<section class='numbers mt-2'>
+			<section class='numbers'>
 				<!-- total -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
@@ -68,13 +96,13 @@
 			</section>
 			<!-- still processing -->
 			<section v-if='waiting' class='mt-5'>
-				<svg class="icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
-					<polyline points="4 12 7 8 11 10 16 4 20 8" />
+				<svg class='icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition' viewBox='0 0 24 24'>
+					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+					<polyline points='4 19 8 13 12 15 16 10 20 14 20 19 4 19' />
+					<polyline points='4 12 7 8 11 10 16 4 20 8' />
 				</svg>
-				<div class="text-center text-gray">
-					{{ $t("stats.loadingInProgress") }}
+				<div class='text-center text-gray'>
+					{{ $t('stats.loadingInProgress') }}
 				</div>
 			</section>
 			<!-- empty account -->
@@ -160,7 +188,7 @@
 						</div>
 					</div>
 					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
-						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-05 right-05 shadow">
+						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-0-5 right-0-5 shadow">
 							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
 						</select>
 						<!-- emails per weekday per hour received -->
@@ -173,7 +201,7 @@
 							:dataset='daysChartData.received'
 							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
 							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-							class='mb-05 upper-chart'
+							class='mb-0-5 upper-chart'
 						/>
 						<!-- emails per weekday per hour sent -->
 						<HeatMap
@@ -220,7 +248,7 @@
 							:dataset='weekdayPerHourChartData.received'
 							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
 							:tooltips='"{y}, {x}:00\n{label}: {value}"'
-							class='mb-05'
+							class='mb-0-5'
 						/>
 						<!-- emails per weekday per hour sent -->
 						<HeatMap
@@ -319,6 +347,9 @@ export default {
 		return {
 			accounts: [],        // list of all existing accounts
 			activeAccount: null, // currently selected account
+			activeFolder: null,  // currently selected folder
+			activeStart: null,   // currently configured start of period of time
+			activeEnd: null,     // currently configured end of period of time
 			waiting: false,      // hides all charts and processes data in foreground
 			loading: false,      // keeps showing charts and processes data in background
 			display: {},         // processed data to show in foreground
@@ -1057,8 +1088,21 @@ body
 			max-width: 1750px
 			#chart-area-main
 				grid-template-columns: repeat(3, 1fr)
+		@media (min-width: 1501px)
+			header
+				grid-template-columns: 1fr 2fr
+				.filter
+					justify-content: flex-end
 		@media (max-width: 1500px)
 			max-width: 1200px
+			header
+				grid-template-columns: 1fr
+				h1
+					justify-content: center
+				.filter
+					justify-content: space-around
+					&>*
+						margin: 0 0 1rem 0
 			#chart-area-main
 				grid-template-columns: repeat(2, 1fr)
 		@media (min-width: 961px)
@@ -1082,25 +1126,31 @@ body
 			#chart-area-main
 				grid-template-columns: 1fr
 
-		h1
+		header
 			margin-top: 0
 			display: grid
-			grid-template-columns: auto 1fr auto 55px
 			align-items: center
-			justify-content: start
-			.logo
-				height: 48px
-			.loading
-				loader 21px 3px
-				justify-self: center
-				vertical-align: text-top
-			.refresh
-				justify-self: center
-				svg
-					vertical-align: text-top
-					margin-top: 1px
-			select
-				justify-self: end
+			h1
+				display: flex
+				align-items: center
+				.logo
+					height: 48px
+			.filter
+				display: flex
+				flex-wrap: wrap
+				&>*
+					display: flex
+					flex-direction: row
+					align-items: stretch
+				label
+					align-self: center
+				.loading
+					loader 18px 3px
+					margin: 4px 4px 4px 7px
+					align-self: center
+				.refresh
+					margin-left: 3px
+					align-self: center
 
 		.numbers
 			display: grid

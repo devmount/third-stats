@@ -20,8 +20,8 @@ mode = {
 		back:       #f9f9fa
 		front:      #202023
 		gray1:      #58585d
-		gray2:      #8a8a97
-		gray3:      #cdcdd3
+		gray2:      #aaaab7
+		gray3:      #ededf3
 		highlight:  #000000
 		secondary1: #2a2a2e
 		secondary2: #ffffff
@@ -35,15 +35,13 @@ transition = {
 }
 
 // general
-html, body
-	margin: 0
-	padding: 0
-body
+:root
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 	font-weight: 300
 	font-size: 16px
-	*
-		transition: color transition.duration transition.function, background transition.duration transition.function, background-color transition.duration transition.function
+html, body
+	margin: 0
+	padding: 0
 a, a:visited
 	text-decoration: none
 	transition: color transition.duration transition.function
@@ -52,6 +50,10 @@ a, a:visited
 			color: c.accent2
 			&:hover
 				color: c.accent1
+h2
+	font-size: 1.625rem
+label
+	font-size: 1rem
 hr
 	border: none
 	height: 1px
@@ -118,15 +120,13 @@ for m, c in mode
 .text-right
 	text-align: right
 .text-base
-	font-size: 1em
+	font-size: 1rem
 .text-small
-	font-size: .85em
+	font-size: .875rem
 .text-tiny
 	font-size: .75em
 .text-thin
 	font-weight: 300
-.mr-1
-	margin-right: 1rem
 .mt-1
 	margin-top: 1rem
 .mt-2
@@ -135,18 +135,24 @@ for m, c in mode
 	margin-top: 3rem
 .mt-5
 	margin-top: 5rem
+.mt-6
+	margin-top: 6rem
+.ml-2
+	margin-left: 2rem
+.ml-auto
+	margin-left: auto
+.mb-0-5
+	margin-bottom: .5rem
+.mb-1
+	margin-bottom: 1rem
+.mb-1-5
+	margin-bottom: 1.5rem
+.mr-0-5
+	margin-right: .5rem
 .mr-1
 	margin-right: 1rem
 .mr-2
 	margin-right: 2rem
-.ml-auto
-	margin-left: auto
-.mb-05
-	margin-bottom: .5rem
-.mb-1
-	margin-bottom: 1rem
-.mt-6
-	margin-top: 6rem
 .my-3
 	margin-top: 3rem
 	margin-bottom: 3rem
@@ -155,6 +161,8 @@ for m, c in mode
 	margin-bottom: 6rem
 .m-0-auto
 	margin: 0 auto
+.p-0-5
+	padding: .5rem
 .p-1
 	padding: 1rem
 .py-1
@@ -169,6 +177,8 @@ for m, c in mode
 	padding-top: 2rem
 .pb-6
 	padding-bottom: 6rem
+.w-6
+	width: 6rem
 .d-block
 	display: block
 .d-inline
@@ -177,15 +187,17 @@ for m, c in mode
 	display: inline-block
 .d-flex
 	display: flex
+.d-inline-flex
+	display: inline-flex
 .flex-grow
 	flex-grow: 1
 .position-absolute
 	position: absolute
 .position-relative
 	position: relative
-.top-05
+.top-0-5
 	top: .5rem
-.right-05
+.right-0-5
 	right: .5rem
 
 // cursor
@@ -259,11 +271,13 @@ button
 	transition: all transition.duration transition.function
 	cursor: pointer
 	color: mode.dark.highlight
-	&.button-inline
-		padding: .5rem
+	&:focus
+		z-index: 50
 	for m, c in mode
 		.{m} &
 			background: c.accent2
+		.{m} &.button-secondary
+			background: c.gray2
 		.{m} &:hover
 			background: darken(c.accent2, 20%)
 		.{m} &:active
@@ -278,16 +292,15 @@ select
 	color: inherit
 	padding: .5rem 1.5rem .5rem .5rem
 	outline: none
+	box-sizing: content-box
 	transition: all transition.duration transition.function
+	&:focus
+		z-index: 50
 	for m, c in mode
 		.{m} &
 			color: c.front
-			if m is 'dark'
-				background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
-				border-color: c.gray2
-			else
-				background: c.back url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray3),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
-				border-color: c.gray3
+			background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
+			border-color: c.gray2
 		.{m} &:hover
 			border-color: c.gray1
 		.{m} &:focus
@@ -296,25 +309,28 @@ select
 
 input[type=text],
 input[type=email],
+input[type=date],
 textarea
 	appearance: none
 	border: solid 1px
 	border-radius: 2px
 	padding: .5rem
 	transition: all transition.duration transition.function
+	&:focus
+		z-index: 50
 	for m, c in mode
 		.{m} &
 			background: c.back
 			color: c.front
-			if m is 'dark'
-				border-color: c.gray2
-			else
-				border-color: c.gray3
+			border-color: c.gray2
 		.{m} &:hover
 			border-color: c.gray1
 		.{m} &:focus
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
+		.{m} &::placeholder
+			color: c.gray2
+			opacity: 1
 textarea
 	width: 100%
 	font-size: .9rem
@@ -360,10 +376,7 @@ textarea
 		.{m} &
 			.checkbox-icon
 				background: c.back
-				if m is 'dark'
-					border-color: c.gray2
-				else
-					border-color: c.gray3
+				border-color: c.gray2
 			input:checked + .checkbox-icon
 				background: c.accent2
 				border-color: c.accent2
@@ -432,37 +445,25 @@ textarea
 	for m, c in mode
 		.{m} &
 			.switch-label
-				border-color: c.gray3
-				if m is 'dark'
-					background: c.gray2
-				else
-					background: c.back
+				border-color: c.gray2
+				background: c.gray3
 				&::before
 					color: c.gray1
 				&::after
-					if m is 'dark'
-						color: c.highlight
-					else
-						color: c.secondary2
+					color: mode.dark.highlight
 			&:hover
 				.switch-label
 					border-color: c.gray1
 				input:checked ~ .switch-label
 					border-color: c.highlight
 			.switch-handle
-				if m is 'dark'
-					background: c.front
-				else
-					background: c.gray2
+				background: c.front
 			input:checked
 				~ .switch-label
 					background: c.accent2
 					border-color: c.accent2
 				~ .switch-handle
-					if m is 'dark'
-						background: c.highlight
-					else
-						background: c.secondary2
+						background: mode.dark.highlight
 
 // tabs
 .tab
