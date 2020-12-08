@@ -8,17 +8,17 @@
 					Th<span class='text-gray'>underb</span>ird Stats
 				</h1>
 				<!-- filter area -->
-				<div class='filter'>
+				<div class='filter d-flex flex-wrap'>
 					<!-- account selection -->
-					<div class='filter-account'>
-						<label for='account' class='text-gray p-0-5'>Account</label>
-						<select v-model='activeAccount' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
+					<div class='filter-account d-flex'>
+						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
+						<select v-model='active.account' :disabled='waiting || loading' class='align-stretch shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
 							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 						</select>
-						<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
+						<div v-show='waiting || loading' :class='scheme + " loading align-center loader-accent2"'></div>
 						<div
 							v-show='!waiting && !loading'
-							class='refresh cursor-pointer tooltip tooltip-bottom d-inline-flex'
+							class='refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex'
 							:data-tooltip='$t("stats.tooltips.refresh")'
 							@click='refresh(true)'
 						>
@@ -34,18 +34,25 @@
 						</div>
 					</div>
 					<!-- folder selection -->
-					<!-- <div class='filter-folder ml-2'>
-						<label for='folder' class='text-gray p-0-5'>Folder</label>
-						<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
-							<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
+					<div class='filter-folder d-flex ml-2'>
+						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
+						<select v-model='active.folder' :disabled='waiting || loading' class='align-stretch shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
+							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
 						</select>
-					</div> -->
+						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='loadAccount(active.account)'>
+							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
+								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+							</svg>
+						</div>
+					</div>
 					<!-- time period selection -->
-					<!-- <div class='filter-period ml-2'>
-						<label for='start' class='text-gray p-0-5'>Time Period</label>
-						<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='w-6' />
-						<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='w-6' />
-						<button @click='' class='button-secondary p-0-5'>
+					<!-- <div class='filter-period d-flex ml-2'>
+						<label for='start' class='align-center text-gray p-0-5'>Time Period</label>
+						<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' />
+						<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' />
+						<button @click='' class='button-secondary align-center p-0-5'>
 							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<path d="M5 12l5 5l10 -10" />
@@ -345,23 +352,28 @@ export default {
 	components: { LineChart, BarChart, HeatMap },
 	data () {
 		return {
-			accounts: [],        // list of all existing accounts
-			activeAccount: null, // currently selected account
-			activeFolder: null,  // currently selected folder
-			activeStart: null,   // currently configured start of period of time
-			activeEnd: null,     // currently configured end of period of time
-			waiting: false,      // hides all charts and processes data in foreground
-			loading: false,      // keeps showing charts and processes data in background
-			display: {},         // processed data to show in foreground
-			store: {},           // data store for background processing (same structure as display)
-			tabs: {              // tab navigation containing one active tab
+			accounts: [],    // list of all existing accounts
+			folders: [],     // list of all existing folders for the current account
+			active: {
+				account: null, // currently selected account
+				folder: null,  // currently selected folder
+				period: {
+					start: null, // currently configured start of period of time
+					end: null,   // currently configured end of period of time
+				}
+			},
+			waiting: false,  // hides all charts and processes data in foreground
+			loading: false,  // keeps showing charts and processes data in background
+			display: {},     // processed data to show in foreground
+			store: {},       // data store for background processing (same structure as display)
+			tabs: {          // tab navigation containing one active tab
 				years: true,
 				quarters: false,
 				months: false,
 				weeks: false,
 			},
-			preferences: {       // preferences set for this page
-				sections: {        // preferences that can be set on this page
+			preferences: {   // preferences set for this page
+				sections: {    // preferences that can be set on this page
 					total: {
 						expand: false
 					},
@@ -372,7 +384,7 @@ export default {
 						leaderCount: 20
 					}
 				},
-				dark: true,        // preferences loaded from stored options
+				dark: true,    // preferences loaded from stored options
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
@@ -417,13 +429,18 @@ export default {
 			let accountPosition = Number(params.get('a'))
 			// assign accounts
 			this.accounts = accounts
-			this.activeAccount = accounts[accountPosition].id
+			this.active.account = accounts[accountPosition].id
 		},
 		// iterate through all folders of a given account <a>, do it in background <hidden=true> or in foreground <hidden=false>
 		processAccount: async function (a, hidden) {
 			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
-			let folders = traverseAccount(a)
+			// get all folders and subfolders from given account or selected folder of active account
+			let folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
+			// build folder list for filter selection, if not already present
+			if (!this.folders.length) {
+				this.folders = folders
+			}
 			let self = this
 			await Promise.all(folders.map(async f => {
 				// analyze all messages in all folders
@@ -630,13 +647,13 @@ export default {
 			// reset already processed data
 			this.reset(hidden)
 			// get currently selected account
-			let account = await messenger.accounts.get(this.activeAccount)
+			let account = await messenger.accounts.get(this.active.account)
 			// process data of this account again and update this.display
 			await this.processAccount(account, hidden)
-			// store reprocessed data if cache is enabled
-			if (this.preferences.cache) {
+			// store reprocessed data if cache is enabled and whole account was processed (not only single folder)
+			if (this.preferences.cache && !this.active.folder) {
 				let stats = {}
-				stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
+				stats['stats-' + this.active.account] = JSON.parse(JSON.stringify(this.display))
 				await messenger.storage.local.set(stats)
 			}
 			// stop loading indication
@@ -646,11 +663,34 @@ export default {
 				this.waiting = false
 			}
 		},
+		// ...
+		loadAccount: async function (id) {
+			let account = await messenger.accounts.get(id)
+			// set tab title
+			document.title = 'ThirdStats: ' + account.name
+			// reset filter values
+			this.active.folder = null
+			this.folders = traverseAccount(account)
+			// only check storage if cache is enabled
+			let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
+			if (result && result['stats-' + id]) {
+				// if cache is enabled and data already exists in storage, display it directly
+				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
+			} else {
+				// otherwise retrieve it first/again
+				await this.refresh(false)
+			}
+		},
 		// activate tab of given <key>
 		activateTab (key) {
 			let self = this
 			Object.keys(this.tabs).map(t => self.tabs[t] = false)
 			this.tabs[key] = true
+		},
+		// format folder name to match its hierarchy
+		formatFolder (folder) {
+			const level = (folder.path.match(/\//g) || []).length
+			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
 		}
 	},
 	computed: {
@@ -1039,18 +1079,18 @@ export default {
 		}
 	},
 	watch: {
-		// on change of active account switch displayed data accordingly
-		activeAccount: async function (id) {
-			let account = await messenger.accounts.get(id)
-			document.title = 'ThirdStats: ' + account.name
-			// only check storage if cache is enabled
-			let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
-			if (result && result['stats-' + id]) {
-				// if cache is enabled and data already exists in storage, display it directly
-				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
-			} else {
-				// otherwise retrieve it first
-				await this.refresh(false)
+		// on change of active account switch displayed data accordingly and reset filter
+		'active.account': async function (id) {
+			if (id) {
+				// process data for given account
+				await this.loadAccount(id)
+			}
+		},
+		// on change of active folder, retrieve data again
+		'active.folder': async function (folder) {
+			if (folder) {
+				// refresh function handles processing for active folder only
+				await this.refresh(true)
 			}
 		}
 	}
@@ -1136,21 +1176,11 @@ body
 				.logo
 					height: 48px
 			.filter
-				display: flex
-				flex-wrap: wrap
-				&>*
-					display: flex
-					flex-direction: row
-					align-items: stretch
-				label
-					align-self: center
 				.loading
 					loader 18px 3px
 					margin: 4px 4px 4px 7px
-					align-self: center
 				.refresh
 					margin-left: 3px
-					align-self: center
 
 		.numbers
 			display: grid

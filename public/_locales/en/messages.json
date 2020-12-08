@@ -4,6 +4,7 @@
   },
   "popup": {
     "account": "Account | Accounts",
+    "folder": "Folder | Folders",
     "linkDescription": "Open all stats in new tab",
     "messagesInFolder": "{0} messages in {1} folders",
     "message": "-"
@@ -80,7 +81,8 @@
     "tooltips": {
       "expand": "Expand chart area",
       "shrink": "Shrink chart area",
-      "refresh": "Refresh data"
+      "refresh": "Refresh data",
+      "clear": "Clear selection"
     },
     "abbreviations": {
       "calendarWeek": "W",

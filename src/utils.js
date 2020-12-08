@@ -1,4 +1,4 @@
-// function to flatten folder hierarchie
+// function to flatten folder hierarchie of given account
 let traverseAccount = (account) => {
 	let arrayOfFolders = []
 	// recursive function to traverse all subfolders
