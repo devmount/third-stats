@@ -34,12 +34,12 @@
 						</div>
 					</div>
 					<!-- folder selection -->
-					<!-- <div class='filter-folder ml-2'>
+					<div class='filter-folder ml-2'>
 						<label for='folder' class='text-gray p-0-5'>Folder</label>
-						<select v-model='activeFolder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
-							<option v-for='f in ["Inbox","Test","Michael"]' :key='f' :value='f'>{{ f }}</option>
+						<select v-model='active.folder' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
+							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
 						</select>
-					</div> -->
+					</div>
 					<!-- time period selection -->
 					<!-- <div class='filter-period ml-2'>
 						<label for='start' class='text-gray p-0-5'>Time Period</label>
@@ -346,6 +346,7 @@ export default {
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
+			folders: [],     // list of all existing folders for the current account
 			active: {
 				account: null, // currently selected account
 				folder: null,  // currently selected folder
@@ -427,7 +428,12 @@ export default {
 		processAccount: async function (a, hidden) {
 			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
+			// get all folders and subfolders from given account
 			let folders = traverseAccount(a)
+			// build folder list for filter selection, if not already present
+			if (!this.folders.length) {
+				this.folders = folders
+			}
 			let self = this
 			await Promise.all(folders.map(async f => {
 				// analyze all messages in all folders
@@ -655,6 +661,11 @@ export default {
 			let self = this
 			Object.keys(this.tabs).map(t => self.tabs[t] = false)
 			this.tabs[key] = true
+		},
+		// format folder name to match its hierarchy
+		formatFolder (folder) {
+			const level = (folder.path.match(/\//g) || []).length
+			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
 		}
 	},
 	computed: {
@@ -1043,7 +1054,7 @@ export default {
 		}
 	},
 	watch: {
-		// on change of active account switch displayed data accordingly
+		// on change of active account switch displayed data accordingly and reset filter
 		'active.account': async function (id) {
 			let account = await messenger.accounts.get(id)
 			document.title = 'ThirdStats: ' + account.name
@@ -1052,8 +1063,10 @@ export default {
 			if (result && result['stats-' + id]) {
 				// if cache is enabled and data already exists in storage, display it directly
 				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
+				// reset filter values
+				this.folders = traverseAccount(account)
 			} else {
-				// otherwise retrieve it first
+				// otherwise retrieve it first/again
 				await this.refresh(false)
 			}
 		}
