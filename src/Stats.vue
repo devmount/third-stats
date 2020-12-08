@@ -12,7 +12,7 @@
 					<!-- account selection -->
 					<div class='filter-account'>
 						<label for='account' class='text-gray p-0-5'>Account</label>
-						<select v-model='activeAccount' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
+						<select v-model='active.account' :disabled='waiting || loading' class='shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
 							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 						</select>
 						<div v-show='waiting || loading' :class='scheme + " loading loader-accent2"'></div>
@@ -345,23 +345,27 @@ export default {
 	components: { LineChart, BarChart, HeatMap },
 	data () {
 		return {
-			accounts: [],        // list of all existing accounts
-			activeAccount: null, // currently selected account
-			activeFolder: null,  // currently selected folder
-			activeStart: null,   // currently configured start of period of time
-			activeEnd: null,     // currently configured end of period of time
-			waiting: false,      // hides all charts and processes data in foreground
-			loading: false,      // keeps showing charts and processes data in background
-			display: {},         // processed data to show in foreground
-			store: {},           // data store for background processing (same structure as display)
-			tabs: {              // tab navigation containing one active tab
+			accounts: [],    // list of all existing accounts
+			active: {
+				account: null, // currently selected account
+				folder: null,  // currently selected folder
+				period: {
+					start: null, // currently configured start of period of time
+					end: null,   // currently configured end of period of time
+				}
+			},
+			waiting: false,  // hides all charts and processes data in foreground
+			loading: false,  // keeps showing charts and processes data in background
+			display: {},     // processed data to show in foreground
+			store: {},       // data store for background processing (same structure as display)
+			tabs: {          // tab navigation containing one active tab
 				years: true,
 				quarters: false,
 				months: false,
 				weeks: false,
 			},
-			preferences: {       // preferences set for this page
-				sections: {        // preferences that can be set on this page
+			preferences: {   // preferences set for this page
+				sections: {    // preferences that can be set on this page
 					total: {
 						expand: false
 					},
@@ -372,7 +376,7 @@ export default {
 						leaderCount: 20
 					}
 				},
-				dark: true,        // preferences loaded from stored options
+				dark: true,    // preferences loaded from stored options
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
@@ -417,7 +421,7 @@ export default {
 			let accountPosition = Number(params.get('a'))
 			// assign accounts
 			this.accounts = accounts
-			this.activeAccount = accounts[accountPosition].id
+			this.active.account = accounts[accountPosition].id
 		},
 		// iterate through all folders of a given account <a>, do it in background <hidden=true> or in foreground <hidden=false>
 		processAccount: async function (a, hidden) {
@@ -630,13 +634,13 @@ export default {
 			// reset already processed data
 			this.reset(hidden)
 			// get currently selected account
-			let account = await messenger.accounts.get(this.activeAccount)
+			let account = await messenger.accounts.get(this.active.account)
 			// process data of this account again and update this.display
 			await this.processAccount(account, hidden)
 			// store reprocessed data if cache is enabled
 			if (this.preferences.cache) {
 				let stats = {}
-				stats['stats-' + this.activeAccount] = JSON.parse(JSON.stringify(this.display))
+				stats['stats-' + this.active.account] = JSON.parse(JSON.stringify(this.display))
 				await messenger.storage.local.set(stats)
 			}
 			// stop loading indication
@@ -1040,7 +1044,7 @@ export default {
 	},
 	watch: {
 		// on change of active account switch displayed data accordingly
-		activeAccount: async function (id) {
+		'active.account': async function (id) {
 			let account = await messenger.accounts.get(id)
 			document.title = 'ThirdStats: ' + account.name
 			// only check storage if cache is enabled
