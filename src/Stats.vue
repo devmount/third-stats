@@ -42,8 +42,8 @@
 						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='loadAccount(active.account)'>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-								<line x1='18' y1='6' x2='6' y2='18' />
-								<line x1='6' y1='6' x2='18' y2='18' />
+								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
+								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
 							</svg>
 						</div>
 					</div>
