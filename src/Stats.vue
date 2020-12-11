@@ -39,7 +39,7 @@
 						<select v-model='active.folder' :disabled='waiting || loading' class='align-stretch shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
 							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
 						</select>
-						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='loadAccount(active.account)'>
+						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetFolder'>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
@@ -48,18 +48,25 @@
 						</div>
 					</div>
 					<!-- time period selection -->
-					<!-- <div class='filter-period d-flex ml-2'>
+					<div class='filter-period d-flex ml-2'>
 						<label for='start' class='align-center text-gray p-0-5'>Time Period</label>
-						<input type='text' v-model='activeStart' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' />
-						<input type='text' v-model='activeEnd' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' />
+						<input type='text' v-model='active.period.start' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' />
+						<input type='text' v-model='active.period.end' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' />
 						<button @click='' class='button-secondary align-center p-0-5'>
 							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<path d="M5 12l5 5l10 -10" />
 							</svg>
 						</button>
+						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetPeriod'>
+							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
+								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+							</svg>
+						</div>
 					</div>
-				</div> -->
+				</div>
 			</header>
 			<!-- fetured numbers -->
 			<section class='numbers'>
@@ -663,13 +670,12 @@ export default {
 				this.waiting = false
 			}
 		},
-		// ...
+		// load data of given account
 		loadAccount: async function (id) {
 			let account = await messenger.accounts.get(id)
 			// set tab title
 			document.title = 'ThirdStats: ' + account.name
-			// reset filter values
-			this.active.folder = null
+			// (re)calculate list of folders
 			this.folders = traverseAccount(account)
 			// only check storage if cache is enabled
 			let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
@@ -679,6 +685,29 @@ export default {
 			} else {
 				// otherwise retrieve it first/again
 				await this.refresh(false)
+			}
+		},
+		// reset folder filter
+		resetFolder: async function () {
+			this.active.folder = null
+			if (this.active.period.start || this.active.period.end) {
+			// reprocess current data if another filter is set
+				await this.refresh(true)
+			} else {
+				// otherwise just load account data
+				await this.loadAccount(this.active.account)
+			}
+		},
+		// reset time period filter
+		resetPeriod: async function () {
+			this.active.period.start = null
+			this.active.period.end = null
+			if (this.active.folder) {
+			// reprocess current data if another filter is set
+				await this.refresh(true)
+			} else {
+				// otherwise just load account data
+				await this.loadAccount(this.active.account)
 			}
 		},
 		// activate tab of given <key>
