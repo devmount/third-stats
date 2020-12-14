@@ -50,9 +50,9 @@
 					<!-- time period selection -->
 					<div class='filter-period d-flex ml-2'>
 						<label for='start' class='align-center text-gray p-0-5'>Time Period</label>
-						<input type='text' v-model='active.period.start' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' />
-						<input type='text' v-model='active.period.end' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' />
-						<button @click='' class='button-secondary align-center p-0-5'>
+						<input type='text' v-model='active.period.start' @blur='formatPeriod("start")' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' />
+						<input type='text' v-model='active.period.end' @blur='formatPeriod("end")' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' />
+						<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
 							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<path d="M5 12l5 5l10 -10" />
@@ -442,7 +442,7 @@ export default {
 		processAccount: async function (a, hidden) {
 			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
-			// get all folders and subfolders from given account or selected folder of active account
+			// get all folders and subfolders from given account or selected folder of active account (filter field)
 			let folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
 			// build folder list for filter selection, if not already present
 			if (!this.folders.length) {
@@ -473,7 +473,14 @@ export default {
 		processMessages: async function (folder, identities, hidden) {
 			if (folder) {
 				let self = this
-				let page = await messenger.messages.list(folder)
+				let page = null
+				if (this.active.period.start && this.active.period.end) {
+					let start = new Date(this.active.period.start)
+					let end = new Date(this.active.period.end)
+					page = await messenger.messages.query({ folder: folder, fromDate: start, toDate: end })
+				} else {
+					page = await messenger.messages.list(folder)
+				}
 				if (page) {
 					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
 					while (page.id) {
@@ -593,7 +600,8 @@ export default {
 					unread: 0,
 					received: 0,
 					sent: 0,
-					start: new Date(),
+					start: this.active.period.start ? new Date(this.active.period.start) : new Date(),
+					end: this.active.period.end ? new Date(this.active.period.end) : new Date(),
 				},
 				yearsData: {
 					received: {},
@@ -641,7 +649,7 @@ export default {
 			}
 			this.store = JSON.parse(JSON.stringify(initObject))
 			this.preferences.sections.total.expand = false
-			this.preferences.sections.days.year = (new Date()).getFullYear()
+			this.preferences.sections.days.year = initObject.numbers.start.getFullYear()
 		},
 		// retrieve and process data again in background <hidden=true> or foreground <hidden=false>
 		refresh: async function (hidden) {
@@ -657,8 +665,8 @@ export default {
 			let account = await messenger.accounts.get(this.active.account)
 			// process data of this account again and update this.display
 			await this.processAccount(account, hidden)
-			// store reprocessed data if cache is enabled and whole account was processed (not only single folder)
-			if (this.preferences.cache && !this.active.folder) {
+			// only store reprocessed data if cache is enabled and no filter is set
+			if (this.preferences.cache && !this.filtered) {
 				let stats = {}
 				stats['stats-' + this.active.account] = JSON.parse(JSON.stringify(this.display))
 				await messenger.storage.local.set(stats)
@@ -698,10 +706,26 @@ export default {
 				await this.loadAccount(this.active.account)
 			}
 		},
+		// process data for current time period filter
+		updatePeriod: async function () {
+			if (
+				this.active.period.start &&
+				this.active.period.end &&
+				!isNaN(Date.parse(this.active.period.start)) &&
+				!isNaN(Date.parse(this.active.period.end)) &&
+				Date.parse(this.active.period.start) < Date.parse(this.active.period.end)
+			) {
+				await this.refresh(true)
+				this.display.numbers.start = new Date(this.active.period.start)
+				this.display.numbers.end = new Date(this.active.period.end)
+				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
+			}
+		},
 		// reset time period filter
 		resetPeriod: async function () {
 			this.active.period.start = null
 			this.active.period.end = null
+			this.preferences.sections.days.year = (new Date()).getFullYear()
 			if (this.active.folder) {
 			// reprocess current data if another filter is set
 				await this.refresh(true)
@@ -720,6 +744,31 @@ export default {
 		formatFolder (folder) {
 			const level = (folder.path.match(/\//g) || []).length
 			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
+		},
+		// format period date input to match YYYY-MM-DD
+		formatPeriod (key) {
+			if (this.active.period[key]) {
+				let s = this.active.period[key]
+				// complete year
+				if (s.length == 6) {
+					s = String((new Date()).getFullYear()).slice(0, 2) + s
+				}
+				// insert dashes
+				if (!s.includes('-')) {
+					s = s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6)
+				}
+				// shorten to 10 characters
+				s = s.slice(0, 10)
+				// set lower limit
+				if (!isNaN(Date.parse(s)) && Date.parse(s) < 0) {
+					s = '1970-01-01'
+				}
+				// set upper limit
+				if (!isNaN(Date.parse(s)) && Date.parse(s) > Date.now()) {
+					s = (new Date()).toISOString().slice(0, 10)
+				}
+				this.active.period[key] = s
+			}
 		}
 	},
 	computed: {
@@ -745,12 +794,12 @@ export default {
 			}
 			return names
 		},
-		// number of days from oldest email till today
+		// number of days from oldest email till today or depending on period filter
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
-			let today = new Date()
 			let start = new Date(this.display.numbers.start)
-			return Math.round(Math.abs((start - today) / oneDay))
+			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			return Math.round(Math.abs((start - end) / oneDay))
 		},
 		// number of weeks from oldest email till today
 		weeks () {
@@ -828,19 +877,22 @@ export default {
 					labels: []
 				}
 			} else {
-				let r = this.display.yearsData.received, s = this.display.yearsData.sent
-				let today = new Date()
+				let r = this.display.yearsData.received
+				let s = this.display.yearsData.sent
+				let labels = [], dr = [], ds = []
 				let start = new Date(this.display.numbers.start)
-				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
-					if (!r[y]) r[y] = 0
-					if (!s[y]) s[y] = 0
+				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+					labels.push(y)
+					dr.push(y in r ? r[y] : 0)
+					ds.push(y in s ? s[y] : 0)
 				}
 				return {
 					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 					],
-					labels: Object.keys(r)
+					labels: labels
 				}
 			}
 		},
@@ -855,14 +907,14 @@ export default {
 				let r = this.display.quartersData.received
 				let s = this.display.quartersData.sent
 				let labels = [], dr = [], ds = []
-				let today = new Date()
 				let start = new Date(this.display.numbers.start)
-				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
 					for (let q = 1; q <= 4; ++q) {
 						// trim quarters before start date
 						if (y == start.getFullYear() && q < quarterNumber(start)) continue
-						// trim quarters in future
-						if (y == today.getFullYear() && q > quarterNumber(today)) break
+						// trim quarters after end date
+						if (y == end.getFullYear() && q > quarterNumber(end)) break
 						// organize labels and data
 						labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
 						dr.push(y in r && q in r[y] ? r[y][q] : 0)
@@ -889,14 +941,14 @@ export default {
 				let r = this.display.monthsData.received
 				let s = this.display.monthsData.sent
 				let labels = [], dr = [], ds = []
-				let today = new Date()
 				let start = new Date(this.display.numbers.start)
-				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
 					for (let m = 0; m < 12; ++m) {
 						// trim months before start date
 						if (y == start.getFullYear() && m < start.getMonth()) continue
-						// trim months in future
-						if (y == today.getFullYear() && m > today.getMonth()) break
+						// trim months after end date
+						if (y == end.getFullYear() && m > end.getMonth()) break
 						// organize labels and data
 						labels.push(y + ' ' + this.monthNames[m])
 						dr.push(y in r && m in r[y] ? r[y][m] : 0)
@@ -923,14 +975,14 @@ export default {
 				let r = this.display.weeksData.received
 				let s = this.display.weeksData.sent
 				let labels = [], dr = [], ds = []
-				let today = new Date()
 				let start = new Date(this.display.numbers.start)
-				for (let y = start.getFullYear(); y <= today.getFullYear(); ++y) {
+				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
 					for (let w = 1; w <= weeksInYear(y); ++w) {
 						// trim weeks before start date
 						if (y == start.getFullYear() && w < weekNumber(start)) continue
-						// trim weeks in future
-						if (y == today.getFullYear() && w > weekNumber(today)) break
+						// trim weeks after end date
+						if (y == end.getFullYear() && weekNumber(end) > 1 && w > weekNumber(end)) break
 						// organize labels and data
 						labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
 						dr.push(y in r && w in r[y] ? r[y][w] : 0)
@@ -1097,14 +1149,23 @@ export default {
 				}
 			}
 		},
+		// returns true, if at least one filter isn't empty
+		filtered () {
+			return this.active.folder || this.active.period.start || this.active.period.end
+		},
 		// convert theme preference into scheme name
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
 		},
-		// array of years descending from oldest emails year till todays year
+		// array of years descending from oldest till newest emails year
 		yearsList () {
-			let years = JSON.parse(JSON.stringify(this.yearsChartData.labels))
-			return years.reverse()
+			let years = []
+			let start = (new Date(this.display.numbers.start)).getFullYear()
+			let end = this.display.numbers.end ? (new Date(this.display.numbers.end)).getFullYear() : (new Date()).getFullYear()
+			for (let i = end; i >= start; i--) {
+				years.push(i)
+			}
+			return years
 		}
 	},
 	watch: {
