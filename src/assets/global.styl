@@ -13,6 +13,7 @@ mode = {
 		secondary2: #000000
 		shade:      #1d1d1f
 		icon:       #ffeb3b
+		error:      #c8295d
 	}
 	light: {
 		accent1:    #e64db9
@@ -27,6 +28,7 @@ mode = {
 		secondary2: #ffffff
 		shade:      #6d6d6f
 		icon:       #607d8b
+		error:      #c8295d
 	}
 }
 transition = {
@@ -337,6 +339,11 @@ textarea
 		.{m} &::placeholder
 			color: c.gray2
 			opacity: 1
+		.{m} &.error
+			color: c.error
+			border-color: c.error
+			&:focus
+				box-shadow: 0 0 0 .25rem rgba(c.error, .2)
 textarea
 	width: 100%
 	font-size: .9rem
@@ -470,6 +477,20 @@ textarea
 					border-color: c.accent2
 				~ .switch-handle
 						background: mode.dark.highlight
+
+.input-group
+	&>*:hover
+		z-index: 25
+	&>*:first-child
+		border-top-right-radius: 0
+		border-bottom-right-radius: 0
+	&>*:last-child
+		border-top-left-radius: 0
+		border-bottom-left-radius: 0
+	&>*:not(:first-child)
+		margin-left: -1px
+	&>*:not(:first-child):not(:last-child)
+		border-radius: 0
 
 // tabs
 .tab

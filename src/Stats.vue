@@ -50,14 +50,16 @@
 					<!-- time period selection -->
 					<div class='filter-period d-flex ml-2'>
 						<label for='start' class='align-center text-gray p-0-5'>Time Period</label>
-						<input type='text' v-model='active.period.start' @blur='formatPeriod("start")' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' />
-						<input type='text' v-model='active.period.end' @blur='formatPeriod("end")' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' />
-						<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
-							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<path d="M5 12l5 5l10 -10" />
-							</svg>
-						</button>
+						<div class="input-group d-flex">
+							<input type='text' v-model='active.period.start' @blur='formatPeriod("start")' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' :class='{ error: error.period.start }' />
+							<input type='text' v-model='active.period.end' @blur='formatPeriod("end")' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' :class='{ error: error.period.end }' />
+							<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
+								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<path d="M5 12l5 5l10 -10" />
+								</svg>
+							</button>
+						</div>
 						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetPeriod'>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
@@ -359,28 +361,34 @@ export default {
 	components: { LineChart, BarChart, HeatMap },
 	data () {
 		return {
-			accounts: [],    // list of all existing accounts
-			folders: [],     // list of all existing folders for the current account
+			accounts: [],     // list of all existing accounts
+			folders: [],      // list of all existing folders for the current account
 			active: {
-				account: null, // currently selected account
-				folder: null,  // currently selected folder
+				account: null,  // currently selected account
+				folder: null,   // currently selected folder
 				period: {
-					start: null, // currently configured start of period of time
-					end: null,   // currently configured end of period of time
+					start: null,  // currently configured start of period of time
+					end: null,    // currently configured end of period of time
 				}
 			},
-			waiting: false,  // hides all charts and processes data in foreground
-			loading: false,  // keeps showing charts and processes data in background
-			display: {},     // processed data to show in foreground
-			store: {},       // data store for background processing (same structure as display)
-			tabs: {          // tab navigation containing one active tab
+			error: {
+				period: {
+					start: false, // indicates if currently configured start of period of time is valid
+					end: false,   // indicates if currently configured end of period of time is valid
+				}
+			},
+			waiting: false,   // hides all charts and processes data in foreground
+			loading: false,   // keeps showing charts and processes data in background
+			display: {},      // processed data to show in foreground
+			store: {},        // data store for background processing (same structure as display)
+			tabs: {           // tab navigation containing one active tab
 				years: true,
 				quarters: false,
 				months: false,
 				weeks: false,
 			},
-			preferences: {   // preferences set for this page
-				sections: {    // preferences that can be set on this page
+			preferences: {    // preferences set for this page
+				sections: {     // preferences that can be set on this page
 					total: {
 						expand: false
 					},
@@ -391,7 +399,7 @@ export default {
 						leaderCount: 20
 					}
 				},
-				dark: true,    // preferences loaded from stored options
+				dark: true,     // preferences loaded from stored options
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
@@ -708,13 +716,7 @@ export default {
 		},
 		// process data for current time period filter
 		updatePeriod: async function () {
-			if (
-				this.active.period.start &&
-				this.active.period.end &&
-				!isNaN(Date.parse(this.active.period.start)) &&
-				!isNaN(Date.parse(this.active.period.end)) &&
-				Date.parse(this.active.period.start) < Date.parse(this.active.period.end)
-			) {
+			if (this.validPeriod()) {
 				await this.refresh(true)
 				this.display.numbers.start = new Date(this.active.period.start)
 				this.display.numbers.end = new Date(this.active.period.end)
@@ -725,6 +727,8 @@ export default {
 		resetPeriod: async function () {
 			this.active.period.start = null
 			this.active.period.end = null
+			this.error.period.start = false
+			this.error.period.end = false
 			this.preferences.sections.days.year = (new Date()).getFullYear()
 			if (this.active.folder) {
 			// reprocess current data if another filter is set
@@ -769,6 +773,45 @@ export default {
 				}
 				this.active.period[key] = s
 			}
+		},
+		// returns true if entered time period is valid
+		validPeriod () {
+			let valid = true
+			// check start time
+			if (
+				// start time is not set
+				!this.active.period.start ||
+				// start time is no valid date
+				isNaN(Date.parse(this.active.period.start))
+			) {
+				valid = false
+				this.error.period.start = true
+			}
+			// check end time
+			if (
+				// end time is not set
+				!this.active.period.end ||
+				// end time is no valid date
+				isNaN(Date.parse(this.active.period.end))
+			) {
+				valid = false
+				this.error.period.end = true
+			}
+			// check both
+			if (
+				// start date is before end date
+				Date.parse(this.active.period.start) > Date.parse(this.active.period.end)
+			) {
+				valid = false
+				this.error.period.start = true
+				this.error.period.end = true
+			}
+			// remove previous errors if valid
+			if (valid) {
+				this.error.period.start = false
+				this.error.period.end = false
+			}
+			return valid
 		}
 	},
 	computed: {
