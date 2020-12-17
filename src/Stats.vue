@@ -39,7 +39,7 @@
 						<select v-model='active.folder' :disabled='waiting || loading' class='align-stretch w-6' :class='{ disabled: waiting || loading }' id='folder'>
 							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
 						</select>
-						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetFolder'>
+						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetFolder(true)'>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
@@ -75,7 +75,7 @@
 								</svg>
 							</button>
 						</div>
-						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetPeriod'>
+						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetPeriod(true)'>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
@@ -718,15 +718,17 @@ export default {
 				await this.refresh(false)
 			}
 		},
-		// reset folder filter
-		resetFolder: async function () {
+		// reset folder filter, relaod data if requested
+		resetFolder: async function (reload) {
 			this.active.folder = null
-			if (this.active.period.start || this.active.period.end) {
-			// reprocess current data if another filter is set
-				await this.refresh(true)
-			} else {
-				// otherwise just load account data
-				await this.loadAccount(this.active.account)
+			if (reload) {
+				if (this.active.period.start || this.active.period.end) {
+					// reprocess current data if another filter is set
+					await this.refresh(true)
+				} else {
+					// otherwise just load account data
+					await this.loadAccount(this.active.account)
+				}
 			}
 		},
 		// process data for current time period filter
@@ -738,19 +740,21 @@ export default {
 				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
 			}
 		},
-		// reset time period filter
-		resetPeriod: async function () {
+		// reset time period filter, relaod data if requested
+		resetPeriod: async function (reload) {
 			this.active.period.start = null
 			this.active.period.end = null
 			this.error.period.start = []
 			this.error.period.end = []
 			this.preferences.sections.days.year = (new Date()).getFullYear()
-			if (this.active.folder) {
-			// reprocess current data if another filter is set
-				await this.refresh(true)
-			} else {
-				// otherwise just load account data
-				await this.loadAccount(this.active.account)
+			if (reload) {
+				if (this.active.folder) {
+					// reprocess current data if another filter is set
+					await this.refresh(true)
+				} else {
+					// otherwise just load account data
+					await this.loadAccount(this.active.account)
+				}
 			}
 		},
 		// activate tab of given <key>
@@ -1221,9 +1225,12 @@ export default {
 		}
 	},
 	watch: {
-		// on change of active account switch displayed data accordingly and reset filter
+		// on change of active account reset filter and switch displayed data accordingly
 		'active.account': async function (id) {
 			if (id) {
+				// reset filter
+				this.resetFolder(false)
+				this.resetPeriod(false)
 				// process data for given account
 				await this.loadAccount(id)
 			}
