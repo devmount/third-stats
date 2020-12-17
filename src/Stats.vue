@@ -796,6 +796,7 @@ export default {
 		// returns true if entered time period is valid
 		validPeriod () {
 			let valid = true
+			const datex = RegExp(/^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/)
 			this.error.period.start = []
 			this.error.period.end = []
 			// start time is not set
@@ -803,20 +804,30 @@ export default {
 				valid = false
 				this.error.period.start.push(this.$t('stats.tooltips.error.empty'))
 			}
-			// start time is no valid date
-			if (isNaN(Date.parse(this.active.period.start))) {
+			// start time is of wrong format
+			if (!datex.test(this.active.period.start)) {
 				valid = false
 				this.error.period.start.push(this.$t('stats.tooltips.error.dateFormat'))
+			}
+			// start time is no real date
+			if (isNaN(Date.parse(this.active.period.start))) {
+				valid = false
+				this.error.period.start.push(this.$t('stats.tooltips.error.dateUnreal'))
 			}
 			// end time is not set
 			if (!this.active.period.end) {
 				valid = false
 				this.error.period.end.push(this.$t('stats.tooltips.error.empty'))
 			}
-			// end time is no valid date
-			if (isNaN(Date.parse(this.active.period.end))) {
+			// end time is of wrong format
+			if (!datex.test(this.active.period.end)) {
 				valid = false
 				this.error.period.end.push(this.$t('stats.tooltips.error.dateFormat'))
+			}
+			// end time is no real date
+			if (isNaN(Date.parse(this.active.period.end))) {
+				valid = false
+				this.error.period.end.push(this.$t('stats.tooltips.error.dateUnreal'))
 			}
 			// start date is before end date
 			if (Date.parse(this.active.period.start) > Date.parse(this.active.period.end)) {

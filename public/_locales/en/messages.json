@@ -91,6 +91,7 @@
       "error": {
         "empty": "Input is required",
         "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateUnreal": "A valid date is required",
         "dateOrderStart": "Start date must be before end date",
         "dateOrderEnd": "End date must be after start date"
       }
