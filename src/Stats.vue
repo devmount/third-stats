@@ -12,7 +12,7 @@
 					<!-- account selection -->
 					<div class='filter-account d-flex'>
 						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
-						<select v-model='active.account' :disabled='waiting || loading' class='align-stretch shadow w-6' :class='{ disabled: waiting || loading }' id='account'>
+						<select v-model='active.account' :disabled='waiting || loading' class='align-stretch w-6' :class='{ disabled: waiting || loading }' id='account'>
 							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 						</select>
 						<div v-show='waiting || loading' :class='scheme + " loading align-center loader-accent2"'></div>
@@ -36,7 +36,7 @@
 					<!-- folder selection -->
 					<div class='filter-folder d-flex ml-2'>
 						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
-						<select v-model='active.folder' :disabled='waiting || loading' class='align-stretch shadow w-6' :class='{ disabled: waiting || loading }' id='folder'>
+						<select v-model='active.folder' :disabled='waiting || loading' class='align-stretch w-6' :class='{ disabled: waiting || loading }' id='folder'>
 							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
 						</select>
 						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetFolder'>
@@ -204,7 +204,7 @@
 						</div>
 					</div>
 					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
-						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-0-5 right-0-5 shadow">
+						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-0-5 right-0-5">
 							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
 						</select>
 						<!-- emails per weekday per hour received -->
