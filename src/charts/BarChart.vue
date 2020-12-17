@@ -17,6 +17,7 @@ export default {
 		labels: Array,
 		datasets: Array,
 		horizontal: Boolean,
+		ordinate: Boolean,
 	},
 	data () {
 		return {
@@ -71,7 +72,7 @@ export default {
 							}
 						}],
 						yAxes: [{
-							display: this.horizontal,
+							display: this.horizontal || this.ordinate,
 							stacked: false,
 							gridLines: {
 								display: false,

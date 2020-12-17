@@ -197,24 +197,28 @@
 								v-if='tabs.years'
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
+								:ordinate='preferences.ordinate'
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
 								v-if='tabs.quarters'
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
+								:ordinate='preferences.ordinate'
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
 								v-if='tabs.months'
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
+								:ordinate='preferences.ordinate'
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
 								v-if='tabs.weeks'
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
+								:ordinate='preferences.ordinate'
 							/>
 						</div>
 					</div>
@@ -253,6 +257,7 @@
 						:description='$t("stats.charts.daytime.description")'
 						:datasets='daytimeChartData.datasets'
 						:labels='daytimeChartData.labels'
+						:ordinate='preferences.ordinate'
 					/>
 					<!-- emails per day of week -->
 					<BarChart
@@ -260,6 +265,7 @@
 						:description='$t("stats.charts.weekday.description")'
 						:datasets='weekdayChartData.datasets'
 						:labels='weekdayChartData.labels'
+						:ordinate='preferences.ordinate'
 					/>
 					<!-- emails per month of year -->
 					<BarChart
@@ -267,6 +273,7 @@
 						:description='$t("stats.charts.month.description")'
 						:datasets='monthChartData.datasets'
 						:labels='monthChartData.labels'
+						:ordinate='preferences.ordinate'
 					/>
 					<div class="chart-group">
 						<!-- emails per weekday per hour received -->
@@ -418,7 +425,8 @@ export default {
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
-				cache: true
+				cache: true,
+				ordinate: false
 			},
 			publicPath: process.env.BASE_URL
 		}
@@ -718,7 +726,7 @@ export default {
 				await this.refresh(false)
 			}
 		},
-		// reset folder filter, relaod data if requested
+		// reset folder filter, reload data if requested
 		resetFolder: async function (reload) {
 			this.active.folder = null
 			if (reload) {
@@ -740,7 +748,7 @@ export default {
 				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
 			}
 		},
-		// reset time period filter, relaod data if requested
+		// reset time period filter, reload data if requested
 		resetPeriod: async function (reload) {
 			this.active.period.start = null
 			this.active.period.end = null

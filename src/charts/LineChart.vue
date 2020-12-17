@@ -16,6 +16,7 @@ export default {
 		description: String,
 		labels: Array,
 		datasets: Array,
+		ordinate: Boolean
 	},
 	data () {
 		return {
@@ -70,7 +71,7 @@ export default {
 							}
 						}],
 						yAxes: [{
-							display: false,
+							display: this.ordinate,
 							stacked: false,
 							gridLines: {
 								display: false,
