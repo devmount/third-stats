@@ -255,12 +255,12 @@ for m, c in mode
 			&.icon-hover-accent:hover
 				.icon-part-accent1
 					stroke: c.accent1
-				.icon-part-accent1-dark
-					stroke: darken(c.accent1, 60%)
+				.icon-part-accent1-faded
+					stroke: rgba(c.accent1, .4)
 				.icon-part-accent2
 					stroke: c.accent2
-				.icon-part-accent2-dark
-					stroke: darken(c.accent2, 60%)
+				.icon-part-accent2-faded
+					stroke: rgba(c.accent2, .4)
 			&.icon-animated-color-transition
 				animation: unquote(m+ColorFading) 1s 0s infinite ease alternate
 
@@ -547,7 +547,7 @@ loader(size, border)
 			border-color: c.gray3
 			border-top-color: c.gray1
 			&.loader-accent2
-				border-color: darken(c.accent2, 60%)
+				border-color: rgba(c.accent2, .4)
 				border-top-color: c.accent2
 
 // tooltip
