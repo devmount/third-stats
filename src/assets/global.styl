@@ -323,6 +323,7 @@ textarea
 	border: solid 1px
 	border-radius: 2px
 	padding: .5rem
+	outline: none
 	transition: all transition.duration transition.function
 	&:focus
 		z-index: 50
@@ -481,18 +482,19 @@ textarea
 						background: mode.dark.highlight
 
 .input-group
-	&>*:hover
-		z-index: 25
-	&>*:first-child
-		border-top-right-radius: 0
-		border-bottom-right-radius: 0
-	&>*:last-child
-		border-top-left-radius: 0
-		border-bottom-left-radius: 0
-	&>*:not(:first-child)
-		margin-left: -1px
-	&>*:not(:first-child):not(:last-child)
-		border-radius: 0
+	& > *, & > * > input
+		&:hover, &:hover > input
+			z-index: 25
+		&:first-child, &:first-child > input
+			border-top-right-radius: 0
+			border-bottom-right-radius: 0
+		&:last-child, &:last-child > input
+			border-top-left-radius: 0
+			border-bottom-left-radius: 0
+		&:not(:first-child):not(:last-child), &:not(:first-child):not(:last-child) > input
+			border-radius: 0
+		&:not(:first-child)
+			margin-left: -1px
 
 // tabs
 .tab
@@ -584,3 +586,5 @@ loader(size, border)
 		&:focus, &:hover
 			&::after
 				transform: translate(-50%, .4rem)
+	&.tooltip-error::after
+		background: rgba(mode.dark.error, .75)

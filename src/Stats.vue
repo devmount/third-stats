@@ -49,10 +49,25 @@
 					</div>
 					<!-- time period selection -->
 					<div class='filter-period d-flex ml-2'>
-						<label for='start' class='align-center text-gray p-0-5'>Time Period</label>
-						<div class="input-group d-flex">
-							<input type='text' v-model='active.period.start' @blur='formatPeriod("start")' placeholder='YYYY-MM-DD' id='start' class='align-stretch w-6' :class='{ error: error.period.start }' />
-							<input type='text' v-model='active.period.end' @blur='formatPeriod("end")' placeholder='YYYY-MM-DD' id='end' class='align-stretch w-6' :class='{ error: error.period.end }' />
+						<label for='start' class='align-center text-gray p-0-5'>{{ $t("stats.timePeriod") }}</label>
+						<div class='input-group d-flex align-stretch'>
+							<div
+								class='d-flex tooltip tooltip-bottom'
+								v-for='f in ["start", "end"]'
+								:key='f'
+								:data-tooltip='error.period[f].length > 0 ? error.period[f].join("\n") : $t("stats.tooltips.period." + f)'
+								:class='{ "tooltip-error": error.period[f].length > 0 }'
+							>
+								<input
+									type='text'
+									:id='f'
+									v-model='active.period[f]'
+									class='align-stretch w-6'
+									:class='{ error: error.period[f].length > 0 }'
+									placeholder='YYYY-MM-DD'
+									@blur='formatPeriod(f)'
+								/>
+							</div>
 							<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -361,34 +376,34 @@ export default {
 	components: { LineChart, BarChart, HeatMap },
 	data () {
 		return {
-			accounts: [],     // list of all existing accounts
-			folders: [],      // list of all existing folders for the current account
+			accounts: [],    // list of all existing accounts
+			folders: [],     // list of all existing folders for the current account
 			active: {
-				account: null,  // currently selected account
-				folder: null,   // currently selected folder
+				account: null, // currently selected account
+				folder: null,  // currently selected folder
 				period: {
-					start: null,  // currently configured start of period of time
-					end: null,    // currently configured end of period of time
+					start: null, // currently configured start of period of time
+					end: null,   // currently configured end of period of time
 				}
 			},
 			error: {
 				period: {
-					start: false, // indicates if currently configured start of period of time is valid
-					end: false,   // indicates if currently configured end of period of time is valid
+					start: [],   // indicates if currently configured start of period of time is valid
+					end: [],     // indicates if currently configured end of period of time is valid
 				}
 			},
-			waiting: false,   // hides all charts and processes data in foreground
-			loading: false,   // keeps showing charts and processes data in background
-			display: {},      // processed data to show in foreground
-			store: {},        // data store for background processing (same structure as display)
-			tabs: {           // tab navigation containing one active tab
+			waiting: false,  // hides all charts and processes data in foreground
+			loading: false,  // keeps showing charts and processes data in background
+			display: {},     // processed data to show in foreground
+			store: {},       // data store for background processing (same structure as display)
+			tabs: {          // tab navigation containing one active tab
 				years: true,
 				quarters: false,
 				months: false,
 				weeks: false,
 			},
-			preferences: {    // preferences set for this page
-				sections: {     // preferences that can be set on this page
+			preferences: {   // preferences set for this page
+				sections: {    // preferences that can be set on this page
 					total: {
 						expand: false
 					},
@@ -399,7 +414,7 @@ export default {
 						leaderCount: 20
 					}
 				},
-				dark: true,     // preferences loaded from stored options
+				dark: true,    // preferences loaded from stored options
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
@@ -727,8 +742,8 @@ export default {
 		resetPeriod: async function () {
 			this.active.period.start = null
 			this.active.period.end = null
-			this.error.period.start = false
-			this.error.period.end = false
+			this.error.period.start = []
+			this.error.period.end = []
 			this.preferences.sections.days.year = (new Date()).getFullYear()
 			if (this.active.folder) {
 			// reprocess current data if another filter is set
@@ -777,39 +792,33 @@ export default {
 		// returns true if entered time period is valid
 		validPeriod () {
 			let valid = true
-			// check start time
-			if (
-				// start time is not set
-				!this.active.period.start ||
-				// start time is no valid date
-				isNaN(Date.parse(this.active.period.start))
-			) {
+			this.error.period.start = []
+			this.error.period.end = []
+			// start time is not set
+			if (!this.active.period.start) {
 				valid = false
-				this.error.period.start = true
+				this.error.period.start.push(this.$t('stats.tooltips.error.empty'))
 			}
-			// check end time
-			if (
-				// end time is not set
-				!this.active.period.end ||
-				// end time is no valid date
-				isNaN(Date.parse(this.active.period.end))
-			) {
+			// start time is no valid date
+			if (isNaN(Date.parse(this.active.period.start))) {
 				valid = false
-				this.error.period.end = true
+				this.error.period.start.push(this.$t('stats.tooltips.error.dateFormat'))
 			}
-			// check both
-			if (
-				// start date is before end date
-				Date.parse(this.active.period.start) > Date.parse(this.active.period.end)
-			) {
+			// end time is not set
+			if (!this.active.period.end) {
 				valid = false
-				this.error.period.start = true
-				this.error.period.end = true
+				this.error.period.end.push(this.$t('stats.tooltips.error.empty'))
 			}
-			// remove previous errors if valid
-			if (valid) {
-				this.error.period.start = false
-				this.error.period.end = false
+			// end time is no valid date
+			if (isNaN(Date.parse(this.active.period.end))) {
+				valid = false
+				this.error.period.end.push(this.$t('stats.tooltips.error.dateFormat'))
+			}
+			// start date is before end date
+			if (Date.parse(this.active.period.start) > Date.parse(this.active.period.end)) {
+				valid = false
+				this.error.period.start.push(this.$t('stats.tooltips.error.dateOrderStart'))
+				this.error.period.end.push(this.$t('stats.tooltips.error.dateOrderEnd'))
 			}
 			return valid
 		}
