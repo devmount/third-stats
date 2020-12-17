@@ -121,6 +121,10 @@
       "label": "Dark Mode",
       "description": "Switch between dark and light color scheme"
     },
+    "ordinate": {
+      "label": "Vertical Axis",
+      "description": "Display vertical axis for all line and bar charts"
+    },
     "localIdentities": {
       "label": "Local Identities",
       "description": "A list of email addresses to recognize as 'sent from' for local accounts"
