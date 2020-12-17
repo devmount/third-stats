@@ -24,6 +24,7 @@
     "mailsWeek": "mails/week",
     "loadingInProgress": "Loading of all emails from this account in progress...",
     "accountEmpty": "This account is empty, no emails here.",
+    "timePeriod": "Time Period",
     "charts": {
       "years": {
         "title": "Years",
@@ -82,7 +83,18 @@
       "expand": "Expand chart area",
       "shrink": "Shrink chart area",
       "refresh": "Refresh data",
-      "clear": "Clear selection"
+      "clear": "Clear selection",
+      "period": {
+        "start": "From Date\nTip: Typing '201125' becomes '2020-11-25'",
+        "end": "To Date\nTip: Typing '201125' becomes '2020-11-25'"
+      },
+      "error": {
+        "empty": "Input is required",
+        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateUnreal": "A valid date is required",
+        "dateOrderStart": "Start date must be before end date",
+        "dateOrderEnd": "End date must be after start date"
+      }
     },
     "abbreviations": {
       "calendarWeek": "W",

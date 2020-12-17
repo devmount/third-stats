@@ -13,6 +13,7 @@ mode = {
 		secondary2: #000000
 		shade:      #1d1d1f
 		icon:       #ffeb3b
+		error:      #c8295d
 	}
 	light: {
 		accent1:    #e64db9
@@ -27,6 +28,7 @@ mode = {
 		secondary2: #ffffff
 		shade:      #6d6d6f
 		icon:       #607d8b
+		error:      #c8295d
 	}
 }
 transition = {
@@ -253,12 +255,12 @@ for m, c in mode
 			&.icon-hover-accent:hover
 				.icon-part-accent1
 					stroke: c.accent1
-				.icon-part-accent1-dark
-					stroke: darken(c.accent1, 60%)
+				.icon-part-accent1-faded
+					stroke: rgba(c.accent1, .4)
 				.icon-part-accent2
 					stroke: c.accent2
-				.icon-part-accent2-dark
-					stroke: darken(c.accent2, 60%)
+				.icon-part-accent2-faded
+					stroke: rgba(c.accent2, .4)
 			&.icon-animated-color-transition
 				animation: unquote(m+ColorFading) 1s 0s infinite ease alternate
 
@@ -321,6 +323,7 @@ textarea
 	border: solid 1px
 	border-radius: 2px
 	padding: .5rem
+	outline: none
 	transition: all transition.duration transition.function
 	&:focus
 		z-index: 50
@@ -337,6 +340,13 @@ textarea
 		.{m} &::placeholder
 			color: c.gray2
 			opacity: 1
+		.{m} &.error
+			z-index: 20
+			color: c.error
+			border-color: c.error
+			&:focus
+				z-index: 50
+				box-shadow: 0 0 0 .25rem rgba(c.error, .2)
 textarea
 	width: 100%
 	font-size: .9rem
@@ -471,6 +481,21 @@ textarea
 				~ .switch-handle
 						background: mode.dark.highlight
 
+.input-group
+	& > *, & > * > input
+		&:hover, &:hover > input
+			z-index: 25
+		&:first-child, &:first-child > input
+			border-top-right-radius: 0
+			border-bottom-right-radius: 0
+		&:last-child, &:last-child > input
+			border-top-left-radius: 0
+			border-bottom-left-radius: 0
+		&:not(:first-child):not(:last-child), &:not(:first-child):not(:last-child) > input
+			border-radius: 0
+		&:not(:first-child)
+			margin-left: -1px
+
 // tabs
 .tab
 	align-items: center
@@ -525,7 +550,7 @@ loader(size, border)
 			border-color: c.gray3
 			border-top-color: c.gray1
 			&.loader-accent2
-				border-color: darken(c.accent2, 60%)
+				border-color: rgba(c.accent2, .4)
 				border-top-color: c.accent2
 
 // tooltip
@@ -561,3 +586,5 @@ loader(size, border)
 		&:focus, &:hover
 			&::after
 				transform: translate(-50%, .4rem)
+	&.tooltip-error::after
+		background: rgba(mode.dark.error, .75)
