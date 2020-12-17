@@ -422,11 +422,11 @@ export default {
 					}
 				},
 				dark: true,    // preferences loaded from stored options
+				ordinate: false,
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
 				cache: true,
-				ordinate: false
 			},
 			publicPath: process.env.BASE_URL
 		}
@@ -448,6 +448,7 @@ export default {
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.preferences.dark = result.options.dark ? true : false
+				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
