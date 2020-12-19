@@ -6,7 +6,6 @@
     "account": "Account | Accounts",
     "folder": "Folder | Folders",
     "linkDescription": "Open all stats in new tab",
-    "messagesInFolder": "{0} messages in {1} folders",
     "message": "-"
   },
   "stats": {
