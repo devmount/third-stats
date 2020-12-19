@@ -25,7 +25,7 @@
 				>
 					<div>{{ a.name }}</div>
 					<div class='text-small text-secondary'>
-						{{ $t('popup.messagesInFolder', [a.messageCount, a.folderCount] ) }}
+						{{ a.folderCount }} {{ $tc('popup.folder', a.folderCount) }}
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@ export default {
 	data () {
 		return {
 			accounts: [],   // list of all existing accounts
-			waiting: true,  // processessing folder and message counts indication
+			waiting: false,  // processessing folder and message counts indication
 			options: {      // add-on options
 				accounts: [], // accounts to process
 				dark: true    // theme, always dark due to non colorable popup caret
@@ -49,10 +49,12 @@ export default {
 		}
 	},
 	created: async function () {
+		this.waiting = true
 		// get stored options
 		await this.getOptions()
-		// initially start account processing
-		this.getAccounts()
+		// start account processing
+		await this.getAccounts()
+		this.waiting = false
 	},
 	methods: {
 		// get all stored add-on options
@@ -72,32 +74,11 @@ export default {
 			}
 			// calculate folder and message count and append to account object
 			let self = this
-			Promise.all(accounts.map(async a => {
+			accounts.map(async a => {
 				let folders = traverseAccount(a)
 				a.folderCount = folders.length
-				a.messageCount = 0
-				await Promise.all(folders.map(async f => {
-					let c = await self.countMessages(f)
-					a.messageCount += c
-				}))
-			})).then(() => {
-				this.waiting = false
 			})
 			this.accounts = accounts
-		},
-		// count all messages of given <folder>
-		countMessages: async function (folder) {
-			if (!folder) return 0
-			let count = 0
-			let page  = await messenger.messages.list(folder)
-			if (page) {
-				count = page.messages.length
-				while (page.id) {
-					page = await messenger.messages.continueList(page.id)
-					count += page.messages.length
-				}
-			}
-			return count
 		},
 		// open the stats page as new tab with accounts appended as GET parameter
 		openTab (accountPosition) {
