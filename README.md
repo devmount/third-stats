@@ -35,6 +35,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
   - Sum of received and sent emails per daytime and per weekday
   - Temporal distribution of received and sent emails per weekday per hour
   - Leaderboards of most contacted email addresses
+- Show stats for a specific folder or period of time
 - Activate all accounts that should be included (add-on option)
 - Use a dark or a light theme (add-on option)
 - Use a caching system to store already processed data (add-on option)
