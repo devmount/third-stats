@@ -4,9 +4,10 @@
   },
   "popup": {
     "account": "Konto | Konten",
-    "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
+    "linkDescription": "Alle Statistiken in einem neuen Tab öffnen",
     "message": "-",
-    "linkDescription": "Alle Statistiken in einem neuen Tab öffnen"
+    "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
+    "folder": "Ordner | Ordner"
   },
   "stats": {
     "mailsTotal": "E-Mails gesamt",
@@ -80,16 +81,34 @@
     "tooltips": {
       "expand": "Bereich vergrößern",
       "shrink": "Bereich verkleiner",
-      "refresh": "Daten aktualisieren"
+      "refresh": "Daten aktualisieren",
+      "clear": "Auswahl aufheben",
+      "period": {
+        "start": "Startdatum\nTipp: '{0}' wird automatisch zu '{1}'",
+        "end": "Enddatum\nTipp: '{0}' wird automatisch zu '{1}'"
+      },
+      "error": {
+        "empty": "Eingabe ist erforderlich",
+        "dateFormat": "Format JJJJ-MM-TT ist erforderlich, z.B 2020-01-31",
+        "dateUnreal": "Ein gültiges Datum ist erforderlich",
+        "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
+        "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen"
+      }
     },
     "abbreviations": {
       "calendarWeek": "KW",
       "quarter": "Q"
     },
     "starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
+    "message": "-",
+    "timePeriod": "Zeitraum"
   },
   "options": {
+    "headings": {
+      "appearance": "Aussehen & Nutzererlebnis",
+      "stats": "Diagramme & Daten",
+      "storage": "Speicher & Cache"
+    },
     "switch": {
       "on": "An",
       "off": "Aus"
@@ -106,15 +125,13 @@
       "label": "Lokale Identitäten",
       "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
     },
-    "message": "-",
     "startOfWeek": {
       "label": "Die Woche startet am",
       "description": "Benutzerdefinierter Wochenstart für alle wochentagsbezogenen Diagramme"
     },
-    "headings": {
-      "appearance": "Aussehen & Nutzererlebnis",
-      "stats": "Diagramme & Daten",
-      "storage": "Speicher & Cache"
+    "activeAccounts": {
+      "label": "Aktive Konten",
+      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen."
     },
     "cache": {
       "label": "Cache aktivieren",
@@ -130,9 +147,10 @@
       "title": "Hinweis",
       "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
     },
-    "activeAccounts": {
-      "label": "Aktive Konten",
-      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen."
+    "message": "-",
+    "ordinate": {
+      "label": "Vertikale Achse",
+      "description": "Vertikale Achse für alle Linien- und Balkendiagramme anzeigen"
     }
   }
 }
