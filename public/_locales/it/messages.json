@@ -4,8 +4,10 @@
   },
   "popup": {
     "account": "Account | Account",
+    "message": "-",
     "messagesInFolder": "{0} messaggi in {1} cartelle",
-    "message": "-"
+    "folder": "Cartella | Cartelle",
+    "linkDescription": "Apri tutte le statistiche in una nuova scheda"
   },
   "stats": {
     "mailsTotal": "Mail totali",
@@ -78,14 +80,28 @@
     },
     "tooltips": {
       "expand": "Espandi area grafici",
-      "shrink": "Riduci area grafici"
+      "shrink": "Riduci area grafici",
+      "refresh": "Aggiorna i dati",
+      "clear": "Cancella selezione",
+      "period": {
+        "start": "Dalla data\nSuggerimento: digitando \"{0}\" diventa \"{1}\"",
+        "end": "Ad oggi\nSuggerimento: digitando \"{0}\" diventa \"{1}\""
+      },
+      "error": {
+        "empty": "È richiesto un ingresso",
+        "dateFormat": "Il formato AAAA-MM-GG è obbligatorio, ad es. 2020-01-31",
+        "dateUnreal": "È richiesta una data valida",
+        "dateOrderStart": "La data di inizio deve essere precedente alla data di fine",
+        "dateOrderEnd": "La data di fine deve essere successiva alla data di inizio"
+      }
     },
     "abbreviations": {
       "calendarWeek": "W",
       "quarter": "Q"
     },
     "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
+    "message": "-",
+    "timePeriod": "Periodo di tempo"
   },
   "options": {
     "switch": {
@@ -93,7 +109,8 @@
       "off": "Off"
     },
     "button": {
-      "save": "Salva"
+      "save": "Salva",
+      "clearCache": "Cancella cache"
     },
     "darkMode": {
       "label": "Modalità scura",
@@ -103,6 +120,37 @@
       "label": "Identità locali",
       "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali"
     },
-    "message": "-"
+    "message": "-",
+    "headings": {
+      "appearance": "Aspetto ed Esperienza",
+      "stats": "Grafici e Dati",
+      "storage": "Archiviazione e Cache"
+    },
+    "ordinate": {
+      "label": "Asse verticale",
+      "description": "Visualizza l'asse verticale per tutti i grafici a linee ea barre"
+    },
+    "startOfWeek": {
+      "label": "Inizia la settimana",
+      "description": "Inizio della settimana personalizzato per tutti i grafici relativi ai giorni feriali"
+    },
+    "activeAccounts": {
+      "label": "Account attivi",
+      "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche."
+    },
+    "cache": {
+      "label": "Attiva la cache",
+      "description": "Abilita il sistema di caching per una visualizzazione più rapida dei dati statistici già elaborati."
+    },
+    "clearCache": {
+      "label": "Cancella cache",
+      "description": "Rimuovi tutti i dati delle statistiche memorizzati nella cache da tutti gli account. Verrà ricostruito aprendo nuovamente la pagina delle statistiche.",
+      "empty": "La cache è vuota",
+      "size": "La dimensione della cache è {0}"
+    },
+    "note": {
+      "title": "Nota",
+      "reloadStatsPage": "Le opzioni vengono salvate automaticamente. Se la pagina delle statistiche è già aperta, è necessario riaprirla o ricaricarla per applicare le modifiche."
+    }
   }
 }
