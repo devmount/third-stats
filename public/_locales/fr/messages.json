@@ -4,8 +4,10 @@
   },
   "popup": {
     "account": "Compte | Comptes",
+    "message": "-",
     "messagesInFolder": "{0} message(s) dans {1} dossier(s)",
-    "message": "-"
+    "folder": "Dossier | Dossiers",
+    "linkDescription": "Ouvrez toutes les statistiques dans un nouvel onglet"
   },
   "stats": {
     "mailsTotal": "Total des messages",
@@ -78,14 +80,28 @@
     },
     "tooltips": {
       "expand": "Agrandir la zone du graphique",
-      "shrink": "Rétrécir la zone du graphique"
+      "shrink": "Rétrécir la zone du graphique",
+      "refresh": "Actualiser les données",
+      "clear": "Effacer la sélection",
+      "period": {
+        "start": "De ce jour\nConseil: taper «{0}» devient «{1}»",
+        "end": "À ce jour\nConseil: taper «{0}» devient «{1}»"
+      },
+      "error": {
+        "empty": "Une entrée est requise",
+        "dateFormat": "Le format AAAA-MM-JJ est requis, par ex. 2020-01-31",
+        "dateUnreal": "Une date valide est requise",
+        "dateOrderStart": "La date de début doit être antérieure à la date de fin",
+        "dateOrderEnd": "La date de fin doit être postérieure à la date de début"
+      }
     },
     "abbreviations": {
       "calendarWeek": "S",
       "quarter": "T"
     },
     "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
+    "message": "-",
+    "timePeriod": "Période de temps"
   },
   "options": {
     "switch": {
@@ -93,7 +109,8 @@
       "off": "Arrêt"
     },
     "button": {
-      "save": "Sauvegarder"
+      "save": "Sauvegarder",
+      "clearCache": "Vider le cache"
     },
     "darkMode": {
       "label": "Mode sombre",
@@ -103,6 +120,37 @@
       "label": "Identités locales",
       "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux"
     },
-    "message": "-"
+    "message": "-",
+    "headings": {
+      "appearance": "Apparence et Expérience",
+      "stats": "Graphiques et Données",
+      "storage": "Stockage et Cache"
+    },
+    "ordinate": {
+      "label": "Axe vertical",
+      "description": "Afficher l'axe vertical pour tous les graphiques en lignes et en barres"
+    },
+    "startOfWeek": {
+      "label": "Commencer la semaine le",
+      "description": "Début de semaine personnalisé pour tous les graphiques liés à la semaine"
+    },
+    "activeAccounts": {
+      "label": "Comptes actifs",
+      "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques."
+    },
+    "cache": {
+      "label": "Activer le cache",
+      "description": "Activez le système de mise en cache pour un affichage plus rapide des données de statistiques déjà traitées."
+    },
+    "clearCache": {
+      "label": "Vider le cache",
+      "description": "Supprimez toutes les données de statistiques mises en cache de tous les comptes. Sera reconstruit en ouvrant à nouveau la page de statistiques.",
+      "empty": "Le cache est vide",
+      "size": "La taille du cache est de {0}"
+    },
+    "note": {
+      "title": "Remarque",
+      "reloadStatsPage": "Les options sont automatiquement enregistrées. Si la page de statistiques est déjà ouverte, vous devez la rouvrir ou la recharger pour que les modifications soient appliquées."
+    }
   }
 }
