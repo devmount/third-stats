@@ -66,6 +66,7 @@
 									:class='{ error: error.period[f].length > 0 }'
 									placeholder='YYYY-MM-DD'
 									@blur='formatPeriod(f)'
+									v-on:keyup.enter='formatPeriod(f);updatePeriod()'
 								/>
 							</div>
 							<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
