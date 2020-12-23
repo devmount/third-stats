@@ -84,8 +84,8 @@
       "refresh": "Refresh data",
       "clear": "Clear selection",
       "period": {
-        "start": "From Date\nTip: Typing '201125' becomes '2020-11-25'",
-        "end": "To Date\nTip: Typing '201125' becomes '2020-11-25'"
+        "start": "From Date\nTip: Typing '{0}' becomes '{1}'",
+        "end": "To Date\nTip: Typing '{0}' becomes '{1}'"
       },
       "error": {
         "empty": "Input is required",

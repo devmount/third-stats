@@ -55,7 +55,7 @@
 								class='d-flex tooltip tooltip-bottom'
 								v-for='f in ["start", "end"]'
 								:key='f'
-								:data-tooltip='error.period[f].length > 0 ? error.period[f].join("\n") : $t("stats.tooltips.period." + f)'
+								:data-tooltip='error.period[f].length > 0 ? error.period[f].join("\n") : $t("stats.tooltips.period." + f, [examplePeriodShort, examplePeriodFormatted])'
 								:class='{ "tooltip-error": error.period[f].length > 0 }'
 							>
 								<input
@@ -1228,6 +1228,16 @@ export default {
 		// returns true, if at least one filter isn't empty
 		filtered () {
 			return this.active.folder || this.active.period.start || this.active.period.end
+		},
+		// returns the current date as example for short period input (YYMMDD)
+		examplePeriodShort () {
+			let d = new Date()
+			return d.toISOString().replace(/-/g, '').slice(2,8)
+		},
+		// returns the current date as example for formatted period input (YYYY-MM-DD)
+		examplePeriodFormatted () {
+			let d = new Date()
+			return d.toISOString().slice(0,10)
 		},
 		// convert theme preference into scheme name
 		scheme () {
