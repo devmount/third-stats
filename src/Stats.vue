@@ -59,22 +59,17 @@
 								:class='{ "tooltip-error": error.period[f].length > 0 }'
 							>
 								<input
-									type='text'
+									type='date'
+									autocomplete='bday'
 									:id='f'
 									v-model='active.period[f]'
 									class='align-stretch w-6'
 									:class='{ error: error.period[f].length > 0 }'
-									placeholder='YYYY-MM-DD'
-									@blur='formatPeriod(f)'
-									v-on:keyup.enter='formatPeriod(f);updatePeriod()'
+									:max='{ new Date().toISOString().substr(0, 10) }'
+									:min='{ store.numbers.start }'
+									v-on:change='updatePeriod()'
 								/>
 							</div>
-							<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
-								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-									<path d="M5 12l5 5l10 -10" />
-								</svg>
-							</button>
 						</div>
 						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetPeriod(true)'>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
@@ -777,31 +772,6 @@ export default {
 		formatFolder (folder) {
 			const level = (folder.path.match(/\//g) || []).length
 			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
-		},
-		// format period date input to match YYYY-MM-DD
-		formatPeriod (key) {
-			if (this.active.period[key]) {
-				let s = this.active.period[key]
-				// complete year
-				if (s.length == 6) {
-					s = String((new Date()).getFullYear()).slice(0, 2) + s
-				}
-				// insert dashes
-				if (!s.includes('-')) {
-					s = s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6)
-				}
-				// shorten to 10 characters
-				s = s.slice(0, 10)
-				// set lower limit
-				if (!isNaN(Date.parse(s)) && Date.parse(s) < 0) {
-					s = '1970-01-01'
-				}
-				// set upper limit
-				if (!isNaN(Date.parse(s)) && Date.parse(s) > Date.now()) {
-					s = (new Date()).toISOString().slice(0, 10)
-				}
-				this.active.period[key] = s
-			}
 		},
 		// returns true if entered time period is valid
 		validPeriod () {
