@@ -23,6 +23,7 @@
     "mailsWeek": "mails/week",
     "loadingInProgress": "Loading of all emails from this account in progress...",
     "accountEmpty": "This account is empty, no emails here.",
+    "allAccountsSum": "All Accounts (Sum)",
     "timePeriod": "Time Period",
     "charts": {
       "years": {
