@@ -37,17 +37,28 @@
 					<!-- folder selection -->
 					<div class='filter-folder d-flex ml-2'>
 						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
-						<select
-							id='folder'
-							v-model='active.folder'
-							:disabled='loading || active.account=="sum"'
-							class='align-stretch w-6'
-							:class='{ disabled: loading || active.account=="sum" }'
+						<div
+							class="d-flex align-stretch tooltip-bottom"
+							:class='{ tooltip: active.account=="sum" }'
+							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccountsSum")])'
 						>
-							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
-						</select>
-						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetFolder(true)'>
-							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+							<select
+								id='folder'
+								v-model='active.folder'
+								:disabled='loading || active.account=="sum"'
+								class='align-stretch w-6'
+								:class='{ disabled: loading || active.account=="sum" }'
+							>
+								<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
+							</select>
+						</div>
+						<div
+							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
+							:class='{ "cursor-na": loading || active.account=="sum" }'
+							:data-tooltip='$t("stats.tooltips.clear")'
+							@click='resetFolder(true)'
+						>
+							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading && active.account!="sum" }' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
 								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />

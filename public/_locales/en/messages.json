@@ -84,6 +84,9 @@
       "shrink": "Shrink chart area",
       "refresh": "Refresh data",
       "clear": "Clear selection",
+      "folder": {
+        "notAvailable": "Folders are not available for {0}"
+      },
       "period": {
         "start": "From Date\nTip: Typing '201125' becomes '2020-11-25'",
         "end": "To Date\nTip: Typing '201125' becomes '2020-11-25'"

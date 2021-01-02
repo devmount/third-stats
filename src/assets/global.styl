@@ -211,6 +211,8 @@ for m, c in mode
 // cursor
 .cursor-pointer
 	cursor: pointer
+.cursor-na
+	cursor: not-allowed
 
 // icons
 .icon
@@ -279,6 +281,8 @@ button
 	transition: all transition.duration transition.function
 	cursor: pointer
 	color: mode.dark.highlight
+	&.disabled
+		cursor: not-allowed
 	&:focus
 		z-index: 50
 	for m, c in mode
@@ -302,6 +306,8 @@ select
 	outline: none
 	box-sizing: content-box
 	transition: all transition.duration transition.function
+	&.disabled
+		cursor: not-allowed
 	&:focus
 		z-index: 50
 	for m, c in mode
@@ -309,9 +315,9 @@ select
 			color: c.front
 			background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
 			border-color: c.gray2
-		.{m} &:hover
+		.{m} &:hover:not(.disabled)
 			border-color: c.gray1
-		.{m} &:focus
+		.{m} &:focus:not(.disabled)
 			border-color: c.accent2
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
 
@@ -325,6 +331,8 @@ textarea
 	padding: .5rem
 	outline: none
 	transition: all transition.duration transition.function
+	&.disabled
+		cursor: not-allowed
 	&:focus
 		z-index: 50
 	for m, c in mode
