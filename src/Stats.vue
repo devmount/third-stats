@@ -731,11 +731,9 @@ export default {
 			this.preferences.sections.total.expand = false
 			this.preferences.sections.days.year = initData.numbers.start.getFullYear()
 		},
-		// retrieve and process data of account with <id=accountId> or accounts with <id=sum>
-		// showing loading animation if <showLoading=true>
+		// retrieve and process data of account with <id=accountId>
+		// or of multiple accounts with <id=sum>
 		async refresh (id, showLoading) {
-			// start loading indication for single accounts
-			if (showLoading) this.loading = true
 			// reset already processed data
 			this.reset()
 			// get currently selected account
@@ -752,8 +750,6 @@ export default {
 				stats['stats-' + id] = JSON.parse(JSON.stringify(accountData))
 				await messenger.storage.local.set(stats)
 			}
-			// stop loading indication
-			if (showLoading) this.loading = false
 			// return processed account data
 			return accountData
 		},
@@ -779,7 +775,7 @@ export default {
 						accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])))
 					} else {
 						// otherwise (re)process account
-						let data = await this.refresh(a.id, false)
+						let data = await this.refresh(a.id)
 						accountsData.push(JSON.parse(JSON.stringify(data)))
 					}
 				}))
@@ -856,7 +852,7 @@ export default {
 					this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
 				} else {
 					// otherwise retrieve it first/again
-					await this.refresh(id, false)
+					await this.refresh(id)
 				}
 			}
 			// stop loading indication
@@ -867,20 +863,15 @@ export default {
 		async resetFolder (reload) {
 			this.active.folder = null
 			if (reload) {
-				if (this.active.period.start || this.active.period.end) {
-					// reprocess current data if another filter is set
-					await this.refresh(this.active.account, true)
-				} else {
-					// otherwise just load account data
-					await this.loadAccount(this.active.account, false)
-				}
+				// reprocess current data if another filter is set, otherwise just load account data
+				await this.loadAccount(this.active.account, this.active.period.start || this.active.period.end)
 			}
 		},
 		// process data for current time period filter
 		// calls refresh if filter is valid
 		async updatePeriod () {
 			if (this.validPeriod()) {
-				await this.refresh(this.active.account, true)
+				await this.loadAccount(this.active.account, true)
 				this.display.numbers.start = new Date(this.active.period.start)
 				this.display.numbers.end = new Date(this.active.period.end)
 				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
@@ -895,13 +886,8 @@ export default {
 			this.error.period.end = []
 			this.preferences.sections.days.year = (new Date()).getFullYear()
 			if (reload) {
-				if (this.active.folder) {
-					// reprocess current data if another filter is set
-					await this.refresh(this.active.account, true)
-				} else {
-					// otherwise just load account data
-					await this.loadAccount(this.active.account, false)
-				}
+				// reprocess current data if another filter is set, otherwise just load account data
+				await this.loadAccount(this.active.account, this.active.folder)
 			}
 		},
 		// tab navigation
@@ -1329,8 +1315,8 @@ export default {
 		// retrieve data again for current account selection
 		async 'active.folder' (folder) {
 			if (folder) {
-				// refresh function handles processing for active folder only
-				await this.refresh(this.active.account, true)
+				// start processing for active folder only
+				await this.loadAccount(this.active.account, true)
 			}
 		}
 	}
