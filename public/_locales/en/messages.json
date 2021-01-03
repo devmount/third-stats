@@ -23,6 +23,7 @@
     "mailsWeek": "mails/week",
     "loadingInProgress": "Loading of all emails from this account in progress...",
     "accountEmpty": "This account is empty, no emails here.",
+    "allAccountsSum": "All Accounts (Sum)",
     "timePeriod": "Date range",
     "charts": {
       "years": {
@@ -83,6 +84,9 @@
       "shrink": "Shrink chart area",
       "refresh": "Refresh data",
       "clear": "Clear selection",
+      "folder": {
+        "notAvailable": "Folders are not available for {0}"
+      },
       "period": {
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'",
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'"

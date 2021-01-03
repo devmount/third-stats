@@ -12,15 +12,16 @@
 					<!-- account selection -->
 					<div class='filter-account d-flex'>
 						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
-						<select v-model='active.account' :disabled='waiting || loading' class='align-stretch w-6' :class='{ disabled: waiting || loading }' id='account'>
+						<select v-model='active.account' :disabled='loading' class='align-stretch w-6' :class='{ disabled: loading }' id='account'>
+							<option v-if='accounts.length > 1 && preferences.cache' :value='"sum"'>{{ $t('stats.allAccountsSum') }}</option>
 							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 						</select>
-						<div v-show='waiting || loading' :class='scheme + " loading align-center loader-accent2"'></div>
+						<div v-show='loading' :class='scheme + " loading align-center loader-accent2"'></div>
 						<div
-							v-show='!waiting && !loading'
+							v-show='!loading'
 							class='refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex'
 							:data-tooltip='$t("stats.tooltips.refresh")'
-							@click='refresh(true)'
+							@click='loadAccount(active.account, true)'
 						>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
@@ -36,11 +37,28 @@
 					<!-- folder selection -->
 					<div class='filter-folder d-flex ml-2'>
 						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
-						<select v-model='active.folder' :disabled='waiting || loading' class='align-stretch w-6' :class='{ disabled: waiting || loading }' id='folder'>
-							<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
-						</select>
-						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetFolder(true)'>
-							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
+						<div
+							class="d-flex align-stretch tooltip-bottom"
+							:class='{ tooltip: !singleAccount }'
+							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccountsSum")])'
+						>
+							<select
+								id='folder'
+								v-model='active.folder'
+								:disabled='loading || !singleAccount'
+								class='align-stretch w-6'
+								:class='{ disabled: loading || !singleAccount }'
+							>
+								<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
+							</select>
+						</div>
+						<div
+							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
+							:class='{ "cursor-na": loading || !singleAccount }'
+							:data-tooltip='$t("stats.tooltips.clear")'
+							@click='singleAccount ? resetFolder(true) : null'
+						>
+							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading && singleAccount }' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
 								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
@@ -127,7 +145,7 @@
 				</div>
 			</section>
 			<!-- still processing -->
-			<section v-if='waiting' class='mt-5'>
+			<section v-if='loading && display.numbers.total == 0' class='mt-5'>
 				<svg class='icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition' viewBox='0 0 24 24'>
 					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 					<polyline points='4 19 8 13 12 15 16 10 20 14 20 19 4 19' />
@@ -138,7 +156,7 @@
 				</div>
 			</section>
 			<!-- empty account -->
-			<section v-else-if='display.numbers.total == 0' class='mt-5'>
+			<section v-if='!loading && display.numbers.total == 0' class='mt-5'>
 				<svg class="icon icon-huge icon-gray d-block m-0-auto" viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<rect x="4" y="4" width="16" height="16" rx="2" />
@@ -149,7 +167,7 @@
 				</div>
 			</section>
 			<!-- charts -->
-			<section v-else class='charts mt-2'>
+			<section v-if='display.numbers.total > 0' class='charts mt-2'>
 				<div
 					id='chart-area-top'
 					class='chart-area'
@@ -369,7 +387,7 @@ Chart.defaults.global.tooltips.yPadding = 10
 Chart.defaults.global.tooltips.cornerRadius = 2
 Chart.defaults.global.hover.mode = 'index'
 
-// define helper classes for object generation
+// helper class for object generation
 class NumberedObject {
 	constructor(n, m=null) {
 		const a = [...Array(n).keys()]
@@ -377,6 +395,39 @@ class NumberedObject {
 			this[e] = m === null ? 0 : new Array(m).fill(0)
 		})
 	}
+}
+// helper function for objects sum, given array of flat objects
+const sumObjects = (objs) => {
+	const res = objs.reduce((a, b) => {
+		for (let k in b) {
+			if (b.hasOwnProperty(k))
+				a[k] = (a[k] || 0) + b[k]
+		}
+		return a
+	}, {})
+	return res
+}
+// helper function for objects sum, given array of objects of arrays
+const sumObjectsArrays = (objs) => {
+	const res = objs.reduce((a, b) => {
+		for (let k in b) {
+			if (b.hasOwnProperty(k)) {
+				if (!a[k])
+					a[k] = new Array(b[k].length).fill(0)
+				for(let i=0; i<b[k].length; ++i)
+					a[k][i] = b[k][i] + a[k][i]
+			}
+		}
+		return a
+	}, {})
+	return res
+}
+// helper function to sort object properties by value and limit entries
+const sortAndLimitObject = (obj, limit) => {
+	let r = Object.entries(obj).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+	return Object.keys(r)
+		.slice(0, limit)
+		.reduce((result, key) => { result[key] = r[key]; return result; }, {})
 }
 
 export default {
@@ -400,10 +451,8 @@ export default {
 					end: [],     // indicates if currently configured end of period of time is valid
 				}
 			},
-			waiting: false,  // hides all charts and processes data in foreground
-			loading: false,  // keeps showing charts and processes data in background
-			display: {},     // processed data to show in foreground
-			store: {},       // data store for background processing (same structure as display)
+			loading: false,  // loading indication, keeps showing results and processes data in background
+			display: {},     // processed data to show
 			tabs: {          // tab navigation containing one active tab
 				years: true,
 				quarters: false,
@@ -432,202 +481,21 @@ export default {
 			publicPath: process.env.BASE_URL
 		}
 	},
-	created: async function () {
+	async created () {
 		// set initial tab title
 		document.title = 'ThirdStats'
-		// initially reset everything (stored and displayed data)
-		this.reset(false)
+		// initially reset displayed data
+		this.display = JSON.parse(JSON.stringify(this.initData()))
 		// get stored options
 		await this.getOptions()
 		// get all accounts
 		this.getAccounts()
 	},
 	methods: {
-		// get all add-on settings from the options page
-		getOptions: async function () {
-			let result = await messenger.storage.local.get('options')
-			// only load options if they have been set, otherwise default settings will be kept
-			if (result && result.options) {
-				this.preferences.dark = result.options.dark ? true : false
-				this.preferences.ordinate = result.options.ordinate ? true : false
-				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
-				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
-				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
-				this.preferences.cache = result.options.cache ? true : false
-			}
-		},
-		// get all accounts, get active account from URL get parameter
-		getAccounts: async function () {
-			let accounts = await messenger.accounts.list()
-			// filter list of accounts if user configured custom list
-			if (this.preferences.accounts.length > 0) {
-				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
-			}
-			// check if a specific account was given
-			let uri = window.location.search.substring(1)
-			let params = new URLSearchParams(uri)
-			let accountPosition = Number(params.get('a'))
-			// assign accounts
-			this.accounts = accounts
-			this.active.account = accounts[accountPosition].id
-		},
-		// iterate through all folders of a given account <a>, do it in background <hidden=true> or in foreground <hidden=false>
-		processAccount: async function (a, hidden) {
-			// get identities from account, or from preferences if it's a local account
-			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
-			// get all folders and subfolders from given account or selected folder of active account (filter field)
-			let folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
-			// build folder list for filter selection, if not already present
-			if (!this.folders.length) {
-				this.folders = folders
-			}
-			let self = this
-			await Promise.all(folders.map(async f => {
-				// analyze all messages in all folders
-				await self.processMessages(f, identities, hidden)
-			})).then(() => {
-				let store = hidden ? self.store : self.display
-				// post processing: reduce size of contacts to configured limit
-				let r = Object.entries(store.contacts.received).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-				store.contacts.received = Object.keys(r)
-					.slice(0, self.preferences.sections.contacts.leaderCount)
-					.reduce((result, key) => { result[key] = r[key]; return result; }, {})
-				let s = Object.entries(store.contacts.sent).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
-				store.contacts.sent = Object.keys(s)
-					.slice(0, self.preferences.sections.contacts.leaderCount)
-					.reduce((result, key) => { result[key] = s[key]; return result; }, {})
-				// post processing: display data now if it was processed in background
-				if (hidden) {
-					self.display = JSON.parse(JSON.stringify(self.store))
-				}
-			})
-		},
-		// process all messages of a given <folder> with its <identities> in background <hidden=true> or in foreground <hidden=false>
-		processMessages: async function (folder, identities, hidden) {
-			if (folder) {
-				let self = this
-				let page = null
-				if (this.active.period.start && this.active.period.end) {
-					let start = new Date(this.active.period.start)
-					let end = new Date(this.active.period.end)
-					page = await messenger.messages.query({ folder: folder, fromDate: start, toDate: end })
-				} else {
-					page = await messenger.messages.list(folder)
-				}
-				if (page) {
-					page.messages.map(m => self.analyzeMessage(m, identities, hidden))
-					while (page.id) {
-						page = await messenger.messages.continueList(page.id)
-						page.messages.map(m => self.analyzeMessage(m, identities, hidden))
-					}
-				}
-			}
-		},
-		// extract information of a single message
-		analyzeMessage (m, identities, hidden) {
-			let type = ''
-			let store = hidden ? this.store : this.display
-			// numbers
-			store.numbers.total++
-			if (m.read === false) store.numbers.unread++
-			let author = extractEmailAddress(m.author)
-			if (identities.includes(author)) {
-				store.numbers.sent++
-				type = 'sent'
-			} else {
-				store.numbers.received++
-				type = 'received'
-			}
-			// calculate starting date (= date of oldest email)
-			let start = new Date(store.numbers.start)
-			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
-				store.numbers.start = m.date
-			}
-			// years
-			let y = m.date.getFullYear()
-			if (!(y in store.yearsData[type])) {
-				store.yearsData[type][y] = 1
-			} else {
-				store.yearsData[type][y]++
-			}
-			// quarters
-			let qn = quarterNumber(m.date)
-			if (!(y in store.quartersData[type])) {
-				store.quartersData[type][y] = {}
-				store.quartersData[type][y][qn] = 1
-			} else {
-				if (!(qn in store.quartersData[type][y])) {
-					store.quartersData[type][y][qn] = 1
-				} else {
-					store.quartersData[type][y][qn]++
-				}
-			}
-			// months
-			let mo = m.date.getMonth()
-			if (!(y in store.monthsData[type])) {
-				store.monthsData[type][y] = {}
-				store.monthsData[type][y][mo] = 1
-			} else {
-				if (!(mo in store.monthsData[type][y])) {
-					store.monthsData[type][y][mo] = 1
-				} else {
-					store.monthsData[type][y][mo]++
-				}
-			}
-			// weeks
-			let wn = weekNumber(m.date)
-			if (!(y in store.weeksData[type])) {
-				store.weeksData[type][y] = {}
-				store.weeksData[type][y][wn] = 1
-			} else {
-				if (!(wn in store.weeksData[type][y])) {
-					store.weeksData[type][y][wn] = 1
-				} else {
-					store.weeksData[type][y][wn]++
-				}
-			}
-			// daytime
-			let dt = m.date.getHours()
-			store.daytimeData[type][dt]++
-			// weekday
-			let wd = m.date.getDay()
-			store.weekdayData[type][wd]++
-			// month
-			store.monthData[type][mo]++
-			// weekday per calendar week
-			if (!(y in store.daysData[type])) {
-				store.daysData[type][y] = new NumberedObject(7,53)
-			}
-			store.daysData[type][y][wd][wn-1]++
-			// weekday per hour
-			store.weekdayPerHourData[type][wd][dt]++
-			// contacts (leaderboards)
-			switch (type) {
-				case 'sent':
-					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
-					recipients.map(r => {
-						if (!(r in store.contacts['sent'])) {
-							store.contacts['sent'][r] = 1
-						} else {
-							store.contacts['sent'][r]++
-						}
-					})
-					break;
-				case 'received':
-					let a = author.toLowerCase()
-					if (!(a in store.contacts['received'])) {
-						store.contacts['received'][a] = 1
-					} else {
-						store.contacts['received'][a]++
-					}
-					break;
-				default:
-					break;
-			}
-		},
-		// reset processed data to initial state, only reset store if processed in background <hidden=true>
-		reset (hidden) {
-			let initObject = { 
+		// basic data structure for display numbers and charts
+		// used for single and multi-account display
+		initData () {
+			return { 
 				numbers: {
 					total: 0,
 					unread: 0,
@@ -677,108 +545,361 @@ export default {
 					sent: {},
 				}
 			}
-			if (!hidden) {
-				this.display = JSON.parse(JSON.stringify(initObject))
-			}
-			this.store = JSON.parse(JSON.stringify(initObject))
-			this.preferences.sections.total.expand = false
-			this.preferences.sections.days.year = initObject.numbers.start.getFullYear()
 		},
-		// retrieve and process data again in background <hidden=true> or foreground <hidden=false>
-		refresh: async function (hidden) {
-			// start loading indication
-			if (hidden) {
-				this.loading = true
-			} else {
-				this.waiting = true
-			}
-			// reset already processed data
-			this.reset(hidden)
-			// get currently selected account
-			let account = await messenger.accounts.get(this.active.account)
-			// process data of this account again and update this.display
-			await this.processAccount(account, hidden)
-			// only store reprocessed data if cache is enabled and no filter is set
-			if (this.preferences.cache && !this.filtered) {
-				let stats = {}
-				stats['stats-' + this.active.account] = JSON.parse(JSON.stringify(this.display))
-				await messenger.storage.local.set(stats)
-			}
-			// stop loading indication
-			if (hidden) {
-				this.loading = false
-			} else {
-				this.waiting = false
+		// get all add-on settings from the options page
+		// for non existing options use default value
+		async getOptions () {
+			let result = await messenger.storage.local.get('options')
+			// only load options if they have been set, otherwise default settings will be kept
+			if (result && result.options) {
+				this.preferences.dark = result.options.dark ? true : false
+				this.preferences.ordinate = result.options.ordinate ? true : false
+				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
+				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
+				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
+				this.preferences.cache = result.options.cache ? true : false
 			}
 		},
-		// load data of given account
-		loadAccount: async function (id) {
-			let account = await messenger.accounts.get(id)
-			// set tab title
-			document.title = 'ThirdStats: ' + account.name
-			// (re)calculate list of folders
-			this.folders = traverseAccount(account)
-			// only check storage if cache is enabled
-			let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
-			if (result && result['stats-' + id]) {
-				// if cache is enabled and data already exists in storage, display it directly
-				this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
-			} else {
-				// otherwise retrieve it first/again
-				await this.refresh(false)
+		// retrieve accounts list
+		// get active account from URL get parameter
+		async getAccounts () {
+			let accounts = await messenger.accounts.list()
+			// filter list of accounts if user configured custom list
+			if (this.preferences.accounts.length > 0) {
+				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
 			}
+			// check if a specific account was given
+			let uri = window.location.search.substring(1)
+			let params = new URLSearchParams(uri)
+			let accountPosition = Number(params.get('a'))
+			// assign accounts
+			this.accounts = accounts
+			this.active.account = accounts[accountPosition].id
 		},
-		// reset folder filter, reload data if requested
-		resetFolder: async function (reload) {
-			this.active.folder = null
-			if (reload) {
-				if (this.active.period.start || this.active.period.end) {
-					// reprocess current data if another filter is set
-					await this.refresh(true)
+		// analyze folders of a given account <a>
+		// return processed data oject structured like initData
+		async processAccount (a) {
+			// get identities from account, or from preferences if it's a local account
+			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
+			// get all folders and subfolders from given account or selected folder of active account (filter field)
+			let folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
+			// build folder list for filter selection, if not already present
+			if (!this.folders.length) {
+				this.folders = folders
+			}
+			let self = this
+			let initData = this.initData()
+			let accountData = JSON.parse(JSON.stringify(initData))
+			await Promise.all(folders.map(async f => {
+				// analyze all messages in all folders
+				await self.processMessages(accountData, JSON.parse(JSON.stringify(f)), identities)
+			})).then(() => {
+				// post processing: reduce size of contacts to configured limit
+				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.sections.contacts.leaderCount)
+				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.sections.contacts.leaderCount)
+			})
+			return accountData
+		},
+		// retrieve all messages of a given <folder> with accounts <identities>
+		// store results in <data> object
+		async processMessages (data, folder, identities) {
+			if (folder) {
+				let self = this
+				let page = null
+				if (this.active.period.start && this.active.period.end) {
+					let start = new Date(this.active.period.start)
+					let end = new Date(this.active.period.end)
+					page = await messenger.messages.query({ folder: folder, fromDate: start, toDate: end })
 				} else {
-					// otherwise just load account data
-					await this.loadAccount(this.active.account)
+					page = await messenger.messages.query({ folder: folder })
+				}
+				if (page) {
+					page.messages.map(m => self.analyzeMessage(data, m, identities))
+					while (page.id) {
+						page = await messenger.messages.continueList(page.id)
+						page.messages.map(m => self.analyzeMessage(data, m, identities))
+					}
 				}
 			}
 		},
-		// process data for current time period filter
-		updatePeriod: async function () {
-			if (this.validPeriod()) {
-				await this.refresh(true)
-				this.display.numbers.start = new Date(this.active.period.start)
-				this.display.numbers.end = new Date(this.active.period.end)
-				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
+		// extract information of a single message <m> with accounts <identities>
+		// update given <data> object
+		analyzeMessage (data, m, identities) {
+			let type = ''
+			// numbers
+			data.numbers.total++
+			if (m.read === false) data.numbers.unread++
+			let author = extractEmailAddress(m.author)
+			if (identities.includes(author)) {
+				data.numbers.sent++
+				type = 'sent'
+			} else {
+				data.numbers.received++
+				type = 'received'
+			}
+			// calculate starting date (= date of oldest email)
+			let start = new Date(data.numbers.start)
+			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
+				data.numbers.start = m.date
+			}
+			// years
+			let y = m.date.getFullYear()
+			if (!(y in data.yearsData[type])) {
+				data.yearsData[type][y] = 1
+			} else {
+				data.yearsData[type][y]++
+			}
+			// quarters
+			let qn = quarterNumber(m.date)
+			if (!(y in data.quartersData[type])) {
+				data.quartersData[type][y] = {}
+				data.quartersData[type][y][qn] = 1
+			} else {
+				if (!(qn in data.quartersData[type][y])) {
+					data.quartersData[type][y][qn] = 1
+				} else {
+					data.quartersData[type][y][qn]++
+				}
+			}
+			// months
+			let mo = m.date.getMonth()
+			if (!(y in data.monthsData[type])) {
+				data.monthsData[type][y] = {}
+				data.monthsData[type][y][mo] = 1
+			} else {
+				if (!(mo in data.monthsData[type][y])) {
+					data.monthsData[type][y][mo] = 1
+				} else {
+					data.monthsData[type][y][mo]++
+				}
+			}
+			// weeks
+			let wn = weekNumber(m.date)
+			if (!(y in data.weeksData[type])) {
+				data.weeksData[type][y] = {}
+				data.weeksData[type][y][wn] = 1
+			} else {
+				if (!(wn in data.weeksData[type][y])) {
+					data.weeksData[type][y][wn] = 1
+				} else {
+					data.weeksData[type][y][wn]++
+				}
+			}
+			// daytime
+			let dt = m.date.getHours()
+			data.daytimeData[type][dt]++
+			// weekday
+			let wd = m.date.getDay()
+			data.weekdayData[type][wd]++
+			// month
+			data.monthData[type][mo]++
+			// weekday per calendar week
+			if (!(y in data.daysData[type])) {
+				data.daysData[type][y] = new NumberedObject(7,53)
+			}
+			data.daysData[type][y][wd][wn-1]++
+			// weekday per hour
+			data.weekdayPerHourData[type][wd][dt]++
+			// contacts (leaderboards)
+			switch (type) {
+				case 'sent':
+					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
+					recipients.map(r => {
+						if (!(r in data.contacts['sent'])) {
+							data.contacts['sent'][r] = 1
+						} else {
+							data.contacts['sent'][r]++
+						}
+					})
+					break;
+				case 'received':
+					let a = author.toLowerCase()
+					if (!(a in data.contacts['received'])) {
+						data.contacts['received'][a] = 1
+					} else {
+						data.contacts['received'][a]++
+					}
+					break;
+				default:
+					break;
 			}
 		},
-		// reset time period filter, reload data if requested
-		resetPeriod: async function (reload) {
+		// retrieve and process data of account with <id=accountId>
+		// or of multiple accounts with <id=sum>
+		async refresh (id, showLoading) {
+			// get currently selected account
+			let account = await messenger.accounts.get(id)
+			// process data of this account again
+			let accountData = await this.processAccount(account)
+			// directly display data if only one single account was processed
+			if (this.singleAccount) {
+				this.display = JSON.parse(JSON.stringify(accountData))
+			}
+			// only store reprocessed data if cache is enabled and no filter is set
+			if (this.preferences.cache && !this.filtered) {
+				let stats = {}
+				stats['stats-' + id] = JSON.parse(JSON.stringify(accountData))
+				await messenger.storage.local.set(stats)
+			}
+			// return processed account data
+			return accountData
+		},
+		// load data of given account <id=accountId> or all accounts <id=sum>
+		// from cache <refresh=false> or reprocess from scratch <refresh=true>
+		async loadAccount (id, refresh) {
+			// start loading indication
+			this.loading = true
+			// check id type
+			if (!this.singleAccount && this.preferences.cache) {
+				// set tab title
+				document.title = 'ThirdStats: ' + this.$t('stats.allAccountsSum')
+				// deactivate list of folders
+				this.folders = []
+				// iterate over all activated accounts
+				let accounts = this.preferences.accounts.length > 0 ? this.accounts.filter(a => this.preferences.accounts.includes(a.id)) : this.accounts
+				let accountsData = []
+				await Promise.all(accounts.map(async a => {
+					// get data from storage
+					let result = await messenger.storage.local.get('stats-' + a.id)
+					if (!refresh && result && result['stats-' + a.id]) {
+						// if no refresh requested and this accounts data was cached before, take data from cache
+						accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])))
+					} else {
+						// otherwise (re)process account
+						let data = await this.refresh(a.id)
+						accountsData.push(JSON.parse(JSON.stringify(data)))
+					}
+				}))
+				// sum all values of all objects
+				let sum = JSON.parse(JSON.stringify(this.initData()))
+				// numbers
+				sum.numbers.total = accountsData.reduce((p,c) => p+c.numbers.total, 0)
+				sum.numbers.unread = accountsData.reduce((p,c) => p+c.numbers.unread, 0)
+				sum.numbers.received = accountsData.reduce((p,c) => p+c.numbers.received, 0)
+				sum.numbers.sent = accountsData.reduce((p,c) => p+c.numbers.sent, 0)
+				sum.numbers.start = accountsData.reduce((p,c) => p < c.numbers.start ? p : c.numbers.start, 0)
+				sum.numbers.end = accountsData.reduce((p,c) => p >= c.numbers.end ? p : c.numbers.end, 0)
+				// years
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.yearsData.received)])], [])
+					.map(y => { sum.yearsData.received[y] = accountsData.reduce((p,c) => c.yearsData.received[y] ? p+c.yearsData.received[y] : p, 0) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.yearsData.sent)])], [])
+					.map(y => { sum.yearsData.sent[y] = accountsData.reduce((p,c) => c.yearsData.sent[y] ? p+c.yearsData.sent[y] : p, 0) })
+				// quarters
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.quartersData.received)])], [])
+					.map(y => { sum.quartersData.received[y] = sumObjects(accountsData.reduce((p,c) => c.quartersData.received[y] ? p.concat(c.quartersData.received[y]) : p, [])) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.quartersData.sent)])], [])
+					.map(y => { sum.quartersData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.quartersData.sent[y] ? p.concat(c.quartersData.sent[y]) : p, [])) })
+				// months
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.monthsData.received)])], [])
+					.map(y => { sum.monthsData.received[y] = sumObjects(accountsData.reduce((p,c) => c.monthsData.received[y] ? p.concat(c.monthsData.received[y]) : p, [])) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.monthsData.sent)])], [])
+					.map(y => { sum.monthsData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.monthsData.sent[y] ? p.concat(c.monthsData.sent[y]) : p, [])) })
+				// weeks
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.weeksData.received)])], [])
+					.map(y => { sum.weeksData.received[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.received[y] ? p.concat(c.weeksData.received[y]) : p, [])) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.weeksData.sent)])], [])
+					.map(y => { sum.weeksData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.sent[y] ? p.concat(c.weeksData.sent[y]) : p, [])) })
+				// days
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.daysData.received)])], [])
+					.map(y => { sum.daysData.received[y] = sumObjectsArrays(accountsData.reduce((p,c) => c.daysData.received[y] ? p.concat(c.daysData.received[y]) : p, [])) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.daysData.sent)])], [])
+					.map(y => { sum.daysData.sent[y] = sumObjectsArrays(accountsData.reduce((p,c) => c.daysData.sent[y] ? p.concat(c.daysData.sent[y]) : p, [])) })
+				// daytime
+				for (let h = 0; h < 24; h++) {
+					sum.daytimeData.received[h] = accountsData.reduce((p,c) =>  p+c.daytimeData.received[h], 0)
+					sum.daytimeData.sent[h] = accountsData.reduce((p,c) =>  p+c.daytimeData.sent[h], 0)
+				}
+				// weekday
+				for (let d = 0; d < 7; d++) {
+					sum.weekdayData.received[d] = accountsData.reduce((p,c) =>  p+c.weekdayData.received[d], 0)
+					sum.weekdayData.sent[d] = accountsData.reduce((p,c) =>  p+c.weekdayData.sent[d], 0)
+				}
+				// month
+				for (let m = 0; m < 12; m++) {
+					sum.monthData.received[m] = accountsData.reduce((p,c) =>  p+c.monthData.received[m], 0)
+					sum.monthData.sent[m] = accountsData.reduce((p,c) =>  p+c.monthData.sent[m], 0)
+				}
+				// weekday per hour
+				for (let d = 0; d < 7; d++) {
+					for (let h = 0; h < 24; h++) {
+						sum.weekdayPerHourData.received[d][h] = accountsData.reduce((p,c) =>  p+c.weekdayPerHourData.received[d][h], 0)
+						sum.weekdayPerHourData.sent[d][h] = accountsData.reduce((p,c) =>  p+c.weekdayPerHourData.sent[d][h], 0)
+					}
+				}
+				// contacts
+				sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), this.preferences.sections.contacts.leaderCount)
+				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.sections.contacts.leaderCount)
+				// show summed stats
+				this.display = sum
+				// adjust displayed activity year
+				this.adjustSelectedYear()
+			} else {
+				// load single account from id
+				let account = await messenger.accounts.get(id)
+				// (re)calculate list of folders
+				this.folders = traverseAccount(account)
+				// only check storage if no refresh was requested cache is enabled
+				let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
+				if (!refresh && result && result['stats-' + id]) {
+					// if cache is enabled and data already exists in storage, display it directly
+					this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
+				} else {
+					// otherwise retrieve it first/again
+					await this.refresh(id)
+				}
+				// adjust displayed activity year
+				this.adjustSelectedYear()
+			}
+			// stop loading indication
+			this.loading = false
+		},
+		// reset folder filter
+		// reload data if requested <reload=true>
+		async resetFolder (reload) {
+			this.active.folder = null
+			if (reload) {
+				// reprocess current data if another filter is set, otherwise just load account data
+				await this.loadAccount(this.active.account, this.active.period.start || this.active.period.end)
+			}
+		},
+		// process data for current time period filter
+		// calls refresh if filter is valid
+		async updatePeriod () {
+			if (this.validPeriod()) {
+				await this.loadAccount(this.active.account, true)
+				this.display.numbers.start = new Date(this.active.period.start)
+				this.display.numbers.end = new Date(this.active.period.end)
+				this.adjustSelectedYear()
+			}
+		},
+		// reset time period filter
+		// reload data if requested <reload=true>
+		async resetPeriod (reload) {
 			this.active.period.start = null
 			this.active.period.end = null
 			this.error.period.start = []
 			this.error.period.end = []
-			this.preferences.sections.days.year = (new Date()).getFullYear()
+			this.adjustSelectedYear()
 			if (reload) {
-				if (this.active.folder) {
-					// reprocess current data if another filter is set
-					await this.refresh(true)
-				} else {
-					// otherwise just load account data
-					await this.loadAccount(this.active.account)
-				}
+				// reprocess current data if another filter is set, otherwise just load account data
+				await this.loadAccount(this.active.account, this.active.folder)
 			}
 		},
+		// tab navigation
 		// activate tab of given <key>
 		activateTab (key) {
 			let self = this
 			Object.keys(this.tabs).map(t => self.tabs[t] = false)
 			this.tabs[key] = true
 		},
-		// format folder name to match its hierarchy
+		// format folder select options
+		// build <folder> name to match its hierarchy with preceding dashes
 		formatFolder (folder) {
 			const level = (folder.path.match(/\//g) || []).length
 			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
 		},
 		// format period date input to match YYYY-MM-DD
+		// <key> defines the input field, either 'start' or 'end'
 		formatPeriod (key) {
 			if (this.active.period[key]) {
 				let s = this.active.period[key]
@@ -804,6 +925,7 @@ export default {
 			}
 		},
 		// returns true if entered time period is valid
+		// fills error stack for affected fields when input is invalid
 		validPeriod () {
 			let valid = true
 			const datex = RegExp(/^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/)
@@ -846,6 +968,15 @@ export default {
 				this.error.period.end.push(this.$t('stats.tooltips.error.dateOrderEnd'))
 			}
 			return valid
+		},
+		// corrects selected year, if it's out of the current date range
+		// called after data got reprocessed
+		adjustSelectedYear () {
+			const min = new Date(this.display.numbers.start).getFullYear()
+			const max = new Date(this.display.numbers.end).getFullYear()
+			const current = this.preferences.sections.days.year
+			if (current < min) this.preferences.sections.days.year = min
+			if (current > max) this.preferences.sections.days.year = max
 		}
 	},
 	computed: {
@@ -948,288 +1079,215 @@ export default {
 		},
 		// prepare data for years line chart
 		yearsChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let r = this.display.yearsData.received
-				let s = this.display.yearsData.sent
-				let labels = [], dr = [], ds = []
-				let start = new Date(this.display.numbers.start)
-				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
-					labels.push(y)
-					dr.push(y in r ? r[y] : 0)
-					ds.push(y in s ? s[y] : 0)
-				}
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: labels
-				}
+			let r = this.display.yearsData.received
+			let s = this.display.yearsData.sent
+			let labels = [], dr = [], ds = []
+			let start = new Date(this.display.numbers.start)
+			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+				labels.push(y)
+				dr.push(y in r ? r[y] : 0)
+				ds.push(y in s ? s[y] : 0)
+			}
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: labels
 			}
 		},
 		// prepare data for quarters line chart
 		quartersChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
+			let r = this.display.quartersData.received
+			let s = this.display.quartersData.sent
+			let labels = [], dr = [], ds = []
+			let start = new Date(this.display.numbers.start)
+			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+				for (let q = 1; q <= 4; ++q) {
+					// trim quarters before start date
+					if (y == start.getFullYear() && q < quarterNumber(start)) continue
+					// trim quarters after end date
+					if (y == end.getFullYear() && q > quarterNumber(end)) break
+					// organize labels and data
+					labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
+					dr.push(y in r && q in r[y] ? r[y][q] : 0)
+					ds.push(y in s && q in s[y] ? s[y][q] : 0)
 				}
-			} else {
-				let r = this.display.quartersData.received
-				let s = this.display.quartersData.sent
-				let labels = [], dr = [], ds = []
-				let start = new Date(this.display.numbers.start)
-				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
-					for (let q = 1; q <= 4; ++q) {
-						// trim quarters before start date
-						if (y == start.getFullYear() && q < quarterNumber(start)) continue
-						// trim quarters after end date
-						if (y == end.getFullYear() && q > quarterNumber(end)) break
-						// organize labels and data
-						labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
-						dr.push(y in r && q in r[y] ? r[y][q] : 0)
-						ds.push(y in s && q in s[y] ? s[y][q] : 0)
-					}
-				}
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: labels
-				}
+			}
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: labels
 			}
 		},
 		// prepare data for months line chart
 		monthsChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
+			let r = this.display.monthsData.received
+			let s = this.display.monthsData.sent
+			let labels = [], dr = [], ds = []
+			let start = new Date(this.display.numbers.start)
+			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+				for (let m = 0; m < 12; ++m) {
+					// trim months before start date
+					if (y == start.getFullYear() && m < start.getMonth()) continue
+					// trim months after end date
+					if (y == end.getFullYear() && m > end.getMonth()) break
+					// organize labels and data
+					labels.push(y + ' ' + this.monthNames[m])
+					dr.push(y in r && m in r[y] ? r[y][m] : 0)
+					ds.push(y in s && m in s[y] ? s[y][m] : 0)
 				}
-			} else {
-				let r = this.display.monthsData.received
-				let s = this.display.monthsData.sent
-				let labels = [], dr = [], ds = []
-				let start = new Date(this.display.numbers.start)
-				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
-					for (let m = 0; m < 12; ++m) {
-						// trim months before start date
-						if (y == start.getFullYear() && m < start.getMonth()) continue
-						// trim months after end date
-						if (y == end.getFullYear() && m > end.getMonth()) break
-						// organize labels and data
-						labels.push(y + ' ' + this.monthNames[m])
-						dr.push(y in r && m in r[y] ? r[y][m] : 0)
-						ds.push(y in s && m in s[y] ? s[y][m] : 0)
-					}
-				}
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: labels
-				}
+			}
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: labels
 			}
 		},
 		// prepare data for weeks line chart
 		weeksChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
+			let r = this.display.weeksData.received
+			let s = this.display.weeksData.sent
+			let labels = [], dr = [], ds = []
+			let start = new Date(this.display.numbers.start)
+			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+				for (let w = 1; w <= weeksInYear(y); ++w) {
+					// trim weeks before start date
+					if (y == start.getFullYear() && w < weekNumber(start)) continue
+					// trim weeks after end date
+					if (y == end.getFullYear() && weekNumber(end) > 1 && w > weekNumber(end)) break
+					// organize labels and data
+					labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+					dr.push(y in r && w in r[y] ? r[y][w] : 0)
+					ds.push(y in s && w in s[y] ? s[y][w] : 0)
 				}
-			} else {
-				let r = this.display.weeksData.received
-				let s = this.display.weeksData.sent
-				let labels = [], dr = [], ds = []
-				let start = new Date(this.display.numbers.start)
-				let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-				for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
-					for (let w = 1; w <= weeksInYear(y); ++w) {
-						// trim weeks before start date
-						if (y == start.getFullYear() && w < weekNumber(start)) continue
-						// trim weeks after end date
-						if (y == end.getFullYear() && weekNumber(end) > 1 && w > weekNumber(end)) break
-						// organize labels and data
-						labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
-						dr.push(y in r && w in r[y] ? r[y][w] : 0)
-						ds.push(y in s && w in s[y] ? s[y][w] : 0)
-					}
-				}
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: labels
-				}
+			}
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: labels
 			}
 		},
 		// prepare data for daytime bar chart
 		daytimeChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let r = this.display.daytimeData.received, s = this.display.daytimeData.sent
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: Object.keys(r)
-				}
+			let r = this.display.daytimeData.received, s = this.display.daytimeData.sent
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: Object.keys(r)
 			}
 		},
 		// prepare data for weekday bar chart
 		weekdayChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let r = Object.values(this.display.weekdayData.received)
-				let s = Object.values(this.display.weekdayData.sent)
-				let labels = [...this.weekdayNames]
-				// start week with user defined day of week
-				for (let d = 0; d < this.preferences.startOfWeek; d++) {
-					r.push(r.shift())
-					s.push(s.shift())
-					labels.push(labels.shift())
-				}
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: labels
-				}
+			let r = Object.values(this.display.weekdayData.received)
+			let s = Object.values(this.display.weekdayData.sent)
+			let labels = [...this.weekdayNames]
+			// start week with user defined day of week
+			for (let d = 0; d < this.preferences.startOfWeek; d++) {
+				r.push(r.shift())
+				s.push(s.shift())
+				labels.push(labels.shift())
+			}
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: labels
 			}
 		},
 		// prepare data for month bar chart
 		monthChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let r = this.display.monthData.received, s = this.display.monthData.sent
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: this.monthNames
-				}
+			let r = this.display.monthData.received, s = this.display.monthData.sent
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: this.monthNames
 			}
 		},
 		// prepare data for activity heatmaps
 		daysChartData () {
-			if (this.waiting) {
-				return {
-					received: new NumberedObject(7,53),
-					sent: new NumberedObject(7,53),
-				}
-			} else {
-				let r = this.preferences.sections.days.year in this.display.daysData.received
-					? Object.values(this.display.daysData.received[this.preferences.sections.days.year])
-					: Object.values(new NumberedObject(7,53))
-				let s = this.preferences.sections.days.year in this.display.daysData.sent
-					? Object.values(this.display.daysData.sent[this.preferences.sections.days.year])
-					: Object.values(new NumberedObject(7,53))
-				let ylabels = [...this.weekdayNames]
-				let xlabels = Array.from(Array(54).keys())
-				xlabels.shift()
-				// start week with user defined day of week
-				for (let d = 0; d < this.preferences.startOfWeek; d++) {
-					r.push(r.shift())
-					s.push(s.shift())
-					ylabels.push(ylabels.shift())
-				}
-				return {
-					received: { label: this.$t('stats.mailsReceived'), data: r },
-					sent: { label: this.$t('stats.mailsSent'), data: s },
-					ylabels: ylabels,
-					xlabels: xlabels,
-				}
+			let r = this.preferences.sections.days.year in this.display.daysData.received
+				? Object.values(this.display.daysData.received[this.preferences.sections.days.year])
+				: Object.values(new NumberedObject(7,53))
+			let s = this.preferences.sections.days.year in this.display.daysData.sent
+				? Object.values(this.display.daysData.sent[this.preferences.sections.days.year])
+				: Object.values(new NumberedObject(7,53))
+			let ylabels = [...this.weekdayNames]
+			let xlabels = Array.from(Array(54).keys())
+			xlabels.shift()
+			// start week with user defined day of week
+			for (let d = 0; d < this.preferences.startOfWeek; d++) {
+				r.push(r.shift())
+				s.push(s.shift())
+				ylabels.push(ylabels.shift())
+			}
+			return {
+				received: { label: this.$t('stats.mailsReceived'), data: r },
+				sent: { label: this.$t('stats.mailsSent'), data: s },
+				ylabels: ylabels,
+				xlabels: xlabels,
 			}
 		},
 		// prepare data for weekday/hour heatmaps
 		weekdayPerHourChartData () {
-			if (this.waiting) {
-				return {
-					received: new NumberedObject(7,24),
-					sent: new NumberedObject(7,24),
-				}
-			} else {
-				let r = Object.values(this.display.weekdayPerHourData.received)
-				let s = Object.values(this.display.weekdayPerHourData.sent)
-				let labels = [...this.weekdayNames]
-				// start week with user defined day of week
-				for (let d = 0; d < this.preferences.startOfWeek; d++) {
-					r.push(r.shift())
-					s.push(s.shift())
-					labels.push(labels.shift())
-				}
-				return {
-					received: { label: this.$t('stats.mailsReceived'), data: r },
-					sent: { label: this.$t('stats.mailsSent'), data: s },
-					labels: labels
-				}
+			let r = Object.values(this.display.weekdayPerHourData.received)
+			let s = Object.values(this.display.weekdayPerHourData.sent)
+			let labels = [...this.weekdayNames]
+			// start week with user defined day of week
+			for (let d = 0; d < this.preferences.startOfWeek; d++) {
+				r.push(r.shift())
+				s.push(s.shift())
+				labels.push(labels.shift())
+			}
+			return {
+				received: { label: this.$t('stats.mailsReceived'), data: r },
+				sent: { label: this.$t('stats.mailsSent'), data: s },
+				labels: labels
 			}
 		},
 		// prepare data for received emails leaderboard horizontal bar chart
 		receivedContactLeadersChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let r = this.display.contacts.received
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					],
-					labels: Object.keys(r)
-				}
+			let r = this.display.contacts.received
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+				],
+				labels: Object.keys(r)
 			}
 		},
 		// prepare data for sent emails leaderboard horizontal bar chart
 		sentContactLeadersChartData () {
-			if (this.waiting) {
-				return {
-					datasets: [],
-					labels: []
-				}
-			} else {
-				let s = this.display.contacts.sent
-				return {
-					datasets: [
-						{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					],
-					labels: Object.keys(s)
-				}
+			let s = this.display.contacts.sent
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+				],
+				labels: Object.keys(s)
 			}
 		},
 		// returns true, if at least one filter isn't empty
 		filtered () {
 			return this.active.folder || this.active.period.start || this.active.period.end
 		},
+		// returns true, if just one single account is selected
+		singleAccount () {
+			return this.active.account != 'sum'
+    },
 		// returns the current date as example for short period input (YYMMDD)
 		examplePeriodShort () {
 			let d = new Date()
@@ -1256,21 +1314,22 @@ export default {
 		}
 	},
 	watch: {
-		// on change of active account reset filter and switch displayed data accordingly
-		'active.account': async function (id) {
+		// on change of active account reset filter
+		// and load new accounts data accordingly
+		async 'active.account' (id) {
 			if (id) {
 				// reset filter
 				this.resetFolder(false)
-				this.resetPeriod(false)
-				// process data for given account
-				await this.loadAccount(id)
+				// process data for given account, refresh if period filter is set
+				await this.loadAccount(id, this.active.period.start && this.active.period.end)
 			}
 		},
-		// on change of active folder, retrieve data again
-		'active.folder': async function (folder) {
+		// on change of active folder
+		// retrieve data again for current account selection
+		async 'active.folder' (folder) {
 			if (folder) {
-				// refresh function handles processing for active folder only
-				await this.refresh(true)
+				// start processing for active folder only
+				await this.loadAccount(this.active.account, true)
 			}
 		}
 	}
