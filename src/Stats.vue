@@ -480,7 +480,7 @@ export default {
 			publicPath: process.env.BASE_URL
 		}
 	},
-	created: async function () {
+	async created () {
 		// set initial tab title
 		document.title = 'ThirdStats'
 		// initially reset displayed data
@@ -492,6 +492,8 @@ export default {
 		this.getAccounts()
 	},
 	methods: {
+		// basic data structure for display numbers and charts
+		// used for single and multi-account display
 		initData () {
 			return { 
 				numbers: {
@@ -545,7 +547,8 @@ export default {
 			}
 		},
 		// get all add-on settings from the options page
-		getOptions: async function () {
+		// for non existing options use default value
+		async getOptions () {
 			let result = await messenger.storage.local.get('options')
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
@@ -557,8 +560,9 @@ export default {
 				this.preferences.cache = result.options.cache ? true : false
 			}
 		},
-		// get all accounts, get active account from URL get parameter
-		getAccounts: async function () {
+		// retrieve accounts list
+		// get active account from URL get parameter
+		async getAccounts () {
 			let accounts = await messenger.accounts.list()
 			// filter list of accounts if user configured custom list
 			if (this.preferences.accounts.length > 0) {
@@ -573,7 +577,8 @@ export default {
 			this.active.account = accounts[accountPosition].id
 		},
 		// analyze folders of a given account <a>
-		processAccount: async function (a) {
+		// return processed data oject structured like initData
+		async processAccount (a) {
 			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			// get all folders and subfolders from given account or selected folder of active account (filter field)
@@ -595,8 +600,9 @@ export default {
 			})
 			return accountData
 		},
-		// process all messages of a given <folder> with its <identities> and store in <data> object
-		processMessages: async function (data, folder, identities) {
+		// retrieve all messages of a given <folder> with accounts <identities>
+		// store results in <data> object
+		async processMessages (data, folder, identities) {
 			if (folder) {
 				let self = this
 				let page = null
@@ -616,7 +622,8 @@ export default {
 				}
 			}
 		},
-		// extract information of a single message <m> and update <data> object
+		// extract information of a single message <m> with accounts <identities>
+		// update given <data> object
 		analyzeMessage (data, m, identities) {
 			let type = ''
 			// numbers
@@ -717,14 +724,16 @@ export default {
 					break;
 			}
 		},
-		// reset processed data to initial state
+		// reset processed and configured data to initial state
+		// called before refreshing account data
 		reset () {
 			let initData = this.initData()
 			this.preferences.sections.total.expand = false
 			this.preferences.sections.days.year = initData.numbers.start.getFullYear()
 		},
-		// retrieve and process data of account with <id=accountId> showing loading animation if <showLoading=true>
-		refresh: async function (id, showLoading) {
+		// retrieve and process data of account with <id=accountId> or accounts with <id=sum>
+		// showing loading animation if <showLoading=true>
+		async refresh (id, showLoading) {
 			// start loading indication for single accounts
 			if (showLoading) this.loading = true
 			// reset already processed data
@@ -748,8 +757,9 @@ export default {
 			// return processed account data
 			return accountData
 		},
-		// load data of given account <id=accountId> or all accounts <id=sum> from cache <refresh=false> or reprocess from scratch <refresh=true>
-		loadAccount: async function (id, refresh) {
+		// load data of given account <id=accountId> or all accounts <id=sum>
+		// from cache <refresh=false> or reprocess from scratch <refresh=true>
+		async loadAccount (id, refresh) {
 			// start loading indication
 			this.loading = true
 			// check id type
@@ -852,8 +862,9 @@ export default {
 			// stop loading indication
 			this.loading = false
 		},
-		// reset folder filter, reload data if requested
-		resetFolder: async function (reload) {
+		// reset folder filter
+		// reload data if requested <reload=true>
+		async resetFolder (reload) {
 			this.active.folder = null
 			if (reload) {
 				if (this.active.period.start || this.active.period.end) {
@@ -866,7 +877,8 @@ export default {
 			}
 		},
 		// process data for current time period filter
-		updatePeriod: async function () {
+		// calls refresh if filter is valid
+		async updatePeriod () {
 			if (this.validPeriod()) {
 				await this.refresh(this.active.account, true)
 				this.display.numbers.start = new Date(this.active.period.start)
@@ -874,8 +886,9 @@ export default {
 				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
 			}
 		},
-		// reset time period filter, reload data if <reload=true>
-		resetPeriod: async function (reload) {
+		// reset time period filter
+		// reload data if requested <reload=true>
+		async resetPeriod (reload) {
 			this.active.period.start = null
 			this.active.period.end = null
 			this.error.period.start = []
@@ -891,18 +904,21 @@ export default {
 				}
 			}
 		},
+		// tab navigation
 		// activate tab of given <key>
 		activateTab (key) {
 			let self = this
 			Object.keys(this.tabs).map(t => self.tabs[t] = false)
 			this.tabs[key] = true
 		},
-		// format folder name to match its hierarchy
+		// format folder select options
+		// build <folder> name to match its hierarchy with preceding dashes
 		formatFolder (folder) {
 			const level = (folder.path.match(/\//g) || []).length
 			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
 		},
 		// format period date input to match YYYY-MM-DD
+		// <key> defines the input field, either 'start' or 'end'
 		formatPeriod (key) {
 			if (this.active.period[key]) {
 				let s = this.active.period[key]
@@ -928,6 +944,7 @@ export default {
 			}
 		},
 		// returns true if entered time period is valid
+		// fills error stack for affected fields when input is invalid
 		validPeriod () {
 			let valid = true
 			const datex = RegExp(/^\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01])$/)
@@ -1297,8 +1314,9 @@ export default {
 		}
 	},
 	watch: {
-		// on change of active account reset filter and switch displayed data accordingly
-		'active.account': async function (id) {
+		// on change of active account reset filter
+		// and load new accounts data accordingly
+		async 'active.account' (id) {
 			if (id) {
 				// reset filter
 				this.resetFolder(false)
@@ -1307,8 +1325,9 @@ export default {
 				await this.loadAccount(id, false)
 			}
 		},
-		// on change of active folder, retrieve data again
-		'active.folder': async function (folder) {
+		// on change of active folder
+		// retrieve data again for current account selection
+		async 'active.folder' (folder) {
 			if (folder) {
 				// refresh function handles processing for active folder only
 				await this.refresh(this.active.account, true)
