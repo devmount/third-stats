@@ -485,7 +485,6 @@ export default {
 		document.title = 'ThirdStats'
 		// initially reset displayed data
 		this.display = JSON.parse(JSON.stringify(this.initData()))
-		this.reset()
 		// get stored options
 		await this.getOptions()
 		// get all accounts
@@ -724,18 +723,9 @@ export default {
 					break;
 			}
 		},
-		// reset processed and configured data to initial state
-		// called before refreshing account data
-		reset () {
-			let initData = this.initData()
-			this.preferences.sections.total.expand = false
-			this.preferences.sections.days.year = initData.numbers.start.getFullYear()
-		},
 		// retrieve and process data of account with <id=accountId>
 		// or of multiple accounts with <id=sum>
 		async refresh (id, showLoading) {
-			// reset already processed data
-			this.reset()
 			// get currently selected account
 			let account = await messenger.accounts.get(id)
 			// process data of this account again
@@ -840,6 +830,8 @@ export default {
 				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.sections.contacts.leaderCount)
 				// show summed stats
 				this.display = sum
+				// adjust displayed activity year
+				this.adjustSelectedYear()
 			} else {
 				// load single account from id
 				let account = await messenger.accounts.get(id)
@@ -854,6 +846,8 @@ export default {
 					// otherwise retrieve it first/again
 					await this.refresh(id)
 				}
+				// adjust displayed activity year
+				this.adjustSelectedYear()
 			}
 			// stop loading indication
 			this.loading = false
@@ -874,7 +868,7 @@ export default {
 				await this.loadAccount(this.active.account, true)
 				this.display.numbers.start = new Date(this.active.period.start)
 				this.display.numbers.end = new Date(this.active.period.end)
-				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
+				this.adjustSelectedYear()
 			}
 		},
 		// reset time period filter
@@ -884,7 +878,7 @@ export default {
 			this.active.period.end = null
 			this.error.period.start = []
 			this.error.period.end = []
-			this.preferences.sections.days.year = (new Date()).getFullYear()
+			this.adjustSelectedYear()
 			if (reload) {
 				// reprocess current data if another filter is set, otherwise just load account data
 				await this.loadAccount(this.active.account, this.active.folder)
@@ -973,6 +967,15 @@ export default {
 				this.error.period.end.push(this.$t('stats.tooltips.error.dateOrderEnd'))
 			}
 			return valid
+		},
+		// corrects selected year, if it's out of the current date range
+		// called after data got reprocessed
+		adjustSelectedYear () {
+			const min = new Date(this.display.numbers.start).getFullYear()
+			const max = new Date(this.display.numbers.end).getFullYear()
+			const current = this.preferences.sections.days.year
+			if (current < min) this.preferences.sections.days.year = min
+			if (current > max) this.preferences.sections.days.year = max
 		}
 	},
 	computed: {
@@ -1306,9 +1309,8 @@ export default {
 			if (id) {
 				// reset filter
 				this.resetFolder(false)
-				this.resetPeriod(false)
-				// process data for given account
-				await this.loadAccount(id, false)
+				// process data for given account, refresh if period filter is set
+				await this.loadAccount(id, this.active.period.start && this.active.period.end)
 			}
 		},
 		// on change of active folder
