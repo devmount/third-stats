@@ -21,7 +21,7 @@
 							v-show='!loading'
 							class='refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex'
 							:data-tooltip='$t("stats.tooltips.refresh")'
-							@click='refresh(active.account, false)'
+							@click='loadAccount(active.account, true)'
 						>
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
@@ -39,26 +39,26 @@
 						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
 						<div
 							class="d-flex align-stretch tooltip-bottom"
-							:class='{ tooltip: active.account=="sum" }'
+							:class='{ tooltip: !singleAccount }'
 							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccountsSum")])'
 						>
 							<select
 								id='folder'
 								v-model='active.folder'
-								:disabled='loading || active.account=="sum"'
+								:disabled='loading || !singleAccount'
 								class='align-stretch w-6'
-								:class='{ disabled: loading || active.account=="sum" }'
+								:class='{ disabled: loading || !singleAccount }'
 							>
 								<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
 							</select>
 						</div>
 						<div
 							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
-							:class='{ "cursor-na": loading || active.account=="sum" }'
+							:class='{ "cursor-na": loading || !singleAccount }'
 							:data-tooltip='$t("stats.tooltips.clear")'
-							@click='resetFolder(true)'
+							@click='singleAccount ? resetFolder(true) : null'
 						>
-							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading && active.account!="sum" }' viewBox='0 0 24 24'>
+							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading && singleAccount }' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
 								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
@@ -572,8 +572,8 @@ export default {
 			this.accounts = accounts
 			this.active.account = accounts[accountPosition].id
 		},
-		// iterate through all folders of a given account <a>
-		processAccount: async function (a, hidden) {
+		// analyze folders of a given account <a>
+		processAccount: async function (a) {
 			// get identities from account, or from preferences if it's a local account
 			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			// get all folders and subfolders from given account or selected folder of active account (filter field)
@@ -592,10 +592,6 @@ export default {
 				// post processing: reduce size of contacts to configured limit
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.sections.contacts.leaderCount)
 				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.sections.contacts.leaderCount)
-				// post processing: display data now
-				if (!hidden) {
-					self.display = JSON.parse(JSON.stringify(accountData))
-				}
 			})
 			return accountData
 		},
@@ -727,28 +723,37 @@ export default {
 			this.preferences.sections.total.expand = false
 			this.preferences.sections.days.year = initData.numbers.start.getFullYear()
 		},
-		// retrieve and process data of account with <accountId> in background <hidden=true> or foreground <hidden=false>
-		refresh: async function (accountId, hidden) {
-			// start loading indication
-			this.loading = true
+		// retrieve and process data of account with <id=accountId> showing loading animation if <showLoading=true>
+		refresh: async function (id, showLoading) {
+			// start loading indication for single accounts
+			if (showLoading) this.loading = true
 			// reset already processed data
 			this.reset()
 			// get currently selected account
-			let account = await messenger.accounts.get(accountId)
-			// process data of this account again and display data if <hidden=false>
-			let accountData = await this.processAccount(account, hidden)
+			let account = await messenger.accounts.get(id)
+			// process data of this account again
+			let accountData = await this.processAccount(account)
+			// directly display data if only one single account was processed
+			if (this.singleAccount) {
+				this.display = JSON.parse(JSON.stringify(accountData))
+			}
 			// only store reprocessed data if cache is enabled and no filter is set
 			if (this.preferences.cache && !this.filtered) {
 				let stats = {}
-				stats['stats-' + accountId] = JSON.parse(JSON.stringify(accountData))
+				stats['stats-' + id] = JSON.parse(JSON.stringify(accountData))
 				await messenger.storage.local.set(stats)
 			}
 			// stop loading indication
-			this.loading = false
+			if (showLoading) this.loading = false
+			// return processed account data
+			return accountData
 		},
-		// load data of given account <id=accountId> or all accounts <id=sum>
-		loadAccount: async function (id) {
-			if (id == 'sum'  && this.preferences.cache) {
+		// load data of given account <id=accountId> or all accounts <id=sum> from cache <refresh=false> or reprocess from scratch <refresh=true>
+		loadAccount: async function (id, refresh) {
+			// start loading indication
+			this.loading = true
+			// check id type
+			if (!this.singleAccount && this.preferences.cache) {
 				// set tab title
 				document.title = 'ThirdStats: ' + this.$t('stats.allAccountsSum')
 				// deactivate list of folders
@@ -759,14 +764,14 @@ export default {
 				await Promise.all(accounts.map(async a => {
 					// get data from storage
 					let result = await messenger.storage.local.get('stats-' + a.id)
-					// if this accounts data wasn't cached before, cache it now
-					if (!result || !result['stats-' + a.id]) {
-						// this.resetFolder(false)
-						await this.refresh(a.id, true)
-						result = await messenger.storage.local.get('stats-' + a.id)
+					if (!refresh && result && result['stats-' + a.id]) {
+						// if no refresh requested and this accounts data was cached before, take data from cache
+						accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])))
+					} else {
+						// otherwise (re)process account
+						let data = await this.refresh(a.id, false)
+						accountsData.push(JSON.parse(JSON.stringify(data)))
 					}
-					// add account data
-					accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])))
 				}))
 				// sum all values of all objects
 				let sum = JSON.parse(JSON.stringify(this.initData()))
@@ -834,9 +839,9 @@ export default {
 				let account = await messenger.accounts.get(id)
 				// (re)calculate list of folders
 				this.folders = traverseAccount(account)
-				// only check storage if cache is enabled
+				// only check storage if no refresh was requested cache is enabled
 				let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
-				if (result && result['stats-' + id]) {
+				if (!refresh && result && result['stats-' + id]) {
 					// if cache is enabled and data already exists in storage, display it directly
 					this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
 				} else {
@@ -844,6 +849,8 @@ export default {
 					await this.refresh(id, false)
 				}
 			}
+			// stop loading indication
+			this.loading = false
 		},
 		// reset folder filter, reload data if requested
 		resetFolder: async function (reload) {
@@ -851,17 +858,17 @@ export default {
 			if (reload) {
 				if (this.active.period.start || this.active.period.end) {
 					// reprocess current data if another filter is set
-					await this.refresh(this.active.account, false)
+					await this.refresh(this.active.account, true)
 				} else {
 					// otherwise just load account data
-					await this.loadAccount(this.active.account)
+					await this.loadAccount(this.active.account, false)
 				}
 			}
 		},
 		// process data for current time period filter
 		updatePeriod: async function () {
 			if (this.validPeriod()) {
-				await this.refresh(this.active.account, false)
+				await this.refresh(this.active.account, true)
 				this.display.numbers.start = new Date(this.active.period.start)
 				this.display.numbers.end = new Date(this.active.period.end)
 				this.preferences.sections.days.year = (new Date(this.active.period.start)).getFullYear()
@@ -877,10 +884,10 @@ export default {
 			if (reload) {
 				if (this.active.folder) {
 					// reprocess current data if another filter is set
-					await this.refresh(this.active.account, false)
+					await this.refresh(this.active.account, true)
 				} else {
 					// otherwise just load account data
-					await this.loadAccount(this.active.account)
+					await this.loadAccount(this.active.account, false)
 				}
 			}
 		},
@@ -1270,6 +1277,10 @@ export default {
 		filtered () {
 			return this.active.folder || this.active.period.start || this.active.period.end
 		},
+		// returns true, if just one single account is selected
+		singleAccount () {
+			return this.active.account != 'sum'
+		},
 		// convert theme preference into scheme name
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
@@ -1293,14 +1304,14 @@ export default {
 				this.resetFolder(false)
 				this.resetPeriod(false)
 				// process data for given account
-				await this.loadAccount(id)
+				await this.loadAccount(id, false)
 			}
 		},
 		// on change of active folder, retrieve data again
 		'active.folder': async function (folder) {
 			if (folder) {
 				// refresh function handles processing for active folder only
-				await this.refresh(this.active.account, false)
+				await this.refresh(this.active.account, true)
 			}
 		}
 	}
