@@ -73,7 +73,7 @@
 								class='d-flex tooltip tooltip-bottom'
 								v-for='f in ["start", "end"]'
 								:key='f'
-								:data-tooltip='error.period[f].length > 0 ? error.period[f].join("\n") : $t("stats.tooltips.period." + f)'
+								:data-tooltip='error.period[f].length > 0 ? error.period[f].join("\n") : $t("stats.tooltips.period." + f, [examplePeriodShort, examplePeriodFormatted])'
 								:class='{ "tooltip-error": error.period[f].length > 0 }'
 							>
 								<input
@@ -84,6 +84,7 @@
 									:class='{ error: error.period[f].length > 0 }'
 									placeholder='YYYY-MM-DD'
 									@blur='formatPeriod(f)'
+									v-on:keyup.enter='formatPeriod(f);updatePeriod()'
 								/>
 							</div>
 							<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
@@ -1286,6 +1287,16 @@ export default {
 		// returns true, if just one single account is selected
 		singleAccount () {
 			return this.active.account != 'sum'
+    },
+		// returns the current date as example for short period input (YYMMDD)
+		examplePeriodShort () {
+			let d = new Date()
+			return d.toISOString().replace(/-/g, '').slice(2,8)
+		},
+		// returns the current date as example for formatted period input (YYYY-MM-DD)
+		examplePeriodFormatted () {
+			let d = new Date()
+			return d.toISOString().slice(0,10)
 		},
 		// convert theme preference into scheme name
 		scheme () {

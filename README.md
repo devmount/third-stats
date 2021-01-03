@@ -20,7 +20,8 @@ Install ThirdStats from the Thunderbird Add-ons repository:
 
 1. Start Thunderbird, open the main menu and click on Add-ons
 2. Search for *ThirdStats*
-3. Click *Add to Thunderbird*, give necessary permissions and enjoy your email account stats
+3. Click *Add to Thunderbird* and give necessary permissions
+4. Open the ThirdStats Popup in the upper right corner of the toolbar and enjoy your email account stats
 
 To properly recognize emails as *sent*, make sure to configure all email adresses you write from as identities for your email account. You can do so under *account settings* > select your account > click button *more identities* at the bottom and add or modify identities as you need.
 
@@ -34,6 +35,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
   - Sum of received and sent emails per daytime and per weekday
   - Temporal distribution of received and sent emails per weekday per hour
   - Leaderboards of most contacted email addresses
+- Show stats for a specific folder or period of time
 - Activate all accounts that should be included (add-on option)
 - Use a dark or a light theme (add-on option)
 - Use a caching system to store already processed data (add-on option)

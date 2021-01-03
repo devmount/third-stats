@@ -24,7 +24,7 @@
     "loadingInProgress": "Loading of all emails from this account in progress...",
     "accountEmpty": "This account is empty, no emails here.",
     "allAccountsSum": "All Accounts (Sum)",
-    "timePeriod": "Time Period",
+    "timePeriod": "Date range",
     "charts": {
       "years": {
         "title": "Years",
@@ -88,8 +88,8 @@
         "notAvailable": "Folders are not available for {0}"
       },
       "period": {
-        "start": "From Date\nTip: Typing '201125' becomes '2020-11-25'",
-        "end": "To Date\nTip: Typing '201125' becomes '2020-11-25'"
+        "start": "From Date\nTip: Typing '{0}' becomes '{1}'",
+        "end": "To Date\nTip: Typing '{0}' becomes '{1}'"
       },
       "error": {
         "empty": "Input is required",
