@@ -673,14 +673,15 @@ export default {
 			}
 			// weeks
 			let wn = weekNumber(m.date)
-			if (!(y in data.weeksData[type])) {
-				data.weeksData[type][y] = {}
-				data.weeksData[type][y][wn] = 1
+			let ywn = wn == 53 && mo == 0 ? y-1 : y // adjust year for first days of January that are before week 1
+			if (!(ywn in data.weeksData[type])) {
+				data.weeksData[type][ywn] = {}
+				data.weeksData[type][ywn][wn] = 1
 			} else {
-				if (!(wn in data.weeksData[type][y])) {
-					data.weeksData[type][y][wn] = 1
+				if (!(wn in data.weeksData[type][ywn])) {
+					data.weeksData[type][ywn][wn] = 1
 				} else {
-					data.weeksData[type][y][wn]++
+					data.weeksData[type][ywn][wn]++
 				}
 			}
 			// daytime
@@ -692,10 +693,10 @@ export default {
 			// month
 			data.monthData[type][mo]++
 			// weekday per calendar week
-			if (!(y in data.daysData[type])) {
-				data.daysData[type][y] = new NumberedObject(7,53)
+			if (!(ywn in data.daysData[type])) {
+				data.daysData[type][ywn] = new NumberedObject(7,53)
 			}
-			data.daysData[type][y][wd][wn-1]++
+			data.daysData[type][ywn][wd][wn-1]++
 			// weekday per hour
 			data.weekdayPerHourData[type][wd][dt]++
 			// contacts (leaderboards)
@@ -1161,7 +1162,7 @@ export default {
 					// trim weeks before start date
 					if (y == start.getFullYear() && w < weekNumber(start)) continue
 					// trim weeks after end date
-					if (y == end.getFullYear() && weekNumber(end) > 1 && w > weekNumber(end)) break
+					if (y == end.getFullYear() && w > weekNumber(end)) break
 					// organize labels and data
 					labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
 					dr.push(y in r && w in r[y] ? r[y][w] : 0)
