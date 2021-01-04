@@ -488,7 +488,7 @@ export default {
 		this.display = JSON.parse(JSON.stringify(this.initData()))
 		// get stored options
 		await this.getOptions()
-		// get all accounts
+		// retrieve all accounts
 		this.getAccounts()
 	},
 	methods: {
@@ -568,13 +568,11 @@ export default {
 			if (this.preferences.accounts.length > 0) {
 				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
 			}
-			// check if a specific account was given
-			let uri = window.location.search.substring(1)
-			let params = new URLSearchParams(uri)
-			let accountPosition = Number(params.get('a'))
 			// assign accounts
 			this.accounts = accounts
-			this.active.account = accounts[accountPosition].id
+			// extract account id from url GET parameter
+			let uri = window.location.search.substring(1)
+			this.active.account = (new URLSearchParams(uri)).get('s')
 		},
 		// analyze folders of a given account <a>
 		// return processed data oject structured like initData
@@ -1287,7 +1285,7 @@ export default {
 		// returns true, if just one single account is selected
 		singleAccount () {
 			return this.active.account != 'sum'
-    },
+		},
 		// returns the current date as example for short period input (YYMMDD)
 		examplePeriodShort () {
 			let d = new Date()
