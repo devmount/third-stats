@@ -23,7 +23,7 @@
 					:key='a.id'
 					@click.prevent="openTab(a.id)"
 				>
-					<div>{{ a.name }}</div>
+					<h4>{{ a.name }}</h4>
 					<div class='text-small text-secondary'>
 						{{ a.folderCount }} {{ $tc('popup.folder', a.folderCount) }}
 					</div>
@@ -103,8 +103,9 @@ export default {
 
 // general
 html, body
-	min-width: 300px
-	overflow: hidden
+	width: 380px
+	overflow-y: auto
+	overflow-x: hidden
 
 // layout
 #popup
@@ -114,6 +115,7 @@ html, body
 	.container
 		padding-left: 20px
 		padding-right: 20px
+		padding-bottom: 20px
 		h3
 			margin-top: 0
 			font-weight: 300
@@ -125,11 +127,19 @@ html, body
 			loader 16px 3px
 		.accounts
 			display: flex
-			flex-direction: column
+			flex-wrap: wrap
+			justify-content: space-between
+			row-gap: 20px
 			& > div
-				padding: 8px 10px
-				margin-bottom: 20px
+				width: 8rem
+				padding: .75rem 1rem
 				border-radius: 4px
 				transition: all .2s
+				h4
+					margin: 0
+					font-weight: normal
+					white-space: nowrap
+					overflow: hidden
+					text-overflow: ellipsis
 
 </style>
