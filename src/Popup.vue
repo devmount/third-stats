@@ -5,10 +5,10 @@
 			<h3
 				class="text-hover-accent2 cursor-pointer tooltip tooltip-bottom"
 				:data-tooltip='$t("popup.linkDescription")'
-				@click.prevent="openTab(0)"
+				@click.prevent="openTab('sum')"
 			>
 				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
-				<span v-if='waiting' class='dark loading'></span>
+				<span v-if='loading' class='dark loading'></span>
 				<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<line x1="4" y1="19" x2="20" y2="19" />
@@ -19,11 +19,11 @@
 			<div class='accounts'>
 				<div
 					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow"
-					v-for='(a, i) in accounts'
+					v-for='a in accounts'
 					:key='a.id'
-					@click.prevent="openTab(i)"
+					@click.prevent="openTab(a.id)"
 				>
-					<div>{{ a.name }}</div>
+					<h4>{{ a.name }}</h4>
 					<div class='text-small text-secondary'>
 						{{ a.folderCount }} {{ $tc('popup.folder', a.folderCount) }}
 					</div>
@@ -41,32 +41,36 @@ export default {
 	data () {
 		return {
 			accounts: [],   // list of all existing accounts
-			waiting: false,  // processessing folder and message counts indication
+			loading: false, // processessing folder and message counts indication
 			options: {      // add-on options
 				accounts: [], // accounts to process
 				dark: true    // theme, always dark due to non colorable popup caret
 			}
 		}
 	},
-	created: async function () {
-		this.waiting = true
+	async created () {
+		// start loading indication
+		this.loading = true
 		// get stored options
 		await this.getOptions()
 		// start account processing
 		await this.getAccounts()
-		this.waiting = false
+		// stop loading indication
+		this.loading = false
 	},
 	methods: {
-		// get all stored add-on options
-		getOptions: async function () {
+		// get all stored add-on options that are needed
+		// provides default value if option is not set
+		async getOptions () {
 			let result = await messenger.storage.local.get('options')
 			// only load needed options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.options.accounts = result.options.accounts ? result.options.accounts : []
 			}
 		},
-		// function to get all thunderbird accounts
-		getAccounts: async function () {
+		// retrieve all thunderbird accounts
+		// add folder count to account object
+		async getAccounts () {
 			let accounts = await messenger.accounts.list()
 			// filter list of accounts if user configured custom list
 			if (this.options.accounts.length > 0) {
@@ -80,10 +84,11 @@ export default {
 			})
 			this.accounts = accounts
 		},
-		// open the stats page as new tab with accounts appended as GET parameter
-		openTab (accountPosition) {
+		// open the stats page as new tab
+		// appends account <id> as GET parameter
+		openTab (id) {
 			let url = 'stats.html'
-			if (accountPosition) url += '?a=' + accountPosition
+			if (id) url += '?s=' + id
 			messenger.tabs.create({
 				active: true,
 				url: url
@@ -98,8 +103,9 @@ export default {
 
 // general
 html, body
-	min-width: 300px
-	overflow: hidden
+	width: 380px
+	overflow-y: auto
+	overflow-x: hidden
 
 // layout
 #popup
@@ -109,6 +115,7 @@ html, body
 	.container
 		padding-left: 20px
 		padding-right: 20px
+		padding-bottom: 20px
 		h3
 			margin-top: 0
 			font-weight: 300
@@ -120,11 +127,19 @@ html, body
 			loader 16px 3px
 		.accounts
 			display: flex
-			flex-direction: column
+			flex-wrap: wrap
+			justify-content: space-between
+			row-gap: 20px
 			& > div
-				padding: 8px 10px
-				margin-bottom: 20px
+				width: 8rem
+				padding: .75rem 1rem
 				border-radius: 4px
 				transition: all .2s
+				h4
+					margin: 0
+					font-weight: normal
+					white-space: nowrap
+					overflow: hidden
+					text-overflow: ellipsis
 
 </style>
