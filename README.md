@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">
-<img src='https://user-images.githubusercontent.com/5441654/94365551-3f4bda80-00d2-11eb-8d51-685cd9d95331.png' />
+<img src='https://user-images.githubusercontent.com/5441654/103653189-77ca4280-4f64-11eb-976b-6daaaf067a42.png' />
 </a>
 <p align="center">
 ThirdStats is a Thunderbird 78+ add-on for beautifully visualized email account stats. Download from <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats" target="_blank">Thunderbird Add-ons</a> repository. Contributions, corrections & requests can be made <a href="https://github.com/devmount/third-stats" target="_blank">on GitHub</a>. Created by <a href="https://github.com/devmount" target="_blank">Andreas Müller</a>.</p>
