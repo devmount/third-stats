@@ -108,6 +108,8 @@
 			<section class='meta mt-1 text-gray text-right'>
 				<div
 					v-if='display.meta && display.meta.timestamp'
+					class='d-inline-block tooltip tooltip-bottom'
+					:data-tooltip='formatDate(display.meta.timestamp)'
 					v-html='$t("stats.dataCollected", ["<span class=\"text-normal\">" + timePassedSinceDataRetrieval + "</span>"])'
 				></div>
 			</section>
@@ -1000,15 +1002,6 @@ export default {
 			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
 			return d ? (new Date(d)).toLocaleDateString(this.$i18n.locale, options) : ''
 		},
-		// calculates the time the given timestamp <t> and now
-		// returns human readable time units
-		timeSince(t) {
-			let secondsPast = (Date.now() - t) / 1000
-			if (secondsPast < 60) return parseInt(secondsPast) + this.$t('stats.abbreviations.second')
-			if (secondsPast < 3600) return parseInt(secondsPast/60) + this.$t('stats.abbreviations.minute')
-			if (secondsPast <= 86400) return parseInt(secondsPast/3600) + this.$t('stats.abbreviations.hour')
-			if (secondsPast > 86400) return parseInt(secondsPast/86400) + this.$t('stats.abbreviations.day')
-		}
 	},
 	computed: {
 		// current app version
@@ -1329,6 +1322,7 @@ export default {
 			let d = new Date()
 			return d.toISOString().slice(0,10)
 		},
+		// calculates the time the given timestamp <t> and <now> with human readable time units
 		timePassedSinceDataRetrieval () {
 			let secondsPast = (this.now - this.display.meta.timestamp) / 1000
 			if (secondsPast < 60) return parseInt(secondsPast) + this.$t('stats.abbreviations.second')
