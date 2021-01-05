@@ -1,11 +1,13 @@
 {
   "extensionDescription": {
-    "message": "視覺化您 Thunderbird 電子郵件帳號的統計資訊"
+    "message": "將您 Thunderbird 電子郵件帳號中統計資料進行視覺化"
   },
   "popup": {
     "account": "帳號 | 帳號",
+    "message": "-",
     "messagesInFolder": "{0} 則訊息在 {1} 個資料夾中",
-    "message": "-"
+    "folder": "文件夾 | 文件夾",
+    "linkDescription": "在新分頁中打開所有統計資訊"
   },
   "stats": {
     "mailsTotal": "郵件總數",
@@ -78,14 +80,32 @@
     },
     "tooltips": {
       "expand": "展開圖表區域",
-      "shrink": "收起圖表區域"
+      "shrink": "收起圖表區域",
+      "refresh": "重新整理資料",
+      "clear": "清除選取內容",
+      "period": {
+        "start": "開始日期\n提示：鍵入 '{0}' 變為 '{1}'",
+        "end": "結束日期\n提示：鍵入 '{0}' 變為 '{1}'"
+      },
+      "error": {
+        "empty": "請輸入內容",
+        "dateFormat": "日期格式為 YYYY-MM-DD，例如：2020-01-31",
+        "dateUnreal": "必須輸入有效日期",
+        "dateOrderStart": "開始日期必須早於結束日期",
+        "dateOrderEnd": "結束日期必須晚於開始日期"
+      },
+      "folder": {
+        "notAvailable": "文件夾不可用於 {0}"
+      }
     },
     "abbreviations": {
       "calendarWeek": "週",
       "quarter": "季"
     },
     "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
-    "message": "-"
+    "message": "-",
+    "timePeriod": "日期範圍",
+    "allAccountsSum": "所有帳號（總和）"
   },
   "options": {
     "switch": {
@@ -93,7 +113,8 @@
       "off": "關閉"
     },
     "button": {
-      "save": "儲存"
+      "save": "儲存",
+      "clearCache": "清理快取"
     },
     "darkMode": {
       "label": "深色模式",
@@ -103,10 +124,37 @@
       "label": "本機帳號",
       "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識"
     },
-    "message": "-",
     "startOfWeek": {
       "label": "每一週的起始日為",
       "description": "自定義工作日相關圖表的週起始日"
+    },
+    "message": "-",
+    "headings": {
+      "appearance": "外觀與體驗",
+      "stats": "圖表和資料",
+      "storage": "儲存和快取"
+    },
+    "ordinate": {
+      "label": "垂直軸",
+      "description": "顯示所有折線圖和長條圖的垂直軸"
+    },
+    "activeAccounts": {
+      "label": "啟用帳號",
+      "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。"
+    },
+    "cache": {
+      "label": "啟用快取",
+      "description": "啟用快取系統以更快地顯示已處理的統計資料。"
+    },
+    "clearCache": {
+      "label": "清理快取",
+      "description": "從所有帳號中刪除所有統計資料的快取。快取將在再次開啟統計資訊頁面時重新創建。",
+      "empty": "快取為空",
+      "size": "快取大小為 {0}"
+    },
+    "note": {
+      "title": "注意",
+      "reloadStatsPage": "選項將自動保存。如果已經開啟統計頁面，則必須重新開啟或重新讀取才能應用變更。"
     }
   }
 }
