@@ -1,8 +1,8 @@
 <template>
 	<div id='stats' :class='scheme + " text-normal background-normal"'>
 		<div class='container pt-2 pb-6'>
-			<!-- title heading -->
-			<header class='mb-1-5'>
+			<!-- title heading and filter -->
+			<header>
 				<h1 class='mr-2'>
 					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
 					Th<span class='text-gray'>underb</span>ird Stats
@@ -104,8 +104,17 @@
 					</div>
 				</div>
 			</header>
+			<!-- meta info section -->
+			<section class='meta mt-1 text-gray text-right'>
+				<div
+					v-if='display.meta && display.meta.timestamp'
+					class='d-inline-block tooltip tooltip-bottom'
+					:data-tooltip='formatDate(display.meta.timestamp)'
+					v-html='$t("stats.dataCollected", ["<span class=\"text-normal\">" + timePassedSinceDataRetrieval + "</span>"])'
+				></div>
+			</section>
 			<!-- fetured numbers -->
-			<section class='numbers'>
+			<section class='numbers mx-auto mt-2'>
 				<!-- total -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
@@ -478,6 +487,7 @@ export default {
 				accounts: [],
 				cache: true,
 			},
+			now: Date.now(), // property holding the current timestamp
 			publicPath: process.env.BASE_URL
 		}
 	},
@@ -489,13 +499,18 @@ export default {
 		// get stored options
 		await this.getOptions()
 		// retrieve all accounts
-		this.getAccounts()
+		await this.getAccounts()
+		// update data collection date
+		setInterval(() => { this.now = Date.now() }, 1000)
 	},
 	methods: {
 		// basic data structure for display numbers and charts
 		// used for single and multi-account display
 		initData () {
 			return { 
+				meta: {
+					timestamp: null
+				},
 				numbers: {
 					total: 0,
 					unread: 0,
@@ -595,6 +610,8 @@ export default {
 				// post processing: reduce size of contacts to configured limit
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.sections.contacts.leaderCount)
 				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.sections.contacts.leaderCount)
+				// post processing: add timestamp of finished processing
+				accountData.meta.timestamp = Date.now()
 			})
 			return accountData
 		},
@@ -771,6 +788,9 @@ export default {
 				}))
 				// sum all values of all objects
 				let sum = JSON.parse(JSON.stringify(this.initData()))
+				// meta
+				accountsData.map(a => { if (!a.hasOwnProperty('meta')) a.meta = { timestamp: 0 }})
+				sum.meta.timestamp = accountsData.reduce((p,c) => p < c.meta.timestamp ? p : c.meta.timestamp, Date.now())
 				// numbers
 				sum.numbers.total = accountsData.reduce((p,c) => p+c.numbers.total, 0)
 				sum.numbers.unread = accountsData.reduce((p,c) => p+c.numbers.unread, 0)
@@ -976,7 +996,12 @@ export default {
 			const current = this.preferences.sections.days.year
 			if (current < min) this.preferences.sections.days.year = min
 			if (current > max) this.preferences.sections.days.year = max
-		}
+		},
+		// make given date <d> human readable
+		formatDate (d) {
+			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+			return d ? (new Date(d)).toLocaleDateString(this.$i18n.locale, options) : ''
+		},
 	},
 	computed: {
 		// current app version
@@ -1297,6 +1322,14 @@ export default {
 			let d = new Date()
 			return d.toISOString().slice(0,10)
 		},
+		// calculates the time the given timestamp <t> and <now> with human readable time units
+		timePassedSinceDataRetrieval () {
+			let secondsPast = (this.now - this.display.meta.timestamp) / 1000
+			if (secondsPast < 60) return parseInt(secondsPast) + this.$t('stats.abbreviations.second')
+			if (secondsPast < 3600) return parseInt(secondsPast/60) + this.$t('stats.abbreviations.minute')
+			if (secondsPast <= 86400) return parseInt(secondsPast/3600) + this.$t('stats.abbreviations.hour')
+			if (secondsPast > 86400) return parseInt(secondsPast/86400) + this.$t('stats.abbreviations.day')
+		},
 		// convert theme preference into scheme name
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
@@ -1411,6 +1444,7 @@ body
 			h1
 				display: flex
 				align-items: center
+				margin: 0
 				.logo
 					height: 48px
 			.filter
@@ -1424,7 +1458,6 @@ body
 			display: grid
 			column-gap: 1rem
 			row-gap: 2rem
-			margin: 0 auto
 			&>div
 				text-align: center
 				.featured
