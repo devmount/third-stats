@@ -1,5 +1,14 @@
 <template>
-	<div id='stats' :class='scheme + " text-normal background-normal"'>
+	<div id='stats' class='text-normal background-normal position-relative' :class='scheme'>
+		<!-- progress indicator -->
+		<div class="progress position-fixed w-available top-0 right-0">
+			<div
+				class='h-0-25 text-center background-accent2 tooltip tooltip-bottom'
+				:class='{ "transition-width": processingState>0 && processingState<100 }'
+				:style='"width:" + processingState + "%;"'
+				:data-tooltip='oneDigit(processingState) + "%"'
+			></div>
+		</div>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading and filter -->
 			<header>
@@ -462,6 +471,10 @@ export default {
 				}
 			},
 			loading: false,  // loading indication, keeps showing results and processes data in background
+			progress: {
+				current: 0,    // indicator for progress on refreshing data, [0-1]
+				max: 0,        // upper limit for progress indicator
+			},
 			display: {},     // processed data to show
 			tabs: {          // tab navigation containing one active tab
 				years: true,
@@ -486,6 +499,7 @@ export default {
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
+				selfMessages: 'none',
 				cache: true,
 			},
 			now: Date.now(), // property holding the current timestamp
@@ -610,6 +624,8 @@ export default {
 			await Promise.all(folders.map(async f => {
 				// analyze all messages in all folders
 				await self.processMessages(accountData, JSON.parse(JSON.stringify(f)), identities)
+				// increment current progress by 1 for each folder
+				self.progress.current++
 			})).then(() => {
 				// post processing: reduce size of contacts to configured limit
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.sections.contacts.leaderCount)
@@ -647,7 +663,7 @@ export default {
 			let type = ''
 			let author = extractEmailAddress(m.author)
 			// check for self messages first, if exclusion is enabled
-			if (this.preferences.selfMessages != 'none') {
+			if (this.preferences.selfMessages && this.preferences.selfMessages != 'none') {
 				let recipients = m.recipients.map(r => extractEmailAddress(r))
 				let ids = this.preferences.selfMessages == 'sameAccount' ? identities : this.identities
 				if (ids.includes(author) && recipients.reduce((p,c) => p && ids.includes(c), true)) return	
@@ -752,7 +768,7 @@ export default {
 		},
 		// retrieve and process data of account with <id=accountId>
 		// or of multiple accounts with <id=sum>
-		async refresh (id, showLoading) {
+		async refresh (id) {
 			// get currently selected account
 			let account = await messenger.accounts.get(id)
 			// process data of this account again
@@ -784,18 +800,25 @@ export default {
 				// iterate over all activated accounts
 				let accounts = this.preferences.accounts.length > 0 ? this.accounts.filter(a => this.preferences.accounts.includes(a.id)) : this.accounts
 				let accountsData = []
+				// init progress indicator
+				this.progress.current = 1
+				this.progress.max = accounts.reduce((p,c) => p+traverseAccount(c).length, 0)
 				await Promise.all(accounts.map(async a => {
 					// get data from storage
 					let result = await messenger.storage.local.get('stats-' + a.id)
 					if (!refresh && result && result['stats-' + a.id]) {
 						// if no refresh requested and this accounts data was cached before, take data from cache
 						accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])))
+						this.progress.current += a.folderCount
 					} else {
 						// otherwise (re)process account
 						let data = await this.refresh(a.id)
 						accountsData.push(JSON.parse(JSON.stringify(data)))
 					}
 				}))
+				// finish progress indicator
+				this.progress.current = 0
+				this.progress.max = 0
 				// sum all values of all objects
 				let sum = JSON.parse(JSON.stringify(this.initData()))
 				// meta
@@ -873,8 +896,12 @@ export default {
 					// if cache is enabled and data already exists in storage, display it directly
 					this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
 				} else {
-					// otherwise retrieve it first/again
+					// otherwise retrieve it first/again and track progress by processed folder count
+					this.progress.current = 1
+					this.progress.max = this.folders.length
 					await this.refresh(id)
+					this.progress.current = 0
+					this.progress.max = 0
 				}
 				// adjust displayed activity year
 				this.adjustSelectedYear()
@@ -1353,6 +1380,13 @@ export default {
 				years.push(i)
 			}
 			return years
+		},
+		// compute current loading progress in percent
+		processingState () {
+			if (this.progress.max > 0) {
+				if (this.progress.current<=this.progress.max) return 100*this.progress.current/this.progress.max
+				else return 100
+			} else return 0
 		}
 	},
 	watch: {
