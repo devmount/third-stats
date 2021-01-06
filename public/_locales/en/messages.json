@@ -145,6 +145,20 @@
       "label": "Active Accounts",
       "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats."
     },
+    "selfMessages": {
+      "label": "Self Messages",
+      "description": "Exclude messages that were sent from me to myself",
+      "values": {
+        "none": "Disabled",
+        "sameAccount": "Same Account Only",
+        "anyAccount": "From Any Account"
+      },
+      "info": {
+        "none": "Self messages will be included and treated as normal emails (default)",
+        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded",
+        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded"
+      }
+    },
     "cache": {
       "label": "Activate Cache",
       "description": "Enable caching system for faster display of already processed stats data."
