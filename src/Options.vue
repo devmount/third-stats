@@ -183,7 +183,7 @@ export default {
 				startOfWeek: 0,
 				addresses: '',
 				accounts: [],
-				selfMessages: 'includeAll',
+				selfMessages: 'none',
 				cache: true,
 			},
 			allAccounts: [],
