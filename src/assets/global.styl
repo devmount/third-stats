@@ -77,6 +77,10 @@ for m, c in mode
 		100%
 			stroke: c.accent1
 
+// transitions
+.transition-width
+	transition: width transition.duration transition.function
+
 // coloring
 for m, c in mode
 	.{m}
@@ -111,6 +115,8 @@ for m, c in mode
 			background: c.gray3
 		.background-gray
 			background: c.gray2
+		.background-accent2
+			background: c.accent2
 		.background-hover-accent2:hover
 			background: c.accent2 !important
 
@@ -188,6 +194,10 @@ for m, c in mode
 	gap: .5rem
 .w-6
 	width: 6rem
+.w-available
+	width: 100%
+.h-0-25
+	height: .25rem
 .d-block
 	display: block
 .d-inline
@@ -208,12 +218,18 @@ for m, c in mode
 	align-self: center
 .align-items-center
 	align-items: center
+.position-fixed
+	position: fixed
 .position-absolute
 	position: absolute
 .position-relative
 	position: relative
+.top-0
+	top: 0
 .top-0-5
 	top: .5rem
+.right-0
+	right: 0
 .right-0-5
 	right: .5rem
 
