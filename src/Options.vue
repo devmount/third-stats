@@ -100,12 +100,12 @@
 			</section>
 			<!-- option: selfMessages -->
 			<section class='entry'>
-				<label for='start'>
+				<label for='selfMessages'>
 					{{ $t('options.selfMessages.label') }}
 					<span class='d-block text-gray text-small'>{{ $t('options.selfMessages.description') }}</span>
 				</label>
 				<div class='action d-flex flex-wrap'>
-					<select class='flex-grow mb-1' v-model='options.selfMessages' id='start'>
+					<select class='flex-grow mb-1' v-model='options.selfMessages' id='selfMessages'>
 						<option v-for='val in selfMessagesOptions' :key='val' :value='val'>{{ $t('options.selfMessages.values.' + val) }}</option>
 					</select>
 					<div class='d-flex gap-0-5 align-items-center text-gray'>
