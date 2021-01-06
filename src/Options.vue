@@ -26,8 +26,6 @@
 					</label>
 				</div>
 			</section>
-			<!-- section related to the stats page -->
-			<h2 class='mt-3'>{{ $t('options.headings.stats') }}</h2>
 			<!-- option: ordinate -->
 			<section class='entry'>
 				<label for='ordinate'>
@@ -42,6 +40,8 @@
 					</label>
 				</div>
 			</section>
+			<!-- section related to charts and data retrieval -->
+			<h2 class='mt-3'>{{ $t('options.headings.stats') }}</h2>
 			<!-- option: startOfWeek -->
 			<section class='entry'>
 				<label for='start'>
@@ -72,7 +72,7 @@
 						</button>
 					</div>
 					<div>
-						<span class='tag text-tiny' v-for='a in addressList'>
+						<span class='tag text-small' v-for='a in addressList'>
 							{{ a }}
 							<svg @click='removeAddress(a)' class="icon icon-bold icon-text cursor-pointer" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -95,6 +95,29 @@
 							<input type='checkbox' :value='a.id' v-model='options.accounts' />
 							<i class="checkbox-icon"></i> {{ a.name }}
 						</label>
+					</div>
+				</div>
+			</section>
+			<!-- option: selfMessages -->
+			<section class='entry'>
+				<label for='selfMessages'>
+					{{ $t('options.selfMessages.label') }}
+					<span class='d-block text-gray text-small'>{{ $t('options.selfMessages.description') }}</span>
+				</label>
+				<div class='action d-flex flex-wrap'>
+					<select class='flex-grow mb-1' v-model='options.selfMessages' id='selfMessages'>
+						<option v-for='val in selfMessagesOptions' :key='val' :value='val'>{{ $t('options.selfMessages.values.' + val) }}</option>
+					</select>
+					<div class='d-flex gap-0-5 align-items-center text-gray'>
+						<div>
+							<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<line x1="12" y1="8" x2="12.01" y2="8" />
+								<rect x="4" y="4" width="16" height="16" rx="2" />
+								<polyline points="11 12 12 12 12 16 13 16" />
+							</svg>
+						</div>
+						<span class='text-small'>{{ $t('options.selfMessages.info.' + options.selfMessages) }}</span>
 					</div>
 				</div>
 			</section>
@@ -122,9 +145,17 @@
 				</label>
 				<div class='action'>
 					<button @click='clearCache' class='mb-1'>{{ $t('options.button.clearCache') }}</button>
-					<div class='text-gray text-small'>
-						<span v-if='cacheSize > 0'>{{ $t('options.clearCache.size', [formattedCacheSize]) }}</span>
-						<span v-else>{{ $t('options.clearCache.empty') }}</span>
+					<div class='d-flex gap-0-5 align-items-center text-gray'>
+						<div>
+							<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<line x1="12" y1="8" x2="12.01" y2="8" />
+								<rect x="4" y="4" width="16" height="16" rx="2" />
+								<polyline points="11 12 12 12 12 16 13 16" />
+							</svg>
+						</div>
+						<span class='text-small' v-if='cacheSize > 0'>{{ $t('options.clearCache.size', [formattedCacheSize]) }}</span>
+						<span class='text-small' v-else>{{ $t('options.clearCache.empty') }}</span>
 					</div>
 				</div>
 			</section>
@@ -152,6 +183,7 @@ export default {
 				startOfWeek: 0,
 				addresses: '',
 				accounts: [],
+				selfMessages: 'includeAll',
 				cache: true,
 			},
 			allAccounts: [],
@@ -168,7 +200,7 @@ export default {
 	},
 	methods: {
 		// create options object with given values or default values
-		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, cache) {
+		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, selfMessages, cache) {
 			return {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
@@ -176,6 +208,7 @@ export default {
 					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
 					addresses: addresses === null ? this.options.addresses : addresses,
 					accounts: accounts === null ? this.options.accounts : accounts,
+					selfMessages: selfMessages === null ? this.options.selfMessages : selfMessages,
 					cache: cache === null ? this.options.cache : cache,
 				}
 			}
@@ -185,7 +218,8 @@ export default {
 			let result = await messenger.storage.local.get('options')
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
-				this.options = result.options
+				// merge option objects to overwrite attributes by saved ones while keeping new attributes
+				this.options = {...this.options, ...result.options}
 			}
 		},
 		// get all existing accounts
@@ -226,7 +260,7 @@ export default {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
-				await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null))
+				await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null))
 				this.options.addresses = addresses
 				this.input.address = ''
 			}
@@ -236,7 +270,7 @@ export default {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
-			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null))
+			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null))
 			this.options.addresses = addresses
 		},
 		// clear all cached stats entries
@@ -244,7 +278,7 @@ export default {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
-			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null))
+			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null))
 			// recalculate cache size
 			this.getCacheSize()
 		}
@@ -263,6 +297,14 @@ export default {
 		addressList () {
 			return this.options.addresses ? this.options.addresses.split(',') : []
 		},
+		selfMessagesOptions () {
+			return [
+				'none',
+				'sameAccount',
+				'anyAccount',
+			]
+		},
+		// output cache size in human readable format with units
 		formattedCacheSize () {
 			return formatBytes(this.cacheSize)
 		}
@@ -270,7 +312,7 @@ export default {
 	watch: {
 		options: {
 			handler: function () {
-				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null))
+				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null))
 			},
 			deep: true,
 			immediate: false
