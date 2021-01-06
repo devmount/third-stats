@@ -171,7 +171,7 @@
     },
     "note": {
       "title": "Note",
-      "reloadStatsPage": "Options are automatically saved. If the stats page is already open, you have to reopen or reload it for changes to be applied."
+      "reloadStatsPage": "Options are automatically saved. If the stats page is already open, you have to reopen or reload it for changes to be applied. For some options it's also necessary to refresh cached data if cache is enabled."
     },
     "message": "-"
   }

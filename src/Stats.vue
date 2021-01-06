@@ -445,6 +445,7 @@ export default {
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
+			identities: [],  // list of all existing identities
 			folders: [],     // list of all existing folders for the current account
 			active: {
 				account: null, // currently selected account
@@ -572,10 +573,11 @@ export default {
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
+				this.preferences.selfMessages = result.options.selfMessages ? result.options.selfMessages : 'none'
 				this.preferences.cache = result.options.cache ? true : false
 			}
 		},
-		// retrieve accounts list
+		// retrieve accounts and identities list
 		// get active account from URL get parameter
 		async getAccounts () {
 			let accounts = await messenger.accounts.list()
@@ -585,6 +587,8 @@ export default {
 			}
 			// assign accounts
 			this.accounts = accounts
+			// assign identities
+			this.identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
 			// extract account id from url GET parameter
 			let uri = window.location.search.substring(1)
 			this.active.account = (new URLSearchParams(uri)).get('s')
@@ -641,10 +645,16 @@ export default {
 		// update given <data> object
 		analyzeMessage (data, m, identities) {
 			let type = ''
+			let author = extractEmailAddress(m.author)
+			// check for self messages first, if exclusion is enabled
+			if (this.preferences.selfMessages != 'none') {
+				let recipients = m.recipients.map(r => extractEmailAddress(r))
+				let ids = this.preferences.selfMessages == 'sameAccount' ? identities : this.identities
+				if (ids.includes(author) && recipients.reduce((p,c) => p && ids.includes(c), true)) return	
+			}
 			// numbers
 			data.numbers.total++
 			if (m.read === false) data.numbers.unread++
-			let author = extractEmailAddress(m.author)
 			if (identities.includes(author)) {
 				data.numbers.sent++
 				type = 'sent'
