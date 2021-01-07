@@ -4,9 +4,10 @@
   },
   "popup": {
     "account": "Konto | Konton",
-    "messagesInFolder": "{0} meddelanden i {1} mappar",
+    "linkDescription": "Öppna all statistik i ny flik",
     "message": "-",
-    "linkDescription": "Öppna all statistik i ny flik"
+    "messagesInFolder": "{0} meddelanden i {1} mappar",
+    "folder": "Mapp | Mappar"
   },
   "stats": {
     "mailsTotal": "Antal mejl",
@@ -79,14 +80,37 @@
     },
     "tooltips": {
       "expand": "Expandera diagramområdet",
-      "shrink": "Krymp diagramområdet"
+      "shrink": "Krymp diagramområdet",
+      "refresh": "Uppdatera data",
+      "clear": "Rensa urval",
+      "period": {
+        "start": "Från Datum\nTips: Skriver du '{0}' blir det '{1}'",
+        "end": "Till Datum\nTips: Skriver du '{0}' blir det '{1}'"
+      },
+      "error": {
+        "empty": "Indata krävs",
+        "dateFormat": "Format YYYY-MM-DD krävs, e.g. 2020-01-31",
+        "dateUnreal": "Ett giltigt datum krävs",
+        "dateOrderStart": "Startdatum måste vara före slutdatum",
+        "dateOrderEnd": "Slutdatum måste vara efter startdatum"
+      },
+      "folder": {
+        "notAvailable": "Mappar är inte tillgängliga för {0}"
+      }
     },
     "abbreviations": {
       "calendarWeek": "V",
-      "quarter": "K"
+      "quarter": "K",
+      "day": "d",
+      "hour": "t",
+      "minute": "min",
+      "second": "s"
     },
     "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
+    "message": "-",
+    "timePeriod": "Tidsperiod",
+    "allAccountsSum": "Alla Konton (Summa)",
+    "dataCollected": "Data samlad {0} sen"
   },
   "options": {
     "switch": {
@@ -94,7 +118,8 @@
       "off": "Av"
     },
     "button": {
-      "save": "Spara"
+      "save": "Spara",
+      "clearCache": "Rensa Cache"
     },
     "darkMode": {
       "label": "Mörkt Läge",
@@ -104,10 +129,51 @@
       "label": "Lokala Identiteter",
       "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
     },
-    "message": "-",
     "startOfWeek": {
       "label": "Starta Veckan på",
       "description": "Anpassad start av vecka för alla veckodagsrelaterade diagram"
+    },
+    "message": "-",
+    "headings": {
+      "appearance": "Utseende & Erfarenhet",
+      "stats": "Diagram & Data",
+      "storage": "Lagring & Cache"
+    },
+    "ordinate": {
+      "label": "Vertikalaxel",
+      "description": "Visa vertikalaxel för alla linje- och stapeldiagram"
+    },
+    "activeAccounts": {
+      "label": "Aktiva Konton",
+      "description": "Aktivera eller inaktivera konton. Inaktiverade konton visas inte i kontolistor eller statistik."
+    },
+    "cache": {
+      "label": "Aktivera Cache",
+      "description": "Aktivera cachingsystem för snabbare visning av redan bearbetad statistikdata."
+    },
+    "clearCache": {
+      "label": "Rensa Cache",
+      "description": "Ta bort all cachad statistikdata från alla konton. Kommer att återbyggas när statistiksidan öppnas igen.",
+      "empty": "Cache är tom",
+      "size": "Cachestorlek är {0}"
+    },
+    "note": {
+      "title": "Notering",
+      "reloadStatsPage": "Alternativ sparas automatiskt. Om statistiksidan redan är öppen måste du öppna den igen eller ladda om den för att ändringar ska kunna tillämpas. För vissa alternativ är det också nödvändigt att uppdatera cachad data om cache är aktiverat."
+    },
+    "selfMessages": {
+      "label": "Självmeddelanden",
+      "description": "Exkludera meddelanden som var skickade från mig till mig själv",
+      "values": {
+        "none": "Inaktiverad",
+        "sameAccount": "Samma Konto Bara",
+        "anyAccount": "Från Alla Konton"
+      },
+      "info": {
+        "none": "Självmeddelanden kommer inkluderas och behandlas som normala mejl (standard)",
+        "sameAccount": "Meddelanden där avsändare och mottagare är identiteter från samma konto kommer bli exkluderade",
+        "anyAccount": "Meddelanden där avsändare och mottagare är identiteter från alla konton kommer bli exkluderade"
+      }
     }
   }
 }
