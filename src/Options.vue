@@ -61,7 +61,7 @@
 					<span class='d-block text-gray text-small'>{{ $t('options.localIdentities.description') }}</span>
 				</label>
 				<div class='action'>
-					<div class="d-flex">
+					<div class="d-flex input-group">
 						<input class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
 						<button @click='addAddress' class='p-0-5'>
 							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
