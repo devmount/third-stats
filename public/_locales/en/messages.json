@@ -161,7 +161,7 @@
     },
     "leaderCount": {
       "label": "Leader Count",
-      "description": "Number of contacts shown in 'Most received from' and 'Most sent to' charts"
+      "description": "Number of contacts shown in 'Most received from' and 'Most sent to' charts (999 maximum)"
     },
     "cache": {
       "label": "Activate Cache",
