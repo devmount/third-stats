@@ -159,6 +159,10 @@
         "anyAccount": "Messages where sender and receiver are identities from any account will be excluded"
       }
     },
+    "leaderCount": {
+      "label": "Leader Count",
+      "description": "Number of contacts shown in 'Most received from' and 'Most sent to' charts"
+    },
     "cache": {
       "label": "Activate Cache",
       "description": "Enable caching system for faster display of already processed stats data."

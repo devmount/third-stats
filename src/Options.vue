@@ -62,7 +62,7 @@
 				</label>
 				<div class='action'>
 					<div class="d-flex">
-						<input  class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
+						<input class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
 						<button @click='addAddress' class='p-0-5'>
 							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -119,6 +119,16 @@
 						</div>
 						<span class='text-small'>{{ $t('options.selfMessages.info.' + options.selfMessages) }}</span>
 					</div>
+				</div>
+			</section>
+			<!-- option: leaderCount -->
+			<section class='entry'>
+				<label for='leaderCount'>
+					{{ $t('options.leaderCount.label') }}
+					<span class='d-block text-gray text-small'>{{ $t('options.leaderCount.description') }}</span>
+				</label>
+				<div class='action d-flex'>
+					<input class='flex-grow' type='number' v-model='options.leaderCount' min='1' max='1000' placeholder='20' id='leaderCount' />
 				</div>
 			</section>
 			<!-- section related to store processed data -->
@@ -184,6 +194,7 @@ export default {
 				addresses: '',
 				accounts: [],
 				selfMessages: 'none',
+				leaderCount: 20,
 				cache: true,
 			},
 			allAccounts: [],
@@ -200,7 +211,7 @@ export default {
 	},
 	methods: {
 		// create options object with given values or default values
-		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, selfMessages, cache) {
+		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, selfMessages, leaderCount, cache) {
 			return {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
@@ -209,6 +220,7 @@ export default {
 					addresses: addresses === null ? this.options.addresses : addresses,
 					accounts: accounts === null ? this.options.accounts : accounts,
 					selfMessages: selfMessages === null ? this.options.selfMessages : selfMessages,
+					leaderCount: leaderCount === null ? this.options.leaderCount : leaderCount,
 					cache: cache === null ? this.options.cache : cache,
 				}
 			}
@@ -260,7 +272,7 @@ export default {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
-				await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null))
+				await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
 				this.options.addresses = addresses
 				this.input.address = ''
 			}
@@ -270,7 +282,7 @@ export default {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
-			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null))
+			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
 			this.options.addresses = addresses
 		},
 		// clear all cached stats entries
@@ -278,7 +290,7 @@ export default {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
-			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null))
+			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
 			// recalculate cache size
 			this.getCacheSize()
 		}
@@ -312,7 +324,7 @@ export default {
 	watch: {
 		options: {
 			handler: function () {
-				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null))
+				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
 			},
 			deep: true,
 			immediate: false

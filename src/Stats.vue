@@ -491,7 +491,7 @@ export default {
 						year: (new Date()).getFullYear()
 					},
 					contacts: {
-						leaderCount: 20
+						leaderCount: 1000
 					}
 				},
 				dark: true,    // preferences loaded from stored options
