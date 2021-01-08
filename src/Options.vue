@@ -127,8 +127,20 @@
 					{{ $t('options.leaderCount.label') }}
 					<span class='d-block text-gray text-small'>{{ $t('options.leaderCount.description') }}</span>
 				</label>
-				<div class='action d-flex'>
-					<input class='flex-grow' type='number' v-model='options.leaderCount' min='1' max='1000' placeholder='20' id='leaderCount' />
+				<div class='action d-flex input-group'>
+					<input class='flex-grow' type='text' v-model='options.leaderCount' placeholder='20' pattern='\d{1,3}' maxlength='3' id='leaderCount' />
+					<div class="d-flex flex-direction-column button-group-vertical">
+						<button @click='incrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
+							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
+								<polyline points="6,12 12,6 18,12" />
+							</svg>
+						</button>
+						<button @click='decrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
+							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
+								<polyline points="6,5 12,11 18,5" />
+							</svg>
+						</button>
+					</div>
 				</div>
 			</section>
 			<!-- section related to store processed data -->
@@ -284,6 +296,18 @@ export default {
 			addresses = addresses.replace(/^,+|,+$/g, '');
 			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
 			this.options.addresses = addresses
+		},
+		// increases leader count up to limit 999
+		incrementLeaderCount () {
+			if (this.options.leaderCount < 999) {
+				this.options.leaderCount++
+			}
+		},
+		// decreases leader count down to limit 1
+		decrementLeaderCount () {
+			if (this.options.leaderCount > 1) {
+				this.options.leaderCount--
+			}
 		},
 		// clear all cached stats entries
 		clearCache: async function () {
