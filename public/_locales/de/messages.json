@@ -4,10 +4,10 @@
   },
   "popup": {
     "account": "Konto | Konten",
+    "folder": "Ordner | Ordner",
     "linkDescription": "Alle Statistiken in einem neuen Tab öffnen",
     "message": "-",
-    "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
-    "folder": "Ordner | Ordner"
+    "messagesInFolder": "{0} Nachrichten in {1} Ordnern"
   },
   "stats": {
     "mailsTotal": "E-Mails gesamt",
@@ -24,6 +24,7 @@
     "mailsWeek": "E-Mails/Woche",
     "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
     "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
+    "timePeriod": "Zeitraum",
     "charts": {
       "years": {
         "title": "Jahre",
@@ -93,15 +94,23 @@
         "dateUnreal": "Ein gültiges Datum ist erforderlich",
         "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
         "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen"
+      },
+      "folder": {
+        "notAvailable": "Ordner sind für {0} nicht verfügbar"
       }
     },
     "abbreviations": {
       "calendarWeek": "KW",
-      "quarter": "Q"
+      "quarter": "Q",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "second": "s"
     },
     "starAndImprove": "Beteilige dich an diesem Projekt auf <a href='{0}' target='_blank'>Github</a>",
     "message": "-",
-    "timePeriod": "Zeitraum"
+    "allAccountsSum": "Alle Konten (Summe)",
+    "dataCollected": "Daten vor {0} abgerufen"
   },
   "options": {
     "headings": {
@@ -120,6 +129,10 @@
     "darkMode": {
       "label": "Nachtmodus",
       "description": "Auswahl eines hellen oder dunklen Farbschemas"
+    },
+    "ordinate": {
+      "label": "Vertikale Achse",
+      "description": "Vertikale Achse für alle Linien- und Balkendiagramme anzeigen"
     },
     "localIdentities": {
       "label": "Lokale Identitäten",
@@ -148,9 +161,23 @@
       "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
     },
     "message": "-",
-    "ordinate": {
-      "label": "Vertikale Achse",
-      "description": "Vertikale Achse für alle Linien- und Balkendiagramme anzeigen"
+    "selfMessages": {
+      "label": "Eigennachrichten",
+      "description": "Nachrichten ausschließen, die von mir an mich selbst gesendet wurden",
+      "values": {
+        "none": "Deaktiviert",
+        "sameAccount": "Vom gleichen Konto",
+        "anyAccount": "Von jedem Konto"
+      },
+      "info": {
+        "none": "Eigennachrichten werden einbezogen und als normale E-Mails behandelt (Standard)",
+        "sameAccount": "Nachrichten, bei denen sowohl Absender als auch Empfänger Identitäten desselben Kontos sind, werden ausgeschlossen",
+        "anyAccount": "Nachrichten, bei denen sowohl Absender als auch Empfänger Identitäten eines beliebigen Kontos sind, werden ausgeschlossen"
+      }
+    },
+    "leaderCount": {
+      "label": "Anzahl häufiger Kontakte",
+      "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)"
     }
   }
 }
