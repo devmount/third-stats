@@ -128,7 +128,7 @@
 					<span class='d-block text-gray text-small'>{{ $t('options.leaderCount.description') }}</span>
 				</label>
 				<div class='action d-flex input-group'>
-					<input class='flex-grow' type='number' v-model='options.leaderCount' placeholder='20' min='1' max='999' maxlength='3' id='leaderCount' />
+					<input class='flex-grow' type='number' v-model='options.leaderCount' placeholder='20' min='1' max='999' id='leaderCount' />
 					<div class="d-flex flex-direction-column button-group-vertical">
 						<button @click='incrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
 							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
