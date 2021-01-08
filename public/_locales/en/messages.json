@@ -161,7 +161,7 @@
     },
     "leaderCount": {
       "label": "Leader Count",
-      "description": "Number of entries shown in charts listing contacts (999 maximum)"
+      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)"
     },
     "cache": {
       "label": "Activate Cache",
