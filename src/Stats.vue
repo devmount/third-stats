@@ -490,9 +490,6 @@ export default {
 					days: {
 						year: (new Date()).getFullYear()
 					},
-					contacts: {
-						leaderCount: 20
-					}
 				},
 				dark: true,    // preferences loaded from stored options
 				ordinate: false,
@@ -500,6 +497,7 @@ export default {
 				localIdentities: [],
 				accounts: [],
 				selfMessages: 'none',
+				leaderCount: 20,
 				cache: true,
 			},
 			now: Date.now(), // property holding the current timestamp
@@ -588,6 +586,7 @@ export default {
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
 				this.preferences.selfMessages = result.options.selfMessages ? result.options.selfMessages : 'none'
+				this.preferences.leaderCount = result.options.leaderCount ? result.options.leaderCount : 20
 				this.preferences.cache = result.options.cache ? true : false
 			}
 		},
@@ -628,8 +627,8 @@ export default {
 				self.progress.current++
 			})).then(() => {
 				// post processing: reduce size of contacts to configured limit
-				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.sections.contacts.leaderCount)
-				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.sections.contacts.leaderCount)
+				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.leaderCount)
+				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.leaderCount)
 				// post processing: add timestamp of finished processing
 				accountData.meta.timestamp = Date.now()
 			})
@@ -879,8 +878,8 @@ export default {
 					}
 				}
 				// contacts
-				sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), this.preferences.sections.contacts.leaderCount)
-				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.sections.contacts.leaderCount)
+				sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), this.preferences.leaderCount)
+				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.leaderCount)
 				// show summed stats
 				this.display = sum
 				// adjust displayed activity year

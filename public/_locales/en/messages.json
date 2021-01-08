@@ -159,6 +159,10 @@
         "anyAccount": "Messages where sender and receiver are identities from any account will be excluded"
       }
     },
+    "leaderCount": {
+      "label": "Leader Count",
+      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)"
+    },
     "cache": {
       "label": "Activate Cache",
       "description": "Enable caching system for faster display of already processed stats data."
