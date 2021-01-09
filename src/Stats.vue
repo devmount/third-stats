@@ -604,7 +604,9 @@ export default {
 			this.identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
 			// extract account id from url GET parameter
 			let uri = window.location.search.substring(1)
-			this.active.account = (new URLSearchParams(uri)).get('s')
+			let id = (new URLSearchParams(uri)).get('s')
+			if (!id || (id == 'sum' && !this.preferences.cache)) id = accounts[0].id
+			this.active.account = id
 		},
 		// analyze folders of a given account <a>
 		// return processed data oject structured like initData
