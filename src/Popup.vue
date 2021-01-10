@@ -72,9 +72,12 @@ export default {
 		// add folder count to account object
 		async getAccounts () {
 			let accounts = await messenger.accounts.list()
-			// filter list of accounts if user configured custom list
 			if (this.options.accounts.length > 0) {
+				// filter list of accounts if user configured custom list
 				accounts = accounts.filter(a => this.options.accounts.includes(a.id))
+			} else {
+				// default accounts activated are all non local accounts ...
+				accounts = accounts.filter(a => a.type != 'none')
 			}
 			// calculate folder and message count and append to account object
 			let self = this

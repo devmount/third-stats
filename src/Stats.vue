@@ -594,9 +594,12 @@ export default {
 		// get active account from URL get parameter
 		async getAccounts () {
 			let accounts = await messenger.accounts.list()
-			// filter list of accounts if user configured custom list
 			if (this.preferences.accounts.length > 0) {
+				// filter list of accounts if user configured custom list
 				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
+			} else {
+				// default accounts activated are all non local accounts ...
+				accounts = accounts.filter(a => a.type != 'none')
 			}
 			// assign accounts
 			this.accounts = accounts
