@@ -2,33 +2,48 @@
 	<div id='popup'>
 		<div class='container pt-1'>
 			<!-- header containing number of accounts and linking to stats page -->
-			<h3
-				class="text-hover-accent2 cursor-pointer tooltip tooltip-bottom"
-				:data-tooltip='$t("popup.linkDescription")'
-				@click.prevent="openTab('sum')"
-			>
-				<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
-				<span v-if='loading' class='dark loading'></span>
-				<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-					<line x1="4" y1="19" x2="20" y2="19" />
-					<polyline points="4 15 8 9 12 11 16 6 20 10 20 15 4 15" />
-				</svg>
-			</h3>
+			<header class='d-flex gap-0-5 mb-1-5'>
+				<h3 class='flex-grow'>
+					<span class='mr-1'>{{ accounts.length }} {{ $tc('popup.account', accounts.length) }}</span>
+					<span v-if='loading' class='dark loading'></span>
+				</h3>
+				<div
+					class='text-hover-accent2 cursor-pointer tooltip tooltip-left transition-color'
+					:data-tooltip='$t("popup.openAllStats")'
+					@click.prevent="openTab('stats.html', 'sum')"
+				>
+					<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
+						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+						<line x1='4' y1='19' x2='20' y2='19' />
+						<polyline points='4 15 8 9 12 11 16 6 20 10 20 15 4 15' />
+					</svg>
+				</div>
+				<div
+					class='text-hover-accent2 cursor-pointer tooltip tooltip-left transition-color'
+					:data-tooltip='$t("popup.openOptions")'
+					@click.prevent="openTab('options.html')"
+				>
+					<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
+						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+						<path d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
+						<circle cx='12' cy='12' r='3' />
+					</svg>
+				</div>
+			</header>
 			<!-- list of all accounts -->
-			<div class='accounts'>
+			<section class='accounts'>
 				<div
 					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow"
 					v-for='a in accounts'
 					:key='a.id'
-					@click.prevent="openTab(a.id)"
+					@click.prevent="openTab('stats.html', a.id)"
 				>
 					<h4>{{ a.name }}</h4>
 					<div class='text-small text-secondary'>
 						{{ a.folderCount }} {{ $tc('popup.folder', a.folderCount) }}
 					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	</div>
 </template>
@@ -88,10 +103,9 @@ export default {
 			this.accounts = accounts
 		},
 		// open the stats page as new tab
-		// appends account <id> as GET parameter
-		openTab (id) {
-			let url = 'stats.html'
-			if (id) url += '?s=' + id
+		// appends GET parameter
+		openTab (url, get='') {
+			if (get) url += '?s=' + get
 			messenger.tabs.create({
 				active: true,
 				url: url
@@ -119,13 +133,11 @@ html, body
 		padding-left: 20px
 		padding-right: 20px
 		padding-bottom: 20px
-		h3
-			margin-top: 0
-			font-weight: 300
-			font-size: 20px
-			transition: color .2s
-			display: flex
-			flex-wrap: nowrap
+		header
+			h3
+				margin: 0
+				font-weight: 300
+				font-size: 20px
 		.loading
 			loader 16px 3px
 		.accounts

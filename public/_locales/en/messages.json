@@ -5,7 +5,8 @@
   "popup": {
     "account": "Account | Accounts",
     "folder": "Folder | Folders",
-    "linkDescription": "Open all stats in new tab",
+    "openAllStats": "Open all Stats",
+    "openOptions": "Open Options",
     "message": "-"
   },
   "stats": {

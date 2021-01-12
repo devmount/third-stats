@@ -80,6 +80,8 @@ for m, c in mode
 // transitions
 .transition-width
 	transition: width transition.duration transition.function
+.transition-color
+	transition: color transition.duration transition.function
 
 // coloring
 for m, c in mode
@@ -647,8 +649,19 @@ loader(size, border)
 		&::after
 			bottom: auto
 			top: 100%
+			transform: translate(-50%, -.8rem)
 		&:focus, &:hover
 			&::after
 				transform: translate(-50%, .4rem)
+	&.tooltip-left
+		&::after
+			bottom: 50%;
+			left: auto;
+			right: 100%;
+			transform: translate(.8rem, 50%);
+		&:focus,
+		&:hover
+			&::after
+				transform: translate(-.4rem, 50%);
 	&.tooltip-error::after
 		background: rgba(mode.dark.error, .75)
