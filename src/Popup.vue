@@ -102,7 +102,7 @@ export default {
 			})
 			this.accounts = accounts
 		},
-		// open the stats page as new tab
+		// open given url in new tab
 		// appends GET parameter
 		openTab (url, get='') {
 			if (get) url += '?s=' + get

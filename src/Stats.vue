@@ -35,7 +35,7 @@
 							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
 								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 								<path class='icon-part-accent2' d='M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5' />
-								<line class='icon-part-accent2-faded' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
+								<line class='icon-part-accent2' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
 								<line class='icon-part-accent2-faded' x1='4.06' y1='11' x2='4.06' y2='11.01' />
 								<line class='icon-part-accent2-faded' x1='4.63' y1='15.1' x2='4.63' y2='15.11' />
 								<line class='icon-part-accent2-faded' x1='7.16' y1='18.37' x2='7.16' y2='18.38' />
@@ -110,6 +110,18 @@
 								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
 							</svg>
 						</div>
+					</div>
+					<!-- options launcher -->
+					<div
+						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-2'
+						:data-tooltip='$t("popup.openOptions")'
+						@click.prevent="openTab('options.html', '1')"
+					>
+						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+							<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
+							<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
+						</svg>
 					</div>
 				</div>
 			</header>
@@ -1043,6 +1055,15 @@ export default {
 			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
 			return d ? (new Date(d)).toLocaleDateString(this.$i18n.locale, options) : ''
 		},
+		// open given url in new tab
+		// appends GET parameter
+		openTab (url, get='') {
+			if (get) url += '?s=' + get
+			messenger.tabs.create({
+				active: true,
+				url: url
+			})
+		}
 	},
 	computed: {
 		// current app version
