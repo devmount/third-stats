@@ -129,12 +129,10 @@ html, body
 		.loading
 			loader 16px 3px
 		.accounts
-			display: flex
-			flex-wrap: wrap
-			justify-content: space-between
-			row-gap: 20px
+			display: grid
+			grid-template-columns: 1fr 1fr
+			gap: 20px
 			& > div
-				width: 8rem
 				padding: .75rem 1rem
 				border-radius: 4px
 				transition: all .2s
