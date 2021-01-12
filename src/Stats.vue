@@ -12,7 +12,7 @@
 		<div class='container pt-2 pb-6'>
 			<!-- title heading and filter -->
 			<header>
-				<h1 class='mr-2'>
+				<h1 class='mr-2 d-flex align-items-center'>
 					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
 					Th<span class='text-gray'>underb</span>ird Stats
 				</h1>
@@ -1490,8 +1490,6 @@ body
 			display: grid
 			align-items: center
 			h1
-				display: flex
-				align-items: center
 				margin: 0
 				.logo
 					height: 48px

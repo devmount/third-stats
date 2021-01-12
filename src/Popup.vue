@@ -21,7 +21,7 @@
 				<div
 					class='text-hover-accent2 cursor-pointer tooltip tooltip-left transition-color'
 					:data-tooltip='$t("popup.openOptions")'
-					@click.prevent="openTab('options.html')"
+					@click.prevent="openTab('options.html', '1')"
 				>
 					<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
 						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>

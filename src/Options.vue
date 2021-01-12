@@ -9,184 +9,196 @@
 			"background-highlight-contrast": !options.dark,
 		}'
 	>
-		<div class='container p-1'>
+		<header v-if='ownOptionsPage' class='pt-2 mx-auto'>
+			<h1 class='d-flex align-items-center'>
+				<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
+				{{ $t('options.title') }}
+			</h1>
+		</header>
+		<div class='container p-1 mx-auto'>
 			<!-- section related to ThirdStats appearance and UI -->
-			<h2>{{ $t('options.headings.appearance') }}</h2>
-			<!-- option: dark -->
-			<section class='entry'>
-				<label for='dark'>
-					{{ $t('options.darkMode.label') }}
-					<span class="d-block text-gray text-small">{{ $t('options.darkMode.description') }}</span>
-				</label>
-				<div class='action'>
-					<label class='switch'>
-						<input type='checkbox' id='dark' v-model='options.dark' />
-						<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
-						<span class='switch-handle'></span> 
+			<section class='mb-3'>
+				<h2>{{ $t('options.headings.appearance') }}</h2>
+				<!-- option: dark -->
+				<div class='entry'>
+					<label for='dark'>
+						{{ $t('options.darkMode.label') }}
+						<span class="d-block text-gray text-small">{{ $t('options.darkMode.description') }}</span>
 					</label>
-				</div>
-			</section>
-			<!-- option: ordinate -->
-			<section class='entry'>
-				<label for='ordinate'>
-					{{ $t('options.ordinate.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.ordinate.description') }}</span>
-				</label>
-				<div class='action d-flex'>
-					<label class='switch'>
-						<input type='checkbox' id='ordinate' v-model='options.ordinate' />
-						<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
-						<span class='switch-handle'></span> 
-					</label>
-				</div>
-			</section>
-			<!-- section related to charts and data retrieval -->
-			<h2 class='mt-3'>{{ $t('options.headings.stats') }}</h2>
-			<!-- option: startOfWeek -->
-			<section class='entry'>
-				<label for='start'>
-					{{ $t('options.startOfWeek.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
-				</label>
-				<div class='action d-flex'>
-					<select class='flex-grow' v-model='options.startOfWeek' id='start'>
-						<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
-					</select>
-				</div>
-			</section>
-			<!-- option: addresses -->
-			<section class='entry'>
-				<label for='local'>
-					{{ $t('options.localIdentities.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.localIdentities.description') }}</span>
-				</label>
-				<div class='action'>
-					<div class="d-flex input-group">
-						<input class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
-						<button @click='addAddress' class='p-0-5'>
-							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line x1="12" y1="5" x2="12" y2="19" />
-								<line x1="5" y1="12" x2="19" y2="12" />
-							</svg>
-						</button>
-					</div>
-					<div>
-						<span class='tag text-small' v-for='a in addressList'>
-							{{ a }}
-							<svg @click='removeAddress(a)' class="icon icon-bold icon-text cursor-pointer" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line x1="18" y1="6" x2="6" y2="18" />
-								<line x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</span>
+					<div class='action'>
+						<label class='switch'>
+							<input type='checkbox' id='dark' v-model='options.dark' />
+							<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
+							<span class='switch-handle'></span> 
+						</label>
 					</div>
 				</div>
-			</section>
-			<!-- option: account selection -->
-			<section class='entry'>
-				<label>
-					{{ $t('options.activeAccounts.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
-				</label>
-				<div class='action'>
-					<div v-for='a in allAccounts' :key='a.id'>
-						<label class="checkbox">
-							<input type='checkbox' :value='a.id' v-model='options.accounts' />
-							<i class="checkbox-icon"></i> {{ a.name }}
+				<!-- option: ordinate -->
+				<div class='entry'>
+					<label for='ordinate'>
+						{{ $t('options.ordinate.label') }}
+						<span class='d-block text-gray text-small'>{{ $t('options.ordinate.description') }}</span>
+					</label>
+					<div class='action d-flex'>
+						<label class='switch'>
+							<input type='checkbox' id='ordinate' v-model='options.ordinate' />
+							<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
+							<span class='switch-handle'></span> 
 						</label>
 					</div>
 				</div>
 			</section>
-			<!-- option: selfMessages -->
-			<section class='entry'>
-				<label for='selfMessages'>
-					{{ $t('options.selfMessages.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.selfMessages.description') }}</span>
-				</label>
-				<div class='action d-flex flex-wrap'>
-					<select class='flex-grow mb-1' v-model='options.selfMessages' id='selfMessages'>
-						<option v-for='val in selfMessagesOptions' :key='val' :value='val'>{{ $t('options.selfMessages.values.' + val) }}</option>
-					</select>
-					<div class='d-flex gap-0-5 align-items-center text-gray'>
-						<div>
-							<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line x1="12" y1="8" x2="12.01" y2="8" />
-								<rect x="4" y="4" width="16" height="16" rx="2" />
-								<polyline points="11 12 12 12 12 16 13 16" />
-							</svg>
-						</div>
-						<span class='text-small'>{{ $t('options.selfMessages.info.' + options.selfMessages) }}</span>
+			<!-- section related to charts and data retrieval -->
+			<section class='mb-3'>
+				<h2>{{ $t('options.headings.stats') }}</h2>
+				<!-- option: startOfWeek -->
+				<div class='entry'>
+					<label for='start'>
+						{{ $t('options.startOfWeek.label') }}
+						<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
+					</label>
+					<div class='action d-flex'>
+						<select class='flex-grow' v-model='options.startOfWeek' id='start'>
+							<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
+						</select>
 					</div>
 				</div>
-			</section>
-			<!-- option: leaderCount -->
-			<section class='entry'>
-				<label for='leaderCount'>
-					{{ $t('options.leaderCount.label') }}
-					<span class='d-block text-gray text-small'>{{ $t('options.leaderCount.description') }}</span>
-				</label>
-				<div class='action d-flex input-group'>
-					<input class='flex-grow' type='number' v-model='options.leaderCount' placeholder='20' min='1' max='999' id='leaderCount' />
-					<div class="d-flex flex-direction-column button-group-vertical">
-						<button @click='incrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
-							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
-								<polyline points="6,12 12,6 18,12" />
-							</svg>
-						</button>
-						<button @click='decrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
-							<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
-								<polyline points="6,5 12,11 18,5" />
-							</svg>
-						</button>
+				<!-- option: addresses -->
+				<div class='entry'>
+					<label for='local'>
+						{{ $t('options.localIdentities.label') }}
+						<span class='d-block text-gray text-small'>{{ $t('options.localIdentities.description') }}</span>
+					</label>
+					<div class='action'>
+						<div class="d-flex input-group">
+							<input class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
+							<button @click='addAddress' class='p-0-5'>
+								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="12" y1="5" x2="12" y2="19" />
+									<line x1="5" y1="12" x2="19" y2="12" />
+								</svg>
+							</button>
+						</div>
+						<div>
+							<span class='tag text-small' v-for='a in addressList'>
+								{{ a }}
+								<svg @click='removeAddress(a)' class="icon icon-bold icon-text cursor-pointer" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="18" y1="6" x2="6" y2="18" />
+									<line x1="6" y1="6" x2="18" y2="18" />
+								</svg>
+							</span>
+						</div>
+					</div>
+				</div>
+				<!-- option: account selection -->
+				<div class='entry'>
+					<label>
+						{{ $t('options.activeAccounts.label') }}
+						<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
+					</label>
+					<div class='action'>
+						<div v-for='a in allAccounts' :key='a.id'>
+							<label class="checkbox">
+								<input type='checkbox' :value='a.id' v-model='options.accounts' />
+								<i class="checkbox-icon"></i> {{ a.name }}
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- option: selfMessages -->
+				<div class='entry'>
+					<label for='selfMessages'>
+						{{ $t('options.selfMessages.label') }}
+						<span class='d-block text-gray text-small'>{{ $t('options.selfMessages.description') }}</span>
+					</label>
+					<div class='action d-flex flex-wrap'>
+						<select class='flex-grow mb-1' v-model='options.selfMessages' id='selfMessages'>
+							<option v-for='val in selfMessagesOptions' :key='val' :value='val'>{{ $t('options.selfMessages.values.' + val) }}</option>
+						</select>
+						<div class='d-flex gap-0-5 align-items-center text-gray'>
+							<div>
+								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="12" y1="8" x2="12.01" y2="8" />
+									<rect x="4" y="4" width="16" height="16" rx="2" />
+									<polyline points="11 12 12 12 12 16 13 16" />
+								</svg>
+							</div>
+							<span class='text-small'>{{ $t('options.selfMessages.info.' + options.selfMessages) }}</span>
+						</div>
+					</div>
+				</div>
+				<!-- option: leaderCount -->
+				<div class='entry'>
+					<label for='leaderCount'>
+						{{ $t('options.leaderCount.label') }}
+						<span class='d-block text-gray text-small'>{{ $t('options.leaderCount.description') }}</span>
+					</label>
+					<div class='action d-flex input-group'>
+						<input class='flex-grow' type='number' v-model='options.leaderCount' placeholder='20' min='1' max='999' id='leaderCount' />
+						<div class="d-flex flex-direction-column button-group-vertical">
+							<button @click='incrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
+								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
+									<polyline points="6,12 12,6 18,12" />
+								</svg>
+							</button>
+							<button @click='decrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
+								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
+									<polyline points="6,5 12,11 18,5" />
+								</svg>
+							</button>
+						</div>
 					</div>
 				</div>
 			</section>
 			<!-- section related to store processed data -->
-			<h2 class='mt-3'>{{ $t('options.headings.storage') }}</h2>
-			<!-- option: cache -->
-			<section class='entry'>
-				<label for='cache'>
-					{{ $t('options.cache.label') }}
-					<span class="d-block text-gray text-small">{{ $t('options.cache.description') }}</span>
-				</label>
-				<div class='action'>
-					<label class='switch'>
-						<input type='checkbox' id='cache' v-model='options.cache' />
-						<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
-						<span class='switch-handle'></span> 
+			<section class='mb-3'>
+				<h2>{{ $t('options.headings.storage') }}</h2>
+				<!-- option: cache -->
+				<div class='entry'>
+					<label for='cache'>
+						{{ $t('options.cache.label') }}
+						<span class="d-block text-gray text-small">{{ $t('options.cache.description') }}</span>
 					</label>
+					<div class='action'>
+						<label class='switch'>
+							<input type='checkbox' id='cache' v-model='options.cache' />
+							<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
+							<span class='switch-handle'></span> 
+						</label>
+					</div>
 				</div>
-			</section>
-			<!-- action: clear cache -->
-			<section class='entry'>
-				<label>
-					{{ $t('options.clearCache.label') }}
-					<span class="d-block text-gray text-small">{{ $t('options.clearCache.description') }}</span>
-				</label>
-				<div class='action'>
-					<button @click='clearCache' class='mb-1'>{{ $t('options.button.clearCache') }}</button>
-					<div class='d-flex gap-0-5 align-items-center text-gray'>
-						<div>
-							<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line x1="12" y1="8" x2="12.01" y2="8" />
-								<rect x="4" y="4" width="16" height="16" rx="2" />
-								<polyline points="11 12 12 12 12 16 13 16" />
-							</svg>
+				<!-- action: clear cache -->
+				<div class='entry'>
+					<label>
+						{{ $t('options.clearCache.label') }}
+						<span class="d-block text-gray text-small">{{ $t('options.clearCache.description') }}</span>
+					</label>
+					<div class='action'>
+						<button @click='clearCache' class='mb-1'>{{ $t('options.button.clearCache') }}</button>
+						<div class='d-flex gap-0-5 align-items-center text-gray'>
+							<div>
+								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="12" y1="8" x2="12.01" y2="8" />
+									<rect x="4" y="4" width="16" height="16" rx="2" />
+									<polyline points="11 12 12 12 12 16 13 16" />
+								</svg>
+							</div>
+							<span class='text-small' v-if='cacheSize > 0'>{{ $t('options.clearCache.size', [formattedCacheSize]) }}</span>
+							<span class='text-small' v-else>{{ $t('options.clearCache.empty') }}</span>
 						</div>
-						<span class='text-small' v-if='cacheSize > 0'>{{ $t('options.clearCache.size', [formattedCacheSize]) }}</span>
-						<span class='text-small' v-else>{{ $t('options.clearCache.empty') }}</span>
 					</div>
 				</div>
 			</section>
-			<hr class='my-3' />
-			<footer>
-				<h3 class='text-thin mb-0-5'>{{ $t('options.note.title') }}</h3>
-				<div class='text-gray text-small'>{{ $t('options.note.reloadStatsPage') }}</div>
-			</footer>
 		</div>
+		<hr class='mb-3' />
+		<footer class='p-1 mx-auto pb-3'>
+			<h3 class='text-thin mb-0-5'>{{ $t('options.note.title') }}</h3>
+			<div class='text-gray text-small'>{{ $t('options.note.reloadStatsPage') }}</div>
+		</footer>
 	</div>
 </template>
 
@@ -210,7 +222,8 @@ export default {
 				cache: true,
 			},
 			allAccounts: [],
-			cacheSize: -1
+			cacheSize: -1,
+			publicPath: process.env.BASE_URL
 		}
 	},
 	created: async function () {
@@ -343,6 +356,11 @@ export default {
 		// output cache size in human readable format with units
 		formattedCacheSize () {
 			return formatBytes(this.cacheSize)
+		},
+		// check if options are opened in own optinos page
+		ownOptionsPage () {
+			let uri = window.location.search.substring(1)
+			return Boolean((new URLSearchParams(uri)).get('s'))
 		}
 	},
 	watch: {
@@ -366,19 +384,32 @@ html, body
 
 // layout
 #options
-	width 100%
-	height 100%
+	width: 100%
+	min-height: 100vh
 
-	.container > h2
-		font-weight: 300
-
-	.entry
-		display: grid
-		grid-template-columns: 1fr 1fr
-		column-gap: 2rem
-		margin-bottom: 1rem
-
-		.action
-			align-self: center
+	header,
+	footer,
+	.container
+		width: 100%
+		max-width: 840px
+	
+	header
+		h1
+			margin: 0
+			.logo
+				height: 48px
+		
+	.container
+		&>section
+			h2
+				font-weight: 300
+			.entry
+				display: grid
+				grid-template-columns: 1fr 1fr
+				column-gap: 2rem
+				margin-bottom: 1rem
+				.action
+					align-self: center
+	
 
 </style>

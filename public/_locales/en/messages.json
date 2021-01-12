@@ -113,6 +113,7 @@
     "message": "-"
   },
   "options": {
+    "title": "Options",
     "headings": {
       "appearance": "Appearance & Experience",
       "stats": "Charts & Data",
