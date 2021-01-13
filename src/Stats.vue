@@ -459,6 +459,8 @@ const sortAndLimitObject = (obj, limit) => {
 		.slice(0, limit)
 		.reduce((result, key) => { result[key] = r[key]; return result; }, {})
 }
+// helper function to see if array contains array
+const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default {
 	name: 'Stats',
@@ -676,14 +678,14 @@ export default {
 		// extract information of a single message <m> with accounts <identities>
 		// update given <data> object
 		analyzeMessage (data, m, identities) {
-			let type = ''
-			let author = extractEmailAddress(m.author)
 			// check for self messages first, if exclusion is enabled
 			if (this.preferences.selfMessages && this.preferences.selfMessages != 'none') {
-				let recipients = m.recipients.map(r => extractEmailAddress(r))
 				let ids = this.preferences.selfMessages == 'sameAccount' ? identities : this.identities
-				if (ids.includes(author) && recipients.reduce((p,c) => p && ids.includes(c), true)) return	
+				if (this.isSelfMessage(m, ids)) return
 			}
+			// now start analyses
+			let type = ''
+			let author = extractEmailAddress(m.author)
 			// numbers
 			data.numbers.total++
 			if (m.read === false) data.numbers.unread++
@@ -781,6 +783,25 @@ export default {
 				default:
 					break;
 			}
+		},
+		// check if a <message> is a self message
+		// = sender and receivers all match configured <identities>
+		isSelfMessage (message, identities) {
+			let author = extractEmailAddress(message.author)
+			let recipients = message.recipients.map(r => extractEmailAddress(r))
+			let ccs = message.ccList.map(r => extractEmailAddress(r))
+			let bccs = message.bccList.map(r => extractEmailAddress(r))
+			// check author
+			if (!author) return false
+			if (author && !identities.includes(author)) return false
+			// check normal recipients
+			if (recipients.length > 0 && !arrayContainsArray(identities, recipients)) return false
+			// check cc recipients
+			if (ccs.length > 0 && !arrayContainsArray(identities, ccs)) return false
+			// check bcc recipients
+			if (bccs.length > 0 && !arrayContainsArray(identities, bccs)) return false
+			// all checks passed: its a self message
+			return true
 		},
 		// retrieve and process data of account with <id=accountId>
 		// or of multiple accounts with <id=sum>
