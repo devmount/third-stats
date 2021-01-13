@@ -8,25 +8,25 @@
 					<span v-if='loading' class='dark loading'></span>
 				</h3>
 				<div
-					class='text-hover-accent2 cursor-pointer tooltip tooltip-left transition-color'
+					class='cursor-pointer tooltip tooltip-left transition-color'
 					:data-tooltip='$t("popup.openAllStats")'
 					@click.prevent="openTab('stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
 				>
-					<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
-						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-						<line x1='4' y1='19' x2='20' y2='19' />
-						<polyline points='4 15 8 9 12 11 16 6 20 10 20 15 4 15' />
+					<svg class='icon icon-thin icon-small icon-hover-accent ml-auto' viewBox="0 0 24 24">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<polyline class='icon-part-accent2' points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
+						<polyline class='icon-part-accent1' points="4 12 7 8 11 10 16 4 20 8" />
 					</svg>
 				</div>
 				<div
-					class='text-hover-accent2 cursor-pointer tooltip tooltip-left transition-color'
+					class='cursor-pointer tooltip tooltip-left transition-color'
 					:data-tooltip='$t("popup.openOptions")'
 					@click.prevent="openTab('options.html', '1')"
 				>
-					<svg class='icon icon-thin icon-small ml-auto' viewBox="0 0 24 24">
+					<svg class='icon icon-thin icon-small icon-hover-accent ml-auto' viewBox="0 0 24 24">
 						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-						<path d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
-						<circle cx='12' cy='12' r='3' />
+						<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
+						<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
 					</svg>
 				</div>
 			</header>
