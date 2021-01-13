@@ -617,8 +617,12 @@ export default {
 			}
 			// assign accounts
 			this.accounts = accounts
-			// assign identities
-			this.identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
+			// assign identities of all activated accounts as well as localIdentities if any local account is active
+			let identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
+			if (accounts.some(a => a.type == 'none')) {
+				identities = identities.concat(this.preferences.localIdentities)
+			}
+			this.identities = identities
 			// extract account id from url GET parameter
 			let uri = window.location.search.substring(1)
 			let id = (new URLSearchParams(uri)).get('s')
