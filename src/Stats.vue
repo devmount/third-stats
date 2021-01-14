@@ -271,11 +271,25 @@
 							/>
 						</div>
 					</div>
-					<div v-show='!preferences.sections.total.expand' class="chart-group position-relative">
-						<select v-model='preferences.sections.days.year' name='year' class="position-absolute top-0-5 right-0-5">
-							<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
-						</select>
-						<!-- emails per weekday per hour received -->
+					<div v-show='!preferences.sections.total.expand' class='chart-group position-relative'>
+						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
+							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year > minYear}' @click.prevent='previousYear()'>
+								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year <= minYear}' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<polyline class='icon-part-accent2' points="15 6 9 12 15 18" />
+								</svg>
+							</div>
+							<select v-model='preferences.sections.days.year' name='year'>
+								<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
+							</select>
+							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year < maxYear}' @click.prevent='nextYear()'>
+								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year >= maxYear}' viewBox='0 0 24 24'>
+									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+									<polyline class='icon-part-accent2' points='9 6 15 12 9 18' />
+								</svg>
+							</div>
+						</div>
+						<!-- activity per day received -->
 						<HeatMap
 							:title='$t("stats.charts.days.title", [preferences.sections.days.year])'
 							:description='$t("stats.charts.days.description.received")'
@@ -287,7 +301,7 @@
 							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
 							class='mb-0-5 upper-chart'
 						/>
-						<!-- emails per weekday per hour sent -->
+						<!-- activity per day sent -->
 						<HeatMap
 							:description='$t("stats.charts.days.description.sent")'
 							rgb='230, 77, 185'
@@ -1075,7 +1089,22 @@ export default {
 			if (current < min) this.preferences.sections.days.year = min
 			if (current > max) this.preferences.sections.days.year = max
 		},
+		// increments selected year
+		// only up to the max existing year
+		nextYear () {
+			if (this.preferences.sections.days.year < this.maxYear) {
+				this.preferences.sections.days.year++
+			}
+		},
+		// decrements selected year
+		// only down to the min existing year
+		previousYear () {
+			if (this.preferences.sections.days.year > this.minYear) {
+				this.preferences.sections.days.year--
+			}
+		},
 		// make given date <d> human readable
+		// takes locale into account
 		formatDate (d) {
 			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
 			return d ? (new Date(d)).toLocaleDateString(this.$i18n.locale, options) : ''
@@ -1424,12 +1453,18 @@ export default {
 		// array of years descending from oldest till newest emails year
 		yearsList () {
 			let years = []
-			let start = (new Date(this.display.numbers.start)).getFullYear()
-			let end = this.display.numbers.end ? (new Date(this.display.numbers.end)).getFullYear() : (new Date()).getFullYear()
-			for (let i = end; i >= start; i--) {
+			for (let i = this.maxYear; i >= this.minYear; i--) {
 				years.push(i)
 			}
 			return years
+		},
+		// max year of current years list
+		maxYear () {
+			return this.display.numbers.end ? (new Date(this.display.numbers.end)).getFullYear() : (new Date()).getFullYear()
+		},
+		// min year of current years list
+		minYear () {
+			return (new Date(this.display.numbers.start)).getFullYear()
 		},
 		// compute current loading progress in percent
 		processingState () {
