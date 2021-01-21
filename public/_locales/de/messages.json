@@ -107,7 +107,7 @@
       "minute": "min",
       "second": "s"
     },
-    "starAndImprove": "Sei ein Weltverbesserer, auf <a href='{0}' target='_blank'>GitHub</a>".,
+    "starAndImprove": "Mach mich zum Star, auf <a href='{0}' target='_blank'>GitHub</a>.",
     "message": "-",
     "allAccountsSum": "Alle Konten (Summe)",
     "dataCollected": "Daten vor {0} abgerufen"
