@@ -383,7 +383,7 @@
 			<!-- footer -->
 			<footer class="mt-6 text-center">
 				<div class='text-gray'>
-					<span class='text-middle mr-1'>ThirdStats v{{ appVersion }}</span>
+					<span class='text-middle mr-1'>ThirdStats {{ appVersion }}</span>
 					<svg
 						v-if='preferences.dark'
 						class='icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer'
