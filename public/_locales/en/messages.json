@@ -109,7 +109,7 @@
       "minute": "min",
       "second": "s"
     },
-    "starAndImprove": "Star and improve this project on <a href='{0}' target='_blank'>Github</a>",
+    "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
     "message": "-"
   },
   "options": {
