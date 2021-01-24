@@ -33,15 +33,28 @@
 			<!-- list of all accounts -->
 			<section class='accounts'>
 				<div
-					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow"
+					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
 					v-for='a in accounts'
 					:key='a.id'
 					@click.prevent="openTab('stats.html', a.id)"
 				>
-					<h4>{{ a.name }}</h4>
-					<div class='text-small text-secondary'>
-						{{ a.folderCount }} {{ $tc('popup.folder', a.folderCount) }}
+					<div class="position-relative z-5">
+						<h4>{{ a.name }}</h4>
+						<div class='text-small text-secondary'>
+							{{ a.folderCount }} {{ $tc('popup.folder', a.folderCount) }}
+							<div v-if="a.hasOwnProperty('messageCount')">{{ a.messageCount }} {{ $tc('popup.messages', a.messageCount) }}</div>
+						</div>
 					</div>
+					<LineChart
+						v-if="a.hasOwnProperty('messageCount') && a.messageCount > 0"
+						class="background-chart z-0"
+						:datasets='a.yearsData.datasets'
+						:labels='a.yearsData.labels'
+						:ordinate='false'
+						:abscissa='false'
+						width="160px"
+						height="70px"
+					/>
 				</div>
 			</section>
 		</div>
@@ -49,17 +62,28 @@
 </template>
 
 <script>
+// internal components
 import { traverseAccount } from './utils';
+import LineChart from './charts/LineChart'
+// initialize Chart.js with global configuration
+
+import Chart from 'chart.js'
+Chart.defaults.global.elements.arc.borderWidth = 0
+Chart.defaults.global.legend.display = false
+Chart.defaults.global.tooltips.enabled = false
+Chart.defaults.global.hover.mode = 'index'
 
 export default {
 	name: 'Popup',
+	components: { LineChart },
 	data () {
 		return {
 			accounts: [],   // list of all existing accounts
 			loading: false, // processessing folder and message counts indication
 			options: {      // add-on options
 				accounts: [], // accounts to process
-				dark: true    // theme, always dark due to non colorable popup caret
+				dark: true,   // theme, always dark due to non colorable popup caret
+				cache: true,  // wether caching system is enabled or not
 			}
 		}
 	},
@@ -81,6 +105,7 @@ export default {
 			// only load needed options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.options.accounts = result.options.accounts ? result.options.accounts : []
+				this.options.cache = result.options.cache ? true : false
 			}
 		},
 		// retrieve all thunderbird accounts
@@ -94,12 +119,38 @@ export default {
 				// default accounts activated are all non local accounts ...
 				accounts = accounts.filter(a => a.type != 'none')
 			}
-			// calculate folder and message count and append to account object
-			let self = this
-			accounts.map(async a => {
+			// expand account object with additional data
+			await Promise.all(accounts.map(async a => {
+				// calculate folder count and append to account object
 				let folders = traverseAccount(a)
 				a.folderCount = folders.length
-			})
+				// get overall message count when cache is enabled
+				if (this.options.cache) {
+					const stored = await messenger.storage.local.get('stats-' + a.id)
+					if (stored && stored['stats-' + a.id]) {
+						// add message count
+						a.messageCount = stored['stats-' + a.id].numbers.total
+						// add years data
+						if (a.messageCount > 0) {
+							const r = stored['stats-' + a.id].yearsData.received
+							const s = stored['stats-' + a.id].yearsData.sent
+							let labels = [], d = []
+							const start = new Date(stored['stats-' + a.id].numbers.start)
+							const end = stored['stats-' + a.id].numbers.end ? new Date(stored['stats-' + a.id].numbers.end) : new Date()
+							for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+								labels.push(y)
+								d.push((y in r ? r[y] : 0) + (y in s ? s[y] : 0))
+							}
+							a.yearsData = {
+								datasets: [
+									{ label: 'placeholder', data: d, color: 'rgb(88, 88, 93, .2)', bcolor: 'rgb(88, 88, 93, .2)' },
+								],
+								labels: labels
+							}
+						}
+					}
+				}
+			}))
 			this.accounts = accounts
 		},
 		// open given url in new tab
@@ -148,11 +199,16 @@ html, body
 				padding: .75rem 1rem
 				border-radius: 4px
 				transition: all .2s
+				overflow: hidden
 				h4
 					margin: 0
 					font-weight: normal
 					white-space: nowrap
 					overflow: hidden
 					text-overflow: ellipsis
+				.background-chart
+					position: absolute
+					bottom: 0
+					left: 0
 
 </style>
