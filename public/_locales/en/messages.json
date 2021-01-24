@@ -5,6 +5,7 @@
   "popup": {
     "account": "Account | Accounts",
     "folder": "Folder | Folders",
+    "messages": "Message | Messages",
     "openAllStats": "Open all Stats",
     "openOptions": "Open Options",
     "message": "-"
