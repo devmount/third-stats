@@ -247,6 +247,7 @@
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 								:ordinate='preferences.ordinate'
+								:abscissa='true'
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
@@ -254,6 +255,7 @@
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
 								:ordinate='preferences.ordinate'
+								:abscissa='true'
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
@@ -261,6 +263,7 @@
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 								:ordinate='preferences.ordinate'
+								:abscissa='true'
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
@@ -268,6 +271,7 @@
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
 								:ordinate='preferences.ordinate'
+								:abscissa='true'
 							/>
 						</div>
 					</div>

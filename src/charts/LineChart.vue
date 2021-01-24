@@ -2,7 +2,13 @@
 <div class='chart'>
 	<h2 v-if='title' class='text-center'>{{ title }}</h2>
 	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
-	<div class="chart-container">
+	<div
+		class="chart-container"
+		:style="{
+			width: this.width ? this.width : 'auto',
+			height: this.height ? this.height : 'auto'
+		}"
+	>
 		<canvas :id='id'></canvas>
 	</div>
 </div>
@@ -16,7 +22,10 @@ export default {
 		description: String,
 		labels: Array,
 		datasets: Array,
-		ordinate: Boolean
+		ordinate: Boolean,
+		abscissa: Boolean,
+		width: String,
+		height: String,
 	},
 	data () {
 		return {
@@ -60,6 +69,7 @@ export default {
 					maintainAspectRatio: false,
 					scales: {
 						xAxes: [{
+							display: this.abscissa,
 							stacked: false,
 							gridLines: {
 								display: false,
