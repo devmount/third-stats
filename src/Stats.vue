@@ -947,6 +947,8 @@ export default {
 			} else {
 				// load single account from id
 				let account = await messenger.accounts.get(id)
+				// set tab title
+				document.title = 'ThirdStats: ' + account.name
 				// (re)calculate list of folders
 				this.folders = traverseAccount(account)
 				// only check storage if no refresh was requested cache is enabled
