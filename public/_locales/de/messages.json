@@ -5,9 +5,12 @@
   "popup": {
     "account": "Konto | Konten",
     "folder": "Ordner | Ordner",
-    "linkDescription": "Alle Statistiken in einem neuen Tab öffnen",
     "message": "-",
-    "messagesInFolder": "{0} Nachrichten in {1} Ordnern"
+    "linkDescription": "Alle Statistiken in einem neuen Tab öffnen",
+    "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
+    "openAllStats": "Alle Statistiken anzeigen",
+    "openOptions": "Einstellungen öffnen",
+    "messages": "Nachricht | Nachrichten"
   },
   "stats": {
     "mailsTotal": "E-Mails gesamt",
@@ -178,6 +181,7 @@
     "leaderCount": {
       "label": "Anzahl häufiger Kontakte",
       "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)"
-    }
+    },
+    "title": "Einstellungen"
   }
 }
