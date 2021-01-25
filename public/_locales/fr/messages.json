@@ -4,10 +4,13 @@
   },
   "popup": {
     "account": "Compte | Comptes",
-    "message": "-",
-    "messagesInFolder": "{0} message(s) dans {1} dossier(s)",
     "folder": "Dossier | Dossiers",
-    "linkDescription": "Ouvrez toutes les statistiques dans un nouvel onglet"
+    "message": "-",
+    "linkDescription": "Ouvrez toutes les statistiques dans un nouvel onglet",
+    "messagesInFolder": "{0} message(s) dans {1} dossier(s)",
+    "openAllStats": "Ouvrir toutes les statistiques",
+    "openOptions": "Options ouvertes",
+    "messages": "Message | messages"
   },
   "stats": {
     "mailsTotal": "Total des messages",
@@ -24,6 +27,7 @@
     "mailsWeek": "message(s)/semaine",
     "loadingInProgress": "Chargement des emails du compte en cours...",
     "accountEmpty": "Ce compte est vide, il n'y a pas d'emails.",
+    "timePeriod": "Période de temps",
     "charts": {
       "years": {
         "title": "Ans",
@@ -93,17 +97,30 @@
         "dateUnreal": "Une date valide est requise",
         "dateOrderStart": "La date de début doit être antérieure à la date de fin",
         "dateOrderEnd": "La date de fin doit être postérieure à la date de début"
+      },
+      "folder": {
+        "notAvailable": "Les dossiers ne sont pas disponibles pour {0}"
       }
     },
     "abbreviations": {
       "calendarWeek": "S",
-      "quarter": "T"
+      "quarter": "T",
+      "day": "jour",
+      "hour": "h",
+      "minute": "min",
+      "second": "s"
     },
     "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
     "message": "-",
-    "timePeriod": "Période de temps"
+    "allAccountsSum": "Tous les comptes (somme)",
+    "dataCollected": "Données collectées il y a {0}"
   },
   "options": {
+    "headings": {
+      "appearance": "Apparence et Expérience",
+      "stats": "Graphiques et Données",
+      "storage": "Stockage et Cache"
+    },
     "switch": {
       "on": "Marche",
       "off": "Arrêt"
@@ -116,19 +133,13 @@
       "label": "Mode sombre",
       "description": "Passer du mode sombre au mode clair"
     },
-    "localIdentities": {
-      "label": "Identités locales",
-      "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux"
-    },
-    "message": "-",
-    "headings": {
-      "appearance": "Apparence et Expérience",
-      "stats": "Graphiques et Données",
-      "storage": "Stockage et Cache"
-    },
     "ordinate": {
       "label": "Axe vertical",
       "description": "Afficher l'axe vertical pour tous les graphiques en lignes et en barres"
+    },
+    "localIdentities": {
+      "label": "Identités locales",
+      "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux"
     },
     "startOfWeek": {
       "label": "Commencer la semaine le",
@@ -151,6 +162,26 @@
     "note": {
       "title": "Remarque",
       "reloadStatsPage": "Les options sont automatiquement enregistrées. Si la page de statistiques est déjà ouverte, vous devez la rouvrir ou la recharger pour que les modifications soient appliquées."
-    }
+    },
+    "message": "-",
+    "selfMessages": {
+      "label": "Messages internes",
+      "description": "Exclure les messages qui m'ont été envoyés à moi-même",
+      "values": {
+        "none": "désactivé",
+        "sameAccount": "Même compte seulement",
+        "anyAccount": "Depuis n'importe quel compte"
+      },
+      "info": {
+        "none": "Les messages internes seront inclus et traités comme des e-mails normaux (par défaut)",
+        "sameAccount": "Les messages dont l'expéditeur et le destinataire sont des identités du même compte seront exclus",
+        "anyAccount": "Les messages dont l'expéditeur et le destinataire sont des identités de n'importe quel compte seront exclus"
+      }
+    },
+    "leaderCount": {
+      "label": "Tableau de classement",
+      "description": "Nombre d'entrées figurant dans les tableaux des contacts fréquents (999 au maximum)"
+    },
+    "title": "Options"
   }
 }
