@@ -29,3 +29,8 @@ jobs:
     - run: yarn build
     - run: cd dist/
     - run: zip -q -r third-stats.xpi .
+    - name: Upload add-on nightly build artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: third-stats-nightly
+        path: third-stats.xpi
