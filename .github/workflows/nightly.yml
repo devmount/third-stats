@@ -24,11 +24,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn build
-    - run: cd dist/
-    - run: zip -q -r third-stats.xpi .
+    - run: |
+        npm install -g yarn
+        yarn install
+        yarn build
+    - name: Build XPI file
+      shell: bash
+      run: |
+        cd dist/
+        zip -q -r ../third-stats.xpi ./
     - name: Upload add-on nightly build artifact
       uses: actions/upload-artifact@v2
       with:
