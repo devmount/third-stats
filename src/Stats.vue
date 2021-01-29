@@ -134,6 +134,8 @@
 					v-html='$t("stats.dataCollected", ["<span class=\"text-normal\">" + timePassedSinceDataRetrieval + "</span>"])'
 				></div>
 			</section>
+			<!-- heading: general -->
+			<h2>General</h2>
 			<!-- fetured numbers -->
 			<section class='numbers mx-auto mt-2'>
 				<!-- total -->
@@ -206,12 +208,12 @@
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
-								v-for='(active, label) in tabs'
+								v-for='(active, label) in tabs.total'
 								:key='label'
 								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
 								:data-tooltip='$t("stats.charts." + label + ".description")'
 								:class='{ "active": active }'
-								@click='activateTab(label)'
+								@click='activateTab("total", label)'
 							>
 								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
 							</li>
@@ -243,7 +245,7 @@
 						<div class='tab-content mt-1'>
 							<!-- emails per year over total time -->
 							<LineChart
-								v-if='tabs.years'
+								v-if='tabs.total.years'
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -251,7 +253,7 @@
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
-								v-if='tabs.quarters'
+								v-if='tabs.total.quarters'
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -259,7 +261,7 @@
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
-								v-if='tabs.months'
+								v-if='tabs.total.months'
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -267,7 +269,7 @@
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
-								v-if='tabs.weeks'
+								v-if='tabs.total.weeks'
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -508,11 +510,13 @@ export default {
 				max: 0,        // upper limit for progress indicator
 			},
 			display: {},     // processed data to show
-			tabs: {          // tab navigation containing one active tab
-				years: true,
-				quarters: false,
-				months: false,
-				weeks: false,
+			tabs: {          // tab navigation containing one active tab at a time
+				total: {
+					years: true,
+					quarters: false,
+					months: false,
+					weeks: false,
+				},
 			},
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
@@ -1003,11 +1007,10 @@ export default {
 			}
 		},
 		// tab navigation
-		// activate tab of given <key>
-		activateTab (key) {
+		// activate tab of given <position> in given <area>
+		activateTab (area, position) {
 			let self = this
-			Object.keys(this.tabs).map(t => self.tabs[t] = false)
-			this.tabs[key] = true
+			Object.keys(this.tabs[area]).map(t => self.tabs[area][t] = t == position)
 		},
 		// format folder select options
 		// build <folder> name to match its hierarchy with preceding dashes
@@ -1586,6 +1589,9 @@ body
 					margin: 4px 4px 4px 7px
 				.refresh
 					margin-left: 3px
+		
+		&>h2
+			font-weight: 300
 
 		.numbers
 			display: grid
