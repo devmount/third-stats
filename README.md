@@ -49,13 +49,21 @@ Here is how ThirdStats looks like on the Thunderbird default dark theme and ligh
 
 Contributions are very welcome! See the [Contribution Guidelines](./.github/CONTRIBUTING.md) for more information, how to help making this add-on even better.
 
-### Here on GitHub
+### Spread the word
 
-Give this project a star ⭐!
+Give this project a star on GitHub ⭐! Tell your friends and colleagues to try ThirdStats.
+
+### Become a tester
+
+Cutting edge alpha releases of ThirdStats can be found on the [dedicated ThirdStats CDN](https://third-stats.cdn.devmount.com/). You can install these alpha releases and test them as you like.
 
 If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md). If you have ideas for additional features, please [issue a feature request](https://github.com/devmount/third-stats/issues/new?template=feature_request.md).
 
-### Local development environment
+⚠ Keep in mind: Alpha releases can be unstable and break things.
+
+### Become a developer
+
+Here is how you can set up a local development environment:
 
 1. [Clone](https://help.github.com/en/articles/cloning-a-repository) this project with Git
 2. Install dependencies with [Yarn](https://yarnpkg.com/getting-started) by running `yarn` within the cloned directory `third-stats/`
