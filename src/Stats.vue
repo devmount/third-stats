@@ -403,22 +403,36 @@
 							/>
 						</div>
 					</div>
-					<!-- contacts most emails received from -->
-					<BarChart
-						:title='$t("stats.charts.leader.title.received")'
-						:description='$t("stats.charts.leader.description.received")'
-						:datasets='receivedContactLeadersChartData.datasets'
-						:labels='receivedContactLeadersChartData.labels'
-						:horizontal='true'
-					/>
-					<!-- contacts most emails sent to -->
-					<BarChart
-						:title='$t("stats.charts.leader.title.sent")'
-						:description='$t("stats.charts.leader.description.sent")'
-						:datasets='sentContactLeadersChartData.datasets'
-						:labels='sentContactLeadersChartData.labels'
-						:horizontal='true'
-					/>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.leader'
+								:key='label'
+								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
+								:data-tooltip='$t("stats.charts.leader.description." + label)'
+								:class='{ "active": active }'
+								@click='activateTab("leader", label)'
+							>
+								<span>{{ $t('stats.charts.leader.title.' + label) }}</span>
+							</li>
+						</ul>
+						<div class="tab-content mt-1">
+							<!-- contacts most emails received from -->
+							<BarChart
+								v-if='tabs.leader.received'
+								:datasets='receivedContactLeadersChartData.datasets'
+								:labels='receivedContactLeadersChartData.labels'
+								:horizontal='true'
+							/>
+							<!-- contacts most emails sent to -->
+							<BarChart
+								v-if='tabs.leader.timePassedSinceDataRetrieval'
+								:datasets='sentContactLeadersChartData.datasets'
+								:labels='sentContactLeadersChartData.labels'
+								:horizontal='true'
+							/>
+						</div>
+					</div>
 				</div>
 			</section>
 			<!-- footer -->
@@ -562,6 +576,10 @@ export default {
 				},
 				twodim: {
 					temporalDistribution: true,
+				},
+				leader: {
+					received: true,
+					sent: false,
 				}
 			},
 			preferences: {   // preferences set for this page
