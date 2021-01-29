@@ -331,30 +331,43 @@
 					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area mt-2'>
-					<!-- emails per time of day -->
-					<BarChart
-						:title='$t("stats.charts.daytime.title")'
-						:description='$t("stats.charts.daytime.description")'
-						:datasets='daytimeChartData.datasets'
-						:labels='daytimeChartData.labels'
-						:ordinate='preferences.ordinate'
-					/>
-					<!-- emails per day of week -->
-					<BarChart
-						:title='$t("stats.charts.weekday.title")'
-						:description='$t("stats.charts.weekday.description")'
-						:datasets='weekdayChartData.datasets'
-						:labels='weekdayChartData.labels'
-						:ordinate='preferences.ordinate'
-					/>
-					<!-- emails per month of year -->
-					<BarChart
-						:title='$t("stats.charts.month.title")'
-						:description='$t("stats.charts.month.description")'
-						:datasets='monthChartData.datasets'
-						:labels='monthChartData.labels'
-						:ordinate='preferences.ordinate'
-					/>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.onedim'
+								:key='label'
+								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active }'
+								@click='activateTab("onedim", label)'
+							>
+								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
+							</li>
+						</ul>
+						<div class='tab-content mt-1'>
+							<!-- emails per time of day -->
+							<BarChart
+								v-if='tabs.onedim.daytime'
+								:datasets='daytimeChartData.datasets'
+								:labels='daytimeChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
+							<!-- emails per day of week -->
+							<BarChart
+								v-if='tabs.onedim.weekday'
+								:datasets='weekdayChartData.datasets'
+								:labels='weekdayChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
+							<!-- emails per month of year -->
+							<BarChart
+								v-if='tabs.onedim.month'
+								:datasets='monthChartData.datasets'
+								:labels='monthChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
+						</div>
+					</div>
 					<div class="chart-group">
 						<!-- emails per weekday per hour received -->
 						<HeatMap
@@ -530,6 +543,11 @@ export default {
 				},
 				activity: {
 					days: true,
+				},
+				onedim: {
+					daytime: true,
+					weekday: false,
+					month: false,
 				}
 			},
 			preferences: {   // preferences set for this page
