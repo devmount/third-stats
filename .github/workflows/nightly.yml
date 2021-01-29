@@ -10,6 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
+  # first get the current timestamp for later use in the artifact filename
   timestamp:
     runs-on: ubuntu-latest
     outputs:
@@ -19,6 +20,7 @@ jobs:
       run: |
         d=$(date +%s)
         echo "::set-output name=now::$d"
+  # now create the build files
   build:
     runs-on: ubuntu-latest
     needs: [timestamp]
@@ -31,19 +33,20 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Get Package Version
+    - name: Get current package version
       id: package-version
       uses: martinbeentjes/npm-get-version-action@master
-    - name: Get next version
+    - name: Get assumed next version
       id: semvers
       uses: WyriHaximus/github-action-next-semvers@v1
       with:
         version: ${{ steps.package-version.outputs.current-version }}
-    - run: |
+    - name: Build app using Yarn
+      run: |
         npm install -g yarn
         yarn install
         yarn build
-    - name: Build XPI file
+    - name: Create Thunderbird add-on (.xpi)
       shell: bash
       run: |
         cd dist/
@@ -53,3 +56,13 @@ jobs:
       with:
         name: third-stats-nightly
         path: third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+    - name: Push add-on to CDN
+      shell: bash
+      env:
+        CDN_HOST: ${{ secrets.CDN_HOST }}
+        CDN_PORT: ${{ secrets.CDN_PORT }}
+        CDN_USER: ${{ secrets.CDN_USER }}
+        CDN_PASS: ${{ secrets.CDN_PASS }}
+        CDN_PATH: ${{ secrets.CDN_PATH }}
+      run: echo "put third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi" | sftp -P $CDN_PORT -o StrictHostKeyChecking=no -p $CDN_PASS $CDN_USER@$CDN_HOST:/$CDN_PATH
+        
