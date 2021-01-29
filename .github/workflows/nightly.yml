@@ -1,5 +1,5 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# This workflow will do a clean install of node dependencies and build the application across different versions of node
+# It creates a thunderbird add-on XPI file from it and stores it as artifact
 
 name: Nightly build with Node.js CI
 
@@ -10,20 +10,37 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-
+  timestamp:
     runs-on: ubuntu-latest
-
+    outputs:
+      timestamp: ${{ steps.gettime.outputs.now }}
+    steps:
+    - id: gettime
+      run: |
+        d=$(date +%s)
+        echo "::set-output name=now::$d"
+  build:
+    runs-on: ubuntu-latest
+    needs: [timestamp]
     strategy:
       matrix:
         node-version: [10.x]
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Get Previous tag
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    - name: Get next version
+      id: semvers
+      uses: "WyriHaximus/github-action-next-semvers@v1"
+      with:
+        version: ${{ steps.previoustag.outputs.tag }}
     - run: |
         npm install -g yarn
         yarn install
@@ -32,9 +49,9 @@ jobs:
       shell: bash
       run: |
         cd dist/
-        zip -q -r ../third-stats.xpi ./
+        zip -q -r ../third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi ./
     - name: Upload add-on nightly build artifact
       uses: actions/upload-artifact@v2
       with:
         name: third-stats-nightly
-        path: third-stats.xpi
+        path: third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
