@@ -368,29 +368,40 @@
 							/>
 						</div>
 					</div>
-					<div class="chart-group">
-						<!-- emails per weekday per hour received -->
-						<HeatMap
-							:title='$t("stats.charts.temporalDistribution.title")'
-							:description='$t("stats.charts.temporalDistribution.description.received")'
-							rgb='10, 132, 255'
-							spacing='1px'
-							rounding='5px'
-							:dataset='weekdayPerHourChartData.received'
-							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-							:tooltips='"{y}, {x}:00\n{label}: {value}"'
-							class='mb-0-5'
-						/>
-						<!-- emails per weekday per hour sent -->
-						<HeatMap
-							:description='$t("stats.charts.temporalDistribution.description.sent")'
-							rgb='230, 77, 185'
-							spacing='1px'
-							rounding='5px'
-							:dataset='weekdayPerHourChartData.sent'
-							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-							:tooltips='"{y}, {x}:00\n{label}: {value}"'
-						/>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.twodim'
+								:key='label'
+								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active }'
+								@click='activateTab("twodim", label)'
+							>
+								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
+							</li>
+						</ul>
+						<div class="tab-content chart-group mt-1">
+							<!-- emails per weekday per hour received -->
+							<HeatMap
+								rgb='10, 132, 255'
+								spacing='1px'
+								rounding='5px'
+								:dataset='weekdayPerHourChartData.received'
+								:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+								:tooltips='"{y}, {x}:00\n{label}: {value}"'
+								class='mt-1-5 mb-1-5'
+							/>
+							<!-- emails per weekday per hour sent -->
+							<HeatMap
+								rgb='230, 77, 185'
+								spacing='1px'
+								rounding='5px'
+								:dataset='weekdayPerHourChartData.sent'
+								:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+								:tooltips='"{y}, {x}:00\n{label}: {value}"'
+							/>
+						</div>
 					</div>
 					<!-- contacts most emails received from -->
 					<BarChart
@@ -548,6 +559,9 @@ export default {
 					daytime: true,
 					weekday: false,
 					month: false,
+				},
+				twodim: {
+					temporalDistribution: true,
 				}
 			},
 			preferences: {   // preferences set for this page
