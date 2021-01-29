@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies and build the application across different versions of node
 # It creates a thunderbird add-on XPI file from it and stores it as artifact
 
-name: Nightly build with Node.js CI
+name: Nightly build
 
 on:
   push:
@@ -57,12 +57,13 @@ jobs:
         name: third-stats-nightly
         path: third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
     - name: Push add-on to CDN
-      uses: appleboy/scp-action@master
+      uses: cross-the-world/scp-pipeline@master
       with:
         host: ${{ secrets.CDN_HOST }}
-        username: ${{ secrets.CDN_USER }}
-        password: ${{ secrets.CDN_PASS }}
+        user: ${{ secrets.CDN_USER }}
+        pass: ${{ secrets.CDN_PASS }}
         port: ${{ secrets.CDN_PORT }}
-        source: third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
-        target: ${{ secrets.CDN_PATH }}
+        connect_timeout: 15s
+        local: "./third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi"
+        remote: /${{ secrets.CDN_PATH }}/
         
