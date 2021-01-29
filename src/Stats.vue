@@ -277,7 +277,7 @@
 							/>
 						</div>
 					</div>
-					<div v-show='!preferences.sections.total.expand' class='chart-group position-relative'>
+					<div v-show='!preferences.sections.total.expand' class='tab-area position-relative'>
 						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
 							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year > minYear}' @click.prevent='previousYear()'>
 								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year <= minYear}' viewBox='0 0 24 24'>
@@ -295,28 +295,39 @@
 								</svg>
 							</div>
 						</div>
-						<!-- activity per day received -->
-						<HeatMap
-							:title='$t("stats.charts.days.title", [preferences.sections.days.year])'
-							:description='$t("stats.charts.days.description.received")'
-							rgb='10, 132, 255'
-							spacing='1px'
-							rounding='5px'
-							:dataset='daysChartData.received'
-							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
-							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-							class='mb-0-5 upper-chart'
-						/>
-						<!-- activity per day sent -->
-						<HeatMap
-							:description='$t("stats.charts.days.description.sent")'
-							rgb='230, 77, 185'
-							spacing='1px'
-							rounding='5px'
-							:dataset='daysChartData.sent'
-							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
-							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-						/>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.activity'
+								:key='label'
+								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active }'
+								@click='activateTab("activity", label)'
+							>
+								<span>{{ $t('stats.charts.' + label + '.title', [preferences.sections.days.year]) }}</span>
+							</li>
+						</ul>
+						<div class='tab-content chart-group mt-1'>
+							<!-- activity per day received -->
+							<HeatMap
+								rgb='10, 132, 255'
+								spacing='1px'
+								rounding='5px'
+								:dataset='daysChartData.received'
+								:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+								:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+								class='mt-2 mb-1-5'
+							/>
+							<!-- activity per day sent -->
+							<HeatMap
+								rgb='230, 77, 185'
+								spacing='1px'
+								rounding='5px'
+								:dataset='daysChartData.sent'
+								:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+								:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+							/>
+						</div>
 					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area mt-2'>
@@ -517,6 +528,9 @@ export default {
 					months: false,
 					weeks: false,
 				},
+				activity: {
+					days: true,
+				}
 			},
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
@@ -1610,7 +1624,7 @@ body
 				column-gap: 2rem
 				row-gap: 1rem
 				transition: grid-template-columns .2s
-				& > *, .tab-content > *
+				& > *, .tab-content:not(.chart-group) > *
 					min-height: 380px
 				.chart
 					min-width: 0
@@ -1618,7 +1632,5 @@ body
 						margin-bottom: 0
 					p
 						margin-top: 0
-				.chart-group .upper-chart h2
-					margin-top: .5rem
 
 </style>

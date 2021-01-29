@@ -47,10 +47,7 @@
       },
       "days": {
         "title": "Activity in {0}",
-        "description": {
-          "received": "Number of incoming emails per day",
-          "sent": "Number of outgoing emails per day"
-        }
+        "description": "Number of emails per single date"
       },
       "daytime": {
         "title": "Daytime",
