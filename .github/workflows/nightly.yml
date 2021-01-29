@@ -31,14 +31,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Get Version
-      id: version
-      uses: battila7/get-version-action@v2
+    - name: Get Package Version
+      id: package-version
+      uses: martinbeentjes/npm-get-version-action@master
     - name: Get next version
       id: semvers
       uses: WyriHaximus/github-action-next-semvers@v1
       with:
-        version: ${{ steps.version.outputs.version-without-v }}
+        version: ${{ steps.package-version.outputs.current-version }}
     - run: |
         npm install -g yarn
         yarn install
