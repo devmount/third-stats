@@ -57,12 +57,12 @@ jobs:
         name: third-stats-nightly
         path: third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
     - name: Push add-on to CDN
-      shell: bash
-      env:
-        CDN_HOST: ${{ secrets.CDN_HOST }}
-        CDN_PORT: ${{ secrets.CDN_PORT }}
-        CDN_USER: ${{ secrets.CDN_USER }}
-        CDN_PASS: ${{ secrets.CDN_PASS }}
-        CDN_PATH: ${{ secrets.CDN_PATH }}
-      run: echo "put third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi" | sftp -P $CDN_PORT -o StrictHostKeyChecking=no -p $CDN_PASS $CDN_USER@$CDN_HOST:/$CDN_PATH
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.CDN_HOST }}
+        username: ${{ secrets.CDN_USER }}
+        password: ${{ secrets.CDN_PASS }}
+        port: ${{ secrets.CDN_PORT }}
+        source: third-stats_${{ steps.semvers.outputs.v_minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+        target: ${{ secrets.CDN_PATH }}
         
