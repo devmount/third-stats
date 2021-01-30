@@ -94,6 +94,8 @@ export default {
 				this.chart.data.datasets.forEach((d, i) => {
 					if (i in this.currentData) {
 						d.data = this.currentData[i].data
+						d.backgroundColor = this.currentData[i].backgroundColor
+						d.borderColor = this.currentData[i].borderColor
 					} else {
 						this.chart.data.datasets.pop()
 					}
@@ -102,6 +104,8 @@ export default {
 				this.currentData.forEach((d, i) => {
 					if (i in this.chart.data.datasets) {
 						this.chart.data.datasets[i].data = d.data
+						this.chart.data.datasets[i].backgroundColor = d.backgroundColor
+						this.chart.data.datasets[i].borderColor = d.borderColor
 					} else {
 						this.chart.data.datasets.push(d)
 					}

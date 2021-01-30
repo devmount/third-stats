@@ -426,7 +426,7 @@
 							/>
 							<!-- contacts most emails sent to -->
 							<BarChart
-								v-if='tabs.leader.timePassedSinceDataRetrieval'
+								v-if='tabs.leader.sent'
 								:datasets='sentContactLeadersChartData.datasets'
 								:labels='sentContactLeadersChartData.labels'
 								:horizontal='true'
