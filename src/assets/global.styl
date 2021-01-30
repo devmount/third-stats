@@ -82,6 +82,10 @@ for m, c in mode
 	transition: width transition.duration transition.function
 .transition-color
 	transition: color transition.duration transition.function
+.transition-border-color
+	transition: border-color transition.duration transition.function
+.transition-border-image
+	transition: border-image transition.duration transition.function
 
 // coloring
 for m, c in mode
@@ -139,6 +143,8 @@ for m, c in mode
 	font-weight: 300
 .mt-1
 	margin-top: 1rem
+.mt-1-5
+	margin-top: 1.5rem
 .mt-2
 	margin-top: 2rem
 .mt-3
@@ -264,6 +270,8 @@ for m, c in mode
 	visibility: hidden
 
 // cursor
+.cursor-default
+	cursor: default
 .cursor-pointer
 	cursor: pointer
 .cursor-na
@@ -605,8 +613,13 @@ input[type=number]
 			border-bottom-color: c.gray3
 			color: c.gray1
 			.tab-item.active > span
-				border-bottom-color: c.accent2
-				color: c.accent2
+				&.border-bottom-accent2
+					border-bottom-color: c.accent2
+				&.border-bottom-accent1
+					border-bottom-color: c.accent1
+				&.border-bottom-gradient-accent2-accent1
+					  border-image: linear-gradient(to right, c.accent2, c.accent1) 100% 1
+				color: c.highlight
 
 // tags
 .tag

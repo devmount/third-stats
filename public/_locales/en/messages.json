@@ -47,10 +47,7 @@
       },
       "days": {
         "title": "Activity in {0}",
-        "description": {
-          "received": "Number of incoming emails per day",
-          "sent": "Number of outgoing emails per day"
-        }
+        "description": "Number of emails per single date"
       },
       "daytime": {
         "title": "Daytime",
@@ -66,10 +63,7 @@
       },
       "temporalDistribution": {
         "title": "Temporal distribution",
-        "description": {
-          "received": "Number of incoming emails per weekday per hour",
-          "sent": "Number of outgoing emails per weekday per hour"
-        }
+        "description": "Number of emails per weekday per hour"
       },
       "leader": {
         "title": {

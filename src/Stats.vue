@@ -206,14 +206,16 @@
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
-								v-for='(active, label) in tabs'
+								v-for='(active, label) in tabs.total'
 								:key='label'
-								class='tab-item cursor-pointer tooltip tooltip-bottom text-hover-accent2'
+								class='tab-item cursor-default tooltip tooltip-bottom border-bottom-accent2'
 								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active }'
-								@click='activateTab(label)'
+								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
+								@click='activateTab("total", label)'
 							>
-								<span>{{ $t('stats.charts.' + label + '.title') }}</span>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
 							</li>
 							<li
 								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
@@ -243,7 +245,7 @@
 						<div class='tab-content mt-1'>
 							<!-- emails per year over total time -->
 							<LineChart
-								v-if='tabs.years'
+								v-if='tabs.total.years'
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -251,7 +253,7 @@
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
-								v-if='tabs.quarters'
+								v-if='tabs.total.quarters'
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -259,7 +261,7 @@
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
-								v-if='tabs.months'
+								v-if='tabs.total.months'
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -267,7 +269,7 @@
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
-								v-if='tabs.weeks'
+								v-if='tabs.total.weeks'
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -275,7 +277,7 @@
 							/>
 						</div>
 					</div>
-					<div v-show='!preferences.sections.total.expand' class='chart-group position-relative'>
+					<div v-show='!preferences.sections.total.expand' class='tab-area position-relative'>
 						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
 							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year > minYear}' @click.prevent='previousYear()'>
 								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year <= minYear}' viewBox='0 0 24 24'>
@@ -293,95 +295,155 @@
 								</svg>
 							</div>
 						</div>
-						<!-- activity per day received -->
-						<HeatMap
-							:title='$t("stats.charts.days.title", [preferences.sections.days.year])'
-							:description='$t("stats.charts.days.description.received")'
-							rgb='10, 132, 255'
-							spacing='1px'
-							rounding='5px'
-							:dataset='daysChartData.received'
-							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
-							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-							class='mb-0-5 upper-chart'
-						/>
-						<!-- activity per day sent -->
-						<HeatMap
-							:description='$t("stats.charts.days.description.sent")'
-							rgb='230, 77, 185'
-							spacing='1px'
-							rounding='5px'
-							:dataset='daysChartData.sent'
-							:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
-							:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-						/>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.activity'
+								:key='label'
+								class='tab-item cursor-default tooltip tooltip-bottom'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
+								@click='activateTab("activity", label)'
+							>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title', [preferences.sections.days.year]) }}
+								</span>
+							</li>
+						</ul>
+						<div class='tab-content chart-group mt-1'>
+							<!-- activity per day received -->
+							<HeatMap
+								rgb='10, 132, 255'
+								spacing='1px'
+								rounding='5px'
+								:dataset='daysChartData.received'
+								:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+								:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+								class='mt-2 mb-1-5'
+							/>
+							<!-- activity per day sent -->
+							<HeatMap
+								rgb='230, 77, 185'
+								spacing='1px'
+								rounding='5px'
+								:dataset='daysChartData.sent'
+								:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
+								:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+							/>
+						</div>
 					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area mt-2'>
-					<!-- emails per time of day -->
-					<BarChart
-						:title='$t("stats.charts.daytime.title")'
-						:description='$t("stats.charts.daytime.description")'
-						:datasets='daytimeChartData.datasets'
-						:labels='daytimeChartData.labels'
-						:ordinate='preferences.ordinate'
-					/>
-					<!-- emails per day of week -->
-					<BarChart
-						:title='$t("stats.charts.weekday.title")'
-						:description='$t("stats.charts.weekday.description")'
-						:datasets='weekdayChartData.datasets'
-						:labels='weekdayChartData.labels'
-						:ordinate='preferences.ordinate'
-					/>
-					<!-- emails per month of year -->
-					<BarChart
-						:title='$t("stats.charts.month.title")'
-						:description='$t("stats.charts.month.description")'
-						:datasets='monthChartData.datasets'
-						:labels='monthChartData.labels'
-						:ordinate='preferences.ordinate'
-					/>
-					<div class="chart-group">
-						<!-- emails per weekday per hour received -->
-						<HeatMap
-							:title='$t("stats.charts.temporalDistribution.title")'
-							:description='$t("stats.charts.temporalDistribution.description.received")'
-							rgb='10, 132, 255'
-							spacing='1px'
-							rounding='5px'
-							:dataset='weekdayPerHourChartData.received'
-							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-							:tooltips='"{y}, {x}:00\n{label}: {value}"'
-							class='mb-0-5'
-						/>
-						<!-- emails per weekday per hour sent -->
-						<HeatMap
-							:description='$t("stats.charts.temporalDistribution.description.sent")'
-							rgb='230, 77, 185'
-							spacing='1px'
-							rounding='5px'
-							:dataset='weekdayPerHourChartData.sent'
-							:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-							:tooltips='"{y}, {x}:00\n{label}: {value}"'
-						/>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.onedim'
+								:key='label'
+								class='tab-item cursor-default tooltip tooltip-bottom'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
+								@click='activateTab("onedim", label)'
+							>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
+							</li>
+						</ul>
+						<div class='tab-content mt-1'>
+							<!-- emails per time of day -->
+							<BarChart
+								v-if='tabs.onedim.daytime'
+								:datasets='daytimeChartData.datasets'
+								:labels='daytimeChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
+							<!-- emails per day of week -->
+							<BarChart
+								v-if='tabs.onedim.weekday'
+								:datasets='weekdayChartData.datasets'
+								:labels='weekdayChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
+							<!-- emails per month of year -->
+							<BarChart
+								v-if='tabs.onedim.month'
+								:datasets='monthChartData.datasets'
+								:labels='monthChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
+						</div>
 					</div>
-					<!-- contacts most emails received from -->
-					<BarChart
-						:title='$t("stats.charts.leader.title.received")'
-						:description='$t("stats.charts.leader.description.received")'
-						:datasets='receivedContactLeadersChartData.datasets'
-						:labels='receivedContactLeadersChartData.labels'
-						:horizontal='true'
-					/>
-					<!-- contacts most emails sent to -->
-					<BarChart
-						:title='$t("stats.charts.leader.title.sent")'
-						:description='$t("stats.charts.leader.description.sent")'
-						:datasets='sentContactLeadersChartData.datasets'
-						:labels='sentContactLeadersChartData.labels'
-						:horizontal='true'
-					/>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.twodim'
+								:key='label'
+								class='tab-item cursor-default tooltip tooltip-bottom'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
+								@click='activateTab("twodim", label)'
+							>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
+							</li>
+						</ul>
+						<div class="tab-content chart-group mt-1">
+							<!-- emails per weekday per hour received -->
+							<HeatMap
+								rgb='10, 132, 255'
+								spacing='1px'
+								rounding='5px'
+								:dataset='weekdayPerHourChartData.received'
+								:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+								:tooltips='"{y}, {x}:00\n{label}: {value}"'
+								class='mt-1-5 mb-1-5'
+							/>
+							<!-- emails per weekday per hour sent -->
+							<HeatMap
+								rgb='230, 77, 185'
+								spacing='1px'
+								rounding='5px'
+								:dataset='weekdayPerHourChartData.sent'
+								:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
+								:tooltips='"{y}, {x}:00\n{label}: {value}"'
+							/>
+						</div>
+					</div>
+					<div class='tab-area'>
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.leader'
+								:key='label'
+								class='tab-item cursor-default tooltip tooltip-bottom'
+								:data-tooltip='$t("stats.charts.leader.description." + label)'
+								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
+								@click='activateTab("leader", label)'
+							>
+								<span
+									class="transition-color transition-border-color"
+									:class='{ "border-bottom-accent2": label=="received", "border-bottom-accent1": label=="sent"}'
+								>
+									{{ $t('stats.charts.leader.title.' + label) }}
+								</span>
+							</li>
+						</ul>
+						<div class="tab-content mt-1">
+							<!-- contacts most emails received from -->
+							<BarChart
+								v-if='tabs.leader.received'
+								:datasets='receivedContactLeadersChartData.datasets'
+								:labels='receivedContactLeadersChartData.labels'
+								:horizontal='true'
+							/>
+							<!-- contacts most emails sent to -->
+							<BarChart
+								v-if='tabs.leader.sent'
+								:datasets='sentContactLeadersChartData.datasets'
+								:labels='sentContactLeadersChartData.labels'
+								:horizontal='true'
+							/>
+						</div>
+					</div>
 				</div>
 			</section>
 			<!-- footer -->
@@ -508,11 +570,28 @@ export default {
 				max: 0,        // upper limit for progress indicator
 			},
 			display: {},     // processed data to show
-			tabs: {          // tab navigation containing one active tab
-				years: true,
-				quarters: false,
-				months: false,
-				weeks: false,
+			tabs: {          // tab navigation containing one active tab at a time
+				total: {
+					years: true,
+					quarters: false,
+					months: false,
+					weeks: false,
+				},
+				activity: {
+					days: true,
+				},
+				onedim: {
+					daytime: true,
+					weekday: false,
+					month: false,
+				},
+				twodim: {
+					temporalDistribution: true,
+				},
+				leader: {
+					received: true,
+					sent: false,
+				}
 			},
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
@@ -1003,11 +1082,10 @@ export default {
 			}
 		},
 		// tab navigation
-		// activate tab of given <key>
-		activateTab (key) {
+		// activate tab of given <position> in given <area>
+		activateTab (area, position) {
 			let self = this
-			Object.keys(this.tabs).map(t => self.tabs[t] = false)
-			this.tabs[key] = true
+			Object.keys(this.tabs[area]).map(t => self.tabs[area][t] = t == position)
 		},
 		// format folder select options
 		// build <folder> name to match its hierarchy with preceding dashes
@@ -1525,7 +1603,7 @@ body
 		@media (min-width: 2501px)
 			max-width: 2500px
 			#chart-area-main
-				grid-template-columns: repeat(6, 1fr)
+				grid-template-columns: repeat(4, 1fr)
 		@media (max-width: 2500px)
 			max-width: 2200px
 			#chart-area-main
@@ -1586,6 +1664,9 @@ body
 					margin: 4px 4px 4px 7px
 				.refresh
 					margin-left: 3px
+		
+		&>h2
+			font-weight: 300
 
 		.numbers
 			display: grid
@@ -1604,7 +1685,7 @@ body
 				column-gap: 2rem
 				row-gap: 1rem
 				transition: grid-template-columns .2s
-				& > *, .tab-content > *
+				& > *, .tab-content:not(.chart-group) > *
 					min-height: 380px
 				.chart
 					min-width: 0
@@ -1612,7 +1693,5 @@ body
 						margin-bottom: 0
 					p
 						margin-top: 0
-				.chart-group .upper-chart h2
-					margin-top: .5rem
 
 </style>
