@@ -208,12 +208,14 @@
 							<li
 								v-for='(active, label) in tabs.total'
 								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom'
+								class='tab-item cursor-default tooltip tooltip-bottom border-bottom-accent2'
 								:data-tooltip='$t("stats.charts." + label + ".description")'
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("total", label)'
 							>
-								<span class="transition-color transition-border-color">{{ $t('stats.charts.' + label + '.title') }}</span>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
 							</li>
 							<li
 								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
@@ -302,7 +304,9 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("activity", label)'
 							>
-								<span class="transition-color transition-border-color">{{ $t('stats.charts.' + label + '.title', [preferences.sections.days.year]) }}</span>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title', [preferences.sections.days.year]) }}
+								</span>
 							</li>
 						</ul>
 						<div class='tab-content chart-group mt-1'>
@@ -339,7 +343,9 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("onedim", label)'
 							>
-								<span class="transition-color transition-border-color">{{ $t('stats.charts.' + label + '.title') }}</span>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
 							</li>
 						</ul>
 						<div class='tab-content mt-1'>
@@ -376,7 +382,9 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("twodim", label)'
 							>
-								<span class="transition-color transition-border-color">{{ $t('stats.charts.' + label + '.title') }}</span>
+								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
 							</li>
 						</ul>
 						<div class="tab-content chart-group mt-1">
@@ -411,7 +419,12 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("leader", label)'
 							>
-								<span class="transition-color transition-border-color">{{ $t('stats.charts.leader.title.' + label) }}</span>
+								<span
+									class="transition-color transition-border-color"
+									:class='{ "border-bottom-accent2": label=="received", "border-bottom-accent1": label=="sent"}'
+								>
+									{{ $t('stats.charts.leader.title.' + label) }}
+								</span>
 							</li>
 						</ul>
 						<div class="tab-content mt-1">
