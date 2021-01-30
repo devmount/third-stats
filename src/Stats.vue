@@ -1603,7 +1603,7 @@ body
 		@media (min-width: 2501px)
 			max-width: 2500px
 			#chart-area-main
-				grid-template-columns: repeat(6, 1fr)
+				grid-template-columns: repeat(4, 1fr)
 		@media (max-width: 2500px)
 			max-width: 2200px
 			#chart-area-main
