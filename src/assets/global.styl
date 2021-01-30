@@ -82,6 +82,8 @@ for m, c in mode
 	transition: width transition.duration transition.function
 .transition-color
 	transition: color transition.duration transition.function
+.transition-border-color
+	transition: border-color transition.duration transition.function
 
 // coloring
 for m, c in mode
@@ -266,6 +268,8 @@ for m, c in mode
 	visibility: hidden
 
 // cursor
+.cursor-default
+	cursor: default
 .cursor-pointer
 	cursor: pointer
 .cursor-na
@@ -608,7 +612,7 @@ input[type=number]
 			color: c.gray1
 			.tab-item.active > span
 				border-bottom-color: c.accent2
-				color: c.accent2
+				color: c.highlight
 
 // tags
 .tag
