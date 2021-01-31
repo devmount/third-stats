@@ -1491,7 +1491,7 @@ export default {
 				datasets: [
 					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 				],
-				labels: new Array(25).fill('12345678901234567890123456789012345678901234567890')
+				labels: Object.keys(r)
 			}
 		},
 		// prepare data for sent emails leaderboard horizontal bar chart
