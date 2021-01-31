@@ -1600,24 +1600,28 @@ body
 		padding-right: 1rem
 		box-sizing: border-box
 
-		@media (min-width: 2501px)
+		@media (max-width: 4320px)
 			max-width: 2500px
-			#chart-area-main
-				grid-template-columns: repeat(4, 1fr)
-		@media (max-width: 2500px)
-			max-width: 2200px
-			#chart-area-main
-				grid-template-columns: repeat(3, 1fr)
-		@media (max-width: 2000px)
-			max-width: 1750px
-			#chart-area-main
-				grid-template-columns: repeat(3, 1fr)
-		@media (min-width: 1501px)
 			header
 				grid-template-columns: 1fr 2fr
 				.filter
 					justify-content: flex-end
-		@media (max-width: 1500px)
+			.numbers
+				max-width: 1500px
+				grid-template-columns: repeat(6, 1fr)
+			#chart-area-top
+				grid-template-columns: calc(100% - 1130px - 2rem) 1130px
+				&.first-column-only
+					grid-template-columns: calc(100%-1rem) 0%
+				.resizer
+					display: list-item
+			#chart-area-main
+				grid-template-columns: calc(33.33% - 1rem) 550px auto
+		@media (max-width: 2500px)
+			max-width: 2200px
+		@media (max-width: 2000px)
+			max-width: 1750px
+		@media (max-width: 1750px)
 			max-width: 1200px
 			header
 				grid-template-columns: 1fr
@@ -1627,28 +1631,15 @@ body
 					justify-content: space-around
 					&>*
 						margin: 0 0 1rem 0
-			#chart-area-main
-				grid-template-columns: repeat(2, 1fr)
-		@media (min-width: 961px)
-			.numbers
-				max-width: 1500px
-				grid-template-columns: repeat(6, 1fr)
-			#chart-area-top
-				grid-template-columns: calc(33.33% - 1rem) calc(66.66% - 1rem)
-				&.first-column-only
-					grid-template-columns: calc(100%-1rem) 0%
-				.resizer
-					display: list-item
-		@media (max-width: 960px)
-			.numbers
-				grid-template-columns: repeat(3, 1fr)
 			#chart-area-top
 				grid-template-columns: calc(100%-1rem)
 				.resizer
 					display: none
-		@media (max-width: 720px)
 			#chart-area-main
-				grid-template-columns: 1fr
+				grid-template-columns: calc(100%-1rem)
+		@media (max-width: 960px)
+			.numbers
+				grid-template-columns: repeat(3, 1fr)
 
 		header
 			margin-top: 0
