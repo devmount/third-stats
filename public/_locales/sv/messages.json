@@ -43,10 +43,7 @@
       },
       "days": {
         "title": "Aktivitet under {0}",
-        "description": {
-          "received": "Antal inkommande mejl per dag",
-          "sent": "Antal utgående mejl per dag"
-        }
+        "description": "Antal mejl per dag"
       },
       "daytime": {
         "title": "Dag",
@@ -62,20 +59,15 @@
       },
       "temporalDistribution": {
         "title": "Timlig fördelning",
-        "description": {
-          "received": "Antal inkomna mejl per veckodag per timme",
-          "sent": "Antal utgående mejl per veckodag per timme"
-        }
+        "description": "Antal mejl per veckodag per timme"
       },
-      "leader": {
-        "title": {
-          "received": "Mest mottaget från",
-          "sent": "Mest skickat till"
-        },
-        "description": {
-          "received": "Antal mejl skickade per mottagare",
-          "sent": "Antal mejl mottagna per avsändare"
-        }
+      "contactsReceived": {
+        "title": "Mest mottaget från",
+        "description": "Antal mejl skickade per mottagare"
+      },
+      "contactsSent": {
+        "title": "Mest skickat till",
+        "description": "Antal mejl mottagna per avsändare"
       }
     },
     "tooltips": {

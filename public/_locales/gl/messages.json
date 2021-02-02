@@ -41,10 +41,7 @@
       },
       "days": {
         "title": "Actividade en {0}",
-        "description": {
-          "received": "Número de correos recibidos por día",
-          "sent": "Número de correos enviados por día"
-        }
+        "description": "Número de recibidos por día"
       },
       "daytime": {
         "title": "Hora do día",
@@ -60,20 +57,15 @@
       },
       "temporalDistribution": {
         "title": "Distribución temporal",
-        "description": {
-          "received": "Correos recibidos por día e hora",
-          "sent": "Correos enviados por día e hora"
-        }
+        "description": "Correos por día e hora"
       },
-      "leader": {
-        "title": {
-          "received": "Máis correos recibidos de",
-          "sent": "Máis correos enviados a"
-        },
-        "description": {
-          "received": "Número de correos enviados por destinatario",
-          "sent": "Número de correos recibidos por remitente"
-        }
+      "contactsReceived": {
+        "title": "Máis correos recibidos de",
+        "description": "Número de correos recibidos por remitente"
+      },
+      "contactsSent": {
+        "title": "Máis correos enviados a",
+        "description": "Número de correos enviados por destinatario"
       }
     },
     "tooltips": {

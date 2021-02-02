@@ -5,12 +5,10 @@
   "popup": {
     "account": "Konto | Konten",
     "folder": "Ordner | Ordner",
-    "message": "-",
-    "linkDescription": "Alle Statistiken in einem neuen Tab öffnen",
-    "messagesInFolder": "{0} Nachrichten in {1} Ordnern",
+    "messages": "Nachricht | Nachrichten",
     "openAllStats": "Alle Statistiken anzeigen",
     "openOptions": "Einstellungen öffnen",
-    "messages": "Nachricht | Nachrichten"
+    "message": "-"
   },
   "stats": {
     "mailsTotal": "E-Mails gesamt",
@@ -27,6 +25,8 @@
     "mailsWeek": "E-Mails/Woche",
     "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
     "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
+    "allAccountsSum": "Alle Konten (Summe)",
+    "dataCollected": "Daten vor {0} abgerufen",
     "timePeriod": "Zeitraum",
     "charts": {
       "years": {
@@ -47,10 +47,7 @@
       },
       "days": {
         "title": "Aktivitäten in {0}",
-        "description": {
-          "received": "Anzahl empfangener E-Mails pro Tag",
-          "sent": "Anzahl gesendeter E-Mails pro Tag"
-        }
+        "description": "Anzahl aller E-Mails pro Tag"
       },
       "daytime": {
         "title": "Uhrzeit",
@@ -66,20 +63,15 @@
       },
       "temporalDistribution": {
         "title": "Zeitliche Verteilung",
-        "description": {
-          "received": "Anzahl empfangener E-Mails pro Wochentag pro Stunde",
-          "sent": "Anzahl gesendeter E-Mails pro Wochentag pro Stunde"
-        }
+        "description": "Anzahl aller E-Mails pro Wochentag pro Stunde"
       },
-      "leader": {
-        "title": {
-          "received": "Am meisten erhalten",
-          "sent": "Am meisten gesendet"
-        },
-        "description": {
-          "received": "Anzahl gesendeter E-Mails pro Empfänger",
-          "sent": "Anzahl empfangener E-Mails pro Absender"
-        }
+      "contactsReceived": {
+        "title": "Häufigste Absender",
+        "description": "Anzahl empfangener E-Mails pro Absender"
+      },
+      "contactsSent": {
+        "title": "Häufigste Empfänger",
+        "description": "Anzahl gesendeter E-Mails pro Empfänger"
       }
     },
     "tooltips": {
@@ -87,6 +79,9 @@
       "shrink": "Bereich verkleiner",
       "refresh": "Daten aktualisieren",
       "clear": "Auswahl aufheben",
+      "folder": {
+        "notAvailable": "Ordner sind für {0} nicht verfügbar"
+      },
       "period": {
         "start": "Startdatum\nTipp: '{0}' wird automatisch zu '{1}'",
         "end": "Enddatum\nTipp: '{0}' wird automatisch zu '{1}'"
@@ -97,9 +92,6 @@
         "dateUnreal": "Ein gültiges Datum ist erforderlich",
         "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
         "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen"
-      },
-      "folder": {
-        "notAvailable": "Ordner sind für {0} nicht verfügbar"
       }
     },
     "abbreviations": {
@@ -110,12 +102,11 @@
       "minute": "min",
       "second": "s"
     },
-    "starAndImprove": "Mach mich zum Star, auf <a href='{0}' target='_blank'>GitHub</a>.",
-    "message": "-",
-    "allAccountsSum": "Alle Konten (Summe)",
-    "dataCollected": "Daten vor {0} abgerufen"
+    "starAndImprove": "Mach mich zum Star auf <a href='{0}' target='_blank'>GitHub</a>.",
+    "message": "-"
   },
   "options": {
+    "title": "Einstellungen",
     "headings": {
       "appearance": "Aussehen & Nutzererlebnis",
       "stats": "Diagramme & Daten",
@@ -149,21 +140,6 @@
       "label": "Aktive Konten",
       "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen."
     },
-    "cache": {
-      "label": "Cache aktivieren",
-      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen"
-    },
-    "clearCache": {
-      "label": "Cache leeren",
-      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
-      "empty": "Der Cache ist leer",
-      "size": "Die Größe des Caches beträgt {0}"
-    },
-    "note": {
-      "title": "Hinweis",
-      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
-    },
-    "message": "-",
     "selfMessages": {
       "label": "Eigennachrichten",
       "description": "Nachrichten ausschließen, die von mir an mich selbst gesendet wurden",
@@ -182,6 +158,20 @@
       "label": "Anzahl häufiger Kontakte",
       "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)"
     },
-    "title": "Einstellungen"
+    "cache": {
+      "label": "Cache aktivieren",
+      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen"
+    },
+    "clearCache": {
+      "label": "Cache leeren",
+      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
+      "empty": "Der Cache ist leer",
+      "size": "Die Größe des Caches beträgt {0}"
+    },
+    "note": {
+      "title": "Hinweis",
+      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
+    },
+    "message": "-"
   }
 }

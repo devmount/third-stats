@@ -41,10 +41,7 @@
       },
       "days": {
         "title": "{0}年のメール総数",
-        "description": {
-          "received": "1日の時間あたりの受信メール数",
-          "sent": "1日の時間あたりの送信メール数"
-        }
+        "description": "1日の時間あたりのール数"
       },
       "daytime": {
         "title": "日中",
@@ -60,20 +57,15 @@
       },
       "temporalDistribution": {
         "title": "時間分配",
-        "description": {
-          "received": "平日1時間あたりの受信メールの数",
-          "sent": "平日1時間あたりの送信メールの数"
-        }
+        "description": "平日1時間あたりのールの数"
       },
-      "leader": {
-        "title": {
-          "received": "最多受信先メール",
-          "sent": "最多送信先メール"
-        },
-        "description": {
-          "received": "受信者あたりのメール送信数",
-          "sent": "送信者あたりのメール受信数"
-        }
+      "contactsReceived": {
+        "title": "最多受信先メール",
+        "description": "受信者あたりのメール送信数"
+      },
+      "contactsSent": {
+        "title": "最多送信先メール",
+        "description": "送信者あたりのメール受信数"
       }
     },
     "tooltips": {

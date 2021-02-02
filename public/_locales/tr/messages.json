@@ -41,10 +41,7 @@
       },
       "days": {
         "title": "{0} Etkinlik",
-        "description": {
-          "received": "Günlük gelen e-posta sayısı",
-          "sent": "Günlük giden e-posta sayısı"
-        }
+        "description": "Günlük e-posta sayısı"
       },
       "daytime": {
         "title": "Saatlik",
@@ -60,20 +57,15 @@
       },
       "temporalDistribution": {
         "title": "Zamansal dağılım",
-        "description": {
-          "received": "Hafta içi her saatte gelen e-posta sayısı",
-          "sent": "Hafta içi her saatte giden e-posta sayısı"
-        }
+        "description": "Hafta içi her saatte e-posta sayısı"
       },
-      "leader": {
-        "title": {
-          "received": "En çok gelen",
-          "sent": "En çok gönderilen"
-        },
-        "description": {
-          "received": "Alıcı başına gönderilen e-posta sayısı",
-          "sent": "Gönderen başına alınan e-posta sayısı"
-        }
+      "contactsReceived": {
+        "title": "En çok gelen",
+        "description": "Alıcı başına gönderilen e-posta sayısı"
+      },
+      "contactsSent": {
+        "title": "En çok gönderilen",
+        "description": "Gönderen başına alınan e-posta sayısı"
       }
     },
     "tooltips": {

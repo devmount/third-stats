@@ -28,23 +28,20 @@
         "description": "จำนวนอีเมลทั้งหมดต่อปี"
       },
       "quarters": {
-        "title": "",
-        "description": ""
+        "title": "ไตรมาส",
+        "description": "จำนวนอีเมลทั้งหมดต่อไตรมาส"
       },
       "months": {
         "title": "เดือน",
         "description": "จำนวนอีเมลทั้งหมดต่อเดือน"
       },
       "weeks": {
-        "title": "",
-        "description": ""
+        "title": "สัปดาห์",
+        "description": "จำนวนอีเมลทั้งหมดต่อสัปดาห์"
       },
       "days": {
-        "title": "",
-        "description": {
-          "received": "",
-          "sent": ""
-        }
+        "title": "เวลากลางวัน",
+        "description": "จำนวนอีเมลต่อช่วงเวลาของวัน"
       },
       "daytime": {
         "title": "วัน",
@@ -60,10 +57,7 @@
       },
       "temporalDistribution": {
         "title": "การกระจายชั่วขณะ",
-        "description": {
-          "received": "จำนวนเมลที่รับต่อวันต่อชั่วโมง",
-          "sent": "จำนวนเมลที่ส่งต่อวันต่อชั่วโมง"
-        }
+        "description": "จำนวนอีเมลต่อวันต่อชั่วโมง"
       },
       "leader": {
         "title": {
@@ -74,35 +68,24 @@
           "received": "จำนวนเมลที่ส่งจากผู้ส่ง",
           "sent": "จำนวนเมลที่รับจากผู้ส่ง"
         }
+      },
+      "contactsReceived": {
+        "title": "รับมากที่สุดจาก",
+        "description": "จำนวนเมลที่ส่งจากผู้ส่ง"
+      },
+      "contactsSent": {
+        "title": "ส่งมากที่สุดถึง",
+        "description": "จำนวนเมลที่รับจากผู้ส่ง"
       }
     },
     "tooltips": {
-      "expand": "",
-      "shrink": ""
-    },
-    "abbreviations": {
-      "calendarWeek": "",
-      "quarter": ""
+      "expand": "ขยายพื้นที่แผนภูมิ",
+      "shrink": "หดพื้นที่แผนภูมิ"
     },
     "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>",
     "message": "-"
   },
   "options": {
-    "switch": {
-      "on": "",
-      "off": ""
-    },
-    "button": {
-      "save": ""
-    },
-    "darkMode": {
-      "label": "",
-      "description": ""
-    },
-    "localIdentities": {
-      "label": "",
-      "description": ""
-    },
     "message": "-"
   }
 }
