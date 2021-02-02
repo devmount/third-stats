@@ -41,10 +41,7 @@
       },
       "days": {
         "title": "Aktivita za {0}",
-        "description": {
-          "received": "Počet příchozích e-mailů za den",
-          "sent": "Počet odchozích e-mailů za den"
-        }
+        "description": "Počet e-mailů za den"
       },
       "daytime": {
         "title": "Během dne",
@@ -60,20 +57,15 @@
       },
       "temporalDistribution": {
         "title": "Časová distribuce",
-        "description": {
-          "received": "Počet příchozích e-mailů dle dní v týdnu a denní doby",
-          "sent": "Počet odchozích e-mailů dle dní v týdnu a denní doby"
-        }
+        "description": "Počet e-mailů dle dní v týdnu a denní doby"
       },
-      "leader": {
-        "title": {
-          "received": "Nejvíce přijato",
-          "sent": "Nejvíce odesláno"
-        },
-        "description": {
-          "received": "Počet e-mailů odeslaných jednotlivým příjemcům",
-          "sent": "Počet e-mailů přijatých od jednotlivých odesílatelů"
-        }
+      "contactsReceived": {
+        "title": "Nejvíce přijato",
+        "description": "Počet e-mailů odeslaných jednotlivým příjemcům"
+      },
+      "contactsSent": {
+        "title": "Nejvíce odesláno",
+        "description": "Počet e-mailů přijatých od jednotlivých odesílatelů"
       }
     },
     "tooltips": {

@@ -41,10 +41,7 @@
       },
       "days": {
         "title": "Activitat en {0}",
-        "description": {
-          "received": "Nombre de correus rebuts per dia",
-          "sent": "Nombre de correus enviats per dia"
-        }
+        "description": "Nombre de correus per dia"
       },
       "daytime": {
         "title": "Hora",
@@ -60,20 +57,15 @@
       },
       "temporalDistribution": {
         "title": "Distribució temporal",
-        "description": {
-          "received": "Nombre de correus rebuts per dia de setmana i hora",
-          "sent": "Nombre de correus enviats per dia de setmana i hora"
-        }
+        "description": "Nombre de correus per dia de setmana i hora"
       },
-      "leader": {
-        "title": {
-          "received": "La majoria rebuts de",
-          "sent": "La majoria enviats a"
-        },
-        "description": {
-          "received": "Nombre de correus electrònics enviats per destinatari",
-          "sent": "Nombre de correus electrònics rebuts per remitent"
-        }
+      "contactsReceived": {
+        "title": "La majoria rebuts de",
+        "description": "Nombre de correus electrònics rebuts per destinatari"
+      },
+      "contactsSent": {
+        "title": "La majoria enviats a",
+        "description": "Nombre de correus electrònics enviats per remitent"
       }
     },
     "tooltips": {

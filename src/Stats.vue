@@ -415,7 +415,7 @@
 								v-for='(active, label) in tabs.leader'
 								:key='label'
 								class='tab-item cursor-default tooltip tooltip-bottom'
-								:data-tooltip='$t("stats.charts.leader.description." + label)'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("leader", label)'
 							>
@@ -423,21 +423,21 @@
 									class="transition-color transition-border-color"
 									:class='{ "border-bottom-accent2": label=="received", "border-bottom-accent1": label=="sent"}'
 								>
-									{{ $t('stats.charts.leader.title.' + label) }}
+									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
 							</li>
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- contacts most emails received from -->
 							<BarChart
-								v-if='tabs.leader.received'
+								v-if='tabs.leader.contactsReceived'
 								:datasets='receivedContactLeadersChartData.datasets'
 								:labels='receivedContactLeadersChartData.labels'
 								:horizontal='true'
 							/>
 							<!-- contacts most emails sent to -->
 							<BarChart
-								v-if='tabs.leader.sent'
+								v-if='tabs.leader.contactsSent'
 								:datasets='sentContactLeadersChartData.datasets'
 								:labels='sentContactLeadersChartData.labels'
 								:horizontal='true'
@@ -532,14 +532,18 @@ const sumObjectsArrays = (objs) => {
 	}, {})
 	return res
 }
-// helper function to sort object properties by value and limit entries
+// helper function to sort object properties by value, limit entries and return an object again
 const sortAndLimitObject = (obj, limit) => {
 	let r = Object.entries(obj).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 	return Object.keys(r)
 		.slice(0, limit)
 		.reduce((result, key) => { result[key] = r[key]; return result; }, {})
 }
-// helper function to see if array contains array
+// helper function to sort object properties by value, limit entries and return an array
+const sortAndLimitObjectToArray = (obj, limit) => {
+	return Object.entries(obj).sort(([,a],[,b]) => b-a).slice(0, limit)
+}
+// helper function to see if array contains another array
 const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default {
@@ -589,9 +593,9 @@ export default {
 					temporalDistribution: true,
 				},
 				leader: {
-					received: true,
-					sent: false,
-				}
+					contactsReceived: true,
+					contactsSent: false,
+				},
 			},
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
@@ -682,7 +686,7 @@ export default {
 				contacts: {
 					received: {},
 					sent: {},
-				}
+				},
 			}
 		},
 		// get all add-on settings from the options page

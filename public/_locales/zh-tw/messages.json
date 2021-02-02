@@ -43,10 +43,7 @@
       },
       "days": {
         "title": "{0} 天內的活躍狀況",
-        "description": {
-          "received": "每天收到的郵件數",
-          "sent": "每天寄送的郵件數"
-        }
+        "description": "每個日期的電子郵件數"
       },
       "daytime": {
         "title": "天",
@@ -62,20 +59,15 @@
       },
       "temporalDistribution": {
         "title": "時間分佈",
-        "description": {
-          "received": "每週工作日中，每小時收到的郵件數",
-          "sent": "每週工作日中，每小時寄送的郵件數"
-        }
+        "description": "每小時每個工作日的電子郵件數量"
       },
-      "leader": {
-        "title": {
-          "received": "收到最多郵件來自",
-          "sent": "寄送最多郵件去往"
-        },
-        "description": {
-          "received": "每位收件人發送的電子郵件數量",
-          "sent": "每位寄件人收到的電子郵件數量"
-        }
+      "contactsReceived": {
+        "title": "收到最多郵件來自",
+        "description": "每位收件人發送的電子郵件數量"
+      },
+      "contactsSent": {
+        "title": "寄送最多郵件去往",
+        "description": "每位寄件人收到的電子郵件數量"
       }
     },
     "tooltips": {

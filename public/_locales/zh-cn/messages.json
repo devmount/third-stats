@@ -42,10 +42,7 @@
       },
       "days": {
         "title": "活动于 {0}",
-        "description": {
-          "received": "每日收取邮件数",
-          "sent": "每日发送邮件数"
-        }
+        "description": "每个日期的电子邮件数"
       },
       "daytime": {
         "title": "一天内",
@@ -61,20 +58,15 @@
       },
       "temporalDistribution": {
         "title": "时间分布",
-        "description": {
-          "received": "每周每小时收取邮件数",
-          "sent": "每周每小时发送邮件数"
-        }
+        "description": "每小时每个工作日的电子邮件数量"
       },
-      "leader": {
-        "title": {
-          "received": "最多收取来自",
-          "sent": "最多发送送往"
-        },
-        "description": {
-          "received": "每位收件人发送邮件数",
-          "sent": "每位寄件人收取邮件数"
-        }
+      "contactsReceived": {
+        "title": "最多收取来自",
+        "description": "每位收件人发送邮件数"
+      },
+      "contactsSent": {
+        "title": "最多发送送往",
+        "description": "每位寄件人收取邮件数"
       }
     },
     "tooltips": {

@@ -36,15 +36,12 @@
         "description": "Wszystkich wiadomości miesięcznie"
       },
       "weeks": {
-        "title": "",
-        "description": ""
+        "title": "Tygodnie",
+        "description": "Całkowita liczba e-maili w tygodniu"
       },
       "days": {
-        "title": "",
-        "description": {
-          "received": "",
-          "sent": ""
-        }
+        "title": "Działalność w roku {0}",
+        "description": "Liczba e-maili na datę"
       },
       "daytime": {
         "title": "Dziennie",
@@ -60,48 +57,43 @@
       },
       "temporalDistribution": {
         "title": "Rozkład w czasie",
-        "description": {
-          "received": "Liczba wiadomości przychodzących per dzień per godzina",
-          "sent": "Liczba wychodzących wiadomości per dzień per godzina"
-        }
+        "description": "Liczba e-maili w ciągu godziny w ciągu dnia tygodnia"
       },
-      "leader": {
-        "title": {
-          "received": "Najwięcej odebranych od",
-          "sent": "Najwięcej wysłanych do"
-        },
-        "description": {
-          "received": "Liczba wysłanych e-maili na odbiorce",
-          "sent": "Liczba otrzymanych e-maili na odbiorce"
-        }
+      "contactsReceived": {
+        "title": "Najwięcej odebranych od",
+        "description": "Najwięcej wysłanych do"
+      },
+      "contactsSent": {
+        "title": "Najwięcej wysłanych do",
+        "description": "Liczba otrzymanych e-maili na odbiorce"
       }
     },
     "tooltips": {
-      "expand": "",
-      "shrink": ""
+      "expand": "Rozwiń obszar wykresu",
+      "shrink": "Zmniejszanie obszaru wykresu"
     },
     "abbreviations": {
-      "calendarWeek": "",
-      "quarter": ""
+      "calendarWeek": "TK",
+      "quarter": "Ć"
     },
     "starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>",
     "message": "-"
   },
   "options": {
     "switch": {
-      "on": "",
-      "off": ""
+      "on": "wł.",
+      "off": "wył."
     },
     "button": {
-      "save": ""
+      "save": "Zapisz"
     },
     "darkMode": {
-      "label": "",
-      "description": ""
+      "label": "tryb ciemny",
+      "description": "Przełączanie pomiędzy ciemnym i jasnym schematem kolorów"
     },
     "localIdentities": {
-      "label": "",
-      "description": ""
+      "label": "Tożsamości lokalne",
+      "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych"
     },
     "message": "-"
   }
