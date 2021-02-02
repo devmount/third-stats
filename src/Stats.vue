@@ -131,8 +131,9 @@
 					v-if='display.meta && display.meta.timestamp'
 					class='d-inline-block tooltip tooltip-bottom'
 					:data-tooltip='formatDate(display.meta.timestamp)'
-					v-html='$t("stats.dataCollected", ["<span class=\"text-normal\">" + timePassedSinceDataRetrieval + "</span>"])'
-				></div>
+				>
+					<LiveAge :date="display.meta.timestamp" />
+				</div>
 			</section>
 			<!-- fetured numbers -->
 			<section class='numbers mx-auto mt-2'>
@@ -421,7 +422,7 @@
 							>
 								<span
 									class="transition-color transition-border-color"
-									:class='{ "border-bottom-accent2": label=="received", "border-bottom-accent1": label=="sent"}'
+									:class='{ "border-bottom-accent2": label=="contactsReceived", "border-bottom-accent1": label=="contactsSent"}'
 								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
@@ -482,6 +483,7 @@ import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterN
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
+import LiveAge from './parts/LiveAge'
 
 // initialize Chart.js with global configuration
 import Chart from 'chart.js'
@@ -548,7 +550,7 @@ const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default {
 	name: 'Stats',
-	components: { LineChart, BarChart, HeatMap },
+	components: { LineChart, BarChart, HeatMap, LiveAge },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
@@ -615,7 +617,6 @@ export default {
 				leaderCount: 20,
 				cache: true,
 			},
-			now: Date.now(), // property holding the current timestamp
 			publicPath: process.env.BASE_URL
 		}
 	},
@@ -628,8 +629,6 @@ export default {
 		await this.getOptions()
 		// retrieve all accounts
 		await this.getAccounts()
-		// update data collection date
-		setInterval(() => { this.now = Date.now() }, 1000)
 	},
 	methods: {
 		// basic data structure for display numbers and charts
@@ -1525,14 +1524,6 @@ export default {
 		examplePeriodFormatted () {
 			let d = new Date()
 			return d.toISOString().slice(0,10)
-		},
-		// calculates the time the given timestamp <t> and <now> with human readable time units
-		timePassedSinceDataRetrieval () {
-			let secondsPast = (this.now - this.display.meta.timestamp) / 1000
-			if (secondsPast < 60) return parseInt(secondsPast) + this.$t('stats.abbreviations.second')
-			if (secondsPast < 3600) return parseInt(secondsPast/60) + this.$t('stats.abbreviations.minute')
-			if (secondsPast <= 86400) return parseInt(secondsPast/3600) + this.$t('stats.abbreviations.hour')
-			if (secondsPast > 86400) return parseInt(secondsPast/86400) + this.$t('stats.abbreviations.day')
 		},
 		// convert theme preference into scheme name
 		scheme () {
