@@ -47,7 +47,7 @@
       },
       "days": {
         "title": "Activity in {0}",
-        "description": "Number of emails per single date"
+        "description": "Number of emails per date"
       },
       "daytime": {
         "title": "Daytime",
@@ -65,15 +65,13 @@
         "title": "Temporal distribution",
         "description": "Number of emails per weekday per hour"
       },
-      "leader": {
-        "title": {
-          "received": "Most received from",
-          "sent": "Most sent to"
-        },
-        "description": {
-          "received": "Number of emails sent per recipient",
-          "sent": "Number of emails received per sender"
-        }
+      "contactsReceived": {
+        "title": "Most received from",
+        "description": "Number of emails received per sender"
+      },
+      "contactsSent": {
+        "title": "Most sent to",
+        "description": "Number of emails sent per recipient"
       }
     },
     "tooltips": {
