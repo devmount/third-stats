@@ -168,6 +168,11 @@
       "empty": "Cache is empty",
       "size": "Cache size is {0}"
     },
+    "resetOptions": {
+      "label": "Reset Options",
+      "description": "Reset all options to their default values.",
+      "removeIdentities": "This will also remove all local identities you created."
+    },
     "note": {
       "title": "Note",
       "reloadStatsPage": "Options are automatically saved. If the stats page is already open, you have to reopen or reload it for changes to be applied. For some options it's also necessary to refresh cached data if cache is enabled."

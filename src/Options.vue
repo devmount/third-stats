@@ -192,6 +192,27 @@
 						</div>
 					</div>
 				</div>
+				<!-- action: reset options -->
+				<div class='entry'>
+					<label>
+						{{ $t('options.resetOptions.label') }}
+						<span class="d-block text-gray text-small">{{ $t('options.resetOptions.description') }}</span>
+					</label>
+					<div class='action'>
+						<button @click='resetOptions' class='mb-1'>{{ $t('options.resetOptions.label') }}</button>
+						<div v-if="options.addresses.length > 0" class='d-flex gap-0-5 align-items-center text-gray'>
+							<div>
+								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="12" y1="8" x2="12.01" y2="8" />
+									<rect x="4" y="4" width="16" height="16" rx="2" />
+									<polyline points="11 12 12 12 12 16 13 16" />
+								</svg>
+							</div>
+							<span class='text-small'>{{ $t('options.resetOptions.removeIdentities') }}</span>
+						</div>
+					</div>
+				</div>
 			</section>
 		</div>
 		<hr class='mb-3' />
@@ -211,16 +232,7 @@ export default {
 			input: {
 				address: '',
 			},
-			options: {
-				dark: true,
-				ordinate: false,
-				startOfWeek: 0,
-				addresses: '',
-				accounts: [],
-				selfMessages: 'none',
-				leaderCount: 20,
-				cache: true,
-			},
+			options: JSON.parse(JSON.stringify(this.defaultOptions())),
 			allAccounts: [],
 			cacheSize: -1,
 			publicPath: process.env.BASE_URL
@@ -235,6 +247,19 @@ export default {
 		this.getCacheSize()
 	},
 	methods: {
+		// definition of default options
+		defaultOptions () {
+			return {
+				dark: true,
+				ordinate: false,
+				startOfWeek: 0,
+				addresses: '',
+				accounts: [],
+				selfMessages: 'none',
+				leaderCount: 20,
+				cache: true,
+			}
+		},
 		// create options object with given values or default values
 		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, selfMessages, leaderCount, cache) {
 			return {
@@ -252,8 +277,8 @@ export default {
 		},
 		// get all saved add-on settings
 		getSettings: async function () {
+			// only load options from storage if they have been set, otherwise default settings will be kept
 			let result = await messenger.storage.local.get('options')
-			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				// merge option objects to overwrite attributes by saved ones while keeping new attributes
 				this.options = {...this.options, ...result.options}
@@ -330,6 +355,13 @@ export default {
 			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
 			// recalculate cache size
 			this.getCacheSize()
+		},
+		// reset options to their default value
+		resetOptions: async function () {
+			// save options default values
+			await messenger.storage.local.set(this.optionsObject(true, false, 0, '', [], 'none', 20, true))
+			this.options = JSON.parse(JSON.stringify(this.defaultOptions()))
+			await this.getAccounts()
 		}
 	},
 	computed: {
