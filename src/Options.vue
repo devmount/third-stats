@@ -238,7 +238,7 @@ export default {
 			publicPath: process.env.BASE_URL
 		}
 	},
-	created: async function () {
+	async created () {
 		// initially load settings
 		await this.getSettings()
 		// initially load accounts
@@ -276,7 +276,7 @@ export default {
 			}
 		},
 		// get all saved add-on settings
-		getSettings: async function () {
+		async getSettings () {
 			// only load options from storage if they have been set, otherwise default settings will be kept
 			let result = await messenger.storage.local.get('options')
 			if (result && result.options) {
@@ -285,7 +285,7 @@ export default {
 			}
 		},
 		// get all existing accounts
-		getAccounts: async function () {
+		async getAccounts () {
 			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
 			this.allAccounts = accounts
 			// if accounts option is not set yet
@@ -304,7 +304,7 @@ export default {
 			}
 		},
 		// get size of all cached account data
-		getCacheSize: async function () {
+		async getCacheSize () {
 			let allEntriesSize = new TextEncoder().encode(
 				Object.entries(await messenger.storage.local.get())
 					.map(([key, value]) => key + JSON.stringify(value))
@@ -318,7 +318,7 @@ export default {
 			this.cacheSize = allEntriesSize - optionsSize
 		},
 		// add configured email address to list of addresses and save
-		addAddress: async function () {
+		async addAddress () {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
@@ -328,7 +328,7 @@ export default {
 			}
 		},
 		// remove given email address from list of addresses and save
-		removeAddress: async function (address) {
+		async removeAddress (address) {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
@@ -348,7 +348,7 @@ export default {
 			}
 		},
 		// clear all cached stats entries
-		clearCache: async function () {
+		async clearCache () {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
@@ -357,7 +357,7 @@ export default {
 			this.getCacheSize()
 		},
 		// reset options to their default value
-		resetOptions: async function () {
+		async resetOptions () {
 			// save options default values
 			await messenger.storage.local.set(this.optionsObject(true, false, 0, '', [], 'none', 20, true))
 			this.options = JSON.parse(JSON.stringify(this.defaultOptions()))
@@ -397,7 +397,7 @@ export default {
 	},
 	watch: {
 		options: {
-			handler: function () {
+			handler () {
 				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
 			},
 			deep: true,
