@@ -200,7 +200,7 @@
 					</label>
 					<div class='action'>
 						<button @click='resetOptions' class='mb-1'>{{ $t('options.resetOptions.label') }}</button>
-						<div v-if="options.addresses.length > 0" class='d-flex gap-0-5 align-items-center text-gray'>
+						<div v-if="options.addresses && options.addresses.length > 0" class='d-flex gap-0-5 align-items-center text-gray'>
 							<div>
 								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -232,7 +232,7 @@ export default {
 			input: {
 				address: '',
 			},
-			options: JSON.parse(JSON.stringify(this.defaultOptions())),
+			options: JSON.parse(JSON.stringify(this.optionsObject())),
 			allAccounts: [],
 			cacheSize: -1,
 			publicPath: process.env.BASE_URL
@@ -247,21 +247,8 @@ export default {
 		this.getCacheSize()
 	},
 	methods: {
-		// definition of default options
-		defaultOptions () {
-			return {
-				dark: true,
-				ordinate: false,
-				startOfWeek: 0,
-				addresses: '',
-				accounts: [],
-				selfMessages: 'none',
-				leaderCount: 20,
-				cache: true,
-			}
-		},
 		// create options object with given values or default values
-		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, selfMessages, leaderCount, cache) {
+		optionsObject (dark=true, ordinate=false, startOfWeek=0, addresses='', accounts=[], selfMessages='none', leaderCount=20, cache=true) {
 			return {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
@@ -360,7 +347,7 @@ export default {
 		async resetOptions () {
 			// save options default values
 			await messenger.storage.local.set(this.optionsObject(true, false, 0, '', [], 'none', 20, true))
-			this.options = JSON.parse(JSON.stringify(this.defaultOptions()))
+			this.options = JSON.parse(JSON.stringify(this.optionsObject()))
 			await this.getAccounts()
 		}
 	},
@@ -376,7 +363,7 @@ export default {
 		},
 		// array of email addresses configured for local account identities
 		addressList () {
-			return this.options.addresses ? this.options.addresses.split(',') : []
+			return this.options && this.options.addresses ? this.options.addresses.split(',') : []
 		},
 		selfMessagesOptions () {
 			return [
