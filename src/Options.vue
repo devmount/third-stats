@@ -93,7 +93,7 @@
 					</div>
 				</div>
 				<!-- option: account selection -->
-				<div class='entry'>
+				<div class='entry' v-if="options.accounts">
 					<label>
 						{{ $t('options.activeAccounts.label') }}
 						<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
@@ -232,7 +232,7 @@ export default {
 			input: {
 				address: '',
 			},
-			options: JSON.parse(JSON.stringify(this.optionsObject())),
+			options: (JSON.parse(JSON.stringify(this.optionsObject()))).options,
 			allAccounts: [],
 			cacheSize: -1,
 			publicPath: process.env.BASE_URL
@@ -276,7 +276,7 @@ export default {
 			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
 			this.allAccounts = accounts
 			// if accounts option is not set yet
-			if (!this.options.accounts.length) {
+			if (this.options && this.options.accounts && !this.options.accounts.length) {
 				let activeAccounts = []
 				// default accounts activated are all non local accounts ...
 				accounts.map(a => {
@@ -304,22 +304,22 @@ export default {
 			).length
 			this.cacheSize = allEntriesSize - optionsSize
 		},
-		// add configured email address to list of addresses and save
+		// add configured email address to list of addresses and save it
 		async addAddress () {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
-				await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
+				await messenger.storage.local.set({ options: { addresses: addresses } })
 				this.options.addresses = addresses
 				this.input.address = ''
 			}
 		},
-		// remove given email address from list of addresses and save
+		// remove given email address from list of addresses and delete it
 		async removeAddress (address) {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
-			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
+			await messenger.storage.local.set({ options: { addresses: addresses } })
 			this.options.addresses = addresses
 		},
 		// increases leader count up to limit 999
@@ -339,15 +339,15 @@ export default {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
-			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
+			await messenger.storage.local.set({ options: JSON.parse(JSON.stringify(this.options)) })
 			// recalculate cache size
 			this.getCacheSize()
 		},
 		// reset options to their default value
 		async resetOptions () {
 			// save options default values
-			await messenger.storage.local.set(this.optionsObject(true, false, 0, '', [], 'none', 20, true))
-			this.options = JSON.parse(JSON.stringify(this.optionsObject()))
+			await messenger.storage.local.set(JSON.parse(JSON.stringify(this.optionsObject())))
+			this.options = (JSON.parse(JSON.stringify(this.optionsObject()))).options
 			await this.getAccounts()
 		}
 	},
@@ -383,9 +383,10 @@ export default {
 		}
 	},
 	watch: {
+		// save options object on each single option change
 		options: {
-			handler () {
-				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
+			handler (newOptions) {
+				messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) })
 			},
 			deep: true,
 			immediate: false
