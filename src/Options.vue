@@ -93,7 +93,7 @@
 					</div>
 				</div>
 				<!-- option: account selection -->
-				<div class='entry'>
+				<div class='entry' v-if="options.accounts">
 					<label>
 						{{ $t('options.activeAccounts.label') }}
 						<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
@@ -192,6 +192,27 @@
 						</div>
 					</div>
 				</div>
+				<!-- action: reset options -->
+				<div class='entry'>
+					<label>
+						{{ $t('options.resetOptions.label') }}
+						<span class="d-block text-gray text-small">{{ $t('options.resetOptions.description') }}</span>
+					</label>
+					<div class='action'>
+						<button @click='resetOptions' class='mb-1'>{{ $t('options.resetOptions.label') }}</button>
+						<div v-if="options.addresses && options.addresses.length > 0" class='d-flex gap-0-5 align-items-center text-gray'>
+							<div>
+								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="12" y1="8" x2="12.01" y2="8" />
+									<rect x="4" y="4" width="16" height="16" rx="2" />
+									<polyline points="11 12 12 12 12 16 13 16" />
+								</svg>
+							</div>
+							<span class='text-small'>{{ $t('options.resetOptions.removeIdentities') }}</span>
+						</div>
+					</div>
+				</div>
 			</section>
 		</div>
 		<hr class='mb-3' />
@@ -211,22 +232,13 @@ export default {
 			input: {
 				address: '',
 			},
-			options: {
-				dark: true,
-				ordinate: false,
-				startOfWeek: 0,
-				addresses: '',
-				accounts: [],
-				selfMessages: 'none',
-				leaderCount: 20,
-				cache: true,
-			},
+			options: (JSON.parse(JSON.stringify(this.optionsObject()))).options,
 			allAccounts: [],
 			cacheSize: -1,
 			publicPath: process.env.BASE_URL
 		}
 	},
-	created: async function () {
+	async created () {
 		// initially load settings
 		await this.getSettings()
 		// initially load accounts
@@ -236,7 +248,7 @@ export default {
 	},
 	methods: {
 		// create options object with given values or default values
-		optionsObject (dark, ordinate, startOfWeek, addresses, accounts, selfMessages, leaderCount, cache) {
+		optionsObject (dark=true, ordinate=false, startOfWeek=0, addresses='', accounts=[], selfMessages='none', leaderCount=20, cache=true) {
 			return {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
@@ -251,20 +263,20 @@ export default {
 			}
 		},
 		// get all saved add-on settings
-		getSettings: async function () {
+		async getSettings () {
+			// only load options from storage if they have been set, otherwise default settings will be kept
 			let result = await messenger.storage.local.get('options')
-			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				// merge option objects to overwrite attributes by saved ones while keeping new attributes
 				this.options = {...this.options, ...result.options}
 			}
 		},
 		// get all existing accounts
-		getAccounts: async function () {
+		async getAccounts () {
 			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
 			this.allAccounts = accounts
 			// if accounts option is not set yet
-			if (!this.options.accounts.length) {
+			if (this.options && this.options.accounts && !this.options.accounts.length) {
 				let activeAccounts = []
 				// default accounts activated are all non local accounts ...
 				accounts.map(a => {
@@ -279,7 +291,7 @@ export default {
 			}
 		},
 		// get size of all cached account data
-		getCacheSize: async function () {
+		async getCacheSize () {
 			let allEntriesSize = new TextEncoder().encode(
 				Object.entries(await messenger.storage.local.get())
 					.map(([key, value]) => key + JSON.stringify(value))
@@ -292,22 +304,22 @@ export default {
 			).length
 			this.cacheSize = allEntriesSize - optionsSize
 		},
-		// add configured email address to list of addresses and save
-		addAddress: async function () {
+		// add configured email address to list of addresses and save it
+		async addAddress () {
 			if (this.input.address) {
 				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
 				addresses += this.input.address
-				await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
+				await messenger.storage.local.set({ options: { addresses: addresses } })
 				this.options.addresses = addresses
 				this.input.address = ''
 			}
 		},
-		// remove given email address from list of addresses and save
-		removeAddress: async function (address) {
+		// remove given email address from list of addresses and delete it
+		async removeAddress (address) {
 			let addresses = this.options.addresses.replace(address, '')
 			addresses = addresses.replace(/,,/g, ',')
 			addresses = addresses.replace(/^,+|,+$/g, '');
-			await messenger.storage.local.set(this.optionsObject(null, null, null, addresses, null, null, null, null))
+			await messenger.storage.local.set({ options: { addresses: addresses } })
 			this.options.addresses = addresses
 		},
 		// increases leader count up to limit 999
@@ -323,13 +335,20 @@ export default {
 			}
 		},
 		// clear all cached stats entries
-		clearCache: async function () {
+		async clearCache () {
 			// clear whole local storage
 			await messenger.storage.local.clear()
 			// restore options
-			await messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
+			await messenger.storage.local.set({ options: JSON.parse(JSON.stringify(this.options)) })
 			// recalculate cache size
 			this.getCacheSize()
+		},
+		// reset options to their default value
+		async resetOptions () {
+			// save options default values
+			await messenger.storage.local.set(JSON.parse(JSON.stringify(this.optionsObject())))
+			this.options = (JSON.parse(JSON.stringify(this.optionsObject()))).options
+			await this.getAccounts()
 		}
 	},
 	computed: {
@@ -344,7 +363,7 @@ export default {
 		},
 		// array of email addresses configured for local account identities
 		addressList () {
-			return this.options.addresses ? this.options.addresses.split(',') : []
+			return this.options && this.options.addresses ? this.options.addresses.split(',') : []
 		},
 		selfMessagesOptions () {
 			return [
@@ -364,9 +383,10 @@ export default {
 		}
 	},
 	watch: {
+		// save options object on each single option change
 		options: {
-			handler: function () {
-				messenger.storage.local.set(this.optionsObject(null, null, null, null, null, null, null, null))
+			handler (newOptions) {
+				messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) })
 			},
 			deep: true,
 			immediate: false
