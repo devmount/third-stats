@@ -221,13 +221,30 @@
 							<li
 								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
 								:data-tooltip='
+									!preferences.sections.total.comparison
+									? $t("stats.tooltips.comparison")
+									: $t("stats.tooltips.sum")
+								'
+								@click='preferences.sections.total.comparison=!preferences.sections.total.comparison'
+							>
+								<svg class='icon icon-text icon-hover-accent' :class='{"icon-accent2": preferences.sections.total.comparison}' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
+									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
+									<path class="icon-part-accent2-faded" d="M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3" />
+									<path class="icon-part-accent1-faded" d="M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3" />
+								</svg>
+							</li>
+							<li
+								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1'
+								:data-tooltip='
 									!preferences.sections.total.expand
 									? $t("stats.tooltips.expand")
 									: $t("stats.tooltips.shrink")
 								'
 								@click='preferences.sections.total.expand=!preferences.sections.total.expand'
 							>
-								<svg v-show='!preferences.sections.total.expand' class='icon icon-text icon-arrows-maximize' viewBox='0 0 24 24'>
+								<svg v-show='!preferences.sections.total.expand' class='icon icon-text' viewBox='0 0 24 24'>
 									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 									<polyline points='16 4 20 4 20 8' /><line x1='14' y1='10' x2='20' y2='4' />
 									<polyline points='8 20 4 20 4 16' /><line x1='4' y1='20' x2='10' y2='14' />
@@ -602,7 +619,8 @@ export default {
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
 					total: {
-						expand: false
+						expand: false,
+						comparison: false
 					},
 					activity: {
 						year: (new Date()).getFullYear()

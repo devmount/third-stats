@@ -75,6 +75,8 @@
       }
     },
     "tooltips": {
+      "comparison": "Compare accounts in one chart",
+      "sum": "Show sum of all accounts",
       "expand": "Expand chart area",
       "shrink": "Shrink chart area",
       "refresh": "Refresh data",
