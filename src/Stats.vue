@@ -219,6 +219,7 @@
 								</span>
 							</li>
 							<li
+								v-if="active.account == 'sum'"
 								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
 								:data-tooltip='
 									!preferences.sections.total.comparison
@@ -237,6 +238,7 @@
 							</li>
 							<li
 								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1'
+								:class="{ 'ml-auto': active.account != 'sum' }"
 								:data-tooltip='
 									!preferences.sections.total.expand
 									? $t("stats.tooltips.expand")
@@ -263,7 +265,7 @@
 						<div class='tab-content mt-1'>
 							<!-- emails per year over total time -->
 							<LineChart
-								v-if='tabs.total.years'
+								v-if='tabs.total.years && !preferences.sections.total.comparison'
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -271,7 +273,7 @@
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
-								v-if='tabs.total.quarters'
+								v-if='tabs.total.quarters && !preferences.sections.total.comparison'
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -279,7 +281,7 @@
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
-								v-if='tabs.total.months'
+								v-if='tabs.total.months && !preferences.sections.total.comparison'
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -287,7 +289,7 @@
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
-								v-if='tabs.total.weeks'
+								v-if='tabs.total.weeks && !preferences.sections.total.comparison'
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
 								:ordinate='preferences.ordinate'
@@ -1576,6 +1578,8 @@ export default {
 		// and load new accounts data accordingly
 		async 'active.account' (id) {
 			if (id) {
+				// reset preferences
+				this.preferences.sections.total.comparison = false
 				// reset filter
 				this.resetFolder(false)
 				// process data for given account, refresh if period filter is set
