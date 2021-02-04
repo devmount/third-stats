@@ -280,17 +280,17 @@
 					</div>
 					<div v-show='!preferences.sections.total.expand' class='tab-area position-relative'>
 						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
-							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year > minYear}' @click.prevent='previousYear()'>
-								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year <= minYear}' viewBox='0 0 24 24'>
+							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year > minYear}' @click.prevent='previousYear()'>
+								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.activity.year <= minYear}' viewBox='0 0 24 24'>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<polyline class='icon-part-accent2' points="15 6 9 12 15 18" />
 								</svg>
 							</div>
-							<select v-model='preferences.sections.days.year' name='year'>
+							<select v-model='preferences.sections.activity.year' name='year'>
 								<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
 							</select>
-							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year < maxYear}' @click.prevent='nextYear()'>
-								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year >= maxYear}' viewBox='0 0 24 24'>
+							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year < maxYear}' @click.prevent='nextYear()'>
+								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.activity.year >= maxYear}' viewBox='0 0 24 24'>
 									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 									<polyline class='icon-part-accent2' points='9 6 15 12 9 18' />
 								</svg>
@@ -306,7 +306,7 @@
 								@click='activateTab("activity", label)'
 							>
 								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
-									{{ $t('stats.charts.' + label + '.title', [preferences.sections.days.year]) }}
+									{{ $t('stats.charts.' + label + '.title', [preferences.sections.activity.year]) }}
 								</span>
 							</li>
 						</ul>
@@ -604,7 +604,7 @@ export default {
 					total: {
 						expand: false
 					},
-					days: {
+					activity: {
 						year: (new Date()).getFullYear()
 					},
 				},
@@ -1172,22 +1172,22 @@ export default {
 		adjustSelectedYear () {
 			const min = new Date(this.display.numbers.start).getFullYear()
 			const max = new Date(this.display.numbers.end).getFullYear()
-			const current = this.preferences.sections.days.year
-			if (current < min) this.preferences.sections.days.year = min
-			if (current > max) this.preferences.sections.days.year = max
+			const current = this.preferences.sections.activity.year
+			if (current < min) this.preferences.sections.activity.year = min
+			if (current > max) this.preferences.sections.activity.year = max
 		},
 		// increments selected year
 		// only up to the max existing year
 		nextYear () {
-			if (this.preferences.sections.days.year < this.maxYear) {
-				this.preferences.sections.days.year++
+			if (this.preferences.sections.activity.year < this.maxYear) {
+				this.preferences.sections.activity.year++
 			}
 		},
 		// decrements selected year
 		// only down to the min existing year
 		previousYear () {
-			if (this.preferences.sections.days.year > this.minYear) {
-				this.preferences.sections.days.year--
+			if (this.preferences.sections.activity.year > this.minYear) {
+				this.preferences.sections.activity.year--
 			}
 		},
 		// make given date <d> human readable
@@ -1448,11 +1448,11 @@ export default {
 		},
 		// prepare data for activity heatmaps
 		daysChartData () {
-			let r = this.preferences.sections.days.year in this.display.daysData.received
-				? Object.values(this.display.daysData.received[this.preferences.sections.days.year])
+			let r = this.preferences.sections.activity.year in this.display.daysData.received
+				? Object.values(this.display.daysData.received[this.preferences.sections.activity.year])
 				: Object.values(new NumberedObject(7,53))
-			let s = this.preferences.sections.days.year in this.display.daysData.sent
-				? Object.values(this.display.daysData.sent[this.preferences.sections.days.year])
+			let s = this.preferences.sections.activity.year in this.display.daysData.sent
+				? Object.values(this.display.daysData.sent[this.preferences.sections.activity.year])
 				: Object.values(new NumberedObject(7,53))
 			let ylabels = [...this.weekdayNames]
 			let xlabels = Array.from(Array(54).keys())
