@@ -204,6 +204,7 @@
 					class='chart-area'
 					:class='{ "first-column-only": preferences.sections.total.expand }'
 				>
+					<!-- section: total -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -223,7 +224,7 @@
 							</li>
 							<li
 								v-if="active.account == 'sum'"
-								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
 								:data-tooltip='
 									!preferences.sections.total.comparison
 									? $t("stats.tooltips.comparison")
@@ -328,6 +329,7 @@
 							/>
 						</div>
 					</div>
+					<!-- section: activity -->
 					<div v-show='!preferences.sections.total.expand' class='tab-area position-relative'>
 						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
 							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year > minYear}' @click.prevent='previousYear()'>
@@ -384,6 +386,7 @@
 					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area mt-2'>
+					<!-- section: onedim -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -394,35 +397,75 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("onedim", label)'
 							>
-								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+								<span
+									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
+									:style="active && preferences.sections.onedim.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
+								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
+							</li>
+							<li
+								v-if="active.account == 'sum'"
+								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								:data-tooltip='
+									!preferences.sections.onedim.comparison
+									? $t("stats.tooltips.comparison")
+									: $t("stats.tooltips.sum")
+								'
+								@click='preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison'
+							>
+								<svg class='icon icon-text icon-hover-accent' :class='{"icon-accent2": preferences.sections.onedim.comparison}' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
+									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
+									<path class="icon-part-accent2-faded" d="M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3" />
+									<path class="icon-part-accent1-faded" d="M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3" />
+								</svg>
 							</li>
 						</ul>
 						<div class='tab-content mt-1'>
 							<!-- emails per time of day -->
 							<BarChart
-								v-if='tabs.onedim.daytime'
+								v-if='tabs.onedim.daytime && !preferences.sections.onedim.comparison'
 								:datasets='daytimeChartData.datasets'
 								:labels='daytimeChartData.labels'
 								:ordinate='preferences.ordinate'
 							/>
+							<BarChart
+								v-if='tabs.onedim.daytime && preferences.sections.onedim.comparison'
+								:datasets='daytimeComparedChartData.datasets'
+								:labels='daytimeComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
 							<!-- emails per day of week -->
 							<BarChart
-								v-if='tabs.onedim.weekday'
+								v-if='tabs.onedim.weekday && !preferences.sections.onedim.comparison'
 								:datasets='weekdayChartData.datasets'
 								:labels='weekdayChartData.labels'
 								:ordinate='preferences.ordinate'
 							/>
+							<BarChart
+								v-if='tabs.onedim.weekday && preferences.sections.onedim.comparison'
+								:datasets='weekdayComparedChartData.datasets'
+								:labels='weekdayComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
 							<!-- emails per month of year -->
 							<BarChart
-								v-if='tabs.onedim.month'
+								v-if='tabs.onedim.month && !preferences.sections.onedim.comparison'
 								:datasets='monthChartData.datasets'
 								:labels='monthChartData.labels'
 								:ordinate='preferences.ordinate'
 							/>
+							<BarChart
+								v-if='tabs.onedim.month && preferences.sections.onedim.comparison'
+								:datasets='monthComparedChartData.datasets'
+								:labels='monthComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
 						</div>
 					</div>
+					<!-- section: twodim -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -460,6 +503,7 @@
 							/>
 						</div>
 					</div>
+					<!-- section: leader -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -670,6 +714,9 @@ export default {
 					activity: {
 						year: (new Date()).getFullYear()
 					},
+					onedim: {
+						comparison: false
+					}
 				},
 				dark: true,    // preferences loaded from stored options
 				ordinate: false,
@@ -1117,12 +1164,12 @@ export default {
 					comparison.monthsData[a.id] = sumObjectsObjects([accountsData[i].monthsData.received, accountsData[i].monthsData.sent])
 					// weeks
 					comparison.weeksData[a.id] = sumObjectsObjects([accountsData[i].weeksData.received, accountsData[i].weeksData.sent])
-					// // daytime
-					// comparison.daytimeData[a.id] = sumObjects([accountsData[i].daytimeData.received, accountsData[i].daytimeData.sent])
-					// // weekday
-					// comparison.weekdayData[a.id] = sumObjects([accountsData[i].weekdayData.received, accountsData[i].weekdayData.sent])
-					// // month
-					// comparison.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent])
+					// daytime
+					comparison.daytimeData[a.id] = sumObjects([accountsData[i].daytimeData.received, accountsData[i].daytimeData.sent])
+					// weekday
+					comparison.weekdayData[a.id] = sumObjects([accountsData[i].weekdayData.received, accountsData[i].weekdayData.sent])
+					// month
+					comparison.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent])
 				})
 				this.comparison = comparison
 				console.log(comparison)
@@ -1626,6 +1673,25 @@ export default {
 				labels: Object.keys(r)
 			}
 		},
+		// prepare comparison data for daytime bar chart
+		daytimeComparedChartData () {
+			let datasets = []
+			// compute dataset for each account
+			this.accounts.map((a) => {
+				const d = this.comparison.daytimeData[a.id]
+				// add dataset for this account
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: Object.values(d),
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: Object.keys(Object.values(this.comparison.daytimeData)[0])
+			}
+		},
 		// prepare data for weekday bar chart
 		weekdayChartData () {
 			let r = Object.values(this.display.weekdayData.received)
@@ -1645,6 +1711,32 @@ export default {
 				labels: labels
 			}
 		},
+		// prepare comparison data for weekday bar chart
+		weekdayComparedChartData () {
+			let datasets = []
+			let labels = [...this.weekdayNames]
+			// labels: start week with user defined day of week
+			for (let d = 0; d < this.preferences.startOfWeek; d++)
+				labels.push(labels.shift())
+			// compute dataset for each account
+			this.accounts.map((a) => {
+				const data = Object.values(this.comparison.weekdayData[a.id])
+				// data: start week with user defined day of week
+				for (let d = 0; d < this.preferences.startOfWeek; d++)
+					data.push(data.shift())
+				// add dataset for this account
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: data,
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: labels
+			}
+		},
 		// prepare data for month bar chart
 		monthChartData () {
 			let r = this.display.monthData.received, s = this.display.monthData.sent
@@ -1653,6 +1745,24 @@ export default {
 					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 				],
+				labels: this.monthNames
+			}
+		},
+		// prepare comparison data for month bar chart
+		monthComparedChartData () {
+			let datasets = []
+			// compute dataset for each account
+			this.accounts.map((a) => {
+				// add dataset for this account
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: Object.values(this.comparison.monthData[a.id]),
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
 				labels: this.monthNames
 			}
 		},
