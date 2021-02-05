@@ -573,6 +573,7 @@
 
 <script>
 // internal components
+import { defaultColors } from './definitions';
 import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
@@ -834,6 +835,12 @@ export default {
 		// get active account from URL get parameter
 		async getAccounts () {
 			let accounts = await messenger.accounts.list()
+			// if account colors are not initialized yet, initialize them
+			if (Object.keys(this.preferences.accountColors).length == 0) {
+				accounts.map((a, i) => {
+					this.preferences.accountColors[a.id] = defaultColors[(i%defaultColors.length)]
+				})
+			}
 			if (this.preferences.accounts.length > 0) {
 				// filter list of accounts if user configured custom list
 				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
@@ -1154,7 +1161,6 @@ export default {
 
 				// retrieve all values of account objects for comparison views
 				let comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
-				console.log(accountsData)
 				accounts.map((a, i) => {
 					// years
 					comparison.yearsData[a.id] = sumObjects([accountsData[i].yearsData.received, accountsData[i].yearsData.sent])
@@ -1172,7 +1178,6 @@ export default {
 					comparison.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent])
 				})
 				this.comparison = comparison
-				console.log(comparison)
 
 				// finally adjust displayed activity year
 				this.adjustSelectedYear()

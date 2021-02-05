@@ -228,7 +228,9 @@
 </template>
 
 <script>
+import { defaultColors } from './definitions'
 import { formatBytes } from './utils'
+
 export default {
 	name: 'Options',
 	data () {
@@ -308,7 +310,7 @@ export default {
 			if (this.options && this.options.accountColors) {
 				this.allAccounts.map((a, i) => {
 					if (!this.options.accountColors.hasOwnProperty(a.id)) {
-						this.options.accountColors[a.id] = this.defaultColors[(i%this.defaultColors.length)]
+						this.options.accountColors[a.id] = defaultColors[(i%defaultColors.length)]
 					}
 				})
 			}
@@ -387,10 +389,6 @@ export default {
 		// array of email addresses configured for local account identities
 		addressList () {
 			return this.options && this.options.addresses ? this.options.addresses.split(',') : []
-		},
-		// array of default colors to be used for accounts
-		defaultColors () {
-			return ['#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#9c89b8']
 		},
 		// return all valid option values for selfMessages
 		selfMessagesOptions () {
