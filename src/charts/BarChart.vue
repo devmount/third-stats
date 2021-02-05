@@ -87,29 +87,26 @@ export default {
 		},
 	},
 	watch: {
-		// update chart if data changes
+		// update chart if data changes in an animatable way
 		datasets () {
 			this.chart.data.labels = this.labels
-			if (this.chart.data.datasets.length >= this.currentData.length) {
-				this.chart.data.datasets.forEach((d, i) => {
-					if (i in this.currentData) {
-						d.data = this.currentData[i].data
-						d.label = this.currentData[i].label
-						d.backgroundColor = this.currentData[i].backgroundColor
-						d.borderColor = this.currentData[i].borderColor
-					} else {
-						this.chart.data.datasets.pop()
-					}
-				})
-			} else {
-				this.currentData.forEach((d, i) => {
-					if (i in this.chart.data.datasets) {
-						this.chart.data.datasets[i].data = d.data
-						this.chart.data.datasets[i].label = d.label
-						this.chart.data.datasets[i].backgroundColor = d.backgroundColor
-						this.chart.data.datasets[i].borderColor = d.borderColor
-					} else {
-						this.chart.data.datasets.push(d)
+			this.chart.data.datasets.map((chartDataset, i) => {
+				if (i in this.currentData) {
+					// update every existing dataset first
+					chartDataset.data = this.currentData[i].data
+					chartDataset.label = this.currentData[i].label
+					chartDataset.backgroundColor = this.currentData[i].backgroundColor
+					chartDataset.borderColor = this.currentData[i].borderColor
+				} else {
+					// remove no longer needed datasets
+					this.chart.data.datasets.splice(i)
+				}
+			})
+			if (this.chart.data.datasets.length < this.currentData.length) {
+				this.currentData.map((currentDataset, i) => {
+					if (!(i in this.chart.data.datasets)) {
+						// add new datasets
+						this.chart.data.datasets.push(currentDataset)
 					}
 				})
 			}
