@@ -53,6 +53,14 @@ let formatBytes = (bytes, decimals=2) => {
 	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
+// convert 6-digit hex to rgb string, e.g. '#ff0000' => '255,0,0'
+let hexToRgb = (hex) => {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  return result
+    ? parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16)
+    : null
+}
+
 // special pluralization rules
 let pluralizationPolish = (n) => {
 	if (n === 1) {
@@ -72,5 +80,6 @@ export {
 	weeksInYear,
 	quarterNumber,
 	formatBytes,
+	hexToRgb,
 	pluralizationPolish
 }
