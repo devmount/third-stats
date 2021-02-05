@@ -25,7 +25,7 @@
     "mailsWeek": "E-Mails/Woche",
     "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
     "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
-    "allAccountsSum": "Alle Konten (Summe)",
+    "allAccounts": "Alle Konten",
     "dataCollected": "Daten vor {0} abgerufen",
     "timePeriod": "Zeitraum",
     "charts": {
@@ -138,7 +138,8 @@
     },
     "activeAccounts": {
       "label": "Aktive Konten",
-      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen."
+      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
+      "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden."
     },
     "selfMessages": {
       "label": "Eigennachrichten",
@@ -167,6 +168,11 @@
       "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
       "empty": "Der Cache ist leer",
       "size": "Die Größe des Caches beträgt {0}"
+    },
+    "resetOptions": {
+      "label": "Einstellungen zurücksetzen",
+      "description": "Alle Einstellungen auf die Standardwerte zurücksetzen.",
+      "removeIdentities": "Dadurch werden auch alle lokalen Identitäten gelöscht."
     },
     "note": {
       "title": "Hinweis",

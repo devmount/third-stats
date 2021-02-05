@@ -38,7 +38,7 @@ transition = {
 
 // general
 :root
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'
 	font-weight: 300
 	font-size: 16px
 html, body
@@ -125,6 +125,15 @@ for m, c in mode
 			background: c.accent2
 		.background-hover-accent2:hover
 			background: c.accent2 !important
+
+// text
+.text-mono
+	font-family: Menlo, Monaco, 'Courier New', monospace
+.text-overflow-ellipsis
+	display: inline-block
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
 
 // positioning and size
 .text-center
@@ -234,6 +243,8 @@ for m, c in mode
 	flex-direction: column
 .flex-grow
 	flex-grow: 1
+.flex-dont-grow
+	flex-grow: 0
 .flex-wrap
 	flex-wrap: wrap
 .justify-space-between
@@ -315,6 +326,8 @@ for m, c in mode
 				color: c.icon
 			&.icon-gray
 				stroke: c.gray2
+			&.icon-accent2
+				stroke: c.accent2
 			&.icon-hover-accent > *
 				transition: inherit
 			&.icon-hover-accent:hover
@@ -424,6 +437,21 @@ textarea
 	font-size: .9rem
 input[type=number]
 	-moz-appearance: textfield
+input[type=color]
+	appearance: none
+	border: none
+	background: transparent
+	padding: 0
+	width: 1.5rem
+	height: 1.5rem
+	&::-moz-color-swatch
+		border-radius: 50%
+		border: none
+	for m, c in mode
+		.{m} &:hover::-moz-color-swatch,
+		.{m} &:active::-moz-color-swatch,
+		.{m} &:focus::-moz-color-swatch
+			box-shadow: 0 0 0 .25rem rgba(c.gray1, .2)
 
 .checkbox
 	display: block
@@ -618,7 +646,7 @@ input[type=number]
 				&.border-bottom-accent1
 					border-bottom-color: c.accent1
 				&.border-bottom-gradient-accent2-accent1
-					  border-image: linear-gradient(to right, c.accent2, c.accent1) 100% 1
+					border-image: linear-gradient(to right, c.accent2, c.accent1) 100% 1
 				color: c.highlight
 
 // tags

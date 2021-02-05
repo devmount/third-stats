@@ -22,7 +22,7 @@
 					<div class='filter-account d-flex'>
 						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
 						<select v-model='active.account' :disabled='loading' class='align-stretch w-6' :class='{ disabled: loading }' id='account'>
-							<option v-if='accounts.length > 1 && preferences.cache' :value='"sum"'>{{ $t('stats.allAccountsSum') }}</option>
+							<option v-if='accounts.length > 1 && preferences.cache' :value='"sum"'>{{ $t('stats.allAccounts') }}</option>
 							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 						</select>
 						<div v-show='loading' :class='scheme + " loading align-center loader-accent2"'></div>
@@ -49,7 +49,7 @@
 						<div
 							class="d-flex align-stretch tooltip-bottom"
 							:class='{ tooltip: !singleAccount }'
-							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccountsSum")])'
+							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccounts")])'
 						>
 							<select
 								id='folder'
@@ -204,6 +204,7 @@
 					class='chart-area'
 					:class='{ "first-column-only": preferences.sections.total.expand }'
 				>
+					<!-- section: total -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -214,12 +215,34 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("total", label)'
 							>
-								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+								<span
+									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
+									:style="active && preferences.sections.total.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
+								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
 							</li>
 							<li
-								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								v-if="active.account == 'sum'"
+								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								:data-tooltip='
+									!preferences.sections.total.comparison
+									? $t("stats.tooltips.comparison")
+									: $t("stats.tooltips.sum")
+								'
+								@click='preferences.sections.total.comparison=!preferences.sections.total.comparison'
+							>
+								<svg class='icon icon-text icon-hover-accent' :class='{"icon-accent2": preferences.sections.total.comparison}' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
+									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
+									<path class="icon-part-accent2-faded" d="M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3" />
+									<path class="icon-part-accent1-faded" d="M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3" />
+								</svg>
+							</li>
+							<li
+								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1'
+								:class="{ 'ml-auto': active.account != 'sum' }"
 								:data-tooltip='
 									!preferences.sections.total.expand
 									? $t("stats.tooltips.expand")
@@ -227,7 +250,7 @@
 								'
 								@click='preferences.sections.total.expand=!preferences.sections.total.expand'
 							>
-								<svg v-show='!preferences.sections.total.expand' class='icon icon-text icon-arrows-maximize' viewBox='0 0 24 24'>
+								<svg v-show='!preferences.sections.total.expand' class='icon icon-text' viewBox='0 0 24 24'>
 									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 									<polyline points='16 4 20 4 20 8' /><line x1='14' y1='10' x2='20' y2='4' />
 									<polyline points='8 20 4 20 4 16' /><line x1='4' y1='20' x2='10' y2='14' />
@@ -246,51 +269,80 @@
 						<div class='tab-content mt-1'>
 							<!-- emails per year over total time -->
 							<LineChart
-								v-if='tabs.total.years'
+								v-if='tabs.total.years && !preferences.sections.total.comparison'
 								:datasets='yearsChartData.datasets'
 								:labels='yearsChartData.labels'
 								:ordinate='preferences.ordinate'
 								:abscissa='true'
 							/>
+							<LineChart
+								v-if='tabs.total.years && preferences.sections.total.comparison'
+								:datasets='yearsComparedChartData.datasets'
+								:labels='yearsComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+								:abscissa='true'
+							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
-								v-if='tabs.total.quarters'
+								v-if='tabs.total.quarters && !preferences.sections.total.comparison'
 								:datasets='quartersChartData.datasets'
 								:labels='quartersChartData.labels'
 								:ordinate='preferences.ordinate'
 								:abscissa='true'
 							/>
+							<LineChart
+								v-if='tabs.total.quarters && preferences.sections.total.comparison'
+								:datasets='quartersComparedChartData.datasets'
+								:labels='quartersComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+								:abscissa='true'
+							/>
 							<!-- emails per month over total time -->
 							<LineChart
-								v-if='tabs.total.months'
+								v-if='tabs.total.months && !preferences.sections.total.comparison'
 								:datasets='monthsChartData.datasets'
 								:labels='monthsChartData.labels'
 								:ordinate='preferences.ordinate'
 								:abscissa='true'
 							/>
+							<LineChart
+								v-if='tabs.total.months && preferences.sections.total.comparison'
+								:datasets='monthsComparedChartData.datasets'
+								:labels='monthsComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+								:abscissa='true'
+							/>
 							<!-- emails per week over total time -->
 							<LineChart
-								v-if='tabs.total.weeks'
+								v-if='tabs.total.weeks && !preferences.sections.total.comparison'
 								:datasets='weeksChartData.datasets'
 								:labels='weeksChartData.labels'
 								:ordinate='preferences.ordinate'
 								:abscissa='true'
 							/>
+							<LineChart
+								v-if='tabs.total.weeks && preferences.sections.total.comparison'
+								:datasets='weeksComparedChartData.datasets'
+								:labels='weeksComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+								:abscissa='true'
+							/>
 						</div>
 					</div>
+					<!-- section: activity -->
 					<div v-show='!preferences.sections.total.expand' class='tab-area position-relative'>
 						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
-							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year > minYear}' @click.prevent='previousYear()'>
-								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year <= minYear}' viewBox='0 0 24 24'>
+							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year > minYear}' @click.prevent='previousYear()'>
+								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.activity.year <= minYear}' viewBox='0 0 24 24'>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<polyline class='icon-part-accent2' points="15 6 9 12 15 18" />
 								</svg>
 							</div>
-							<select v-model='preferences.sections.days.year' name='year'>
+							<select v-model='preferences.sections.activity.year' name='year'>
 								<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
 							</select>
-							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.days.year < maxYear}' @click.prevent='nextYear()'>
-								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.days.year >= maxYear}' viewBox='0 0 24 24'>
+							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year < maxYear}' @click.prevent='nextYear()'>
+								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.activity.year >= maxYear}' viewBox='0 0 24 24'>
 									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 									<polyline class='icon-part-accent2' points='9 6 15 12 9 18' />
 								</svg>
@@ -306,7 +358,7 @@
 								@click='activateTab("activity", label)'
 							>
 								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
-									{{ $t('stats.charts.' + label + '.title', [preferences.sections.days.year]) }}
+									{{ $t('stats.charts.' + label + '.title', [preferences.sections.activity.year]) }}
 								</span>
 							</li>
 						</ul>
@@ -334,6 +386,7 @@
 					</div>
 				</div>
 				<div id='chart-area-main' class='chart-area mt-2'>
+					<!-- section: onedim -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -344,35 +397,75 @@
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
 								@click='activateTab("onedim", label)'
 							>
-								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
+								<span
+									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
+									:style="active && preferences.sections.onedim.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
+								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
+							</li>
+							<li
+								v-if="active.account == 'sum'"
+								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
+								:data-tooltip='
+									!preferences.sections.onedim.comparison
+									? $t("stats.tooltips.comparison")
+									: $t("stats.tooltips.sum")
+								'
+								@click='preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison'
+							>
+								<svg class='icon icon-text icon-hover-accent' :class='{"icon-accent2": preferences.sections.onedim.comparison}' viewBox='0 0 24 24'>
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
+									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
+									<path class="icon-part-accent2-faded" d="M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3" />
+									<path class="icon-part-accent1-faded" d="M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3" />
+								</svg>
 							</li>
 						</ul>
 						<div class='tab-content mt-1'>
 							<!-- emails per time of day -->
 							<BarChart
-								v-if='tabs.onedim.daytime'
+								v-if='tabs.onedim.daytime && !preferences.sections.onedim.comparison'
 								:datasets='daytimeChartData.datasets'
 								:labels='daytimeChartData.labels'
 								:ordinate='preferences.ordinate'
 							/>
+							<BarChart
+								v-if='tabs.onedim.daytime && preferences.sections.onedim.comparison'
+								:datasets='daytimeComparedChartData.datasets'
+								:labels='daytimeComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
 							<!-- emails per day of week -->
 							<BarChart
-								v-if='tabs.onedim.weekday'
+								v-if='tabs.onedim.weekday && !preferences.sections.onedim.comparison'
 								:datasets='weekdayChartData.datasets'
 								:labels='weekdayChartData.labels'
 								:ordinate='preferences.ordinate'
 							/>
+							<BarChart
+								v-if='tabs.onedim.weekday && preferences.sections.onedim.comparison'
+								:datasets='weekdayComparedChartData.datasets'
+								:labels='weekdayComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
 							<!-- emails per month of year -->
 							<BarChart
-								v-if='tabs.onedim.month'
+								v-if='tabs.onedim.month && !preferences.sections.onedim.comparison'
 								:datasets='monthChartData.datasets'
 								:labels='monthChartData.labels'
 								:ordinate='preferences.ordinate'
 							/>
+							<BarChart
+								v-if='tabs.onedim.month && preferences.sections.onedim.comparison'
+								:datasets='monthComparedChartData.datasets'
+								:labels='monthComparedChartData.labels'
+								:ordinate='preferences.ordinate'
+							/>
 						</div>
 					</div>
+					<!-- section: twodim -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -410,6 +503,7 @@
 							/>
 						</div>
 					</div>
+					<!-- section: leader -->
 					<div class='tab-area'>
 						<ul class='tab'>
 							<li
@@ -479,7 +573,8 @@
 
 <script>
 // internal components
-import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber } from './utils';
+import { defaultColors } from './definitions';
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -514,6 +609,17 @@ const sumObjects = (objs) => {
 		for (let k in b) {
 			if (b.hasOwnProperty(k))
 				a[k] = (a[k] || 0) + b[k]
+		}
+		return a
+	}, {})
+	return res
+}
+// helper function for objects sum, given array of objects of flat objects
+const sumObjectsObjects = (objs) => {
+	const res = objs.reduce((a, b) => {
+		for (let k in b) {
+			if (b.hasOwnProperty(k))
+				a[k] = a[k] ? sumObjects([a[k], b[k]]) : b[k]
 		}
 		return a
 	}, {})
@@ -576,6 +682,7 @@ export default {
 				max: 0,        // upper limit for progress indicator
 			},
 			display: {},     // processed data to show
+			comparison: {},  // subset of display to show data for account comparison view
 			tabs: {          // tab navigation containing one active tab at a time
 				total: {
 					years: true,
@@ -602,17 +709,22 @@ export default {
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
 					total: {
-						expand: false
+						expand: false,
+						comparison: false
 					},
-					days: {
+					activity: {
 						year: (new Date()).getFullYear()
 					},
+					onedim: {
+						comparison: false
+					}
 				},
 				dark: true,    // preferences loaded from stored options
 				ordinate: false,
 				startOfWeek: 0,
 				localIdentities: [],
 				accounts: [],
+				accountColors: {},
 				selfMessages: 'none',
 				leaderCount: 20,
 				cache: true,
@@ -625,13 +737,14 @@ export default {
 		document.title = 'ThirdStats'
 		// initially reset displayed data
 		this.display = JSON.parse(JSON.stringify(this.initData()))
+		this.comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
 		// get stored options
 		await this.getOptions()
 		// retrieve all accounts
 		await this.getAccounts()
 	},
 	methods: {
-		// basic data structure for display numbers and charts
+		// basic data structure to display numbers and charts
 		// used for single and multi-account display
 		initData () {
 			return { 
@@ -688,6 +801,19 @@ export default {
 				},
 			}
 		},
+		// basic data structure to display charts
+		// used for comparing account data
+		initComparisonData () {
+			return { 
+				yearsData: {},
+				quartersData: {},
+				monthsData: {},
+				weeksData: {},
+				daytimeData: {},
+				weekdayData: {},
+				monthData: {},
+			}
+		},
 		// get all add-on settings from the options page
 		// for non existing options use default value
 		async getOptions () {
@@ -699,6 +825,7 @@ export default {
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
+				this.preferences.accountColors = result.options.accountColors ? result.options.accountColors : {}
 				this.preferences.selfMessages = result.options.selfMessages ? result.options.selfMessages : 'none'
 				this.preferences.leaderCount = result.options.leaderCount ? result.options.leaderCount : 20
 				this.preferences.cache = result.options.cache ? true : false
@@ -708,6 +835,12 @@ export default {
 		// get active account from URL get parameter
 		async getAccounts () {
 			let accounts = await messenger.accounts.list()
+			// if account colors are not initialized yet, initialize them
+			if (Object.keys(this.preferences.accountColors).length == 0) {
+				accounts.map((a, i) => {
+					this.preferences.accountColors[a.id] = defaultColors[(i%defaultColors.length)]
+				})
+			}
 			if (this.preferences.accounts.length > 0) {
 				// filter list of accounts if user configured custom list
 				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
@@ -935,7 +1068,7 @@ export default {
 			// check id type
 			if (!this.singleAccount && this.preferences.cache) {
 				// set tab title
-				document.title = 'ThirdStats: ' + this.$t('stats.allAccountsSum')
+				document.title = 'ThirdStats: ' + this.$t('stats.allAccounts')
 				// deactivate list of folders
 				this.folders = []
 				// iterate over all activated accounts
@@ -960,7 +1093,8 @@ export default {
 				// finish progress indicator
 				this.progress.current = 0
 				this.progress.max = 0
-				// sum all values of all objects
+
+				// sum all values of all account objects
 				let sum = JSON.parse(JSON.stringify(this.initData()))
 				// meta
 				accountsData.map(a => { if (!a.hasOwnProperty('meta')) a.meta = { timestamp: 0 }})
@@ -1024,7 +1158,28 @@ export default {
 				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.leaderCount)
 				// show summed stats
 				this.display = sum
-				// adjust displayed activity year
+
+				// retrieve all values of account objects for comparison views
+				let comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
+				accounts.map((a, i) => {
+					// years
+					comparison.yearsData[a.id] = sumObjects([accountsData[i].yearsData.received, accountsData[i].yearsData.sent])
+					// quarters
+					comparison.quartersData[a.id] = sumObjectsObjects([accountsData[i].quartersData.received, accountsData[i].quartersData.sent])
+					// months
+					comparison.monthsData[a.id] = sumObjectsObjects([accountsData[i].monthsData.received, accountsData[i].monthsData.sent])
+					// weeks
+					comparison.weeksData[a.id] = sumObjectsObjects([accountsData[i].weeksData.received, accountsData[i].weeksData.sent])
+					// daytime
+					comparison.daytimeData[a.id] = sumObjects([accountsData[i].daytimeData.received, accountsData[i].daytimeData.sent])
+					// weekday
+					comparison.weekdayData[a.id] = sumObjects([accountsData[i].weekdayData.received, accountsData[i].weekdayData.sent])
+					// month
+					comparison.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent])
+				})
+				this.comparison = comparison
+
+				// finally adjust displayed activity year
 				this.adjustSelectedYear()
 			} else {
 				// load single account from id
@@ -1172,22 +1327,22 @@ export default {
 		adjustSelectedYear () {
 			const min = new Date(this.display.numbers.start).getFullYear()
 			const max = new Date(this.display.numbers.end).getFullYear()
-			const current = this.preferences.sections.days.year
-			if (current < min) this.preferences.sections.days.year = min
-			if (current > max) this.preferences.sections.days.year = max
+			const current = this.preferences.sections.activity.year
+			if (current < min) this.preferences.sections.activity.year = min
+			if (current > max) this.preferences.sections.activity.year = max
 		},
 		// increments selected year
 		// only up to the max existing year
 		nextYear () {
-			if (this.preferences.sections.days.year < this.maxYear) {
-				this.preferences.sections.days.year++
+			if (this.preferences.sections.activity.year < this.maxYear) {
+				this.preferences.sections.activity.year++
 			}
 		},
 		// decrements selected year
 		// only down to the min existing year
 		previousYear () {
-			if (this.preferences.sections.days.year > this.minYear) {
-				this.preferences.sections.days.year--
+			if (this.preferences.sections.activity.year > this.minYear) {
+				this.preferences.sections.activity.year--
 			}
 		},
 		// make given date <d> human readable
@@ -1304,14 +1459,12 @@ export default {
 				return 0
 			}
 		},
-		// prepare data for years line chart
+		// prepare sum data for years line chart
 		yearsChartData () {
 			let r = this.display.yearsData.received
 			let s = this.display.yearsData.sent
 			let labels = [], dr = [], ds = []
-			let start = new Date(this.display.numbers.start)
-			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				labels.push(y)
 				dr.push(y in r ? r[y] : 0)
 				ds.push(y in s ? s[y] : 0)
@@ -1324,19 +1477,39 @@ export default {
 				labels: labels
 			}
 		},
-		// prepare data for quarters line chart
+		// prepare comparison data for years line chart
+		yearsComparedChartData () {
+			let datasets = []
+			// generate list of years between start and end date, e.g. [2018,2019,2020]
+			const labels = Array.from(Array(this.maxYear-this.minYear+1), (_, i) => i+this.minYear)
+			// compute dataset for each account
+			this.accounts.map(a => {
+				const d = this.comparison.yearsData[a.id]
+				let data = []
+				labels.map(y => data.push(y in d ? d[y] : 0))
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: data,
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: labels
+			}
+		},
+		// prepare sum data for quarters line chart
 		quartersChartData () {
 			let r = this.display.quartersData.received
 			let s = this.display.quartersData.sent
 			let labels = [], dr = [], ds = []
-			let start = new Date(this.display.numbers.start)
-			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				for (let q = 1; q <= 4; ++q) {
 					// trim quarters before start date
-					if (y == start.getFullYear() && q < quarterNumber(start)) continue
+					if (y == this.minYear && q < quarterNumber(this.minDate)) continue
 					// trim quarters after end date
-					if (y == end.getFullYear() && q > quarterNumber(end)) break
+					if (y == this.maxYear && q > quarterNumber(this.maxDate)) break
 					// organize labels and data
 					labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
 					dr.push(y in r && q in r[y] ? r[y][q] : 0)
@@ -1351,19 +1524,48 @@ export default {
 				labels: labels
 			}
 		},
+		// prepare comparison data for quarters line chart
+		quartersComparedChartData () {
+			let datasets = [], labels = []
+			// compute dataset for each account
+			this.accounts.map((a, i) => {
+				const d = this.comparison.quartersData[a.id]
+				let data = []
+				for (let y = this.minYear; y <= this.maxYear; ++y) {
+					for (let q = 1; q <= 4; ++q) {
+						// trim quarters before start date
+						if (y == this.minYear && q < quarterNumber(this.minDate)) continue
+						// trim quarters after end date
+						if (y == this.maxYear && q > quarterNumber(this.maxDate)) break
+						// generate labels in first iteration
+						if (i == 0) labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
+						// fill all data values, default to 0 if not existing for this combination
+						data.push(y in d && q in d[y] ? d[y][q] : 0)
+					}
+				}
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: data,
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: labels
+			}
+		},
 		// prepare data for months line chart
 		monthsChartData () {
 			let r = this.display.monthsData.received
 			let s = this.display.monthsData.sent
 			let labels = [], dr = [], ds = []
-			let start = new Date(this.display.numbers.start)
-			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				for (let m = 0; m < 12; ++m) {
 					// trim months before start date
-					if (y == start.getFullYear() && m < start.getMonth()) continue
+					if (y == this.minYear && m < this.minDate.getMonth()) continue
 					// trim months after end date
-					if (y == end.getFullYear() && m > end.getMonth()) break
+					if (y == this.maxYear && m > this.maxDate.getMonth()) break
 					// organize labels and data
 					labels.push(y + ' ' + this.monthNames[m])
 					dr.push(y in r && m in r[y] ? r[y][m] : 0)
@@ -1378,19 +1580,48 @@ export default {
 				labels: labels
 			}
 		},
+		// prepare comparison data for months line chart
+		monthsComparedChartData () {
+			let datasets = [], labels = []
+			// compute dataset for each account
+			this.accounts.map((a, i) => {
+				const d = this.comparison.monthsData[a.id]
+				let data = []
+				for (let y = this.minYear; y <= this.maxYear; ++y) {
+					for (let m = 0; m < 12; ++m) {
+						// trim months before start date
+						if (y == this.minYear && m < this.minDate.getMonth()) continue
+						// trim months after end date
+						if (y == this.maxYear && m > this.maxDate.getMonth()) break
+						// generate labels in first iteration
+						if (i == 0) labels.push(y + ' ' + this.monthNames[m])
+						// fill all data values, default to 0 if not existing for this combination
+						data.push(y in d && m in d[y] ? d[y][m] : 0)
+					}
+				}
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: data,
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: labels
+			}
+		},
 		// prepare data for weeks line chart
 		weeksChartData () {
 			let r = this.display.weeksData.received
 			let s = this.display.weeksData.sent
 			let labels = [], dr = [], ds = []
-			let start = new Date(this.display.numbers.start)
-			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
-			for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
+			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				for (let w = 1; w <= weeksInYear(y); ++w) {
 					// trim weeks before start date
-					if (y == start.getFullYear() && w < weekNumber(start)) continue
+					if (y == this.minYear && w < weekNumber(this.minDate)) continue
 					// trim weeks after end date
-					if (y == end.getFullYear() && w > weekNumber(end)) break
+					if (y == this.maxYear && w > weekNumber(this.maxDate)) break
 					// organize labels and data
 					labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
 					dr.push(y in r && w in r[y] ? r[y][w] : 0)
@@ -1405,6 +1636,37 @@ export default {
 				labels: labels
 			}
 		},
+		// prepare comparison data for weeks line chart
+		weeksComparedChartData () {
+			let datasets = [], labels = []
+			// compute dataset for each account
+			this.accounts.map((a, i) => {
+				const d = this.comparison.weeksData[a.id]
+				let data = []
+				for (let y = this.minYear; y <= this.maxYear; ++y) {
+					for (let w = 1; w < weeksInYear(y); ++w) {
+						// trim weeks before start date
+						if (y == this.minYear && w < weekNumber(this.minDate)) continue
+						// trim weeks after end date
+						if (y == this.maxYear && w > weekNumber(this.maxDate)) break
+						// generate labels in first iteration
+						if (i == 0) labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+						// fill all data values, default to 0 if not existing for this combination
+						data.push(y in d && w in d[y] ? d[y][w] : 0)
+					}
+				}
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: data,
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: labels
+			}
+		},
 		// prepare data for daytime bar chart
 		daytimeChartData () {
 			let r = this.display.daytimeData.received, s = this.display.daytimeData.sent
@@ -1414,6 +1676,25 @@ export default {
 					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
 				],
 				labels: Object.keys(r)
+			}
+		},
+		// prepare comparison data for daytime bar chart
+		daytimeComparedChartData () {
+			let datasets = []
+			// compute dataset for each account
+			this.accounts.map((a) => {
+				const d = this.comparison.daytimeData[a.id]
+				// add dataset for this account
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: Object.values(d),
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: Object.keys(Object.values(this.comparison.daytimeData)[0])
 			}
 		},
 		// prepare data for weekday bar chart
@@ -1435,6 +1716,32 @@ export default {
 				labels: labels
 			}
 		},
+		// prepare comparison data for weekday bar chart
+		weekdayComparedChartData () {
+			let datasets = []
+			let labels = [...this.weekdayNames]
+			// labels: start week with user defined day of week
+			for (let d = 0; d < this.preferences.startOfWeek; d++)
+				labels.push(labels.shift())
+			// compute dataset for each account
+			this.accounts.map((a) => {
+				const data = Object.values(this.comparison.weekdayData[a.id])
+				// data: start week with user defined day of week
+				for (let d = 0; d < this.preferences.startOfWeek; d++)
+					data.push(data.shift())
+				// add dataset for this account
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: data,
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: labels
+			}
+		},
 		// prepare data for month bar chart
 		monthChartData () {
 			let r = this.display.monthData.received, s = this.display.monthData.sent
@@ -1446,13 +1753,31 @@ export default {
 				labels: this.monthNames
 			}
 		},
+		// prepare comparison data for month bar chart
+		monthComparedChartData () {
+			let datasets = []
+			// compute dataset for each account
+			this.accounts.map((a) => {
+				// add dataset for this account
+				datasets.push({
+					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					data: Object.values(this.comparison.monthData[a.id]),
+					color: this.preferences.accountColors[a.id],
+					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+				})
+			})
+			return {
+				datasets: datasets,
+				labels: this.monthNames
+			}
+		},
 		// prepare data for activity heatmaps
 		daysChartData () {
-			let r = this.preferences.sections.days.year in this.display.daysData.received
-				? Object.values(this.display.daysData.received[this.preferences.sections.days.year])
+			let r = this.preferences.sections.activity.year in this.display.daysData.received
+				? Object.values(this.display.daysData.received[this.preferences.sections.activity.year])
 				: Object.values(new NumberedObject(7,53))
-			let s = this.preferences.sections.days.year in this.display.daysData.sent
-				? Object.values(this.display.daysData.sent[this.preferences.sections.days.year])
+			let s = this.preferences.sections.activity.year in this.display.daysData.sent
+				? Object.values(this.display.daysData.sent[this.preferences.sections.activity.year])
 				: Object.values(new NumberedObject(7,53))
 			let ylabels = [...this.weekdayNames]
 			let xlabels = Array.from(Array(54).keys())
@@ -1529,21 +1854,37 @@ export default {
 		scheme () {
 			return this.preferences.dark ? 'dark' : 'light'
 		},
-		// array of years descending from oldest till newest emails year
+		// return account colors of all active accounts comma separated as single string
+		accountsColorGradient () {
+			return Object
+				.entries(this.preferences.accountColors)
+				.filter((a => this.preferences.accounts.includes(a[0])))
+				.reduce((p,c) => p.concat(c[1]), [])
+				.join(',')
+		},
+		// first date in currently displayed data
+		minDate () {
+			return new Date(this.display.numbers.start)
+		},
+		// last date in currently displayed data
+		maxDate () {
+			return this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+		},
+		// year minDate
+		minYear () {
+			return (this.minDate).getFullYear()
+		},
+		// year of maxDate
+		maxYear () {
+			return (this.maxDate).getFullYear()
+		},
+		// array of years descending from last to first date
 		yearsList () {
 			let years = []
 			for (let i = this.maxYear; i >= this.minYear; i--) {
 				years.push(i)
 			}
 			return years
-		},
-		// max year of current years list
-		maxYear () {
-			return this.display.numbers.end ? (new Date(this.display.numbers.end)).getFullYear() : (new Date()).getFullYear()
-		},
-		// min year of current years list
-		minYear () {
-			return (new Date(this.display.numbers.start)).getFullYear()
 		},
 		// compute current loading progress in percent
 		processingState () {
@@ -1558,6 +1899,8 @@ export default {
 		// and load new accounts data accordingly
 		async 'active.account' (id) {
 			if (id) {
+				// reset preferences
+				this.preferences.sections.total.comparison = false
 				// reset filter
 				this.resetFolder(false)
 				// process data for given account, refresh if period filter is set
