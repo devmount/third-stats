@@ -99,10 +99,14 @@
 						<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
 					</label>
 					<div class='action'>
-						<div v-for='a in allAccounts' :key='a.id'>
-							<label class="checkbox">
+						<div v-for='(a, i) in allAccounts' :key='i' class="d-flex justify-space-between">
+							<label class="checkbox cursor-pointer text-overflow-ellipsis flex-dont-grow">
 								<input type='checkbox' :value='a.id' v-model='options.accounts' />
 								<i class="checkbox-icon"></i> {{ a.name }}
+							</label>
+							<label :for="'color-' + a.name" class="cursor-pointer d-flex align-items-center gap-0-5">
+								<input type='color' :id="'color-' + a.name" v-model='options.accountColors[a.id]' />
+								<span class="text-mono text-tiny">{{ options.accountColors[a.id] }}</span>
 							</label>
 						</div>
 					</div>
@@ -248,7 +252,17 @@ export default {
 	},
 	methods: {
 		// create options object with given values or default values
-		optionsObject (dark=true, ordinate=false, startOfWeek=0, addresses='', accounts=[], selfMessages='none', leaderCount=20, cache=true) {
+		optionsObject (
+			dark = true,
+			ordinate = false,
+			startOfWeek = 0,
+			addresses = '',
+			accounts = [],
+			accountColors = {},
+			selfMessages = 'none',
+			leaderCount = 20,
+			cache = true
+		) {
 			return {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
@@ -256,6 +270,7 @@ export default {
 					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
 					addresses: addresses === null ? this.options.addresses : addresses,
 					accounts: accounts === null ? this.options.accounts : accounts,
+					accountColors: accountColors === null ? this.options.accountColors : accountColors,
 					selfMessages: selfMessages === null ? this.options.selfMessages : selfMessages,
 					leaderCount: leaderCount === null ? this.options.leaderCount : leaderCount,
 					cache: cache === null ? this.options.cache : cache,
@@ -288,6 +303,14 @@ export default {
 				}
 				// update accounts option
 				this.options.accounts = activeAccounts
+			}
+			// if some or all account colors are not initialized yet, initialize them
+			if (this.options && this.options.accountColors) {
+				this.allAccounts.map((a, i) => {
+					if (!this.options.accountColors.hasOwnProperty(a.id)) {
+						this.options.accountColors[a.id] = this.defaultColors[(i%this.defaultColors.length)]
+					}
+				})
 			}
 		},
 		// get size of all cached account data
@@ -365,6 +388,11 @@ export default {
 		addressList () {
 			return this.options && this.options.addresses ? this.options.addresses.split(',') : []
 		},
+		// array of default colors to be used for accounts
+		defaultColors () {
+			return ['#f9844a', '#f9c74f', '#90be6d', '#43aa8b', '#4d908e', '#577590', '#9c89b8']
+		},
+		// return all valid option values for selfMessages
 		selfMessagesOptions () {
 			return [
 				'none',
@@ -425,7 +453,7 @@ html, body
 				font-weight: 300
 			.entry
 				display: grid
-				grid-template-columns: 1fr 1fr
+				grid-template-columns: 1fr 50%
 				column-gap: 2rem
 				margin-bottom: 1rem
 				.action
