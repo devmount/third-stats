@@ -25,7 +25,7 @@
     "mailsWeek": "mails/week",
     "loadingInProgress": "Loading of all emails from this account in progress...",
     "accountEmpty": "This account is empty, no emails here.",
-    "allAccountsSum": "All Accounts (Sum)",
+    "allAccounts": "All Accounts",
     "timePeriod": "Date range",
     "dataCollected": "Data collected {0} ago",
     "charts": {
@@ -140,7 +140,8 @@
     },
     "activeAccounts": {
       "label": "Active Accounts",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats."
+      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
+      "color": "Give each account a custom color to distinguish between them in comparison mode."
     },
     "selfMessages": {
       "label": "Self Messages",

@@ -22,7 +22,7 @@
 					<div class='filter-account d-flex'>
 						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
 						<select v-model='active.account' :disabled='loading' class='align-stretch w-6' :class='{ disabled: loading }' id='account'>
-							<option v-if='accounts.length > 1 && preferences.cache' :value='"sum"'>{{ $t('stats.allAccountsSum') }}</option>
+							<option v-if='accounts.length > 1 && preferences.cache' :value='"sum"'>{{ $t('stats.allAccounts') }}</option>
 							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
 						</select>
 						<div v-show='loading' :class='scheme + " loading align-center loader-accent2"'></div>
@@ -49,7 +49,7 @@
 						<div
 							class="d-flex align-stretch tooltip-bottom"
 							:class='{ tooltip: !singleAccount }'
-							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccountsSum")])'
+							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccounts")])'
 						>
 							<select
 								id='folder'
@@ -1068,7 +1068,7 @@ export default {
 			// check id type
 			if (!this.singleAccount && this.preferences.cache) {
 				// set tab title
-				document.title = 'ThirdStats: ' + this.$t('stats.allAccountsSum')
+				document.title = 'ThirdStats: ' + this.$t('stats.allAccounts')
 				// deactivate list of folders
 				this.folders = []
 				// iterate over all activated accounts

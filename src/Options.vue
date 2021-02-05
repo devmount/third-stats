@@ -96,7 +96,10 @@
 				<div class='entry' v-if="options.accounts">
 					<label>
 						{{ $t('options.activeAccounts.label') }}
-						<span class='d-block text-gray text-small'>{{ $t('options.activeAccounts.description') }}</span>
+						<span class='d-block text-gray text-small'>
+							{{ $t('options.activeAccounts.description') }}
+							{{ $t('options.activeAccounts.color') }}
+						</span>
 					</label>
 					<div class='action'>
 						<div v-for='(a, i) in allAccounts' :key='i' class="d-flex justify-space-between">
