@@ -4,10 +4,13 @@
   },
   "popup": {
     "account": "Account | Account",
-    "message": "-",
-    "messagesInFolder": "{0} messaggi in {1} cartelle",
     "folder": "Cartella | Cartelle",
-    "linkDescription": "Apri tutte le statistiche in una nuova scheda"
+    "message": "-",
+    "linkDescription": "Apri tutte le statistiche in una nuova scheda",
+    "messagesInFolder": "{0} messaggi in {1} cartelle",
+    "openAllStats": "Apri tutte le statistiche",
+    "openOptions": "Apri Opzioni",
+    "messages": "Messaggio | Messaggi"
   },
   "stats": {
     "mailsTotal": "Mail totali",
@@ -24,6 +27,7 @@
     "mailsWeek": "mail/settimana",
     "loadingInProgress": "Caricamento di tutte le email da questo account in corso...",
     "accountEmpty": "Questo account è vuoto, non ci sono email qui.",
+    "timePeriod": "Periodo di tempo",
     "charts": {
       "years": {
         "title": "Anni",
@@ -85,17 +89,32 @@
         "dateUnreal": "È richiesta una data valida",
         "dateOrderStart": "La data di inizio deve essere precedente alla data di fine",
         "dateOrderEnd": "La data di fine deve essere successiva alla data di inizio"
-      }
+      },
+      "folder": {
+        "notAvailable": "Le cartelle non sono disponibili per {0}"
+      },
+      "comparison": "Confronta i conti in un grafico",
+      "sum": "Mostra la somma di tutti i conti"
     },
     "abbreviations": {
       "calendarWeek": "W",
-      "quarter": "Q"
+      "quarter": "Q",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "second": "s"
     },
     "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>",
     "message": "-",
-    "timePeriod": "Periodo di tempo"
+    "dataCollected": "Dati raccolti {0} fa",
+    "allAccounts": "Tutti i account"
   },
   "options": {
+    "headings": {
+      "appearance": "Aspetto ed Esperienza",
+      "stats": "Grafici e Dati",
+      "storage": "Archiviazione e Cache"
+    },
     "switch": {
       "on": "On",
       "off": "Off"
@@ -108,19 +127,13 @@
       "label": "Modalità scura",
       "description": "Passa dalla combinazione di colori chiari e scuri"
     },
-    "localIdentities": {
-      "label": "Identità locali",
-      "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali"
-    },
-    "message": "-",
-    "headings": {
-      "appearance": "Aspetto ed Esperienza",
-      "stats": "Grafici e Dati",
-      "storage": "Archiviazione e Cache"
-    },
     "ordinate": {
       "label": "Asse verticale",
       "description": "Visualizza l'asse verticale per tutti i grafici a linee ea barre"
+    },
+    "localIdentities": {
+      "label": "Identità locali",
+      "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali"
     },
     "startOfWeek": {
       "label": "Inizia la settimana",
@@ -128,7 +141,8 @@
     },
     "activeAccounts": {
       "label": "Account attivi",
-      "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche."
+      "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche.",
+      "color": "Assegna a ciascun account un colore personalizzato per distinguerli nella modalità di confronto."
     },
     "cache": {
       "label": "Attiva la cache",
@@ -143,6 +157,31 @@
     "note": {
       "title": "Nota",
       "reloadStatsPage": "Le opzioni vengono salvate automaticamente. Se la pagina delle statistiche è già aperta, è necessario riaprirla o ricaricarla per applicare le modifiche."
+    },
+    "message": "-",
+    "selfMessages": {
+      "label": "Messaggi personali",
+      "description": "Escludi i messaggi che sono stati inviati da me a me stesso",
+      "values": {
+        "none": "Disattivato",
+        "sameAccount": "Solo lo stesso account",
+        "anyAccount": "Da qualsiasi account"
+      },
+      "info": {
+        "none": "I messaggi personali verranno inclusi e trattati come normali e-mail (impostazione predefinita)",
+        "sameAccount": "I messaggi in cui mittente e destinatario sono identità dello stesso account verranno esclusi",
+        "anyAccount": "I messaggi in cui mittente e destinatario sono identità di qualsiasi account verranno esclusi"
+      }
+    },
+    "leaderCount": {
+      "label": "Conteggio leader",
+      "description": "Numero di voci mostrate nei grafici che elencano i contatti frequenti (massimo 999)"
+    },
+    "title": "Opzioni",
+    "resetOptions": {
+      "label": "Resettare le opzioni",
+      "description": "Resettare tutte le opzioni ai valori predefiniti.",
+      "removeIdentities": "Ciò rimuoverà anche tutte le identità locali che hai creato."
     }
   }
 }
