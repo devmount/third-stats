@@ -216,14 +216,15 @@
 								@click='activateTab("total", label)'
 							>
 								<span
-									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
+									class="transition-color transition-border-image"
+									:class="{ 'border-bottom-gradient-accent2-accent1': !preferences.sections.total.comparison }"
 									:style="active && preferences.sections.total.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
 								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
 							</li>
 							<li
-								v-if="active.account == 'sum'"
+								v-if="!loading && active.account == 'sum'"
 								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
 								:data-tooltip='
 									!preferences.sections.total.comparison
@@ -242,7 +243,7 @@
 							</li>
 							<li
 								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1'
-								:class="{ 'ml-auto': active.account != 'sum' }"
+								:class="{ 'ml-auto': active.account != 'sum' || loading }"
 								:data-tooltip='
 									!preferences.sections.total.expand
 									? $t("stats.tooltips.expand")
@@ -398,14 +399,15 @@
 								@click='activateTab("onedim", label)'
 							>
 								<span
-									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
+									class="transition-color transition-border-image"
+									:class="{ 'border-bottom-gradient-accent2-accent1': !preferences.sections.onedim.comparison }"
 									:style="active && preferences.sections.onedim.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
 								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
 							</li>
 							<li
-								v-if="active.account == 'sum'"
+								v-if="!loading && active.account == 'sum'"
 								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
 								:data-tooltip='
 									!preferences.sections.onedim.comparison
