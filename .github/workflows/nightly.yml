@@ -33,11 +33,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Version Composition
-      id: v
-      uses: juliansangillo/version-composer@v1
-      with:
-        revision-pattern: M.m
+    - name: Get Version
+      id: version
+      run: echo ::set-output name=v::${GITHUB_REF:9:4}
     - name: Build app using Yarn
       run: |
         npm install -g yarn
@@ -47,12 +45,12 @@ jobs:
       shell: bash
       run: |
         cd dist/
-        zip -q -r ../third-stats_${{ steps.v.outputs.raw-version }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi ./
+        zip -q -r ../third-stats_${{ steps.version.outputs.v }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi ./
     - name: Upload add-on nightly build artifact
       uses: actions/upload-artifact@v2
       with:
         name: third-stats-nightly
-        path: third-stats_${{ steps.v.outputs.raw-version }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+        path: third-stats_${{ steps.version.outputs.v }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
     - name: Push add-on to CDN
       uses: kostya-ten/ssh-server-deploy@v4
       with:
@@ -60,5 +58,5 @@ jobs:
         port: ${{ secrets.CDN_PORT }}
         username: ${{ secrets.CDN_USER }}
         password: ${{ secrets.CDN_PASS }}
-        scp_source: third-stats_${{ steps.v.outputs.raw-version }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+        scp_source: third-stats_${{ steps.version.outputs.v }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
         scp_target: ${{ secrets.CDN_PATH }}/
