@@ -2,99 +2,95 @@
   "extensionDescription": {
     "message": "Estadístiques visualment belles per als seus comptes de correu electrònic del Thunderbird"
   },
+  "options": {
+    "darkMode": {
+      "description": "Canvia entre l'esquema de colors fosc i clar",
+      "label": "Mode fosc"
+    },
+    "localIdentities": {
+      "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals",
+      "label": "Identitats locals"
+    },
+    "message": "-",
+    "switch": {
+      "off": "Desactivar",
+      "on": "Activar"
+    }
+  },
   "popup": {
     "account": "Compte | Comptes",
-    "messagesInFolder": "{0} missatges en {1} carpetes",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "Correus en total",
-    "withinYears": "en {0} anys",
-    "mailsUnread": "Correus no llegits",
-    "niceWork": "Bon treball!",
-    "percentOfReceived": "{0}% de rebuts",
-    "mailsReceived": "Correus rebuts",
-    "percentOfTotal": "{0}% de total",
-    "mailsSent": "Correus enviats",
-    "mailsPerMonth": "Correus al mes",
-    "mailsYear": "correus/any",
-    "mailsPerDay": "Correus al dia",
-    "mailsWeek": "correus/setmana",
-    "loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs...",
-    "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
-    "charts": {
-      "years": {
-        "title": "Anys",
-        "description": "Nombre total de correus electrònics per any"
-      },
-      "quarters": {
-        "title": "quadrimestre",
-        "description": "Nombre total de correus electrònics per quadrimestre"
-      },
-      "months": {
-        "title": "Mesos",
-        "description": "Nombre total de correus electrònics al mes"
-      },
-      "weeks": {
-        "title": "Setmanes",
-        "description": "Nombre total de correus electrònics per setmanes"
-      },
-      "days": {
-        "title": "Activitat en {0}",
-        "description": "Nombre de correus per dia"
-      },
-      "daytime": {
-        "title": "Hora",
-        "description": "Nombre de correus electrònics per hora del dia"
-      },
-      "weekday": {
-        "title": "Dia de la setmana",
-        "description": "Nombre de correus electrònics per dia de la setmana"
-      },
-      "month": {
-        "title": "Mesos",
-        "description": "Nombre total de correus electrònics al mes"
-      },
-      "temporalDistribution": {
-        "title": "Distribució temporal",
-        "description": "Nombre de correus per dia de setmana i hora"
-      },
-      "contactsReceived": {
-        "title": "La majoria rebuts de",
-        "description": "Nombre de correus electrònics rebuts per destinatari"
-      },
-      "contactsSent": {
-        "title": "La majoria enviats a",
-        "description": "Nombre de correus electrònics enviats per remitent"
-      }
-    },
-    "tooltips": {
-      "expand": "Amplia l'àrea del gràfic",
-      "shrink": "Redueix l'àrea del gràfic"
-    },
     "abbreviations": {
       "calendarWeek": "S",
       "quarter": "Q"
     },
+    "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
+    "charts": {
+      "contactsReceived": {
+        "description": "Nombre de correus electrònics rebuts per destinatari",
+        "title": "La majoria rebuts de"
+      },
+      "contactsSent": {
+        "description": "Nombre de correus electrònics enviats per remitent",
+        "title": "La majoria enviats a"
+      },
+      "days": {
+        "description": "Nombre de correus per dia",
+        "title": "Activitat en {0}"
+      },
+      "daytime": {
+        "description": "Nombre de correus electrònics per hora del dia",
+        "title": "Hora"
+      },
+      "month": {
+        "description": "Nombre total de correus electrònics al mes",
+        "title": "Mesos"
+      },
+      "months": {
+        "description": "Nombre total de correus electrònics al mes",
+        "title": "Mesos"
+      },
+      "quarters": {
+        "description": "Nombre total de correus electrònics per quadrimestre",
+        "title": "quadrimestre"
+      },
+      "temporalDistribution": {
+        "description": "Nombre de correus per dia de setmana i hora",
+        "title": "Distribució temporal"
+      },
+      "weekday": {
+        "description": "Nombre de correus electrònics per dia de la setmana",
+        "title": "Dia de la setmana"
+      },
+      "weeks": {
+        "description": "Nombre total de correus electrònics per setmanes",
+        "title": "Setmanes"
+      },
+      "years": {
+        "description": "Nombre total de correus electrònics per any",
+        "title": "Anys"
+      }
+    },
+    "loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs...",
+    "mailsPerDay": "Correus al dia",
+    "mailsPerMonth": "Correus al mes",
+    "mailsReceived": "Correus rebuts",
+    "mailsSent": "Correus enviats",
+    "mailsTotal": "Correus en total",
+    "mailsUnread": "Correus no llegits",
+    "mailsWeek": "correus/setmana",
+    "mailsYear": "correus/any",
+    "message": "-",
+    "niceWork": "Bon treball!",
+    "percentOfReceived": "{0}% de rebuts",
+    "percentOfTotal": "{0}% de total",
     "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
-  },
-  "options": {
-    "switch": {
-      "on": "Activar",
-      "off": "Desactivar"
+    "tooltips": {
+      "expand": "Amplia l'àrea del gràfic",
+      "shrink": "Redueix l'àrea del gràfic"
     },
-    "button": {
-      "save": "Guardar"
-    },
-    "darkMode": {
-      "label": "Mode fosc",
-      "description": "Canvia entre l'esquema de colors fosc i clar"
-    },
-    "localIdentities": {
-      "label": "Identitats locals",
-      "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals"
-    },
-    "message": "-"
+    "withinYears": "en {0} anys"
   }
 }

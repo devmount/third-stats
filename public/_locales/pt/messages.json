@@ -2,99 +2,95 @@
   "extensionDescription": {
     "message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
   },
+  "options": {
+    "darkMode": {
+      "description": "Alternar entre modo escuro e modo claro",
+      "label": "Modo Escuro"
+    },
+    "localIdentities": {
+      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais",
+      "label": "Identidades Locais"
+    },
+    "message": "-",
+    "switch": {
+      "off": "Desligado",
+      "on": "Ligado"
+    }
+  },
   "popup": {
     "account": "Conta | Contas",
-    "messagesInFolder": "{0} mensagens em {1} pastas",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "Total de e-mails",
-    "withinYears": "Dentro de {0} anos",
-    "mailsUnread": "E-mails não lidos",
-    "niceWork": "Bom trabalho!",
-    "percentOfReceived": "{0}% de recebidos",
-    "mailsReceived": "E-mails recebidos",
-    "percentOfTotal": "{0}% do total",
-    "mailsSent": "E-mails enviados",
-    "mailsPerMonth": "E-mails por mês",
-    "mailsYear": "E-mails/ano",
-    "mailsPerDay": "E-mails por dia",
-    "mailsWeek": "E-mails/semana",
-    "loadingInProgress": "Carregamento de todos os e-mails dessa conta em andamento...",
-    "accountEmpty": "Essa conta está vazia, sem e-mails aqui.",
-    "charts": {
-      "years": {
-        "title": "Anos",
-        "description": "Total de e-mails por ano"
-      },
-      "quarters": {
-        "title": "Trimestres",
-        "description": "Total de e-mails por trimestre"
-      },
-      "months": {
-        "title": "Meses",
-        "description": "Total de e-mails por mês"
-      },
-      "weeks": {
-        "title": "Semanas",
-        "description": "Total de e-mails por semana"
-      },
-      "days": {
-        "title": "Atividade em {0}",
-        "description": "E-mails por dia"
-      },
-      "daytime": {
-        "title": "Dia",
-        "description": "Número de e-mails por hora do dia"
-      },
-      "weekday": {
-        "title": "Dia da Semana",
-        "description": "Número de e-mails por dia da semana"
-      },
-      "month": {
-        "title": "Meses",
-        "description": "Total de e-mails por mês"
-      },
-      "temporalDistribution": {
-        "title": "Distribuição Temporal",
-        "description": "Número de e-mails por semana por hora"
-      },
-      "contactsReceived": {
-        "title": "Mais recebido de",
-        "description": "Número de e-mails recebidos por remetente"
-      },
-      "contactsSent": {
-        "title": "Mais enviado para",
-        "description": "Número de e-mails enviado por destinatário"
-      }
-    },
-    "tooltips": {
-      "expand": "Expandir área do gráfico",
-      "shrink": "Diminuir área do gráfico"
-    },
     "abbreviations": {
       "calendarWeek": "S",
       "quarter": "T"
     },
+    "accountEmpty": "Essa conta está vazia, sem e-mails aqui.",
+    "charts": {
+      "contactsReceived": {
+        "description": "Número de e-mails recebidos por remetente",
+        "title": "Mais recebido de"
+      },
+      "contactsSent": {
+        "description": "Número de e-mails enviado por destinatário",
+        "title": "Mais enviado para"
+      },
+      "days": {
+        "description": "E-mails por dia",
+        "title": "Atividade em {0}"
+      },
+      "daytime": {
+        "description": "Número de e-mails por hora do dia",
+        "title": "Dia"
+      },
+      "month": {
+        "description": "Total de e-mails por mês",
+        "title": "Meses"
+      },
+      "months": {
+        "description": "Total de e-mails por mês",
+        "title": "Meses"
+      },
+      "quarters": {
+        "description": "Total de e-mails por trimestre",
+        "title": "Trimestres"
+      },
+      "temporalDistribution": {
+        "description": "Número de e-mails por semana por hora",
+        "title": "Distribuição Temporal"
+      },
+      "weekday": {
+        "description": "Número de e-mails por dia da semana",
+        "title": "Dia da Semana"
+      },
+      "weeks": {
+        "description": "Total de e-mails por semana",
+        "title": "Semanas"
+      },
+      "years": {
+        "description": "Total de e-mails por ano",
+        "title": "Anos"
+      }
+    },
+    "loadingInProgress": "Carregamento de todos os e-mails dessa conta em andamento...",
+    "mailsPerDay": "E-mails por dia",
+    "mailsPerMonth": "E-mails por mês",
+    "mailsReceived": "E-mails recebidos",
+    "mailsSent": "E-mails enviados",
+    "mailsTotal": "Total de e-mails",
+    "mailsUnread": "E-mails não lidos",
+    "mailsWeek": "E-mails/semana",
+    "mailsYear": "E-mails/ano",
+    "message": "-",
+    "niceWork": "Bom trabalho!",
+    "percentOfReceived": "{0}% de recebidos",
+    "percentOfTotal": "{0}% do total",
     "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
-  },
-  "options": {
-    "switch": {
-      "on": "Ligado",
-      "off": "Desligado"
+    "tooltips": {
+      "expand": "Expandir área do gráfico",
+      "shrink": "Diminuir área do gráfico"
     },
-    "button": {
-      "save": "Salvar"
-    },
-    "darkMode": {
-      "label": "Modo Escuro",
-      "description": "Alternar entre modo escuro e modo claro"
-    },
-    "localIdentities": {
-      "label": "Identidades Locais",
-      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais"
-    },
-    "message": "-"
+    "withinYears": "Dentro de {0} anos"
   }
 }

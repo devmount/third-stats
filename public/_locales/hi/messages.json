@@ -2,99 +2,95 @@
   "extensionDescription": {
     "message": "आपके थंडरबर्ड ईमेल खातों के लिए सरल और सुंदर आँकड़े"
   },
+  "options": {
+    "darkMode": {
+      "description": "डार्क और लाइट कलर स्कीम के बीच स्विच करें",
+      "label": "डार्क मोड"
+    },
+    "localIdentities": {
+      "description": "स्थानीय खातों के लिए 'से भेजा' के रूप में पहचान करने के लिए एक कॉमा सेपरेटेड ईमेल पतों की सूची",
+      "label": "स्थानीय पहचान"
+    },
+    "message": "-",
+    "switch": {
+      "off": "बंद करे",
+      "on": "चालू करे"
+    }
+  },
   "popup": {
     "account": "खाता | खाते",
-    "messagesInFolder": "{1} फ़ोल्डर में {0} संदेश",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "कुल मेल",
-    "withinYears": "{0} साल के भीतर",
-    "mailsUnread": "अपठित मेल्स",
-    "niceWork": "बोहोत ख़ूब!",
-    "percentOfReceived": "{0}% प्राप्त किया",
-    "mailsReceived": "मेल्स प्राप्त हुए",
-    "percentOfTotal": "कुल का {0}%",
-    "mailsSent": "मेल्स भेज दिए गए",
-    "mailsPerMonth": "मेल्स प्रति महिना",
-    "mailsYear": "मेल्स/साल",
-    "mailsPerDay": "मेल्स प्रति दिन",
-    "mailsWeek": "मेल्स/सप्ताह",
-    "loadingInProgress": "इस खाते के सभी मेल प्राप्त किए जा रहे है...",
-    "accountEmpty": "इस खाते में कोई मेल नहीं है।",
-    "charts": {
-      "years": {
-        "title": "साल",
-        "description": "प्रति वर्ष ईमेल की संख्या"
-      },
-      "quarters": {
-        "title": "त्रिमास",
-        "description": "प्रति त्रिमास ईमेल की संख्या"
-      },
-      "months": {
-        "title": "महीने",
-        "description": "प्रति माह ईमेल की संख्या"
-      },
-      "weeks": {
-        "title": "सप्ताह",
-        "description": "प्रति सप्ताह ईमेल की संख्या"
-      },
-      "days": {
-        "title": "{0} में गतिविधि",
-        "description": "प्रति दिन आने वाले ईमेलो की संख्या"
-      },
-      "daytime": {
-        "title": "दिन",
-        "description": "प्रति दिन, समय के हिसाब से ईमेल की संख्या"
-      },
-      "weekday": {
-        "title": "सप्ताह",
-        "description": "प्रति सप्ताह, दिन के हिसाब से ईमेल की संख्या"
-      },
-      "month": {
-        "title": "महीने",
-        "description": "प्रति माह ईमेल की संख्या"
-      },
-      "temporalDistribution": {
-        "title": "अस्थायी वितरण",
-        "description": "हर सप्ताह में प्रति घंटे आने वाले ईमेल की संख्या"
-      },
-      "contactsReceived": {
-        "title": "द्वारा सबसे ज़्यादा प्राप्त किए गए है",
-        "description": "को सबसे ज़्यादा भेजे गए है"
-      },
-      "contactsSent": {
-        "title": "को सबसे ज़्यादा भेजे गए है",
-        "description": "प्रत्येक प्रेषक के द्वारा पाए गए मेल।"
-      }
-    },
-    "tooltips": {
-      "expand": "चार्ट क्षेत्र का विस्तार करें",
-      "shrink": "चार्ट क्षेत्र सिकोड़ें"
-    },
     "abbreviations": {
       "calendarWeek": "W",
       "quarter": "Q"
     },
+    "accountEmpty": "इस खाते में कोई मेल नहीं है।",
+    "charts": {
+      "contactsReceived": {
+        "description": "को सबसे ज़्यादा भेजे गए है",
+        "title": "द्वारा सबसे ज़्यादा प्राप्त किए गए है"
+      },
+      "contactsSent": {
+        "description": "प्रत्येक प्रेषक के द्वारा पाए गए मेल।",
+        "title": "को सबसे ज़्यादा भेजे गए है"
+      },
+      "days": {
+        "description": "प्रति दिन आने वाले ईमेलो की संख्या",
+        "title": "{0} में गतिविधि"
+      },
+      "daytime": {
+        "description": "प्रति दिन, समय के हिसाब से ईमेल की संख्या",
+        "title": "दिन"
+      },
+      "month": {
+        "description": "प्रति माह ईमेल की संख्या",
+        "title": "महीने"
+      },
+      "months": {
+        "description": "प्रति माह ईमेल की संख्या",
+        "title": "महीने"
+      },
+      "quarters": {
+        "description": "प्रति त्रिमास ईमेल की संख्या",
+        "title": "त्रिमास"
+      },
+      "temporalDistribution": {
+        "description": "हर सप्ताह में प्रति घंटे आने वाले ईमेल की संख्या",
+        "title": "अस्थायी वितरण"
+      },
+      "weekday": {
+        "description": "प्रति सप्ताह, दिन के हिसाब से ईमेल की संख्या",
+        "title": "सप्ताह"
+      },
+      "weeks": {
+        "description": "प्रति सप्ताह ईमेल की संख्या",
+        "title": "सप्ताह"
+      },
+      "years": {
+        "description": "प्रति वर्ष ईमेल की संख्या",
+        "title": "साल"
+      }
+    },
+    "loadingInProgress": "इस खाते के सभी मेल प्राप्त किए जा रहे है...",
+    "mailsPerDay": "मेल्स प्रति दिन",
+    "mailsPerMonth": "मेल्स प्रति महिना",
+    "mailsReceived": "मेल्स प्राप्त हुए",
+    "mailsSent": "मेल्स भेज दिए गए",
+    "mailsTotal": "कुल मेल",
+    "mailsUnread": "अपठित मेल्स",
+    "mailsWeek": "मेल्स/सप्ताह",
+    "mailsYear": "मेल्स/साल",
+    "message": "-",
+    "niceWork": "बोहोत ख़ूब!",
+    "percentOfReceived": "{0}% प्राप्त किया",
+    "percentOfTotal": "कुल का {0}%",
     "starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें",
-    "message": "-"
-  },
-  "options": {
-    "switch": {
-      "on": "चालू करे",
-      "off": "बंद करे"
+    "tooltips": {
+      "expand": "चार्ट क्षेत्र का विस्तार करें",
+      "shrink": "चार्ट क्षेत्र सिकोड़ें"
     },
-    "button": {
-      "save": "सहेजें"
-    },
-    "darkMode": {
-      "label": "डार्क मोड",
-      "description": "डार्क और लाइट कलर स्कीम के बीच स्विच करें"
-    },
-    "localIdentities": {
-      "label": "स्थानीय पहचान",
-      "description": "स्थानीय खातों के लिए 'से भेजा' के रूप में पहचान करने के लिए एक कॉमा सेपरेटेड ईमेल पतों की सूची"
-    },
-    "message": "-"
+    "withinYears": "{0} साल के भीतर"
   }
 }
