@@ -6,11 +6,11 @@
     "account": "Compte | Comptes",
     "folder": "Dossier | Dossiers",
     "message": "-",
-    "linkDescription": "Ouvrez toutes les statistiques dans un nouvel onglet",
-    "messagesInFolder": "{0} message(s) dans {1} dossier(s)",
     "openAllStats": "Ouvrir toutes les statistiques",
     "openOptions": "Ouvrir les options",
-    "messages": "Message | messages"
+    "messages": "Message | messages",
+    "linkDescription": "Ouvrez toutes les statistiques dans un nouvel onglet",
+    "messagesInFolder": "{0} message(s) dans {1} dossier(s)"
   },
   "stats": {
     "mailsTotal": "Total des messages",
@@ -92,7 +92,9 @@
       },
       "folder": {
         "notAvailable": "Les dossiers ne sont pas disponibles pour {0}"
-      }
+      },
+      "comparison": "Comparez les comptes",
+      "sum": "La somme de tous les comptes"
     },
     "abbreviations": {
       "calendarWeek": "S",
@@ -104,8 +106,9 @@
     },
     "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
     "message": "-",
+    "dataCollected": "Données collectées il y a {0}",
     "allAccountsSum": "Tous les comptes (somme)",
-    "dataCollected": "Données collectées il y a {0}"
+    "allAccounts": "Tous les comptes"
   },
   "options": {
     "headings": {
@@ -139,7 +142,8 @@
     },
     "activeAccounts": {
       "label": "Comptes actifs",
-      "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques."
+      "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
+      "color": "Donnez une couleur personnalisée à chaque compte pour les distinguer en mode comparaison."
     },
     "cache": {
       "label": "Activer le cache",
@@ -174,6 +178,11 @@
       "label": "Tableau de classement",
       "description": "Nombre d'entrées figurant dans les tableaux des contacts fréquents (999 au maximum)"
     },
-    "title": "Options"
+    "title": "Options",
+    "resetOptions": {
+      "label": "Réinitialiser les options",
+      "description": "Réinitialisez toutes les options à leurs valeurs par défaut.",
+      "removeIdentities": "Cela supprimera également toutes les identités locales que vous avez créées."
+    }
   }
 }
