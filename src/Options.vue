@@ -184,7 +184,7 @@
 						<span class="d-block text-gray text-small">{{ $t('options.clearCache.description') }}</span>
 					</label>
 					<div class='action'>
-						<button @click='clearCache' class='mb-1'>{{ $t('options.button.clearCache') }}</button>
+						<button @click='clearCache' class='mb-1'>{{ $t('options.clearCache.label') }}</button>
 						<div class='d-flex gap-0-5 align-items-center text-gray'>
 							<div>
 								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
