@@ -36,8 +36,8 @@ jobs:
     - name: Get Version
       id: version
       run: |
-        longversion = ${GITHUB_REF#*refs/*/}
-        echo ::set-output name=minor::${longversion%.*}
+        patch=${GITHUB_REF#*refs/*/}
+        echo ::set-output name=minor::${patch%.*}
     - name: Build app using Yarn
       run: |
         npm install -g yarn
