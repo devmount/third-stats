@@ -2,125 +2,119 @@
   "extensionDescription": {
     "message": "精美地呈现您 Thunderbird 邮件账号数据"
   },
-  "popup": {
-    "account": "账号 | 账号",
-    "messagesInFolder": "{0} 则讯息于 {1} 个资料夹内",
-    "message": "-",
-    "linkDescription": "于新分页打开所有数据"
-  },
-  "stats": {
-    "mailsTotal": "邮件总数",
-    "withinYears": "{0} 年内",
-    "mailsUnread": "邮件未读取",
-    "niceWork": "做得不错！",
-    "percentOfReceived": "已收取 {0}%",
-    "mailsReceived": "邮件已收取",
-    "percentOfTotal": "占总数 {0}%",
-    "mailsSent": "邮件已发送",
-    "mailsPerMonth": "每月邮件",
-    "mailsYear": "邮件/年",
-    "mailsPerDay": "每日邮件",
-    "mailsWeek": "邮件/周",
-    "loadingInProgress": "正在加载此账号所有邮件……",
-    "accountEmpty": "此账号为空，没有邮件。",
-    "charts": {
-      "years": {
-        "title": "年",
-        "description": "每年邮件总数"
-      },
-      "quarters": {
-        "title": "季度",
-        "description": "每季度邮件总数"
-      },
-      "months": {
-        "title": "月",
-        "description": "每月邮件总数"
-      },
-      "weeks": {
-        "title": "周",
-        "description": "每周邮件总数"
-      },
-      "days": {
-        "title": "活动于 {0}",
-        "description": "每个日期的电子邮件数"
-      },
-      "daytime": {
-        "title": "一天内",
-        "description": "一天内每时间段邮件数"
-      },
-      "weekday": {
-        "title": "一周内",
-        "description": "一周内每日邮件数"
-      },
-      "month": {
-        "title": "每月",
-        "description": "一年内每月邮件数"
-      },
-      "temporalDistribution": {
-        "title": "时间分布",
-        "description": "每小时每个工作日的电子邮件数量"
-      },
-      "contactsReceived": {
-        "title": "最多收取来自",
-        "description": "每位收件人发送邮件数"
-      },
-      "contactsSent": {
-        "title": "最多发送送往",
-        "description": "每位寄件人收取邮件数"
-      }
-    },
-    "tooltips": {
-      "expand": "放大图表范围",
-      "shrink": "缩小图表范围",
-      "refresh": "刷新资料"
-    },
-    "abbreviations": {
-      "calendarWeek": "周",
-      "quarter": "季"
-    },
-    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
-    "message": "-"
-  },
   "options": {
-    "switch": {
-      "on": "开",
-      "off": "关"
+    "cache": {
+      "description": "启用缓存系统以加快显示已处理数据资料。",
+      "label": "激活缓存"
     },
-    "button": {
-      "save": "储存",
-      "clearCache": "清除缓存"
+    "clearCache": {
+      "description": "清除来自所有账号的所有缓存数据资料，将会于再次开启数据页面时重构。",
+      "empty": "缓存为空",
+      "label": "清除缓存",
+      "size": "缓存大小是 {0}"
     },
     "darkMode": {
-      "label": "深色主题",
-      "description": "切换深色与浅色主题"
-    },
-    "localIdentities": {
-      "label": "本地身份",
-      "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”"
-    },
-    "message": "-",
-    "startOfWeek": {
-      "label": "一周开始于",
-      "description": "自订所有星期相关图表的开始日子"
+      "description": "切换深色与浅色主题",
+      "label": "深色主题"
     },
     "headings": {
       "appearance": "外观与体验",
       "stats": "图表与资料",
       "storage": "存储与缓存"
     },
-    "cache": {
-      "label": "激活缓存",
-      "description": "启用缓存系统以加快显示已处理数据资料。"
+    "localIdentities": {
+      "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”",
+      "label": "本地身份"
     },
-    "clearCache": {
-      "label": "清除缓存",
-      "description": "清除来自所有账号的所有缓存数据资料，将会于再次开启数据页面时重构。",
-      "empty": "缓存为空",
-      "size": "缓存大小是 {0}"
-    },
+    "message": "-",
     "note": {
-      "title": "注意",
-      "reloadStatsPage": "选项已自动储存。如果数据页面已经开启，你需要重新开启或刷新页面以应用最新选项。"
+      "reloadStatsPage": "选项已自动储存。如果数据页面已经开启，你需要重新开启或刷新页面以应用最新选项。",
+      "title": "注意"
+    },
+    "startOfWeek": {
+      "description": "自订所有星期相关图表的开始日子",
+      "label": "一周开始于"
+    },
+    "switch": {
+      "off": "关",
+      "on": "开"
     }
+  },
+  "popup": {
+    "account": "账号 | 账号",
+    "message": "-"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "周",
+      "quarter": "季"
+    },
+    "accountEmpty": "此账号为空，没有邮件。",
+    "charts": {
+      "contactsReceived": {
+        "description": "每位收件人发送邮件数",
+        "title": "最多收取来自"
+      },
+      "contactsSent": {
+        "description": "每位寄件人收取邮件数",
+        "title": "最多发送送往"
+      },
+      "days": {
+        "description": "每个日期的电子邮件数",
+        "title": "活动于 {0}"
+      },
+      "daytime": {
+        "description": "一天内每时间段邮件数",
+        "title": "一天内"
+      },
+      "month": {
+        "description": "一年内每月邮件数",
+        "title": "每月"
+      },
+      "months": {
+        "description": "每月邮件总数",
+        "title": "月"
+      },
+      "quarters": {
+        "description": "每季度邮件总数",
+        "title": "季度"
+      },
+      "temporalDistribution": {
+        "description": "每小时每个工作日的电子邮件数量",
+        "title": "时间分布"
+      },
+      "weekday": {
+        "description": "一周内每日邮件数",
+        "title": "一周内"
+      },
+      "weeks": {
+        "description": "每周邮件总数",
+        "title": "周"
+      },
+      "years": {
+        "description": "每年邮件总数",
+        "title": "年"
+      }
+    },
+    "loadingInProgress": "正在加载此账号所有邮件……",
+    "mailsPerDay": "每日邮件",
+    "mailsPerMonth": "每月邮件",
+    "mailsReceived": "邮件已收取",
+    "mailsSent": "邮件已发送",
+    "mailsTotal": "邮件总数",
+    "mailsUnread": "邮件未读取",
+    "mailsWeek": "邮件/周",
+    "mailsYear": "邮件/年",
+    "message": "-",
+    "niceWork": "做得不错！",
+    "percentOfReceived": "已收取 {0}%",
+    "percentOfTotal": "占总数 {0}%",
+    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
+    "tooltips": {
+      "expand": "放大图表范围",
+      "refresh": "刷新资料",
+      "shrink": "缩小图表范围"
+    },
+    "withinYears": "{0} 年内"
   }
 }

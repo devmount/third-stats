@@ -2,90 +2,79 @@
   "extensionDescription": {
     "message": "สถิติภาพที่สวยงามให้เมล Thunderbird ของคุณ"
   },
+  "options": {
+    "message": "-"
+  },
   "popup": {
     "account": "บัญชีผู้ใช้ | บัญชี",
-    "messagesInFolder": "{0} ข้อความใน {1} โฟลเดอร์",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "เมลทั้งหมด",
-    "withinYears": "ภายใน {0} ปี",
-    "mailsUnread": "เมลที่ไม่ได้อ่าน",
-    "niceWork": "ทำได้ดีมาก!",
-    "percentOfReceived": "{0}% ของที่ได้รับ",
-    "mailsReceived": "เมลที่ได้รับ",
-    "percentOfTotal": "{0}% ของทั้งหมด",
-    "mailsSent": "ส่งเมลแล้ว",
-    "mailsPerMonth": "เมลต่อเดือน",
-    "mailsYear": "เมล / ปี",
-    "mailsPerDay": "เมล / วัน",
-    "mailsWeek": "เมล / สัปดาห์",
-    "loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้...",
     "accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
     "charts": {
-      "years": {
-        "title": "ปี",
-        "description": "จำนวนอีเมลทั้งหมดต่อปี"
-      },
-      "quarters": {
-        "title": "ไตรมาส",
-        "description": "จำนวนอีเมลทั้งหมดต่อไตรมาส"
-      },
-      "months": {
-        "title": "เดือน",
-        "description": "จำนวนอีเมลทั้งหมดต่อเดือน"
-      },
-      "weeks": {
-        "title": "สัปดาห์",
-        "description": "จำนวนอีเมลทั้งหมดต่อสัปดาห์"
-      },
-      "days": {
-        "title": "เวลากลางวัน",
-        "description": "จำนวนอีเมลต่อช่วงเวลาของวัน"
-      },
-      "daytime": {
-        "title": "วัน",
-        "description": "จำนวนอีเมลต่อวัน"
-      },
-      "weekday": {
-        "title": "สัปดาห์",
-        "description": "จำนวนอีเมลต่อสัปดาห์"
-      },
-      "month": {
-        "title": "เดือน",
-        "description": "จำนวนอีเมลต่อเดือน"
-      },
-      "temporalDistribution": {
-        "title": "การกระจายชั่วขณะ",
-        "description": "จำนวนอีเมลต่อวันต่อชั่วโมง"
-      },
-      "leader": {
-        "title": {
-          "received": "รับมากที่สุดจาก",
-          "sent": "ส่งมากที่สุดถึง"
-        },
-        "description": {
-          "received": "จำนวนเมลที่ส่งจากผู้ส่ง",
-          "sent": "จำนวนเมลที่รับจากผู้ส่ง"
-        }
-      },
       "contactsReceived": {
-        "title": "รับมากที่สุดจาก",
-        "description": "จำนวนเมลที่ส่งจากผู้ส่ง"
+        "description": "จำนวนเมลที่ส่งจากผู้ส่ง",
+        "title": "รับมากที่สุดจาก"
       },
       "contactsSent": {
-        "title": "ส่งมากที่สุดถึง",
-        "description": "จำนวนเมลที่รับจากผู้ส่ง"
+        "description": "จำนวนเมลที่รับจากผู้ส่ง",
+        "title": "ส่งมากที่สุดถึง"
+      },
+      "days": {
+        "description": "จำนวนอีเมลต่อช่วงเวลาของวัน",
+        "title": "เวลากลางวัน"
+      },
+      "daytime": {
+        "description": "จำนวนอีเมลต่อวัน",
+        "title": "วัน"
+      },
+      "month": {
+        "description": "จำนวนอีเมลต่อเดือน",
+        "title": "เดือน"
+      },
+      "months": {
+        "description": "จำนวนอีเมลทั้งหมดต่อเดือน",
+        "title": "เดือน"
+      },
+      "quarters": {
+        "description": "จำนวนอีเมลทั้งหมดต่อไตรมาส",
+        "title": "ไตรมาส"
+      },
+      "temporalDistribution": {
+        "description": "จำนวนอีเมลต่อวันต่อชั่วโมง",
+        "title": "การกระจายชั่วขณะ"
+      },
+      "weekday": {
+        "description": "จำนวนอีเมลต่อสัปดาห์",
+        "title": "สัปดาห์"
+      },
+      "weeks": {
+        "description": "จำนวนอีเมลทั้งหมดต่อสัปดาห์",
+        "title": "สัปดาห์"
+      },
+      "years": {
+        "description": "จำนวนอีเมลทั้งหมดต่อปี",
+        "title": "ปี"
       }
     },
+    "loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้...",
+    "mailsPerDay": "เมล / วัน",
+    "mailsPerMonth": "เมลต่อเดือน",
+    "mailsReceived": "เมลที่ได้รับ",
+    "mailsSent": "ส่งเมลแล้ว",
+    "mailsTotal": "เมลทั้งหมด",
+    "mailsUnread": "เมลที่ไม่ได้อ่าน",
+    "mailsWeek": "เมล / สัปดาห์",
+    "mailsYear": "เมล / ปี",
+    "message": "-",
+    "niceWork": "ทำได้ดีมาก!",
+    "percentOfReceived": "{0}% ของที่ได้รับ",
+    "percentOfTotal": "{0}% ของทั้งหมด",
+    "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>",
     "tooltips": {
       "expand": "ขยายพื้นที่แผนภูมิ",
       "shrink": "หดพื้นที่แผนภูมิ"
     },
-    "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
-  },
-  "options": {
-    "message": "-"
+    "withinYears": "ภายใน {0} ปี"
   }
 }

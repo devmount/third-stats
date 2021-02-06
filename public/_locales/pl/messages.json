@@ -2,99 +2,95 @@
   "extensionDescription": {
     "message": "Wspaniale ukazane statystyki dla twoich kont pocztowych w Thunderbirdzie"
   },
+  "options": {
+    "darkMode": {
+      "description": "Przełączanie pomiędzy ciemnym i jasnym schematem kolorów",
+      "label": "tryb ciemny"
+    },
+    "localIdentities": {
+      "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych",
+      "label": "Tożsamości lokalne"
+    },
+    "message": "-",
+    "switch": {
+      "off": "wył.",
+      "on": "wł."
+    }
+  },
   "popup": {
     "account": "Konto | Konta",
-    "messagesInFolder": "{0} wiadomości w {1} folderach",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "Wszystkich wiadomości",
-    "withinYears": "z {0} lat",
-    "mailsUnread": "Nieprzeczytanych wiadomości",
-    "niceWork": "Dobra robota!",
-    "percentOfReceived": "{0}% otrzymanych",
-    "mailsReceived": "Otrzymanych",
-    "percentOfTotal": "{0}% wszystkich",
-    "mailsSent": "Wysłanych wiadomości",
-    "mailsPerMonth": "Wiadomości na miesiąc",
-    "mailsYear": "wiadomości / rok",
-    "mailsPerDay": "wiadomości dziennie",
-    "mailsWeek": "wiadomości tygodniowo",
-    "loadingInProgress": "Trwa wczytywanie wszystkich e-maili z tego konta...",
-    "accountEmpty": "To konto jest puste, nie ma żadnych e-maili.",
-    "charts": {
-      "years": {
-        "title": "Rocznie",
-        "description": "Wszystkich wiadomości na rocznie"
-      },
-      "quarters": {
-        "title": "",
-        "description": ""
-      },
-      "months": {
-        "title": "Miesięcznie",
-        "description": "Wszystkich wiadomości miesięcznie"
-      },
-      "weeks": {
-        "title": "Tygodnie",
-        "description": "Całkowita liczba e-maili w tygodniu"
-      },
-      "days": {
-        "title": "Działalność w roku {0}",
-        "description": "Liczba e-maili na datę"
-      },
-      "daytime": {
-        "title": "Dziennie",
-        "description": "Wiadomości dziennie"
-      },
-      "weekday": {
-        "title": "Dni Robocze",
-        "description": "Maile w dni robocze"
-      },
-      "month": {
-        "title": "Miesiąc",
-        "description": "Wszystkich wiadomości miesięcznie"
-      },
-      "temporalDistribution": {
-        "title": "Rozkład w czasie",
-        "description": "Liczba e-maili w ciągu godziny w ciągu dnia tygodnia"
-      },
-      "contactsReceived": {
-        "title": "Najwięcej odebranych od",
-        "description": "Najwięcej wysłanych do"
-      },
-      "contactsSent": {
-        "title": "Najwięcej wysłanych do",
-        "description": "Liczba otrzymanych e-maili na odbiorce"
-      }
-    },
-    "tooltips": {
-      "expand": "Rozwiń obszar wykresu",
-      "shrink": "Zmniejszanie obszaru wykresu"
-    },
     "abbreviations": {
       "calendarWeek": "TK",
       "quarter": "Ć"
     },
+    "accountEmpty": "To konto jest puste, nie ma żadnych e-maili.",
+    "charts": {
+      "contactsReceived": {
+        "description": "Najwięcej wysłanych do",
+        "title": "Najwięcej odebranych od"
+      },
+      "contactsSent": {
+        "description": "Liczba otrzymanych e-maili na odbiorce",
+        "title": "Najwięcej wysłanych do"
+      },
+      "days": {
+        "description": "Liczba e-maili na datę",
+        "title": "Działalność w roku {0}"
+      },
+      "daytime": {
+        "description": "Wiadomości dziennie",
+        "title": "Dziennie"
+      },
+      "month": {
+        "description": "Wszystkich wiadomości miesięcznie",
+        "title": "Miesiąc"
+      },
+      "months": {
+        "description": "Wszystkich wiadomości miesięcznie",
+        "title": "Miesięcznie"
+      },
+      "quarters": {
+        "description": "",
+        "title": ""
+      },
+      "temporalDistribution": {
+        "description": "Liczba e-maili w ciągu godziny w ciągu dnia tygodnia",
+        "title": "Rozkład w czasie"
+      },
+      "weekday": {
+        "description": "Maile w dni robocze",
+        "title": "Dni Robocze"
+      },
+      "weeks": {
+        "description": "Całkowita liczba e-maili w tygodniu",
+        "title": "Tygodnie"
+      },
+      "years": {
+        "description": "Wszystkich wiadomości na rocznie",
+        "title": "Rocznie"
+      }
+    },
+    "loadingInProgress": "Trwa wczytywanie wszystkich e-maili z tego konta...",
+    "mailsPerDay": "wiadomości dziennie",
+    "mailsPerMonth": "Wiadomości na miesiąc",
+    "mailsReceived": "Otrzymanych",
+    "mailsSent": "Wysłanych wiadomości",
+    "mailsTotal": "Wszystkich wiadomości",
+    "mailsUnread": "Nieprzeczytanych wiadomości",
+    "mailsWeek": "wiadomości tygodniowo",
+    "mailsYear": "wiadomości / rok",
+    "message": "-",
+    "niceWork": "Dobra robota!",
+    "percentOfReceived": "{0}% otrzymanych",
+    "percentOfTotal": "{0}% wszystkich",
     "starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>",
-    "message": "-"
-  },
-  "options": {
-    "switch": {
-      "on": "wł.",
-      "off": "wył."
+    "tooltips": {
+      "expand": "Rozwiń obszar wykresu",
+      "shrink": "Zmniejszanie obszaru wykresu"
     },
-    "button": {
-      "save": "Zapisz"
-    },
-    "darkMode": {
-      "label": "tryb ciemny",
-      "description": "Przełączanie pomiędzy ciemnym i jasnym schematem kolorów"
-    },
-    "localIdentities": {
-      "label": "Tożsamości lokalne",
-      "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych"
-    },
-    "message": "-"
+    "withinYears": "z {0} lat"
   }
 }

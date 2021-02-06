@@ -2,151 +2,145 @@
   "extensionDescription": {
     "message": "將您 Thunderbird 電子郵件帳號中統計資料進行視覺化"
   },
-  "popup": {
-    "account": "帳號 | 帳號",
-    "message": "-",
-    "messagesInFolder": "{0} 則訊息在 {1} 個資料夾中",
-    "folder": "文件夾 | 文件夾",
-    "linkDescription": "在新分頁中打開所有統計資訊"
-  },
-  "stats": {
-    "mailsTotal": "郵件總數",
-    "withinYears": "{0} 年內",
-    "mailsUnread": "未閱讀郵件",
-    "niceWork": "幹得好！",
-    "percentOfReceived": "已收到郵件的 {0}%",
-    "mailsReceived": "已收到郵件",
-    "percentOfTotal": "佔郵件總數的 {0}%",
-    "mailsSent": "已寄送郵件",
-    "mailsPerMonth": "每月郵件",
-    "mailsYear": "郵件/年",
-    "mailsPerDay": "每日郵件",
-    "mailsWeek": "郵件/週",
-    "loadingInProgress": "正在讀取當前帳號的所有電子郵件……",
-    "accountEmpty": "當前帳號為空，並沒有任何郵件。",
-    "charts": {
-      "years": {
-        "title": "年",
-        "description": "每年的郵件總數"
-      },
-      "quarters": {
-        "title": "季",
-        "description": "每季的郵件總數"
-      },
-      "months": {
-        "title": "月",
-        "description": "每月的郵件總數"
-      },
-      "weeks": {
-        "title": "週",
-        "description": "每週的郵件總數"
-      },
-      "days": {
-        "title": "{0} 天內的活躍狀況",
-        "description": "每個日期的電子郵件數"
-      },
-      "daytime": {
-        "title": "天",
-        "description": "每天的郵件總數"
-      },
-      "weekday": {
-        "title": "週",
-        "description": "每週每天的郵件數"
-      },
-      "month": {
-        "title": "月",
-        "description": "每年每月的郵件數"
-      },
-      "temporalDistribution": {
-        "title": "時間分佈",
-        "description": "每小時每個工作日的電子郵件數量"
-      },
-      "contactsReceived": {
-        "title": "收到最多郵件來自",
-        "description": "每位收件人發送的電子郵件數量"
-      },
-      "contactsSent": {
-        "title": "寄送最多郵件去往",
-        "description": "每位寄件人收到的電子郵件數量"
-      }
-    },
-    "tooltips": {
-      "expand": "展開圖表區域",
-      "shrink": "收起圖表區域",
-      "refresh": "重新整理資料",
-      "clear": "清除選取內容",
-      "period": {
-        "start": "開始日期\n提示：鍵入 '{0}' 變為 '{1}'",
-        "end": "結束日期\n提示：鍵入 '{0}' 變為 '{1}'"
-      },
-      "error": {
-        "empty": "請輸入內容",
-        "dateFormat": "日期格式為 YYYY-MM-DD，例如：2020-01-31",
-        "dateUnreal": "必須輸入有效日期",
-        "dateOrderStart": "開始日期必須早於結束日期",
-        "dateOrderEnd": "結束日期必須晚於開始日期"
-      },
-      "folder": {
-        "notAvailable": "文件夾不可用於 {0}"
-      }
-    },
-    "abbreviations": {
-      "calendarWeek": "週",
-      "quarter": "季"
-    },
-    "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
-    "message": "-",
-    "timePeriod": "日期範圍",
-    "allAccountsSum": "所有帳號（總和）"
-  },
   "options": {
-    "switch": {
-      "on": "開啟",
-      "off": "關閉"
+    "activeAccounts": {
+      "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。",
+      "label": "啟用帳號"
     },
-    "button": {
-      "save": "儲存",
-      "clearCache": "清理快取"
+    "cache": {
+      "description": "啟用快取系統以更快地顯示已處理的統計資料。",
+      "label": "啟用快取"
+    },
+    "clearCache": {
+      "description": "從所有帳號中刪除所有統計資料的快取。快取將在再次開啟統計資訊頁面時重新創建。",
+      "empty": "快取為空",
+      "label": "清理快取",
+      "size": "快取大小為 {0}"
     },
     "darkMode": {
-      "label": "深色模式",
-      "description": "切換淺色與深色佈景主題"
+      "description": "切換淺色與深色佈景主題",
+      "label": "深色模式"
     },
-    "localIdentities": {
-      "label": "本機帳號",
-      "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識"
-    },
-    "startOfWeek": {
-      "label": "每一週的起始日為",
-      "description": "自定義工作日相關圖表的週起始日"
-    },
-    "message": "-",
     "headings": {
       "appearance": "外觀與體驗",
       "stats": "圖表和資料",
       "storage": "儲存和快取"
     },
-    "ordinate": {
-      "label": "垂直軸",
-      "description": "顯示所有折線圖和長條圖的垂直軸"
+    "localIdentities": {
+      "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識",
+      "label": "本機帳號"
     },
-    "activeAccounts": {
-      "label": "啟用帳號",
-      "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。"
-    },
-    "cache": {
-      "label": "啟用快取",
-      "description": "啟用快取系統以更快地顯示已處理的統計資料。"
-    },
-    "clearCache": {
-      "label": "清理快取",
-      "description": "從所有帳號中刪除所有統計資料的快取。快取將在再次開啟統計資訊頁面時重新創建。",
-      "empty": "快取為空",
-      "size": "快取大小為 {0}"
-    },
+    "message": "-",
     "note": {
-      "title": "注意",
-      "reloadStatsPage": "選項將自動保存。如果已經開啟統計頁面，則必須重新開啟或重新讀取才能應用變更。"
+      "reloadStatsPage": "選項將自動保存。如果已經開啟統計頁面，則必須重新開啟或重新讀取才能應用變更。",
+      "title": "注意"
+    },
+    "ordinate": {
+      "description": "顯示所有折線圖和長條圖的垂直軸",
+      "label": "垂直軸"
+    },
+    "startOfWeek": {
+      "description": "自定義工作日相關圖表的週起始日",
+      "label": "每一週的起始日為"
+    },
+    "switch": {
+      "off": "關閉",
+      "on": "開啟"
     }
+  },
+  "popup": {
+    "account": "帳號 | 帳號",
+    "folder": "文件夾 | 文件夾",
+    "message": "-"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "週",
+      "quarter": "季"
+    },
+    "accountEmpty": "當前帳號為空，並沒有任何郵件。",
+    "allAccountsSum": "所有帳號（總和）",
+    "charts": {
+      "contactsReceived": {
+        "description": "每位收件人發送的電子郵件數量",
+        "title": "收到最多郵件來自"
+      },
+      "contactsSent": {
+        "description": "每位寄件人收到的電子郵件數量",
+        "title": "寄送最多郵件去往"
+      },
+      "days": {
+        "description": "每個日期的電子郵件數",
+        "title": "{0} 天內的活躍狀況"
+      },
+      "daytime": {
+        "description": "每天的郵件總數",
+        "title": "天"
+      },
+      "month": {
+        "description": "每年每月的郵件數",
+        "title": "月"
+      },
+      "months": {
+        "description": "每月的郵件總數",
+        "title": "月"
+      },
+      "quarters": {
+        "description": "每季的郵件總數",
+        "title": "季"
+      },
+      "temporalDistribution": {
+        "description": "每小時每個工作日的電子郵件數量",
+        "title": "時間分佈"
+      },
+      "weekday": {
+        "description": "每週每天的郵件數",
+        "title": "週"
+      },
+      "weeks": {
+        "description": "每週的郵件總數",
+        "title": "週"
+      },
+      "years": {
+        "description": "每年的郵件總數",
+        "title": "年"
+      }
+    },
+    "loadingInProgress": "正在讀取當前帳號的所有電子郵件……",
+    "mailsPerDay": "每日郵件",
+    "mailsPerMonth": "每月郵件",
+    "mailsReceived": "已收到郵件",
+    "mailsSent": "已寄送郵件",
+    "mailsTotal": "郵件總數",
+    "mailsUnread": "未閱讀郵件",
+    "mailsWeek": "郵件/週",
+    "mailsYear": "郵件/年",
+    "message": "-",
+    "niceWork": "幹得好！",
+    "percentOfReceived": "已收到郵件的 {0}%",
+    "percentOfTotal": "佔郵件總數的 {0}%",
+    "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
+    "timePeriod": "日期範圍",
+    "tooltips": {
+      "clear": "清除選取內容",
+      "error": {
+        "dateFormat": "日期格式為 YYYY-MM-DD，例如：2020-01-31",
+        "dateOrderEnd": "結束日期必須晚於開始日期",
+        "dateOrderStart": "開始日期必須早於結束日期",
+        "dateUnreal": "必須輸入有效日期",
+        "empty": "請輸入內容"
+      },
+      "expand": "展開圖表區域",
+      "folder": {
+        "notAvailable": "文件夾不可用於 {0}"
+      },
+      "period": {
+        "end": "結束日期\n提示：鍵入 '{0}' 變為 '{1}'",
+        "start": "開始日期\n提示：鍵入 '{0}' 變為 '{1}'"
+      },
+      "refresh": "重新整理資料",
+      "shrink": "收起圖表區域"
+    },
+    "withinYears": "{0} 年內"
   }
 }

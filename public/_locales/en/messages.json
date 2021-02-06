@@ -2,184 +2,180 @@
   "extensionDescription": {
     "message": "Beautifully visualized statistics for your Thunderbird Email Accounts"
   },
-  "popup": {
-    "account": "Account | Accounts",
-    "folder": "Folder | Folders",
-    "messages": "Message | Messages",
-    "openAllStats": "Open all Stats",
-    "openOptions": "Open Options",
-    "message": "-"
-  },
-  "stats": {
-    "mailsTotal": "Mails total",
-    "withinYears": "within {0} years",
-    "mailsUnread": "Mails unread",
-    "niceWork": "Nice work!",
-    "percentOfReceived": "{0}% of received",
-    "mailsReceived": "Mails received",
-    "percentOfTotal": "{0}% of total",
-    "mailsSent": "Mails sent",
-    "mailsPerMonth": "Mails per month",
-    "mailsYear": "mails/year",
-    "mailsPerDay": "Mails per day",
-    "mailsWeek": "mails/week",
-    "loadingInProgress": "Loading of all emails from this account in progress...",
-    "accountEmpty": "This account is empty, no emails here.",
-    "allAccounts": "All Accounts",
-    "timePeriod": "Date range",
-    "dataCollected": "Data collected {0} ago",
-    "charts": {
-      "years": {
-        "title": "Years",
-        "description": "Total number of emails per year"
-      },
-      "quarters": {
-        "title": "Quarters",
-        "description": "Total number of emails per quarter"
-      },
-      "months": {
-        "title": "Months",
-        "description": "Total number of emails per month"
-      },
-      "weeks": {
-        "title": "Weeks",
-        "description": "Total number of emails per week"
-      },
-      "days": {
-        "title": "Activity in {0}",
-        "description": "Number of emails per date"
-      },
-      "daytime": {
-        "title": "Daytime",
-        "description": "Number of emails per time of day"
-      },
-      "weekday": {
-        "title": "Weekday",
-        "description": "Number of emails per day of week"
-      },
-      "month": {
-        "title": "Month",
-        "description": "Number of emails per month of year"
-      },
-      "temporalDistribution": {
-        "title": "Temporal distribution",
-        "description": "Number of emails per weekday per hour"
-      },
-      "contactsReceived": {
-        "title": "Most received from",
-        "description": "Number of emails received per sender"
-      },
-      "contactsSent": {
-        "title": "Most sent to",
-        "description": "Number of emails sent per recipient"
-      }
-    },
-    "tooltips": {
-      "comparison": "Compare accounts in one chart",
-      "sum": "Show sum of all accounts",
-      "expand": "Expand chart area",
-      "shrink": "Shrink chart area",
-      "refresh": "Refresh data",
-      "clear": "Clear selection",
-      "folder": {
-        "notAvailable": "Folders are not available for {0}"
-      },
-      "period": {
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'",
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'"
-      },
-      "error": {
-        "empty": "Input is required",
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateUnreal": "A valid date is required",
-        "dateOrderStart": "Start date must be before end date",
-        "dateOrderEnd": "End date must be after start date"
-      }
-    },
-    "abbreviations": {
-      "calendarWeek": "W",
-      "quarter": "Q",
-      "day": "d",
-      "hour": "h",
-      "minute": "min",
-      "second": "s"
-    },
-    "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
-    "message": "-"
-  },
   "options": {
-    "title": "Options",
+    "activeAccounts": {
+      "color": "Give each account a custom color to distinguish between them in comparison mode.",
+      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
+      "label": "Active Accounts"
+    },
+    "cache": {
+      "description": "Enable caching system for faster display of already processed stats data.",
+      "label": "Activate Cache"
+    },
+    "clearCache": {
+      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
+      "empty": "Cache is empty",
+      "label": "Clear Cache",
+      "size": "Cache size is {0}"
+    },
+    "darkMode": {
+      "description": "Switch between dark and light color scheme",
+      "label": "Dark Mode"
+    },
     "headings": {
       "appearance": "Appearance & Experience",
       "stats": "Charts & Data",
       "storage": "Storage & Cache"
     },
-    "switch": {
-      "on": "On",
-      "off": "Off"
-    },
-    "button": {
-      "save": "Save",
-      "clearCache": "Clear Cache"
-    },
-    "darkMode": {
-      "label": "Dark Mode",
-      "description": "Switch between dark and light color scheme"
-    },
-    "ordinate": {
-      "label": "Vertical Axis",
-      "description": "Display vertical axis for all line and bar charts"
+    "leaderCount": {
+      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
+      "label": "Leader Count"
     },
     "localIdentities": {
-      "label": "Local Identities",
-      "description": "A list of email addresses to recognize as 'sent from' for local accounts"
+      "description": "A list of email addresses to recognize as 'sent from' for local accounts",
+      "label": "Local Identities"
     },
-    "startOfWeek": {
-      "label": "Start the Week on",
-      "description": "Custom start of week for all weekday related charts"
+    "message": "-",
+    "note": {
+      "reloadStatsPage": "Options are automatically saved. If the stats page is already open, you have to reopen or reload it for changes to be applied. For some options it's also necessary to refresh cached data if cache is enabled.",
+      "title": "Note"
     },
-    "activeAccounts": {
-      "label": "Active Accounts",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "color": "Give each account a custom color to distinguish between them in comparison mode."
-    },
-    "selfMessages": {
-      "label": "Self Messages",
-      "description": "Exclude messages that were sent from me to myself",
-      "values": {
-        "none": "Disabled",
-        "sameAccount": "Same Account Only",
-        "anyAccount": "From Any Account"
-      },
-      "info": {
-        "none": "Self messages will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded",
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded"
-      }
-    },
-    "leaderCount": {
-      "label": "Leader Count",
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)"
-    },
-    "cache": {
-      "label": "Activate Cache",
-      "description": "Enable caching system for faster display of already processed stats data."
-    },
-    "clearCache": {
-      "label": "Clear Cache",
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "size": "Cache size is {0}"
+    "ordinate": {
+      "description": "Display vertical axis for all line and bar charts",
+      "label": "Vertical Axis"
     },
     "resetOptions": {
-      "label": "Reset Options",
       "description": "Reset all options to their default values.",
+      "label": "Reset Options",
       "removeIdentities": "This will also remove all local identities you created."
     },
-    "note": {
-      "title": "Note",
-      "reloadStatsPage": "Options are automatically saved. If the stats page is already open, you have to reopen or reload it for changes to be applied. For some options it's also necessary to refresh cached data if cache is enabled."
+    "selfMessages": {
+      "description": "Exclude messages that were sent from me to myself",
+      "info": {
+        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
+        "none": "Self messages will be included and treated as normal emails (default)",
+        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+      },
+      "label": "Self Messages",
+      "values": {
+        "anyAccount": "From Any Account",
+        "none": "Disabled",
+        "sameAccount": "Same Account Only"
+      }
     },
-    "message": "-"
+    "startOfWeek": {
+      "description": "Custom start of week for all weekday related charts",
+      "label": "Start the Week on"
+    },
+    "switch": {
+      "off": "Off",
+      "on": "On"
+    },
+    "title": "Options"
+  },
+  "popup": {
+    "account": "Account | Accounts",
+    "folder": "Folder | Folders",
+    "message": "-",
+    "messages": "Message | Messages",
+    "openAllStats": "Open all Stats",
+    "openOptions": "Open Options"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "W",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "quarter": "Q",
+      "second": "s"
+    },
+    "accountEmpty": "This account is empty, no emails here.",
+    "allAccounts": "All Accounts",
+    "charts": {
+      "contactsReceived": {
+        "description": "Number of emails received per sender",
+        "title": "Most received from"
+      },
+      "contactsSent": {
+        "description": "Number of emails sent per recipient",
+        "title": "Most sent to"
+      },
+      "days": {
+        "description": "Number of emails per date",
+        "title": "Activity in {0}"
+      },
+      "daytime": {
+        "description": "Number of emails per time of day",
+        "title": "Daytime"
+      },
+      "month": {
+        "description": "Number of emails per month of year",
+        "title": "Month"
+      },
+      "months": {
+        "description": "Total number of emails per month",
+        "title": "Months"
+      },
+      "quarters": {
+        "description": "Total number of emails per quarter",
+        "title": "Quarters"
+      },
+      "temporalDistribution": {
+        "description": "Number of emails per weekday per hour",
+        "title": "Temporal distribution"
+      },
+      "weekday": {
+        "description": "Number of emails per day of week",
+        "title": "Weekday"
+      },
+      "weeks": {
+        "description": "Total number of emails per week",
+        "title": "Weeks"
+      },
+      "years": {
+        "description": "Total number of emails per year",
+        "title": "Years"
+      }
+    },
+    "dataCollected": "Data collected {0} ago",
+    "loadingInProgress": "Loading of all emails from this account in progress...",
+    "mailsPerDay": "Mails per day",
+    "mailsPerMonth": "Mails per month",
+    "mailsReceived": "Mails received",
+    "mailsSent": "Mails sent",
+    "mailsTotal": "Mails total",
+    "mailsUnread": "Mails unread",
+    "mailsWeek": "mails/week",
+    "mailsYear": "mails/year",
+    "message": "-",
+    "niceWork": "Nice work!",
+    "percentOfReceived": "{0}% of received",
+    "percentOfTotal": "{0}% of total",
+    "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
+    "timePeriod": "Date range",
+    "tooltips": {
+      "clear": "Clear selection",
+      "comparison": "Compare accounts in one chart",
+      "error": {
+        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateOrderEnd": "End date must be after start date",
+        "dateOrderStart": "Start date must be before end date",
+        "dateUnreal": "A valid date is required",
+        "empty": "Input is required"
+      },
+      "expand": "Expand chart area",
+      "folder": {
+        "notAvailable": "Folders are not available for {0}"
+      },
+      "period": {
+        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
+        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+      },
+      "refresh": "Refresh data",
+      "shrink": "Shrink chart area",
+      "sum": "Show sum of all accounts"
+    },
+    "withinYears": "within {0} years"
   }
 }

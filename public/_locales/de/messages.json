@@ -2,184 +2,180 @@
   "extensionDescription": {
     "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
   },
-  "popup": {
-    "account": "Konto | Konten",
-    "folder": "Ordner | Ordner",
-    "message": "-",
-    "openAllStats": "Alle Statistiken anzeigen",
-    "openOptions": "Einstellungen öffnen",
-    "messages": "Nachricht | Nachrichten"
-  },
-  "stats": {
-    "mailsTotal": "E-Mails gesamt",
-    "withinYears": "in {0} Jahren",
-    "mailsUnread": "E-Mails ungelesen",
-    "niceWork": "Gute Arbeit!",
-    "percentOfReceived": "{0}% von Empfangenen",
-    "mailsReceived": "E-Mails empfangen",
-    "percentOfTotal": "{0}% von Gesamt",
-    "mailsSent": "E-Mails gesendet",
-    "mailsPerMonth": "E-Mails pro Monat",
-    "mailsYear": "E-Mails/Jahr",
-    "mailsPerDay": "E-Mails pro Tag",
-    "mailsWeek": "E-Mails/Woche",
-    "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
-    "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
-    "timePeriod": "Zeitraum",
-    "charts": {
-      "years": {
-        "title": "Jahre",
-        "description": "Gesamtanzahl aller E-Mails pro Jahr"
-      },
-      "quarters": {
-        "title": "Quartale",
-        "description": "Gesamtanzahl aller E-Mails pro Quartal"
-      },
-      "months": {
-        "title": "Monate",
-        "description": "Gesamtanzahl aller E-Mails pro Monat"
-      },
-      "weeks": {
-        "title": "Wochen",
-        "description": "Gesamtanzahl aller E-Mails pro Woche"
-      },
-      "days": {
-        "title": "Aktivitäten in {0}",
-        "description": "Anzahl aller E-Mails pro Tag"
-      },
-      "daytime": {
-        "title": "Uhrzeit",
-        "description": "Anzahl aller E-Mails pro Stunde am Tag"
-      },
-      "weekday": {
-        "title": "Wochentag",
-        "description": "Anzahl aller E-Mails pro Wochentag"
-      },
-      "month": {
-        "title": "Monat",
-        "description": "Anzahl aller E-Mails pro Monat im Jahr"
-      },
-      "temporalDistribution": {
-        "title": "Zeitliche Verteilung",
-        "description": "Anzahl aller E-Mails pro Wochentag pro Stunde"
-      },
-      "contactsReceived": {
-        "title": "Häufigste Absender",
-        "description": "Anzahl empfangener E-Mails pro Absender"
-      },
-      "contactsSent": {
-        "title": "Häufigste Empfänger",
-        "description": "Anzahl gesendeter E-Mails pro Empfänger"
-      }
-    },
-    "tooltips": {
-      "expand": "Bereich vergrößern",
-      "shrink": "Bereich verkleiner",
-      "refresh": "Daten aktualisieren",
-      "clear": "Auswahl aufheben",
-      "period": {
-        "start": "Startdatum\nTipp: '{0}' wird automatisch zu '{1}'",
-        "end": "Enddatum\nTipp: '{0}' wird automatisch zu '{1}'"
-      },
-      "error": {
-        "empty": "Eingabe ist erforderlich",
-        "dateFormat": "Format JJJJ-MM-TT ist erforderlich, z.B 2020-01-31",
-        "dateUnreal": "Ein gültiges Datum ist erforderlich",
-        "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
-        "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen"
-      },
-      "folder": {
-        "notAvailable": "Ordner sind für {0} nicht verfügbar"
-      },
-      "comparison": "Vergleichsansicht aller Konten",
-      "sum": "Summe aller Konten anzeigen"
-    },
-    "abbreviations": {
-      "calendarWeek": "KW",
-      "quarter": "Q",
-      "day": "d",
-      "hour": "h",
-      "minute": "min",
-      "second": "s"
-    },
-    "starAndImprove": "Mach mich zum Star auf <a href='{0}' target='_blank'>GitHub</a>.",
-    "message": "-",
-    "dataCollected": "Daten vor {0} abgerufen",
-    "allAccounts": "Alle Konten"
-  },
   "options": {
+    "activeAccounts": {
+      "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden.",
+      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
+      "label": "Aktive Konten"
+    },
+    "cache": {
+      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen",
+      "label": "Cache aktivieren"
+    },
+    "clearCache": {
+      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
+      "empty": "Der Cache ist leer",
+      "label": "Cache leeren",
+      "size": "Die Größe des Caches beträgt {0}"
+    },
+    "darkMode": {
+      "description": "Auswahl eines hellen oder dunklen Farbschemas",
+      "label": "Nachtmodus"
+    },
     "headings": {
       "appearance": "Aussehen & Nutzererlebnis",
       "stats": "Diagramme & Daten",
       "storage": "Speicher & Cache"
     },
-    "switch": {
-      "on": "An",
-      "off": "Aus"
-    },
-    "button": {
-      "save": "Speichern",
-      "clearCache": "Cache leeren"
-    },
-    "darkMode": {
-      "label": "Nachtmodus",
-      "description": "Auswahl eines hellen oder dunklen Farbschemas"
-    },
-    "ordinate": {
-      "label": "Vertikale Achse",
-      "description": "Vertikale Achse für alle Linien- und Balkendiagramme anzeigen"
+    "leaderCount": {
+      "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)",
+      "label": "Anzahl häufiger Kontakte"
     },
     "localIdentities": {
-      "label": "Lokale Identitäten",
-      "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten"
-    },
-    "startOfWeek": {
-      "label": "Die Woche startet am",
-      "description": "Benutzerdefinierter Wochenstart für alle wochentagsbezogenen Diagramme"
-    },
-    "activeAccounts": {
-      "label": "Aktive Konten",
-      "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
-      "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden."
-    },
-    "cache": {
-      "label": "Cache aktivieren",
-      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen"
-    },
-    "clearCache": {
-      "label": "Cache leeren",
-      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
-      "empty": "Der Cache ist leer",
-      "size": "Die Größe des Caches beträgt {0}"
-    },
-    "note": {
-      "title": "Hinweis",
-      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
+      "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten",
+      "label": "Lokale Identitäten"
     },
     "message": "-",
+    "note": {
+      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden.",
+      "title": "Hinweis"
+    },
+    "ordinate": {
+      "description": "Vertikale Achse für alle Linien- und Balkendiagramme anzeigen",
+      "label": "Vertikale Achse"
+    },
+    "resetOptions": {
+      "description": "Alle Einstellungen auf die Standardwerte zurücksetzen.",
+      "label": "Einstellungen zurücksetzen",
+      "removeIdentities": "Dadurch werden auch alle lokalen Identitäten gelöscht."
+    },
     "selfMessages": {
-      "label": "Eigennachrichten",
       "description": "Nachrichten ausschließen, die von mir an mich selbst gesendet wurden",
-      "values": {
-        "none": "Deaktiviert",
-        "sameAccount": "Vom gleichen Konto",
-        "anyAccount": "Von jedem Konto"
-      },
       "info": {
+        "anyAccount": "Nachrichten, bei denen sowohl Absender als auch Empfänger Identitäten eines beliebigen Kontos sind, werden ausgeschlossen",
         "none": "Eigennachrichten werden einbezogen und als normale E-Mails behandelt (Standard)",
-        "sameAccount": "Nachrichten, bei denen sowohl Absender als auch Empfänger Identitäten desselben Kontos sind, werden ausgeschlossen",
-        "anyAccount": "Nachrichten, bei denen sowohl Absender als auch Empfänger Identitäten eines beliebigen Kontos sind, werden ausgeschlossen"
+        "sameAccount": "Nachrichten, bei denen sowohl Absender als auch Empfänger Identitäten desselben Kontos sind, werden ausgeschlossen"
+      },
+      "label": "Eigennachrichten",
+      "values": {
+        "anyAccount": "Von jedem Konto",
+        "none": "Deaktiviert",
+        "sameAccount": "Vom gleichen Konto"
       }
     },
-    "leaderCount": {
-      "label": "Anzahl häufiger Kontakte",
-      "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)"
+    "startOfWeek": {
+      "description": "Benutzerdefinierter Wochenstart für alle wochentagsbezogenen Diagramme",
+      "label": "Die Woche startet am"
     },
-    "title": "Einstellungen",
-    "resetOptions": {
-      "label": "Einstellungen zurücksetzen",
-      "description": "Alle Einstellungen auf die Standardwerte zurücksetzen.",
-      "removeIdentities": "Dadurch werden auch alle lokalen Identitäten gelöscht."
-    }
+    "switch": {
+      "off": "Aus",
+      "on": "An"
+    },
+    "title": "Einstellungen"
+  },
+  "popup": {
+    "account": "Konto | Konten",
+    "folder": "Ordner | Ordner",
+    "message": "-",
+    "messages": "Nachricht | Nachrichten",
+    "openAllStats": "Alle Statistiken anzeigen",
+    "openOptions": "Einstellungen öffnen"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "KW",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "quarter": "Q",
+      "second": "s"
+    },
+    "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
+    "allAccounts": "Alle Konten",
+    "charts": {
+      "contactsReceived": {
+        "description": "Anzahl empfangener E-Mails pro Absender",
+        "title": "Häufigste Absender"
+      },
+      "contactsSent": {
+        "description": "Anzahl gesendeter E-Mails pro Empfänger",
+        "title": "Häufigste Empfänger"
+      },
+      "days": {
+        "description": "Anzahl aller E-Mails pro Tag",
+        "title": "Aktivitäten in {0}"
+      },
+      "daytime": {
+        "description": "Anzahl aller E-Mails pro Stunde am Tag",
+        "title": "Uhrzeit"
+      },
+      "month": {
+        "description": "Anzahl aller E-Mails pro Monat im Jahr",
+        "title": "Monat"
+      },
+      "months": {
+        "description": "Gesamtanzahl aller E-Mails pro Monat",
+        "title": "Monate"
+      },
+      "quarters": {
+        "description": "Gesamtanzahl aller E-Mails pro Quartal",
+        "title": "Quartale"
+      },
+      "temporalDistribution": {
+        "description": "Anzahl aller E-Mails pro Wochentag pro Stunde",
+        "title": "Zeitliche Verteilung"
+      },
+      "weekday": {
+        "description": "Anzahl aller E-Mails pro Wochentag",
+        "title": "Wochentag"
+      },
+      "weeks": {
+        "description": "Gesamtanzahl aller E-Mails pro Woche",
+        "title": "Wochen"
+      },
+      "years": {
+        "description": "Gesamtanzahl aller E-Mails pro Jahr",
+        "title": "Jahre"
+      }
+    },
+    "dataCollected": "Daten vor {0} abgerufen",
+    "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
+    "mailsPerDay": "E-Mails pro Tag",
+    "mailsPerMonth": "E-Mails pro Monat",
+    "mailsReceived": "E-Mails empfangen",
+    "mailsSent": "E-Mails gesendet",
+    "mailsTotal": "E-Mails gesamt",
+    "mailsUnread": "E-Mails ungelesen",
+    "mailsWeek": "E-Mails/Woche",
+    "mailsYear": "E-Mails/Jahr",
+    "message": "-",
+    "niceWork": "Gute Arbeit!",
+    "percentOfReceived": "{0}% von Empfangenen",
+    "percentOfTotal": "{0}% von Gesamt",
+    "starAndImprove": "Mach mich zum Star auf <a href='{0}' target='_blank'>GitHub</a>.",
+    "timePeriod": "Zeitraum",
+    "tooltips": {
+      "clear": "Auswahl aufheben",
+      "comparison": "Vergleichsansicht aller Konten",
+      "error": {
+        "dateFormat": "Format JJJJ-MM-TT ist erforderlich, z.B 2020-01-31",
+        "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen",
+        "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
+        "dateUnreal": "Ein gültiges Datum ist erforderlich",
+        "empty": "Eingabe ist erforderlich"
+      },
+      "expand": "Bereich vergrößern",
+      "folder": {
+        "notAvailable": "Ordner sind für {0} nicht verfügbar"
+      },
+      "period": {
+        "end": "Enddatum\nTipp: '{0}' wird automatisch zu '{1}'",
+        "start": "Startdatum\nTipp: '{0}' wird automatisch zu '{1}'"
+      },
+      "refresh": "Daten aktualisieren",
+      "shrink": "Bereich verkleiner",
+      "sum": "Summe aller Konten anzeigen"
+    },
+    "withinYears": "in {0} Jahren"
   }
 }

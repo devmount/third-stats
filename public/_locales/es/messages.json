@@ -2,99 +2,95 @@
   "extensionDescription": {
     "message": "Estadísticas visualmente bellas para sus cuentas de correo electrónico de Thunderbird"
   },
+  "options": {
+    "darkMode": {
+      "description": "Cambiar entre esquema de color obscuro y claro",
+      "label": "Modo obscuro"
+    },
+    "localIdentities": {
+      "description": "Una lista de direcciones de correos separados por coma para reconocer como 'enviados desde' para cuentas locales",
+      "label": "Indetidades locales"
+    },
+    "message": "-",
+    "switch": {
+      "off": "Desactivar",
+      "on": "Activar"
+    }
+  },
   "popup": {
     "account": "Cuenta | Cuentas",
-    "messagesInFolder": "{0} mensajes en {1} carpetas",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "Total de correos",
-    "withinYears": "en {0} años",
-    "mailsUnread": "Correos no leídos",
-    "niceWork": "Excelente trabajo!",
-    "percentOfReceived": "{0}% de recibidos",
-    "mailsReceived": "Correos recibidos",
-    "percentOfTotal": "{0}% del total",
-    "mailsSent": "Correos enviados",
-    "mailsPerMonth": "Correos al mes",
-    "mailsYear": "correos/año",
-    "mailsPerDay": "Correos al día",
-    "mailsWeek": "correos/semana",
-    "loadingInProgress": "Cargando todos los correos de esta cuenta en curso...",
-    "accountEmpty": "Esta cuenta está vacía, aquí no hay correos.",
-    "charts": {
-      "years": {
-        "title": "Años",
-        "description": "Total de correos por año"
-      },
-      "quarters": {
-        "title": "Cuatrimestre",
-        "description": "Total de correos por cuatrimestre"
-      },
-      "months": {
-        "title": "Meses",
-        "description": "Total de correos por mes"
-      },
-      "weeks": {
-        "title": "Semanas",
-        "description": "Total de correos por semana"
-      },
-      "days": {
-        "title": "Actividad en {0}",
-        "description": "Número de correos por día"
-      },
-      "daytime": {
-        "title": "Hora",
-        "description": "Total de correos por hora del día"
-      },
-      "weekday": {
-        "title": "Día de semana",
-        "description": "Total de correos por día de semana"
-      },
-      "month": {
-        "title": "Meses",
-        "description": "Total de correos por mes"
-      },
-      "temporalDistribution": {
-        "title": "Distribución temporal",
-        "description": "Correos por día de semana y hora"
-      },
-      "contactsReceived": {
-        "title": "Más recibidos de",
-        "description": "Número de correos recibidos por remitente"
-      },
-      "contactsSent": {
-        "title": "Más enviados a",
-        "description": "Número de correos enviados por destinatario"
-      }
-    },
-    "tooltips": {
-      "expand": "Expandir área del gráfico",
-      "shrink": "Reducir área del gráfico"
-    },
     "abbreviations": {
       "calendarWeek": "S",
       "quarter": "C"
     },
+    "accountEmpty": "Esta cuenta está vacía, aquí no hay correos.",
+    "charts": {
+      "contactsReceived": {
+        "description": "Número de correos recibidos por remitente",
+        "title": "Más recibidos de"
+      },
+      "contactsSent": {
+        "description": "Número de correos enviados por destinatario",
+        "title": "Más enviados a"
+      },
+      "days": {
+        "description": "Número de correos por día",
+        "title": "Actividad en {0}"
+      },
+      "daytime": {
+        "description": "Total de correos por hora del día",
+        "title": "Hora"
+      },
+      "month": {
+        "description": "Total de correos por mes",
+        "title": "Meses"
+      },
+      "months": {
+        "description": "Total de correos por mes",
+        "title": "Meses"
+      },
+      "quarters": {
+        "description": "Total de correos por cuatrimestre",
+        "title": "Cuatrimestre"
+      },
+      "temporalDistribution": {
+        "description": "Correos por día de semana y hora",
+        "title": "Distribución temporal"
+      },
+      "weekday": {
+        "description": "Total de correos por día de semana",
+        "title": "Día de semana"
+      },
+      "weeks": {
+        "description": "Total de correos por semana",
+        "title": "Semanas"
+      },
+      "years": {
+        "description": "Total de correos por año",
+        "title": "Años"
+      }
+    },
+    "loadingInProgress": "Cargando todos los correos de esta cuenta en curso...",
+    "mailsPerDay": "Correos al día",
+    "mailsPerMonth": "Correos al mes",
+    "mailsReceived": "Correos recibidos",
+    "mailsSent": "Correos enviados",
+    "mailsTotal": "Total de correos",
+    "mailsUnread": "Correos no leídos",
+    "mailsWeek": "correos/semana",
+    "mailsYear": "correos/año",
+    "message": "-",
+    "niceWork": "Excelente trabajo!",
+    "percentOfReceived": "{0}% de recibidos",
+    "percentOfTotal": "{0}% del total",
     "starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
-  },
-  "options": {
-    "switch": {
-      "on": "Activar",
-      "off": "Desactivar"
+    "tooltips": {
+      "expand": "Expandir área del gráfico",
+      "shrink": "Reducir área del gráfico"
     },
-    "button": {
-      "save": "Guardar"
-    },
-    "darkMode": {
-      "label": "Modo obscuro",
-      "description": "Cambiar entre esquema de color obscuro y claro"
-    },
-    "localIdentities": {
-      "label": "Indetidades locales",
-      "description": "Una lista de direcciones de correos separados por coma para reconocer como 'enviados desde' para cuentas locales"
-    },
-    "message": "-"
+    "withinYears": "en {0} años"
   }
 }

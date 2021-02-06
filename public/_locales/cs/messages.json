@@ -2,99 +2,95 @@
   "extensionDescription": {
     "message": "Krásně vizualizované statistiky pro vaše e-mailové účty Thunderbird"
   },
+  "options": {
+    "darkMode": {
+      "description": "Přepíná mezi tmavým a světlým barevným schématem",
+      "label": "Tmavý režím"
+    },
+    "localIdentities": {
+      "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')",
+      "label": "Místní identity"
+    },
+    "message": "-",
+    "switch": {
+      "off": "Vypnuto",
+      "on": "Zapnuto"
+    }
+  },
   "popup": {
     "account": "Účet | Účtů",
-    "messagesInFolder": "{0} zpráv v {1} složkách",
     "message": "-"
   },
   "stats": {
-    "mailsTotal": "Celkem e-mailů",
-    "withinYears": "během {0} let",
-    "mailsUnread": "Nepřečtené",
-    "niceWork": "Pěkná práce!",
-    "percentOfReceived": "{0}% přijatých",
-    "mailsReceived": "Přijaté",
-    "percentOfTotal": "{0}% z celkového počtu",
-    "mailsSent": "Odeslané",
-    "mailsPerMonth": "E-mailů za měsíc",
-    "mailsYear": "za rok",
-    "mailsPerDay": "E-mailů za den",
-    "mailsWeek": "za týden",
-    "loadingInProgress": "Načítám všechny e-mail z tohoto účtu...",
-    "accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
-    "charts": {
-      "years": {
-        "title": "Roky",
-        "description": "Celkový počet e-mailů za rok"
-      },
-      "quarters": {
-        "title": "Kvartály",
-        "description": "Celkový počet e-mailů za kvartál"
-      },
-      "months": {
-        "title": "Měsíce",
-        "description": "Celkový počet e-mailů za měsíc"
-      },
-      "weeks": {
-        "title": "Týdny",
-        "description": "Celkový počet e-mailů za týden"
-      },
-      "days": {
-        "title": "Aktivita za {0}",
-        "description": "Počet e-mailů za den"
-      },
-      "daytime": {
-        "title": "Během dne",
-        "description": "Počet e-mailů dle denní doby"
-      },
-      "weekday": {
-        "title": "Týden",
-        "description": "Počet e-mailů dle dní v týdnu"
-      },
-      "month": {
-        "title": "Měsíce",
-        "description": "Celkový počet e-mailů podle měsíců"
-      },
-      "temporalDistribution": {
-        "title": "Časová distribuce",
-        "description": "Počet e-mailů dle dní v týdnu a denní doby"
-      },
-      "contactsReceived": {
-        "title": "Nejvíce přijato",
-        "description": "Počet e-mailů odeslaných jednotlivým příjemcům"
-      },
-      "contactsSent": {
-        "title": "Nejvíce odesláno",
-        "description": "Počet e-mailů přijatých od jednotlivých odesílatelů"
-      }
-    },
-    "tooltips": {
-      "expand": "Zvětšit graf",
-      "shrink": "Zmenšit graf"
-    },
     "abbreviations": {
       "calendarWeek": "W",
       "quarter": "Q"
     },
+    "accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
+    "charts": {
+      "contactsReceived": {
+        "description": "Počet e-mailů odeslaných jednotlivým příjemcům",
+        "title": "Nejvíce přijato"
+      },
+      "contactsSent": {
+        "description": "Počet e-mailů přijatých od jednotlivých odesílatelů",
+        "title": "Nejvíce odesláno"
+      },
+      "days": {
+        "description": "Počet e-mailů za den",
+        "title": "Aktivita za {0}"
+      },
+      "daytime": {
+        "description": "Počet e-mailů dle denní doby",
+        "title": "Během dne"
+      },
+      "month": {
+        "description": "Celkový počet e-mailů podle měsíců",
+        "title": "Měsíce"
+      },
+      "months": {
+        "description": "Celkový počet e-mailů za měsíc",
+        "title": "Měsíce"
+      },
+      "quarters": {
+        "description": "Celkový počet e-mailů za kvartál",
+        "title": "Kvartály"
+      },
+      "temporalDistribution": {
+        "description": "Počet e-mailů dle dní v týdnu a denní doby",
+        "title": "Časová distribuce"
+      },
+      "weekday": {
+        "description": "Počet e-mailů dle dní v týdnu",
+        "title": "Týden"
+      },
+      "weeks": {
+        "description": "Celkový počet e-mailů za týden",
+        "title": "Týdny"
+      },
+      "years": {
+        "description": "Celkový počet e-mailů za rok",
+        "title": "Roky"
+      }
+    },
+    "loadingInProgress": "Načítám všechny e-mail z tohoto účtu...",
+    "mailsPerDay": "E-mailů za den",
+    "mailsPerMonth": "E-mailů za měsíc",
+    "mailsReceived": "Přijaté",
+    "mailsSent": "Odeslané",
+    "mailsTotal": "Celkem e-mailů",
+    "mailsUnread": "Nepřečtené",
+    "mailsWeek": "za týden",
+    "mailsYear": "za rok",
+    "message": "-",
+    "niceWork": "Pěkná práce!",
+    "percentOfReceived": "{0}% přijatých",
+    "percentOfTotal": "{0}% z celkového počtu",
     "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>",
-    "message": "-"
-  },
-  "options": {
-    "switch": {
-      "on": "Zapnuto",
-      "off": "Vypnuto"
+    "tooltips": {
+      "expand": "Zvětšit graf",
+      "shrink": "Zmenšit graf"
     },
-    "button": {
-      "save": "Uložit"
-    },
-    "darkMode": {
-      "label": "Tmavý režím",
-      "description": "Přepíná mezi tmavým a světlým barevným schématem"
-    },
-    "localIdentities": {
-      "label": "Místní identity",
-      "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')"
-    },
-    "message": "-"
+    "withinYears": "během {0} let"
   }
 }
