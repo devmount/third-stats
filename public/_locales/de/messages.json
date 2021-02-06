@@ -5,10 +5,10 @@
   "popup": {
     "account": "Konto | Konten",
     "folder": "Ordner | Ordner",
-    "messages": "Nachricht | Nachrichten",
+    "message": "-",
     "openAllStats": "Alle Statistiken anzeigen",
     "openOptions": "Einstellungen öffnen",
-    "message": "-"
+    "messages": "Nachricht | Nachrichten"
   },
   "stats": {
     "mailsTotal": "E-Mails gesamt",
@@ -25,8 +25,6 @@
     "mailsWeek": "E-Mails/Woche",
     "loadingInProgress": "E-Mails für dieses Konto werden geladen...",
     "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
-    "allAccounts": "Alle Konten",
-    "dataCollected": "Daten vor {0} abgerufen",
     "timePeriod": "Zeitraum",
     "charts": {
       "years": {
@@ -79,9 +77,6 @@
       "shrink": "Bereich verkleiner",
       "refresh": "Daten aktualisieren",
       "clear": "Auswahl aufheben",
-      "folder": {
-        "notAvailable": "Ordner sind für {0} nicht verfügbar"
-      },
       "period": {
         "start": "Startdatum\nTipp: '{0}' wird automatisch zu '{1}'",
         "end": "Enddatum\nTipp: '{0}' wird automatisch zu '{1}'"
@@ -92,7 +87,12 @@
         "dateUnreal": "Ein gültiges Datum ist erforderlich",
         "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
         "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen"
-      }
+      },
+      "folder": {
+        "notAvailable": "Ordner sind für {0} nicht verfügbar"
+      },
+      "comparison": "Vergleichsansicht aller Konten",
+      "sum": "Summe aller Konten anzeigen"
     },
     "abbreviations": {
       "calendarWeek": "KW",
@@ -103,10 +103,11 @@
       "second": "s"
     },
     "starAndImprove": "Mach mich zum Star auf <a href='{0}' target='_blank'>GitHub</a>.",
-    "message": "-"
+    "message": "-",
+    "dataCollected": "Daten vor {0} abgerufen",
+    "allAccounts": "Alle Konten"
   },
   "options": {
-    "title": "Einstellungen",
     "headings": {
       "appearance": "Aussehen & Nutzererlebnis",
       "stats": "Diagramme & Daten",
@@ -141,6 +142,21 @@
       "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
       "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden."
     },
+    "cache": {
+      "label": "Cache aktivieren",
+      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen"
+    },
+    "clearCache": {
+      "label": "Cache leeren",
+      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
+      "empty": "Der Cache ist leer",
+      "size": "Die Größe des Caches beträgt {0}"
+    },
+    "note": {
+      "title": "Hinweis",
+      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
+    },
+    "message": "-",
     "selfMessages": {
       "label": "Eigennachrichten",
       "description": "Nachrichten ausschließen, die von mir an mich selbst gesendet wurden",
@@ -159,25 +175,11 @@
       "label": "Anzahl häufiger Kontakte",
       "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)"
     },
-    "cache": {
-      "label": "Cache aktivieren",
-      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen"
-    },
-    "clearCache": {
-      "label": "Cache leeren",
-      "description": "Alle Statistikdaten aller Konten aus dem Cache löschen. Durch Öffnen der Statistikseite wird der Cache neu aufgebaut.",
-      "empty": "Der Cache ist leer",
-      "size": "Die Größe des Caches beträgt {0}"
-    },
+    "title": "Einstellungen",
     "resetOptions": {
       "label": "Einstellungen zurücksetzen",
       "description": "Alle Einstellungen auf die Standardwerte zurücksetzen.",
       "removeIdentities": "Dadurch werden auch alle lokalen Identitäten gelöscht."
-    },
-    "note": {
-      "title": "Hinweis",
-      "reloadStatsPage": "Die Einstellungen werden automatisch gespeichert. Wenn die Statistikseite bereits geöffnet ist, muss diese neu geladen werden, damit Änderungen wirksam werden."
-    },
-    "message": "-"
+    }
   }
 }
