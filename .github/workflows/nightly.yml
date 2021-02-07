@@ -38,7 +38,7 @@ jobs:
       run: |
         PACKAGE_JSON_PATH="${1-.}"
         echo "Reading package.json from ${PACKAGE_JSON_PATH}/package.json"
-        patch=$(cat ${PACKAGE_JSON_PATH}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+        patch=v$(cat ${PACKAGE_JSON_PATH}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
         echo "Got version ${patch}. Now increment it!"
         [[ ${patch::-2} =~ ([^0-9].*)([0-9]+) ]]
         next="${BASH_REMATCH[1]}$(( ${BASH_REMATCH[2]} + 1 ))"
