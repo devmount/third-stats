@@ -36,7 +36,6 @@ jobs:
     - name: Get Version
       id: version
       run: |
-        git fetch --tags
         patch="$(git describe --abbrev=0 --tags 2>/dev/null)"
         [[ ${patch::-2} =~ ([^0-9].*)([0-9]+) ]]
         next="${BASH_REMATCH[1]}$(( ${BASH_REMATCH[2]} + 1 ))"
