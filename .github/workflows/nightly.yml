@@ -1,5 +1,5 @@
 # This workflow will do a clean install of node dependencies and build the application across different versions of node
-# It creates a thunderbird add-on XPI file from it and stores it as artifact
+# It creates a thunderbird add-on .xpi file from it and stores it as artifact
 
 name: Nightly build
 
@@ -36,7 +36,9 @@ jobs:
     - name: Get Version
       id: version
       run: |
-        patch="$(git describe --abbrev=0 --tags 2>/dev/null)"
+        PACKAGE_JSON_PATH="${1-.}"
+        echo "Reading package.json from ${PACKAGE_JSON_PATH}/package.json"
+        patch=$(cat ${PACKAGE_JSON_PATH}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
         [[ ${patch::-2} =~ ([^0-9].*)([0-9]+) ]]
         next="${BASH_REMATCH[1]}$(( ${BASH_REMATCH[2]} + 1 ))"
         echo ::set-output name=next::${next}
