@@ -39,9 +39,17 @@ jobs:
         PACKAGE_JSON_PATH="${1-.}"
         echo "Reading package.json from ${PACKAGE_JSON_PATH}/package.json"
         patch=$(cat ${PACKAGE_JSON_PATH}/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+        echo "Got version ${patch}. Now increment it!"
         [[ ${patch::-2} =~ ([^0-9].*)([0-9]+) ]]
         next="${BASH_REMATCH[1]}$(( ${BASH_REMATCH[2]} + 1 ))"
+        echo "Assumed next version is ${next}"
         echo ::set-output name=next::${next}
+    - name: Build filename
+      id: file
+      run: |
+        filename=third-stats_${{ steps.version.outputs.next }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+        echo "Build filename ${filename}"
+        echo ::set-output name=name::${filename}
     - name: Build app using Yarn
       run: |
         npm install -g yarn
@@ -51,12 +59,12 @@ jobs:
       shell: bash
       run: |
         cd dist/
-        zip -q -r ../third-stats_${{ steps.version.outputs.minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi ./
+        zip -q -r ../${{ steps.file.outputs.name }} ./
     - name: Upload add-on nightly build artifact
       uses: actions/upload-artifact@v2
       with:
         name: third-stats-nightly
-        path: third-stats_${{ steps.version.outputs.minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+        path: ${{ steps.file.outputs.name }}
     - name: Push add-on to CDN
       uses: kostya-ten/ssh-server-deploy@v4
       with:
@@ -64,5 +72,5 @@ jobs:
         port: ${{ secrets.CDN_PORT }}
         username: ${{ secrets.CDN_USER }}
         password: ${{ secrets.CDN_PASS }}
-        scp_source: third-stats_${{ steps.version.outputs.minor }}-alpha.${{needs.timestamp.outputs.timestamp}}.xpi
+        scp_source: ${{ steps.file.outputs.name }}
         scp_target: ${{ secrets.CDN_PATH }}/
