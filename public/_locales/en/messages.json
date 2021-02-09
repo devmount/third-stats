@@ -109,6 +109,14 @@
         "description": "Number of emails per time of day",
         "title": "Daytime"
       },
+      "foldersReceived": {
+        "description": "Number of received emails per folder",
+        "title": "Folders received"
+      },
+      "foldersSent": {
+        "description": "Number of sent emails per folder",
+        "title": "Folders sent"
+      },
       "month": {
         "description": "Number of emails per month of year",
         "title": "Month"
