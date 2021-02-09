@@ -542,7 +542,7 @@
 						</div>
 					</div>
 					<!-- section: folders -->
-					<div class='tab-area'>
+					<div class='tab-area' v-if="display.folders">
 						<ul class='tab'>
 							<li
 								v-for='(active, label) in tabs.folders'
@@ -550,7 +550,7 @@
 								class='tab-item cursor-default tooltip tooltip-bottom'
 								:data-tooltip='$t("stats.charts." + label + ".description")'
 								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("folder", label)'
+								@click='activateTab("folders", label)'
 							>
 								<span
 									class="transition-color transition-border-color"
@@ -1211,8 +1211,8 @@ export default {
 				sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), this.preferences.leaderCount)
 				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.leaderCount)
 				// folders
-				sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders.received), [])))
-				sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders.sent), [])))
+				sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])))
+				sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])))
 				// show summed stats
 				this.display = sum
 
@@ -1900,7 +1900,7 @@ export default {
 			}
 		},
 		// prepare data for sent emails per folder doughnut chart
-		sentfoldersChartData () {
+		sentFoldersChartData () {
 			let s = this.display.folders.sent
 			return {
 				datasets: [
