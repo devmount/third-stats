@@ -929,9 +929,12 @@ export default {
 				// increment current progress by 1 for each folder
 				self.progress.current++
 			})).then(() => {
-				// post processing: reduce size of contacts to configured limit
+				// post processing: sort and reduce size of contacts to configured limit
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.leaderCount)
 				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.leaderCount)
+				// post processing: sort folders
+				accountData.folders.received = sortAndLimitObject(accountData.folders.received)
+				accountData.folders.sent = sortAndLimitObject(accountData.folders.sent)
 				// post processing: add timestamp of finished processing
 				accountData.meta.timestamp = Date.now()
 			})
