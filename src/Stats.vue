@@ -553,8 +553,7 @@
 								@click='activateTab("folders", label)'
 							>
 								<span
-									class="transition-color transition-border-color"
-									:class='{ "border-bottom-accent2": label=="foldersReceived", "border-bottom-accent1": label=="foldersSent"}'
+									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
 								>
 									{{ $t('stats.charts.' + label + '.title') }}
 								</span>
@@ -563,16 +562,9 @@
 						<div class="tab-content mt-1">
 							<!-- folders emails received -->
 							<BarChart
-								v-if='tabs.folders.foldersReceived'
-								:datasets='receivedFoldersChartData.datasets'
-								:labels='receivedFoldersChartData.labels'
-								:horizontal='true'
-							/>
-							<!-- folders emails sent -->
-							<BarChart
-								v-if='tabs.folders.foldersSent'
-								:datasets='sentFoldersChartData.datasets'
-								:labels='sentFoldersChartData.labels'
+								v-if='tabs.folders.foldersDistribution'
+								:datasets='foldersChartData.datasets'
+								:labels='foldersChartData.labels'
 								:horizontal='true'
 							/>
 						</div>
@@ -745,8 +737,7 @@ export default {
 					contactsSent: false,
 				},
 				folders: {
-					foldersReceived: true,
-					foldersSent: false,
+					foldersDistribution: true,
 				},
 			},
 			preferences: {   // preferences set for this page
@@ -1874,7 +1865,7 @@ export default {
 		},
 		// prepare data for received emails leaderboard horizontal bar chart
 		receivedContactLeadersChartData () {
-			let r = this.display.contacts.received
+			const r = this.display.contacts.received
 			return {
 				datasets: [
 					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
@@ -1884,7 +1875,7 @@ export default {
 		},
 		// prepare data for sent emails leaderboard horizontal bar chart
 		sentContactLeadersChartData () {
-			let s = this.display.contacts.sent
+			const s = this.display.contacts.sent
 			return {
 				datasets: [
 					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
@@ -1892,24 +1883,27 @@ export default {
 				labels: Object.keys(s)
 			}
 		},
-		// prepare data for received emails per folder doughnut chart
-		receivedFoldersChartData () {
-			let r = this.display.folders.received
+		// prepare data for emails per folder doughnut charts
+		foldersChartData () {
+			const r = this.display.folders.received, s = this.display.folders.sent
+			let dr = [], ds = [], labels = []
+			let all = Array.from(new Set([...Object.keys(r), ...Object.keys(s)]))
+			all.sort((a, b) => a.localeCompare(b, this.$i18n.locale, { sensitivity: 'base' }))
+			all.map(d => {
+				dr.push(r[d] ? r[d] : 0)
+				ds.push(s[d] ? s[d] : 0)
+				labels.push(d)
+			})
+			console.log(all)
+			console.log(dr)
+			console.log(ds)
+			console.log(labels)
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 				],
-				labels: Object.keys(r)
-			}
-		},
-		// prepare data for sent emails per folder doughnut chart
-		sentFoldersChartData () {
-			let s = this.display.folders.sent
-			return {
-				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-				],
-				labels: Object.keys(s)
+				labels: labels
 			}
 		},
 		// returns true, if at least one filter isn't empty
