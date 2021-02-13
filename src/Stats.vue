@@ -561,11 +561,10 @@
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- folders emails received -->
-							<BarChart
+							<DoughnutChart
 								v-if='tabs.folders.foldersDistribution'
 								:datasets='foldersChartData.datasets'
 								:labels='foldersChartData.labels'
-								:horizontal='true'
 							/>
 						</div>
 					</div>
@@ -608,6 +607,7 @@ import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterN
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
+import DoughnutChart from './charts/DoughnutChart'
 import LiveAge from './parts/LiveAge'
 
 // initialize Chart.js with global configuration
@@ -687,7 +687,7 @@ const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default {
 	name: 'Stats',
-	components: { LineChart, BarChart, HeatMap, LiveAge },
+	components: { LineChart, BarChart, HeatMap, DoughnutChart, LiveAge },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
