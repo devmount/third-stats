@@ -1894,14 +1894,10 @@ export default {
 				ds.push(s[d] ? s[d] : 0)
 				labels.push(d)
 			})
-			console.log(all)
-			console.log(dr)
-			console.log(ds)
-			console.log(labels)
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
-					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)' },
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)' },
 				],
 				labels: labels
 			}

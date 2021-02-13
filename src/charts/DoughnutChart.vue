@@ -36,8 +36,8 @@ export default {
 				datasets.push({
 					label: dataset.label,
 					data: dataset.data,
-					backgroundColor: dataset.bcolor,
-					borderWidth: 2,
+					backgroundColor: this.dataColors(dataset.data, dataset.color),
+					borderWidth: 0,
 					borderColor: dataset.color,
 				})
 			}
@@ -55,12 +55,25 @@ export default {
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					cutoutPercentage: 40,
+					cutoutPercentage: 50,
 					circumference: Math.PI,
 					rotation: -Math.PI
 				}
 			})
 		},
+		// calculate opacity for given value based on max value
+		opacity (value, max) {
+			return max == 0 ? 0 : value/max
+		},
+		// calculate list of background colors for each data arc
+		dataColors (data, color) {
+			let colors = []
+			const max = Math.max(...data)
+			data.map(d => {
+				colors.push(color.replace(')', ', ' + this.opacity(d, max) + ')'))
+			})
+			return colors
+		}
 	},
 	watch: {
 		// update chart if data changes in an animatable way
