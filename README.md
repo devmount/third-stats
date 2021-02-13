@@ -69,7 +69,10 @@ Contributions are very welcome! See the [Contribution Guidelines](./.github/CONT
 
 ### Spread the word
 
-Give this project a star on GitHub ⭐! Tell your friends and colleagues to try ThirdStats.
+- [Give this project a star](https://github.com/devmount/third-stats/stargazers) on GitHub ⭐
+- [Write a short review](https://addons.thunderbird.net/en-US/thunderbird/addon/thirdstats/#reviews) on addons.thunderbird.net (ATN) ✏
+- [Tweet it](https://twitter.com/intent/tweet?text=ThirdStats%20-%20a%20Thunderbird%20add-on%20for%20beautifully%20visualized%20email%20account%20stats%20by%20%40devmount%20%23thunderbird%20%23statistics%20https://addons.thunderbird.net/thunderbird/addon/thirdstats) 💬
+- Tell your friends and colleagues to try ThirdStats 💬
 
 ### Become a tester
 
