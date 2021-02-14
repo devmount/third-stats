@@ -541,6 +541,34 @@
 							/>
 						</div>
 					</div>
+					<!-- section: folders -->
+					<div class='tab-area' v-if="display.folders">
+						<ul class='tab'>
+							<li
+								v-for='(active, label) in tabs.folders'
+								:key='label'
+								class='tab-item cursor-default tooltip tooltip-bottom'
+								:data-tooltip='$t("stats.charts." + label + ".description")'
+								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
+								@click='activateTab("folders", label)'
+							>
+								<span
+									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
+								>
+									{{ $t('stats.charts.' + label + '.title') }}
+								</span>
+							</li>
+						</ul>
+						<div class="tab-content mt-1">
+							<!-- folders emails received -->
+							<DoughnutChart
+								v-if='tabs.folders.foldersDistribution'
+								:info='{ number: foldersChartData.labels.length, label: $tc("stats.nonEmptyFolders", foldersChartData.labels.length) }'
+								:datasets='foldersChartData.datasets'
+								:labels='foldersChartData.labels'
+							/>
+						</div>
+					</div>
 				</div>
 			</section>
 			<!-- footer -->
@@ -580,6 +608,7 @@ import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterN
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
+import DoughnutChart from './charts/DoughnutChart'
 import LiveAge from './parts/LiveAge'
 
 // initialize Chart.js with global configuration
@@ -643,7 +672,8 @@ const sumObjectsArrays = (objs) => {
 	return res
 }
 // helper function to sort object properties by value, limit entries and return an object again
-const sortAndLimitObject = (obj, limit) => {
+const sortAndLimitObject = (obj, limit=0) => {
+	if (limit <= 0) limit = Object.keys(obj).length
 	let r = Object.entries(obj).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
 	return Object.keys(r)
 		.slice(0, limit)
@@ -658,7 +688,7 @@ const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default {
 	name: 'Stats',
-	components: { LineChart, BarChart, HeatMap, LiveAge },
+	components: { LineChart, BarChart, HeatMap, DoughnutChart, LiveAge },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
@@ -706,6 +736,9 @@ export default {
 				leader: {
 					contactsReceived: true,
 					contactsSent: false,
+				},
+				folders: {
+					foldersDistribution: true,
 				},
 			},
 			preferences: {   // preferences set for this page
@@ -801,6 +834,10 @@ export default {
 					received: {},
 					sent: {},
 				},
+				folders: {
+					received: {},
+					sent: {},
+				},
 			}
 		},
 		// basic data structure to display charts
@@ -884,9 +921,12 @@ export default {
 				// increment current progress by 1 for each folder
 				self.progress.current++
 			})).then(() => {
-				// post processing: reduce size of contacts to configured limit
+				// post processing: sort and reduce size of contacts to configured limit
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.leaderCount)
 				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.leaderCount)
+				// post processing: sort folders
+				accountData.folders.received = sortAndLimitObject(accountData.folders.received)
+				accountData.folders.sent = sortAndLimitObject(accountData.folders.sent)
 				// post processing: add timestamp of finished processing
 				accountData.meta.timestamp = Date.now()
 			})
@@ -1021,6 +1061,13 @@ export default {
 					break;
 				default:
 					break;
+			}
+			// folders
+			const f = m.folder.name
+			if (!(f in data.folders[type])) {
+				data.folders[type][f] = 1
+			} else {
+				data.folders[type][f]++
 			}
 		},
 		// check if a <message> is a self message
@@ -1158,6 +1205,9 @@ export default {
 				// contacts
 				sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), this.preferences.leaderCount)
 				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.leaderCount)
+				// folders
+				sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])))
+				sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])))
 				// show summed stats
 				this.display = sum
 
@@ -1816,7 +1866,7 @@ export default {
 		},
 		// prepare data for received emails leaderboard horizontal bar chart
 		receivedContactLeadersChartData () {
-			let r = this.display.contacts.received
+			const r = this.display.contacts.received
 			return {
 				datasets: [
 					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
@@ -1826,12 +1876,31 @@ export default {
 		},
 		// prepare data for sent emails leaderboard horizontal bar chart
 		sentContactLeadersChartData () {
-			let s = this.display.contacts.sent
+			const s = this.display.contacts.sent
 			return {
 				datasets: [
 					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
 				],
 				labels: Object.keys(s)
+			}
+		},
+		// prepare data for emails per folder doughnut charts
+		foldersChartData () {
+			const r = this.display.folders.received, s = this.display.folders.sent
+			let dr = [], ds = [], labels = []
+			let all = Array.from(new Set([...Object.keys(r), ...Object.keys(s)]))
+			all.sort((a, b) => a.localeCompare(b, this.$i18n.locale, { sensitivity: 'base' }))
+			all.map(d => {
+				dr.push(r[d] ? r[d] : 0)
+				ds.push(s[d] ? s[d] : 0)
+				labels.push(d)
+			})
+			return {
+				datasets: [
+					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)' },
+					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)' },
+				],
+				labels: labels
 			}
 		},
 		// returns true, if at least one filter isn't empty
