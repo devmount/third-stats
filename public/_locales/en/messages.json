@@ -154,6 +154,7 @@
     "mailsYear": "mails/year",
     "message": "-",
     "niceWork": "Nice work!",
+    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
     "percentOfReceived": "{0}% of received",
     "percentOfTotal": "{0}% of total",
     "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",

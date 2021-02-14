@@ -563,6 +563,7 @@
 							<!-- folders emails received -->
 							<DoughnutChart
 								v-if='tabs.folders.foldersDistribution'
+								:info='{ number: foldersChartData.labels.length, label: $tc("stats.nonEmptyFolders", foldersChartData.labels.length) }'
 								:datasets='foldersChartData.datasets'
 								:labels='foldersChartData.labels'
 							/>

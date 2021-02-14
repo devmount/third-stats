@@ -4,6 +4,10 @@
 	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
 	<div class="chart-container">
 		<canvas :id='id'></canvas>
+		<div v-if="info" class="chart-info">
+			<div class="featured">{{ info.number }}</div>
+			<div class="text-gray">{{ info.label }}</div>
+		</div>
 	</div>
 </div>
 </template>
@@ -14,6 +18,7 @@ export default {
 	props: {
 		title: String,
 		description: String,
+		info: String,
 		labels: Array,
 		datasets: Array,
 	},
@@ -114,4 +119,14 @@ export default {
 	&>.chart-container
 		position relative
 		flex 1 1 auto
+		.chart-info
+			position: absolute
+			bottom: 3rem
+			left: 50%
+			transform: translateX(-50%)
+			text-align: center
+			.featured
+				font-size: 3.25em
+				line-height: 1em
+				font-weight: 500
 </style>
