@@ -59,6 +59,7 @@ label
 hr
 	border: none
 	height: 1px
+	width: 50%
 	for m, c in mode
 		.{m} &
 			background: c.gray2
@@ -168,6 +169,8 @@ for m, c in mode
 	margin-left: 2rem
 .ml-auto
 	margin-left: auto
+.mb--0-25
+	margin-bottom: -.25rem
 .mb-0-5
 	margin-bottom: .5rem
 .mb-1
@@ -257,6 +260,8 @@ for m, c in mode
 	align-items: center
 .align-items-start
 	align-items: flex-start
+.align-items-end
+	align-items: flex-end
 .position-fixed
 	position: fixed
 .position-absolute
@@ -302,6 +307,10 @@ for m, c in mode
 	&.icon-text
 		width: 1rem
 		height: 1rem
+
+	&.icon-tiny
+		width: 1.25rem
+		height: 1.25rem
 
 	&.icon-small
 		width: 1.5rem

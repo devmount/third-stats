@@ -773,6 +773,23 @@ export default {
 		// initially reset displayed data
 		this.display = JSON.parse(JSON.stringify(this.initData()))
 		this.comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
+		// watch for option changes
+		messenger.storage.onChanged.addListener((result, area) => {
+			if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
+				const n = result.options.newValue, o = result.options.oldValue
+				// only update, if options changed that can be directly applied
+				// and don't need a window refresh or data reprocessing
+				if (n.dark != o.dark) this.preferences.dark = n.dark
+				if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
+				if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
+				if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(',').map(x => x.trim())
+				if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
+				if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
+				if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
+				if (n.leaderCount != o.leaderCount) this.preferences.leaderCount = n.leaderCount
+				if (n.cache != o.cache) this.preferences.cache = n.cache
+			}
+		})
 		// get stored options
 		await this.getOptions()
 		// retrieve all accounts
@@ -2041,11 +2058,11 @@ body
 					&>*
 						margin: 0 0 1rem 0
 			#chart-area-top
-				grid-template-columns: calc(100%-1rem)
+				grid-template-columns: calc(100% - 1rem)
 				.resizer
 					display: none
 			#chart-area-main
-				grid-template-columns: calc(100%-1rem)
+				grid-template-columns: calc(100% - 1rem)
 		@media (max-width: 960px)
 			.numbers
 				grid-template-columns: repeat(3, 1fr)
