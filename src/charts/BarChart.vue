@@ -111,6 +111,11 @@ export default {
 				})
 			}
 			this.chart.update()
+		},
+		// update chart if ordinate display changes
+		ordinate (newValue) {
+			this.chart.options.scales.yAxes[0].display = this.horizontal || newValue
+			this.chart.update()
 		}
 	}
 }
