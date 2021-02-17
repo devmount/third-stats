@@ -786,7 +786,7 @@ export default {
 				if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
 				if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
 				if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
-				if (n.leaderCount != o.leaderCount)  this.preferences.leaderCount = n.leaderCount
+				if (n.leaderCount != o.leaderCount) this.preferences.leaderCount = n.leaderCount
 				if (n.cache != o.cache) this.preferences.cache = n.cache
 			}
 		})

@@ -38,8 +38,8 @@
     "message": "-",
     "note": {
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "Stats window needs to be reloaded",
-      "refreshCacheRequired": "Cache needs to be rebuild",
+      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "title": "Note"
     },
     "ordinate": {
