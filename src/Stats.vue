@@ -114,7 +114,7 @@
 					<!-- data export -->
 					<div
 						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-2'
-						:data-tooltip='$t("stats.exportData")'
+						:data-tooltip='$t("stats.tooltips.exportData")'
 						@click="exportJson()"
 					>
 						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
