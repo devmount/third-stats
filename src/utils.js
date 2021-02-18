@@ -16,9 +16,9 @@ let traverseAccount = (account) => {
 // function to extract an email address from a given string
 let extractEmailAddress = (s) => {
 	if (s.lastIndexOf("<")>=0 && s.lastIndexOf(">")>=0) {
-		return s.substring(s.lastIndexOf("<") + 1, s.lastIndexOf(">"))
+		return s.substring(s.lastIndexOf("<") + 1, s.lastIndexOf(">")).toLowerCase()
 	} else {
-		return s
+		return s.toLowerCase()
 	}
 }
 
