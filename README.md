@@ -47,23 +47,9 @@ Here is how ThirdStats looks like on the Thunderbird default dark theme and ligh
 
 ## Privacy and Security
 
-**Is the extension fully contained or does it request any data like (js packages) from third-party CDN servers?**  
-This extension is fully contained. All [dependencies](https://github.com/devmount/third-stats/network/dependencies) are retrieved and minified on build. No CDN is contacted during installation or runtime or ever on your side. You can verify that by opening the network tab in the dev tools and browsing ThirdStats.
+TL;DR: ThirdStats is fully contained and doesn't contact any third-party CDN servers. It runs locally without any webserver. ThirdStats stores processed data in a cache, but you can clear and disable it. ThirdStats will never store this data elsewhere, nor sent or sell it anywhere. ThirdStats needs permissions to access accounts, read email headers, open tabs, use extension storage and download export files.
 
-**Does it collect and sell my data?**  
-ThirdStats does store the processed stats data in Thunderbirds extension storage for perfomance reasons, called the ThirdStats cache. You can clear and disable it in the add-on options, if you don't want that. As long as I am in my right mind, **none of my OS projects will ever sell user data**!
-
-**What exactly are all the permissions used for?**  
-ThirdStats needs 4 permissions to work (Thunderbird may not ask for all of them when installing this add-on):
-
-- `accountsRead`: To iterate over all messages in all folders of your Thunderbird accounts to count and process them
-- `messagesRead`: To read the message header and retrieve the following information from it: *author*, *bccList*, *ccList*, *date*, *read*, *recipients*
-- `tabs`: To open the stats page and the options page in a new tab
-- `storage`: To save processed data in Thunderbirds extension storage
-- `downloads`: To export processed stats data as JSON file
-
-**Does it run as a web server with an open port which would expose it to vulnerabilities?**  
-No. It only runs locally. You can check the [build files](https://third-stats.cdn.devmount.com/) yourself anytime by renaming `.xpi` to `.zip`, unzip it and browse the files
+See the [Security Policy](./SECURITY.md) for details how ThirdStats values your privacy.
 
 ## Support this project
 
