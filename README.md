@@ -55,10 +55,12 @@ ThirdStats does store the processed stats data in Thunderbirds extension storage
 
 **What exactly are all the permissions used for?**  
 ThirdStats needs 4 permissions to work (Thunderbird may not ask for all of them when installing this add-on):
+
 - `accountsRead`: To iterate over all messages in all folders of your Thunderbird accounts to count and process them
 - `messagesRead`: To read the message header and retrieve the following information from it: *author*, *bccList*, *ccList*, *date*, *read*, *recipients*
 - `tabs`: To open the stats page and the options page in a new tab
 - `storage`: To save processed data in Thunderbirds extension storage
+- `downloads`: To export processed stats data as JSON file
 
 **Does it run as a web server with an open port which would expose it to vulnerabilities?**  
 No. It only runs locally. You can check the [build files](https://third-stats.cdn.devmount.com/) yourself anytime by renaming `.xpi` to `.zip`, unzip it and browse the files

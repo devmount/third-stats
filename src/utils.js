@@ -43,6 +43,11 @@ let quarterNumber = (d) => {
 	return (Math.ceil(month / 3))
 }
 
+// function to format given date as YYYYMMDD
+let yyyymmdd = (d) => {
+	return d.toISOString().replace(/-/g, '').slice(0,8)
+}
+
 // function to format bytes and append unit
 let formatBytes = (bytes, decimals=2) => {
 	if (bytes === 0) return '0 Bytes'
@@ -79,6 +84,7 @@ export {
 	weekNumber,
 	weeksInYear,
 	quarterNumber,
+	yyyymmdd,
 	formatBytes,
 	hexToRgb,
 	pluralizationPolish

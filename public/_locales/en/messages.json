@@ -172,6 +172,7 @@
         "empty": "Input is required"
       },
       "expand": "Expand chart area",
+      "exportData": "Export currently displayed data as JSON file",
       "folder": {
         "notAvailable": "Folders are not available for {0}"
       },
