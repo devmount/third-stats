@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -25,8 +25,8 @@ jobs:
     - name: Get Timestamp
       id: timestamp
       run: |
-        echo "Creating current timestamp"
         d=$(date +%s)
+        echo "Current timestamp is ${d}"
         echo ::set-output name=now::${d}
     - name: Get Version
       id: version
@@ -43,7 +43,7 @@ jobs:
       id: file
       run: |
         filename=third-stats_${{ steps.version.outputs.next }}-alpha.${{steps.timestamp.outputs.now}}.xpi
-        echo "Build filename ${filename}"
+        echo "Built filename ${filename}"
         echo ::set-output name=name::${filename}
     - name: Build app using Yarn
       run: |
