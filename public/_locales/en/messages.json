@@ -145,6 +145,7 @@
       }
     },
     "dataCollected": "Data collected {0} ago",
+    "exportData": "Export currently displayed data as JSON file",
     "loadingInProgress": "Loading of all emails from this account in progress...",
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",

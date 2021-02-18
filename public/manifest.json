@@ -31,7 +31,8 @@
 		"accountsRead",
 		"messagesRead",
 		"tabs",
-		"storage"
+		"storage",
+		"downloads"
 	],
 	"icons": {
 		"64": "icon.svg",

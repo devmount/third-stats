@@ -111,9 +111,24 @@
 							</svg>
 						</div>
 					</div>
-					<!-- options launcher -->
+					<!-- data export -->
 					<div
 						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-2'
+						:data-tooltip='$t("stats.exportData")'
+						@click="exportJson()"
+					>
+						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<path class='icon-part-accent2' d="M14 3v4a1 1 0 0 0 1 1h4" />
+							<path class='icon-part-accent2' d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+							<line class='icon-part-accent1' x1="9" y1="17" x2="9" y2="12" />
+							<line class='icon-part-accent1-faded' x1="12" y1="17" x2="12" y2="16" />
+							<line class='icon-part-accent1' x1="15" y1="17" x2="15" y2="14" />
+						</svg>
+					</div>
+					<!-- options launcher -->
+					<div
+						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1'
 						:data-tooltip='$t("popup.openOptions")'
 						@click.prevent="openTab('options.html', '1')"
 					>
@@ -132,7 +147,7 @@
 					class='d-inline-block tooltip tooltip-bottom'
 					:data-tooltip='formatDate(display.meta.timestamp)'
 				>
-					<LiveAge :date="display.meta.timestamp" />
+					<LiveAge class="cursor-default" :date="display.meta.timestamp" />
 				</div>
 			</section>
 			<!-- fetured numbers -->
@@ -604,7 +619,7 @@
 <script>
 // internal components
 import { defaultColors } from './definitions';
-import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb } from './utils';
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -1419,6 +1434,16 @@ export default {
 		formatDate (d) {
 			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
 			return d ? (new Date(d)).toLocaleDateString(this.$i18n.locale, options) : ''
+		},
+		// export displayed data
+		// provides a JSON file for download
+		exportJson () {
+			const data = new Blob([JSON.stringify(this.display)], { type: "text/plain;charset=utf-8" })
+			messenger.downloads.download({
+				'url': URL.createObjectURL(data),
+				'filename': yyyymmdd(new Date()) + "_third-stats-export.json",
+				'saveAs': true
+			}).then(() => {}, () => {}) // TODO [alert]: Successfully started download | Download aborted
 		},
 		// open given url in new tab
 		// appends GET parameter
