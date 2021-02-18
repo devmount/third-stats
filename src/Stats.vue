@@ -777,8 +777,7 @@ export default {
 		messenger.storage.onChanged.addListener((result, area) => {
 			if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
 				const n = result.options.newValue, o = result.options.oldValue
-				// only update, if options changed that can be directly applied
-				// and don't need a window refresh or data reprocessing
+				// only update those options that changed
 				if (n.dark != o.dark) this.preferences.dark = n.dark
 				if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 				if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
@@ -906,10 +905,11 @@ export default {
 			}
 			// assign accounts
 			this.accounts = accounts
-			// assign identities of all activated accounts as well as localIdentities if any local account is active
+			// assign identities of all activated accounts
 			let identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
+			// add local identities if any local account is active
 			if (accounts.some(a => a.type == 'none')) {
-				identities = identities.concat(this.preferences.localIdentities)
+				this.preferences.localIdentities.map(l => identities.push(l.toLowerCase()))
 			}
 			this.identities = identities
 			// extract account id from url GET parameter
