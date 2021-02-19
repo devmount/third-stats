@@ -111,32 +111,62 @@
 							</svg>
 						</div>
 					</div>
-					<!-- data export -->
-					<div
-						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-2'
-						:data-tooltip='$t("stats.tooltips.exportData")'
-						@click="exportJson()"
-					>
-						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path class='icon-part-accent2' d="M14 3v4a1 1 0 0 0 1 1h4" />
-							<path class='icon-part-accent2' d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-							<line class='icon-part-accent1' x1="9" y1="17" x2="9" y2="12" />
-							<line class='icon-part-accent1-faded' x1="12" y1="17" x2="12" y2="16" />
-							<line class='icon-part-accent1' x1="15" y1="17" x2="15" y2="14" />
-						</svg>
+					<!-- contact selection -->
+					<div class='filter-contact d-flex ml-2'>
+						<label for='contact' class='align-center text-gray p-0-5'>{{ $tc('stats.contact', 1) }}</label>
+						<div class="d-flex align-stretch tooltip-bottom">
+							<select
+								id='contact'
+								v-model='active.contact'
+								:disabled='loading'
+								class='align-stretch w-6'
+								:class='{ disabled: loading }'
+							>
+								<option v-for='c in allProcessedContacts' :key='c' :value='c'>{{ c }}</option>
+							</select>
+						</div>
+						<div
+							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
+							:class='{ "cursor-na": loading }'
+							:data-tooltip='$t("stats.tooltips.clear")'
+							@click='!loading ? resetContact(true) : null'
+						>
+							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading }' viewBox='0 0 24 24'>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
+								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+							</svg>
+						</div>
 					</div>
-					<!-- options launcher -->
-					<div
-						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1'
-						:data-tooltip='$t("popup.openOptions")'
-						@click.prevent="openTab('options.html', '1')"
-					>
-						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
-							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-							<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
-							<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
-						</svg>
+					<!-- action buttons -->
+					<div class="d-inline-flex gap-1 ml-2">
+						<!-- data export -->
+						<div
+							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
+							:data-tooltip='$t("stats.tooltips.exportData")'
+							@click="exportJson()"
+						>
+							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<path class='icon-part-accent2' d="M14 3v4a1 1 0 0 0 1 1h4" />
+								<path class='icon-part-accent2' d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+								<line class='icon-part-accent1' x1="9" y1="17" x2="9" y2="12" />
+								<line class='icon-part-accent1-faded' x1="12" y1="17" x2="12" y2="16" />
+								<line class='icon-part-accent1' x1="15" y1="17" x2="15" y2="14" />
+							</svg>
+						</div>
+						<!-- options launcher -->
+						<div
+							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1'
+							:data-tooltip='$t("popup.openOptions")'
+							@click.prevent="openTab('options.html', '1')"
+						>
+							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
+								<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
+							</svg>
+						</div>
 					</div>
 				</div>
 			</header>
@@ -712,6 +742,7 @@ export default {
 			active: {
 				account: null, // currently selected account
 				folder: null,  // currently selected folder
+				contact: null, // currently selected contact
 				period: {
 					start: null, // currently configured start of period of time
 					end: null,   // currently configured end of period of time
@@ -989,7 +1020,9 @@ export default {
 		// extract information of a single message <m> with accounts <identities>
 		// update given <data> object
 		analyzeMessage (data, m, identities) {
-			// check for self messages first, if exclusion is enabled
+			// check filter:contact
+			if (this.active.contact && !this.contactInvolved(this.active.contact, m)) return
+			// check for self messages, if exclusion is enabled
 			if (this.preferences.selfMessages && this.preferences.selfMessages != 'none') {
 				let ids = this.preferences.selfMessages == 'sameAccount' ? identities : this.identities
 				if (this.isSelfMessage(m, ids)) return
@@ -1101,6 +1134,21 @@ export default {
 			} else {
 				data.folders[type][f]++
 			}
+		},
+		// check if a contact is involved in a message
+		// = <contact> is either author or recipient, CC or BCC of <message>
+		contactInvolved (contact, message) {
+			const author = extractEmailAddress(message.author)
+			const recipients = message.recipients.map(r => extractEmailAddress(r))
+			const ccs = message.ccList.map(r => extractEmailAddress(r))
+			const bccs = message.bccList.map(r => extractEmailAddress(r))
+			if (
+				contact == author ||
+				recipients.includes(contact) ||
+				ccs.includes(contact) ||
+				bccs.includes(contact)
+			) return true
+			else return false
 		},
 		// check if a <message> is a self message
 		// = sender and receivers all match configured <identities>
@@ -1292,12 +1340,13 @@ export default {
 			this.loading = false
 		},
 		// reset folder filter
-		// reload data if requested <reload=true>
+		// reload data if requested <reload=true>, a folder reset triggers a contact reset too
 		async resetFolder (reload) {
 			this.active.folder = null
+			this.resetContact(false)
 			if (reload) {
 				// reprocess current data if another filter is set, otherwise just load account data
-				await this.loadAccount(this.active.account, this.active.period.start || this.active.period.end)
+				await this.loadAccount(this.active.account, this.active.period.start && this.active.period.end)
 			}
 		},
 		// process data for current time period filter
@@ -1320,7 +1369,16 @@ export default {
 			this.adjustSelectedYear()
 			if (reload) {
 				// reprocess current data if another filter is set, otherwise just load account data
-				await this.loadAccount(this.active.account, this.active.folder)
+				await this.loadAccount(this.active.account, this.active.folder || this.active.contact)
+			}
+		},
+		// reset contact filter
+		// reload data if requested <reload=true>
+		async resetContact (reload) {
+			this.active.contact = null
+			if (reload) {
+				// reprocess current data if another filter is set, otherwise just load account data
+				await this.loadAccount(this.active.account, (this.active.period.start && this.active.period.end) || this.active.folder)
 			}
 		},
 		// tab navigation
@@ -1947,11 +2005,16 @@ export default {
 		},
 		// returns true, if at least one filter isn't empty
 		filtered () {
-			return this.active.folder || this.active.period.start || this.active.period.end
+			return this.active.folder || this.active.period.start || this.active.period.end || this.active.contact
 		},
 		// returns true, if just one single account is selected
 		singleAccount () {
 			return this.active.account != 'sum'
+		},
+		// merges received and sent contacts to a distinct list of shown contacts
+		allProcessedContacts () {
+			const r = this.display.contacts.received, s = this.display.contacts.sent
+			return Array.from(new Set([...Object.keys(r), ...Object.keys(s)]))
 		},
 		// returns the current date as example for short period input (YYMMDD)
 		examplePeriodShort () {
@@ -2014,17 +2077,29 @@ export default {
 			if (id) {
 				// reset preferences
 				this.preferences.sections.total.comparison = false
-				// reset filter
+				// reset folder filter
 				this.resetFolder(false)
-				// process data for given account, refresh if period filter is set
-				await this.loadAccount(id, this.active.period.start && this.active.period.end)
+				// reset contact filter
+				this.resetContact(false)
+				// process data for given account, refresh if date range or contact filter is set
+				await this.loadAccount(id, (this.active.period.start && this.active.period.end) || this.active.contact)
 			}
 		},
 		// on change of active folder
 		// retrieve data again for current account selection
 		async 'active.folder' (folder) {
 			if (folder) {
+				// reset contact filter
+				this.resetContact(false)
 				// start processing for active folder only
+				await this.loadAccount(this.active.account, true)
+			}
+		},
+		// on change of active folder
+		// retrieve data again for current account selection
+		async 'active.contact' (contact) {
+			if (contact) {
+				// start processing for active contact only
 				await this.loadAccount(this.active.account, true)
 			}
 		}
@@ -2053,10 +2128,6 @@ body
 
 		@media (max-width: 4320px)
 			max-width: 2500px
-			header
-				grid-template-columns: 1fr 2fr
-				.filter
-					justify-content: flex-end
 			.numbers
 				max-width: 1500px
 				grid-template-columns: repeat(6, 1fr)
@@ -2075,7 +2146,8 @@ body
 		@media (max-width: 1750px)
 			max-width: 1200px
 			header
-				grid-template-columns: 1fr
+				flex-direction: column
+				gap: 1rem;
 				h1
 					justify-content: center
 				.filter
@@ -2094,13 +2166,14 @@ body
 
 		header
 			margin-top: 0
-			display: grid
+			display: flex
 			align-items: center
 			h1
 				margin: 0
 				.logo
 					height: 48px
 			.filter
+				margin-left: auto
 				.loading
 					loader 18px 3px
 					margin: 4px 4px 4px 7px
