@@ -139,7 +139,7 @@
       }
     },
     "dataCollected": "Données collectées il y a {0}",
-    "loadingInProgress": "Chargement des emails du compte en cours...",
+    "loadingInProgress": "Chargement des emails du compte en cours…",
     "mailsPerDay": "Message(s) par jour",
     "mailsPerMonth": "Message(s) par mois",
     "mailsReceived": "Messages reçus",
