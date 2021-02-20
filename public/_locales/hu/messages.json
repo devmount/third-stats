@@ -1,147 +1,147 @@
 {
   "extensionDescription": {
-    "message": "Beautifully visualized statistics for your Thunderbird Email Accounts"
+    "message": "Gyönyörűen megjelenített statisztikák a Thunderbird levelező postafiókokhoz"
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts"
+      "color": "Adjon minden fióknak egyéni színt, hogy megkülönböztesse őket összehasonlítási módban.",
+      "description": "Fiókok engedélyezése vagy letiltása. A letiltott fiókok nem jelennek meg a fióklistában vagy a statisztikákban.",
+      "label": "Elérhető fiókok"
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "A gyorsítótár-rendszer engedélyezése a már feldolgozott statisztikai adatok gyorsabb megjelenítéséhez.",
+      "label": "Gyorsítótár engedélyezése"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Clear Cache",
-      "size": "Cache size is {0}"
+      "description": "Távolítsa el az összes gyorsítótárazott statisztikai adatot az összes fiókból. A statisztika oldal újbóli megnyitásával újjáépül.",
+      "empty": "A gyorsítótár üres",
+      "label": "Gyorsítótár törlése",
+      "size": "A gyorsítótár fájlmérete: {0}"
     },
     "darkMode": {
-      "description": "Switch between dark and light color scheme",
-      "label": "Dark Mode"
+      "description": "Sötét és világos színvilág váltása",
+      "label": "Sötét mód"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "Megjelenés és tapasztalat",
+      "stats": "Diagramok és adatok",
+      "storage": "Tárolás és gyorsítótár"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "A gyakori kapcsolattartókat felsoroló diagramokban szereplő bejegyzések száma (legfeljebb 999)",
+      "label": "Vezérszám"
     },
     "localIdentities": {
-      "description": "A list of email addresses to recognize as 'sent from' for local accounts",
-      "label": "Local Identities"
+      "description": "A lista e-mail címét, hogy ismerje a „küldött” a helyi fiókok",
+      "label": "Helyi személyazonosságok"
     },
     "message": "-",
     "note": {
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "title": "Note"
+      "reloadStatsPage": "Az opciók önműködően mentésre kerülnek. Bizonyos opcióváltozások nem alkalmazhatók önműködően a már megnyitott statisztikai oldalra vagy a meglévő gyorsítótár bejegyzésekre, ha a gyorsítótár aktiválva van. Megfelelő ikonokkal vannak jelölve.",
+      "reloadWindowRequired": "Ha megváltoztatja, a statisztika ablakot újra be kell tölteni",
+      "refreshCacheRequired": "Ha megváltozik, akkor a gyorsítótárat újra kell építeni",
+      "title": "Megjegyzés"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "A függőleges tengely megjelenítése az összes vonalas és oszlopdiagramon",
+      "label": "Függőleges tengely"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options youo changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "Állítsa vissza az összes beállítást az alapértelmezett értékre. A korábban megváltoztatott beállításoktól függően szükség lehet egy ablak vagy gyorsítótár frissítésére.",
+      "label": "Beállítások visszaállítása",
+      "removeIdentities": "Ez eltávolítja az összes helyi személyazonosságot, amelyet létrehozott. "
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "Kizárja azokat az üzeneteket, amelyeket tőlem küldtem magamnak",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Self messages will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "Azok az üzenetek, amelyekben a feladó és a fogadó azonosító, bármely fiókból kizárásra kerülnek",
+        "none": "A magának küldött üzenetek átlagos üzenetként lesznek kezelve (alapértelmezett)",
+        "sameAccount": "Azok az üzenetek, amelyekben a feladó és a fogadó azonos fiók azonos fiókból, kizárásra kerülnek"
       },
-      "label": "Self Messages",
+      "label": "Üzenetek önmagamnak",
       "values": {
-        "anyAccount": "From Any Account",
-        "none": "Disabled",
-        "sameAccount": "Same Account Only"
+        "anyAccount": "Bármely fiókból",
+        "none": "Tiltva",
+        "sameAccount": "Csak ugyanaz a fiókot"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "description": "A hét egyéni kezdete az összes hétköznapi diagramhoz",
+      "label": "Kezdje a hetet"
     },
     "switch": {
-      "off": "Off",
-      "on": "On"
+      "off": "Ki",
+      "on": "Be"
     },
-    "title": "Options"
+    "title": "Beállítások"
   },
   "popup": {
-    "account": "Account | Accounts",
-    "folder": "Folder | Folders",
+    "account": "Fiók",
+    "folder": "Mappa",
     "message": "-",
-    "messages": "Message | Messages",
-    "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "messages": "Üzenet",
+    "openAllStats": "Az összes statisztika megnyitása",
+    "openOptions": "Beállítások megnyitása"
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "W",
-      "day": "d",
-      "hour": "h",
-      "minute": "min",
-      "quarter": "Q",
-      "second": "s"
+      "calendarWeek": "h",
+      "day": "n",
+      "hour": "ó",
+      "minute": "p",
+      "quarter": "¼",
+      "second": "mp"
     },
-    "accountEmpty": "This account is empty, no emails here.",
-    "allAccounts": "All Accounts",
+    "accountEmpty": "Ez a postafiók üres, itt nincsenek e-mailek.",
+    "allAccounts": "Minden postafiók",
     "charts": {
       "contactsReceived": {
-        "description": "Number of emails received per sender",
-        "title": "Most received from"
+        "description": "Feladónként kapott e-mailek száma",
+        "title": "A legtöbb kapott"
       },
       "contactsSent": {
-        "description": "Number of emails sent per recipient",
-        "title": "Most sent to"
+        "description": "A címzettenként elküldött e-mailek száma",
+        "title": "A legtöbbet elküldték"
       },
       "days": {
-        "description": "Number of emails per date",
-        "title": "Activity in {0}"
+        "description": "E-mailek száma dátum szerint",
+        "title": "Tevékenység itt: {0}"
       },
       "daytime": {
-        "description": "Number of emails per time of day",
-        "title": "Daytime"
+        "description": "E-mailek száma napszakonként",
+        "title": "Nappal"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "E-mailek száma mappánként",
+        "title": "Mappák terjesztése"
       },
       "month": {
-        "description": "Number of emails per month of year",
-        "title": "Month"
+        "description": "E-mailek száma az év hónapjában",
+        "title": "Hónap"
       },
       "months": {
-        "description": "Total number of emails per month",
-        "title": "Months"
+        "description": "E-mailek teljes száma havonta",
+        "title": "Hónapok"
       },
       "quarters": {
-        "description": "Total number of emails per quarter",
-        "title": "Quarters"
+        "description": "Az e-mailek száma negyedévenként",
+        "title": "Negyedek"
       },
       "temporalDistribution": {
-        "description": "Number of emails per weekday per hour",
-        "title": "Temporal distribution"
+        "description": "Hétköznap / óra e-mailek száma",
+        "title": "Időbeli eloszlása"
       },
       "weekday": {
-        "description": "Number of emails per day of week",
-        "title": "Weekday"
+        "description": "E-mailek száma a hét minden napján",
+        "title": "Hétköznap"
       },
       "weeks": {
-        "description": "Total number of emails per week",
-        "title": "Weeks"
+        "description": "Heti e-mailek teljes száma",
+        "title": "Hetek"
       },
       "years": {
-        "description": "Total number of emails per year",
-        "title": "Years"
+        "description": "Éves e-mailek teljes száma",
+        "title": "Évek"
       }
     },
     "dataCollected": "{0} ezelőtt gyűjtött adatok",
@@ -177,13 +177,13 @@
         "notAvailable": "A(z) {0} mappák nem érhetők el"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "Dátumig\nTipp: A(z) „{0}” begépelése „{1}” lesz",
+        "start": "Dátumtól\nTipp: A(z) „{0}” begépelése „{1}” lesz"
       },
-      "refresh": "Refresh data",
-      "shrink": "Shrink chart area",
-      "sum": "Show sum of all accounts"
+      "refresh": "Adatok frissítése",
+      "shrink": "Diagramterület csökkentése",
+      "sum": "Az összes fiók összegének megjelenítése"
     },
-    "withinYears": "within {0} years"
+    "withinYears": "{0} éven belül"
   }
 }
