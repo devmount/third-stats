@@ -133,7 +133,7 @@
       }
     },
     "dataCollected": "Данные посчитаны {0} назад",
-    "loadingInProgress": "Идет обработка писем...",
+    "loadingInProgress": "Идет обработка писем…",
     "mailsPerDay": "Писем за день",
     "mailsPerMonth": "Писем за месяц",
     "mailsReceived": "Входящих писем",
