@@ -17,6 +17,7 @@ let messages = {
 	'fr':    require('../public/_locales/fr/messages.json'),    // French
 	'gl':    require('../public/_locales/gl/messages.json'),    // Galician
 	'hi':    require('../public/_locales/hi/messages.json'),    // Hindi
+	'hu':    require('../public/_locales/hu/messages.json'),    // Hungarian
 	'it':    require('../public/_locales/it/messages.json'),    // Italian
 	'ja':    require('../public/_locales/ja/messages.json'),    // Japanese
 	'pl':    require('../public/_locales/pl/messages.json'),    // Polish
