@@ -47,7 +47,7 @@
       "label": "Vertical Axis"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options youo changed before, a window or cache refresh may be required.",
+      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
       "label": "Reset Options",
       "removeIdentities": "This will also remove all local identities you created."
     },
@@ -145,7 +145,7 @@
       }
     },
     "dataCollected": "Data collected {0} ago",
-    "loadingInProgress": "Loading of all emails from this account in progress...",
+    "loadingInProgress": "Loading of all emails from this account in progress…",
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",
     "mailsReceived": "Mails received",
