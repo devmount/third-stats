@@ -609,6 +609,10 @@
 						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
 						<path d='M12 3c0.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z' />
 					</svg>
+					<!-- TODO: lang switch -->
+					<!-- <select v-model="$i18n.locale" class="form-select" id="language">
+						<option v-for="(lang, i) in Object.keys($i18n.messages)" :key="i" :value="lang">{{ lang }}</option>
+					</select> -->
 				</div>
 				<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
 			</footer>
