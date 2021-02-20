@@ -125,7 +125,7 @@
       }
     },
     "dataCollected": "Data samlad {0} sen",
-    "loadingInProgress": "Inläsning av alla mejl från detta konto pågår...",
+    "loadingInProgress": "Inläsning av alla mejl från detta konto pågår…",
     "mailsPerDay": "Mejl per dag",
     "mailsPerMonth": "Mejl per månad",
     "mailsReceived": "Mottagna mejl",
