@@ -95,6 +95,7 @@ Many thanks especially to those who helped translating this add-on and making it
 - French: [@antoinevth](https://github.com/antoinevth) [@aurelienrouze](https://github.com/aurelienrouze)
 - Galician: [@uveic](https://github.com/uveic)
 - Hindi: [@kunaljain0212](https://github.com/kunaljain0212) [@mdfaizan7](https://github.com/mdfaizan7)
+- Hungarian: [@ovari](https://github.com/ovari/)
 - Italian: [@leobia](https://github.com/leobia) [@edmael](https://github.com/edmael)
 - Japanese: [@marcelstoer](https://github.com/marcelstoer)
 - Polish: [@dfoltynski](https://github.com/dfoltynski) [@wikiyu](https://github.com/wikiyu)
