@@ -3,7 +3,6 @@
     "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
   },
   "options": {
-    
     "activeAccounts": {
       "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden.",
       "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
