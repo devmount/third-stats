@@ -39,7 +39,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Activate all accounts that should be included (add-on option)
 - Use a dark or a light theme (add-on option)
 - Use a caching system to store already processed data (add-on option)
-- Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Italian, Japanese, Polish, Portuguese, Russian, Spanish, Swedish, Thai and Turkish
+- Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Hungarian, Italian, Japanese, Polish, Portuguese, Russian, Spanish, Swedish, Thai and Turkish
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
