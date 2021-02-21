@@ -11,13 +11,13 @@
 		</div>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading and filter -->
-			<header>
+			<header id="header">
 				<h1 class='mr-2 d-flex align-items-center'>
 					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
 					Th<span class='text-gray'>underb</span>ird Stats
 				</h1>
 				<!-- filter area -->
-				<div class='filter d-flex flex-wrap'>
+				<div class='filter d-flex flex-wrap gap-1'>
 					<!-- account selection -->
 					<div class='filter-account d-flex'>
 						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<!-- folder selection -->
-					<div class='filter-folder d-flex ml-2'>
+					<div class='filter-folder d-flex'>
 						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
 						<div
 							class="d-flex align-stretch tooltip-bottom"
@@ -75,7 +75,7 @@
 						</div>
 					</div>
 					<!-- time period selection -->
-					<div class='filter-period d-flex ml-2'>
+					<div class='filter-period d-flex'>
 						<label for='start' class='align-center text-gray p-0-5'>{{ $t("stats.timePeriod") }}</label>
 						<div class='input-group d-flex align-stretch'>
 							<div
@@ -111,9 +111,39 @@
 							</svg>
 						</div>
 					</div>
+					<!-- contact selection -->
+					<div class='filter-contact d-flex'>
+						<label for='contact' class='align-center text-gray p-0-5'>{{ $tc('stats.contact', 1) }}</label>
+						<div class="d-flex align-stretch tooltip-bottom">
+							<select
+								id='contact'
+								v-model='active.contact'
+								:disabled='loading'
+								class='align-stretch w-6'
+								:class='{ disabled: loading }'
+							>
+								<option v-for='c in contacts' :key='c' :value='c'>{{ c }}</option>
+							</select>
+						</div>
+						<div
+							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
+							:class='{ "cursor-na": loading }'
+							:data-tooltip='$t("stats.tooltips.clear")'
+							@click='!loading ? resetContact(true) : null'
+						>
+							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading }' viewBox='0 0 24 24'>
+								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
+								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+							</svg>
+						</div>
+					</div>
+				</div>
+				<!-- action buttons -->
+				<div class="action d-inline-flex gap-1 ml-2">
 					<!-- data export -->
 					<div
-						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-2'
+						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
 						:data-tooltip='$t("stats.tooltips.exportData")'
 						@click="exportJson()"
 					>
@@ -139,17 +169,17 @@
 						</svg>
 					</div>
 				</div>
-			</header>
-			<!-- meta info section -->
-			<section class='meta mt-1 text-gray text-right'>
-				<div
-					v-if='display.meta && display.meta.timestamp'
-					class='d-inline-block tooltip tooltip-bottom'
-					:data-tooltip='formatDate(display.meta.timestamp)'
-				>
-					<LiveAge class="cursor-default" :date="display.meta.timestamp" />
+				<!-- meta infos -->
+				<div class='meta text-gray text-right'>
+					<div
+						v-if='display.meta && display.meta.timestamp'
+						class='d-inline-block tooltip tooltip-bottom'
+						:data-tooltip='formatDate(display.meta.timestamp)'
+					>
+						<LiveAge class="cursor-default" :date="display.meta.timestamp" />
+					</div>
 				</div>
-			</section>
+			</header>
 			<!-- fetured numbers -->
 			<section class='numbers mx-auto mt-2'>
 				<!-- total -->
@@ -712,10 +742,12 @@ export default {
 		return {
 			accounts: [],    // list of all existing accounts
 			identities: [],  // list of all existing identities
-			folders: [],     // list of all existing folders for the current account
+			folders: [],     // list of all existing folders for the current account selection
+			contacts: [],    // list of all existing contacts for the current account selection
 			active: {
 				account: null, // currently selected account
 				folder: null,  // currently selected folder
+				contact: null, // currently selected contact
 				period: {
 					start: null, // currently configured start of period of time
 					end: null,   // currently configured end of period of time
@@ -793,21 +825,7 @@ export default {
 		this.display = JSON.parse(JSON.stringify(this.initData()))
 		this.comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
 		// watch for option changes
-		messenger.storage.onChanged.addListener((result, area) => {
-			if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
-				const n = result.options.newValue, o = result.options.oldValue
-				// only update those options that changed
-				if (n.dark != o.dark) this.preferences.dark = n.dark
-				if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
-				if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
-				if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(',').map(x => x.trim())
-				if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
-				if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
-				if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
-				if (n.leaderCount != o.leaderCount) this.preferences.leaderCount = n.leaderCount
-				if (n.cache != o.cache) this.preferences.cache = n.cache
-			}
-		})
+		this.addStorageListener()
 		// get stored options
 		await this.getOptions()
 		// retrieve all accounts
@@ -887,6 +905,25 @@ export default {
 				weekdayData: {},
 				monthData: {},
 			}
+		},
+		// adds a listener for storage change events
+		// makes reactions on for option changes possible
+		addStorageListener () {
+			messenger.storage.onChanged.addListener((result, area) => {
+				if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
+					const n = result.options.newValue, o = result.options.oldValue
+					// only update those options that changed
+					if (n.dark != o.dark) this.preferences.dark = n.dark
+					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
+					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
+					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(',').map(x => x.trim())
+					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
+					if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
+					if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
+					if (n.leaderCount != o.leaderCount) this.preferences.leaderCount = n.leaderCount
+					if (n.cache != o.cache) this.preferences.cache = n.cache
+				}
+			})
 		},
 		// get all add-on settings from the options page
 		// for non existing options use default value
@@ -993,7 +1030,9 @@ export default {
 		// extract information of a single message <m> with accounts <identities>
 		// update given <data> object
 		analyzeMessage (data, m, identities) {
-			// check for self messages first, if exclusion is enabled
+			// check filter:contact
+			if (this.active.contact && !this.contactInvolved(this.active.contact, m)) return
+			// check for self messages, if exclusion is enabled
 			if (this.preferences.selfMessages && this.preferences.selfMessages != 'none') {
 				let ids = this.preferences.selfMessages == 'sameAccount' ? identities : this.identities
 				if (this.isSelfMessage(m, ids)) return
@@ -1105,6 +1144,21 @@ export default {
 			} else {
 				data.folders[type][f]++
 			}
+		},
+		// check if a contact is involved in a message
+		// = <contact> is either author or recipient, CC or BCC of <message>
+		contactInvolved (contact, message) {
+			const author = extractEmailAddress(message.author)
+			const recipients = message.recipients.map(r => extractEmailAddress(r))
+			const ccs = message.ccList.map(r => extractEmailAddress(r))
+			const bccs = message.bccList.map(r => extractEmailAddress(r))
+			if (
+				contact == author ||
+				recipients.includes(contact) ||
+				ccs.includes(contact) ||
+				bccs.includes(contact)
+			) return true
+			else return false
 		},
 		// check if a <message> is a self message
 		// = sender and receivers all match configured <identities>
@@ -1301,7 +1355,7 @@ export default {
 			this.active.folder = null
 			if (reload) {
 				// reprocess current data if another filter is set, otherwise just load account data
-				await this.loadAccount(this.active.account, this.active.period.start || this.active.period.end)
+				await this.loadAccount(this.active.account, (this.active.period.start && this.active.period.end) || this.active.contact)
 			}
 		},
 		// process data for current time period filter
@@ -1324,7 +1378,16 @@ export default {
 			this.adjustSelectedYear()
 			if (reload) {
 				// reprocess current data if another filter is set, otherwise just load account data
-				await this.loadAccount(this.active.account, this.active.folder)
+				await this.loadAccount(this.active.account, this.active.folder || this.active.contact)
+			}
+		},
+		// reset contact filter
+		// reload data if requested <reload=true>
+		async resetContact (reload) {
+			this.active.contact = null
+			if (reload) {
+				// reprocess current data if another filter is set, otherwise just load account data
+				await this.loadAccount(this.active.account, (this.active.period.start && this.active.period.end) || this.active.folder)
 			}
 		},
 		// tab navigation
@@ -1951,11 +2014,16 @@ export default {
 		},
 		// returns true, if at least one filter isn't empty
 		filtered () {
-			return this.active.folder || this.active.period.start || this.active.period.end
+			return this.active.folder || this.active.period.start || this.active.period.end || this.active.contact
 		},
 		// returns true, if just one single account is selected
 		singleAccount () {
 			return this.active.account != 'sum'
+		},
+		// merges received and sent contacts to a distinct list of shown contacts
+		allProcessedContacts () {
+			const r = this.display.contacts.received, s = this.display.contacts.sent
+			return Array.from(new Set([...Object.keys(r), ...Object.keys(s)]))
 		},
 		// returns the current date as example for short period input (YYMMDD)
 		examplePeriodShort () {
@@ -2018,10 +2086,14 @@ export default {
 			if (id) {
 				// reset preferences
 				this.preferences.sections.total.comparison = false
-				// reset filter
+				// reset folder filter
 				this.resetFolder(false)
-				// process data for given account, refresh if period filter is set
-				await this.loadAccount(id, this.active.period.start && this.active.period.end)
+				// reset contact filter
+				this.resetContact(false)
+				// process data for given account, refresh if date range or contact filter is set
+				await this.loadAccount(id, (this.active.period.start && this.active.period.end) || this.active.contact)
+				// rebuild contact list
+				this.contacts = this.allProcessedContacts
 			}
 		},
 		// on change of active folder
@@ -2029,6 +2101,14 @@ export default {
 		async 'active.folder' (folder) {
 			if (folder) {
 				// start processing for active folder only
+				await this.loadAccount(this.active.account, true)
+			}
+		},
+		// on change of active folder
+		// retrieve data again for current account selection
+		async 'active.contact' (contact) {
+			if (contact) {
+				// start processing for active contact only
 				await this.loadAccount(this.active.account, true)
 			}
 		}
@@ -2057,10 +2137,6 @@ body
 
 		@media (max-width: 4320px)
 			max-width: 2500px
-			header
-				grid-template-columns: 1fr 2fr
-				.filter
-					justify-content: flex-end
 			.numbers
 				max-width: 1500px
 				grid-template-columns: repeat(6, 1fr)
@@ -2078,14 +2154,11 @@ body
 			max-width: 1750px
 		@media (max-width: 1750px)
 			max-width: 1200px
-			header
-				grid-template-columns: 1fr
-				h1
-					justify-content: center
+			#header
+				grid-template-areas: "title meta action" "filter filter filter"
+				grid-template-columns: 1fr auto 5rem
 				.filter
-					justify-content: space-around
-					&>*
-						margin: 0 0 1rem 0
+					justify-content: end
 			#chart-area-top
 				grid-template-columns: calc(100% - 1rem)
 				.resizer
@@ -2098,18 +2171,33 @@ body
 
 		header
 			margin-top: 0
+			margin-bottom: 1rem
 			display: grid
+			grid-template-areas: "title filter action" "meta meta meta"
+			grid-template-columns: 1fr auto auto;
+			gap: 1rem
 			align-items: center
 			h1
+				grid-area: title
 				margin: 0
 				.logo
 					height: 48px
 			.filter
+				grid-area: filter
+				gap: 1rem
+				margin-left: auto
 				.loading
 					loader 18px 3px
 					margin: 4px 4px 4px 7px
 				.refresh
 					margin-left: 3px
+			.action
+				grid-area: action
+				justify-self: end
+			.meta
+				grid-area: meta
+				justify-self: end
+
 		
 		&>h2
 			font-weight: 300

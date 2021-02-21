@@ -144,6 +144,7 @@
         "title": "Years"
       }
     },
+    "contact": "Contact",
     "dataCollected": "Data collected {0} ago",
     "loadingInProgress": "Loading of all emails from this account in progress…",
     "mailsPerDay": "Mails per day",
