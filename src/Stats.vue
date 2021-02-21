@@ -1346,7 +1346,7 @@ export default {
 			this.loading = false
 		},
 		// reset folder filter
-		// reload data if requested <reload=true>, a folder reset triggers a contact reset too
+		// reload data if requested <reload=true>
 		async resetFolder (reload) {
 			this.active.folder = null
 			if (reload) {
