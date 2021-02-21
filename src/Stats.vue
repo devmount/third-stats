@@ -11,13 +11,13 @@
 		</div>
 		<div class='container pt-2 pb-6'>
 			<!-- title heading and filter -->
-			<header>
+			<header id="header">
 				<h1 class='mr-2 d-flex align-items-center'>
 					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
 					Th<span class='text-gray'>underb</span>ird Stats
 				</h1>
 				<!-- filter area -->
-				<div class='filter d-flex flex-wrap'>
+				<div class='filter d-flex flex-wrap gap-1'>
 					<!-- account selection -->
 					<div class='filter-account d-flex'>
 						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
@@ -44,7 +44,7 @@
 						</div>
 					</div>
 					<!-- folder selection -->
-					<div class='filter-folder d-flex ml-2'>
+					<div class='filter-folder d-flex'>
 						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
 						<div
 							class="d-flex align-stretch tooltip-bottom"
@@ -75,7 +75,7 @@
 						</div>
 					</div>
 					<!-- time period selection -->
-					<div class='filter-period d-flex ml-2'>
+					<div class='filter-period d-flex'>
 						<label for='start' class='align-center text-gray p-0-5'>{{ $t("stats.timePeriod") }}</label>
 						<div class='input-group d-flex align-stretch'>
 							<div
@@ -112,7 +112,7 @@
 						</div>
 					</div>
 					<!-- contact selection -->
-					<div class='filter-contact d-flex ml-2'>
+					<div class='filter-contact d-flex'>
 						<label for='contact' class='align-center text-gray p-0-5'>{{ $tc('stats.contact', 1) }}</label>
 						<div class="d-flex align-stretch tooltip-bottom">
 							<select
@@ -138,48 +138,48 @@
 							</svg>
 						</div>
 					</div>
-					<!-- action buttons -->
-					<div class="d-inline-flex gap-1 ml-2">
-						<!-- data export -->
-						<div
-							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
-							:data-tooltip='$t("stats.tooltips.exportData")'
-							@click="exportJson()"
-						>
-							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<path class='icon-part-accent2' d="M14 3v4a1 1 0 0 0 1 1h4" />
-								<path class='icon-part-accent2' d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-								<line class='icon-part-accent1' x1="9" y1="17" x2="9" y2="12" />
-								<line class='icon-part-accent1-faded' x1="12" y1="17" x2="12" y2="16" />
-								<line class='icon-part-accent1' x1="15" y1="17" x2="15" y2="14" />
-							</svg>
-						</div>
-						<!-- options launcher -->
-						<div
-							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1'
-							:data-tooltip='$t("popup.openOptions")'
-							@click.prevent="openTab('options.html', '1')"
-						>
-							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
-								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-								<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
-								<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
-							</svg>
-						</div>
+				</div>
+				<!-- action buttons -->
+				<div class="action d-inline-flex gap-1 ml-2">
+					<!-- data export -->
+					<div
+						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
+						:data-tooltip='$t("stats.tooltips.exportData")'
+						@click="exportJson()"
+					>
+						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<path class='icon-part-accent2' d="M14 3v4a1 1 0 0 0 1 1h4" />
+							<path class='icon-part-accent2' d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+							<line class='icon-part-accent1' x1="9" y1="17" x2="9" y2="12" />
+							<line class='icon-part-accent1-faded' x1="12" y1="17" x2="12" y2="16" />
+							<line class='icon-part-accent1' x1="15" y1="17" x2="15" y2="14" />
+						</svg>
+					</div>
+					<!-- options launcher -->
+					<div
+						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1'
+						:data-tooltip='$t("popup.openOptions")'
+						@click.prevent="openTab('options.html', '1')"
+					>
+						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
+							<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
+							<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
+						</svg>
+					</div>
+				</div>
+				<!-- meta infos -->
+				<div class='meta text-gray text-right'>
+					<div
+						v-if='display.meta && display.meta.timestamp'
+						class='d-inline-block tooltip tooltip-bottom'
+						:data-tooltip='formatDate(display.meta.timestamp)'
+					>
+						<LiveAge class="cursor-default" :date="display.meta.timestamp" />
 					</div>
 				</div>
 			</header>
-			<!-- meta info section -->
-			<section class='meta mt-1 text-gray text-right'>
-				<div
-					v-if='display.meta && display.meta.timestamp'
-					class='d-inline-block tooltip tooltip-bottom'
-					:data-tooltip='formatDate(display.meta.timestamp)'
-				>
-					<LiveAge class="cursor-default" :date="display.meta.timestamp" />
-				</div>
-			</section>
 			<!-- fetured numbers -->
 			<section class='numbers mx-auto mt-2'>
 				<!-- total -->
@@ -2150,15 +2150,11 @@ body
 			max-width: 1750px
 		@media (max-width: 1750px)
 			max-width: 1200px
-			header
-				flex-direction: column
-				gap: 1rem;
-				h1
-					justify-content: center
+			#header
+				grid-template-areas: "title meta action" "filter filter filter"
+				grid-template-columns: 1fr auto 5rem
 				.filter
-					justify-content: space-around
-					&>*
-						margin: 0 0 1rem 0
+					justify-content: end
 			#chart-area-top
 				grid-template-columns: calc(100% - 1rem)
 				.resizer
@@ -2171,19 +2167,33 @@ body
 
 		header
 			margin-top: 0
-			display: flex
+			margin-bottom: 1rem
+			display: grid
+			grid-template-areas: "title filter action" "meta meta meta"
+			grid-template-columns: 1fr auto auto;
+			gap: 1rem
 			align-items: center
 			h1
+				grid-area: title
 				margin: 0
 				.logo
 					height: 48px
 			.filter
+				grid-area: filter
+				gap: 1rem
 				margin-left: auto
 				.loading
 					loader 18px 3px
 					margin: 4px 4px 4px 7px
 				.refresh
 					margin-left: 3px
+			.action
+				grid-area: action
+				justify-self: end
+			.meta
+				grid-area: meta
+				justify-self: end
+
 		
 		&>h2
 			font-weight: 300
