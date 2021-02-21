@@ -122,7 +122,7 @@
 								class='align-stretch w-6'
 								:class='{ disabled: loading }'
 							>
-								<option v-for='c in allProcessedContacts' :key='c' :value='c'>{{ c }}</option>
+								<option v-for='c in contacts' :key='c' :value='c'>{{ c }}</option>
 							</select>
 						</div>
 						<div
@@ -738,7 +738,8 @@ export default {
 		return {
 			accounts: [],    // list of all existing accounts
 			identities: [],  // list of all existing identities
-			folders: [],     // list of all existing folders for the current account
+			folders: [],     // list of all existing folders for the current account selection
+			contacts: [],    // list of all existing contacts for the current account selection
 			active: {
 				account: null, // currently selected account
 				folder: null,  // currently selected folder
@@ -820,21 +821,7 @@ export default {
 		this.display = JSON.parse(JSON.stringify(this.initData()))
 		this.comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
 		// watch for option changes
-		messenger.storage.onChanged.addListener((result, area) => {
-			if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
-				const n = result.options.newValue, o = result.options.oldValue
-				// only update those options that changed
-				if (n.dark != o.dark) this.preferences.dark = n.dark
-				if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
-				if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
-				if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(',').map(x => x.trim())
-				if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
-				if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
-				if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
-				if (n.leaderCount != o.leaderCount) this.preferences.leaderCount = n.leaderCount
-				if (n.cache != o.cache) this.preferences.cache = n.cache
-			}
-		})
+		this.addStorageListener()
 		// get stored options
 		await this.getOptions()
 		// retrieve all accounts
@@ -914,6 +901,25 @@ export default {
 				weekdayData: {},
 				monthData: {},
 			}
+		},
+		// adds a listener for storage change events
+		// makes reactions on for option changes possible
+		addStorageListener () {
+			messenger.storage.onChanged.addListener((result, area) => {
+				if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
+					const n = result.options.newValue, o = result.options.oldValue
+					// only update those options that changed
+					if (n.dark != o.dark) this.preferences.dark = n.dark
+					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
+					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
+					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(',').map(x => x.trim())
+					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
+					if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
+					if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
+					if (n.leaderCount != o.leaderCount) this.preferences.leaderCount = n.leaderCount
+					if (n.cache != o.cache) this.preferences.cache = n.cache
+				}
+			})
 		},
 		// get all add-on settings from the options page
 		// for non existing options use default value
@@ -1343,10 +1349,9 @@ export default {
 		// reload data if requested <reload=true>, a folder reset triggers a contact reset too
 		async resetFolder (reload) {
 			this.active.folder = null
-			this.resetContact(false)
 			if (reload) {
 				// reprocess current data if another filter is set, otherwise just load account data
-				await this.loadAccount(this.active.account, this.active.period.start && this.active.period.end)
+				await this.loadAccount(this.active.account, (this.active.period.start && this.active.period.end) || this.active.contact)
 			}
 		},
 		// process data for current time period filter
@@ -2083,14 +2088,14 @@ export default {
 				this.resetContact(false)
 				// process data for given account, refresh if date range or contact filter is set
 				await this.loadAccount(id, (this.active.period.start && this.active.period.end) || this.active.contact)
+				// rebuild contact list
+				this.contacts = this.allProcessedContacts
 			}
 		},
 		// on change of active folder
 		// retrieve data again for current account selection
 		async 'active.folder' (folder) {
 			if (folder) {
-				// reset contact filter
-				this.resetContact(false)
 				// start processing for active folder only
 				await this.loadAccount(this.active.account, true)
 			}
