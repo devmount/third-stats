@@ -112,7 +112,8 @@
     "dataCollected": "Daten vor {0} abgerufen",
     "allAccounts": "Alle Konten",
     "nonEmptyFolders": "nicht leere Ordner | nicht leerer Ordner | nicht leere Ordner",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "disclaimer": "ThirdStats erhebt keinen Anspruch auf Korrektheit der angezeigten Daten.<br />Bei möglichen Problemen bitte  <a href='{0}' target='_blank'>einen Bug Report erstellen</a>."
   },
   "options": {
     "headings": {
