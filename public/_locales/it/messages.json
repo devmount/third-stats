@@ -2,180 +2,190 @@
   "extensionDescription": {
     "message": "Uno splendido modo di visualizzare le statistiche per i tuoi account su Thunderbird"
   },
+  "popup": {
+    "account": "Account | Account",
+    "folder": "Cartella | Cartelle",
+    "message": "-",
+    "openAllStats": "Apri tutte le statistiche",
+    "openOptions": "Apri Opzioni",
+    "messages": "Messaggio | Messaggi"
+  },
+  "stats": {
+    "mailsTotal": "Mail totali",
+    "withinYears": "in {0} anni",
+    "mailsUnread": "Mail non lette",
+    "niceWork": "Ottimo lavoro!",
+    "percentOfReceived": "{0}% delle ricevute",
+    "mailsReceived": "Mail ricevute",
+    "percentOfTotal": "{0}% del totale",
+    "mailsSent": "Mail inviate",
+    "mailsPerMonth": "Mail al mese",
+    "mailsYear": "mail/anno",
+    "mailsPerDay": "Mail al giorno",
+    "mailsWeek": "mail/settimana",
+    "loadingInProgress": "Caricamento di tutte le email da questo account in corso…",
+    "accountEmpty": "Questo account è vuoto, non ci sono email qui.",
+    "timePeriod": "Periodo di tempo",
+    "charts": {
+      "years": {
+        "title": "Anni",
+        "description": "Numero di email all'anno"
+      },
+      "quarters": {
+        "title": "Trimestri",
+        "description": "Numero totale di email per trimestre"
+      },
+      "months": {
+        "title": "Mesi",
+        "description": "Numero di mail al mese"
+      },
+      "weeks": {
+        "title": "Settimane",
+        "description": "Numero totale di email per settimana"
+      },
+      "days": {
+        "title": "Attività in {0}",
+        "description": "Numero di email al giorno"
+      },
+      "daytime": {
+        "title": "Orari",
+        "description": "Numero di mail per orario del giorno"
+      },
+      "weekday": {
+        "title": "Giorni",
+        "description": "Numero di mail per giorno della settimana"
+      },
+      "month": {
+        "title": "Mesi",
+        "description": "Numero di mail al mese"
+      },
+      "temporalDistribution": {
+        "title": "Distribuzione temporale",
+        "description": "Numero di email per giorno della settimana e orario"
+      },
+      "contactsReceived": {
+        "title": "Più ricevute da",
+        "description": "Numero di email ricevute per indirizzo"
+      },
+      "contactsSent": {
+        "title": "Più inviate a",
+        "description": "Numero di email inviate per indirizzo"
+      },
+      "foldersDistribution": {
+        "description": "Numero di messaggi di posta elettronica per cartella",
+        "title": "Distribuzione delle cartelle"
+      }
+    },
+    "tooltips": {
+      "expand": "Espandi area grafici",
+      "shrink": "Riduci area grafici",
+      "refresh": "Aggiorna i dati",
+      "clear": "Cancella selezione",
+      "period": {
+        "start": "Dalla data\nSuggerimento: digitando \"{0}\" diventa \"{1}\"",
+        "end": "Ad oggi\nSuggerimento: digitando \"{0}\" diventa \"{1}\""
+      },
+      "error": {
+        "empty": "È richiesto un ingresso",
+        "dateFormat": "Il formato AAAA-MM-GG è obbligatorio, ad es. 2020-01-31",
+        "dateUnreal": "È richiesta una data valida",
+        "dateOrderStart": "La data di inizio deve essere precedente alla data di fine",
+        "dateOrderEnd": "La data di fine deve essere successiva alla data di inizio"
+      },
+      "folder": {
+        "notAvailable": "Le cartelle non sono disponibili per {0}"
+      },
+      "comparison": "Confronta i conti in un grafico",
+      "sum": "Mostra la somma di tutti i conti",
+      "exportData": "Esporta i dati attualmente visualizzati come file JSON"
+    },
+    "abbreviations": {
+      "calendarWeek": "W",
+      "quarter": "Q",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "second": "s"
+    },
+    "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>",
+    "message": "-",
+    "dataCollected": "Dati raccolti {0} fa",
+    "allAccounts": "Tutti i account",
+    "nonEmptyFolders": "cartelle non vuote | cartella non vuota | cartelle non vuote",
+    "contact": "Contatto",
+    "disclaimer": "ThirdStats non rivendica la correttezza dei dati visualizzati.<br />In caso di possibili problemi, <a href='{0}' target='_blank'>crea una segnalazione di bug</a>."
+  },
   "options": {
-    "activeAccounts": {
-      "color": "Assegna a ciascun account un colore personalizzato per distinguerli nella modalità di confronto.",
-      "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche.",
-      "label": "Account attivi"
-    },
-    "cache": {
-      "description": "Abilita il sistema di caching per una visualizzazione più rapida dei dati statistici già elaborati.",
-      "label": "Attiva la cache"
-    },
-    "clearCache": {
-      "description": "Rimuovi tutti i dati delle statistiche memorizzati nella cache da tutti gli account. Verrà ricostruito aprendo nuovamente la pagina delle statistiche.",
-      "empty": "La cache è vuota",
-      "label": "Cancella cache",
-      "size": "La dimensione della cache è {0}"
-    },
-    "darkMode": {
-      "description": "Passa dalla combinazione di colori chiari e scuri",
-      "label": "Modalità scura"
-    },
     "headings": {
       "appearance": "Aspetto ed Esperienza",
       "stats": "Grafici e Dati",
       "storage": "Archiviazione e Cache"
     },
-    "leaderCount": {
-      "description": "Numero di voci mostrate nei grafici che elencano i contatti frequenti (massimo 999)",
-      "label": "Conteggio leader"
+    "switch": {
+      "on": "On",
+      "off": "Off"
     },
-    "localIdentities": {
-      "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali",
-      "label": "Identità locali"
-    },
-    "message": "-",
-    "note": {
-      "reloadStatsPage": "Le opzioni vengono salvate automaticamente. Se la pagina delle statistiche è già aperta, è necessario riaprirla o ricaricarla per applicare le modifiche.",
-      "title": "Nota"
+    "darkMode": {
+      "label": "Modalità scura",
+      "description": "Passa dalla combinazione di colori chiari e scuri"
     },
     "ordinate": {
-      "description": "Visualizza l'asse verticale per tutti i grafici a linee ea barre",
-      "label": "Asse verticale"
+      "label": "Asse verticale",
+      "description": "Visualizza l'asse verticale per tutti i grafici a linee ea barre"
     },
-    "resetOptions": {
-      "description": "Resettare tutte le opzioni ai valori predefiniti.",
-      "label": "Resettare le opzioni",
-      "removeIdentities": "Ciò rimuoverà anche tutte le identità locali che hai creato."
-    },
-    "selfMessages": {
-      "description": "Escludi i messaggi che sono stati inviati da me a me stesso",
-      "info": {
-        "anyAccount": "I messaggi in cui mittente e destinatario sono identità di qualsiasi account verranno esclusi",
-        "none": "I messaggi personali verranno inclusi e trattati come normali e-mail (impostazione predefinita)",
-        "sameAccount": "I messaggi in cui mittente e destinatario sono identità dello stesso account verranno esclusi"
-      },
-      "label": "Messaggi personali",
-      "values": {
-        "anyAccount": "Da qualsiasi account",
-        "none": "Disattivato",
-        "sameAccount": "Solo lo stesso account"
-      }
+    "localIdentities": {
+      "label": "Identità locali",
+      "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali"
     },
     "startOfWeek": {
-      "description": "Inizio della settimana personalizzato per tutti i grafici relativi ai giorni feriali",
-      "label": "Inizia la settimana"
+      "label": "Inizia la settimana",
+      "description": "Inizio della settimana personalizzato per tutti i grafici relativi ai giorni feriali"
     },
-    "switch": {
-      "off": "Off",
-      "on": "On"
+    "activeAccounts": {
+      "label": "Account attivi",
+      "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche.",
+      "color": "Assegna a ciascun account un colore personalizzato per distinguerli nella modalità di confronto."
     },
-    "title": "Opzioni"
-  },
-  "popup": {
-    "account": "Account | Account",
-    "folder": "Cartella | Cartelle",
+    "cache": {
+      "label": "Attiva la cache",
+      "description": "Abilita il sistema di caching per una visualizzazione più rapida dei dati statistici già elaborati."
+    },
+    "clearCache": {
+      "label": "Cancella cache",
+      "description": "Rimuovi tutti i dati delle statistiche memorizzati nella cache da tutti gli account. Verrà ricostruito aprendo nuovamente la pagina delle statistiche.",
+      "empty": "La cache è vuota",
+      "size": "La dimensione della cache è {0}"
+    },
+    "note": {
+      "title": "Nota",
+      "reloadStatsPage": "Le opzioni vengono salvate automaticamente. Se la pagina delle statistiche è già aperta, è necessario riaprirla o ricaricarla per applicare le modifiche.",
+      "reloadWindowRequired": "Se modificata, la finestra delle statistiche deve essere ricaricata",
+      "refreshCacheRequired": "Se modificata, la cache deve essere ricostruita"
+    },
     "message": "-",
-    "messages": "Messaggio | Messaggi",
-    "openAllStats": "Apri tutte le statistiche",
-    "openOptions": "Apri Opzioni"
-  },
-  "stats": {
-    "abbreviations": {
-      "calendarWeek": "W",
-      "day": "d",
-      "hour": "h",
-      "minute": "min",
-      "quarter": "Q",
-      "second": "s"
-    },
-    "accountEmpty": "Questo account è vuoto, non ci sono email qui.",
-    "allAccounts": "Tutti i account",
-    "charts": {
-      "contactsReceived": {
-        "description": "Numero di email ricevute per indirizzo",
-        "title": "Più ricevute da"
+    "selfMessages": {
+      "label": "Messaggi personali",
+      "description": "Escludi i messaggi che sono stati inviati da me a me stesso",
+      "values": {
+        "none": "Disattivato",
+        "sameAccount": "Solo lo stesso account",
+        "anyAccount": "Da qualsiasi account"
       },
-      "contactsSent": {
-        "description": "Numero di email inviate per indirizzo",
-        "title": "Più inviate a"
-      },
-      "days": {
-        "description": "Numero di email al giorno",
-        "title": "Attività in {0}"
-      },
-      "daytime": {
-        "description": "Numero di mail per orario del giorno",
-        "title": "Orari"
-      },
-      "month": {
-        "description": "Numero di mail al mese",
-        "title": "Mesi"
-      },
-      "months": {
-        "description": "Numero di mail al mese",
-        "title": "Mesi"
-      },
-      "quarters": {
-        "description": "Numero totale di email per trimestre",
-        "title": "Trimestri"
-      },
-      "temporalDistribution": {
-        "description": "Numero di email per giorno della settimana e orario",
-        "title": "Distribuzione temporale"
-      },
-      "weekday": {
-        "description": "Numero di mail per giorno della settimana",
-        "title": "Giorni"
-      },
-      "weeks": {
-        "description": "Numero totale di email per settimana",
-        "title": "Settimane"
-      },
-      "years": {
-        "description": "Numero di email all'anno",
-        "title": "Anni"
+      "info": {
+        "none": "I messaggi personali verranno inclusi e trattati come normali e-mail (impostazione predefinita)",
+        "sameAccount": "I messaggi in cui mittente e destinatario sono identità dello stesso account verranno esclusi",
+        "anyAccount": "I messaggi in cui mittente e destinatario sono identità di qualsiasi account verranno esclusi"
       }
     },
-    "dataCollected": "Dati raccolti {0} fa",
-    "loadingInProgress": "Caricamento di tutte le email da questo account in corso…",
-    "mailsPerDay": "Mail al giorno",
-    "mailsPerMonth": "Mail al mese",
-    "mailsReceived": "Mail ricevute",
-    "mailsSent": "Mail inviate",
-    "mailsTotal": "Mail totali",
-    "mailsUnread": "Mail non lette",
-    "mailsWeek": "mail/settimana",
-    "mailsYear": "mail/anno",
-    "message": "-",
-    "niceWork": "Ottimo lavoro!",
-    "percentOfReceived": "{0}% delle ricevute",
-    "percentOfTotal": "{0}% del totale",
-    "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>",
-    "timePeriod": "Periodo di tempo",
-    "tooltips": {
-      "clear": "Cancella selezione",
-      "comparison": "Confronta i conti in un grafico",
-      "error": {
-        "dateFormat": "Il formato AAAA-MM-GG è obbligatorio, ad es. 2020-01-31",
-        "dateOrderEnd": "La data di fine deve essere successiva alla data di inizio",
-        "dateOrderStart": "La data di inizio deve essere precedente alla data di fine",
-        "dateUnreal": "È richiesta una data valida",
-        "empty": "È richiesto un ingresso"
-      },
-      "expand": "Espandi area grafici",
-      "folder": {
-        "notAvailable": "Le cartelle non sono disponibili per {0}"
-      },
-      "period": {
-        "end": "Ad oggi\nSuggerimento: digitando \"{0}\" diventa \"{1}\"",
-        "start": "Dalla data\nSuggerimento: digitando \"{0}\" diventa \"{1}\""
-      },
-      "refresh": "Aggiorna i dati",
-      "shrink": "Riduci area grafici",
-      "sum": "Mostra la somma di tutti i conti"
+    "leaderCount": {
+      "label": "Conteggio leader",
+      "description": "Numero di voci mostrate nei grafici che elencano i contatti frequenti (massimo 999)"
     },
-    "withinYears": "in {0} anni"
+    "title": "Opzioni",
+    "resetOptions": {
+      "label": "Resettare le opzioni",
+      "description": "Resettare tutte le opzioni ai valori predefiniti.",
+      "removeIdentities": "Ciò rimuoverà anche tutte le identità locali che hai creato."
+    }
   }
 }
