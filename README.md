@@ -21,9 +21,9 @@ Install ThirdStats from the Thunderbird Add-ons repository:
 1. Start Thunderbird, open the main menu and click on Add-ons
 2. Search for *ThirdStats*
 3. Click *Add to Thunderbird* and give necessary permissions
-4. Open the ThirdStats Popup in the upper right corner of the toolbar and enjoy your email account stats
+4. Open the ThirdStats Popup in the upper right corner of the main toolbar and enjoy your email account stats
 
-To properly recognize emails as *sent*, make sure to configure all email adresses you write from as identities for your email account. You can do so under *account settings* > select your account > click button *more identities* at the bottom and add or modify identities as you need.
+To properly recognize emails as *sent*, make sure to configure all email adresses you write from as Thunderbird identities for your email account. You can do so under *account settings* > select your account > click button *more identities* at the bottom and add or modify identities as you need.
 
 Also keep in mind, that the processing of large mailboxes can take a lot of time.
 
@@ -35,10 +35,13 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
   - Sum of received and sent emails per daytime and per weekday
   - Temporal distribution of received and sent emails per weekday per hour
   - Leaderboards of most contacted email addresses
-- Show stats for a specific folder or period of time
-- Activate all accounts that should be included (add-on option)
+  - Distribution of emails per folder
+- Filter stats for a specific folder, period of time or contact
+- Comparison view for accounts with custom account colors
+- Deactivate accounts you don't want to include (add-on option)
 - Use a dark or a light theme (add-on option)
 - Use a caching system to store already processed data (add-on option)
+- Responsive stats page to adapt to different viewport sizes
 - Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Hungarian, Italian, Japanese, Polish, Portuguese, Russian, Spanish, Swedish, Thai and Turkish
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
@@ -70,7 +73,7 @@ If you encounter any problem, please [issue a bug report](https://github.com/dev
 
 ⚠ Keep in mind: Alpha releases can be unstable and break things.
 
-### Become a developer
+### Become a ThirdStats developer
 
 Here is how you can set up a local development environment:
 
@@ -94,6 +97,7 @@ Many thanks especially to those who helped translating this add-on and making it
 - Spanish: [@roninJosue](https://github.com/roninJosue) [@SabrinaFZ](https://github.com/SabrinaFZ)
 - French: [@antoinevth](https://github.com/antoinevth) [@aurelienrouze](https://github.com/aurelienrouze)
 - Galician: [@uveic](https://github.com/uveic)
+- German: [@devmount](https://github.com/devmount)
 - Hindi: [@kunaljain0212](https://github.com/kunaljain0212) [@mdfaizan7](https://github.com/mdfaizan7)
 - Hungarian: [@ovari](https://github.com/ovari/)
 - Italian: [@leobia](https://github.com/leobia) [@edmael](https://github.com/edmael)
