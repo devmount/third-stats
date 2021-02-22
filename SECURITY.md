@@ -6,9 +6,9 @@ These versions of ThirdStats are currently being supported with security updates
 
 | Version | Supported |
 | ------- | --------- |
-| 1.4.x   | ✅        |
-| 1.3.x   | ❌        |
-| < 1.3   | ❌        |
+| 1.5.x   | ✅        |
+| 1.4.x   | ❌        |
+| < 1.4   | ❌        |
 
 ## Reporting a Vulnerability
 
