@@ -645,6 +645,7 @@
 					</select> -->
 				</div>
 				<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
+				<div class="text-gray mt-1" v-html='$t("stats.disclaimer", ["https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md"])'></div>
 			</footer>
 		</div>
 	</div>
@@ -1336,7 +1337,7 @@ export default {
 					// if cache is enabled and data already exists in storage, display it directly
 					this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
 				} else {
-					// otherwise retrieve it first/again and track progress by processed folder count
+					// otherwise retrieve it first/again and track progress by processed folder countck
 					this.progress.current = 1
 					this.progress.max = this.folders.length
 					await this.refresh(id)

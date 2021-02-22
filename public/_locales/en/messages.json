@@ -146,6 +146,7 @@
     },
     "contact": "Contact",
     "dataCollected": "Data collected {0} ago",
+    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
     "loadingInProgress": "Loading of all emails from this account in progress…",
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",
