@@ -1,5 +1,5 @@
 <template>
-	<span v-html="$t('stats.dataCollected', ['<span class=\"text-normal\">' + timePassedSinceDataRetrieval + '</span>'])"></span>
+	<span v-html="$t('stats.dataCollected', ['<span class=\'text-normal\'>' + timePassedSinceDataRetrieval + '</span>'])"></span>
 </template>
 
 <script>
