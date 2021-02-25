@@ -654,7 +654,7 @@
 <script>
 // internal components
 import { defaultColors } from './definitions';
-import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd } from './utils';
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from './utils';
 import LineChart from './charts/LineChart'
 import BarChart from './charts/BarChart'
 import HeatMap from './charts/HeatMap'
@@ -1775,21 +1775,16 @@ export default {
 		},
 		// prepare data for weeks line chart
 		weeksChartData () {
-			let r = this.display.weeksData.received
-			let s = this.display.weeksData.sent
+			const r = this.display.weeksData.received
+			const s = this.display.weeksData.sent
 			let labels = [], dr = [], ds = []
-			for (let y = this.minYear; y <= this.maxYear; ++y) {
-				for (let w = 1; w <= weeksInYear(y); ++w) {
-					// trim weeks before start date
-					if (y == this.minYear && w < weekNumber(this.minDate)) continue
-					// trim weeks after end date
-					if (y == this.maxYear && w > weekNumber(this.maxDate)) break
-					// organize labels and data
-					labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
-					dr.push(y in r && w in r[y] ? r[y][w] : 0)
-					ds.push(y in s && w in s[y] ? s[y][w] : 0)
-				}
-			}
+			weeksBetween(this.minDate, this.maxDate).forEach(week => {
+				const [y, w] = week
+				// organize labels and data
+				labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+				dr.push(y in r && w in r[y] ? r[y][w] : 0)
+				ds.push(y in s && w in s[y] ? s[y][w] : 0)
+			})
 			return {
 				datasets: [
 					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
@@ -1805,18 +1800,13 @@ export default {
 			this.accounts.map((a, i) => {
 				const d = this.comparison.weeksData[a.id]
 				let data = []
-				for (let y = this.minYear; y <= this.maxYear; ++y) {
-					for (let w = 1; w < weeksInYear(y); ++w) {
-						// trim weeks before start date
-						if (y == this.minYear && w < weekNumber(this.minDate)) continue
-						// trim weeks after end date
-						if (y == this.maxYear && w > weekNumber(this.maxDate)) break
-						// generate labels in first iteration
-						if (i == 0) labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
-						// fill all data values, default to 0 if not existing for this combination
-						data.push(y in d && w in d[y] ? d[y][w] : 0)
-					}
-				}
+				weeksBetween(this.minDate, this.maxDate).forEach(week => {
+					const [y, w] = week
+					// generate labels in first iteration
+					if (i == 0) labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+					// fill all data values, default to 0 if not existing for this combination
+					data.push(y in d && w in d[y] ? d[y][w] : 0)
+				})
 				datasets.push({
 					label: this.$t('stats.mailsTotal') + ', ' + a.name,
 					data: data,
