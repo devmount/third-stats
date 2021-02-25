@@ -1,5 +1,5 @@
 // flatten folder hierarchie of given account
-let traverseAccount = (account) => {
+const traverseAccount = (account) => {
 	let arrayOfFolders = []
 	// recursive function to traverse all subfolders
 	function traverse(folders) {
@@ -14,7 +14,7 @@ let traverseAccount = (account) => {
 }
 
 // extract an email address from a given string
-let extractEmailAddress = (s) => {
+const extractEmailAddress = (s) => {
 	if (s.lastIndexOf("<")>=0 && s.lastIndexOf(">")>=0) {
 		return s.substring(s.lastIndexOf("<") + 1, s.lastIndexOf(">")).toLowerCase()
 	} else {
@@ -23,22 +23,22 @@ let extractEmailAddress = (s) => {
 }
 
 // get week number for given date (1 - 53)
-let weekNumber = (d) => {
+const weekNumber = (d) => {
 	d = new Date(+d)
 	d.setHours(0, 0, 0, 0)
 	d.setDate(d.getDate() + 4 - (d.getDay() || 7))
-	let yearStart = new Date(d.getFullYear(), 0, 1)
+	const yearStart = new Date(d.getFullYear(), 0, 1)
 	return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
 }
 
 // get the number of weeks for a given year
-let weeksInYear = (year) => {
+const weeksInYear = (year) => {
 	let d = new Date(year, 11, 31)
 	return weekNumber(d) == 1 ? 52 : 53
 }
 
 // get list of year-week tuples in between given dates
-let weeksBetween = (d1, d2) => {
+const weeksBetween = (d1, d2) => {
 	const minIsLastWeekOfPrevYear = d1.getMonth() == 0 && weekNumber(d1) > 50
 	const minIsFirstWeekOfNextYear = d1.getMonth() == 11 && weekNumber(d1) == 1
 	const maxIsLastWeekOfPrevYear = d2.getMonth() == 0 && weekNumber(d2) > 50
@@ -64,23 +64,22 @@ let weeksBetween = (d1, d2) => {
 	if (maxIsFirstWeekOfNextYear) {
 		weeks.push([d2.getFullYear()+1, weekNumber(d2) ])
 	}
-	console.log(weeks);
 	return weeks
 }
 
 // get quarter number for given date
-let quarterNumber = (d) => {
-	let month = d.getMonth() + 1
+const quarterNumber = (d) => {
+	const month = d.getMonth() + 1
 	return (Math.ceil(month / 3))
 }
 
 // format given date as YYYYMMDD
-let yyyymmdd = (d) => {
+const yyyymmdd = (d) => {
 	return d.toISOString().replace(/-/g, '').slice(0,8)
 }
 
 // format bytes and append unit
-let formatBytes = (bytes, decimals=2) => {
+const formatBytes = (bytes, decimals=2) => {
 	if (bytes === 0) return '0 Bytes'
 	const k = 1024
 	const dm = decimals < 0 ? 0 : decimals
@@ -90,22 +89,18 @@ let formatBytes = (bytes, decimals=2) => {
 }
 
 // convert 6-digit hex to rgb string, e.g. '#ff0000' => '255,0,0'
-let hexToRgb = (hex) => {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+const hexToRgb = (hex) => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result
     ? parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16)
     : null
 }
 
 // special pluralization rules
-let pluralizationPolish = (n) => {
-	if (n === 1) {
-		return 1
-	}
+const pluralizationPolish = (n) => {
+	if (n === 1) return 1
 	const endsWith = n % 10
-	if (([2, 3, 4].indexOf(endsWith) >= 0) && (n < 12) && (n > 14)) {
-		return 2
-	}
+	if (([2, 3, 4].indexOf(endsWith) >= 0) && (n < 12) && (n > 14)) return 2
 	return 0
 }
 
