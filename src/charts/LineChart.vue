@@ -5,8 +5,8 @@
 	<div
 		class="chart-container"
 		:style="{
-			width: this.width ? this.width : "auto",
-			height: this.height ? this.height : "auto"
+			width: this.width ? this.width : 'auto',
+			height: this.height ? this.height : 'auto'
 		}"
 	>
 		<canvas :id="id"></canvas>
