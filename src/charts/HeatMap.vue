@@ -1,7 +1,7 @@
 <template>
-<div class='chart'>
-	<h2 v-if='title' class='text-center'>{{ title }}</h2>
-	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
+<div class="chart">
+	<h2 v-if="title" class="text-center">{{ title }}</h2>
+	<p v-if="description" class="text-gray text-center">{{ description }}</p>
 	<div 
 		class="heatmap"
 		:style="
@@ -10,24 +10,24 @@
 			+ 'grid-gap: ' + spacing + ';'
 		"
 	>
-		<template v-for='(y, n) in labels.y'>
+		<template v-for="(y, n) in labels.y">
 			<div class="y-label text-gray text-tiny text-right">
 				<div>{{ y }}</div>
 			</div>
-			<template v-for='(x, m) in labels.x'>
+			<template v-for="(x, m) in labels.x">
 				<div
 					:style="
 						'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ');'
 						+ 'border-radius: ' + rounding + ';'
 					"
 					:data-tooltip="buildTooltip(x, y, dataset.label, dataset.data[n][m])"
-					class='cell tooltip'
+					class="cell tooltip"
 				></div>
 			</template>
 		</template>
 		<div></div>
-		<div v-for='(x, k) in labels.x' :key='k' class="x-label text-gray text-tiny text-center">
-			<div v-if='k%2==1'>{{ x }}</div>
+		<div v-for="(x, k) in labels.x" :key="k" class="x-label text-gray text-tiny text-center">
+			<div v-if="k%2==1">{{ x }}</div>
 		</div>
 	</div>
 </div>
@@ -52,7 +52,7 @@ export default {
 		},
 		// build tooltip based on given template
 		buildTooltip (x, y, label, value) {
-			let replacements = { '{x}': x, '{y}': y, '{label}': label, '{value}': value }
+			const replacements = { "{x}": x, "{y}": y, "{label}": label, "{value}": value }
 			return this.tooltips.replace(/{\w+}/g, all => replacements[all])
 		},
 	},
@@ -61,7 +61,7 @@ export default {
 		max () {
 			let max = 0
 			for (let d in this.dataset.data) {
-				let m = Math.max(...this.dataset.data[d])
+				const m = Math.max(...this.dataset.data[d])
 				max = m > max ? m : max
 			}
 			return max
@@ -88,7 +88,7 @@ export default {
 		box-sizing border-box
 		transition background .4s ease
 		&::before
-			content ''
+			content ""
 			display block
 			padding-top 100%
 	.x-label
