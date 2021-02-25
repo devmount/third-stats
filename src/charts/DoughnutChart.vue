@@ -1,9 +1,9 @@
 <template>
-<div class='chart'>
-	<h2 v-if='title' class='text-center'>{{ title }}</h2>
-	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
+<div class="chart">
+	<h2 v-if="title" class="text-center">{{ title }}</h2>
+	<p v-if="description" class="text-gray text-center">{{ description }}</p>
 	<div class="chart-container">
-		<canvas :id='id'></canvas>
+		<canvas :id="id"></canvas>
 		<div v-if="info" class="chart-info">
 			<div class="featured">{{ info.number }}</div>
 			<div class="text-gray">{{ info.label }}</div>
@@ -52,7 +52,7 @@ export default {
 	methods: {
 		draw () {
 			this.chart = new Chart(this.id, {
-				type: 'doughnut',
+				type: "doughnut",
 				data: {
 					datasets: this.currentData,
 					labels: this.labels,
@@ -75,7 +75,7 @@ export default {
 			let colors = []
 			const max = Math.max(...data)
 			data.map(d => {
-				colors.push(color.replace(')', ', ' + this.opacity(d, max) + ')'))
+				colors.push(color.replace(")", ", " + this.opacity(d, max) + ")"))
 			})
 			return colors
 		}
