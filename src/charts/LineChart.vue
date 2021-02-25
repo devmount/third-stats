@@ -1,15 +1,15 @@
 <template>
-<div class='chart'>
-	<h2 v-if='title' class='text-center'>{{ title }}</h2>
-	<p v-if='description' class='text-gray text-center'>{{ description }}</p>
+<div class="chart">
+	<h2 v-if="title" class="text-center">{{ title }}</h2>
+	<p v-if="description" class="text-gray text-center">{{ description }}</p>
 	<div
 		class="chart-container"
 		:style="{
-			width: this.width ? this.width : 'auto',
-			height: this.height ? this.height : 'auto'
+			width: this.width ? this.width : "auto",
+			height: this.height ? this.height : "auto"
 		}"
 	>
-		<canvas :id='id'></canvas>
+		<canvas :id="id"></canvas>
 	</div>
 </div>
 </template>
@@ -59,7 +59,7 @@ export default {
 	methods: {
 		draw () {
 			this.chart = new Chart(this.id, {
-				type: 'line',
+				type: "line",
 				data: {
 					datasets: this.currentData,
 					labels: this.labels,
