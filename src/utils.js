@@ -1,4 +1,4 @@
-// function to flatten folder hierarchie of given account
+// flatten folder hierarchie of given account
 let traverseAccount = (account) => {
 	let arrayOfFolders = []
 	// recursive function to traverse all subfolders
@@ -13,7 +13,7 @@ let traverseAccount = (account) => {
 	return arrayOfFolders
 }
 
-// function to extract an email address from a given string
+// extract an email address from a given string
 let extractEmailAddress = (s) => {
 	if (s.lastIndexOf("<")>=0 && s.lastIndexOf(">")>=0) {
 		return s.substring(s.lastIndexOf("<") + 1, s.lastIndexOf(">")).toLowerCase()
@@ -22,7 +22,7 @@ let extractEmailAddress = (s) => {
 	}
 }
 
-// function to get week number for given date (1 - 53)
+// get week number for given date (1 - 53)
 let weekNumber = (d) => {
 	d = new Date(+d)
 	d.setHours(0, 0, 0, 0)
@@ -31,24 +31,55 @@ let weekNumber = (d) => {
 	return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
 }
 
-// function to get the number of weeks for a given year
+// get the number of weeks for a given year
 let weeksInYear = (year) => {
 	let d = new Date(year, 11, 31)
 	return weekNumber(d) == 1 ? 52 : 53
 }
 
-// function to get quarter number for given date
+// get list of year-week tuples in between given dates
+let weeksBetween = (d1, d2) => {
+	const minIsLastWeekOfPrevYear = d1.getMonth() == 0 && weekNumber(d1) > 50
+	const minIsFirstWeekOfNextYear = d1.getMonth() == 11 && weekNumber(d1) == 1
+	const maxIsLastWeekOfPrevYear = d2.getMonth() == 0 && weekNumber(d2) > 50
+	const maxIsFirstWeekOfNextYear = d2.getMonth() == 11 && weekNumber(d2) == 1
+	const minYear = minIsFirstWeekOfNextYear ? d1.getFullYear()+1 : d1.getFullYear()
+	const maxYear = maxIsLastWeekOfPrevYear ? d2.getFullYear()-1 : d2.getFullYear()
+	let weeks = []
+	for (let y = minYear; y <= maxYear; ++y) {
+		for (let w = 1; w <= weeksInYear(y); ++w) {
+			// trim weeks before start date
+			if (y == minYear && w < weekNumber(d1) && !minIsLastWeekOfPrevYear) continue
+			// trim weeks after end date
+			if (y == maxYear && w > weekNumber(d2) && !maxIsFirstWeekOfNextYear) break
+			// add tuple
+			weeks.push([y, w])
+		}
+	}
+	// check first days of year still belonging to last week of previous year
+	if (minIsLastWeekOfPrevYear) {
+		weeks.unshift([d1.getFullYear()-1, weekNumber(d1) ])
+	}
+	// check last days of year already belonging to first week of next year
+	if (maxIsFirstWeekOfNextYear) {
+		weeks.push([d2.getFullYear()+1, weekNumber(d2) ])
+	}
+	console.log(weeks);
+	return weeks
+}
+
+// get quarter number for given date
 let quarterNumber = (d) => {
 	let month = d.getMonth() + 1
 	return (Math.ceil(month / 3))
 }
 
-// function to format given date as YYYYMMDD
+// format given date as YYYYMMDD
 let yyyymmdd = (d) => {
 	return d.toISOString().replace(/-/g, '').slice(0,8)
 }
 
-// function to format bytes and append unit
+// format bytes and append unit
 let formatBytes = (bytes, decimals=2) => {
 	if (bytes === 0) return '0 Bytes'
 	const k = 1024
@@ -83,6 +114,7 @@ export {
 	extractEmailAddress,
 	weekNumber,
 	weeksInYear,
+	weeksBetween,
 	quarterNumber,
 	yyyymmdd,
 	formatBytes,
