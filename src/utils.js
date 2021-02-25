@@ -80,19 +80,19 @@ const yyyymmdd = (d) => {
 
 // format bytes and append unit
 const formatBytes = (bytes, decimals=2) => {
-	if (bytes === 0) return '0 Bytes'
+	if (bytes === 0) return "0 Bytes"
 	const k = 1024
 	const dm = decimals < 0 ? 0 : decimals
-	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+	const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
 	const i = Math.floor(Math.log(bytes) / Math.log(k))
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i]
 }
 
-// convert 6-digit hex to rgb string, e.g. '#ff0000' => '255,0,0'
+// convert 6-digit hex to rgb string, e.g. "#ff0000" => "255,0,0"
 const hexToRgb = (hex) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result
-    ? parseInt(result[1], 16) + ',' + parseInt(result[2], 16) + ',' + parseInt(result[3], 16)
+    ? parseInt(result[1], 16) + "," + parseInt(result[2], 16) + "," + parseInt(result[3], 16)
     : null
 }
 
