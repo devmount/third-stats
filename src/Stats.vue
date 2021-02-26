@@ -1,140 +1,140 @@
 <template>
-	<div id='stats' class='text-normal background-normal position-relative' :class='scheme'>
+	<div id="stats" class="text-normal background-normal position-relative" :class="scheme">
 		<!-- progress indicator -->
 		<div class="progress position-fixed w-available top-0 right-0">
 			<div
-				class='h-0-25 text-center background-accent2 tooltip tooltip-bottom'
-				:class='{ "transition-width": processingState>0 && processingState<100 }'
-				:style='"width:" + processingState + "%;"'
-				:data-tooltip='oneDigit(processingState) + "%"'
+				class="h-0-25 text-center background-accent2 tooltip tooltip-bottom"
+				:class="{ 'transition-width': processingState>0 && processingState<100 }"
+				:style="'width:' + processingState + '%;'"
+				:data-tooltip="oneDigit(processingState) + '%'"
 			></div>
 		</div>
-		<div class='container pt-2 pb-6'>
+		<div class="container pt-2 pb-6">
 			<!-- title heading and filter -->
 			<header id="header">
-				<h1 class='mr-2 d-flex align-items-center'>
-					<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
-					Th<span class='text-gray'>underb</span>ird Stats
+				<h1 class="mr-2 d-flex align-items-center">
+					<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
+					Th<span class="text-gray">underb</span>ird Stats
 				</h1>
 				<!-- filter area -->
-				<div class='filter d-flex flex-wrap gap-1'>
+				<div class="filter d-flex flex-wrap gap-1">
 					<!-- account selection -->
-					<div class='filter-account d-flex'>
-						<label for='account' class='align-center text-gray p-0-5'>{{ $tc('popup.account', 1) }}</label>
-						<select v-model='active.account' :disabled='loading' class='align-stretch w-6' :class='{ disabled: loading }' id='account'>
-							<option v-if='accounts.length > 1 && preferences.cache' :value='"sum"'>{{ $t('stats.allAccounts') }}</option>
-							<option v-for='a in accounts' :key='a.id' :value='a.id'>{{ a.name }}</option>
+					<div class="filter-account d-flex">
+						<label for="account" class="align-center text-gray p-0-5">{{ $tc("popup.account", 1) }}</label>
+						<select v-model="active.account" :disabled="loading" class="align-stretch w-6" :class="{ disabled: loading }" id="account">
+							<option v-if="accounts.length > 1 && preferences.cache" :value="'sum'">{{ $t("stats.allAccounts") }}</option>
+							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
 						</select>
-						<div v-show='loading' :class='scheme + " loading align-center loader-accent2"'></div>
+						<div v-show="loading" :class="scheme + ' loading align-center loader-accent2'"></div>
 						<div
-							v-show='!loading'
-							class='refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex'
-							:data-tooltip='$t("stats.tooltips.refresh")'
-							@click='loadAccount(active.account, true)'
+							v-show="!loading"
+							class="refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex"
+							:data-tooltip="$t('stats.tooltips.refresh')"
+							@click="loadAccount(active.account, true)"
 						>
-							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-								<path class='icon-part-accent2' d='M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5' />
-								<line class='icon-part-accent2' x1='5.63' y1='7.16' x2='5.63' y2='7.17' />
-								<line class='icon-part-accent2-faded' x1='4.06' y1='11' x2='4.06' y2='11.01' />
-								<line class='icon-part-accent2-faded' x1='4.63' y1='15.1' x2='4.63' y2='15.11' />
-								<line class='icon-part-accent2-faded' x1='7.16' y1='18.37' x2='7.16' y2='18.38' />
-								<line class='icon-part-accent2-faded' x1='11' y1='19.94' x2='11' y2='19.95' />
+							<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
+								<line class="icon-part-accent2" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
+								<line class="icon-part-accent2-faded" x1="4.06" y1="11" x2="4.06" y2="11.01" />
+								<line class="icon-part-accent2-faded" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
+								<line class="icon-part-accent2-faded" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
+								<line class="icon-part-accent2-faded" x1="11" y1="19.94" x2="11" y2="19.95" />
 							</svg>
 						</div>
 					</div>
 					<!-- folder selection -->
-					<div class='filter-folder d-flex'>
-						<label for='folder' class='align-center text-gray p-0-5'>{{ $tc('popup.folder', 1) }}</label>
+					<div class="filter-folder d-flex">
+						<label for="folder" class="align-center text-gray p-0-5">{{ $tc("popup.folder", 1) }}</label>
 						<div
 							class="d-flex align-stretch tooltip-bottom"
-							:class='{ tooltip: !singleAccount }'
-							:data-tooltip='$t("stats.tooltips.folder.notAvailable", [$t("stats.allAccounts")])'
+							:class="{ tooltip: !singleAccount }"
+							:data-tooltip="$t('stats.tooltips.folder.notAvailable', [$t('stats.allAccounts')])"
 						>
 							<select
-								id='folder'
-								v-model='active.folder'
-								:disabled='loading || !singleAccount'
-								class='align-stretch w-6'
-								:class='{ disabled: loading || !singleAccount }'
+								id="folder"
+								v-model="active.folder"
+								:disabled="loading || !singleAccount"
+								class="align-stretch w-6"
+								:class="{ disabled: loading || !singleAccount }"
 							>
-								<option v-for='f in folders' :key='f.path' :value='f'>{{ formatFolder(f) }}</option>
+								<option v-for="f in folders" :key="f.path" :value="f">{{ formatFolder(f) }}</option>
 							</select>
 						</div>
 						<div
-							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
-							:class='{ "cursor-na": loading || !singleAccount }'
-							:data-tooltip='$t("stats.tooltips.clear")'
-							@click='singleAccount ? resetFolder(true) : null'
+							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+							:class="{ 'cursor-na': loading || !singleAccount }"
+							:data-tooltip="$t('stats.tooltips.clear')"
+							@click="singleAccount ? resetFolder(true) : null"
 						>
-							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading && singleAccount }' viewBox='0 0 24 24'>
-								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
-								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !loading && singleAccount }" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
+								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
 							</svg>
 						</div>
 					</div>
 					<!-- time period selection -->
-					<div class='filter-period d-flex'>
-						<label for='start' class='align-center text-gray p-0-5'>{{ $t("stats.timePeriod") }}</label>
-						<div class='input-group d-flex align-stretch'>
+					<div class="filter-period d-flex">
+						<label for="start" class="align-center text-gray p-0-5">{{ $t("stats.timePeriod") }}</label>
+						<div class="input-group d-flex align-stretch">
 							<div
-								class='d-flex tooltip tooltip-bottom'
-								v-for='f in ["start", "end"]'
-								:key='f'
-								:data-tooltip='error.period[f].length > 0 ? error.period[f].join("\n") : $t("stats.tooltips.period." + f, [examplePeriodShort, examplePeriodFormatted])'
-								:class='{ "tooltip-error": error.period[f].length > 0 }'
+								class="d-flex tooltip tooltip-bottom"
+								v-for="f in ['start', 'end']"
+								:key="f"
+								:data-tooltip="error.period[f].length > 0 ? error.period[f].join('\n') : $t('stats.tooltips.period.' + f, [examplePeriodShort, examplePeriodFormatted])"
+								:class="{ 'tooltip-error': error.period[f].length > 0 }"
 							>
 								<input
-									type='text'
-									:id='f'
-									v-model='active.period[f]'
-									class='align-stretch w-6'
-									:class='{ error: error.period[f].length > 0 }'
-									placeholder='YYYY-MM-DD'
-									@blur='formatPeriod(f)'
-									v-on:keyup.enter='formatPeriod(f);updatePeriod()'
+									type="text"
+									:id="f"
+									v-model="active.period[f]"
+									class="align-stretch w-6"
+									:class="{ error: error.period[f].length > 0 }"
+									placeholder="YYYY-MM-DD"
+									@blur="formatPeriod(f)"
+									v-on:keyup.enter="formatPeriod(f); updatePeriod()"
 								/>
 							</div>
-							<button @click='updatePeriod' class='button-secondary align-center p-0-5'>
+							<button @click="updatePeriod" class="button-secondary align-center p-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<path d="M5 12l5 5l10 -10" />
 								</svg>
 							</button>
 						</div>
-						<div class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center' :data-tooltip='$t("stats.tooltips.clear")' @click='resetPeriod(true)'>
-							<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox='0 0 24 24'>
-								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
-								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+						<div class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center" :data-tooltip="$t('stats.tooltips.clear')" @click="resetPeriod(true)">
+							<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
+								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
 							</svg>
 						</div>
 					</div>
 					<!-- contact selection -->
-					<div class='filter-contact d-flex'>
-						<label for='contact' class='align-center text-gray p-0-5'>{{ $tc('stats.contact', 1) }}</label>
+					<div class="filter-contact d-flex">
+						<label for="contact" class="align-center text-gray p-0-5">{{ $tc("stats.contact", 1) }}</label>
 						<div class="d-flex align-stretch tooltip-bottom">
 							<select
-								id='contact'
-								v-model='active.contact'
-								:disabled='loading'
-								class='align-stretch w-6'
-								:class='{ disabled: loading }'
+								id="contact"
+								v-model="active.contact"
+								:disabled="loading"
+								class="align-stretch w-6"
+								:class="{ disabled: loading }"
 							>
-								<option v-for='c in contacts' :key='c' :value='c'>{{ c }}</option>
+								<option v-for="c in contacts" :key="c" :value="c">{{ c }}</option>
 							</select>
 						</div>
 						<div
-							class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
-							:class='{ "cursor-na": loading }'
-							:data-tooltip='$t("stats.tooltips.clear")'
-							@click='!loading ? resetContact(true) : null'
+							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+							:class="{ 'cursor-na': loading }"
+							:data-tooltip="$t('stats.tooltips.clear')"
+							@click="!loading ? resetContact(true) : null"
 						>
-							<svg class='icon icon-bold icon-gray' :class='{ "icon-hover-accent": !loading }' viewBox='0 0 24 24'>
-								<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-								<line class='icon-part-accent2' x1='18' y1='6' x2='6' y2='18' />
-								<line class='icon-part-accent2' x1='6' y1='6' x2='18' y2='18' />
+							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !loading }" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
+								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
 							</svg>
 						</div>
 					</div>
@@ -143,96 +143,96 @@
 				<div class="action d-inline-flex gap-1 ml-2">
 					<!-- data export -->
 					<div
-						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center'
-						:data-tooltip='$t("stats.tooltips.exportData")'
+						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+						:data-tooltip="$t('stats.tooltips.exportData')"
 						@click="exportJson()"
 					>
-						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
+						<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path class='icon-part-accent2' d="M14 3v4a1 1 0 0 0 1 1h4" />
-							<path class='icon-part-accent2' d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-							<line class='icon-part-accent1' x1="9" y1="17" x2="9" y2="12" />
-							<line class='icon-part-accent1-faded' x1="12" y1="17" x2="12" y2="16" />
-							<line class='icon-part-accent1' x1="15" y1="17" x2="15" y2="14" />
+							<path class="icon-part-accent2" d="M14 3v4a1 1 0 0 0 1 1h4" />
+							<path class="icon-part-accent2" d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+							<line class="icon-part-accent1" x1="9" y1="17" x2="9" y2="12" />
+							<line class="icon-part-accent1-faded" x1="12" y1="17" x2="12" y2="16" />
+							<line class="icon-part-accent1" x1="15" y1="17" x2="15" y2="14" />
 						</svg>
 					</div>
 					<!-- options launcher -->
 					<div
-						class='cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1'
-						:data-tooltip='$t("popup.openOptions")'
+						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1"
+						:data-tooltip="$t('popup.openOptions')"
 						@click.prevent="openTab('options.html', '1')"
 					>
-						<svg class='icon icon-bold icon-gray icon-hover-accent' viewBox="0 0 24 24">
-							<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-							<path class='icon-part-accent2' d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' />
-							<circle class='icon-part-accent2-faded' cx='12' cy='12' r='3' />
+						<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+							<path class="icon-part-accent2" d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+							<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
 						</svg>
 					</div>
 				</div>
 				<!-- meta infos -->
-				<div class='meta text-gray text-right'>
+				<div class="meta text-gray text-right">
 					<div
-						v-if='display.meta && display.meta.timestamp'
-						class='d-inline-block tooltip tooltip-bottom'
-						:data-tooltip='formatDate(display.meta.timestamp)'
+						v-if="display.meta && display.meta.timestamp"
+						class="d-inline-block tooltip tooltip-bottom"
+						:data-tooltip="formatDate(display.meta.timestamp)"
 					>
 						<LiveAge class="cursor-default" :date="display.meta.timestamp" />
 					</div>
 				</div>
 			</header>
 			<!-- fetured numbers -->
-			<section class='numbers mx-auto mt-2'>
+			<section class="numbers mx-auto mt-2">
 				<!-- total -->
 				<div>
-					<div class='text-gray'>{{ $t('stats.mailsTotal') }}</div>
-					<div class='featured'>{{ display.numbers.total.toLocaleString() }}</div>
-					<div class='text-gray'>{{ $t('stats.withinYears', [oneDigit(years)]) }}</div>
+					<div class="text-gray">{{ $t("stats.mailsTotal") }}</div>
+					<div class="featured">{{ display.numbers.total.toLocaleString() }}</div>
+					<div class="text-gray">{{ $t("stats.withinYears", [oneDigit(years)]) }}</div>
 				</div>
 				<!-- unread -->
 				<div>
-					<div class='text-gray'>{{ $t('stats.mailsUnread') }}</div>
-					<div class='featured'>{{ display.numbers.unread.toLocaleString() }}</div>
-					<div class='text-gray' v-if='display.numbers.unread == 0'>{{ $t('stats.niceWork') }}</div>
-					<div class='text-gray' v-else>{{ $t('stats.percentOfReceived', [unreadPercentage]) }}</div>
+					<div class="text-gray">{{ $t("stats.mailsUnread") }}</div>
+					<div class="featured">{{ display.numbers.unread.toLocaleString() }}</div>
+					<div class="text-gray" v-if="display.numbers.unread == 0">{{ $t("stats.niceWork") }}</div>
+					<div class="text-gray" v-else>{{ $t("stats.percentOfReceived", [unreadPercentage]) }}</div>
 				</div>
 				<!-- received -->
 				<div>
-					<div class='text-accent2'>{{ $t('stats.mailsReceived') }}</div>
-					<div class='featured text-accent2'>{{ display.numbers.received.toLocaleString() }}</div>
-					<div class='text-gray'>{{ $t('stats.percentOfTotal', [receivedPercentage]) }}</div>
+					<div class="text-accent2">{{ $t("stats.mailsReceived") }}</div>
+					<div class="featured text-accent2">{{ display.numbers.received.toLocaleString() }}</div>
+					<div class="text-gray">{{ $t("stats.percentOfTotal", [receivedPercentage]) }}</div>
 				</div>
 				<!-- sent -->
 				<div>
-					<div class='text-accent1'>{{ $t('stats.mailsSent') }}</div>
-					<div class='featured text-accent1'>{{ display.numbers.sent.toLocaleString() }}</div>
-					<div class='text-gray'>{{ $t('stats.percentOfTotal', [sentPercentage]) }}</div>
+					<div class="text-accent1">{{ $t("stats.mailsSent") }}</div>
+					<div class="featured text-accent1">{{ display.numbers.sent.toLocaleString() }}</div>
+					<div class="text-gray">{{ $t("stats.percentOfTotal", [sentPercentage]) }}</div>
 				</div>
 				<!-- per month / per year -->
 				<div>
-					<div class='text-gray'>{{ $t('stats.mailsPerMonth') }}</div>
-					<div class='featured'>{{ perMonth }}</div>
-					<div class='text-gray'>{{ perYear }} {{ $t('stats.mailsYear') }}</div>
+					<div class="text-gray">{{ $t("stats.mailsPerMonth") }}</div>
+					<div class="featured">{{ perMonth }}</div>
+					<div class="text-gray">{{ perYear }} {{ $t("stats.mailsYear") }}</div>
 				</div>
 				<!-- per day / per week -->
 				<div>
-					<div class='text-gray'>{{ $t('stats.mailsPerDay') }}</div>
-					<div class='featured'>{{ perDay }}</div>
-					<div class='text-gray'>{{ perWeek }} {{ $t('stats.mailsWeek') }}</div>
+					<div class="text-gray">{{ $t("stats.mailsPerDay") }}</div>
+					<div class="featured">{{ perDay }}</div>
+					<div class="text-gray">{{ perWeek }} {{ $t("stats.mailsWeek") }}</div>
 				</div>
 			</section>
 			<!-- still processing -->
-			<section v-if='loading && display.numbers.total == 0' class='mt-5'>
-				<svg class='icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition' viewBox='0 0 24 24'>
-					<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-					<polyline points='4 19 8 13 12 15 16 10 20 14 20 19 4 19' />
-					<polyline points='4 12 7 8 11 10 16 4 20 8' />
+			<section v-if="loading && display.numbers.total == 0" class="mt-5">
+				<svg class="icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
+					<polyline points="4 12 7 8 11 10 16 4 20 8" />
 				</svg>
-				<div class='text-center text-gray'>
-					{{ $t('stats.loadingInProgress') }}
+				<div class="text-center text-gray">
+					{{ $t("stats.loadingInProgress") }}
 				</div>
 			</section>
 			<!-- empty account -->
-			<section v-if='!loading && display.numbers.total == 0' class='mt-5'>
+			<section v-if="!loading && display.numbers.total == 0" class="mt-5">
 				<svg class="icon icon-huge icon-gray d-block m-0-auto" viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<rect x="4" y="4" width="16" height="16" rx="2" />
@@ -243,42 +243,42 @@
 				</div>
 			</section>
 			<!-- charts -->
-			<section v-if='display.numbers.total > 0' class='charts mt-2'>
+			<section v-if="display.numbers.total > 0" class="charts mt-2">
 				<div
-					id='chart-area-top'
-					class='chart-area'
-					:class='{ "first-column-only": preferences.sections.total.expand }'
+					id="chart-area-top"
+					class="chart-area"
+					:class="{ 'first-column-only': preferences.sections.total.expand }"
 				>
 					<!-- section: total -->
-					<div class='tab-area'>
-						<ul class='tab'>
+					<div class="tab-area">
+						<ul class="tab">
 							<li
-								v-for='(active, label) in tabs.total'
-								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom border-bottom-accent2'
-								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("total", label)'
+								v-for="(active, label) in tabs.total"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom border-bottom-accent2"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('total', label)"
 							>
 								<span
 									class="transition-color transition-border-image"
 									:class="{ 'border-bottom-gradient-accent2-accent1': !preferences.sections.total.comparison }"
 									:style="active && preferences.sections.total.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
 								>
-									{{ $t('stats.charts.' + label + '.title') }}
+									{{ $t("stats.charts." + label + ".title") }}
 								</span>
 							</li>
 							<li
 								v-if="!loading && active.account == 'sum'"
-								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
-								:data-tooltip='
+								class="cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto"
+								:data-tooltip="
 									!preferences.sections.total.comparison
-									? $t("stats.tooltips.comparison")
-									: $t("stats.tooltips.sum")
-								'
-								@click='preferences.sections.total.comparison=!preferences.sections.total.comparison'
+									? $t('stats.tooltips.comparison')
+									: $t('stats.tooltips.sum')
+								"
+								@click="preferences.sections.total.comparison=!preferences.sections.total.comparison"
 							>
-								<svg class='icon icon-text icon-hover-accent' :class='{"icon-accent2": preferences.sections.total.comparison}' viewBox='0 0 24 24'>
+								<svg class="icon icon-text icon-hover-accent" :class="{'icon-accent2': preferences.sections.total.comparison}" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
 									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
@@ -287,181 +287,181 @@
 								</svg>
 							</li>
 							<li
-								class='resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1'
+								class="resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1"
 								:class="{ 'ml-auto': active.account != 'sum' || loading }"
-								:data-tooltip='
+								:data-tooltip="
 									!preferences.sections.total.expand
-									? $t("stats.tooltips.expand")
-									: $t("stats.tooltips.shrink")
-								'
-								@click='preferences.sections.total.expand=!preferences.sections.total.expand'
+									? $t('stats.tooltips.expand')
+									: $t('stats.tooltips.shrink')
+								"
+								@click="preferences.sections.total.expand=!preferences.sections.total.expand"
 							>
-								<svg v-show='!preferences.sections.total.expand' class='icon icon-text' viewBox='0 0 24 24'>
-									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-									<polyline points='16 4 20 4 20 8' /><line x1='14' y1='10' x2='20' y2='4' />
-									<polyline points='8 20 4 20 4 16' /><line x1='4' y1='20' x2='10' y2='14' />
-									<polyline points='16 20 20 20 20 16' /><line x1='14' y1='14' x2='20' y2='20' />
-									<polyline points='8 4 4 4 4 8' /><line x1='4' y1='4' x2='10' y2='10' />
+								<svg v-show="!preferences.sections.total.expand" class="icon icon-text" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<polyline points="16 4 20 4 20 8" /><line x1="14" y1="10" x2="20" y2="4" />
+									<polyline points="8 20 4 20 4 16" /><line x1="4" y1="20" x2="10" y2="14" />
+									<polyline points="16 20 20 20 20 16" /><line x1="14" y1="14" x2="20" y2="20" />
+									<polyline points="8 4 4 4 4 8" /><line x1="4" y1="4" x2="10" y2="10" />
 								</svg>
-								<svg v-show='preferences.sections.total.expand' class='icon icon-text icon-arrows-minimize' viewBox='0 0 24 24'>
-									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-									<polyline points='5 9 9 9 9 5' /><line x1='3' y1='3' x2='9' y2='9' />
-									<polyline points='5 15 9 15 9 19' /><line x1='3' y1='21' x2='9' y2='15' />
-									<polyline points='19 9 15 9 15 5' /><line x1='15' y1='9' x2='21' y2='3' />
-									<polyline points='19 15 15 15 15 19' /><line x1='15' y1='15' x2='21' y2='21' />
+								<svg v-show="preferences.sections.total.expand" class="icon icon-text icon-arrows-minimize" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<polyline points="5 9 9 9 9 5" /><line x1="3" y1="3" x2="9" y2="9" />
+									<polyline points="5 15 9 15 9 19" /><line x1="3" y1="21" x2="9" y2="15" />
+									<polyline points="19 9 15 9 15 5" /><line x1="15" y1="9" x2="21" y2="3" />
+									<polyline points="19 15 15 15 15 19" /><line x1="15" y1="15" x2="21" y2="21" />
 								</svg>
 							</li>
 						</ul>
-						<div class='tab-content mt-1'>
+						<div class="tab-content mt-1">
 							<!-- emails per year over total time -->
 							<LineChart
-								v-if='tabs.total.years && !preferences.sections.total.comparison'
-								:datasets='yearsChartData.datasets'
-								:labels='yearsChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.years && !preferences.sections.total.comparison"
+								:datasets="yearsChartData.datasets"
+								:labels="yearsChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<LineChart
-								v-if='tabs.total.years && preferences.sections.total.comparison'
-								:datasets='yearsComparedChartData.datasets'
-								:labels='yearsComparedChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.years && preferences.sections.total.comparison"
+								:datasets="yearsComparedChartData.datasets"
+								:labels="yearsComparedChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
-								v-if='tabs.total.quarters && !preferences.sections.total.comparison'
-								:datasets='quartersChartData.datasets'
-								:labels='quartersChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.quarters && !preferences.sections.total.comparison"
+								:datasets="quartersChartData.datasets"
+								:labels="quartersChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<LineChart
-								v-if='tabs.total.quarters && preferences.sections.total.comparison'
-								:datasets='quartersComparedChartData.datasets'
-								:labels='quartersComparedChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.quarters && preferences.sections.total.comparison"
+								:datasets="quartersComparedChartData.datasets"
+								:labels="quartersComparedChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
-								v-if='tabs.total.months && !preferences.sections.total.comparison'
-								:datasets='monthsChartData.datasets'
-								:labels='monthsChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.months && !preferences.sections.total.comparison"
+								:datasets="monthsChartData.datasets"
+								:labels="monthsChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<LineChart
-								v-if='tabs.total.months && preferences.sections.total.comparison'
-								:datasets='monthsComparedChartData.datasets'
-								:labels='monthsComparedChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.months && preferences.sections.total.comparison"
+								:datasets="monthsComparedChartData.datasets"
+								:labels="monthsComparedChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
-								v-if='tabs.total.weeks && !preferences.sections.total.comparison'
-								:datasets='weeksChartData.datasets'
-								:labels='weeksChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.weeks && !preferences.sections.total.comparison"
+								:datasets="weeksChartData.datasets"
+								:labels="weeksChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 							<LineChart
-								v-if='tabs.total.weeks && preferences.sections.total.comparison'
-								:datasets='weeksComparedChartData.datasets'
-								:labels='weeksComparedChartData.labels'
-								:ordinate='preferences.ordinate'
-								:abscissa='true'
+								v-if="tabs.total.weeks && preferences.sections.total.comparison"
+								:datasets="weeksComparedChartData.datasets"
+								:labels="weeksComparedChartData.labels"
+								:ordinate="preferences.ordinate"
+								:abscissa="true"
 							/>
 						</div>
 					</div>
 					<!-- section: activity -->
-					<div v-show='!preferences.sections.total.expand' class='tab-area position-relative'>
-						<div class='position-absolute top-0-5 right-0-5 d-flex gap-0-5'>
-							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year > minYear}' @click.prevent='previousYear()'>
-								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.activity.year <= minYear}' viewBox='0 0 24 24'>
+					<div v-show="!preferences.sections.total.expand" class="tab-area position-relative">
+						<div class="position-absolute top-0-5 right-0-5 d-flex gap-0-5">
+							<div class="d-inline-flex align-center" :class="{'cursor-pointer': preferences.sections.activity.year > minYear}" @click.prevent="previousYear()">
+								<svg class="icon icon-bold icon-gray icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year <= minYear}" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-									<polyline class='icon-part-accent2' points="15 6 9 12 15 18" />
+									<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
 								</svg>
 							</div>
-							<select v-model='preferences.sections.activity.year' name='year'>
-								<option v-for='y in yearsList' :key='y' :value='y'>{{ y }}</option>
+							<select v-model="preferences.sections.activity.year" name="year">
+								<option v-for="y in yearsList" :key="y" :value="y">{{ y }}</option>
 							</select>
-							<div class='d-inline-flex align-center' :class='{"cursor-pointer": preferences.sections.activity.year < maxYear}' @click.prevent='nextYear()'>
-								<svg class='icon icon-bold icon-gray icon-hover-accent' :class='{"v-hidden": preferences.sections.activity.year >= maxYear}' viewBox='0 0 24 24'>
-									<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-									<polyline class='icon-part-accent2' points='9 6 15 12 9 18' />
+							<div class="d-inline-flex align-center" :class="{'cursor-pointer': preferences.sections.activity.year < maxYear}" @click.prevent="nextYear()">
+								<svg class="icon icon-bold icon-gray icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year >= maxYear}" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
 								</svg>
 							</div>
 						</div>
-						<ul class='tab'>
+						<ul class="tab">
 							<li
-								v-for='(active, label) in tabs.activity'
-								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom'
-								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("activity", label)'
+								v-for="(active, label) in tabs.activity"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('activity', label)"
 							>
 								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
-									{{ $t('stats.charts.' + label + '.title', [preferences.sections.activity.year]) }}
+									{{ $t("stats.charts." + label + ".title", [preferences.sections.activity.year]) }}
 								</span>
 							</li>
 						</ul>
-						<div class='tab-content chart-group mt-1'>
+						<div class="tab-content chart-group mt-1">
 							<!-- activity per day received -->
 							<HeatMap
-								rgb='10, 132, 255'
-								spacing='1px'
-								rounding='5px'
-								:dataset='daysChartData.received'
-								:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
-								:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
-								class='mt-2 mb-1-5'
+								rgb="10, 132, 255"
+								spacing="1px"
+								rounding="5px"
+								:dataset="daysChartData.received"
+								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
+								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{label}: {value}'"
+								class="mt-2 mb-1-5"
 							/>
 							<!-- activity per day sent -->
 							<HeatMap
-								rgb='230, 77, 185'
-								spacing='1px'
-								rounding='5px'
-								:dataset='daysChartData.sent'
-								:labels='{ y: daysChartData.ylabels, x: daysChartData.xlabels }'
-								:tooltips='"{y}, " + $t("stats.abbreviations.calendarWeek") + "{x}\n{label}: {value}"'
+								rgb="230, 77, 185"
+								spacing="1px"
+								rounding="5px"
+								:dataset="daysChartData.sent"
+								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
+								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{label}: {value}'"
 							/>
 						</div>
 					</div>
 				</div>
-				<div id='chart-area-main' class='chart-area mt-2'>
+				<div id="chart-area-main" class="chart-area mt-2">
 					<!-- section: onedim -->
-					<div class='tab-area'>
-						<ul class='tab'>
+					<div class="tab-area">
+						<ul class="tab">
 							<li
-								v-for='(active, label) in tabs.onedim'
-								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom'
-								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("onedim", label)'
+								v-for="(active, label) in tabs.onedim"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('onedim', label)"
 							>
 								<span
 									class="transition-color transition-border-image"
 									:class="{ 'border-bottom-gradient-accent2-accent1': !preferences.sections.onedim.comparison }"
 									:style="active && preferences.sections.onedim.comparison ? 'border-image: linear-gradient(to right, ' + accountsColorGradient + ') 100% 1' : ''"
 								>
-									{{ $t('stats.charts.' + label + '.title') }}
+									{{ $t("stats.charts." + label + ".title") }}
 								</span>
 							</li>
 							<li
 								v-if="!loading && active.account == 'sum'"
-								class='cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto'
-								:data-tooltip='
+								class="cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto"
+								:data-tooltip="
 									!preferences.sections.onedim.comparison
-									? $t("stats.tooltips.comparison")
-									: $t("stats.tooltips.sum")
-								'
-								@click='preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison'
+									? $t('stats.tooltips.comparison')
+									: $t('stats.tooltips.sum')
+								"
+								@click="preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison"
 							>
-								<svg class='icon icon-text icon-hover-accent' :class='{"icon-accent2": preferences.sections.onedim.comparison}' viewBox='0 0 24 24'>
+								<svg class="icon icon-text icon-hover-accent" :class="{'icon-accent2': preferences.sections.onedim.comparison}" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
 									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
@@ -470,147 +470,147 @@
 								</svg>
 							</li>
 						</ul>
-						<div class='tab-content mt-1'>
+						<div class="tab-content mt-1">
 							<!-- emails per time of day -->
 							<BarChart
-								v-if='tabs.onedim.daytime && !preferences.sections.onedim.comparison'
-								:datasets='daytimeChartData.datasets'
-								:labels='daytimeChartData.labels'
-								:ordinate='preferences.ordinate'
+								v-if="tabs.onedim.daytime && !preferences.sections.onedim.comparison"
+								:datasets="daytimeChartData.datasets"
+								:labels="daytimeChartData.labels"
+								:ordinate="preferences.ordinate"
 							/>
 							<BarChart
-								v-if='tabs.onedim.daytime && preferences.sections.onedim.comparison'
-								:datasets='daytimeComparedChartData.datasets'
-								:labels='daytimeComparedChartData.labels'
-								:ordinate='preferences.ordinate'
+								v-if="tabs.onedim.daytime && preferences.sections.onedim.comparison"
+								:datasets="daytimeComparedChartData.datasets"
+								:labels="daytimeComparedChartData.labels"
+								:ordinate="preferences.ordinate"
 							/>
 							<!-- emails per day of week -->
 							<BarChart
-								v-if='tabs.onedim.weekday && !preferences.sections.onedim.comparison'
-								:datasets='weekdayChartData.datasets'
-								:labels='weekdayChartData.labels'
-								:ordinate='preferences.ordinate'
+								v-if="tabs.onedim.weekday && !preferences.sections.onedim.comparison"
+								:datasets="weekdayChartData.datasets"
+								:labels="weekdayChartData.labels"
+								:ordinate="preferences.ordinate"
 							/>
 							<BarChart
-								v-if='tabs.onedim.weekday && preferences.sections.onedim.comparison'
-								:datasets='weekdayComparedChartData.datasets'
-								:labels='weekdayComparedChartData.labels'
-								:ordinate='preferences.ordinate'
+								v-if="tabs.onedim.weekday && preferences.sections.onedim.comparison"
+								:datasets="weekdayComparedChartData.datasets"
+								:labels="weekdayComparedChartData.labels"
+								:ordinate="preferences.ordinate"
 							/>
 							<!-- emails per month of year -->
 							<BarChart
-								v-if='tabs.onedim.month && !preferences.sections.onedim.comparison'
-								:datasets='monthChartData.datasets'
-								:labels='monthChartData.labels'
-								:ordinate='preferences.ordinate'
+								v-if="tabs.onedim.month && !preferences.sections.onedim.comparison"
+								:datasets="monthChartData.datasets"
+								:labels="monthChartData.labels"
+								:ordinate="preferences.ordinate"
 							/>
 							<BarChart
-								v-if='tabs.onedim.month && preferences.sections.onedim.comparison'
-								:datasets='monthComparedChartData.datasets'
-								:labels='monthComparedChartData.labels'
-								:ordinate='preferences.ordinate'
+								v-if="tabs.onedim.month && preferences.sections.onedim.comparison"
+								:datasets="monthComparedChartData.datasets"
+								:labels="monthComparedChartData.labels"
+								:ordinate="preferences.ordinate"
 							/>
 						</div>
 					</div>
 					<!-- section: twodim -->
-					<div class='tab-area'>
-						<ul class='tab'>
+					<div class="tab-area">
+						<ul class="tab">
 							<li
-								v-for='(active, label) in tabs.twodim'
-								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom'
-								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("twodim", label)'
+								v-for="(active, label) in tabs.twodim"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('twodim', label)"
 							>
 								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
-									{{ $t('stats.charts.' + label + '.title') }}
+									{{ $t("stats.charts." + label + ".title") }}
 								</span>
 							</li>
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- emails per weekday per hour received -->
 							<HeatMap
-								rgb='10, 132, 255'
-								spacing='1px'
-								rounding='5px'
-								:dataset='weekdayPerHourChartData.received'
-								:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-								:tooltips='"{y}, {x}:00\n{label}: {value}"'
-								class='mt-1-5 mb-1-5'
+								rgb="10, 132, 255"
+								spacing="1px"
+								rounding="5px"
+								:dataset="weekdayPerHourChartData.received"
+								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
+								:tooltips="'{y}, {x}:00\n{label}: {value}'"
+								class="mt-1-5 mb-1-5"
 							/>
 							<!-- emails per weekday per hour sent -->
 							<HeatMap
-								rgb='230, 77, 185'
-								spacing='1px'
-								rounding='5px'
-								:dataset='weekdayPerHourChartData.sent'
-								:labels='{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}'
-								:tooltips='"{y}, {x}:00\n{label}: {value}"'
+								rgb="230, 77, 185"
+								spacing="1px"
+								rounding="5px"
+								:dataset="weekdayPerHourChartData.sent"
+								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
+								:tooltips="'{y}, {x}:00\n{label}: {value}'"
 							/>
 						</div>
 					</div>
 					<!-- section: leader -->
-					<div class='tab-area'>
-						<ul class='tab'>
+					<div class="tab-area">
+						<ul class="tab">
 							<li
-								v-for='(active, label) in tabs.leader'
-								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom'
-								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("leader", label)'
+								v-for="(active, label) in tabs.leader"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('leader', label)"
 							>
 								<span
 									class="transition-color transition-border-color"
-									:class='{ "border-bottom-accent2": label=="contactsReceived", "border-bottom-accent1": label=="contactsSent"}'
+									:class="{ 'border-bottom-accent2': label=='contactsReceived', 'border-bottom-accent1': label=='contactsSent'}"
 								>
-									{{ $t('stats.charts.' + label + '.title') }}
+									{{ $t("stats.charts." + label + ".title") }}
 								</span>
 							</li>
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- contacts most emails received from -->
 							<BarChart
-								v-if='tabs.leader.contactsReceived'
-								:datasets='receivedContactLeadersChartData.datasets'
-								:labels='receivedContactLeadersChartData.labels'
-								:horizontal='true'
+								v-if="tabs.leader.contactsReceived"
+								:datasets="receivedContactLeadersChartData.datasets"
+								:labels="receivedContactLeadersChartData.labels"
+								:horizontal="true"
 							/>
 							<!-- contacts most emails sent to -->
 							<BarChart
-								v-if='tabs.leader.contactsSent'
-								:datasets='sentContactLeadersChartData.datasets'
-								:labels='sentContactLeadersChartData.labels'
-								:horizontal='true'
+								v-if="tabs.leader.contactsSent"
+								:datasets="sentContactLeadersChartData.datasets"
+								:labels="sentContactLeadersChartData.labels"
+								:horizontal="true"
 							/>
 						</div>
 					</div>
 					<!-- section: folders -->
-					<div class='tab-area' v-if="display.folders">
-						<ul class='tab'>
+					<div class="tab-area" v-if="display.folders">
+						<ul class="tab">
 							<li
-								v-for='(active, label) in tabs.folders'
-								:key='label'
-								class='tab-item cursor-default tooltip tooltip-bottom'
-								:data-tooltip='$t("stats.charts." + label + ".description")'
-								:class='{ "active": active, "cursor-pointer": !active, "text-hover-accent2": !active }'
-								@click='activateTab("folders", label)'
+								v-for="(active, label) in tabs.folders"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('folders', label)"
 							>
 								<span
 									class="transition-color transition-border-image border-bottom-gradient-accent2-accent1"
 								>
-									{{ $t('stats.charts.' + label + '.title') }}
+									{{ $t("stats.charts." + label + ".title") }}
 								</span>
 							</li>
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- folders emails received -->
 							<DoughnutChart
-								v-if='tabs.folders.foldersDistribution'
-								:info='{ number: foldersChartData.labels.length, label: $tc("stats.nonEmptyFolders", foldersChartData.labels.length) }'
-								:datasets='foldersChartData.datasets'
-								:labels='foldersChartData.labels'
+								v-if="tabs.folders.foldersDistribution"
+								:info="{ number: foldersChartData.labels.length, label: $tc('stats.nonEmptyFolders', foldersChartData.labels.length) }"
+								:datasets="foldersChartData.datasets"
+								:labels="foldersChartData.labels"
 							/>
 						</div>
 					</div>
@@ -618,34 +618,34 @@
 			</section>
 			<!-- footer -->
 			<footer class="mt-6 text-center">
-				<div class='text-gray'>
-					<span class='text-middle mr-1'>ThirdStats {{ appVersion }}</span>
+				<div class="text-gray">
+					<span class="text-middle mr-1">ThirdStats {{ appVersion }}</span>
 					<svg
-						v-if='preferences.dark'
-						class='icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer'
-						viewBox='0 0 24 24'
-						@click.prevent='preferences.dark = false'
+						v-if="preferences.dark"
+						class="icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer"
+						viewBox="0 0 24 24"
+						@click.prevent="preferences.dark = false"
 					>
-						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-						<circle cx='12' cy='12' r='4' />
-						<path d='M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7' />
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<circle cx="12" cy="12" r="4" />
+						<path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
 					</svg>
 					<svg
 						v-else
-						class='icon icon-light icon-text icon-thin d-inline text-middle cursor-pointer'
-						viewBox='0 0 24 24'
-						@click.prevent='preferences.dark = true'
+						class="icon icon-light icon-text icon-thin d-inline text-middle cursor-pointer"
+						viewBox="0 0 24 24"
+						@click.prevent="preferences.dark = true"
 					>
-						<path stroke='none' d='M0 0h24v24H0z' fill='none'/>
-						<path d='M12 3c0.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z' />
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+						<path d="M12 3c0.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
 					</svg>
 					<!-- TODO: lang switch -->
 					<!-- <select v-model="$i18n.locale" class="form-select" id="language">
 						<option v-for="(lang, i) in Object.keys($i18n.messages)" :key="i" :value="lang">{{ lang }}</option>
 					</select> -->
 				</div>
-				<div class="text-gray" v-html='$t("stats.starAndImprove", ["https://github.com/devmount/third-stats"])'></div>
-				<div class="text-gray mt-1" v-html='$t("stats.disclaimer", ["https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md"])'></div>
+				<div class="text-gray" v-html="$t('stats.starAndImprove', ['https://github.com/devmount/third-stats'])"></div>
+				<div class="text-gray mt-1" v-html="$t('stats.disclaimer', ['https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md'])"></div>
 			</footer>
 		</div>
 	</div>
@@ -653,27 +653,27 @@
 
 <script>
 // internal components
-import { defaultColors } from './definitions';
-import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from './utils';
-import LineChart from './charts/LineChart'
-import BarChart from './charts/BarChart'
-import HeatMap from './charts/HeatMap'
-import DoughnutChart from './charts/DoughnutChart'
-import LiveAge from './parts/LiveAge'
+import { defaultColors } from "./definitions";
+import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from "./utils";
+import LineChart from "./charts/LineChart"
+import BarChart from "./charts/BarChart"
+import HeatMap from "./charts/HeatMap"
+import DoughnutChart from "./charts/DoughnutChart"
+import LiveAge from "./parts/LiveAge"
 
 // initialize Chart.js with global configuration
-import Chart from 'chart.js'
+import Chart from "chart.js"
 Chart.defaults.global.defaultFontColor = "#8a8a97"
 Chart.defaults.global.elements.arc.borderWidth = 0
 Chart.defaults.global.legend.display = false
-Chart.defaults.global.tooltips.mode = 'index'
+Chart.defaults.global.tooltips.mode = "index"
 Chart.defaults.global.tooltips.intersect = false
-Chart.defaults.global.tooltips.multiKeyBackground = '#000'
+Chart.defaults.global.tooltips.multiKeyBackground = "#000"
 Chart.defaults.global.tooltips.titleMarginBottom = 10
 Chart.defaults.global.tooltips.xPadding = 10
 Chart.defaults.global.tooltips.yPadding = 10
 Chart.defaults.global.tooltips.cornerRadius = 2
-Chart.defaults.global.hover.mode = 'index'
+Chart.defaults.global.hover.mode = "index"
 
 // helper class for object generation
 class NumberedObject {
@@ -737,7 +737,7 @@ const sortAndLimitObjectToArray = (obj, limit) => {
 const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default {
-	name: 'Stats',
+	name: "Stats",
 	components: { LineChart, BarChart, HeatMap, DoughnutChart, LiveAge },
 	data () {
 		return {
@@ -812,7 +812,7 @@ export default {
 				localIdentities: [],
 				accounts: [],
 				accountColors: {},
-				selfMessages: 'none',
+				selfMessages: "none",
 				leaderCount: 20,
 				cache: true,
 			},
@@ -821,7 +821,7 @@ export default {
 	},
 	async created () {
 		// set initial tab title
-		document.title = 'ThirdStats'
+		document.title = "ThirdStats"
 		// initially reset displayed data
 		this.display = JSON.parse(JSON.stringify(this.initData()))
 		this.comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
@@ -917,7 +917,7 @@ export default {
 					if (n.dark != o.dark) this.preferences.dark = n.dark
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
-					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(',').map(x => x.trim())
+					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(",").map(x => x.trim())
 					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
 					if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
 					if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
@@ -929,16 +929,16 @@ export default {
 		// get all add-on settings from the options page
 		// for non existing options use default value
 		async getOptions () {
-			let result = await messenger.storage.local.get('options')
+			const result = await messenger.storage.local.get("options")
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
-				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(',').map(x => x.trim()) : []
+				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(",").map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
 				this.preferences.accountColors = result.options.accountColors ? result.options.accountColors : {}
-				this.preferences.selfMessages = result.options.selfMessages ? result.options.selfMessages : 'none'
+				this.preferences.selfMessages = result.options.selfMessages ? result.options.selfMessages : "none"
 				this.preferences.leaderCount = result.options.leaderCount ? result.options.leaderCount : 20
 				this.preferences.cache = result.options.cache ? true : false
 			}
@@ -949,7 +949,7 @@ export default {
 			let accounts = await messenger.accounts.list()
 			// if account colors are not initialized yet, initialize them
 			if (Object.keys(this.preferences.accountColors).length == 0) {
-				accounts.map((a, i) => {
+				accounts.forEach((a, i) => {
 					this.preferences.accountColors[a.id] = defaultColors[(i%defaultColors.length)]
 				})
 			}
@@ -958,37 +958,37 @@ export default {
 				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
 			} else {
 				// default accounts activated are all non local accounts ...
-				accounts = accounts.filter(a => a.type != 'none')
+				accounts = accounts.filter(a => a.type != "none")
 			}
 			// assign accounts
 			this.accounts = accounts
 			// assign identities of all activated accounts
 			let identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
 			// add local identities if any local account is active
-			if (accounts.some(a => a.type == 'none')) {
+			if (accounts.some(a => a.type == "none")) {
 				this.preferences.localIdentities.map(l => identities.push(l.toLowerCase()))
 			}
 			this.identities = identities
 			// extract account id from url GET parameter
-			let uri = window.location.search.substring(1)
-			let id = (new URLSearchParams(uri)).get('s')
-			if (!id || (id == 'sum' && !this.preferences.cache) || (id == 'sum' && accounts.length <= 1)) id = accounts[0].id
+			const uri = window.location.search.substring(1)
+			const id = (new URLSearchParams(uri)).get("s")
+			if (!id || (id == "sum" && !this.preferences.cache) || (id == "sum" && accounts.length <= 1)) id = accounts[0].id
 			this.active.account = id
 		},
 		// analyze folders of a given account <a>
 		// return processed data oject structured like initData
 		async processAccount (a) {
 			// get identities from account, or from preferences if it's a local account
-			let identities = a.type != 'none' ? a.identities.map(i => i.email) : this.preferences.localIdentities
+			const identities = a.type != "none" ? a.identities.map(i => i.email) : this.preferences.localIdentities
 			// get all folders and subfolders from given account or selected folder of active account (filter field)
-			let folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
+			const folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
 			// build folder list for filter selection, if not already present
 			if (!this.folders.length) {
 				this.folders = folders
 			}
-			let self = this
-			let initData = this.initData()
+			const initData = this.initData()
 			let accountData = JSON.parse(JSON.stringify(initData))
+			let self = this
 			await Promise.all(folders.map(async f => {
 				// analyze all messages in all folders
 				await self.processMessages(accountData, JSON.parse(JSON.stringify(f)), identities)
@@ -1034,37 +1034,37 @@ export default {
 			// check filter:contact
 			if (this.active.contact && !this.contactInvolved(this.active.contact, m)) return
 			// check for self messages, if exclusion is enabled
-			if (this.preferences.selfMessages && this.preferences.selfMessages != 'none') {
-				let ids = this.preferences.selfMessages == 'sameAccount' ? identities : this.identities
+			if (this.preferences.selfMessages && this.preferences.selfMessages != "none") {
+				const ids = this.preferences.selfMessages == "sameAccount" ? identities : this.identities
 				if (this.isSelfMessage(m, ids)) return
 			}
 			// now start analyses
-			let type = ''
-			let author = extractEmailAddress(m.author)
+			let type = ""
+			const author = extractEmailAddress(m.author)
 			// numbers
 			data.numbers.total++
 			if (m.read === false) data.numbers.unread++
 			if (identities.includes(author)) {
 				data.numbers.sent++
-				type = 'sent'
+				type = "sent"
 			} else {
 				data.numbers.received++
-				type = 'received'
+				type = "received"
 			}
 			// calculate starting date (= date of oldest email)
-			let start = new Date(data.numbers.start)
+			const start = new Date(data.numbers.start)
 			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
 				data.numbers.start = m.date
 			}
 			// years
-			let y = m.date.getFullYear()
+			const y = m.date.getFullYear()
 			if (!(y in data.yearsData[type])) {
 				data.yearsData[type][y] = 1
 			} else {
 				data.yearsData[type][y]++
 			}
 			// quarters
-			let qn = quarterNumber(m.date)
+			const qn = quarterNumber(m.date)
 			if (!(y in data.quartersData[type])) {
 				data.quartersData[type][y] = {}
 				data.quartersData[type][y][qn] = 1
@@ -1076,7 +1076,7 @@ export default {
 				}
 			}
 			// months
-			let mo = m.date.getMonth()
+			const mo = m.date.getMonth()
 			if (!(y in data.monthsData[type])) {
 				data.monthsData[type][y] = {}
 				data.monthsData[type][y][mo] = 1
@@ -1088,8 +1088,8 @@ export default {
 				}
 			}
 			// weeks
-			let wn = weekNumber(m.date)
-			let ywn = wn == 53 && mo == 0 ? y-1 : y // adjust year for first days of January that are before week 1
+			const wn = weekNumber(m.date)
+			const ywn = wn == 53 && mo == 0 ? y-1 : y // adjust year for first days of January that are before week 1
 			if (!(ywn in data.weeksData[type])) {
 				data.weeksData[type][ywn] = {}
 				data.weeksData[type][ywn][wn] = 1
@@ -1101,10 +1101,10 @@ export default {
 				}
 			}
 			// daytime
-			let dt = m.date.getHours()
+			const dt = m.date.getHours()
 			data.daytimeData[type][dt]++
 			// weekday
-			let wd = m.date.getDay()
+			const wd = m.date.getDay()
 			data.weekdayData[type][wd]++
 			// month
 			data.monthData[type][mo]++
@@ -1118,8 +1118,8 @@ export default {
 			// contacts (leaderboards)
 			switch (type) {
 				case 'sent':
-					let recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
-					recipients.map(r => {
+					const recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
+					recipients.forEach(r => {
 						if (!(r in data.contacts['sent'])) {
 							data.contacts['sent'][r] = 1
 						} else {
@@ -1128,7 +1128,7 @@ export default {
 					})
 					break;
 				case 'received':
-					let a = author.toLowerCase()
+					const a = author.toLowerCase()
 					if (!(a in data.contacts['received'])) {
 						data.contacts['received'][a] = 1
 					} else {
@@ -1164,10 +1164,10 @@ export default {
 		// check if a <message> is a self message
 		// = sender and receivers all match configured <identities>
 		isSelfMessage (message, identities) {
-			let author = extractEmailAddress(message.author)
-			let recipients = message.recipients.map(r => extractEmailAddress(r))
-			let ccs = message.ccList.map(r => extractEmailAddress(r))
-			let bccs = message.bccList.map(r => extractEmailAddress(r))
+			const author = extractEmailAddress(message.author)
+			const recipients = message.recipients.map(r => extractEmailAddress(r))
+			const ccs = message.ccList.map(r => extractEmailAddress(r))
+			const bccs = message.bccList.map(r => extractEmailAddress(r))
 			// check author
 			if (!author) return false
 			if (author && !identities.includes(author)) return false
@@ -1184,9 +1184,9 @@ export default {
 		// or of multiple accounts with <id=sum>
 		async refresh (id) {
 			// get currently selected account
-			let account = await messenger.accounts.get(id)
+			const account = await messenger.accounts.get(id)
 			// process data of this account again
-			let accountData = await this.processAccount(account)
+			const accountData = await this.processAccount(account)
 			// directly display data if only one single account was processed
 			if (this.singleAccount) {
 				this.display = JSON.parse(JSON.stringify(accountData))
@@ -1194,7 +1194,7 @@ export default {
 			// only store reprocessed data if cache is enabled and no filter is set
 			if (this.preferences.cache && !this.filtered) {
 				let stats = {}
-				stats['stats-' + id] = JSON.parse(JSON.stringify(accountData))
+				stats["stats-" + id] = JSON.parse(JSON.stringify(accountData))
 				await messenger.storage.local.set(stats)
 			}
 			// return processed account data
@@ -1208,7 +1208,7 @@ export default {
 			// check id type
 			if (!this.singleAccount && this.preferences.cache) {
 				// set tab title
-				document.title = 'ThirdStats: ' + this.$t('stats.allAccounts')
+				document.title = "ThirdStats: " + this.$t("stats.allAccounts")
 				// deactivate list of folders
 				this.folders = []
 				// iterate over all activated accounts
@@ -1219,14 +1219,14 @@ export default {
 				this.progress.max = accounts.reduce((p,c) => p+traverseAccount(c).length, 0)
 				await Promise.all(accounts.map(async a => {
 					// get data from storage
-					let result = await messenger.storage.local.get('stats-' + a.id)
-					if (!refresh && result && result['stats-' + a.id]) {
+					const result = await messenger.storage.local.get("stats-" + a.id)
+					if (!refresh && result && result["stats-" + a.id]) {
 						// if no refresh requested and this accounts data was cached before, take data from cache
-						accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])))
+						accountsData.push(JSON.parse(JSON.stringify(result["stats-" + a.id])))
 						this.progress.current += a.folderCount
 					} else {
 						// otherwise (re)process account
-						let data = await this.refresh(a.id)
+						const data = await this.refresh(a.id)
 						accountsData.push(JSON.parse(JSON.stringify(data)))
 					}
 				}))
@@ -1237,7 +1237,9 @@ export default {
 				// sum all values of all account objects
 				let sum = JSON.parse(JSON.stringify(this.initData()))
 				// meta
-				accountsData.map(a => { if (!a.hasOwnProperty('meta')) a.meta = { timestamp: 0 }})
+				accountsData.map(a => {
+					if (!a.hasOwnProperty("meta")) a.meta = { timestamp: 0 }
+				})
 				sum.meta.timestamp = accountsData.reduce((p,c) => p < c.meta.timestamp ? p : c.meta.timestamp, Date.now())
 				// numbers
 				sum.numbers.total = accountsData.reduce((p,c) => p+c.numbers.total, 0)
@@ -1304,7 +1306,7 @@ export default {
 
 				// retrieve all values of account objects for comparison views
 				let comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
-				accounts.map((a, i) => {
+				accounts.forEach((a, i) => {
 					// years
 					comparison.yearsData[a.id] = sumObjects([accountsData[i].yearsData.received, accountsData[i].yearsData.sent])
 					// quarters
@@ -1326,16 +1328,16 @@ export default {
 				this.adjustSelectedYear()
 			} else {
 				// load single account from id
-				let account = await messenger.accounts.get(id)
+				const account = await messenger.accounts.get(id)
 				// set tab title
-				document.title = 'ThirdStats: ' + account.name
+				document.title = "ThirdStats: " + account.name
 				// (re)calculate list of folders
 				this.folders = traverseAccount(account)
 				// only check storage if no refresh was requested cache is enabled
-				let result = this.preferences.cache ? await messenger.storage.local.get('stats-' + id) : null
-				if (!refresh && result && result['stats-' + id]) {
+				const result = this.preferences.cache ? await messenger.storage.local.get("stats-" + id) : null
+				if (!refresh && result && result["stats-" + id]) {
 					// if cache is enabled and data already exists in storage, display it directly
-					this.display = JSON.parse(JSON.stringify(result['stats-' + id]))
+					this.display = JSON.parse(JSON.stringify(result["stats-" + id]))
 				} else {
 					// otherwise retrieve it first/again and track progress by processed folder countck
 					this.progress.current = 1
@@ -1401,7 +1403,7 @@ export default {
 		// build <folder> name to match its hierarchy with preceding dashes
 		formatFolder (folder) {
 			const level = (folder.path.match(/\//g) || []).length
-			return level <= 1 ? folder.name : '—'.repeat(level-1) + ' ' + folder.name
+			return level <= 1 ? folder.name : "—".repeat(level-1) + " " + folder.name
 		},
 		// format period date input to match YYYY-MM-DD
 		// <key> defines the input field, either 'start' or 'end'
@@ -1413,14 +1415,14 @@ export default {
 					s = String((new Date()).getFullYear()).slice(0, 2) + s
 				}
 				// insert dashes
-				if (!s.includes('-')) {
-					s = s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6)
+				if (!s.includes("-")) {
+					s = s.slice(0, 4) + "-" + s.slice(4, 6) + "-" + s.slice(6)
 				}
 				// shorten to 10 characters
 				s = s.slice(0, 10)
 				// set lower limit
 				if (!isNaN(Date.parse(s)) && Date.parse(s) < 0) {
-					s = '1970-01-01'
+					s = "1970-01-01"
 				}
 				// set upper limit
 				if (!isNaN(Date.parse(s)) && Date.parse(s) > Date.now()) {
@@ -1439,38 +1441,38 @@ export default {
 			// start time is not set
 			if (!this.active.period.start) {
 				valid = false
-				this.error.period.start.push(this.$t('stats.tooltips.error.empty'))
+				this.error.period.start.push(this.$t("stats.tooltips.error.empty"))
 			}
 			// start time is of wrong format
 			if (!datex.test(this.active.period.start)) {
 				valid = false
-				this.error.period.start.push(this.$t('stats.tooltips.error.dateFormat'))
+				this.error.period.start.push(this.$t("stats.tooltips.error.dateFormat"))
 			}
 			// start time is no real date
 			if (isNaN(Date.parse(this.active.period.start))) {
 				valid = false
-				this.error.period.start.push(this.$t('stats.tooltips.error.dateUnreal'))
+				this.error.period.start.push(this.$t("stats.tooltips.error.dateUnreal"))
 			}
 			// end time is not set
 			if (!this.active.period.end) {
 				valid = false
-				this.error.period.end.push(this.$t('stats.tooltips.error.empty'))
+				this.error.period.end.push(this.$t("stats.tooltips.error.empty"))
 			}
 			// end time is of wrong format
 			if (!datex.test(this.active.period.end)) {
 				valid = false
-				this.error.period.end.push(this.$t('stats.tooltips.error.dateFormat'))
+				this.error.period.end.push(this.$t("stats.tooltips.error.dateFormat"))
 			}
 			// end time is no real date
 			if (isNaN(Date.parse(this.active.period.end))) {
 				valid = false
-				this.error.period.end.push(this.$t('stats.tooltips.error.dateUnreal'))
+				this.error.period.end.push(this.$t("stats.tooltips.error.dateUnreal"))
 			}
 			// start date is before end date
 			if (Date.parse(this.active.period.start) > Date.parse(this.active.period.end)) {
 				valid = false
-				this.error.period.start.push(this.$t('stats.tooltips.error.dateOrderStart'))
-				this.error.period.end.push(this.$t('stats.tooltips.error.dateOrderEnd'))
+				this.error.period.start.push(this.$t("stats.tooltips.error.dateOrderStart"))
+				this.error.period.end.push(this.$t("stats.tooltips.error.dateOrderEnd"))
 			}
 			return valid
 		},
@@ -1500,7 +1502,7 @@ export default {
 		// make given date <d> human readable
 		// takes locale into account
 		formatDate (d) {
-			let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }
+			const options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }
 			return d ? (new Date(d)).toLocaleDateString(this.$i18n.locale, options) : ''
 		},
 		// export displayed data
@@ -1515,8 +1517,8 @@ export default {
 		},
 		// open given url in new tab
 		// appends GET parameter
-		openTab (url, get='') {
-			if (get) url += '?s=' + get
+		openTab (url, get="") {
+			if (get) url += "?s=" + get
 			messenger.tabs.create({
 				active: true,
 				url: url
@@ -1533,7 +1535,7 @@ export default {
 			let names = []
 			for (let m = 1; m <= 12; m++) {
 				let d = new Date(1970, m, 0) // choose a date to retrieve months from, starting in January
-				names.push(d.toLocaleDateString(this.$i18n.locale, { month: 'short' }))
+				names.push(d.toLocaleDateString(this.$i18n.locale, { month: "short" }))
 			}
 			return names
 		},
@@ -1541,16 +1543,16 @@ export default {
 		weekdayNames () {
 			let names = []
 			for (let wd = 1; wd <= 7; wd++) {
-				let d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
-				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'short' }))
+				const d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
+				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: "short" }))
 			}
 			return names
 		},
 		// number of days from oldest email till today or depending on period filter
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
-			let start = new Date(this.display.numbers.start)
-			let end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			const start = new Date(this.display.numbers.start)
+			const end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
 			return Math.round(Math.abs((start - end) / oneDay))
 		},
 		// number of weeks from oldest email till today
@@ -1623,8 +1625,8 @@ export default {
 		},
 		// prepare sum data for years line chart
 		yearsChartData () {
-			let r = this.display.yearsData.received
-			let s = this.display.yearsData.sent
+			const r = this.display.yearsData.received
+			const s = this.display.yearsData.sent
 			let labels = [], dr = [], ds = []
 			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				labels.push(y)
@@ -1633,27 +1635,27 @@ export default {
 			}
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: labels
 			}
 		},
 		// prepare comparison data for years line chart
 		yearsComparedChartData () {
-			let datasets = []
 			// generate list of years between start and end date, e.g. [2018,2019,2020]
 			const labels = Array.from(Array(this.maxYear-this.minYear+1), (_, i) => i+this.minYear)
 			// compute dataset for each account
-			this.accounts.map(a => {
+			let datasets = []
+			this.accounts.forEach(a => {
 				const d = this.comparison.yearsData[a.id]
 				let data = []
 				labels.map(y => data.push(y in d ? d[y] : 0))
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1663,8 +1665,8 @@ export default {
 		},
 		// prepare sum data for quarters line chart
 		quartersChartData () {
-			let r = this.display.quartersData.received
-			let s = this.display.quartersData.sent
+			const r = this.display.quartersData.received
+			const s = this.display.quartersData.sent
 			let labels = [], dr = [], ds = []
 			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				for (let q = 1; q <= 4; ++q) {
@@ -1673,15 +1675,15 @@ export default {
 					// trim quarters after end date
 					if (y == this.maxYear && q > quarterNumber(this.maxDate)) break
 					// organize labels and data
-					labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
+					labels.push(y + " " + this.$t("stats.abbreviations.quarter") + q)
 					dr.push(y in r && q in r[y] ? r[y][q] : 0)
 					ds.push(y in s && q in s[y] ? s[y][q] : 0)
 				}
 			}
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: labels
 			}
@@ -1690,7 +1692,7 @@ export default {
 		quartersComparedChartData () {
 			let datasets = [], labels = []
 			// compute dataset for each account
-			this.accounts.map((a, i) => {
+			this.accounts.forEach((a, i) => {
 				const d = this.comparison.quartersData[a.id]
 				let data = []
 				for (let y = this.minYear; y <= this.maxYear; ++y) {
@@ -1700,16 +1702,16 @@ export default {
 						// trim quarters after end date
 						if (y == this.maxYear && q > quarterNumber(this.maxDate)) break
 						// generate labels in first iteration
-						if (i == 0) labels.push(y + ' ' + this.$t('stats.abbreviations.quarter') + q)
+						if (i == 0) labels.push(y + " " + this.$t("stats.abbreviations.quarter") + q)
 						// fill all data values, default to 0 if not existing for this combination
 						data.push(y in d && q in d[y] ? d[y][q] : 0)
 					}
 				}
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1719,8 +1721,8 @@ export default {
 		},
 		// prepare data for months line chart
 		monthsChartData () {
-			let r = this.display.monthsData.received
-			let s = this.display.monthsData.sent
+			const r = this.display.monthsData.received
+			const s = this.display.monthsData.sent
 			let labels = [], dr = [], ds = []
 			for (let y = this.minYear; y <= this.maxYear; ++y) {
 				for (let m = 0; m < 12; ++m) {
@@ -1729,15 +1731,15 @@ export default {
 					// trim months after end date
 					if (y == this.maxYear && m > this.maxDate.getMonth()) break
 					// organize labels and data
-					labels.push(y + ' ' + this.monthNames[m])
+					labels.push(y + " " + this.monthNames[m])
 					dr.push(y in r && m in r[y] ? r[y][m] : 0)
 					ds.push(y in s && m in s[y] ? s[y][m] : 0)
 				}
 			}
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: labels
 			}
@@ -1756,16 +1758,16 @@ export default {
 						// trim months after end date
 						if (y == this.maxYear && m > this.maxDate.getMonth()) break
 						// generate labels in first iteration
-						if (i == 0) labels.push(y + ' ' + this.monthNames[m])
+						if (i == 0) labels.push(y + " " + this.monthNames[m])
 						// fill all data values, default to 0 if not existing for this combination
 						data.push(y in d && m in d[y] ? d[y][m] : 0)
 					}
 				}
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1781,14 +1783,14 @@ export default {
 			weeksBetween(this.minDate, this.maxDate).forEach(week => {
 				const [y, w] = week
 				// organize labels and data
-				labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+				labels.push(y + " " + this.$t("stats.abbreviations.calendarWeek") + w)
 				dr.push(y in r && w in r[y] ? r[y][w] : 0)
 				ds.push(y in s && w in s[y] ? s[y][w] : 0)
 			})
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: labels
 			}
@@ -1797,21 +1799,21 @@ export default {
 		weeksComparedChartData () {
 			let datasets = [], labels = []
 			// compute dataset for each account
-			this.accounts.map((a, i) => {
+			this.accounts.forEach((a, i) => {
 				const d = this.comparison.weeksData[a.id]
 				let data = []
 				weeksBetween(this.minDate, this.maxDate).forEach(week => {
 					const [y, w] = week
 					// generate labels in first iteration
-					if (i == 0) labels.push(y + ' ' + this.$t('stats.abbreviations.calendarWeek') + w)
+					if (i == 0) labels.push(y + " " + this.$t("stats.abbreviations.calendarWeek") + w)
 					// fill all data values, default to 0 if not existing for this combination
 					data.push(y in d && w in d[y] ? d[y][w] : 0)
 				})
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1821,11 +1823,11 @@ export default {
 		},
 		// prepare data for daytime bar chart
 		daytimeChartData () {
-			let r = this.display.daytimeData.received, s = this.display.daytimeData.sent
+			const r = this.display.daytimeData.received, s = this.display.daytimeData.sent
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: Object.values(s), color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: Object.values(r), color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: Object.keys(r)
 			}
@@ -1834,14 +1836,14 @@ export default {
 		daytimeComparedChartData () {
 			let datasets = []
 			// compute dataset for each account
-			this.accounts.map((a) => {
+			this.accounts.forEach((a) => {
 				const d = this.comparison.daytimeData[a.id]
 				// add dataset for this account
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: Object.values(d),
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1851,8 +1853,8 @@ export default {
 		},
 		// prepare data for weekday bar chart
 		weekdayChartData () {
-			let r = Object.values(this.display.weekdayData.received)
-			let s = Object.values(this.display.weekdayData.sent)
+			const r = Object.values(this.display.weekdayData.received)
+			const s = Object.values(this.display.weekdayData.sent)
 			let labels = [...this.weekdayNames]
 			// start week with user defined day of week
 			for (let d = 0; d < this.preferences.startOfWeek; d++) {
@@ -1862,8 +1864,8 @@ export default {
 			}
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: s, color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: r, color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: s, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: r, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: labels
 			}
@@ -1876,17 +1878,17 @@ export default {
 			for (let d = 0; d < this.preferences.startOfWeek; d++)
 				labels.push(labels.shift())
 			// compute dataset for each account
-			this.accounts.map((a) => {
+			this.accounts.forEach((a) => {
 				const data = Object.values(this.comparison.weekdayData[a.id])
 				// data: start week with user defined day of week
 				for (let d = 0; d < this.preferences.startOfWeek; d++)
 					data.push(data.shift())
 				// add dataset for this account
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1896,11 +1898,11 @@ export default {
 		},
 		// prepare data for month bar chart
 		monthChartData () {
-			let r = this.display.monthData.received, s = this.display.monthData.sent
+			const r = this.display.monthData.received, s = this.display.monthData.sent
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
-					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: Object.values(s), color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{ label: this.$t("stats.mailsReceived"), data: Object.values(r), color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: this.monthNames
 			}
@@ -1909,13 +1911,13 @@ export default {
 		monthComparedChartData () {
 			let datasets = []
 			// compute dataset for each account
-			this.accounts.map((a) => {
+			this.accounts.forEach((a) => {
 				// add dataset for this account
 				datasets.push({
-					label: this.$t('stats.mailsTotal') + ', ' + a.name,
+					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: Object.values(this.comparison.monthData[a.id]),
 					color: this.preferences.accountColors[a.id],
-					bcolor: 'rgb(' + hexToRgb(this.preferences.accountColors[a.id]) + ', .2)'
+					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
 				})
 			})
 			return {
@@ -1941,8 +1943,8 @@ export default {
 				ylabels.push(ylabels.shift())
 			}
 			return {
-				received: { label: this.$t('stats.mailsReceived'), data: r },
-				sent: { label: this.$t('stats.mailsSent'), data: s },
+				received: { label: this.$t("stats.mailsReceived"), data: r },
+				sent: { label: this.$t("stats.mailsSent"), data: s },
 				ylabels: ylabels,
 				xlabels: xlabels,
 			}
@@ -1959,8 +1961,8 @@ export default {
 				labels.push(labels.shift())
 			}
 			return {
-				received: { label: this.$t('stats.mailsReceived'), data: r },
-				sent: { label: this.$t('stats.mailsSent'), data: s },
+				received: { label: this.$t("stats.mailsReceived"), data: r },
+				sent: { label: this.$t("stats.mailsSent"), data: s },
 				labels: labels
 			}
 		},
@@ -1969,7 +1971,7 @@ export default {
 			const r = this.display.contacts.received
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsReceived'), data: Object.values(r), color: 'rgb(10, 132, 255)', bcolor: 'rgb(10, 132, 255, .2)' },
+					{ label: this.$t("stats.mailsReceived"), data: Object.values(r), color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
 				],
 				labels: Object.keys(r)
 			}
@@ -1979,7 +1981,7 @@ export default {
 			const s = this.display.contacts.sent
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsSent'), data: Object.values(s), color: 'rgb(230, 77, 185)', bcolor: 'rgb(230, 77, 185, .2)' },
+					{ label: this.$t("stats.mailsSent"), data: Object.values(s), color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
 				],
 				labels: Object.keys(s)
 			}
@@ -1989,16 +1991,16 @@ export default {
 			const r = this.display.folders.received, s = this.display.folders.sent
 			let dr = [], ds = [], labels = []
 			let all = Array.from(new Set([...Object.keys(r), ...Object.keys(s)]))
-			all.sort((a, b) => a.localeCompare(b, this.$i18n.locale, { sensitivity: 'base' }))
-			all.map(d => {
+			all.sort((a, b) => a.localeCompare(b, this.$i18n.locale, { sensitivity: "base" }))
+			all.forEach(d => {
 				dr.push(r[d] ? r[d] : 0)
 				ds.push(s[d] ? s[d] : 0)
 				labels.push(d)
 			})
 			return {
 				datasets: [
-					{ label: this.$t('stats.mailsReceived'), data: dr, color: 'rgb(10, 132, 255)' },
-					{ label: this.$t('stats.mailsSent'), data: ds, color: 'rgb(230, 77, 185)' },
+					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)" },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)" },
 				],
 				labels: labels
 			}
@@ -2009,7 +2011,7 @@ export default {
 		},
 		// returns true, if just one single account is selected
 		singleAccount () {
-			return this.active.account != 'sum'
+			return this.active.account != "sum"
 		},
 		// merges received and sent contacts to a distinct list of shown contacts
 		allProcessedContacts () {
@@ -2019,7 +2021,7 @@ export default {
 		// returns the current date as example for short period input (YYMMDD)
 		examplePeriodShort () {
 			let d = new Date()
-			return d.toISOString().replace(/-/g, '').slice(2,8)
+			return d.toISOString().replace(/-/g, "").slice(2,8)
 		},
 		// returns the current date as example for formatted period input (YYYY-MM-DD)
 		examplePeriodFormatted () {
@@ -2028,7 +2030,7 @@ export default {
 		},
 		// convert theme preference into scheme name
 		scheme () {
-			return this.preferences.dark ? 'dark' : 'light'
+			return this.preferences.dark ? "dark" : "light"
 		},
 		// return account colors of all active accounts comma separated as single string
 		accountsColorGradient () {
@@ -2036,7 +2038,7 @@ export default {
 				.entries(this.preferences.accountColors)
 				.filter((a => this.preferences.accounts.includes(a[0])))
 				.reduce((p,c) => p.concat(c[1]), [])
-				.join(',')
+				.join(",")
 		},
 		// first date in currently displayed data
 		minDate () {
@@ -2073,7 +2075,7 @@ export default {
 	watch: {
 		// on change of active account reset filter
 		// and load new accounts data accordingly
-		async 'active.account' (id) {
+		async "active.account" (id) {
 			if (id) {
 				// reset preferences
 				this.preferences.sections.total.comparison = false
@@ -2089,7 +2091,7 @@ export default {
 		},
 		// on change of active folder
 		// retrieve data again for current account selection
-		async 'active.folder' (folder) {
+		async "active.folder" (folder) {
 			if (folder) {
 				// start processing for active folder only
 				await this.loadAccount(this.active.account, true)
@@ -2097,7 +2099,7 @@ export default {
 		},
 		// on change of active folder
 		// retrieve data again for current account selection
-		async 'active.contact' (contact) {
+		async "active.contact" (contact) {
 			if (contact) {
 				// start processing for active contact only
 				await this.loadAccount(this.active.account, true)
@@ -2107,7 +2109,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang="stylus">
 @require "assets/global"
 
 // general
