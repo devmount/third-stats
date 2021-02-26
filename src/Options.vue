@@ -1,74 +1,74 @@
 <template>
 	<div
-		id='options'
-		:class='{
-			"dark": options.dark,
-			"light": !options.dark,
-			"text-normal": true,
-			"background-normal": options.dark,
-			"background-highlight-contrast": !options.dark,
-			"embedded": !ownOptionsPage
-		}'
+		id="options"
+		:class="{
+			'dark': options.dark,
+			'light': !options.dark,
+			'text-normal': true,
+			'background-normal': options.dark,
+			'background-highlight-contrast': !options.dark,
+			'embedded': !ownOptionsPage
+		}"
 	>
-		<header v-if='ownOptionsPage' class='pt-2 mx-auto'>
-			<h1 class='d-flex align-items-center'>
-				<img class='logo mr-1' :src='`${publicPath}icon.svg`' alt='ThirdStats Logo'>
-				{{ $t('options.title') }}
+		<header v-if="ownOptionsPage" class="pt-2 mx-auto">
+			<h1 class="d-flex align-items-center">
+				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
+				{{ $t("options.title") }}
 			</h1>
 		</header>
-		<div class='container mx-auto'>
+		<div class="container mx-auto">
 			<!-- section related to ThirdStats appearance and UI -->
-			<section class='mb-3'>
-				<h2>{{ $t('options.headings.appearance') }}</h2>
+			<section class="mb-3">
+				<h2>{{ $t("options.headings.appearance") }}</h2>
 				<!-- option: dark -->
-				<div class='entry'>
-					<label for='dark'>
-						{{ $t('options.darkMode.label') }}
-						<span class="d-block text-gray text-small">{{ $t('options.darkMode.description') }}</span>
+				<div class="entry">
+					<label for="dark">
+						{{ $t("options.darkMode.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.darkMode.description") }}</span>
 					</label>
-					<div class='action'>
-						<label class='switch'>
-							<input type='checkbox' id='dark' v-model='options.dark' />
-							<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
-							<span class='switch-handle'></span> 
+					<div class="action">
+						<label class="switch">
+							<input type="checkbox" id="dark" v-model="options.dark" />
+							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
+							<span class="switch-handle"></span> 
 						</label>
 					</div>
 				</div>
 				<!-- option: ordinate -->
-				<div class='entry'>
-					<label for='ordinate'>
-						{{ $t('options.ordinate.label') }}
-						<span class='d-block text-gray text-small'>{{ $t('options.ordinate.description') }}</span>
+				<div class="entry">
+					<label for="ordinate">
+						{{ $t("options.ordinate.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.ordinate.description") }}</span>
 					</label>
-					<div class='action d-flex'>
-						<label class='switch'>
-							<input type='checkbox' id='ordinate' v-model='options.ordinate' />
-							<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
-							<span class='switch-handle'></span> 
+					<div class="action d-flex">
+						<label class="switch">
+							<input type="checkbox" id="ordinate" v-model="options.ordinate" />
+							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
+							<span class="switch-handle"></span> 
 						</label>
 					</div>
 				</div>
 			</section>
 			<!-- section related to charts and data retrieval -->
-			<section class='mb-3'>
-				<h2>{{ $t('options.headings.stats') }}</h2>
+			<section class="mb-3">
+				<h2>{{ $t("options.headings.stats") }}</h2>
 				<!-- option: startOfWeek -->
-				<div class='entry'>
-					<label for='start'>
-						{{ $t('options.startOfWeek.label') }}
-						<span class='d-block text-gray text-small'>{{ $t('options.startOfWeek.description') }}</span>
+				<div class="entry">
+					<label for="start">
+						{{ $t("options.startOfWeek.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.startOfWeek.description") }}</span>
 					</label>
-					<div class='action d-flex'>
-						<select class='flex-grow' v-model='options.startOfWeek' id='start'>
-							<option v-for='(name, pos) in weekdayNames' :key='pos' :value='pos'>{{ name }}</option>
+					<div class="action d-flex">
+						<select class="flex-grow" v-model="options.startOfWeek" id="start">
+							<option v-for="(name, pos) in weekdayNames" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
 				</div>
 				<!-- option: addresses -->
-				<div class='entry'>
-					<label for='local'>
+				<div class="entry">
+					<label for="local">
 						<div class="d-flex align-items-end gap-0-5">
-							{{ $t('options.localIdentities.label') }}
+							{{ $t("options.localIdentities.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="$t('options.note.refreshCacheRequired')">
 								<svg class="icon icon-tiny" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -79,12 +79,12 @@
 								</svg>
 							</span>
 						</div>
-						<div class='text-gray text-small'>{{ $t('options.localIdentities.description') }}</div>
+						<div class="text-gray text-small">{{ $t("options.localIdentities.description") }}</div>
 					</label>
-					<div class='action'>
+					<div class="action">
 						<div class="d-flex input-group">
-							<input class='flex-grow' type='email' v-model='input.address' placeholder='hello@devmount.de' id='local' />
-							<button @click='addAddress' class='p-0-5'>
+							<input class="flex-grow" type="email" v-model="input.address" placeholder="hello@devmount.de" id="local" />
+							<button @click="addAddress" class="p-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<line x1="12" y1="5" x2="12" y2="19" />
@@ -93,9 +93,9 @@
 							</button>
 						</div>
 						<div>
-							<span class='tag text-small' v-for='a in addressList'>
+							<span class="tag text-small" v-for="a in addressList">
 								{{ a }}
-								<svg @click='removeAddress(a)' class="icon icon-bold icon-text cursor-pointer" viewBox="0 0 24 24">
+								<svg @click="removeAddress(a)" class="icon icon-bold icon-text cursor-pointer" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<line x1="18" y1="6" x2="6" y2="18" />
 									<line x1="6" y1="6" x2="18" y2="18" />
@@ -105,10 +105,10 @@
 					</div>
 				</div>
 				<!-- option: account selection -->
-				<div class='entry' v-if="options.accounts">
+				<div class="entry" v-if="options.accounts">
 					<label>
 						<div class="d-flex align-items-end gap-0-5">
-							{{ $t('options.activeAccounts.label') }}
+							{{ $t("options.activeAccounts.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="$t('options.note.reloadWindowRequired')">
 								<svg class="icon icon-tiny" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -119,29 +119,29 @@
 								</svg>
 							</span>
 						</div>
-						<div class='text-gray text-small'>
-							{{ $t('options.activeAccounts.description') }}
-							{{ $t('options.activeAccounts.color') }}
+						<div class="text-gray text-small">
+							{{ $t("options.activeAccounts.description") }}
+							{{ $t("options.activeAccounts.color") }}
 						</div>
 					</label>
-					<div class='action'>
-						<div v-for='(a, i) in allAccounts' :key='i' class="d-flex justify-space-between">
+					<div class="action">
+						<div v-for="(a, i) in allAccounts" :key="i" class="d-flex justify-space-between">
 							<label class="checkbox cursor-pointer text-overflow-ellipsis flex-dont-grow">
-								<input type='checkbox' :value='a.id' v-model='options.accounts' />
+								<input type="checkbox" :value="a.id" v-model="options.accounts" />
 								<i class="checkbox-icon"></i> {{ a.name }}
 							</label>
 							<label :for="'color-' + a.name" class="cursor-pointer d-flex align-items-center gap-0-5">
-								<input type='color' :id="'color-' + a.name" v-model='options.accountColors[a.id]' />
+								<input type="color" :id="'color-' + a.name" v-model="options.accountColors[a.id]" />
 								<span class="text-mono text-tiny">{{ options.accountColors[a.id] }}</span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<!-- option: selfMessages -->
-				<div class='entry'>
-					<label for='selfMessages'>
+				<div class="entry">
+					<label for="selfMessages">
 						<div class="d-flex align-items-end gap-0-5">
-							{{ $t('options.selfMessages.label') }}
+							{{ $t("options.selfMessages.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="$t('options.note.refreshCacheRequired')">
 								<svg class="icon icon-tiny" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -152,30 +152,30 @@
 								</svg>
 							</span>
 						</div>
-						<div class='text-gray text-small'>{{ $t('options.selfMessages.description') }}</div>
+						<div class="text-gray text-small">{{ $t("options.selfMessages.description") }}</div>
 					</label>
-					<div class='action d-flex flex-wrap'>
-						<select class='flex-grow mb-1' v-model='options.selfMessages' id='selfMessages'>
-							<option v-for='val in selfMessagesOptions' :key='val' :value='val'>{{ $t('options.selfMessages.values.' + val) }}</option>
+					<div class="action d-flex flex-wrap">
+						<select class="flex-grow mb-1" v-model="options.selfMessages" id="selfMessages">
+							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ $t("options.selfMessages.values." + val) }}</option>
 						</select>
-						<div class='d-flex gap-0-5 align-items-center text-gray'>
+						<div class="d-flex gap-0-5 align-items-center text-gray">
 							<div>
-								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+								<svg class="icon icon-small text-middle" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<line x1="12" y1="8" x2="12.01" y2="8" />
 									<rect x="4" y="4" width="16" height="16" rx="2" />
 									<polyline points="11 12 12 12 12 16 13 16" />
 								</svg>
 							</div>
-							<span class='text-small'>{{ $t('options.selfMessages.info.' + options.selfMessages) }}</span>
+							<span class="text-small">{{ $t("options.selfMessages.info." + options.selfMessages) }}</span>
 						</div>
 					</div>
 				</div>
 				<!-- option: leaderCount -->
-				<div class='entry'>
-					<label for='leaderCount'>
+				<div class="entry">
+					<label for="leaderCount">
 						<div class="d-flex align-items-end gap-0-5">
-							{{ $t('options.leaderCount.label') }}
+							{{ $t("options.leaderCount.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="$t('options.note.refreshCacheRequired')">
 								<svg class="icon icon-tiny" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -186,17 +186,17 @@
 								</svg>
 							</span>
 						</div>
-						<div class='text-gray text-small'>{{ $t('options.leaderCount.description') }}</div>
+						<div class="text-gray text-small">{{ $t("options.leaderCount.description") }}</div>
 					</label>
-					<div class='action d-flex input-group'>
-						<input class='flex-grow' type='number' v-model='options.leaderCount' placeholder='20' min='1' max='999' id='leaderCount' />
+					<div class="action d-flex input-group">
+						<input class="flex-grow" type="number" v-model="options.leaderCount" placeholder="20" min="1" max="999" id="leaderCount" />
 						<div class="d-flex flex-direction-column button-group-vertical">
-							<button @click='incrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
+							<button @click="incrementLeaderCount()" class="h-1-25 py-0 px-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
 									<polyline points="6,12 12,6 18,12" />
 								</svg>
 							</button>
-							<button @click='decrementLeaderCount()' class='h-1-25 py-0 px-0-5'>
+							<button @click="decrementLeaderCount()" class="h-1-25 py-0 px-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
 									<polyline points="6,5 12,11 18,5" />
 								</svg>
@@ -206,49 +206,49 @@
 				</div>
 			</section>
 			<!-- section related to store processed data -->
-			<section class='mb-3'>
-				<h2>{{ $t('options.headings.storage') }}</h2>
+			<section class="mb-3">
+				<h2>{{ $t("options.headings.storage") }}</h2>
 				<!-- option: cache -->
-				<div class='entry'>
-					<label for='cache'>
-						{{ $t('options.cache.label') }}
-						<span class="d-block text-gray text-small">{{ $t('options.cache.description') }}</span>
+				<div class="entry">
+					<label for="cache">
+						{{ $t("options.cache.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.cache.description") }}</span>
 					</label>
-					<div class='action'>
-						<label class='switch'>
-							<input type='checkbox' id='cache' v-model='options.cache' />
-							<span class='switch-label' :data-on='$t("options.switch.on")' :data-off='$t("options.switch.off")'></span> 
-							<span class='switch-handle'></span> 
+					<div class="action">
+						<label class="switch">
+							<input type="checkbox" id="cache" v-model="options.cache" />
+							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
+							<span class="switch-handle"></span> 
 						</label>
 					</div>
 				</div>
 				<!-- action: clear cache -->
-				<div class='entry'>
+				<div class="entry">
 					<label>
-						{{ $t('options.clearCache.label') }}
-						<span class="d-block text-gray text-small">{{ $t('options.clearCache.description') }}</span>
+						{{ $t("options.clearCache.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.clearCache.description") }}</span>
 					</label>
-					<div class='action'>
-						<button @click='clearCache' class='mb-1'>{{ $t('options.clearCache.label') }}</button>
-						<div class='d-flex gap-0-5 align-items-center text-gray'>
+					<div class="action">
+						<button @click="clearCache" class="mb-1">{{ $t("options.clearCache.label") }}</button>
+						<div class="d-flex gap-0-5 align-items-center text-gray">
 							<div>
-								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+								<svg class="icon icon-small text-middle" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<line x1="12" y1="8" x2="12.01" y2="8" />
 									<rect x="4" y="4" width="16" height="16" rx="2" />
 									<polyline points="11 12 12 12 12 16 13 16" />
 								</svg>
 							</div>
-							<span class='text-small' v-if='cacheSize > 0'>{{ $t('options.clearCache.size', [formattedCacheSize]) }}</span>
-							<span class='text-small' v-else>{{ $t('options.clearCache.empty') }}</span>
+							<span class="text-small" v-if="cacheSize > 0">{{ $t("options.clearCache.size", [formattedCacheSize]) }}</span>
+							<span class="text-small" v-else>{{ $t("options.clearCache.empty") }}</span>
 						</div>
 					</div>
 				</div>
 				<!-- action: reset options -->
-				<div class='entry'>
+				<div class="entry">
 					<label>
 						<div class="d-flex align-items-end gap-0-5">
-							{{ $t('options.resetOptions.label') }}
+							{{ $t("options.resetOptions.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="$t('options.note.reloadWindowRequired')">
 								<svg class="icon icon-tiny" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -268,32 +268,32 @@
 								</svg>
 							</span>
 						</div>
-						<div class="text-gray text-small">{{ $t('options.resetOptions.description') }}</div>
+						<div class="text-gray text-small">{{ $t("options.resetOptions.description") }}</div>
 					</label>
-					<div class='action'>
-						<button @click='resetOptions' class='mb-1'>{{ $t('options.resetOptions.label') }}</button>
-						<div v-if="options.addresses && options.addresses.length > 0" class='d-flex gap-0-5 align-items-center text-gray'>
+					<div class="action">
+						<button @click="resetOptions" class="mb-1">{{ $t("options.resetOptions.label") }}</button>
+						<div v-if="options.addresses && options.addresses.length > 0" class="d-flex gap-0-5 align-items-center text-gray">
 							<div>
-								<svg class='icon icon-small text-middle' viewBox='0 0 24 24'>
+								<svg class="icon icon-small text-middle" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<line x1="12" y1="8" x2="12.01" y2="8" />
 									<rect x="4" y="4" width="16" height="16" rx="2" />
 									<polyline points="11 12 12 12 12 16 13 16" />
 								</svg>
 							</div>
-							<span class='text-small'>{{ $t('options.resetOptions.removeIdentities') }}</span>
+							<span class="text-small">{{ $t("options.resetOptions.removeIdentities") }}</span>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
-		<hr class='mb-3' />
-		<footer class='mx-auto pb-3'>
-			<h3 class='text-thin mb-0-5'>{{ $t('options.note.title') }}</h3>
-			<div class='text-gray text-small mb-0-5'>
-				{{ $t('options.note.reloadStatsPage') }}
+		<hr class="mb-3" />
+		<footer class="mx-auto pb-3">
+			<h3 class="text-thin mb-0-5">{{ $t("options.note.title") }}</h3>
+			<div class="text-gray text-small mb-0-5">
+				{{ $t("options.note.reloadStatsPage") }}
 			</div>
-			<div class='d-flex align-items-center gap-0-5 mb-0-5 text-gray text-small'>
+			<div class="d-flex align-items-center gap-0-5 mb-0-5 text-gray text-small">
 				<svg class="icon icon-small" viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
@@ -301,9 +301,9 @@
 					<line x1="12" y1="9" x2="12" y2="12" />
 					<line x1="12" y1="15" x2="12.01" y2="15" />
 				</svg>
-				{{ $t('options.note.reloadWindowRequired') }}
+				{{ $t("options.note.reloadWindowRequired") }}
 			</div>
-			<div class='d-flex align-items-center gap-0-5 text-gray text-small'>
+			<div class="d-flex align-items-center gap-0-5 text-gray text-small">
 				<svg class="icon icon-small" viewBox="0 0 24 24">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 					<path d="M12.983 8.978c3.955 -.182 7.017 -1.446 7.017 -2.978c0 -1.657 -3.582 -3 -8 -3c-1.661 0 -3.204 .19 -4.483 .515m-2.783 1.228c-.471 .382 -.734 .808 -.734 1.257c0 1.22 1.944 2.271 4.734 2.74" />
@@ -311,22 +311,22 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</svg>
-				{{ $t('options.note.refreshCacheRequired') }}
+				{{ $t("options.note.refreshCacheRequired") }}
 			</div>
 		</footer>
 	</div>
 </template>
 
 <script>
-import { defaultColors } from './definitions'
-import { formatBytes } from './utils'
+import { defaultColors } from "./definitions"
+import { formatBytes } from "./utils"
 
 export default {
-	name: 'Options',
+	name: "Options",
 	data () {
 		return {
 			input: {
-				address: '',
+				address: "",
 			},
 			options: (JSON.parse(JSON.stringify(this.optionsObject()))).options,
 			allAccounts: [],
@@ -348,10 +348,10 @@ export default {
 			dark = true,
 			ordinate = false,
 			startOfWeek = 0,
-			addresses = '',
+			addresses = "",
 			accounts = [],
 			accountColors = {},
-			selfMessages = 'none',
+			selfMessages = "none",
 			leaderCount = 20,
 			cache = true
 		) {
@@ -372,7 +372,7 @@ export default {
 		// get all saved add-on settings
 		async getSettings () {
 			// only load options from storage if they have been set, otherwise default settings will be kept
-			let result = await messenger.storage.local.get('options')
+			const result = await messenger.storage.local.get("options")
 			if (result && result.options) {
 				// merge option objects to overwrite attributes by saved ones while keeping new attributes
 				this.options = {...this.options, ...result.options}
@@ -380,25 +380,25 @@ export default {
 		},
 		// get all existing accounts
 		async getAccounts () {
-			let accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
+			const accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
 			this.allAccounts = accounts
 			// if accounts option is not set yet
 			if (this.options && this.options.accounts && !this.options.accounts.length) {
 				let activeAccounts = []
 				// default accounts activated are all non local accounts ...
-				accounts.map(a => {
-					if (a.type != 'none') activeAccounts.push(a.id)
+				accounts.forEach(a => {
+					if (a.type != "none") activeAccounts.push(a.id)
 				})
 				// unless there are only local accounts existing
 				if (activeAccounts.length == 0) {
-					accounts.map(a => activeAccounts.push(a.id))
+					accounts.forEach(a => activeAccounts.push(a.id))
 				}
 				// update accounts option
 				this.options.accounts = activeAccounts
 			}
 			// if some or all account colors are not initialized yet, initialize them
 			if (this.options && this.options.accountColors) {
-				this.allAccounts.map((a, i) => {
+				this.allAccounts.forEach((a, i) => {
 					if (!this.options.accountColors.hasOwnProperty(a.id)) {
 						this.options.accountColors[a.id] = defaultColors[(i%defaultColors.length)]
 					}
@@ -407,33 +407,33 @@ export default {
 		},
 		// get size of all cached account data
 		async getCacheSize () {
-			let allEntriesSize = new TextEncoder().encode(
+			const allEntriesSize = new TextEncoder().encode(
 				Object.entries(await messenger.storage.local.get())
 					.map(([key, value]) => key + JSON.stringify(value))
-					.join('')
+					.join("")
 			).length
-			let optionsSize = new TextEncoder().encode(
-				Object.entries(await messenger.storage.local.get('options'))
+			const optionsSize = new TextEncoder().encode(
+				Object.entries(await messenger.storage.local.get("options"))
 					.map(([key, value]) => key + JSON.stringify(value))
-					.join('')
+					.join("")
 			).length
 			this.cacheSize = allEntriesSize - optionsSize
 		},
 		// add configured email address to list of addresses and save it
 		async addAddress () {
 			if (this.input.address) {
-				let addresses = this.options.addresses ? this.options.addresses + ',' : ''
+				let addresses = this.options.addresses ? this.options.addresses + "," : ""
 				addresses += this.input.address
 				await messenger.storage.local.set({ options: { addresses: addresses } })
 				this.options.addresses = addresses
-				this.input.address = ''
+				this.input.address = ""
 			}
 		},
 		// remove given email address from list of addresses and delete it
 		async removeAddress (address) {
-			let addresses = this.options.addresses.replace(address, '')
-			addresses = addresses.replace(/,,/g, ',')
-			addresses = addresses.replace(/^,+|,+$/g, '');
+			let addresses = this.options.addresses.replace(address, "")
+			addresses = addresses.replace(/,,/g, ",")
+			addresses = addresses.replace(/^,+|,+$/g, "");
 			await messenger.storage.local.set({ options: { addresses: addresses } })
 			this.options.addresses = addresses
 		},
@@ -471,21 +471,21 @@ export default {
 		weekdayNames () {
 			let names = []
 			for (let wd = 1; wd <= 7; wd++) {
-				let d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
-				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: 'long' }))
+				const d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
+				names.push(d.toLocaleDateString(this.$i18n.locale, { weekday: "long" }))
 			}
 			return names
 		},
 		// array of email addresses configured for local account identities
 		addressList () {
-			return this.options && this.options.addresses ? this.options.addresses.split(',') : []
+			return this.options && this.options.addresses ? this.options.addresses.split(",") : []
 		},
 		// return all valid option values for selfMessages
 		selfMessagesOptions () {
 			return [
-				'none',
-				'sameAccount',
-				'anyAccount',
+				"none",
+				"sameAccount",
+				"anyAccount",
 			]
 		},
 		// output cache size in human readable format with units
@@ -494,8 +494,8 @@ export default {
 		},
 		// check if options are opened in own optinos page
 		ownOptionsPage () {
-			let uri = window.location.search.substring(1)
-			return Boolean((new URLSearchParams(uri)).get('s'))
+			const uri = window.location.search.substring(1)
+			return Boolean((new URLSearchParams(uri)).get("s"))
 		}
 	},
 	watch: {
@@ -511,7 +511,7 @@ export default {
 }
 </script>
 
-<style lang='stylus'>
+<style lang="stylus">
 @require "assets/global"
 
 // general
