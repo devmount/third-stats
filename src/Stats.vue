@@ -653,7 +653,7 @@
 
 <script>
 // internal components
-import { defaultColors } from "./definitions";
+import { accentColors, defaultColors } from "./definitions";
 import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
@@ -1635,8 +1635,18 @@ export default {
 			}
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: ds,
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: dr,
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: labels
 			}
@@ -1682,8 +1692,18 @@ export default {
 			}
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: ds,
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: dr,
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: labels
 			}
@@ -1738,8 +1758,18 @@ export default {
 			}
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: ds,
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: dr,
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: labels
 			}
@@ -1789,8 +1819,18 @@ export default {
 			})
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: ds,
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: dr,
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: labels
 			}
@@ -1826,8 +1866,18 @@ export default {
 			const r = this.display.daytimeData.received, s = this.display.daytimeData.sent
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: Object.values(s), color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: Object.values(r), color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: Object.values(s),
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: Object.values(r),
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: Object.keys(r)
 			}
@@ -1864,8 +1914,18 @@ export default {
 			}
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: s, color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: r, color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: s,
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: r,
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: labels
 			}
@@ -1901,8 +1961,18 @@ export default {
 			const r = this.display.monthData.received, s = this.display.monthData.sent
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: Object.values(s), color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
-					{ label: this.$t("stats.mailsReceived"), data: Object.values(r), color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: Object.values(s),
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: Object.values(r),
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
 				],
 				labels: this.monthNames
 			}
@@ -1966,24 +2036,34 @@ export default {
 				labels: labels
 			}
 		},
-		// prepare data for received emails leaderboard horizontal bar chart
-		receivedContactLeadersChartData () {
-			const r = this.display.contacts.received
-			return {
-				datasets: [
-					{ label: this.$t("stats.mailsReceived"), data: Object.values(r), color: "rgb(10, 132, 255)", bcolor: "rgb(10, 132, 255, .2)" },
-				],
-				labels: Object.keys(r)
-			}
-		},
 		// prepare data for sent emails leaderboard horizontal bar chart
 		sentContactLeadersChartData () {
 			const s = this.display.contacts.sent
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: Object.values(s), color: "rgb(230, 77, 185)", bcolor: "rgb(230, 77, 185, .2)" },
+					{
+						label: this.$t("stats.mailsSent"),
+						data: Object.values(s),
+						color: accentColors[0],
+						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+					},
 				],
 				labels: Object.keys(s)
+			}
+		},
+		// prepare data for received emails leaderboard horizontal bar chart
+		receivedContactLeadersChartData () {
+			const r = this.display.contacts.received
+			return {
+				datasets: [
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: Object.values(r),
+						color: accentColors[1],
+						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+					},
+				],
+				labels: Object.keys(r)
 			}
 		},
 		// prepare data for emails per folder doughnut charts
@@ -1999,8 +2079,8 @@ export default {
 			})
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(10, 132, 255)" },
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(230, 77, 185)" },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(" + hexToRgb(accentColors[0]) + ")" },
+					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(" + hexToRgb(accentColors[1]) + ")" },
 				],
 				labels: labels
 			}
