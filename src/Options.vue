@@ -289,7 +289,7 @@
 		</div>
 		<hr class="mb-3" />
 		<footer class="mx-auto pb-3">
-			<h3 class="text-thin mb-0-5">{{ $t("options.note.title") }}</h3>
+			<label class="mb-0-5">{{ $t("options.note.title") }}</label>
 			<div class="text-gray text-small mb-0-5">
 				{{ $t("options.note.reloadStatsPage") }}
 			</div>
