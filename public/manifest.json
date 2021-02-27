@@ -30,7 +30,6 @@
 	"permissions": [
 		"accountsRead",
 		"messagesRead",
-		"tabs",
 		"storage",
 		"downloads"
 	],

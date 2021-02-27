@@ -46,11 +46,11 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
-![thirdstats_screenshot_version_1 5 0](https://user-images.githubusercontent.com/5441654/108669856-1e9b7b80-74de-11eb-9f53-3b91962a9461.png)
+![thirdstats_screenshot_version_1.5.0](https://user-images.githubusercontent.com/5441654/108669856-1e9b7b80-74de-11eb-9f53-3b91962a9461.png)
 
 ## Privacy and Security
 
-TL;DR: ThirdStats is fully contained and doesn't contact any third-party CDN servers. It runs locally without any webserver. ThirdStats stores processed data in a cache, but you can clear and disable it. ThirdStats will never store this data elsewhere, nor sent or sell it anywhere. ThirdStats needs permissions to access accounts, read email headers, open tabs, use extension storage and download export files.
+ThirdStats is fully contained and doesn't contact any third-party CDN servers. It runs locally without any webserver. ThirdStats stores processed data in a cache, but you can clear and disable it. ThirdStats will never store this data elsewhere, nor sent or sell it anywhere. ThirdStats needs permissions to access accounts, read email headers and download export files.
 
 See the [Security Policy](./SECURITY.md) for details how ThirdStats values your privacy.
 
