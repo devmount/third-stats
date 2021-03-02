@@ -50,7 +50,16 @@ Here is how ThirdStats looks like on the Thunderbird default dark theme and ligh
 
 ## Privacy and Security
 
-ThirdStats is fully contained and doesn't contact any third-party CDN servers. It runs locally without any webserver. ThirdStats stores processed data in a cache, but you can clear and disable it. ThirdStats will never store this data elsewhere, nor sent or sell it anywhere. ThirdStats needs permissions to access accounts, read email headers and download export files. ThirdStats will always seek to minimise use of permissions where possible, and use granular permissions where available. Thunderbirds Permissions API is currently limited to access the whole email instead of the email header only.
+ThirdStats runs entirely locally and will never contact, send or sell data to, any third-parties. 
+
+ThirdStats features require [Thunderbird permissions](https://developer.thunderbird.net/add-ons/mailextensions/supported-webextension-api) to function, but will always seeks to minimise permissions where possible, and use granular permissions where available [1]:
+
+ * Accounts: Access accounts and identities (read-only)
+ * Downloads: Export and download data as a file
+ * Messages: Access messages to create statistics (read-only)
+ * Storage: Store processed data (cache) for performance. Can be cleared or disabled at any time.
+
+[1] Example: Thunderbird Permissions API does not currently provide for reading only message headers, instead of the entire email (including the body).
 
 See the [Security Policy](./SECURITY.md) for details how ThirdStats values your privacy.
 
