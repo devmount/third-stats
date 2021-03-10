@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-The last stable version of ThirdStats is always being supported with security updates.
+The latest stable version of ThirdStats is being supported with security updates.
 
 ## Reporting a Vulnerability
 
