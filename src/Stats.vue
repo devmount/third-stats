@@ -2079,8 +2079,8 @@ export default {
 			})
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(" + hexToRgb(accentColors[0]) + ")" },
 					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(" + hexToRgb(accentColors[1]) + ")" },
+					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(" + hexToRgb(accentColors[0]) + ")" },
 				],
 				labels: labels
 			}
