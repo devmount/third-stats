@@ -172,6 +172,8 @@
     "tooltips": {
       "clear": "Clear selection",
       "comparison": "Compare accounts in one chart",
+      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
+      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
       "error": {
         "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
         "dateOrderEnd": "End date must be after start date",

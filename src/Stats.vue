@@ -275,16 +275,23 @@
 								</span>
 							</li>
 							<li
-								v-if="!loading && active.account == 'sum'"
-								class="cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto"
-								:data-tooltip="
-									!preferences.sections.total.comparison
-									? $t('stats.tooltips.comparison')
-									: $t('stats.tooltips.sum')
-								"
-								@click="preferences.sections.total.comparison=!preferences.sections.total.comparison"
+								class="tooltip tooltip-bottom px-1 ml-auto"
+								:class="{
+									'cursor-pointer': !singleAccount,
+									'text-hover-accent2': !singleAccount
+								}"
+								:data-tooltip="tooltipAccountComparison('total')"
+								@click="!singleAccount ? preferences.sections.total.comparison=!preferences.sections.total.comparison : null"
 							>
-								<svg class="icon icon-text icon-hover-accent" :class="{'icon-accent2': preferences.sections.total.comparison}" viewBox="0 0 24 24">
+								<svg
+									class="icon icon-text"
+									:class="{
+										'icon-hover-accent': !singleAccount,
+										'icon-accent2': preferences.sections.total.comparison && !singleAccount,
+										'icon-gray': singleAccount
+									}"
+									viewBox="0 0 24 24"
+								>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
 									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
@@ -294,7 +301,6 @@
 							</li>
 							<li
 								class="resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1"
-								:class="{ 'ml-auto': active.account != 'sum' || loading }"
 								:data-tooltip="
 									!preferences.sections.total.expand
 									? $t('stats.tooltips.expand')
@@ -458,16 +464,23 @@
 								</span>
 							</li>
 							<li
-								v-if="!loading && active.account == 'sum'"
-								class="cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1 ml-auto"
-								:data-tooltip="
-									!preferences.sections.onedim.comparison
-									? $t('stats.tooltips.comparison')
-									: $t('stats.tooltips.sum')
-								"
-								@click="preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison"
+								class="tooltip tooltip-bottom px-1 ml-auto"
+								:class="{
+									'cursor-pointer': !singleAccount,
+									'text-hover-accent2': !singleAccount
+								}"
+								:data-tooltip="tooltipAccountComparison('onedim')"
+								@click="!singleAccount ? preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison : null"
 							>
-								<svg class="icon icon-text icon-hover-accent" :class="{'icon-accent2': preferences.sections.onedim.comparison}" viewBox="0 0 24 24">
+								<svg
+									class="icon icon-text"
+									:class="{
+										'icon-hover-accent': !singleAccount,
+										'icon-accent2': preferences.sections.onedim.comparison && !singleAccount,
+										'icon-gray': singleAccount
+									}"
+									viewBox="0 0 24 24"
+								>
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
 									<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
@@ -1543,6 +1556,19 @@ export default {
 				active: true,
 				url: url
 			})
+		},
+		// tooltip for account comparison button
+		// depends on active accounts, account selection and toggle of given section
+		tooltipAccountComparison (section) {
+			if (this.preferences.accounts.length < 2) {
+				return this.$t('stats.tooltips.comparisonWhenAccountsOption')
+			}
+			if (this.singleAccount) {
+				return this.$t('stats.tooltips.comparisonWhenFilter')
+			}
+			return !this.preferences.sections[section].comparison
+				? this.$t('stats.tooltips.comparison')
+				: this.$t('stats.tooltips.sum')
 		}
 	},
 	computed: {
