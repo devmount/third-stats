@@ -95,6 +95,10 @@
     "accountEmpty": "This account is empty, no emails here.",
     "allAccounts": "All Accounts",
     "charts": {
+      "contactsJunk": {
+        "description": "Number of emails marked as Junk per sender",
+        "title": "Flagged as Junk"
+      },
       "contactsReceived": {
         "description": "Number of emails received per sender",
         "title": "Most received from"
@@ -147,6 +151,8 @@
     "contact": "Contact",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "junkMails": "Junk mails",
+    "junkScore": "Junk score of {0}",
     "loadingInProgress": "Loading of all emails from this account in progress…",
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",

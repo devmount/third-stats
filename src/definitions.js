@@ -1,6 +1,8 @@
 const accentColors = [
 	"#e64db9",
 	"#0a84ff",
+	"#f9f9fa",
+	"#202023",
 ]
 
 const defaultColors = [

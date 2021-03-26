@@ -1,3 +1,28 @@
+// generator to query messages of given folder
+const queryMessages = async function* (folder, fromDate, toDate) {
+	// handle date filter
+	const dateFilterActive = fromDate && toDate;
+	const from = new Date(fromDate);
+	const to = new Date(toDate);
+	// paginate messages
+  let page = await messenger.messages.list(folder);
+  for (let message of page.messages) {
+		const messagesOutsideDateFilter = message.date < from || message.date > to;
+		if (!(dateFilterActive && messagesOutsideDateFilter)) {
+			yield message;
+		}
+  }
+  while (page.id) {
+    page = await messenger.messages.continueList(page.id);
+    for (let message of page.messages) {
+			const messagesOutsideDateFilter = message.date < from || message.date > to;
+			if (!(dateFilterActive && messagesOutsideDateFilter)) {
+				yield message;
+			}
+    }
+  }
+}
+
 // flatten folder hierarchie of given account
 const traverseAccount = (account) => {
 	let arrayOfFolders = []
@@ -105,6 +130,7 @@ const pluralizationPolish = (n) => {
 }
 
 export {
+	queryMessages,
 	traverseAccount,
 	extractEmailAddress,
 	weekNumber,

@@ -219,6 +219,12 @@
 					<div class="featured">{{ perDay }}</div>
 					<div class="text-gray">{{ perWeek }} {{ $t("stats.mailsWeek") }}</div>
 				</div>
+				<!-- junk / junkScore -->
+				<div>
+					<div class='text-gray'>{{ $t('stats.junkMails') }}</div>
+					<div class='featured'>{{ junk }}</div>
+					<div class='text-gray'>{{ $t('stats.junkScore', [junkScore]) }}</div>
+				</div>
 			</section>
 			<!-- still processing -->
 			<section v-if="loading && display.numbers.total == 0" class="mt-5">
@@ -563,7 +569,11 @@
 							>
 								<span
 									class="transition-color transition-border-color"
-									:class="{ 'border-bottom-accent2': label=='contactsReceived', 'border-bottom-accent1': label=='contactsSent'}"
+									:class="{
+										'border-bottom-accent1': label=='contactsSent',
+										'border-bottom-accent2': label=='contactsReceived',
+										'border-bottom-accent3': label=='contactsJunk',
+									}"
 								>
 									{{ $t("stats.charts." + label + ".title") }}
 								</span>
@@ -582,6 +592,13 @@
 								v-if="tabs.leader.contactsSent"
 								:datasets="sentContactLeadersChartData.datasets"
 								:labels="sentContactLeadersChartData.labels"
+								:horizontal="true"
+							/>
+							<!-- contacts flagged as junk -->
+							<BarChart
+								v-if="tabs.leader.contactsJunk"
+								:datasets="junkContactLeadersChartData.datasets"
+								:labels="junkContactLeadersChartData.labels"
 								:horizontal="true"
 							/>
 						</div>
@@ -654,7 +671,7 @@
 <script>
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
 import HeatMap from "./charts/HeatMap"
@@ -744,7 +761,7 @@ export default {
 			accounts: [],    // list of all existing accounts
 			identities: [],  // list of all existing identities
 			folders: [],     // list of all existing folders for the current account selection
-			contacts: [],    // list of all existing contacts for the current account selection
+			contacts: [],    // list of all existing contacts for contact filter
 			active: {
 				account: null, // currently selected account
 				folder: null,  // currently selected folder
@@ -788,6 +805,7 @@ export default {
 				leader: {
 					contactsReceived: true,
 					contactsSent: false,
+					contactsJunk: false,
 				},
 				folders: {
 					foldersDistribution: true,
@@ -845,6 +863,8 @@ export default {
 					unread: 0,
 					received: 0,
 					sent: 0,
+					junk: 0,
+					junkScore: 0,
 					start: this.active.period.start ? new Date(this.active.period.start) : new Date(),
 					end: this.active.period.end ? new Date(this.active.period.end) : new Date(),
 				},
@@ -887,6 +907,7 @@ export default {
 				contacts: {
 					received: {},
 					sent: {},
+					junk: {},
 				},
 				folders: {
 					received: {},
@@ -998,6 +1019,7 @@ export default {
 				// post processing: sort and reduce size of contacts to configured limit
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.leaderCount)
 				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.leaderCount)
+				accountData.contacts.junk = sortAndLimitObject(accountData.contacts.junk, self.preferences.leaderCount)
 				// post processing: sort folders
 				accountData.folders.received = sortAndLimitObject(accountData.folders.received)
 				accountData.folders.sent = sortAndLimitObject(accountData.folders.sent)
@@ -1010,21 +1032,8 @@ export default {
 		// store results in <data> object
 		async processMessages (data, folder, identities) {
 			if (folder) {
-				let self = this
-				let page = null
-				if (this.active.period.start && this.active.period.end) {
-					let start = new Date(this.active.period.start)
-					let end = new Date(this.active.period.end)
-					page = await messenger.messages.query({ folder: folder, fromDate: start, toDate: end })
-				} else {
-					page = await messenger.messages.query({ folder: folder })
-				}
-				if (page) {
-					page.messages.map(m => self.analyzeMessage(data, m, identities))
-					while (page.id) {
-						page = await messenger.messages.continueList(page.id)
-						page.messages.map(m => self.analyzeMessage(data, m, identities))
-					}
+				for await (let m of queryMessages(folder, this.active.period.start, this.active.period.end)) {
+					this.analyzeMessage(data, m, identities)
 				}
 			}
 		},
@@ -1051,6 +1060,8 @@ export default {
 				data.numbers.received++
 				type = "received"
 			}
+			if (m.junk) data.numbers.junk++
+			data.numbers.junkScore += m.junkScore
 			// calculate starting date (= date of oldest email)
 			const start = new Date(data.numbers.start)
 			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
@@ -1120,23 +1131,29 @@ export default {
 				case 'sent':
 					const recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
 					recipients.forEach(r => {
-						if (!(r in data.contacts['sent'])) {
-							data.contacts['sent'][r] = 1
+						if (!(r in data.contacts.sent)) {
+							data.contacts.sent[r] = 1
 						} else {
-							data.contacts['sent'][r]++
+							data.contacts.sent[r]++
 						}
 					})
 					break;
 				case 'received':
-					const a = author.toLowerCase()
-					if (!(a in data.contacts['received'])) {
-						data.contacts['received'][a] = 1
+					if (!(author in data.contacts.received)) {
+						data.contacts.received[author] = 1
 					} else {
-						data.contacts['received'][a]++
+						data.contacts.received[author]++
 					}
 					break;
 				default:
 					break;
+			}
+			if (m.junk) {
+				if (!(author in data.contacts.junk)) {
+					data.contacts.junk[author] = 1
+				} else {
+					data.contacts.junk[author]++
+				}
 			}
 			// folders
 			const f = m.folder.name
@@ -1246,6 +1263,8 @@ export default {
 				sum.numbers.unread = accountsData.reduce((p,c) => p+c.numbers.unread, 0)
 				sum.numbers.received = accountsData.reduce((p,c) => p+c.numbers.received, 0)
 				sum.numbers.sent = accountsData.reduce((p,c) => p+c.numbers.sent, 0)
+				sum.numbers.junk = accountsData.reduce((p,c) => p+c.numbers.junk, 0)
+				sum.numbers.junkScore = accountsData.reduce((p,c) => p+c.numbers.junkScore, 0)/accountsData.length
 				sum.numbers.start = accountsData.reduce((p,c) => p < c.numbers.start ? p : c.numbers.start, 0)
 				sum.numbers.end = accountsData.reduce((p,c) => p >= c.numbers.end ? p : c.numbers.end, 0)
 				// years
@@ -1298,6 +1317,7 @@ export default {
 				// contacts
 				sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), this.preferences.leaderCount)
 				sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), this.preferences.leaderCount)
+				sum.contacts.junk = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.junk ?? []), [])), this.preferences.leaderCount)
 				// folders
 				sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])))
 				sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])))
@@ -1619,6 +1639,22 @@ export default {
 		perYear () {
 			if (this.display.numbers.total > 0 && this.years > 0) {
 				return this.oneDigit(this.display.numbers.total/this.years)
+			} else {
+				return 0
+			}
+		},
+		// number of junk mails
+		junk () {
+			if (this.display.numbers.junk && this.display.numbers.junk > 0) {
+				return this.display.numbers.junk
+			} else {
+				return 0
+			}
+		},
+		// junk score
+		junkScore () {
+			if (this.display.numbers.junkScore && this.display.numbers.total > 0) {
+				return this.oneDigit(this.display.numbers.junkScore/this.display.numbers.total)
 			} else {
 				return 0
 			}
@@ -2066,6 +2102,22 @@ export default {
 				labels: Object.keys(r)
 			}
 		},
+		// prepare data for junk emails leaderboard horizontal bar chart
+		junkContactLeadersChartData () {
+			const r = this.display.contacts.junk || {}
+			const color = this.preferences.dark ? accentColors[2] : accentColors[3]
+			return {
+				datasets: [
+					{
+						label: this.$t("stats.junkMails"),
+						data: Object.values(r),
+						color: color,
+						bcolor: "rgb(" + hexToRgb(color) + ", .2)"
+					},
+				],
+				labels: Object.keys(r)
+			}
+		},
 		// prepare data for emails per folder doughnut charts
 		foldersChartData () {
 			const r = this.display.folders.received, s = this.display.folders.sent
@@ -2212,7 +2264,7 @@ body
 			max-width: 2500px
 			.numbers
 				max-width: 1500px
-				grid-template-columns: repeat(6, 1fr)
+				grid-template-columns: repeat(7, 1fr)
 			#chart-area-top
 				grid-template-columns: calc(100% - 1130px - 2rem) 1130px
 				&.first-column-only
