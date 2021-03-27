@@ -121,7 +121,8 @@
 						</div>
 						<div class="text-gray text-small">
 							{{ $t("options.activeAccounts.description") }}
-							{{ $t("options.activeAccounts.color") }}
+							{{ $t("options.activeAccounts.color") }}<br />
+							{{ $t("options.activeAccounts.sumAndCompare") }}
 						</div>
 					</label>
 					<div class="action">
