@@ -6,7 +6,8 @@
     "activeAccounts": {
       "color": "Give each account a custom color to distinguish between them in comparison mode.",
       "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts"
+      "label": "Active Accounts",
+      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
     },
     "cache": {
       "description": "Enable caching system for faster display of already processed stats data.",

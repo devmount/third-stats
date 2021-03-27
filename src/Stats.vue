@@ -23,6 +23,7 @@
 						<label for="account" class="align-center text-gray p-0-5">{{ $tc("popup.account", 1) }}</label>
 						<select v-model="active.account" :disabled="loading" class="align-stretch w-6" :class="{ disabled: loading }" id="account">
 							<option v-if="accounts.length > 1 && preferences.cache" :value="'sum'">{{ $t("stats.allAccounts") }}</option>
+							<option v-else disabled>{{ $t("stats.allAccounts") }}</option>
 							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
 						</select>
 						<div v-show="loading" :class="scheme + ' loading align-center loader-accent2'"></div>
@@ -32,7 +33,7 @@
 							:data-tooltip="$t('stats.tooltips.refresh')"
 							@click="loadAccount(active.account, true)"
 						>
-							<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+							<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
 								<line class="icon-part-accent2" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
@@ -147,7 +148,7 @@
 						:data-tooltip="$t('stats.tooltips.exportData')"
 						@click="exportJson()"
 					>
-						<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 							<path class="icon-part-accent2" d="M14 3v4a1 1 0 0 0 1 1h4" />
 							<path class="icon-part-accent2" d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
@@ -162,7 +163,7 @@
 						:data-tooltip="$t('popup.openOptions')"
 						@click.prevent="openTab('options.html', '1')"
 					>
-						<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 							<path class="icon-part-accent2" d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
 							<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
@@ -391,7 +392,7 @@
 					<div v-show="!preferences.sections.total.expand" class="tab-area position-relative">
 						<div class="position-absolute top-0-5 right-0-5 d-flex gap-0-5">
 							<div class="d-inline-flex align-center" :class="{'cursor-pointer': preferences.sections.activity.year > minYear}" @click.prevent="previousYear()">
-								<svg class="icon icon-bold icon-gray icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year <= minYear}" viewBox="0 0 24 24">
+								<svg class="icon icon-bold icon-gray-alt icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year <= minYear}" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
 								</svg>
@@ -400,7 +401,7 @@
 								<option v-for="y in yearsList" :key="y" :value="y">{{ y }}</option>
 							</select>
 							<div class="d-inline-flex align-center" :class="{'cursor-pointer': preferences.sections.activity.year < maxYear}" @click.prevent="nextYear()">
-								<svg class="icon icon-bold icon-gray icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year >= maxYear}" viewBox="0 0 24 24">
+								<svg class="icon icon-bold icon-gray-alt icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year >= maxYear}" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
 								</svg>
