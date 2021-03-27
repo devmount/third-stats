@@ -56,10 +56,10 @@
       "description": "Exclude messages that were sent from me to myself",
       "info": {
         "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Self messages will be included and treated as normal emails (default)",
+        "none": "Messages to self will be included and treated as normal emails (default)",
         "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
       },
-      "label": "Self Messages",
+      "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
         "none": "Disabled",
