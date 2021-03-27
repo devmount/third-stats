@@ -23,6 +23,7 @@
 						<label for="account" class="align-center text-gray p-0-5">{{ $tc("popup.account", 1) }}</label>
 						<select v-model="active.account" :disabled="loading" class="align-stretch w-6" :class="{ disabled: loading }" id="account">
 							<option v-if="accounts.length > 1 && preferences.cache" :value="'sum'">{{ $t("stats.allAccounts") }}</option>
+							<option v-else disabled>{{ $t("stats.allAccounts") }}</option>
 							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
 						</select>
 						<div v-show="loading" :class="scheme + ' loading align-center loader-accent2'"></div>
