@@ -685,7 +685,7 @@
 <script>
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
 import HeatMap from "./charts/HeatMap"
@@ -838,9 +838,9 @@ export default {
 						comparison: false
 					}
 				},
-				dark: true,    // preferences loaded from stored options
-				ordinate: false,
-				startOfWeek: 0,
+				dark: false,    // preferences loaded from stored options
+				ordinate: true,
+				startOfWeek: localStartOfWeek(),
 				localIdentities: [],
 				accounts: [],
 				accountColors: {},
@@ -988,12 +988,9 @@ export default {
 					this.preferences.accountColors[a.id] = defaultColors[(i%defaultColors.length)]
 				})
 			}
-			if (this.preferences.accounts.length > 0) {
-				// filter list of accounts if user configured custom list
+			// filter list of accounts if user configured custom list
+			if (this.preferences.accounts.length > 0 && this.preferences.accounts.length < accounts.length) {
 				accounts = accounts.filter(a => this.preferences.accounts.includes(a.id))
-			} else {
-				// default accounts activated are all non local accounts ...
-				accounts = accounts.filter(a => a.type != "none")
 			}
 			// assign accounts
 			this.accounts = accounts
@@ -1243,7 +1240,9 @@ export default {
 				// deactivate list of folders
 				this.folders = []
 				// iterate over all activated accounts
-				let accounts = this.preferences.accounts.length > 0 ? this.accounts.filter(a => this.preferences.accounts.includes(a.id)) : this.accounts
+				let accounts = this.preferences.accounts.length > 0 && this.preferences.accounts.length < this.accounts.length
+					? this.accounts.filter(a => this.preferences.accounts.includes(a.id))
+					: this.accounts
 				let accountsData = []
 				// init progress indicator
 				this.progress.current = 1

@@ -112,12 +112,9 @@ export default {
 		// add folder count to account object
 		async getAccounts () {
 			let accounts = await messenger.accounts.list()
-			if (this.options.accounts.length > 0) {
-				// filter list of accounts if user configured custom list
+			// filter list of accounts if user configured custom list
+			if (this.options.accounts.length > 0 && this.options.accounts.length < accounts.length) {
 				accounts = accounts.filter(a => this.options.accounts.includes(a.id))
-			} else {
-				// default accounts activated are all non local accounts ...
-				accounts = accounts.filter(a => a.type != "none")
 			}
 			// expand account object with additional data
 			await Promise.all(accounts.map(async a => {
