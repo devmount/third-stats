@@ -74,6 +74,10 @@
       "foldersDistribution": {
         "description": "Anzahl der E-Mails pro Ordner",
         "title": "Ordnerverteilung"
+      },
+      "contactsJunk": {
+        "description": "Anzahl der E-Mails, die als Junk markiert sind, pro Absender",
+        "title": "Als Junk markiert"
       }
     },
     "tooltips": {
@@ -97,7 +101,9 @@
       },
       "comparison": "Vergleichsansicht aller Konten",
       "sum": "Summe aller Konten anzeigen",
-      "exportData": "Aktuell angezeigte Daten als JSON-Datei exportieren"
+      "exportData": "Aktuell angezeigte Daten als JSON-Datei exportieren",
+      "comparisonWhenAccountsOption": "Die Vergleichsansicht von Konten ist nur verfügbar,\nwenn in den Add-On-Optionen mehr als ein Konto aktiviert ist",
+      "comparisonWhenFilter": "Die Vergleichsansicht von Konten ist nur verfügbar,\nwenn im Filterbereich die Option \"Alle Konten\" ausgewählt ist"
     },
     "abbreviations": {
       "calendarWeek": "KW",
@@ -113,7 +119,9 @@
     "allAccounts": "Alle Konten",
     "nonEmptyFolders": "nicht leere Ordner | nicht leerer Ordner | nicht leere Ordner",
     "contact": "Kontakt",
-    "disclaimer": "ThirdStats erhebt keinen Anspruch auf Korrektheit der angezeigten Daten.<br />Bei möglichen Problemen bitte  <a href='{0}' target='_blank'>einen Bug Report erstellen</a>."
+    "disclaimer": "ThirdStats erhebt keinen Anspruch auf Korrektheit der angezeigten Daten.<br />Bei möglichen Problemen bitte  <a href='{0}' target='_blank'>einen Bug Report erstellen</a>.",
+    "junkMails": "Junk-Mails",
+    "junkScore": "Junk-Score von {0}"
   },
   "options": {
     "headings": {
@@ -144,7 +152,8 @@
     "activeAccounts": {
       "label": "Aktive Konten",
       "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
-      "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden."
+      "color": "Jedem Konto kann eine benutzerdefinierte Farbe zugewiesen werden, um die Konten im Vergleichsmodus zu unterscheiden.",
+      "sumAndCompare": "Wenn mehr als ein Konto aktiviert ist, ist die Filteroption \"Alle Konten\" für Summen- und Vergleichsansicht verfügbar."
     },
     "cache": {
       "label": "Cache aktivieren",
