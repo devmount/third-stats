@@ -74,6 +74,10 @@
       "foldersDistribution": {
         "description": "Nombre d'e-mails par dossier",
         "title": "Distribution des dossiers"
+      },
+      "contactsJunk": {
+        "description": "Nombre d'e-mails marqués comme indésirables par expéditeur",
+        "title": "Marqué comme indésirable"
       }
     },
     "tooltips": {
@@ -97,7 +101,9 @@
       },
       "comparison": "Comparez les comptes",
       "sum": "La somme de tous les comptes",
-      "exportData": "Exporter les données actuellement affichées sous forme de fichier JSON"
+      "exportData": "Exporter les données actuellement affichées sous forme de fichier JSON",
+      "comparisonWhenAccountsOption": "La comparaison de compte est uniquement disponible\nsi plusieurs comptes sont activés dans les options",
+      "comparisonWhenFilter": "La comparaison de compte est uniquement disponible\nsi \"Tous les comptes\" est sélectionné dans le filtre des comptes"
     },
     "abbreviations": {
       "calendarWeek": "S",
@@ -113,7 +119,9 @@
     "allAccounts": "Tous les comptes",
     "nonEmptyFolders": "dossiers non vides | dossier non vide | dossiers non vides",
     "contact": "Contact",
-    "disclaimer": "ThirdStats ne prétend pas à l'exactitude des données affichées.<br />En cas de problèmes éventuels, veuillez <a href='{0}' target='_blank'>créer un rapport de bogue</a>."
+    "disclaimer": "ThirdStats ne prétend pas à l'exactitude des données affichées.<br />En cas de problèmes éventuels, veuillez <a href='{0}' target='_blank'>créer un rapport de bogue</a>.",
+    "junkMails": "Courriers indésirables",
+    "junkScore": "Score indésirable de {0}"
   },
   "options": {
     "headings": {
@@ -144,7 +152,8 @@
     "activeAccounts": {
       "label": "Comptes actifs",
       "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
-      "color": "Donnez une couleur personnalisée à chaque compte pour les distinguer en mode comparaison."
+      "color": "Donnez une couleur personnalisée à chaque compte pour les distinguer en mode comparaison.",
+      "sumAndCompare": "L'activation de plusieurs comptes active l'option de filtre de statistiques «Tous les comptes» pour la vue de somme et de comparaison."
     },
     "cache": {
       "label": "Activer le cache",
