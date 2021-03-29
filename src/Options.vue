@@ -320,7 +320,7 @@
 
 <script>
 import { defaultColors } from "./definitions"
-import { formatBytes } from "./utils"
+import { formatBytes, localStartOfWeek } from "./utils"
 
 export default {
 	name: "Options",
@@ -346,9 +346,9 @@ export default {
 	methods: {
 		// create options object with given values or default values
 		optionsObject (
-			dark = true,
-			ordinate = false,
-			startOfWeek = 0,
+			dark = false,
+			ordinate = true,
+			startOfWeek = -1,
 			addresses = "",
 			accounts = [],
 			accountColors = {},
@@ -356,6 +356,9 @@ export default {
 			leaderCount = 20,
 			cache = true
 		) {
+			// prepare default values
+			if (startOfWeek < 0) startOfWeek = localStartOfWeek()	
+			// return options object
 			return {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
@@ -383,19 +386,10 @@ export default {
 		async getAccounts () {
 			const accounts = await (await messenger.runtime.getBackgroundPage()).messenger.accounts.list()
 			this.allAccounts = accounts
-			// if accounts option is not set yet
-			if (this.options && this.options.accounts && !this.options.accounts.length) {
-				let activeAccounts = []
-				// default accounts activated are all non local accounts ...
-				accounts.forEach(a => {
-					if (a.type != "none") activeAccounts.push(a.id)
-				})
-				// unless there are only local accounts existing
-				if (activeAccounts.length == 0) {
-					accounts.forEach(a => activeAccounts.push(a.id))
-				}
+			// if accounts option is not set yet, default to all accounts
+			if (this.options?.accounts && this.options.accounts.length == 0) {
 				// update accounts option
-				this.options.accounts = activeAccounts
+				this.options.accounts = accounts.map(a => a.id)
 			}
 			// if some or all account colors are not initialized yet, initialize them
 			if (this.options && this.options.accountColors) {
