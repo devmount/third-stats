@@ -92,6 +92,13 @@ const weeksBetween = (d1, d2) => {
 	return weeks
 }
 
+// calculate the local start of week, returns weekday (0-6)
+const localStartOfWeek = () => {
+	const d = new Date()
+	const diff = d.getDate() - d.getDay();
+	return (new Date(d.setDate(diff))).getDay()
+}
+
 // get quarter number for given date
 const quarterNumber = (d) => {
 	const month = d.getMonth() + 1
@@ -136,6 +143,7 @@ export {
 	weekNumber,
 	weeksInYear,
 	weeksBetween,
+	localStartOfWeek,
 	quarterNumber,
 	yyyymmdd,
 	formatBytes,
