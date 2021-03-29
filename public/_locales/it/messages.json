@@ -74,6 +74,10 @@
       "foldersDistribution": {
         "description": "Numero di messaggi di posta elettronica per cartella",
         "title": "Distribuzione delle cartelle"
+      },
+      "contactsJunk": {
+        "description": "Numero di messaggi di posta elettronica contrassegnati come Posta indesiderata per mittente",
+        "title": "Contrassegnato come spazzatura"
       }
     },
     "tooltips": {
@@ -97,7 +101,9 @@
       },
       "comparison": "Confronta i conti in un grafico",
       "sum": "Mostra la somma di tutti i conti",
-      "exportData": "Esporta i dati attualmente visualizzati come file JSON"
+      "exportData": "Esporta i dati attualmente visualizzati come file JSON",
+      "comparisonWhenAccountsOption": "Il confronto dei conti è disponibile solo\nse più di un account è attivato nelle opzioni aggiuntive",
+      "comparisonWhenFilter": "Il confronto dei conti è disponibile solo\nse \"Tutti gli account\" è selezionato nel filtro degli account sopra"
     },
     "abbreviations": {
       "calendarWeek": "W",
@@ -113,7 +119,9 @@
     "allAccounts": "Tutti i account",
     "nonEmptyFolders": "cartelle non vuote | cartella non vuota | cartelle non vuote",
     "contact": "Contatto",
-    "disclaimer": "ThirdStats non rivendica la correttezza dei dati visualizzati.<br />In caso di possibili problemi, <a href='{0}' target='_blank'>crea una segnalazione di bug</a>."
+    "disclaimer": "ThirdStats non rivendica la correttezza dei dati visualizzati.<br />In caso di possibili problemi, <a href='{0}' target='_blank'>crea una segnalazione di bug</a>.",
+    "junkMails": "Posta indesiderata",
+    "junkScore": "Punteggio spazzatura di {0}"
   },
   "options": {
     "headings": {
@@ -144,7 +152,8 @@
     "activeAccounts": {
       "label": "Account attivi",
       "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche.",
-      "color": "Assegna a ciascun account un colore personalizzato per distinguerli nella modalità di confronto."
+      "color": "Assegna a ciascun account un colore personalizzato per distinguerli nella modalità di confronto.",
+      "sumAndCompare": "L'attivazione di più di un account abilita l'opzione di filtro delle statistiche \"Tutti gli account\" per la visualizzazione della somma e del confronto."
     },
     "cache": {
       "label": "Attiva la cache",
