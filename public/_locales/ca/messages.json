@@ -18,14 +18,15 @@
     }
   },
   "popup": {
-    "account": "Compte | Comptes",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} Compte | {0} Comptes"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "S",
       "quarter": "Q"
     },
+    "account": "Compte",
     "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
     "charts": {
       "contactsReceived": {

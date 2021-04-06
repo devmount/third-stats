@@ -2,199 +2,201 @@
   "extensionDescription": {
     "message": "Gyönyörűen megjelenített statisztikák a Thunderbird levelező postafiókokhoz"
   },
-  "popup": {
-    "account": "Fiók",
-    "folder": "Mappa",
-    "message": "-",
-    "openAllStats": "Az összes statisztika megnyitása",
-    "openOptions": "Beállítások megnyitása",
-    "messages": "Üzenet"
-  },
-  "stats": {
-    "mailsTotal": "Levelek összesen",
-    "withinYears": "{0} éven belül",
-    "mailsUnread": "Mails unread",
-    "niceWork": "Szép munka!",
-    "percentOfReceived": "A beérkezett adatok {0}%-a",
-    "mailsReceived": "Levelek fogadva",
-    "percentOfTotal": "Az összes {0}%-a",
-    "mailsSent": "Levelek elküldve",
-    "mailsPerMonth": "Levél havonta",
-    "mailsYear": "levél/év",
-    "mailsPerDay": "Levél naponta",
-    "mailsWeek": "levél/hét",
-    "loadingInProgress": "A fiók összes e-mailének betöltése folyamatban van…",
-    "accountEmpty": "Ez a postafiók üres, itt nincsenek e-mailek.",
-    "timePeriod": "Dátumtartomány",
-    "charts": {
-      "years": {
-        "title": "Évek",
-        "description": "Éves e-mailek teljes száma"
-      },
-      "quarters": {
-        "title": "Negyedek",
-        "description": "Az e-mailek száma negyedévenként"
-      },
-      "months": {
-        "title": "Hónapok",
-        "description": "E-mailek teljes száma havonta"
-      },
-      "weeks": {
-        "title": "Hetek",
-        "description": "Heti e-mailek teljes száma"
-      },
-      "days": {
-        "title": "Tevékenység itt: {0}",
-        "description": "E-mailek száma dátum szerint"
-      },
-      "daytime": {
-        "title": "Nappal",
-        "description": "E-mailek száma napszakonként"
-      },
-      "weekday": {
-        "title": "Hétköznap",
-        "description": "E-mailek száma a hét minden napján"
-      },
-      "month": {
-        "title": "Hónap",
-        "description": "E-mailek száma az év hónapjában"
-      },
-      "temporalDistribution": {
-        "title": "Időbeli eloszlása",
-        "description": "Hétköznap / óra e-mailek száma"
-      },
-      "contactsReceived": {
-        "title": "A legtöbb kapott",
-        "description": "Feladónként kapott e-mailek száma"
-      },
-      "contactsSent": {
-        "title": "A legtöbbet elküldték",
-        "description": "A címzettenként elküldött e-mailek száma"
-      },
-      "foldersDistribution": {
-        "description": "E-mailek száma mappánként",
-        "title": "Mappák terjesztése"
-      },
-      "contactsJunk": {
-        "description": "Levélszemétként megjelölt e-mailek száma küldőnként",
-        "title": "Levélszemétként megjelölve"
-      }
-    },
-    "tooltips": {
-      "expand": "Diagramterület kibontása",
-      "shrink": "Diagramterület csökkentése",
-      "refresh": "Adatok frissítése",
-      "clear": "Kijelölés törlése",
-      "period": {
-        "start": "Dátumtól\nTipp: A(z) „{0}” begépelése „{1}” lesz",
-        "end": "Dátumig\nTipp: A(z) „{0}” begépelése „{1}” lesz"
-      },
-      "error": {
-        "empty": "Bevitel szükséges",
-        "dateFormat": "Formátum: ÉÉÉÉ-HH-NN szükséges, pl. 2020-01-31",
-        "dateUnreal": "Érvényes dátumot kell megadni",
-        "dateOrderStart": "A kezdő dátumnak a befejezés dátuma előtt kell lennie",
-        "dateOrderEnd": "A befejezés dátumának a kezdő dátum után kell lennie"
-      },
-      "folder": {
-        "notAvailable": "A(z) {0} mappák nem érhetők el"
-      },
-      "comparison": "Fiókok összehasonlítása egy diagramban",
-      "sum": "Az összes fiók összegének megjelenítése",
-      "exportData": "Exportálja a jelenleg megjelenített adatokat JSON fájlként",
-      "comparisonWhenAccountsOption": "A fiókok összehasonlítása csak akkor érhető el, ha egynél több fiók engedélyezett a kiegészítő beállításokban",
-      "comparisonWhenFilter": "A fiókok összehasonlítása csak akkor érhető el, ha a fenti fiókszűrőben az „Összes fiók” van kiválasztva."
-    },
-    "abbreviations": {
-      "calendarWeek": "h",
-      "quarter": "¼",
-      "day": "n",
-      "hour": "ó",
-      "minute": "p",
-      "second": "mp"
-    },
-    "starAndImprove": "Légy sztár, villálj a <a href='{0}' target='_blank'>GitHub</a>on.",
-    "message": "-",
-    "dataCollected": "{0} ezelőtt gyűjtött adatok",
-    "allAccounts": "Minden postafiók",
-    "nonEmptyFolders": "nem üres mappák | nem üres mappa | nem üres mappák",
-    "contact": "Névjegy",
-    "disclaimer": "A ThirdStats nem hivatkozik a megjelenített adatok helyességére.<br />Lehetséges problémák esetén kérjük <a href='{0}' target='_blank'>hozzon létre hibajelentést</a>.",
-    "junkMails": "Levélszemetek",
-    "junkScore": "{0} levélszemét pontszám"
-  },
   "options": {
+    "activeAccounts": {
+      "color": "Adjon minden fióknak egyéni színt, hogy megkülönböztesse őket összehasonlítási módban.",
+      "description": "Fiókok engedélyezése vagy letiltása. A letiltott fiókok nem jelennek meg a fióklistában vagy a statisztikákban.",
+      "label": "Elérhető fiókok",
+      "sumAndCompare": "Több fiók aktiválása engedélyezi az „Összes fiók” statisztika szűrő opciót összeg és összehasonlító nézethez."
+    },
+    "cache": {
+      "description": "A gyorsítótár-rendszer engedélyezése a már feldolgozott statisztikai adatok gyorsabb megjelenítéséhez.",
+      "label": "Gyorsítótár engedélyezése"
+    },
+    "clearCache": {
+      "description": "Távolítsa el az összes gyorsítótárazott statisztikai adatot az összes fiókból. A statisztika oldal újbóli megnyitásával újjáépül.",
+      "empty": "A gyorsítótár üres",
+      "label": "Gyorsítótár törlése",
+      "size": "A gyorsítótár fájlmérete: {0}"
+    },
+    "darkMode": {
+      "description": "Sötét és világos színvilág váltása",
+      "label": "Sötét mód"
+    },
     "headings": {
       "appearance": "Megjelenés és tapasztalat",
       "stats": "Diagramok és adatok",
       "storage": "Tárolás és gyorsítótár"
     },
-    "switch": {
-      "on": "Be",
-      "off": "Ki"
-    },
-    "darkMode": {
-      "label": "Sötét mód",
-      "description": "Sötét és világos színvilág váltása"
-    },
-    "ordinate": {
-      "label": "Függőleges tengely",
-      "description": "A függőleges tengely megjelenítése az összes vonalas és oszlopdiagramon"
+    "leaderCount": {
+      "description": "A gyakori kapcsolattartókat felsoroló diagramokban szereplő bejegyzések száma (legfeljebb 999)",
+      "label": "Vezérszám"
     },
     "localIdentities": {
-      "label": "Helyi személyazonosságok",
-      "description": "A lista e-mail címét, hogy ismerje a „küldött” a helyi fiókok"
-    },
-    "startOfWeek": {
-      "label": "Kezdje a hetet",
-      "description": "A hét egyéni kezdete az összes hétköznapi diagramhoz"
-    },
-    "activeAccounts": {
-      "label": "Elérhető fiókok",
-      "description": "Fiókok engedélyezése vagy letiltása. A letiltott fiókok nem jelennek meg a fióklistában vagy a statisztikákban.",
-      "color": "Adjon minden fióknak egyéni színt, hogy megkülönböztesse őket összehasonlítási módban.",
-      "sumAndCompare": "Több fiók aktiválása engedélyezi az „Összes fiók” statisztika szűrő opciót összeg és összehasonlító nézethez."
-    },
-    "cache": {
-      "label": "Gyorsítótár engedélyezése",
-      "description": "A gyorsítótár-rendszer engedélyezése a már feldolgozott statisztikai adatok gyorsabb megjelenítéséhez."
-    },
-    "clearCache": {
-      "label": "Gyorsítótár törlése",
-      "description": "Távolítsa el az összes gyorsítótárazott statisztikai adatot az összes fiókból. A statisztika oldal újbóli megnyitásával újjáépül.",
-      "empty": "A gyorsítótár üres",
-      "size": "A gyorsítótár fájlmérete: {0}"
-    },
-    "note": {
-      "title": "Megjegyzés",
-      "reloadStatsPage": "Az opciók önműködően mentésre kerülnek. Bizonyos opcióváltozások nem alkalmazhatók önműködően a már megnyitott statisztikai oldalra vagy a meglévő gyorsítótár bejegyzésekre, ha a gyorsítótár aktiválva van. Megfelelő ikonokkal vannak jelölve.",
-      "reloadWindowRequired": "Ha megváltoztatja, a statisztika ablakot újra be kell tölteni",
-      "refreshCacheRequired": "Ha megváltozik, akkor a gyorsítótárat újra kell építeni"
+      "description": "A lista e-mail címét, hogy ismerje a „küldött” a helyi fiókok",
+      "label": "Helyi személyazonosságok"
     },
     "message": "-",
+    "note": {
+      "refreshCacheRequired": "Ha megváltozik, akkor a gyorsítótárat újra kell építeni",
+      "reloadStatsPage": "Az opciók önműködően mentésre kerülnek. Bizonyos opcióváltozások nem alkalmazhatók önműködően a már megnyitott statisztikai oldalra vagy a meglévő gyorsítótár bejegyzésekre, ha a gyorsítótár aktiválva van. Megfelelő ikonokkal vannak jelölve.",
+      "reloadWindowRequired": "Ha megváltoztatja, a statisztika ablakot újra be kell tölteni",
+      "title": "Megjegyzés"
+    },
+    "ordinate": {
+      "description": "A függőleges tengely megjelenítése az összes vonalas és oszlopdiagramon",
+      "label": "Függőleges tengely"
+    },
+    "resetOptions": {
+      "description": "Állítsa vissza az összes beállítást az alapértelmezett értékre. A korábban megváltoztatott beállításoktól függően szükség lehet egy ablak vagy gyorsítótár frissítésére.",
+      "label": "Beállítások visszaállítása",
+      "removeIdentities": "Ez eltávolítja az összes helyi személyazonosságot, amelyet létrehozott. "
+    },
     "selfMessages": {
-      "label": "Üzenetek önmagamnak",
       "description": "Kizárja azokat az üzeneteket, amelyeket tőlem küldtem magamnak",
-      "values": {
-        "none": "Tiltva",
-        "sameAccount": "Csak ugyanaz a fiókot",
-        "anyAccount": "Bármely fiókból"
-      },
       "info": {
+        "anyAccount": "Azok az üzenetek, amelyekben a feladó és a fogadó azonosító, bármely fiókból kizárásra kerülnek",
         "none": "A magának küldött üzenetek átlagos üzenetként lesznek kezelve (alapértelmezett)",
-        "sameAccount": "Azok az üzenetek, amelyekben a feladó és a fogadó azonos fiók azonos fiókból, kizárásra kerülnek",
-        "anyAccount": "Azok az üzenetek, amelyekben a feladó és a fogadó azonosító, bármely fiókból kizárásra kerülnek"
+        "sameAccount": "Azok az üzenetek, amelyekben a feladó és a fogadó azonos fiók azonos fiókból, kizárásra kerülnek"
+      },
+      "label": "Üzenetek önmagamnak",
+      "values": {
+        "anyAccount": "Bármely fiókból",
+        "none": "Tiltva",
+        "sameAccount": "Csak ugyanaz a fiókot"
       }
     },
-    "leaderCount": {
-      "label": "Vezérszám",
-      "description": "A gyakori kapcsolattartókat felsoroló diagramokban szereplő bejegyzések száma (legfeljebb 999)"
+    "startOfWeek": {
+      "description": "A hét egyéni kezdete az összes hétköznapi diagramhoz",
+      "label": "Kezdje a hetet"
     },
-    "title": "Beállítások",
-    "resetOptions": {
-      "label": "Beállítások visszaállítása",
-      "description": "Állítsa vissza az összes beállítást az alapértelmezett értékre. A korábban megváltoztatott beállításoktól függően szükség lehet egy ablak vagy gyorsítótár frissítésére.",
-      "removeIdentities": "Ez eltávolítja az összes helyi személyazonosságot, amelyet létrehozott. "
-    }
+    "switch": {
+      "off": "Ki",
+      "on": "Be"
+    },
+    "title": "Beállítások"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} fiók | {0} fiók",
+    "nFolders": "{0} mappa | {0} mappa",
+    "nMessages": "{0} üzenet | {0} üzenet",
+    "openAllStats": "Az összes statisztika megnyitása",
+    "openOptions": "Beállítások megnyitása"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "h",
+      "day": "n",
+      "hour": "ó",
+      "minute": "p",
+      "quarter": "¼",
+      "second": "mp"
+    },
+    "account": "Fiók",
+    "accountEmpty": "Ez a postafiók üres, itt nincsenek e-mailek.",
+    "allAccounts": "Minden postafiók",
+    "charts": {
+      "contactsJunk": {
+        "description": "Levélszemétként megjelölt e-mailek száma küldőnként",
+        "title": "Levélszemétként megjelölve"
+      },
+      "contactsReceived": {
+        "description": "Feladónként kapott e-mailek száma",
+        "title": "A legtöbb kapott"
+      },
+      "contactsSent": {
+        "description": "A címzettenként elküldött e-mailek száma",
+        "title": "A legtöbbet elküldték"
+      },
+      "days": {
+        "description": "E-mailek száma dátum szerint",
+        "title": "Tevékenység itt: {0}"
+      },
+      "daytime": {
+        "description": "E-mailek száma napszakonként",
+        "title": "Nappal"
+      },
+      "foldersDistribution": {
+        "description": "E-mailek száma mappánként",
+        "title": "Mappák terjesztése"
+      },
+      "month": {
+        "description": "E-mailek száma az év hónapjában",
+        "title": "Hónap"
+      },
+      "months": {
+        "description": "E-mailek teljes száma havonta",
+        "title": "Hónapok"
+      },
+      "quarters": {
+        "description": "Az e-mailek száma negyedévenként",
+        "title": "Negyedek"
+      },
+      "temporalDistribution": {
+        "description": "Hétköznap / óra e-mailek száma",
+        "title": "Időbeli eloszlása"
+      },
+      "weekday": {
+        "description": "E-mailek száma a hét minden napján",
+        "title": "Hétköznap"
+      },
+      "weeks": {
+        "description": "Heti e-mailek teljes száma",
+        "title": "Hetek"
+      },
+      "years": {
+        "description": "Éves e-mailek teljes száma",
+        "title": "Évek"
+      }
+    },
+    "contact": "Névjegy",
+    "dataCollected": "{0} ezelőtt gyűjtött adatok",
+    "disclaimer": "A ThirdStats nem hivatkozik a megjelenített adatok helyességére.<br />Lehetséges problémák esetén kérjük <a href='{0}' target='_blank'>hozzon létre hibajelentést</a>.",
+    "folder": "Mappa",
+    "junkMails": "Levélszemetek",
+    "junkScore": "{0} levélszemét pontszám",
+    "loadingInProgress": "A fiók összes e-mailének betöltése folyamatban van…",
+    "mailsPerDay": "Levél naponta",
+    "mailsPerMonth": "Levél havonta",
+    "mailsReceived": "Levelek fogadva",
+    "mailsSent": "Levelek elküldve",
+    "mailsTotal": "Levelek összesen",
+    "mailsUnread": "Mails unread",
+    "mailsWeek": "levél/hét",
+    "mailsYear": "levél/év",
+    "message": "-",
+    "niceWork": "Szép munka!",
+    "nonEmptyFolders": "nem üres mappák | nem üres mappa | nem üres mappák",
+    "percentOfReceived": "A beérkezett adatok {0}%-a",
+    "percentOfTotal": "Az összes {0}%-a",
+    "starAndImprove": "Légy sztár, villálj a <a href='{0}' target='_blank'>GitHub</a>on.",
+    "timePeriod": "Dátumtartomány",
+    "tooltips": {
+      "clear": "Kijelölés törlése",
+      "comparison": "Fiókok összehasonlítása egy diagramban",
+      "comparisonWhenAccountsOption": "A fiókok összehasonlítása csak akkor érhető el, ha egynél több fiók engedélyezett a kiegészítő beállításokban",
+      "comparisonWhenFilter": "A fiókok összehasonlítása csak akkor érhető el, ha a fenti fiókszűrőben az „Összes fiók” van kiválasztva.",
+      "error": {
+        "dateFormat": "Formátum: ÉÉÉÉ-HH-NN szükséges, pl. 2020-01-31",
+        "dateOrderEnd": "A befejezés dátumának a kezdő dátum után kell lennie",
+        "dateOrderStart": "A kezdő dátumnak a befejezés dátuma előtt kell lennie",
+        "dateUnreal": "Érvényes dátumot kell megadni",
+        "empty": "Bevitel szükséges"
+      },
+      "expand": "Diagramterület kibontása",
+      "exportData": "Exportálja a jelenleg megjelenített adatokat JSON fájlként",
+      "folder": {
+        "notAvailable": "A(z) {0} mappák nem érhetők el"
+      },
+      "period": {
+        "end": "Dátumig\nTipp: A(z) „{0}” begépelése „{1}” lesz",
+        "start": "Dátumtól\nTipp: A(z) „{0}” begépelése „{1}” lesz"
+      },
+      "refresh": "Adatok frissítése",
+      "shrink": "Diagramterület csökkentése",
+      "sum": "Az összes fiók összegének megjelenítése"
+    },
+    "withinYears": "{0} éven belül"
   }
 }

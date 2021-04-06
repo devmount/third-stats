@@ -49,15 +49,16 @@
     }
   },
   "popup": {
-    "account": "帳號 | 帳號",
-    "folder": "文件夾 | 文件夾",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} 帳號 | {0} 帳號",
+    "nFolders": "{0} 文件夾 | {0} 文件夾"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "週",
       "quarter": "季"
     },
+    "account": "帳號",
     "accountEmpty": "當前帳號為空，並沒有任何郵件。",
     "allAccountsSum": "所有帳號（總和）",
     "charts": {
@@ -106,6 +107,7 @@
         "title": "年"
       }
     },
+    "folder": "文件夾",
     "loadingInProgress": "正在讀取當前帳號的所有電子郵件……",
     "mailsPerDay": "每日郵件",
     "mailsPerMonth": "每月郵件",

@@ -18,14 +18,15 @@
     }
   },
   "popup": {
-    "account": "Hesap | Hesaplar",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} Hesap | {0} Hesaplar"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "H",
       "quarter": "Ç"
     },
+    "account": "Hesap",
     "accountEmpty": "Bu hesap boş, e-posta yok.",
     "charts": {
       "contactsReceived": {

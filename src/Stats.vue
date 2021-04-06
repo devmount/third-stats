@@ -20,7 +20,7 @@
 				<div class="filter d-flex flex-wrap gap-1">
 					<!-- account selection -->
 					<div class="filter-account d-flex">
-						<label for="account" class="align-center text-gray p-0-5">{{ $tc("popup.account", 1) }}</label>
+						<label for="account" class="align-center text-gray p-0-5">{{ $t("stats.account") }}</label>
 						<select v-model="active.account" :disabled="loading" class="align-stretch w-6" :class="{ disabled: loading }" id="account">
 							<option v-if="accounts.length > 1 && preferences.cache" :value="'sum'">{{ $t("stats.allAccounts") }}</option>
 							<option v-else disabled>{{ $t("stats.allAccounts") }}</option>
@@ -46,7 +46,7 @@
 					</div>
 					<!-- folder selection -->
 					<div class="filter-folder d-flex">
-						<label for="folder" class="align-center text-gray p-0-5">{{ $tc("popup.folder", 1) }}</label>
+						<label for="folder" class="align-center text-gray p-0-5">{{ $t("stats.folder") }}</label>
 						<div
 							class="d-flex align-stretch tooltip-bottom"
 							:class="{ tooltip: !singleAccount }"

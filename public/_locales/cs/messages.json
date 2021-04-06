@@ -18,14 +18,15 @@
     }
   },
   "popup": {
-    "account": "Účet | Účtů",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} Účet | {0} Účtů"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "W",
       "quarter": "Q"
     },
+    "account": "Účet",
     "accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
     "charts": {
       "contactsReceived": {
