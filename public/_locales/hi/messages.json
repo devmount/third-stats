@@ -18,14 +18,15 @@
     }
   },
   "popup": {
-    "account": "खाता | खाते",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} खाता | {0} खाते"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "W",
       "quarter": "Q"
     },
+    "account": "खाता",
     "accountEmpty": "इस खाते में कोई मेल नहीं है।",
     "charts": {
       "contactsReceived": {

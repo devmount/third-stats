@@ -41,14 +41,15 @@
     }
   },
   "popup": {
-    "account": "账号 | 账号",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "账号 {0} | 账号 {0}"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "周",
       "quarter": "季"
     },
+    "account": "账号",
     "accountEmpty": "此账号为空，没有邮件。",
     "charts": {
       "contactsReceived": {

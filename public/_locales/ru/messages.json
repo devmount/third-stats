@@ -68,10 +68,10 @@
     "title": "Настройки"
   },
   "popup": {
-    "account": "Аккаунт | Аккаунты",
-    "folder": "Папка | Папки",
     "message": "-",
-    "messages": "Письмо | Письма",
+    "nAccounts": "{0} Аккаунт | {0} Аккаунты",
+    "nFolders": "{0} Папка | {0} Папки",
+    "nMessages": "{0} Письмо | {0} Письма",
     "openAllStats": "Открыть всю статистику",
     "openOptions": "Открыть Настройки"
   },
@@ -84,6 +84,7 @@
       "quarter": "К",
       "second": "с"
     },
+    "account": "Аккаунт",
     "accountEmpty": "Пустой аккаунт, писем нет.",
     "allAccounts": "Все Аккаунты",
     "charts": {
@@ -133,6 +134,7 @@
       }
     },
     "dataCollected": "Данные посчитаны {0} назад",
+    "folder": "Папка",
     "loadingInProgress": "Идет обработка писем…",
     "mailsPerDay": "Писем за день",
     "mailsPerMonth": "Писем за месяц",

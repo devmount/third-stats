@@ -4,7 +4,7 @@
 			<!-- header containing number of accounts and linking to stats page -->
 			<header class="d-flex gap-0-5 mb-1-5">
 				<h3 class="flex-grow">
-					<span class="mr-1">{{ accounts.length }} {{ $tc("popup.account", accounts.length) }}</span>
+					<span class="mr-1">{{ $tc("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
 					<span v-if="loading" class="dark loading"></span>
 				</h3>
 				<div
@@ -41,8 +41,8 @@
 					<div class="position-relative z-5">
 						<h4>{{ a.name }}</h4>
 						<div class="text-small text-secondary">
-							{{ a.folderCount }} {{ $tc("popup.folder", a.folderCount) }}
-							<div v-if="a.hasOwnProperty('messageCount')">{{ a.messageCount }} {{ $tc("popup.messages", a.messageCount) }}</div>
+							{{ $tc("popup.nFolders", a.folderCount, [a.folderCount]) }}
+							<div v-if="a.hasOwnProperty('messageCount')">{{ $tc("popup.nMessages", a.messageCount, [a.messageCount]) }}</div>
 						</div>
 					</div>
 					<LineChart

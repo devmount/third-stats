@@ -18,14 +18,15 @@
     }
   },
   "popup": {
-    "account": "アカウント | アカウント",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0}アカウント | {0}アカウント"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "曜日",
       "quarter": "四半期"
     },
+    "account": "アカウント",
     "accountEmpty": "このアカウントにはメールはありません。",
     "charts": {
       "contactsReceived": {

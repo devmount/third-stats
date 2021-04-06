@@ -18,14 +18,15 @@
     }
   },
   "popup": {
-    "account": "Konto | Konta",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} Konto | {0} Konta"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "TK",
       "quarter": "Ć"
     },
+    "account": "Konto",
     "accountEmpty": "To konto jest puste, nie ma żadnych e-maili.",
     "charts": {
       "contactsReceived": {

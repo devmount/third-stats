@@ -6,10 +6,11 @@
     "message": "-"
   },
   "popup": {
-    "account": "บัญชีผู้ใช้ | บัญชี",
-    "message": "-"
+    "message": "-",
+    "nAccounts": "{0} บัญชีผู้ใช้ | {0} บัญชี"
   },
   "stats": {
+    "account": "บัญชีผู้ใช้",
     "accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
     "charts": {
       "contactsReceived": {
