@@ -2,96 +2,200 @@
   "extensionDescription": {
     "message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
   },
-  "options": {
-    "darkMode": {
-      "description": "Alternar entre modo escuro e modo claro",
-      "label": "Modo Escuro"
-    },
-    "localIdentities": {
-      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais",
-      "label": "Identidades Locais"
-    },
-    "message": "-",
-    "switch": {
-      "off": "Desligado",
-      "on": "Ligado"
-    }
-  },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} Conta | {0} Contas"
+    "nAccounts": "{0} Conta | {0} Contas",
+    "openAllStats": "Abrir todas as estatísticas",
+    "openOptions": "Abrir Opções",
+    "nFolders": "{0} Pasta | {0} Pastas",
+    "nMessages": "{0} Mensagem | {0} Mensagens"
   },
   "stats": {
-    "abbreviations": {
-      "calendarWeek": "S",
-      "quarter": "T"
-    },
-    "account": "Conta",
-    "accountEmpty": "Essa conta está vazia, sem e-mails aqui.",
-    "charts": {
-      "contactsReceived": {
-        "description": "Número de e-mails recebidos por remetente",
-        "title": "Mais recebido de"
-      },
-      "contactsSent": {
-        "description": "Número de e-mails enviado por destinatário",
-        "title": "Mais enviado para"
-      },
-      "days": {
-        "description": "E-mails por dia",
-        "title": "Atividade em {0}"
-      },
-      "daytime": {
-        "description": "Número de e-mails por hora do dia",
-        "title": "Dia"
-      },
-      "month": {
-        "description": "Total de e-mails por mês",
-        "title": "Meses"
-      },
-      "months": {
-        "description": "Total de e-mails por mês",
-        "title": "Meses"
-      },
-      "quarters": {
-        "description": "Total de e-mails por trimestre",
-        "title": "Trimestres"
-      },
-      "temporalDistribution": {
-        "description": "Número de e-mails por semana por hora",
-        "title": "Distribuição Temporal"
-      },
-      "weekday": {
-        "description": "Número de e-mails por dia da semana",
-        "title": "Dia da Semana"
-      },
-      "weeks": {
-        "description": "Total de e-mails por semana",
-        "title": "Semanas"
-      },
-      "years": {
-        "description": "Total de e-mails por ano",
-        "title": "Anos"
-      }
-    },
-    "loadingInProgress": "Carregamento de todos os e-mails dessa conta em andamento…",
-    "mailsPerDay": "E-mails por dia",
-    "mailsPerMonth": "E-mails por mês",
-    "mailsReceived": "E-mails recebidos",
-    "mailsSent": "E-mails enviados",
     "mailsTotal": "Total de e-mails",
+    "withinYears": "Dentro de {0} anos",
     "mailsUnread": "E-mails não lidos",
-    "mailsWeek": "E-mails/semana",
-    "mailsYear": "E-mails/ano",
-    "message": "-",
     "niceWork": "Bom trabalho!",
     "percentOfReceived": "{0}% de recebidos",
+    "mailsReceived": "E-mails recebidos",
     "percentOfTotal": "{0}% do total",
-    "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>",
+    "mailsSent": "E-mails enviados",
+    "mailsPerMonth": "E-mails por mês",
+    "mailsYear": "E-mails/ano",
+    "mailsPerDay": "E-mails por dia",
+    "mailsWeek": "E-mails/semana",
+    "loadingInProgress": "Carregamento de todos os e-mails dessa conta em andamento…",
+    "accountEmpty": "Essa conta está vazia, sem e-mails aqui.",
+    "charts": {
+      "years": {
+        "title": "Anos",
+        "description": "Total de e-mails por ano"
+      },
+      "quarters": {
+        "title": "Trimestres",
+        "description": "Total de e-mails por trimestre"
+      },
+      "months": {
+        "title": "Meses",
+        "description": "Total de e-mails por mês"
+      },
+      "weeks": {
+        "title": "Semanas",
+        "description": "Total de e-mails por semana"
+      },
+      "days": {
+        "title": "Atividade em {0}",
+        "description": "E-mails por dia"
+      },
+      "daytime": {
+        "title": "Dia",
+        "description": "Número de e-mails por hora do dia"
+      },
+      "weekday": {
+        "title": "Dia da Semana",
+        "description": "Número de e-mails por dia da semana"
+      },
+      "month": {
+        "title": "Meses",
+        "description": "Total de e-mails por mês"
+      },
+      "temporalDistribution": {
+        "title": "Distribuição Temporal",
+        "description": "Número de e-mails por semana por hora"
+      },
+      "contactsReceived": {
+        "title": "Mais recebido de",
+        "description": "Número de e-mails recebidos por remetente"
+      },
+      "contactsSent": {
+        "title": "Mais enviado para",
+        "description": "Número de e-mails enviado por destinatário"
+      },
+      "foldersDistribution": {
+        "description": "Número de e-mails por pasta",
+        "title": "Distribuição de pastas"
+      },
+      "contactsJunk": {
+        "description": "Número de emails marcados como lixo por remetente",
+        "title": "Marcado como Lixo"
+      }
+    },
     "tooltips": {
       "expand": "Expandir área do gráfico",
-      "shrink": "Diminuir área do gráfico"
+      "shrink": "Diminuir área do gráfico",
+      "refresh": "Atualizar dados",
+      "clear": "Limpar seleção",
+      "period": {
+        "start": "De\nDica: Digitar '{0}' será transformado em '{1}'",
+        "end": "Até\nDica: Digitar '{0}' será transformado em '{1}'"
+      },
+      "error": {
+        "empty": "Entrada de dados é necessária",
+        "dateFormat": "O formato AAAA-MM-DD é obrigatório, por exemplo 31/01/2020",
+        "dateUnreal": "Uma data válida é necessária",
+        "dateOrderStart": "Data inicial deve ser anterior a data final",
+        "dateOrderEnd": "Data final deve ser maior que a inicial"
+      },
+      "folder": {
+        "notAvailable": "Pastas não estão disponíveis por {0}"
+      },
+      "comparison": "Comparar contas em um gráfico",
+      "sum": "Exibir soma de todas as contas",
+      "exportData": "Exportar dados exibidos como arquivo JSON",
+      "comparisonWhenAccountsOption": "A comparação de contas está disponível apenas\nse mais de uma conta for ativada nas opções de add-on",
+      "comparisonWhenFilter": "A comparação de contas está disponível apenas\nse 'Todas as contas' for selecionado no filtro de contas acima"
     },
-    "withinYears": "Dentro de {0} anos"
+    "abbreviations": {
+      "calendarWeek": "S",
+      "quarter": "T",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "second": "s"
+    },
+    "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>",
+    "message": "-",
+    "account": "Conta",
+    "timePeriod": "Período",
+    "dataCollected": "Dados coletados há {0}",
+    "allAccounts": "Todas as contas",
+    "nonEmptyFolders": "pastas não vazias | pasta não vazia | pastas não vazias",
+    "contact": "Contato",
+    "disclaimer": "ThirdStats não garante a exatidão dos dados exibidos. <br /> Em caso de possíveis problemas, <a href='{0}' target='_blank'> crie um relatório de erros </a>.",
+    "junkMails": "Lixo Eletrônico",
+    "junkScore": "Pontuação de lixo de {0}",
+    "folder": "Pasta"
+  },
+  "options": {
+    "switch": {
+      "on": "Ligado",
+      "off": "Desligado"
+    },
+    "darkMode": {
+      "label": "Modo Escuro",
+      "description": "Alternar entre modo escuro e modo claro"
+    },
+    "localIdentities": {
+      "label": "Identidades Locais",
+      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais"
+    },
+    "message": "-",
+    "headings": {
+      "appearance": "Aparência & Experiência",
+      "stats": "Gráficos e Dados",
+      "storage": "Armazenamento e Cache"
+    },
+    "ordinate": {
+      "label": "Eixo Vertical",
+      "description": "Exibir eixo vertical para todos os gráficos de linha e barras"
+    },
+    "startOfWeek": {
+      "label": "Iniciar a semana em",
+      "description": "Início de semana personalizado para todos os gráficos semanais."
+    },
+    "activeAccounts": {
+      "label": "Contas Ativas",
+      "description": "Habilitar ou desabilitar contas. Contas desativadas não irão aparecer em qualquer lista ou estatística de contas.",
+      "color": "Dar a cada conta uma cor personalizada para distingui-las no modo de comparação.",
+      "sumAndCompare": "Ativar mais de uma conta habilita a opção de filtro de estatísticas 'Todas as contas' para visualização de soma e comparação."
+    },
+    "cache": {
+      "label": "Ativar Cache",
+      "description": "Habilitar sistema de cache para exibição mais rápida de dados já processados."
+    },
+    "clearCache": {
+      "label": "Limpar Cache",
+      "description": "Remover todos os dados em cache de todas as contas. Serão reconstruídos ao abrir a página de estatísticas novamente.",
+      "empty": "O Cache está vazio",
+      "size": "O tamanho do Cache é {0}"
+    },
+    "note": {
+      "title": "Nota",
+      "reloadStatsPage": "Opções são salvas automaticamente. Algumas alterações podem não ser aplicadas automaticamente para uma página de estatísticas já aberta ou para entradas de cache já existentes, caso o cache esteja ativado. Elas são marcadas com ícones correspondentes.",
+      "reloadWindowRequired": "Se alteradas, a janela de estatísticas precisa ser recarregada",
+      "refreshCacheRequired": "Se alterado, o cache precisa ser reconstruído"
+    },
+    "selfMessages": {
+      "label": "Mensagens para si próprio",
+      "description": "Excluir mensagens que foram enviadas de mim para mim",
+      "values": {
+        "none": "Desativado",
+        "sameAccount": "Apenas da mesma conta",
+        "anyAccount": "De qualquer conta"
+      },
+      "info": {
+        "none": "Mensagens para mim serão incluídas e tratadas como emails normais (padrão)",
+        "sameAccount": "As mensagens em que o remetente e o destinatário são identidades da mesma conta serão excluídas",
+        "anyAccount": "As mensagens em que o remetente e o destinatário são identidades de qualquer conta serão excluídas"
+      }
+    },
+    "leaderCount": {
+      "description": "Número de entradas mostradas em gráficos que listam contatos frequentes (máximo de 999)"
+    },
+    "title": "Opções",
+    "resetOptions": {
+      "label": "Opções de restauração",
+      "description": "Restaurar todas as opções para os valores padrão. Dependendo de quais opções você alterou, uma atualização de janela ou cache pode ser solicitada.",
+      "removeIdentities": "Isso também irá remover todas as identidades locais que você criou."
+    }
   }
 }
