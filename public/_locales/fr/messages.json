@@ -1,202 +1,202 @@
 {
   "extensionDescription": {
-    "message": "Statistiques magnifiquement affichées pour vos comptes de courrier Thunderbird"
-  },
-  "options": {
-    "activeAccounts": {
-      "color": "Donnez une couleur personnalisée à chaque compte pour les distinguer en mode comparaison.",
-      "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
-      "label": "Comptes actifs",
-      "sumAndCompare": "L'activation de plusieurs comptes active l'option de filtre de statistiques «Tous les comptes» pour la vue de somme et de comparaison."
-    },
-    "cache": {
-      "description": "Activez le système de mise en cache pour un affichage plus rapide des données de statistiques déjà traitées.",
-      "label": "Activer le cache"
-    },
-    "clearCache": {
-      "description": "Supprimez toutes les données de statistiques mises en cache de tous les comptes. Sera reconstruit en ouvrant à nouveau la page de statistiques.",
-      "empty": "Le cache est vide",
-      "label": "Vider le cache",
-      "size": "La taille du cache est de {0}"
-    },
-    "darkMode": {
-      "description": "Passer du mode sombre au mode clair",
-      "label": "Mode sombre"
-    },
-    "headings": {
-      "appearance": "Apparence et Expérience",
-      "stats": "Graphiques et Données",
-      "storage": "Stockage et Cache"
-    },
-    "leaderCount": {
-      "description": "Nombre d'entrées figurant dans les tableaux des contacts fréquents (999 au maximum)",
-      "label": "Tableau de classement"
-    },
-    "localIdentities": {
-      "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux",
-      "label": "Identités locales"
-    },
-    "message": "-",
-    "note": {
-      "refreshCacheRequired": "En cas de modifications, le cache doit être reconstruit",
-      "reloadStatsPage": "Les options sont automatiquement enregistrées. Si la page de statistiques est déjà ouverte, vous devez la rouvrir ou la recharger pour que les modifications soient appliquées.",
-      "reloadWindowRequired": "En cas de modification, la fenêtre de statistiques doit être rechargée",
-      "title": "Remarque"
-    },
-    "ordinate": {
-      "description": "Afficher l'axe vertical pour tous les graphiques en lignes et en barres",
-      "label": "Axe vertical"
-    },
-    "resetOptions": {
-      "description": "Réinitialisez toutes les options à leurs valeurs par défaut.",
-      "label": "Réinitialiser les options",
-      "removeIdentities": "Cela supprimera également toutes les identités locales que vous avez créées."
-    },
-    "selfMessages": {
-      "description": "Exclure les messages qui m'ont été envoyés à moi-même",
-      "info": {
-        "anyAccount": "Les messages dont l'expéditeur et le destinataire sont des identités de n'importe quel compte seront exclus",
-        "none": "Les messages internes seront inclus et traités comme des e-mails normaux (par défaut)",
-        "sameAccount": "Les messages dont l'expéditeur et le destinataire sont des identités du même compte seront exclus"
-      },
-      "label": "Messages internes",
-      "values": {
-        "anyAccount": "Depuis n'importe quel compte",
-        "none": "désactivé",
-        "sameAccount": "Même compte seulement"
-      }
-    },
-    "startOfWeek": {
-      "description": "Début de semaine personnalisé pour tous les graphiques liés à la semaine",
-      "label": "Commencer la semaine le"
-    },
-    "switch": {
-      "off": "Arrêt",
-      "on": "Marche"
-    },
-    "title": "Options"
+    "message": "Affichage de statistiques pour vos comptes mails Thunderbird"
   },
   "popup": {
     "message": "-",
+    "openAllStats": "Ouvrir toutes les statistiques",
+    "openOptions": "Ouvrir les options",
     "nAccounts": "{0} Compte | {0} Comptes",
     "nFolders": "{0} Dossier | {0} Dossiers",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Ouvrir toutes les statistiques",
-    "openOptions": "Ouvrir les options"
+    "nMessages": "{0} Message | {0} Messages"
   },
   "stats": {
-    "abbreviations": {
-      "calendarWeek": "S",
-      "day": "jour",
-      "hour": "h",
-      "minute": "min",
-      "quarter": "T",
-      "second": "s"
-    },
-    "account": "Compte",
+    "mailsTotal": "Messages total",
+    "withinYears": "en {0} ans",
+    "mailsUnread": "Messages non lus",
+    "niceWork": "Beau travail !",
+    "percentOfReceived": "{0}% des reçus",
+    "mailsReceived": "Messages reçus",
+    "percentOfTotal": "{0}% du total",
+    "mailsSent": "Message(s) envoyé(s)",
+    "mailsPerMonth": "Message(s) par mois",
+    "mailsYear": "message(s)/an(s)",
+    "mailsPerDay": "Message(s) par jour",
+    "mailsWeek": "message(s)/semaine",
+    "loadingInProgress": "Chargement des emails du compte en cours…",
     "accountEmpty": "Ce compte est vide, il n'y a pas d'emails.",
-    "allAccounts": "Tous les comptes",
+    "timePeriod": "Période de temps",
     "charts": {
-      "contactsJunk": {
-        "description": "Nombre d'e-mails marqués comme indésirables par expéditeur",
-        "title": "Marqué comme indésirable"
+      "years": {
+        "title": "Ans",
+        "description": "Nombre total de messages par an"
       },
-      "contactsReceived": {
-        "description": "Nombre d'emails reçus par destinataire",
-        "title": "La plupart ont été reçus de"
+      "quarters": {
+        "title": "Trimestre",
+        "description": "Nombre total de messages par trimestre"
       },
-      "contactsSent": {
-        "description": "Nombre d'emails envoyés par expéditeur",
-        "title": "La plupart ont été envoyés à"
+      "months": {
+        "title": "Mois",
+        "description": "Nombre total de messages par mois"
+      },
+      "weeks": {
+        "title": "Semaine",
+        "description": "Nombre total de messages par semaine"
       },
       "days": {
-        "description": "Nombre de messages par jour",
-        "title": "Activité dans {0}"
+        "title": "Activité dans {0}",
+        "description": "Nombre de messages par jour"
       },
       "daytime": {
-        "description": "Nombre de messages par heure de la journée",
-        "title": "Journée"
+        "title": "Journée",
+        "description": "Nombre de messages par heure de la journée"
+      },
+      "weekday": {
+        "title": "Jour de la semaine",
+        "description": "Nombre de messages par jour de la semaine"
+      },
+      "month": {
+        "title": "Mois",
+        "description": "Nombre total de messages par mois"
+      },
+      "temporalDistribution": {
+        "title": "Distribution temporelle",
+        "description": "Nombre de messages par jour de la semaine par heure"
+      },
+      "contactsReceived": {
+        "title": "La plupart ont été reçus de",
+        "description": "Nombre d'emails reçus par destinataire"
+      },
+      "contactsSent": {
+        "title": "La plupart ont été envoyés à",
+        "description": "Nombre d'emails envoyés par expéditeur"
       },
       "foldersDistribution": {
         "description": "Nombre d'e-mails par dossier",
         "title": "Distribution des dossiers"
       },
-      "month": {
-        "description": "Nombre total de messages par mois",
-        "title": "Mois"
-      },
-      "months": {
-        "description": "Nombre total de messages par mois",
-        "title": "Mois"
-      },
-      "quarters": {
-        "description": "Nombre total de messages par trimestre",
-        "title": "Trimestre"
-      },
-      "temporalDistribution": {
-        "description": "Nombre de messages par jour de la semaine par heure",
-        "title": "Distribution temporelle"
-      },
-      "weekday": {
-        "description": "Nombre de messages par jour de la semaine",
-        "title": "Jour de la semaine"
-      },
-      "weeks": {
-        "description": "Nombre total de messages par semaine",
-        "title": "Semaine"
-      },
-      "years": {
-        "description": "Nombre total de messages par an",
-        "title": "Ans"
+      "contactsJunk": {
+        "description": "Nombre d'e-mails marqués comme indésirables par expéditeur",
+        "title": "Marqué comme indésirable"
       }
     },
-    "contact": "Contact",
-    "dataCollected": "Données collectées il y a {0}",
-    "disclaimer": "ThirdStats ne prétend pas à l'exactitude des données affichées.<br />En cas de problèmes éventuels, veuillez <a href='{0}' target='_blank'>créer un rapport de bogue</a>.",
-    "folder": "Dossier",
-    "junkMails": "Courriers indésirables",
-    "junkScore": "Score indésirable de {0}",
-    "loadingInProgress": "Chargement des emails du compte en cours…",
-    "mailsPerDay": "Message(s) par jour",
-    "mailsPerMonth": "Message(s) par mois",
-    "mailsReceived": "Messages reçus",
-    "mailsSent": "Message(s) envoyé(s)",
-    "mailsTotal": "Total des messages",
-    "mailsUnread": "Messages non lus",
-    "mailsWeek": "message(s)/semaine",
-    "mailsYear": "message(s)/an(s)",
-    "message": "-",
-    "niceWork": "Beau travail !",
-    "nonEmptyFolders": "dossiers non vides | dossier non vide | dossiers non vides",
-    "percentOfReceived": "{0}% des reçus",
-    "percentOfTotal": "{0}% du total",
-    "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
-    "timePeriod": "Période de temps",
     "tooltips": {
-      "clear": "Effacer la sélection",
-      "comparison": "Comparez les comptes",
-      "comparisonWhenAccountsOption": "La comparaison de compte est uniquement disponible\nsi plusieurs comptes sont activés dans les options",
-      "comparisonWhenFilter": "La comparaison de compte est uniquement disponible\nsi \"Tous les comptes\" est sélectionné dans le filtre des comptes",
-      "error": {
-        "dateFormat": "Le format AAAA-MM-JJ est requis, par ex. 2020-01-31",
-        "dateOrderEnd": "La date de fin doit être postérieure à la date de début",
-        "dateOrderStart": "La date de début doit être antérieure à la date de fin",
-        "dateUnreal": "Une date valide est requise",
-        "empty": "Une entrée est requise"
-      },
       "expand": "Agrandir la zone du graphique",
-      "exportData": "Exporter les données actuellement affichées sous forme de fichier JSON",
+      "shrink": "Rétrécir la zone du graphique",
+      "refresh": "Actualiser les données",
+      "clear": "Effacer la sélection",
+      "period": {
+        "start": "De ce jour\nConseil: taper «{0}» devient «{1}»",
+        "end": "À ce jour\nConseil: taper «{0}» devient «{1}»"
+      },
+      "error": {
+        "empty": "Une entrée est requise",
+        "dateFormat": "Le format AAAA-MM-JJ est requis, par ex. 2020-01-31",
+        "dateUnreal": "Une date valide est requise",
+        "dateOrderStart": "La date de début doit être antérieure à la date de fin",
+        "dateOrderEnd": "La date de fin doit être postérieure à la date de début"
+      },
       "folder": {
         "notAvailable": "Les dossiers ne sont pas disponibles pour {0}"
       },
-      "period": {
-        "end": "À ce jour\nConseil: taper «{0}» devient «{1}»",
-        "start": "De ce jour\nConseil: taper «{0}» devient «{1}»"
-      },
-      "refresh": "Actualiser les données",
-      "shrink": "Rétrécir la zone du graphique",
-      "sum": "La somme de tous les comptes"
+      "comparison": "Comparer les comptes",
+      "sum": "Voir la somme de tous les comptes",
+      "exportData": "Exporter les données actuellement affichées sous forme de fichier JSON",
+      "comparisonWhenAccountsOption": "La comparaison de compte est uniquement disponible\nsi plusieurs comptes sont activés dans les options",
+      "comparisonWhenFilter": "La comparaison de compte est uniquement disponible\nsi \"Tous les comptes\" est sélectionné dans le filtre des comptes"
     },
-    "withinYears": "en {0} ans"
+    "abbreviations": {
+      "calendarWeek": "S",
+      "quarter": "T",
+      "day": "jour",
+      "hour": "h",
+      "minute": "min",
+      "second": "s"
+    },
+    "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
+    "message": "-",
+    "dataCollected": "Données collectées il y a {0}",
+    "allAccounts": "Tous les comptes",
+    "nonEmptyFolders": "dossiers non vides | dossier non vide | dossiers non vides",
+    "contact": "Contact",
+    "disclaimer": "ThirdStats ne prétend pas à l'exactitude des données affichées.<br />En cas de problèmes éventuels, veuillez <a href='{0}' target='_blank'>créer un rapport de bug</a>.",
+    "junkMails": "Courriers indésirables",
+    "junkScore": "Score indésirable de {0}",
+    "account": "Compte",
+    "folder": "Dossier"
+  },
+  "options": {
+    "headings": {
+      "appearance": "Apparence et Expérience",
+      "stats": "Graphiques et Données",
+      "storage": "Stockage et Cache"
+    },
+    "switch": {
+      "on": "Marche",
+      "off": "Arrêt"
+    },
+    "darkMode": {
+      "label": "Mode sombre",
+      "description": "Passer du mode sombre au mode clair"
+    },
+    "ordinate": {
+      "label": "Axe vertical",
+      "description": "Afficher l'axe vertical pour tous les graphiques en lignes et en barres"
+    },
+    "localIdentities": {
+      "label": "Identités locales",
+      "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux"
+    },
+    "startOfWeek": {
+      "label": "Commencer la semaine le",
+      "description": "Début de semaine personnalisé pour tous les graphiques liés à la semaine"
+    },
+    "activeAccounts": {
+      "label": "Comptes actifs",
+      "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
+      "color": "Donnez une couleur personnalisée à chaque compte pour les distinguer en mode comparaison.",
+      "sumAndCompare": "L'activation de plusieurs comptes active l'option de filtre de statistiques «Tous les comptes» pour la vue de somme et de comparaison."
+    },
+    "cache": {
+      "label": "Activer le cache",
+      "description": "Activez le système de mise en cache pour un affichage plus rapide des données de statistiques déjà traitées."
+    },
+    "clearCache": {
+      "label": "Vider le cache",
+      "description": "Supprimez toutes les données de statistiques mises en cache de tous les comptes. Sera reconstruit en ouvrant à nouveau la page de statistiques.",
+      "empty": "Le cache est vide",
+      "size": "La taille du cache est de {0}"
+    },
+    "note": {
+      "title": "Remarque",
+      "reloadStatsPage": "Les options sont automatiquement enregistrées. Si la page de statistiques est déjà ouverte, vous devez la rouvrir ou la recharger pour que les modifications soient appliquées.",
+      "reloadWindowRequired": "En cas de modification, la fenêtre de statistiques doit être rechargée",
+      "refreshCacheRequired": "En cas de modifications, le cache doit être reconstruit"
+    },
+    "message": "-",
+    "selfMessages": {
+      "label": "Messages internes",
+      "description": "Exclure les messages qui m'ont été envoyés à moi-même",
+      "values": {
+        "none": "Désactivé",
+        "sameAccount": "Même compte seulement",
+        "anyAccount": "Depuis n'importe quel compte"
+      },
+      "info": {
+        "none": "Les messages internes seront inclus et traités comme des e-mails normaux (par défaut)",
+        "sameAccount": "Les messages dont l'expéditeur et le destinataire sont des identités du même compte seront exclus",
+        "anyAccount": "Les messages dont l'expéditeur et le destinataire sont des identités de n'importe quel compte seront exclus"
+      }
+    },
+    "leaderCount": {
+      "label": "Tableau de classement",
+      "description": "Nombre d'entrées figurant dans les tableaux des contacts fréquents (999 au maximum)"
+    },
+    "title": "Options",
+    "resetOptions": {
+      "label": "Réinitialiser les options",
+      "description": "Réinitialiser toutes les options à leurs valeurs par défaut.",
+      "removeIdentities": "Cela supprimera également toutes les identités locales que vous avez créées."
+    }
   }
 }
