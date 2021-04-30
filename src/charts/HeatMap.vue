@@ -11,7 +11,7 @@
 		"
 	>
 		<template v-for="(y, n) in labels.y">
-			<div class="y-label text-gray text-tiny text-right">
+			<div class="y-label text-gray text-tiny text-right" :key="y">
 				<div>{{ y }}</div>
 			</div>
 			<template v-for="(x, m) in labels.x">
@@ -22,6 +22,7 @@
 					"
 					:data-tooltip="buildTooltip(x, y, dataset.label, dataset.data[n][m])"
 					class="cell tooltip"
+					:key="x*y"
 				></div>
 			</template>
 		</template>
