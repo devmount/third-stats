@@ -25,6 +25,10 @@ export default {
 		datasets: Array,
 		ordinate: Boolean,
 		abscissa: Boolean,
+		tooltips: {
+			type: Boolean,
+			default: true
+		},
 		width: String,
 		height: String,
 	},
@@ -57,6 +61,11 @@ export default {
 							tension: 0.15,
 							pointRadius: this.labels.length == 1 ? 5 : 0
 						}
+					},
+					plugins: {
+						tooltip: {
+							enabled: this.tooltips
+						},
 					},
 					scales: {
 						x: {

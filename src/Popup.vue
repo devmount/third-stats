@@ -52,6 +52,7 @@
 						:labels="a.yearsData.labels"
 						:ordinate="false"
 						:abscissa="false"
+						:tooltips="false"
 						width="160px"
 						height="70px"
 					/>
