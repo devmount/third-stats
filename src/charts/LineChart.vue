@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { Chart } from '../chart.config'
+import { Chart, transparentGradient } from '../chart.config'
 
 export default {
 	props: {
@@ -43,12 +43,26 @@ export default {
 			this.draw()
 		}
 	},
+	computed: {
+		processedDatasets () {
+			let datasets = this.datasets
+			datasets.map(d => {
+				d.backgroundColor = context => {
+					const chart = context.chart;
+					const { ctx, chartArea } = chart;
+					if (!chartArea) return null;
+					return transparentGradient(ctx, chartArea, d.borderColor);
+				}
+			})
+			return datasets
+		}
+	},
 	methods: {
 		draw () {
 			this.chart = new Chart(this.id, {
 				type: "line",
 				data: {
-					datasets: this.datasets,
+					datasets: this.processedDatasets,
 					labels: this.labels,
 				},
 				options: {
@@ -97,9 +111,9 @@ export default {
 	},
 	watch: {
 		// update chart if data changes in an animatable way
-		datasets (newDatasets) {
+		datasets () {
 			this.chart.data.labels = this.labels
-			this.chart.data.datasets = newDatasets
+			this.chart.data.datasets = this.processedDatasets
 			// show points if only one data column exists and therefore no line can be drawn
 			this.chart.options.datasets.line.pointRadius = this.labels.length == 1 ? 5 : 0
 			this.chart.update()
