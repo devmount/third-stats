@@ -35,7 +35,7 @@ export default {
 		}
 	},
 	computed: {
-		currentData () {
+		processedDatasets () {
 			let datasets = this.datasets
 			datasets.map(d => {
 				d.backgroundColor = this.dataColors(d.data, d.color)
@@ -49,14 +49,14 @@ export default {
 			this.chart = new Chart(this.id, {
 				type: "doughnut",
 				data: {
-					datasets: this.currentData,
+					datasets: this.processedDatasets,
 					labels: this.labels,
 				},
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
 					borderWidth: 0,
-					cutout: '50%',
+					cutout: '60%',
 					circumference: 180,
 					rotation: -90
 				}
