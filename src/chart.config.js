@@ -43,17 +43,12 @@ Chart.defaults.plugins.tooltip.cornerRadius = 2;
 Chart.defaults.hover.mode = "index";
 
 // provide transparent gradient coloring based on one single color
-const transparentGradient = (ctx, chartArea, hexColor) => {
-  let width, height, gradient;
-  const chartWidth = chartArea.right - chartArea.left;
-  const chartHeight = chartArea.bottom - chartArea.top;
-  if (gradient === null || width !== chartWidth || height !== chartHeight) {
-    width = chartWidth;
-    height = chartHeight;
-    gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-    gradient.addColorStop(0, hexColor.slice(0, 7) + '00');
-    gradient.addColorStop(1, hexColor.slice(0, 7) + '77');
-  }
+const transparentGradient = (ctx, chartArea, hexColor, horizontal=false) => {
+	const gradient = horizontal
+		? ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0)
+		: ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+	gradient.addColorStop(0, hexColor.slice(0, 7) + '00');
+	gradient.addColorStop(1, hexColor.slice(0, 7) + '77');
   return gradient;
 }
 
