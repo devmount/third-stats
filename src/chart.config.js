@@ -1,4 +1,4 @@
-// initialize Chart.js with global configuration
+// get chart components
 import {
 	Chart,
 	Legend,
@@ -15,6 +15,7 @@ import {
   DoughnutController
 } from "chart.js";
 
+// register chart components
 Chart.register(
 	Legend,
 	Tooltip,
@@ -30,6 +31,7 @@ Chart.register(
   DoughnutController
 );
 
+// set global configuration
 Chart.defaults.color = "#8a8a97";
 Chart.defaults.plugins.legend.display = false;
 Chart.defaults.plugins.tooltip.mode = "index";
@@ -40,6 +42,22 @@ Chart.defaults.plugins.tooltip.padding = 10;
 Chart.defaults.plugins.tooltip.cornerRadius = 2;
 Chart.defaults.hover.mode = "index";
 
+// provide transparent gradient coloring based on one single color
+const transparentGradient = (ctx, chartArea, hexColor) => {
+  let width, height, gradient;
+  const chartWidth = chartArea.right - chartArea.left;
+  const chartHeight = chartArea.bottom - chartArea.top;
+  if (gradient === null || width !== chartWidth || height !== chartHeight) {
+    width = chartWidth;
+    height = chartHeight;
+    gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+    gradient.addColorStop(0, hexColor + '00');
+    gradient.addColorStop(1, hexColor + '77');
+  }
+  return gradient;
+}
+
 export {
-  Chart
+  Chart,
+	transparentGradient
 }
