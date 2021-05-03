@@ -65,13 +65,6 @@
 // internal components
 import { traverseAccount } from "./utils";
 import LineChart from "./charts/LineChart"
-// initialize Chart.js with global configuration
-
-import Chart from "chart.js"
-Chart.defaults.global.elements.arc.borderWidth = 0
-Chart.defaults.global.legend.display = false
-Chart.defaults.global.tooltips.enabled = false
-Chart.defaults.global.hover.mode = "index"
 
 export default {
 	name: "Popup",

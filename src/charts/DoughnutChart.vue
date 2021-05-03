@@ -13,7 +13,8 @@
 </template>
 
 <script>
-/* eslint no-undef: 0 */
+import { Chart } from '../chart.config'
+
 export default {
 	props: {
 		title: String,
@@ -35,17 +36,11 @@ export default {
 	},
 	computed: {
 		currentData () {
-			let datasets = []
-			for (let i = 0; i < this.datasets.length; i++) {
-				const dataset = this.datasets[i];
-				datasets.push({
-					label: dataset.label,
-					data: dataset.data,
-					backgroundColor: this.dataColors(dataset.data, dataset.color),
-					borderWidth: 0,
-					borderColor: dataset.color,
-				})
-			}
+			let datasets = this.datasets
+			datasets.map(d => {
+				d.backgroundColor = this.dataColors(d.data, d.color)
+				d.borderColor = d.color
+			})
 			return datasets
 		}
 	},
@@ -60,9 +55,10 @@ export default {
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					cutoutPercentage: 50,
-					circumference: Math.PI,
-					rotation: -Math.PI
+					borderWidth: 0,
+					cutout: '50%',
+					circumference: 180,
+					rotation: -90
 				}
 			})
 		},
@@ -82,28 +78,9 @@ export default {
 	},
 	watch: {
 		// update chart if data changes in an animatable way
-		datasets () {
+		datasets (newDatasets) {
 			this.chart.data.labels = this.labels
-			this.chart.data.datasets.map((chartDataset, i) => {
-				if (i in this.currentData) {
-					// update every existing dataset first
-					chartDataset.data = this.currentData[i].data
-					chartDataset.label = this.currentData[i].label
-					chartDataset.backgroundColor = this.currentData[i].backgroundColor
-					chartDataset.borderColor = this.currentData[i].borderColor
-				} else {
-					// remove no longer needed datasets
-					this.chart.data.datasets.splice(i)
-				}
-			})
-			if (this.chart.data.datasets.length < this.currentData.length) {
-				this.currentData.map((currentDataset, i) => {
-					if (!(i in this.chart.data.datasets)) {
-						// add new datasets
-						this.chart.data.datasets.push(currentDataset)
-					}
-				})
-			}
+			this.chart.data.datasets = newDatasets
 			this.chart.update()
 		}
 	}
