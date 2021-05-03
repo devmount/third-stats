@@ -29,6 +29,10 @@ export default {
 			type: Boolean,
 			default: true
 		},
+		thickness: {
+			type: Number,
+			default: 2
+		},
 		width: String,
 		height: String,
 	},
@@ -71,7 +75,7 @@ export default {
 					fill: true,
 					datasets: {
 						line: {
-							borderWidth: 2,
+							borderWidth: this.thickness,
 							tension: 0.15,
 							pointRadius: this.labels.length == 1 ? 5 : 0
 						}

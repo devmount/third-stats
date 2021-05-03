@@ -51,8 +51,8 @@ const transparentGradient = (ctx, chartArea, hexColor) => {
     width = chartWidth;
     height = chartHeight;
     gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-    gradient.addColorStop(0, hexColor + '00');
-    gradient.addColorStop(1, hexColor + '77');
+    gradient.addColorStop(0, hexColor.slice(0, 7) + '00');
+    gradient.addColorStop(1, hexColor.slice(0, 7) + '77');
   }
   return gradient;
 }

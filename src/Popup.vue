@@ -53,6 +53,7 @@
 						:ordinate="false"
 						:abscissa="false"
 						:tooltips="false"
+						:thickness="1"
 						width="160px"
 						height="70px"
 					/>
@@ -134,7 +135,7 @@ export default {
 							}
 							a.yearsData = {
 								datasets: [
-									{ label: "placeholder", data: d, color: "rgb(88, 88, 93, .2)", bcolor: "rgb(88, 88, 93, .2)" },
+									{ label: "placeholder", data: d, borderColor: "#58585d77" },
 								],
 								labels: labels
 							}
