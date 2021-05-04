@@ -685,7 +685,7 @@
 <script>
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, hexToRgb, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
 import HeatMap from "./charts/HeatMap"
@@ -2122,12 +2122,12 @@ export default {
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: dr,
-						color: "rgb(" + hexToRgb(accentColors[1]) + ")"
+						color: accentColors[1]
 					},
 					{
 						label: this.$t("stats.mailsSent"),
 						data: ds,
-						color: "rgb(" + hexToRgb(accentColors[0]) + ")"
+						color: accentColors[0]
 					},
 				],
 				labels: labels
