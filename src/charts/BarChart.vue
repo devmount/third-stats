@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { Chart, transparentGradient } from '../chart.config'
+import { Chart, transparentGradientBar } from '../chart.config'
 
 export default {
 	props: {
@@ -39,7 +39,7 @@ export default {
 					const chart = context.chart;
 					const { ctx, chartArea } = chart;
 					if (!chartArea) return null;
-					return transparentGradient(ctx, chartArea, d.borderColor, this.horizontal);
+					return transparentGradientBar(ctx, chartArea, d.borderColor, this.horizontal);
 				}
 			})
 			return datasets
