@@ -56,7 +56,11 @@ export default {
 					const { ctx, chartArea } = chart;
 					if (!chartArea) return null;
 					return transparentGradientLine(ctx, chartArea, d.borderColor);
-				}
+				};
+				// TODO: activate if https://github.com/chartjs/Chart.js/issues/9022 is fixed
+				// d.segment = {
+				// 	borderDash: ctx => ctx.p0.parsed.x == d.data.length-2 ? [10, 5] : undefined
+				// };
 			})
 			return datasets
 		}
