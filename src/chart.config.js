@@ -9,10 +9,10 @@ import {
 	PointElement,
 	LineElement,
 	LineController,
-  BarElement,
-  BarController,
-  ArcElement,
-  DoughnutController
+	BarElement,
+	BarController,
+	ArcElement,
+	DoughnutController
 } from "chart.js";
 
 // register chart components
@@ -25,10 +25,10 @@ Chart.register(
 	PointElement,
 	LineElement,
 	LineController,
-  BarElement,
-  BarController,
-  ArcElement,
-  DoughnutController
+	BarElement,
+	BarController,
+	ArcElement,
+	DoughnutController
 );
 
 // set global configuration
@@ -47,7 +47,7 @@ const transparentGradientLine = (ctx, chartArea, hexColor) => {
 	const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
 	gradient.addColorStop(0, hexColor.slice(0, 7) + '00');
 	gradient.addColorStop(1, hexColor.slice(0, 7) + '77');
-  return gradient;
+	return gradient;
 }
 
 // provide transparent gradient coloring based on given color for bar chart backgrounds
@@ -57,11 +57,11 @@ const transparentGradientBar = (ctx, chartArea, hexColor, horizontal=false) => {
 		: ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
 	gradient.addColorStop(0, hexColor.slice(0, 7) + '33');
 	gradient.addColorStop(1, hexColor.slice(0, 7) + '77');
-  return gradient;
+	return gradient;
 }
 
 export {
-  Chart,
+	Chart,
 	transparentGradientLine,
 	transparentGradientBar
 }
