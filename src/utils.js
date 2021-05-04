@@ -133,7 +133,6 @@ export {
 	traverseAccount,
 	extractEmailAddress,
 	weekNumber,
-	weeksInYear,
 	weeksBetween,
 	localStartOfWeek,
 	quarterNumber,
