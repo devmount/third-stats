@@ -62,17 +62,19 @@ export default {
 				}
 			})
 		},
-		// calculate opacity for given value based on max value
+		// calculate opacity as two digit hex for given value based on max value
 		opacity (value, max) {
-			return max == 0 ? 0 : value/max
+			if (max == 0) return '00';
+			return Math.round(255*value/max).toString(16).padStart(2, "0");
 		},
 		// calculate list of background colors for each data arc
 		dataColors (data, color) {
 			let colors = []
 			const max = Math.max(...data)
-			data.map(d => {
-				colors.push(color.replace(")", ", " + this.opacity(d, max) + ")"))
+			data.forEach(d => {
+				colors.push(color + this.opacity(d, max))
 			})
+			console.log(colors);
 			return colors
 		}
 	},
