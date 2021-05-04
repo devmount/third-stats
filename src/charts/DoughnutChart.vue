@@ -74,7 +74,6 @@ export default {
 			data.forEach(d => {
 				colors.push(color + this.opacity(d, max))
 			})
-			console.log(colors);
 			return colors
 		}
 	},
