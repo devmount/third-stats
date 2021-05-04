@@ -15,7 +15,8 @@
 </template>
 
 <script>
-/* eslint no-undef: 0 */
+import { Chart, transparentGradientLine } from '../chart.config'
+
 export default {
 	props: {
 		title: String,
@@ -24,6 +25,14 @@ export default {
 		datasets: Array,
 		ordinate: Boolean,
 		abscissa: Boolean,
+		tooltips: {
+			type: Boolean,
+			default: true
+		},
+		thickness: {
+			type: Number,
+			default: 2
+		},
 		width: String,
 		height: String,
 	},
@@ -39,20 +48,20 @@ export default {
 		}
 	},
 	computed: {
-		currentData () {
-			let datasets = []
-			for (let i = 0; i < this.datasets.length; i++) {
-				const dataset = this.datasets[i];
-				datasets.push({
-					label: dataset.label,
-					data: dataset.data,
-					borderColor: dataset.color,
-					borderWidth: 2,
-					lineTension: 0.15,
-					pointRadius: 0,
-					backgroundColor: dataset.bcolor,
-				})
-			}
+		processedDatasets () {
+			let datasets = this.datasets
+			datasets.map(d => {
+				d.backgroundColor = context => {
+					const chart = context.chart;
+					const { ctx, chartArea } = chart;
+					if (!chartArea) return null;
+					return transparentGradientLine(ctx, chartArea, d.borderColor);
+				};
+				// TODO: activate if https://github.com/chartjs/Chart.js/issues/9022 is fixed
+				// d.segment = {
+				// 	borderDash: ctx => ctx.p0.parsed.x == d.data.length-2 ? [10, 5] : undefined
+				// };
+			})
 			return datasets
 		}
 	},
@@ -61,35 +70,48 @@ export default {
 			this.chart = new Chart(this.id, {
 				type: "line",
 				data: {
-					datasets: this.currentData,
+					datasets: this.processedDatasets,
 					labels: this.labels,
 				},
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
+					fill: true,
+					datasets: {
+						line: {
+							borderWidth: this.thickness,
+							tension: 0.15,
+							pointRadius: this.labels.length == 1 ? 5 : 0
+						}
+					},
+					plugins: {
+						tooltip: {
+							enabled: this.tooltips
+						},
+					},
 					scales: {
-						xAxes: [{
+						x: {
 							display: this.abscissa,
 							stacked: false,
-							gridLines: {
+							grid: {
 								display: false,
+								drawBorder: false,
 							},
 							ticks: {
 								maxRotation: 0,
 								autoSkipPadding: 10,
-								beginAtZero: true,
-							}
-						}],
-						yAxes: [{
+							},
+							beginAtZero: true
+						},
+						y: {
 							display: this.ordinate,
 							stacked: false,
-							gridLines: {
+							grid: {
 								display: false,
+								drawBorder: false,
 							},
-							ticks: {
-								beginAtZero: true,
-							}
-						}]
+							beginAtZero: true
+						}
 					}
 				}
 			})
@@ -99,31 +121,14 @@ export default {
 		// update chart if data changes in an animatable way
 		datasets () {
 			this.chart.data.labels = this.labels
-			this.chart.data.datasets.map((chartDataset, i) => {
-				if (i in this.currentData) {
-					// update every existing dataset first
-					chartDataset.data = this.currentData[i].data
-					chartDataset.label = this.currentData[i].label
-					chartDataset.backgroundColor = this.currentData[i].backgroundColor
-					chartDataset.borderColor = this.currentData[i].borderColor
-				} else {
-					// remove no longer needed datasets
-					this.chart.data.datasets.splice(i)
-				}
-			})
-			if (this.chart.data.datasets.length < this.currentData.length) {
-				this.currentData.map((currentDataset, i) => {
-					if (!(i in this.chart.data.datasets)) {
-						// add new datasets
-						this.chart.data.datasets.push(currentDataset)
-					}
-				})
-			}
+			this.chart.data.datasets = this.processedDatasets
+			// show points if only one data column exists and therefore no line can be drawn
+			this.chart.options.datasets.line.pointRadius = this.labels.length == 1 ? 5 : 0
 			this.chart.update()
 		},
 		// update chart if ordinate display changes
 		ordinate (newValue) {
-			this.chart.options.scales.yAxes[0].display = newValue
+			this.chart.options.scales.y.display = newValue
 			this.chart.update()
 		}
 	}

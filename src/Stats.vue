@@ -685,26 +685,12 @@
 <script>
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, weeksInYear, quarterNumber, hexToRgb, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
 import HeatMap from "./charts/HeatMap"
 import DoughnutChart from "./charts/DoughnutChart"
 import LiveAge from "./parts/LiveAge"
-
-// initialize Chart.js with global configuration
-import Chart from "chart.js"
-Chart.defaults.global.defaultFontColor = "#8a8a97"
-Chart.defaults.global.elements.arc.borderWidth = 0
-Chart.defaults.global.legend.display = false
-Chart.defaults.global.tooltips.mode = "index"
-Chart.defaults.global.tooltips.intersect = false
-Chart.defaults.global.tooltips.multiKeyBackground = "#000"
-Chart.defaults.global.tooltips.titleMarginBottom = 10
-Chart.defaults.global.tooltips.xPadding = 10
-Chart.defaults.global.tooltips.yPadding = 10
-Chart.defaults.global.tooltips.cornerRadius = 2
-Chart.defaults.global.hover.mode = "index"
 
 // helper class for object generation
 class NumberedObject {
@@ -1700,14 +1686,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: ds,
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: dr,
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: labels
@@ -1726,8 +1710,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -1757,14 +1740,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: ds,
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: dr,
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: labels
@@ -1792,8 +1773,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -1823,14 +1803,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: ds,
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: dr,
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: labels
@@ -1858,8 +1836,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -1884,14 +1861,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: ds,
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: dr,
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: labels
@@ -1914,8 +1889,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -1931,14 +1905,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: Object.values(s),
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: Object.values(r),
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: Object.keys(r)
@@ -1954,8 +1926,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: Object.values(d),
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -1979,14 +1950,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: s,
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: r,
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: labels
@@ -2009,8 +1978,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: data,
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -2026,14 +1994,12 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: Object.values(s),
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: Object.values(r),
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: this.monthNames
@@ -2048,8 +2014,7 @@ export default {
 				datasets.push({
 					label: this.$t("stats.mailsTotal") + ", " + a.name,
 					data: Object.values(this.comparison.monthData[a.id]),
-					color: this.preferences.accountColors[a.id],
-					bcolor: "rgb(" + hexToRgb(this.preferences.accountColors[a.id]) + ", .2)"
+					borderColor: this.preferences.accountColors[a.id]
 				})
 			})
 			return {
@@ -2106,8 +2071,7 @@ export default {
 					{
 						label: this.$t("stats.mailsSent"),
 						data: Object.values(s),
-						color: accentColors[0],
-						bcolor: "rgb(" + hexToRgb(accentColors[0]) + ", .2)"
+						borderColor: accentColors[0]
 					},
 				],
 				labels: Object.keys(s)
@@ -2121,8 +2085,7 @@ export default {
 					{
 						label: this.$t("stats.mailsReceived"),
 						data: Object.values(r),
-						color: accentColors[1],
-						bcolor: "rgb(" + hexToRgb(accentColors[1]) + ", .2)"
+						borderColor: accentColors[1]
 					},
 				],
 				labels: Object.keys(r)
@@ -2137,8 +2100,7 @@ export default {
 					{
 						label: this.$t("stats.junkMails"),
 						data: Object.values(r),
-						color: color,
-						bcolor: "rgb(" + hexToRgb(color) + ", .2)"
+						borderColor: color
 					},
 				],
 				labels: Object.keys(r)
@@ -2157,8 +2119,16 @@ export default {
 			})
 			return {
 				datasets: [
-					{ label: this.$t("stats.mailsReceived"), data: dr, color: "rgb(" + hexToRgb(accentColors[1]) + ")" },
-					{ label: this.$t("stats.mailsSent"), data: ds, color: "rgb(" + hexToRgb(accentColors[0]) + ")" },
+					{
+						label: this.$t("stats.mailsReceived"),
+						data: dr,
+						color: accentColors[1]
+					},
+					{
+						label: this.$t("stats.mailsSent"),
+						data: ds,
+						color: accentColors[0]
+					},
 				],
 				labels: labels
 			}

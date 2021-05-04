@@ -52,6 +52,8 @@
 						:labels="a.yearsData.labels"
 						:ordinate="false"
 						:abscissa="false"
+						:tooltips="false"
+						:thickness="1"
 						width="160px"
 						height="70px"
 					/>
@@ -65,13 +67,6 @@
 // internal components
 import { traverseAccount } from "./utils";
 import LineChart from "./charts/LineChart"
-// initialize Chart.js with global configuration
-
-import Chart from "chart.js"
-Chart.defaults.global.elements.arc.borderWidth = 0
-Chart.defaults.global.legend.display = false
-Chart.defaults.global.tooltips.enabled = false
-Chart.defaults.global.hover.mode = "index"
 
 export default {
 	name: "Popup",
@@ -140,7 +135,7 @@ export default {
 							}
 							a.yearsData = {
 								datasets: [
-									{ label: "placeholder", data: d, color: "rgb(88, 88, 93, .2)", bcolor: "rgb(88, 88, 93, .2)" },
+									{ label: "placeholder", data: d, borderColor: "#58585d77" },
 								],
 								labels: labels
 							}

@@ -13,7 +13,8 @@
 </template>
 
 <script>
-/* eslint no-undef: 0 */
+import { Chart } from '../chart.config'
+
 export default {
 	props: {
 		title: String,
@@ -34,18 +35,12 @@ export default {
 		}
 	},
 	computed: {
-		currentData () {
-			let datasets = []
-			for (let i = 0; i < this.datasets.length; i++) {
-				const dataset = this.datasets[i];
-				datasets.push({
-					label: dataset.label,
-					data: dataset.data,
-					backgroundColor: this.dataColors(dataset.data, dataset.color),
-					borderWidth: 0,
-					borderColor: dataset.color,
-				})
-			}
+		processedDatasets () {
+			let datasets = this.datasets
+			datasets.map(d => {
+				d.backgroundColor = this.dataColors(d.data, d.color)
+				d.borderColor = d.color
+			})
 			return datasets
 		}
 	},
@@ -54,56 +49,39 @@ export default {
 			this.chart = new Chart(this.id, {
 				type: "doughnut",
 				data: {
-					datasets: this.currentData,
+					datasets: this.processedDatasets,
 					labels: this.labels,
 				},
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					cutoutPercentage: 50,
-					circumference: Math.PI,
-					rotation: -Math.PI
+					borderWidth: 0,
+					cutout: '60%',
+					circumference: 180,
+					rotation: -90
 				}
 			})
 		},
-		// calculate opacity for given value based on max value
+		// calculate opacity as two digit hex for given value based on max value
 		opacity (value, max) {
-			return max == 0 ? 0 : value/max
+			if (max == 0) return '00';
+			return Math.round(255*value/max).toString(16).padStart(2, "0");
 		},
 		// calculate list of background colors for each data arc
 		dataColors (data, color) {
 			let colors = []
 			const max = Math.max(...data)
-			data.map(d => {
-				colors.push(color.replace(")", ", " + this.opacity(d, max) + ")"))
+			data.forEach(d => {
+				colors.push(color + this.opacity(d, max))
 			})
 			return colors
 		}
 	},
 	watch: {
 		// update chart if data changes in an animatable way
-		datasets () {
+		datasets (newDatasets) {
 			this.chart.data.labels = this.labels
-			this.chart.data.datasets.map((chartDataset, i) => {
-				if (i in this.currentData) {
-					// update every existing dataset first
-					chartDataset.data = this.currentData[i].data
-					chartDataset.label = this.currentData[i].label
-					chartDataset.backgroundColor = this.currentData[i].backgroundColor
-					chartDataset.borderColor = this.currentData[i].borderColor
-				} else {
-					// remove no longer needed datasets
-					this.chart.data.datasets.splice(i)
-				}
-			})
-			if (this.chart.data.datasets.length < this.currentData.length) {
-				this.currentData.map((currentDataset, i) => {
-					if (!(i in this.chart.data.datasets)) {
-						// add new datasets
-						this.chart.data.datasets.push(currentDataset)
-					}
-				})
-			}
+			this.chart.data.datasets = newDatasets
 			this.chart.update()
 		}
 	}
