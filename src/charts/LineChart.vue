@@ -33,6 +33,10 @@ export default {
 			type: Number,
 			default: 2
 		},
+		unfinished: {
+			type: Boolean,
+			default: true
+		},
 		width: String,
 		height: String,
 	},
@@ -60,7 +64,7 @@ export default {
 				};
 				// dashed line for last segment
 				d.segment = {
-					borderDash: ctx => ctx.p0.parsed.x == d.data.length-2 ? [10, 5] : undefined
+					borderDash: ctx => this.unfinished && ctx.p0.parsed.x == d.data.length-2 ? [10, 5] : undefined
 				};
 			})
 			return datasets
