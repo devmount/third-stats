@@ -57,8 +57,7 @@ export default {
 			datasets.map(d => {
 				// gradient for background
 				d.backgroundColor = context => {
-					const chart = context.chart;
-					const { ctx, chartArea } = chart;
+					const { ctx, chartArea } = context.chart;
 					if (!chartArea) return null;
 					return transparentGradientLine(ctx, chartArea, d.borderColor);
 				};
