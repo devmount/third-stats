@@ -34,22 +34,12 @@ export default {
 			this.draw()
 		}
 	},
-	computed: {
-		processedDatasets () {
-			let datasets = this.datasets
-			datasets.map(d => {
-				d.backgroundColor = this.dataColors(d.data, d.color)
-				d.borderColor = d.color
-			})
-			return datasets
-		}
-	},
 	methods: {
 		draw () {
 			this.chart = new Chart(this.id, {
 				type: "doughnut",
 				data: {
-					datasets: this.processedDatasets,
+					datasets: this.colorize(this.datasets),
 					labels: this.labels,
 				},
 				options: {
@@ -58,31 +48,43 @@ export default {
 					borderWidth: 0,
 					cutout: '60%',
 					circumference: 180,
-					rotation: -90
+					rotation: -90,
+					plugins: {
+						tooltip: {
+							intersect: true,
+							position: 'nearest'
+						}
+					}
 				}
 			})
+		},
+		// paint every segment depending on its data
+		colorize (datasets) {
+			datasets.map(d => {
+				d.backgroundColor = this.dataColors(d.data, d.color);
+				d.borderColor = d.color;
+			});
+			return datasets;
+		},
+		// calculate list of background colors for each data arc
+		dataColors (data, color) {
+			const colors = [];
+			const max = Math.max(...data);
+			data.forEach(d => colors.push(color + this.opacity(d, max)));
+			return colors;
 		},
 		// calculate opacity as two digit hex for given value based on max value
 		opacity (value, max) {
 			if (max == 0) return '00';
 			return Math.round(255*value/max).toString(16).padStart(2, "0");
-		},
-		// calculate list of background colors for each data arc
-		dataColors (data, color) {
-			let colors = []
-			const max = Math.max(...data)
-			data.forEach(d => {
-				colors.push(color + this.opacity(d, max))
-			})
-			return colors
 		}
 	},
 	watch: {
 		// update chart if data changes in an animatable way
 		datasets (newDatasets) {
-			this.chart.data.labels = this.labels
-			this.chart.data.datasets = newDatasets
-			this.chart.update()
+			this.chart.data.labels = this.labels;
+			this.chart.data.datasets = this.colorize(newDatasets);
+			this.chart.update();
 		}
 	}
 }
