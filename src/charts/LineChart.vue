@@ -33,6 +33,10 @@ export default {
 			type: Number,
 			default: 2
 		},
+		unfinished: {
+			type: Boolean,
+			default: true
+		},
 		width: String,
 		height: String,
 	},
@@ -51,16 +55,16 @@ export default {
 		processedDatasets () {
 			let datasets = this.datasets
 			datasets.map(d => {
+				// gradient for background
 				d.backgroundColor = context => {
-					const chart = context.chart;
-					const { ctx, chartArea } = chart;
+					const { ctx, chartArea } = context.chart;
 					if (!chartArea) return null;
 					return transparentGradientLine(ctx, chartArea, d.borderColor);
 				};
-				// TODO: activate if https://github.com/chartjs/Chart.js/issues/9022 is fixed
-				// d.segment = {
-				// 	borderDash: ctx => ctx.p0.parsed.x == d.data.length-2 ? [10, 5] : undefined
-				// };
+				// dashed line for last segment
+				d.segment = {
+					borderDash: ctx => this.unfinished && ctx.p0.parsed.x == d.data.length-2 ? [10, 5] : undefined
+				};
 			})
 			return datasets
 		}
@@ -92,6 +96,7 @@ export default {
 					scales: {
 						x: {
 							display: this.abscissa,
+							alignToPixels: true,
 							stacked: false,
 							grid: {
 								display: false,

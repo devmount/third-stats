@@ -36,8 +36,7 @@ export default {
 			let datasets = this.datasets
 			datasets.map(d => {
 				d.backgroundColor = context => {
-					const chart = context.chart;
-					const { ctx, chartArea } = chart;
+					const { ctx, chartArea } = context.chart;
 					if (!chartArea) return null;
 					return transparentGradientBar(ctx, chartArea, d.borderColor, this.horizontal);
 				}

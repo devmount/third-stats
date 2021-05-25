@@ -333,6 +333,7 @@
 								:labels="yearsChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<LineChart
 								v-if="tabs.total.years && preferences.sections.total.comparison"
@@ -340,6 +341,7 @@
 								:labels="yearsComparedChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<!-- emails per quarter over total time -->
 							<LineChart
@@ -348,6 +350,7 @@
 								:labels="quartersChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<LineChart
 								v-if="tabs.total.quarters && preferences.sections.total.comparison"
@@ -355,6 +358,7 @@
 								:labels="quartersComparedChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
@@ -363,6 +367,7 @@
 								:labels="monthsChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<LineChart
 								v-if="tabs.total.months && preferences.sections.total.comparison"
@@ -370,6 +375,7 @@
 								:labels="monthsComparedChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<!-- emails per week over total time -->
 							<LineChart
@@ -378,6 +384,7 @@
 								:labels="weeksChartData.labels"
 								:ordinate="preferences.ordinate"
 								:abscissa="true"
+								:unfinished="active.period.end == null"
 							/>
 							<LineChart
 								v-if="tabs.total.weeks && preferences.sections.total.comparison"
