@@ -43,7 +43,8 @@ const extractEmailAddress = (s) => {
 	if (s.lastIndexOf("<")>=0 && s.lastIndexOf(">")>=0) {
 		return s.substring(s.lastIndexOf("<") + 1, s.lastIndexOf(">")).toLowerCase()
 	} else {
-		return s.toLowerCase()
+		const e = s.toLowerCase().match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
+		return e ? e[0] : '';
 	}
 }
 

@@ -945,7 +945,7 @@ export default {
 					if (n.dark != o.dark) this.preferences.dark = n.dark
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
-					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.split(",").map(x => x.trim())
+					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.toLowerCase().split(",").map(x => x.trim())
 					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
 					if (JSON.stringify(n.accountColors) != JSON.stringify(o.accountColors)) this.preferences.accountColors = n.accountColors
 					if (n.selfMessages != o.selfMessages) this.preferences.selfMessages = n.selfMessages
@@ -963,7 +963,7 @@ export default {
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
-				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.split(",").map(x => x.trim()) : []
+				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
 				this.preferences.accountColors = result.options.accountColors ? result.options.accountColors : {}
 				this.preferences.selfMessages = result.options.selfMessages ? result.options.selfMessages : "none"
@@ -988,7 +988,7 @@ export default {
 			// assign accounts
 			this.accounts = accounts
 			// assign identities of all activated accounts
-			let identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email)), [])
+			let identities = accounts.reduce((p,c) => p.concat(c.identities.map(i => i.email.toLowerCase())), [])
 			// add local identities if any local account is active
 			if (accounts.some(a => a.type == "none")) {
 				this.preferences.localIdentities.map(l => identities.push(l.toLowerCase()))
@@ -1004,7 +1004,7 @@ export default {
 		// return processed data oject structured like initData
 		async processAccount (a) {
 			// get identities from account, or from preferences if it's a local account
-			const identities = a.type != "none" ? a.identities.map(i => i.email) : this.preferences.localIdentities
+			const identities = a.type != "none" ? a.identities.map(i => i.email.toLowerCase()) : this.preferences.localIdentities
 			// get all folders and subfolders from given account or selected folder of active account (filter field)
 			const folders = this.active.folder ? [JSON.parse(JSON.stringify(this.active.folder))] : traverseAccount(a)
 			// build folder list for filter selection, if not already present
