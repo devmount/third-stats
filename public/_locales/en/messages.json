@@ -133,6 +133,10 @@
         "description": "Total number of emails per quarter",
         "title": "Quarters"
       },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "title": "Tags"
+      },
       "temporalDistribution": {
         "description": "Number of emails per weekday per hour",
         "title": "Temporal distribution"
@@ -159,6 +163,7 @@
     "loadingInProgress": "Loading of all emails from this account in progress…",
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",
+    "mailsPerTag": "Mails per tag",
     "mailsReceived": "Mails received",
     "mailsSent": "Mails sent",
     "mailsTotal": "Mails total",

@@ -652,6 +652,34 @@
 							/>
 						</div>
 					</div>
+					<!-- section: tags -->
+					<div class="tab-area" v-if="display.tags">
+						<ul class="tab">
+							<li
+								v-for="(active, label) in tabs.tags"
+								:key="label"
+								class="tab-item cursor-default tooltip tooltip-bottom"
+								:data-tooltip="$t('stats.charts.' + label + '.description')"
+								:class="{ 'active': active, 'cursor-pointer': !active, 'text-hover-accent2': !active }"
+								@click="activateTab('tags', label)"
+							>
+								<span
+									class="transition-color transition-border-color border-bottom-accent3"
+								>
+									{{ $t("stats.charts." + label + ".title") }}
+								</span>
+							</li>
+						</ul>
+						<div class="tab-content mt-1">
+							<!-- tags count -->
+							<BarChart
+								v-if="tabs.tags.tagsCount"
+								:datasets="tagsChartData.datasets"
+								:labels="tagsChartData.labels"
+								:horizontal="true"
+							/>
+						</div>
+					</div>
 				</div>
 			</section>
 			<!-- footer -->
@@ -769,6 +797,7 @@ export default {
 			identities: [],  // list of all existing identities
 			folders: [],     // list of all existing folders for the current account selection
 			contacts: [],    // list of all existing contacts for contact filter
+			tags: [],        // list of all existing tags
 			active: {
 				account: null, // currently selected account
 				folder: null,  // currently selected folder
@@ -817,6 +846,9 @@ export default {
 				folders: {
 					foldersDistribution: true,
 				},
+				tags: {
+					tagsCount: true,
+				}
 			},
 			preferences: {   // preferences set for this page
 				sections: {    // preferences that can be set on this page
@@ -854,6 +886,8 @@ export default {
 		this.addStorageListener()
 		// get stored options
 		await this.getOptions()
+		// retrieve all tags
+		await this.getTags()
 		// retrieve all accounts
 		await this.getAccounts()
 	},
@@ -920,6 +954,7 @@ export default {
 					received: {},
 					sent: {},
 				},
+				tags: {},
 			}
 		},
 		// basic data structure to display charts
@@ -999,6 +1034,11 @@ export default {
 			const id = (new URLSearchParams(uri)).get("s")
 			if (!id || (id == "sum" && !this.preferences.cache) || (id == "sum" && accounts.length <= 1)) id = accounts[0].id
 			this.active.account = id
+		},
+		// retrieve list of tags that can be set on messages
+		// their human-friendly name, color, and sort order
+		async getTags () {
+			this.tags = await messenger.messages.listTags();
 		},
 		// analyze folders of a given account <a>
 		// return processed data oject structured like initData
@@ -1166,6 +1206,14 @@ export default {
 			} else {
 				data.folders[type][f]++
 			}
+			// tags
+			m.tags.forEach(t => {
+				if (!(tag in data.tags)) {
+					data.tags[tag] = 1
+				} else {
+					data.tags[tag]++
+				}
+			})
 		},
 		// check if a contact is involved in a message
 		// = <contact> is either author or recipient, CC or BCC of <message>
@@ -1327,6 +1375,9 @@ export default {
 				// folders
 				sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])))
 				sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])))
+				// tags
+				sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])))
+
 				// show summed stats
 				this.display = sum
 
@@ -2135,6 +2186,25 @@ export default {
 						label: this.$t("stats.mailsSent"),
 						data: ds,
 						color: accentColors[0]
+					},
+				],
+				labels: labels
+			}
+		},
+		// prepare data for email tags horizontal bar chart
+		tagsChartData () {
+			const r = sortAndLimitObject(this.display.tags) || {}
+			const color = this.preferences.dark ? accentColors[2] : accentColors[3]
+			let labels = []
+			Object.keys(r).forEach(key => {
+				labels.push(this.tags.find(tag => tag.key === key)?.tag || 'undefined');
+			}, this);
+			return {
+				datasets: [
+					{
+						label: this.$t("stats.mailsPerTag"),
+						data: Object.values(r),
+						borderColor: color
 					},
 				],
 				labels: labels
