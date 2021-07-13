@@ -865,6 +865,7 @@ export default {
 				},
 				dark: false,    // preferences loaded from stored options
 				ordinate: true,
+				tagColors: false,
 				startOfWeek: localStartOfWeek(),
 				localIdentities: [],
 				accounts: [],
@@ -979,6 +980,7 @@ export default {
 					// only update those options that changed
 					if (n.dark != o.dark) this.preferences.dark = n.dark
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
+					if (n.tagColors != o.tagColors) this.preferences.tagColors = n.tagColors
 					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
 					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.toLowerCase().split(",").map(x => x.trim())
 					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
@@ -997,6 +999,7 @@ export default {
 			if (result && result.options) {
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.ordinate = result.options.ordinate ? true : false
+				this.preferences.tagColors = result.options.tagColors ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
@@ -1207,7 +1210,7 @@ export default {
 				data.folders[type][f]++
 			}
 			// tags
-			m.tags.forEach(t => {
+			m.tags.forEach(tag => {
 				if (!(tag in data.tags)) {
 					data.tags[tag] = 1
 				} else {
@@ -2195,16 +2198,17 @@ export default {
 		tagsChartData () {
 			const r = sortAndLimitObject(this.display.tags) || {}
 			const color = this.preferences.dark ? accentColors[2] : accentColors[3]
-			let labels = []
+			const labels = [], colors = [];
 			Object.keys(r).forEach(key => {
 				labels.push(this.tags.find(tag => tag.key === key)?.tag || 'undefined');
+				colors.push(this.tags.find(tag => tag.key === key)?.color || color);
 			}, this);
 			return {
 				datasets: [
 					{
 						label: this.$t("stats.mailsPerTag"),
 						data: Object.values(r),
-						borderColor: color
+						borderColor: this.preferences.tagColors ? colors : color
 					},
 				],
 				labels: labels

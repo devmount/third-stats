@@ -74,6 +74,10 @@
       "off": "Off",
       "on": "On"
     },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
     "title": "Options"
   },
   "popup": {

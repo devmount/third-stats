@@ -38,7 +38,11 @@ export default {
 				d.backgroundColor = context => {
 					const { ctx, chartArea } = context.chart;
 					if (!chartArea) return null;
-					return transparentGradientBar(ctx, chartArea, d.borderColor, this.horizontal);
+					return transparentGradientBar(ctx,
+						chartArea,
+						Array.isArray(d.borderColor) ? d.borderColor[context.dataIndex] : d.borderColor,
+						this.horizontal
+					);
 				}
 			})
 			return datasets
