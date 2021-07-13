@@ -89,6 +89,12 @@ export default {
 							},
 							beginAtZero: true
 						}
+					},
+					plugins: {
+						tooltip: {
+							intersect: true,
+							position: 'nearest'
+						}
 					}
 				}
 			})
