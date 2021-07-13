@@ -48,6 +48,20 @@
 						</label>
 					</div>
 				</div>
+				<!-- option: tag colors -->
+				<div class="entry">
+					<label for="tagColors">
+						{{ $t("options.tagColors.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.tagColors.description") }}</span>
+					</label>
+					<div class="action d-flex">
+						<label class="switch">
+							<input type="checkbox" id="tagColors" v-model="options.tagColors" />
+							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
+							<span class="switch-handle"></span> 
+						</label>
+					</div>
+				</div>
 			</section>
 			<!-- section related to charts and data retrieval -->
 			<section class="mb-3">
@@ -348,6 +362,7 @@ export default {
 		optionsObject (
 			dark = false,
 			ordinate = true,
+			tagColors = false,
 			startOfWeek = -1,
 			addresses = "",
 			accounts = [],
@@ -363,6 +378,7 @@ export default {
 				options: {
 					dark: dark === null ? this.options.dark : dark,
 					ordinate: ordinate === null ? this.options.ordinate : ordinate,
+					tagColors: tagColors === null ? this.options.tagColors : tagColors,
 					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
 					addresses: addresses === null ? this.options.addresses : addresses,
 					accounts: accounts === null ? this.options.accounts : accounts,
