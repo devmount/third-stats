@@ -15,7 +15,7 @@
 	"browser_action": {
 		"default_popup": "popup.html",
 		"default_title": "ThirdStats",
-		"default_icon": "icon.svg"
+		"default_icon": "./icon.svg"
 	},
 	"background": {
 		"scripts": [
@@ -34,8 +34,8 @@
 		"downloads"
 	],
 	"icons": {
-		"64": "icon.svg",
-		"32": "icon.svg",
-		"16": "icon.svg"
+		"64": "./icon.svg",
+		"32": "./icon.svg",
+		"16": "./icon.svg"
 	}
 }
