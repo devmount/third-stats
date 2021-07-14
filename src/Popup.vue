@@ -1,11 +1,11 @@
 <template>
-	<div id="popup">
+	<div id="popup" class="text-normal position-relative">
 		<div class="container pt-1">
 			<!-- header containing number of accounts and linking to stats page -->
 			<header class="d-flex gap-0-5 mb-1-5">
 				<h3 class="flex-grow">
 					<span class="mr-1">{{ $tc("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
-					<span v-if="loading" class="dark loading"></span>
+					<span v-if="loading" class="loading"></span>
 				</h3>
 				<div
 					class="cursor-pointer tooltip tooltip-left transition-color"
@@ -33,7 +33,11 @@
 			<!-- list of all accounts -->
 			<section class="accounts">
 				<div
-					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
+					class="background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
+					:class="{
+						'background-gray': options.dark,
+						'background-highlight-contrast': !options.dark,
+					}"
 					v-for="a in accounts"
 					:key="a.id"
 					@click.prevent="openTab('stats.html', a.id)"
@@ -77,7 +81,7 @@ export default {
 			loading: false, // processessing folder and message counts indication
 			options: {      // add-on options
 				accounts: [], // accounts to process
-				dark: true,   // theme, always dark due to non colorable popup caret
+				dark: true,   // dark theme
 				cache: true,  // wether caching system is enabled or not
 			}
 		}
@@ -87,6 +91,8 @@ export default {
 		this.loading = true
 		// get stored options
 		await this.getOptions()
+		// set theme to body element to style popup caret too
+		document.body.className = this.options.dark ? 'dark background-normal' : 'light background-modal'
 		// start account processing
 		await this.getAccounts()
 		// stop loading indication
@@ -99,6 +105,7 @@ export default {
 			const result = await messenger.storage.local.get("options")
 			// only load needed options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
+				this.options.dark = result.options.dark ? true : false
 				this.options.accounts = result.options.accounts ? result.options.accounts : []
 				this.options.cache = result.options.cache ? true : false
 			}
@@ -135,7 +142,7 @@ export default {
 							}
 							a.yearsData = {
 								datasets: [
-									{ label: "placeholder", data: d, borderColor: "#58585d77" },
+									{ label: "placeholder", data: d, borderColor: this.options.dark ? "#f9f9fa15" : "#1d1d1f15" },
 								],
 								labels: labels
 							}
