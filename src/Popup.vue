@@ -1,18 +1,18 @@
 <template>
-	<div id="popup">
+	<div id="popup" class="text-normal position-relative">
 		<div class="container pt-1">
 			<!-- header containing number of accounts and linking to stats page -->
 			<header class="d-flex gap-0-5 mb-1-5">
 				<h3 class="flex-grow">
 					<span class="mr-1">{{ $tc("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
-					<span v-if="loading" class="dark loading"></span>
+					<span v-if="loading" class="loading"></span>
 				</h3>
 				<div
 					class="cursor-pointer tooltip tooltip-left transition-color"
 					:data-tooltip="$t('popup.openAllStats')"
 					@click.prevent="openTab('stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
 				>
-					<svg class="icon icon-thin icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
+					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 						<polyline class="icon-part-accent2" points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
 						<polyline class="icon-part-accent1" points="4 12 7 8 11 10 16 4 20 8" />
@@ -23,7 +23,7 @@
 					:data-tooltip="$t('popup.openOptions')"
 					@click.prevent="openTab('options.html', '1')"
 				>
-					<svg class="icon icon-thin icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
+					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 						<path class="icon-part-accent2" d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
 						<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
@@ -33,7 +33,11 @@
 			<!-- list of all accounts -->
 			<section class="accounts">
 				<div
-					class="background-gray background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
+					class="background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
+					:class="{
+						'background-gray': options.dark,
+						'background-highlight-contrast': !options.dark,
+					}"
 					v-for="a in accounts"
 					:key="a.id"
 					@click.prevent="openTab('stats.html', a.id)"
@@ -77,7 +81,7 @@ export default {
 			loading: false, // processessing folder and message counts indication
 			options: {      // add-on options
 				accounts: [], // accounts to process
-				dark: true,   // theme, always dark due to non colorable popup caret
+				dark: true,   // dark theme
 				cache: true,  // wether caching system is enabled or not
 			}
 		}
@@ -87,6 +91,8 @@ export default {
 		this.loading = true
 		// get stored options
 		await this.getOptions()
+		// set theme to body element to style popup caret too
+		document.body.className = this.options.dark ? 'dark background-normal' : 'light background-modal'
 		// start account processing
 		await this.getAccounts()
 		// stop loading indication
@@ -99,6 +105,7 @@ export default {
 			const result = await messenger.storage.local.get("options")
 			// only load needed options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
+				this.options.dark = result.options.dark ? true : false
 				this.options.accounts = result.options.accounts ? result.options.accounts : []
 				this.options.cache = result.options.cache ? true : false
 			}
@@ -135,7 +142,7 @@ export default {
 							}
 							a.yearsData = {
 								datasets: [
-									{ label: "placeholder", data: d, borderColor: "#58585d77" },
+									{ label: "placeholder", data: d, borderColor: this.options.dark ? "#f9f9fa15" : "#1d1d1f15" },
 								],
 								labels: labels
 							}
@@ -179,7 +186,7 @@ html, body
 		header
 			h3
 				margin: 0
-				font-weight: 300
+				font-weight: 400
 				font-size: 20px
 		.loading
 			loader 16px 3px
