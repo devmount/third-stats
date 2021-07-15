@@ -186,7 +186,7 @@ html, body
 		header
 			h3
 				margin: 0
-				font-weight: 300
+				font-weight: 400
 				font-size: 20px
 		.loading
 			loader 16px 3px
