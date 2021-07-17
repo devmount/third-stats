@@ -103,14 +103,17 @@
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
+        "empty": "No emails flagged as Junk.",
         "title": "Flagged as Junk"
       },
       "contactsReceived": {
         "description": "Number of emails received per sender",
+        "empty": "No received emails available.",
         "title": "Most received from"
       },
       "contactsSent": {
         "description": "Number of emails sent per recipient",
+        "empty": "No sent emails available.",
         "title": "Most sent to"
       },
       "days": {
@@ -139,6 +142,7 @@
       },
       "tagsCount": {
         "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
         "title": "Tags"
       },
       "temporalDistribution": {
