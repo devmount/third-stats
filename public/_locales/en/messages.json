@@ -179,6 +179,8 @@
     "mailsPerYear": "Mails per year",
     "mailsReceived": "Mails received",
     "mailsSent": "Mails sent",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
     "mailsTotal": "Mails total",
     "mailsUnread": "Mails unread",
     "mailsWeek": "mails/week",
