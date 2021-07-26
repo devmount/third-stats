@@ -230,7 +230,7 @@
 						<div class="text-gray">{{ $t("stats.mailsPerDay") }}</div>
 						<div class="featured">{{ perDay }}</div>
 					</div>
-					<div class="text-mono d-flex justify-center">
+					<div class="d-flex justify-center">
 						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="previousNumbersUnit()">
 							<svg class="icon icon-small icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -239,39 +239,44 @@
 						</div>
 						<div class="d-inline-flex">
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
+								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
 								:class="{ 'text-gray': !tabs.numbers.years }"
+								:data-tooltip="$t('stats.mailsPerYear')"
 								@click="activateTab('numbers', 'years')"
 							>
-								{{ $t("stats.abbreviations.year") }}
+								<span class="text-mono">{{ $t("stats.abbreviations.year") }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
+								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
 								:class="{ 'text-gray': !tabs.numbers.quarters }"
+								:data-tooltip="$t('stats.mailsPerQuarter')"
 								@click="activateTab('numbers', 'quarters')"
 							>
-								{{ $t("stats.abbreviations.quarter") }}
+								<span class="text-mono">{{ $t("stats.abbreviations.quarter") }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
+								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
 								:class="{ 'text-gray': !tabs.numbers.months }"
+								:data-tooltip="$t('stats.mailsPerMonth')"
 								@click="activateTab('numbers', 'months')"
 							>
-								{{ $t("stats.abbreviations.month") }}
+								<span class="text-mono">{{ $t("stats.abbreviations.month") }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
+								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
 								:class="{ 'text-gray': !tabs.numbers.weeks }"
+								:data-tooltip="$t('stats.mailsPerWeek')"
 								@click="activateTab('numbers', 'weeks')"
 							>
-								{{ $t("stats.abbreviations.calendarWeek") }}
+								<span class="text-mono">{{ $t("stats.abbreviations.calendarWeek") }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
+								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
 								:class="{ 'text-gray': !tabs.numbers.days }"
+								:data-tooltip="$t('stats.mailsPerDay')"
 								@click="activateTab('numbers', 'days')"
 							>
-								{{ $t("stats.abbreviations.day") }}
+								<span class="text-mono">{{ $t("stats.abbreviations.day") }}</span>
 							</span>
 						</div>
 						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="nextNumbersUnit()">
