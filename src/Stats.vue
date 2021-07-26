@@ -287,14 +287,16 @@
 						</div>
 					</div>
 				</div>
-				<!-- empty -->
+				<!-- starred / tagged -->
 				<div>
-					<!-- TODO -->
+					<div class='text-gray'>{{ $t('stats.mailsStarred') }}</div>
+					<div class='featured'>{{ starred.toLocaleString() }}</div>
+					<div class='text-gray'>{{ $t('stats.mailsTagged', [tagged]) }}</div>
 				</div>
 				<!-- junk / junkScore -->
 				<div>
 					<div class='text-gray'>{{ $t('stats.junkMails') }}</div>
-					<div class='featured'>{{ junk }}</div>
+					<div class='featured'>{{ junk.toLocaleString() }}</div>
 					<div class='text-gray'>{{ $t('stats.junkScore', [junkScore]) }}</div>
 				</div>
 			</section>
@@ -1023,6 +1025,8 @@ export default {
 					unread: 0,
 					received: 0,
 					sent: 0,
+					starred: 0,
+					tagged: 0,
 					junk: 0,
 					junkScore: 0,
 					start: this.active.period.start ? new Date(this.active.period.start) : new Date(),
@@ -1327,14 +1331,19 @@ export default {
 			} else {
 				data.folders[type][f]++
 			}
+			// star
+			if (m.flagged === true) data.numbers.starred++
 			// tags
-			m.tags.forEach(tag => {
-				if (!(tag in data.tags)) {
-					data.tags[tag] = 1
-				} else {
-					data.tags[tag]++
-				}
-			})
+			if (m.tags.length > 0) {
+				data.numbers.tagged++
+				m.tags.forEach(tag => {
+					if (!(tag in data.tags)) {
+						data.tags[tag] = 1
+					} else {
+						data.tags[tag]++
+					}
+				})
+			}
 		},
 		// check if a contact is involved in a message
 		// = <contact> is either author or recipient, CC or BCC of <message>
@@ -1438,6 +1447,8 @@ export default {
 				sum.numbers.unread = accountsData.reduce((p,c) => p+c.numbers.unread, 0)
 				sum.numbers.received = accountsData.reduce((p,c) => p+c.numbers.received, 0)
 				sum.numbers.sent = accountsData.reduce((p,c) => p+c.numbers.sent, 0)
+				sum.numbers.starred = accountsData.reduce((p,c) => p+(c.numbers.starred ?? 0), 0)
+				sum.numbers.tagged = accountsData.reduce((p,c) => p+(c.numbers.tagged ?? 0), 0)
 				sum.numbers.junk = accountsData.reduce((p,c) => p+c.numbers.junk, 0)
 				sum.numbers.junkScore = accountsData.reduce((p,c) => p+c.numbers.junkScore, 0)/accountsData.length
 				sum.numbers.start = accountsData.reduce((p,c) => p < c.numbers.start ? p : c.numbers.start, 0)
@@ -1858,6 +1869,22 @@ export default {
 		perYear () {
 			if (this.display.numbers.total > 0 && this.years > 0) {
 				return this.oneDigit(this.display.numbers.total/this.years)
+			} else {
+				return 0
+			}
+		},
+		// number of starred mails
+		starred () {
+			if (this.display.numbers.starred && this.display.numbers.starred > 0) {
+				return this.display.numbers.starred
+			} else {
+				return 0
+			}
+		},
+		// number of tagged mails
+		tagged () {
+			if (this.display.numbers.tagged && this.display.numbers.tagged > 0) {
+				return this.display.numbers.tagged
 			} else {
 				return 0
 			}
