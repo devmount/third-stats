@@ -94,8 +94,10 @@
       "day": "d",
       "hour": "h",
       "minute": "min",
+      "month": "M",
       "quarter": "Q",
-      "second": "s"
+      "second": "s",
+      "year": "Y"
     },
     "account": "Account",
     "accountEmpty": "This account is empty, no emails here.",
@@ -172,6 +174,9 @@
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",
     "mailsPerTag": "Mails per tag",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
     "mailsReceived": "Mails received",
     "mailsSent": "Mails sent",
     "mailsTotal": "Mails total",
