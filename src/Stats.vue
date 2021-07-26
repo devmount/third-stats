@@ -208,17 +208,83 @@
 					<div class="featured text-accent1">{{ display.numbers.sent.toLocaleString() }}</div>
 					<div class="text-gray">{{ $t("stats.percentOfTotal", [sentPercentage]) }}</div>
 				</div>
-				<!-- per month / per year -->
+				<!-- per time unit -->
 				<div>
-					<div class="text-gray">{{ $t("stats.mailsPerMonth") }}</div>
-					<div class="featured">{{ perMonth }}</div>
-					<div class="text-gray">{{ perYear }} {{ $t("stats.mailsYear") }}</div>
+					<div v-if="tabs.numbers.years">
+						<div class="text-gray">{{ $t("stats.mailsPerYear") }}</div>
+						<div class="featured">{{ perYear }}</div>
+					</div>
+					<div v-if="tabs.numbers.quarters">
+						<div class="text-gray">{{ $t("stats.mailsPerQuarter") }}</div>
+						<div class="featured">{{ perQuarter }}</div>
+					</div>
+					<div v-if="tabs.numbers.months">
+						<div class="text-gray">{{ $t("stats.mailsPerMonth") }}</div>
+						<div class="featured">{{ perMonth }}</div>
+					</div>
+					<div v-if="tabs.numbers.weeks">
+						<div class="text-gray">{{ $t("stats.mailsPerWeek") }}</div>
+						<div class="featured">{{ perWeek }}</div>
+					</div>
+					<div v-if="tabs.numbers.days">
+						<div class="text-gray">{{ $t("stats.mailsPerDay") }}</div>
+						<div class="featured">{{ perDay }}</div>
+					</div>
+					<div class="text-mono d-flex justify-center">
+						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="previousNumbersUnit()">
+							<svg class="icon icon-small icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
+							</svg>
+						</div>
+						<div class="d-inline-flex">
+							<span
+								class="cursor-pointer p-0-25 text-hover-accent2"
+								:class="{ 'text-gray': !tabs.numbers.years }"
+								@click="activateTab('numbers', 'years')"
+							>
+								{{ $t("stats.abbreviations.year") }}
+							</span>
+							<span
+								class="cursor-pointer p-0-25 text-hover-accent2"
+								:class="{ 'text-gray': !tabs.numbers.quarters }"
+								@click="activateTab('numbers', 'quarters')"
+							>
+								{{ $t("stats.abbreviations.quarter") }}
+							</span>
+							<span
+								class="cursor-pointer p-0-25 text-hover-accent2"
+								:class="{ 'text-gray': !tabs.numbers.months }"
+								@click="activateTab('numbers', 'months')"
+							>
+								{{ $t("stats.abbreviations.month") }}
+							</span>
+							<span
+								class="cursor-pointer p-0-25 text-hover-accent2"
+								:class="{ 'text-gray': !tabs.numbers.weeks }"
+								@click="activateTab('numbers', 'weeks')"
+							>
+								{{ $t("stats.abbreviations.calendarWeek") }}
+							</span>
+							<span
+								class="cursor-pointer p-0-25 text-hover-accent2"
+								:class="{ 'text-gray': !tabs.numbers.days }"
+								@click="activateTab('numbers', 'days')"
+							>
+								{{ $t("stats.abbreviations.day") }}
+							</span>
+						</div>
+						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="nextNumbersUnit()">
+							<svg class="icon icon-small icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
+							</svg>
+						</div>
+					</div>
 				</div>
-				<!-- per day / per week -->
+				<!-- empty -->
 				<div>
-					<div class="text-gray">{{ $t("stats.mailsPerDay") }}</div>
-					<div class="featured">{{ perDay }}</div>
-					<div class="text-gray">{{ perWeek }} {{ $t("stats.mailsWeek") }}</div>
+					<!-- TODO -->
 				</div>
 				<!-- junk / junkScore -->
 				<div>
@@ -861,6 +927,13 @@ export default {
 			display: {},     // processed data to show
 			comparison: {},  // subset of display to show data for account comparison view
 			tabs: {          // tab navigation containing one active tab at a time
+				numbers: {
+					years: false,
+					quarters: false,
+					months: false,
+					weeks: true,
+					days: false,
+				},
 				total: {
 					years: true,
 					quarters: false,
@@ -1596,6 +1669,22 @@ export default {
 			}
 			return valid
 		},
+		// cycles forward through numbers tabs
+		// jumps to first tab if last tab reached
+		nextNumbersUnit () {
+			const tabs = Object.keys(this.tabs.numbers);
+			const current = tabs.find(key => this.tabs.numbers[key] === true);
+			const next = tabs[(tabs.indexOf(current)+1)%tabs.length];
+			this.activateTab("numbers", next);
+		},
+		// cycles backwards through numbers tabs
+		// jumps to last tab if first tab reached
+		previousNumbersUnit () {
+			const tabs = Object.keys(this.tabs.numbers);
+			const current = tabs.find(key => this.tabs.numbers[key] === true);
+			const previous = tabs[(tabs.length+tabs.indexOf(current)-1)%tabs.length];
+			this.activateTab("numbers", previous);
+		},
 		// corrects selected year, if it's out of the current date range
 		// called after data got reprocessed
 		adjustSelectedYear () {
@@ -1696,6 +1785,10 @@ export default {
 		months () {
 			return this.days/(365/12)
 		},
+		// number of quarters from oldest email till today
+		quarters () {
+			return this.days/(365/4)
+		},
 		// number of years from oldest email till today
 		years () {
 			return this.days/365
@@ -1744,6 +1837,14 @@ export default {
 		perMonth () {
 			if (this.display.numbers.total > 0 && this.months > 0) {
 				return this.oneDigit(this.display.numbers.total/this.months)
+			} else {
+				return 0
+			}
+		},
+		// average number of emails/quarter
+		perQuarter () {
+			if (this.display.numbers.total > 0 && this.quarters > 0) {
+				return this.oneDigit(this.display.numbers.total/this.quarters)
 			} else {
 				return 0
 			}
