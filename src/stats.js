@@ -1,9 +1,12 @@
 import Vue from "vue"
 import Stats from "./Stats.vue"
 
-// vue configuration
+// vue local configuration
 Vue.config.productionTip = false
 Vue.config.devtools = false
+
+// vue global properties
+Vue.prototype.$version = process.env.VUE_APP_VERSION
 
 // global mixins
 Vue.mixin({
