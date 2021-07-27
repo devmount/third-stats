@@ -192,6 +192,7 @@
     "percentOfTotal": "{0}% of total",
     "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Date range",
+    "title": "Statistics",
     "tooltips": {
       "clear": "Clear selection",
       "comparison": "Compare accounts in one chart",
