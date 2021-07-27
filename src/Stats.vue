@@ -798,7 +798,7 @@
 			<!-- footer -->
 			<footer class="mt-6 text-center">
 				<div class="text-gray">
-					<span class="text-middle mr-1">ThirdStats {{ appVersion }}</span>
+					<span class="text-middle mr-1">ThirdStats {{ $version }}</span>
 					<svg
 						v-if="preferences.dark"
 						class="icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer"
@@ -1764,10 +1764,6 @@ export default {
 		}
 	},
 	computed: {
-		// current app version
-		appVersion () {
-			return process.env.PACKAGE_VERSION;
-		},
 		// array of localized, short month names
 		monthNames () {
 			let names = []

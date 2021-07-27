@@ -12,16 +12,14 @@
 		"vue-i18n": "^8.21.1"
 	},
 	"devDependencies": {
-		"@vue/cli-plugin-babel": "~4.5.0",
-		"@vue/cli-service": "~4.5.0",
+		"@vue/cli-plugin-babel": "^5.0.0-beta.2",
+		"@vue/cli-service": "^5.0.0-beta.2",
 		"stylus": "^0.54.7",
 		"stylus-loader": "^3.0.2",
 		"vue-template-compiler": "^2.6.11"
 	},
 	"browserslist": [
-		"> 1%",
-		"last 2 versions",
-		"not dead"
+		"Firefox ESR"
 	],
 	"babel": {
 		"presets": [
