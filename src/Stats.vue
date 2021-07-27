@@ -14,7 +14,7 @@
 			<header id="header">
 				<h1 class="mr-2 d-flex align-items-center">
 					<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
-					Th<span class="text-gray">underb</span>ird Stats
+					{{ $t("stats.title") }}
 				</h1>
 				<!-- filter area -->
 				<div class="filter d-flex flex-wrap gap-1">
