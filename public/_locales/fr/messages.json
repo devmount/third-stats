@@ -56,7 +56,7 @@
       "description": "Exclure les messages qui m'ont été envoyés à moi-même",
       "info": {
         "anyAccount": "Les messages dont l'expéditeur et le destinataire sont des identités de n'importe quel compte seront exclus",
-        "none": "Les messages internes seront inclus et traités comme des e-mails normaux (par défaut)",
+        "none": "Les messages internes seront inclus et traités comme des messages normaux (par défaut)",
         "sameAccount": "Les messages dont l'expéditeur et le destinataire sont des identités du même compte seront exclus"
       },
       "label": "Messages internes",
@@ -75,8 +75,8 @@
       "on": "Marche"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Dessinez des graphiques sur les étiquettes en utilisant les couleurs d'étiquettes correspondantes.",
+      "label": "Couleurs de l'étiquette"
     },
     "title": "Options"
   },
@@ -97,26 +97,26 @@
       "month": "M",
       "quarter": "T",
       "second": "s",
-      "week": "W",
-      "year": "Y"
+      "week": "S",
+      "year": "a"
     },
     "account": "Compte",
     "accountEmpty": "Ce compte est vide, il n'y a pas d'emails.",
     "allAccounts": "Tous les comptes",
     "charts": {
       "contactsJunk": {
-        "description": "Nombre d'e-mails marqués comme indésirables par expéditeur",
-        "empty": "No emails flagged as Junk.",
+        "description": "Nombre de messages marqués comme indésirables par expéditeur",
+        "empty": "Pas de messages marqués comme Junk.",
         "title": "Marqué comme indésirable"
       },
       "contactsReceived": {
         "description": "Nombre d'emails reçus par destinataire",
-        "empty": "No received emails available.",
+        "empty": "Aucun email reçu disponible.",
         "title": "La plupart ont été reçus de"
       },
       "contactsSent": {
         "description": "Nombre d'emails envoyés par expéditeur",
-        "empty": "No sent emails available.",
+        "empty": "Pas d'emails envoyés disponibles.",
         "title": "La plupart ont été envoyés à"
       },
       "days": {
@@ -128,7 +128,7 @@
         "title": "Journée"
       },
       "foldersDistribution": {
-        "description": "Nombre d'e-mails par dossier",
+        "description": "Nombre de messages par dossier",
         "title": "Distribution des dossiers"
       },
       "month": {
@@ -144,9 +144,9 @@
         "title": "Trimestre"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
-        "title": "Tags"
+        "description": "Nombre total d'emails par étiquette.",
+        "empty": "Aucune donnée sur les étiquettes n'est disponible.",
+        "title": "Étiquettes"
       },
       "temporalDistribution": {
         "description": "Nombre de messages par jour de la semaine par heure",
@@ -172,16 +172,16 @@
     "junkMails": "Courriers indésirables",
     "junkScore": "Score indésirable de {0}",
     "loadingInProgress": "Chargement des emails du compte en cours…",
-    "mailsPerDay": "Message(s) par jour",
-    "mailsPerMonth": "Message(s) par mois",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerDay": "Messages par jour",
+    "mailsPerMonth": "Messages par mois",
+    "mailsPerQuarter": "Messages par trimestre",
+    "mailsPerTag": "Messages par étiquette",
+    "mailsPerWeek": "Messages par semaine",
+    "mailsPerYear": "Messages par an",
     "mailsReceived": "Messages reçus",
-    "mailsSent": "Message(s) envoyé(s)",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsSent": "Messages envoyés",
+    "mailsStarred": "Messages en étoile",
+    "mailsTagged": "{0} messages étiquetés",
     "mailsTotal": "Messages total",
     "mailsUnread": "Messages non lus",
     "mailsWeek": "message(s)/semaine",
@@ -193,7 +193,7 @@
     "percentOfTotal": "{0}% du total",
     "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Période de temps",
-    "title": "Statistics",
+    "title": "Statistiques",
     "tooltips": {
       "clear": "Effacer la sélection",
       "comparison": "Comparer les comptes",
