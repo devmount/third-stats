@@ -4,33 +4,33 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "color": "Dé a cada cuenta un color personalizado para distinguirlas en el modo de comparación.",
+      "description": "Habilita o deshabilita cuentas. Las cuentas deshabilitadas no aparecerán en ninguna lista de cuentas ni estadísticas.",
+      "label": "Cuentas activas",
+      "sumAndCompare": "Al activar más de una cuenta, se habilita la opción de filtro de estadísticas «Todas las cuentas» para la vista de suma y comparación."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "Activa el sistema de almacenamiento en caché para mostrar más rápidamente los datos de estadísticas ya procesados.",
+      "label": "Activar caché"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Clear Cache",
-      "size": "Cache size is {0}"
+      "description": "Elimina todos los datos estadísticos almacenados en caché de todas las cuentas. Se reconstruirá al abrir la página de estadísticas de nuevo.",
+      "empty": "La caché está vacía",
+      "label": "Borrar caché",
+      "size": "El tamaño de la caché es {0}"
     },
     "darkMode": {
       "description": "Cambiar entre esquema de color obscuro y claro",
       "label": "Modo obscuro"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "Apariencia y Experiencia",
+      "stats": "Gráficos y Datos",
+      "storage": "Almacenamiento y Caché"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "Número de entradas que se muestran en los gráficos que muestran contactos frecuentes (máximo 999)",
+      "label": "Recuento de líderes"
     },
     "localIdentities": {
       "description": "Una lista de direcciones de correos separados por coma para reconocer como 'enviados desde' para cuentas locales",
@@ -38,55 +38,55 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "refreshCacheRequired": "Si se modifica, es necesario reconstruir la caché",
+      "reloadStatsPage": "Las opciones se guardan automáticamente. Algunos cambios de opciones no se pueden aplicar automáticamente a una página de estadísticas ya abierta ni a entradas de caché existentes, si la caché está activada. Están marcados con los iconos correspondientes.",
+      "reloadWindowRequired": "Si se modifica, hay que recargar la página de estadísticas",
+      "title": "Nota"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "Mostrar el eje vertical para todos los gráficos de líneas y barras",
+      "label": "Eje vertical"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "Restablece todas las opciones a sus valores predeterminados. Según las opciones que haya cambiado antes, es posible que sea necesario actualizar la ventana o la memoria caché.",
+      "label": "Reiniciar las opciones",
+      "removeIdentities": "Esto también eliminará todas las identidades locales que haya creado."
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "Excluir los mensajes que me envié a mí mismo",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "Se excluirán los mensajes en los que el remitente y el destinatario sean identidades de cualquier cuenta",
+        "none": "Los mensajes a sí mismos se incluirán y tratarán como correos electrónicos normales (predeterminado)",
+        "sameAccount": "Se excluirán los mensajes en los que el remitente y el destinatario sean identidades de la misma cuenta."
       },
-      "label": "Messages to Self",
+      "label": "Mensajes a uno mismo",
       "values": {
-        "anyAccount": "From Any Account",
-        "none": "Disabled",
-        "sameAccount": "Same Account Only"
+        "anyAccount": "Desde cualquier cuenta",
+        "none": "Desactivado",
+        "sameAccount": "Solo la misma cuenta"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "description": "Inicio de semana personalizado para todos los gráficos relacionados con el día de la semana",
+      "label": "La semana empieza el"
     },
     "switch": {
       "off": "Desactivar",
       "on": "Activar"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Dibuja gráficos sobre etiquetas utilizando los colores de etiqueta correspondientes",
+      "label": "Colores de etiqueta"
     },
-    "title": "Options"
+    "title": "Opciones"
   },
   "popup": {
     "message": "-",
     "nAccounts": "{0} Cuenta | {0} Cuentas",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "nFolders": "{0} Carpeta | {0} Carpetas",
+    "nMessages": "{0} Mensaje | {0} Mensajes",
+    "openAllStats": "Abrir todas las estadísticas",
+    "openOptions": "Abrir opciones"
   },
   "stats": {
     "abbreviations": {
@@ -97,26 +97,26 @@
       "month": "M",
       "quarter": "C",
       "second": "s",
-      "week": "W",
-      "year": "Y"
+      "week": "S",
+      "year": "a"
     },
     "account": "Cuenta",
     "accountEmpty": "Esta cuenta está vacía, aquí no hay correos.",
-    "allAccounts": "All Accounts",
+    "allAccounts": "Todas las cuentas",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "Número de correos electrónicos marcados como basura por remitente",
+        "empty": "No hay correos electrónicos marcados como basura.",
+        "title": "Marcado como basura"
       },
       "contactsReceived": {
         "description": "Número de correos recibidos por remitente",
-        "empty": "No received emails available.",
+        "empty": "No hay correos electrónicos recibidos disponibles.",
         "title": "Más recibidos de"
       },
       "contactsSent": {
         "description": "Número de correos enviados por destinatario",
-        "empty": "No sent emails available.",
+        "empty": "No hay correos electrónicos enviados disponibles.",
         "title": "Más enviados a"
       },
       "days": {
@@ -128,8 +128,8 @@
         "title": "Hora"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "Número de correos electrónicos por carpeta",
+        "title": "Distribución de carpetas"
       },
       "month": {
         "description": "Total de correos por mes",
@@ -144,9 +144,9 @@
         "title": "Cuatrimestre"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
-        "title": "Tags"
+        "description": "Número total de correos electrónicos por etiqueta",
+        "empty": "No hay datos de etiquetas disponibles.",
+        "title": "Etiquetas"
       },
       "temporalDistribution": {
         "description": "Correos por día de semana y hora",
@@ -165,57 +165,57 @@
         "title": "Años"
       }
     },
-    "contact": "Contact",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "contact": "Contacto",
+    "dataCollected": "Datos recogidos hace {0}",
+    "disclaimer": "ThirdStats no afirma la exactitud de los datos mostrados. <br />En caso de posibles problemas, <a href='{0}' target='_blank'>cree un informe de errores</a>.",
+    "folder": "Carpeta",
+    "junkMails": "Correos basura",
+    "junkScore": "Puntuación basura de {0}",
     "loadingInProgress": "Cargando todos los correos de esta cuenta en curso…",
     "mailsPerDay": "Correos al día",
     "mailsPerMonth": "Correos al mes",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Correos por trimestre",
+    "mailsPerTag": "Correos por etiqueta",
+    "mailsPerWeek": "Correos por semana",
+    "mailsPerYear": "Correos por año",
     "mailsReceived": "Correos recibidos",
     "mailsSent": "Correos enviados",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Correos con estrella",
+    "mailsTagged": "{0} correos etiquetados",
     "mailsTotal": "Total de correos",
     "mailsUnread": "Correos no leídos",
     "message": "-",
     "niceWork": "Excelente trabajo!",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "carpetas no vacías | carpeta no vacía | carpetas no vacías",
     "percentOfReceived": "{0}% de recibidos",
     "percentOfTotal": "{0}% del total",
     "starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "Rango de fecha",
+    "title": "Estadísticas",
     "tooltips": {
-      "clear": "Clear selection",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "clear": "Borrar selección",
+      "comparison": "Comparar cuentas en un gráfico",
+      "comparisonWhenAccountsOption": "La comparación de cuentas solo está disponible\nsi hay más de una cuenta activada en las opciones de complementos",
+      "comparisonWhenFilter": "La comparación de cuentas solo está disponible\nsi se selecciona «Todas las cuentas» en el filtro de cuentas anterior",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateFormat": "Se requiere el formato AAAA-MM-DD, por ejemplo 2020-01-31",
+        "dateOrderEnd": "La fecha de finalización debe ser posterior a la fecha de inicio",
+        "dateOrderStart": "La fecha de inicio debe ser anterior a la fecha final",
+        "dateUnreal": "Se requiere una fecha válida",
+        "empty": "Se requiere una entrada"
       },
       "expand": "Expandir área del gráfico",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "Exportar los datos mostrados actualmente como archivo JSON",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "Las carpetas no están disponibles para {0}"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "Hasta la fecha\nConsejo: Escribir '{0}' se convierte en '{1}'",
+        "start": "Fecha de origen\nConsejo: Escribir '{0}' se convierte en '{1}'"
       },
-      "refresh": "Refresh data",
+      "refresh": "Actualizar datos",
       "shrink": "Reducir área del gráfico",
-      "sum": "Show sum of all accounts"
+      "sum": "Mostrar suma de todas las cuentas"
     },
     "withinYears": "en {0} años"
   }
