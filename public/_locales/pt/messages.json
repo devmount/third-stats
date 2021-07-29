@@ -30,7 +30,7 @@
     },
     "leaderCount": {
       "description": "Número de entradas mostradas em gráficos que listam contatos frequentes (máximo de 999)",
-      "label": "Leader Count"
+      "label": "Contagem de líderes"
     },
     "localIdentities": {
       "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais",
@@ -75,8 +75,8 @@
       "on": "Ligado"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Desenhe gráficos sobre as etiquetas usando as cores das etiquetas correspondentes",
+      "label": "Cores da etiqueta"
     },
     "title": "Opções"
   },
@@ -97,8 +97,8 @@
       "month": "M",
       "quarter": "T",
       "second": "s",
-      "week": "W",
-      "year": "Y"
+      "week": "S",
+      "year": "a"
     },
     "account": "Conta",
     "accountEmpty": "Essa conta está vazia, sem e-mails aqui.",
@@ -106,17 +106,17 @@
     "charts": {
       "contactsJunk": {
         "description": "Número de emails marcados como lixo por remetente",
-        "empty": "No emails flagged as Junk.",
+        "empty": "Nenhum e-mail assinalado como Lixo Electrónico.",
         "title": "Marcado como Lixo"
       },
       "contactsReceived": {
         "description": "Número de e-mails recebidos por remetente",
-        "empty": "No received emails available.",
+        "empty": "Não há e-mails recebidos disponíveis.",
         "title": "Mais recebido de"
       },
       "contactsSent": {
         "description": "Número de e-mails enviado por destinatário",
-        "empty": "No sent emails available.",
+        "empty": "Não há e-mails enviados disponíveis.",
         "title": "Mais enviado para"
       },
       "days": {
@@ -144,9 +144,9 @@
         "title": "Trimestres"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
-        "title": "Tags"
+        "description": "Número total de e-mails por etiqueta",
+        "empty": "Não há dados de etiqueta disponíveis.",
+        "title": "Etiquetas"
       },
       "temporalDistribution": {
         "description": "Número de e-mails por semana por hora",
@@ -174,14 +174,14 @@
     "loadingInProgress": "Carregamento de todos os e-mails dessa conta em andamento…",
     "mailsPerDay": "E-mails por dia",
     "mailsPerMonth": "E-mails por mês",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Correio por trimestre",
+    "mailsPerTag": "Correio por etiqueta",
+    "mailsPerWeek": "Mails por semana",
+    "mailsPerYear": "Correio por ano",
     "mailsReceived": "E-mails recebidos",
     "mailsSent": "E-mails enviados",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Correios estrelados",
+    "mailsTagged": "{0} correios etiquetados",
     "mailsTotal": "Total de e-mails",
     "mailsUnread": "E-mails não lidos",
     "message": "-",
@@ -191,7 +191,7 @@
     "percentOfTotal": "{0}% do total",
     "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Período",
-    "title": "Statistics",
+    "title": "Estatísticas",
     "tooltips": {
       "clear": "Limpar seleção",
       "comparison": "Comparar contas em um gráfico",
