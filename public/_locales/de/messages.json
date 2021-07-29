@@ -74,6 +74,10 @@
       "off": "Aus",
       "on": "An"
     },
+    "tagColors": {
+      "description": "Diagramme zu Schlagworten sollen die entsprechenden Schlagwortfarben nutzen ",
+      "label": "Farben von Schlagworten"
+    },
     "title": "Einstellungen"
   },
   "popup": {
@@ -90,8 +94,11 @@
       "day": "d",
       "hour": "h",
       "minute": "min",
+      "month": "M",
       "quarter": "Q",
-      "second": "s"
+      "second": "s",
+      "week": "W",
+      "year": "J"
     },
     "account": "Konto",
     "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
@@ -99,14 +106,17 @@
     "charts": {
       "contactsJunk": {
         "description": "Anzahl der E-Mails, die als Junk markiert sind, pro Absender",
+        "empty": "Keine als Junk gekennzeichneten E-Mails verfügbar.",
         "title": "Als Junk markiert"
       },
       "contactsReceived": {
         "description": "Anzahl empfangener E-Mails pro Absender",
+        "empty": "Keine empfangenen E-Mails verfügbar.",
         "title": "Häufigste Absender"
       },
       "contactsSent": {
         "description": "Anzahl gesendeter E-Mails pro Empfänger",
+        "empty": "Keine gesendeten E-Mails verfügbar.",
         "title": "Häufigste Empfänger"
       },
       "days": {
@@ -132,6 +142,11 @@
       "quarters": {
         "description": "Gesamtanzahl aller E-Mails pro Quartal",
         "title": "Quartale"
+      },
+      "tagsCount": {
+        "description": "Gesamtzahl der E-Mails pro Schlagwort",
+        "empty": "Keine Daten zu Schlagworten verfügbar.",
+        "title": "Schlagworte"
       },
       "temporalDistribution": {
         "description": "Anzahl aller E-Mails pro Wochentag pro Stunde",
@@ -159,8 +174,14 @@
     "loadingInProgress": "E-Mails für dieses Konto werden geladen…",
     "mailsPerDay": "E-Mails pro Tag",
     "mailsPerMonth": "E-Mails pro Monat",
+    "mailsPerQuarter": "E-Mails pro Quartal",
+    "mailsPerTag": "E-Mails pro Schlagwort",
+    "mailsPerWeek": "E-Mails pro Woche",
+    "mailsPerYear": "E-Mails pro Jahr",
     "mailsReceived": "E-Mails empfangen",
     "mailsSent": "E-Mails gesendet",
+    "mailsStarred": "E-Mails gekennzeichnet",
+    "mailsTagged": "{0} E-Mails mit Schlagworten",
     "mailsTotal": "E-Mails gesamt",
     "mailsUnread": "E-Mails ungelesen",
     "mailsWeek": "E-Mails/Woche",
@@ -172,6 +193,7 @@
     "percentOfTotal": "{0}% von Gesamt",
     "starAndImprove": "Mach mich zum Star auf <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Zeitraum",
+    "title": "Statistik",
     "tooltips": {
       "clear": "Auswahl aufheben",
       "comparison": "Vergleichsansicht aller Konten",
