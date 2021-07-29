@@ -74,6 +74,10 @@
       "off": "Ki",
       "on": "Be"
     },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
     "title": "Beállítások"
   },
   "popup": {
@@ -90,8 +94,11 @@
       "day": "n",
       "hour": "ó",
       "minute": "p",
+      "month": "M",
       "quarter": "¼",
-      "second": "mp"
+      "second": "mp",
+      "week": "W",
+      "year": "Y"
     },
     "account": "Fiók",
     "accountEmpty": "Ez a postafiók üres, itt nincsenek e-mailek.",
@@ -99,14 +106,17 @@
     "charts": {
       "contactsJunk": {
         "description": "Levélszemétként megjelölt e-mailek száma küldőnként",
+        "empty": "No emails flagged as Junk.",
         "title": "Levélszemétként megjelölve"
       },
       "contactsReceived": {
         "description": "Feladónként kapott e-mailek száma",
+        "empty": "No received emails available.",
         "title": "A legtöbb kapott"
       },
       "contactsSent": {
         "description": "A címzettenként elküldött e-mailek száma",
+        "empty": "No sent emails available.",
         "title": "A legtöbbet elküldték"
       },
       "days": {
@@ -132,6 +142,11 @@
       "quarters": {
         "description": "Az e-mailek száma negyedévenként",
         "title": "Negyedek"
+      },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
+        "title": "Tags"
       },
       "temporalDistribution": {
         "description": "Hétköznap / óra e-mailek száma",
@@ -159,8 +174,14 @@
     "loadingInProgress": "A fiók összes e-mailének betöltése folyamatban van…",
     "mailsPerDay": "Levél naponta",
     "mailsPerMonth": "Levél havonta",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
     "mailsReceived": "Levelek fogadva",
     "mailsSent": "Levelek elküldve",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
     "mailsTotal": "Levelek összesen",
     "mailsUnread": "Mails unread",
     "mailsWeek": "levél/hét",
@@ -172,6 +193,7 @@
     "percentOfTotal": "Az összes {0}%-a",
     "starAndImprove": "Légy sztár, villálj a <a href='{0}' target='_blank'>GitHub</a>on.",
     "timePeriod": "Dátumtartomány",
+    "title": "Statistics",
     "tooltips": {
       "clear": "Kijelölés törlése",
       "comparison": "Fiókok összehasonlítása egy diagramban",

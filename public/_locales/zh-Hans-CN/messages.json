@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
+    "message": "精美地呈现您 Thunderbird 邮件账号数据"
   },
   "options": {
     "activeAccounts": {
@@ -10,38 +10,38 @@
       "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "启用缓存系统以加快显示已处理数据资料。",
+      "label": "激活缓存"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Clear Cache",
-      "size": "Cache size is {0}"
+      "description": "清除来自所有账号的所有缓存数据资料，将会于再次开启数据页面时重构。",
+      "empty": "缓存为空",
+      "label": "清除缓存",
+      "size": "缓存大小是 {0}"
     },
     "darkMode": {
-      "description": "Koyu ve açık renk düzeni arasında geçiş yapın",
-      "label": "Karanlık Modu"
+      "description": "切换深色与浅色主题",
+      "label": "深色主题"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "外观与体验",
+      "stats": "图表与资料",
+      "storage": "存储与缓存"
     },
     "leaderCount": {
       "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
       "label": "Leader Count"
     },
     "localIdentities": {
-      "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
-      "label": "Yerel Kimlikler"
+      "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”",
+      "label": "本地身份"
     },
     "message": "-",
     "note": {
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
+      "reloadStatsPage": "选项已自动储存。如果数据页面已经开启，你需要重新开启或刷新页面以应用最新选项。",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "注意"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -67,12 +67,12 @@
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "description": "自订所有星期相关图表的开始日子",
+      "label": "一周开始于"
     },
     "switch": {
-      "off": "Kapat",
-      "on": "Aç"
+      "off": "关",
+      "on": "开"
     },
     "tagColors": {
       "description": "Draw charts about tags using corresponding tag colors",
@@ -82,7 +82,7 @@
   },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} Hesap | {0} Hesaplar",
+    "nAccounts": "账号 {0} | 账号 {0}",
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
@@ -90,18 +90,18 @@
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "H",
+      "calendarWeek": "周",
       "day": "d",
       "hour": "h",
       "minute": "min",
       "month": "M",
-      "quarter": "Ç",
+      "quarter": "季",
       "second": "s",
       "week": "W",
       "year": "Y"
     },
-    "account": "Hesap",
-    "accountEmpty": "Bu hesap boş, e-posta yok.",
+    "account": "账号",
+    "accountEmpty": "此账号为空，没有邮件。",
     "allAccounts": "All Accounts",
     "charts": {
       "contactsJunk": {
@@ -110,38 +110,38 @@
         "title": "Flagged as Junk"
       },
       "contactsReceived": {
-        "description": "Alıcı başına gönderilen e-posta sayısı",
+        "description": "每位收件人发送邮件数",
         "empty": "No received emails available.",
-        "title": "En çok gelen"
+        "title": "最多收取来自"
       },
       "contactsSent": {
-        "description": "Gönderen başına alınan e-posta sayısı",
+        "description": "每位寄件人收取邮件数",
         "empty": "No sent emails available.",
-        "title": "En çok gönderilen"
+        "title": "最多发送送往"
       },
       "days": {
-        "description": "Günlük e-posta sayısı",
-        "title": "{0} Etkinlik"
+        "description": "每个日期的电子邮件数",
+        "title": "活动于 {0}"
       },
       "daytime": {
-        "description": "Saat başına e-posta sayısı",
-        "title": "Saatlik"
+        "description": "一天内每时间段邮件数",
+        "title": "一天内"
       },
       "foldersDistribution": {
         "description": "Number of emails per folder",
         "title": "Folders distribution"
       },
       "month": {
-        "description": "Ay başına e-posta sayısı",
-        "title": "Ay"
+        "description": "一年内每月邮件数",
+        "title": "每月"
       },
       "months": {
-        "description": "Aylık toplam e-posta sayısı",
-        "title": "Aylık"
+        "description": "每月邮件总数",
+        "title": "月"
       },
       "quarters": {
-        "description": "Üç aylık toplam e-posta sayısı",
-        "title": "Çeyrek"
+        "description": "每季度邮件总数",
+        "title": "季度"
       },
       "tagsCount": {
         "description": "Total number of emails per tag",
@@ -149,20 +149,20 @@
         "title": "Tags"
       },
       "temporalDistribution": {
-        "description": "Hafta içi her saatte e-posta sayısı",
-        "title": "Zamansal dağılım"
+        "description": "每小时每个工作日的电子邮件数量",
+        "title": "时间分布"
       },
       "weekday": {
-        "description": "Gün başına e-posta sayısı",
-        "title": "Gün"
+        "description": "一周内每日邮件数",
+        "title": "一周内"
       },
       "weeks": {
-        "description": "Haftalık toplam e-posta sayısı",
-        "title": "Haftalık"
+        "description": "每周邮件总数",
+        "title": "周"
       },
       "years": {
-        "description": "Yıllık toplam e-posta sayısı",
-        "title": "Yıllık"
+        "description": "每年邮件总数",
+        "title": "年"
       }
     },
     "contact": "Contact",
@@ -171,27 +171,27 @@
     "folder": "Folder",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
-    "loadingInProgress": "Bu hesaptan e-postaların yüklenmesi devam ediyor…",
-    "mailsPerDay": "Günlük E-posta",
-    "mailsPerMonth": "Aylık E-posta",
+    "loadingInProgress": "正在加载此账号所有邮件……",
+    "mailsPerDay": "每日邮件",
+    "mailsPerMonth": "每月邮件",
     "mailsPerQuarter": "Mails per quarter",
     "mailsPerTag": "Mails per tag",
     "mailsPerWeek": "Mails per week",
     "mailsPerYear": "Mails per year",
-    "mailsReceived": "Alınan E-posta",
-    "mailsSent": "Gönderilen E-posta",
+    "mailsReceived": "邮件已收取",
+    "mailsSent": "邮件已发送",
     "mailsStarred": "Mails starred",
     "mailsTagged": "{0} mails tagged",
-    "mailsTotal": "Toplam e-posta",
-    "mailsUnread": "Okunmamış e-posta",
-    "mailsWeek": "e-posta/hafta",
-    "mailsYear": "e-posta/yıl",
+    "mailsTotal": "邮件总数",
+    "mailsUnread": "邮件未读取",
+    "mailsWeek": "邮件/周",
+    "mailsYear": "邮件/年",
     "message": "-",
-    "niceWork": "İyi İş!",
+    "niceWork": "做得不错！",
     "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
-    "percentOfReceived": "%{0} alındı",
-    "percentOfTotal": "Toplamın %{0}",
-    "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin",
+    "percentOfReceived": "已收取 {0}%",
+    "percentOfTotal": "占总数 {0}%",
+    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
     "timePeriod": "Date range",
     "title": "Statistics",
     "tooltips": {
@@ -206,7 +206,7 @@
         "dateUnreal": "A valid date is required",
         "empty": "Input is required"
       },
-      "expand": "Grafik alanını genişlet",
+      "expand": "放大图表范围",
       "exportData": "Export currently displayed data as JSON file",
       "folder": {
         "notAvailable": "Folders are not available for {0}"
@@ -215,10 +215,10 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Refresh data",
-      "shrink": "Grafik alanını küçült",
+      "refresh": "刷新资料",
+      "shrink": "缩小图表范围",
       "sum": "Show sum of all accounts"
     },
-    "withinYears": "{0} yıl içersinde"
+    "withinYears": "{0} 年内"
   }
 }

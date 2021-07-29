@@ -1,51 +1,51 @@
 {
   "extensionDescription": {
-    "message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
+    "message": "將您 Thunderbird 電子郵件帳號中統計資料進行視覺化"
   },
   "options": {
     "activeAccounts": {
       "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts",
+      "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。",
+      "label": "啟用帳號",
       "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "啟用快取系統以更快地顯示已處理的統計資料。",
+      "label": "啟用快取"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Clear Cache",
-      "size": "Cache size is {0}"
+      "description": "從所有帳號中刪除所有統計資料的快取。快取將在再次開啟統計資訊頁面時重新創建。",
+      "empty": "快取為空",
+      "label": "清理快取",
+      "size": "快取大小為 {0}"
     },
     "darkMode": {
-      "description": "Koyu ve açık renk düzeni arasında geçiş yapın",
-      "label": "Karanlık Modu"
+      "description": "切換淺色與深色佈景主題",
+      "label": "深色模式"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "外觀與體驗",
+      "stats": "圖表和資料",
+      "storage": "儲存和快取"
     },
     "leaderCount": {
       "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
       "label": "Leader Count"
     },
     "localIdentities": {
-      "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
-      "label": "Yerel Kimlikler"
+      "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識",
+      "label": "本機帳號"
     },
     "message": "-",
     "note": {
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
+      "reloadStatsPage": "選項將自動保存。如果已經開啟統計頁面，則必須重新開啟或重新讀取才能應用變更。",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "注意"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "顯示所有折線圖和長條圖的垂直軸",
+      "label": "垂直軸"
     },
     "resetOptions": {
       "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
@@ -67,12 +67,12 @@
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "description": "自定義工作日相關圖表的週起始日",
+      "label": "每一週的起始日為"
     },
     "switch": {
-      "off": "Kapat",
-      "on": "Aç"
+      "off": "關閉",
+      "on": "開啟"
     },
     "tagColors": {
       "description": "Draw charts about tags using corresponding tag colors",
@@ -82,27 +82,27 @@
   },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} Hesap | {0} Hesaplar",
-    "nFolders": "{0} Folder | {0} Folders",
+    "nAccounts": "{0} 帳號 | {0} 帳號",
+    "nFolders": "{0} 文件夾 | {0} 文件夾",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
     "openOptions": "Open Options"
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "H",
+      "calendarWeek": "週",
       "day": "d",
       "hour": "h",
       "minute": "min",
       "month": "M",
-      "quarter": "Ç",
+      "quarter": "季",
       "second": "s",
       "week": "W",
       "year": "Y"
     },
-    "account": "Hesap",
-    "accountEmpty": "Bu hesap boş, e-posta yok.",
-    "allAccounts": "All Accounts",
+    "account": "帳號",
+    "accountEmpty": "當前帳號為空，並沒有任何郵件。",
+    "allAccounts": "所有帳號",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -110,38 +110,38 @@
         "title": "Flagged as Junk"
       },
       "contactsReceived": {
-        "description": "Alıcı başına gönderilen e-posta sayısı",
+        "description": "每位收件人發送的電子郵件數量",
         "empty": "No received emails available.",
-        "title": "En çok gelen"
+        "title": "收到最多郵件來自"
       },
       "contactsSent": {
-        "description": "Gönderen başına alınan e-posta sayısı",
+        "description": "每位寄件人收到的電子郵件數量",
         "empty": "No sent emails available.",
-        "title": "En çok gönderilen"
+        "title": "寄送最多郵件去往"
       },
       "days": {
-        "description": "Günlük e-posta sayısı",
-        "title": "{0} Etkinlik"
+        "description": "每個日期的電子郵件數",
+        "title": "{0} 天內的活躍狀況"
       },
       "daytime": {
-        "description": "Saat başına e-posta sayısı",
-        "title": "Saatlik"
+        "description": "每天的郵件總數",
+        "title": "天"
       },
       "foldersDistribution": {
         "description": "Number of emails per folder",
         "title": "Folders distribution"
       },
       "month": {
-        "description": "Ay başına e-posta sayısı",
-        "title": "Ay"
+        "description": "每年每月的郵件數",
+        "title": "月"
       },
       "months": {
-        "description": "Aylık toplam e-posta sayısı",
-        "title": "Aylık"
+        "description": "每月的郵件總數",
+        "title": "月"
       },
       "quarters": {
-        "description": "Üç aylık toplam e-posta sayısı",
-        "title": "Çeyrek"
+        "description": "每季的郵件總數",
+        "title": "季"
       },
       "tagsCount": {
         "description": "Total number of emails per tag",
@@ -149,76 +149,76 @@
         "title": "Tags"
       },
       "temporalDistribution": {
-        "description": "Hafta içi her saatte e-posta sayısı",
-        "title": "Zamansal dağılım"
+        "description": "每小時每個工作日的電子郵件數量",
+        "title": "時間分佈"
       },
       "weekday": {
-        "description": "Gün başına e-posta sayısı",
-        "title": "Gün"
+        "description": "每週每天的郵件數",
+        "title": "週"
       },
       "weeks": {
-        "description": "Haftalık toplam e-posta sayısı",
-        "title": "Haftalık"
+        "description": "每週的郵件總數",
+        "title": "週"
       },
       "years": {
-        "description": "Yıllık toplam e-posta sayısı",
-        "title": "Yıllık"
+        "description": "每年的郵件總數",
+        "title": "年"
       }
     },
     "contact": "Contact",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "文件夾",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
-    "loadingInProgress": "Bu hesaptan e-postaların yüklenmesi devam ediyor…",
-    "mailsPerDay": "Günlük E-posta",
-    "mailsPerMonth": "Aylık E-posta",
+    "loadingInProgress": "正在讀取當前帳號的所有電子郵件……",
+    "mailsPerDay": "每日郵件",
+    "mailsPerMonth": "每月郵件",
     "mailsPerQuarter": "Mails per quarter",
     "mailsPerTag": "Mails per tag",
     "mailsPerWeek": "Mails per week",
     "mailsPerYear": "Mails per year",
-    "mailsReceived": "Alınan E-posta",
-    "mailsSent": "Gönderilen E-posta",
+    "mailsReceived": "已收到郵件",
+    "mailsSent": "已寄送郵件",
     "mailsStarred": "Mails starred",
     "mailsTagged": "{0} mails tagged",
-    "mailsTotal": "Toplam e-posta",
-    "mailsUnread": "Okunmamış e-posta",
-    "mailsWeek": "e-posta/hafta",
-    "mailsYear": "e-posta/yıl",
+    "mailsTotal": "郵件總數",
+    "mailsUnread": "未閱讀郵件",
+    "mailsWeek": "郵件/週",
+    "mailsYear": "郵件/年",
     "message": "-",
-    "niceWork": "İyi İş!",
+    "niceWork": "幹得好！",
     "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
-    "percentOfReceived": "%{0} alındı",
-    "percentOfTotal": "Toplamın %{0}",
-    "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin",
-    "timePeriod": "Date range",
+    "percentOfReceived": "已收到郵件的 {0}%",
+    "percentOfTotal": "佔郵件總數的 {0}%",
+    "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
+    "timePeriod": "日期範圍",
     "title": "Statistics",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "清除選取內容",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateFormat": "日期格式為 YYYY-MM-DD，例如：2020-01-31",
+        "dateOrderEnd": "結束日期必須晚於開始日期",
+        "dateOrderStart": "開始日期必須早於結束日期",
+        "dateUnreal": "必須輸入有效日期",
+        "empty": "請輸入內容"
       },
-      "expand": "Grafik alanını genişlet",
+      "expand": "展開圖表區域",
       "exportData": "Export currently displayed data as JSON file",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "文件夾不可用於 {0}"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "結束日期\n提示：鍵入 '{0}' 變為 '{1}'",
+        "start": "開始日期\n提示：鍵入 '{0}' 變為 '{1}'"
       },
-      "refresh": "Refresh data",
-      "shrink": "Grafik alanını küçült",
+      "refresh": "重新整理資料",
+      "shrink": "收起圖表區域",
       "sum": "Show sum of all accounts"
     },
-    "withinYears": "{0} yıl içersinde"
+    "withinYears": "{0} 年內"
   }
 }

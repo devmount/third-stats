@@ -2,201 +2,223 @@
   "extensionDescription": {
     "message": "Vackert visualiserad statistik för dina E-postkonton i Thunderbird"
   },
-  "popup": {
-    "message": "-",
-    "openAllStats": "Öppna all Statistik",
-    "openOptions": "Öppna Alternativ",
-    "nAccounts": "{0} Konto | {0} Konton",
-    "nFolders": "{0} Mapp | {0} Mappar",
-    "nMessages": "{0} Meddelande | {0} Meddelanden"
-  },
-  "stats": {
-    "mailsTotal": "Antal mejl",
-    "withinYears": "inom {0} år",
-    "mailsUnread": "Olästa mejl",
-    "niceWork": "Bra jobbat!",
-    "percentOfReceived": "{0}% av mottagna",
-    "mailsReceived": "Mottagna mejl",
-    "percentOfTotal": "{0}% av totalen",
-    "mailsSent": "Skickade mejl",
-    "mailsPerMonth": "Mejl per månad",
-    "mailsYear": "mejl/år",
-    "mailsPerDay": "Mejl per dag",
-    "mailsWeek": "mejl/vecka",
-    "loadingInProgress": "Inläsning av alla mejl från detta konto pågår…",
-    "accountEmpty": "Detta konto är tomt, inga mejl hittas.",
-    "timePeriod": "Tidsperiod",
-    "charts": {
-      "years": {
-        "title": "År",
-        "description": "Totala antalet mejl per år"
-      },
-      "quarters": {
-        "title": "Kvartal",
-        "description": "Totalt antal mejl per kvartal"
-      },
-      "months": {
-        "title": "Månader",
-        "description": "Totala antalet mejl per månad"
-      },
-      "weeks": {
-        "title": "Veckor",
-        "description": "Totala antalet mejl per vecka"
-      },
-      "days": {
-        "title": "Aktivitet under {0}",
-        "description": "Antal mejl per dag"
-      },
-      "daytime": {
-        "title": "Dag",
-        "description": "Antal mejl per tid på dagen"
-      },
-      "weekday": {
-        "title": "Veckodag",
-        "description": "Antal mejl per dag på veckan"
-      },
-      "month": {
-        "title": "Månad",
-        "description": "Antal mejl per månad på året"
-      },
-      "temporalDistribution": {
-        "title": "Timlig fördelning",
-        "description": "Antal mejl per veckodag per timme"
-      },
-      "contactsReceived": {
-        "title": "Mest mottaget från",
-        "description": "Antal mejl skickade per mottagare"
-      },
-      "contactsSent": {
-        "title": "Mest skickat till",
-        "description": "Antal mejl mottagna per avsändare"
-      },
-      "foldersDistribution": {
-        "description": "Antal e-postmeddelanden per mapp",
-        "title": "Mappdistribution"
-      },
-      "contactsJunk": {
-        "description": "Antal e-postmeddelanden markerade som Skräppost per avsändare",
-        "title": "Flaggad som Skräppost"
-      }
-    },
-    "tooltips": {
-      "expand": "Expandera diagramområdet",
-      "shrink": "Krymp diagramområdet",
-      "refresh": "Uppdatera data",
-      "clear": "Rensa urval",
-      "period": {
-        "start": "Från Datum\nTips: Skriver du '{0}' blir det '{1}'",
-        "end": "Till Datum\nTips: Skriver du '{0}' blir det '{1}'"
-      },
-      "error": {
-        "empty": "Indata krävs",
-        "dateFormat": "Format YYYY-MM-DD krävs, e.g. 2020-01-31",
-        "dateUnreal": "Ett giltigt datum krävs",
-        "dateOrderStart": "Startdatum måste vara före slutdatum",
-        "dateOrderEnd": "Slutdatum måste vara efter startdatum"
-      },
-      "folder": {
-        "notAvailable": "Mappar är inte tillgängliga för {0}"
-      },
-      "comparison": "Jämför konton i ett diagram",
-      "sum": "Visa summan av alla konton",
-      "exportData": "Exportera för närvarande visad data som JSON-fil",
-      "comparisonWhenAccountsOption": "Kontojämförelse är endast tillgänglig\nom mer än ett konto är aktiverat i tilläggsalternativ",
-      "comparisonWhenFilter": "Kontojämförelse är endast tillgänglig\nom 'Alla Konton' har valts i kontofiltret ovan"
-    },
-    "abbreviations": {
-      "calendarWeek": "V",
-      "quarter": "K",
-      "day": "d",
-      "hour": "t",
-      "minute": "min",
-      "second": "s"
-    },
-    "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>",
-    "message": "-",
-    "dataCollected": "Data samlad {0} sen",
-    "allAccounts": "Alla Konton",
-    "nonEmptyFolders": "icke-tomma mappar | icke-tom mapp | icke-tomma mappar",
-    "contact": "Kontakt",
-    "disclaimer": "ThirdStats gör inget anspråk för korrektheten på de uppgifter som visas. <br /> Vid eventuella problem, <a href='{0}' target='_blank'> skapa en felrapport </a>.",
-    "account": "Konto",
-    "folder": "Mapp",
-    "junkMails": "Skräppost",
-    "junkScore": "Skräppoäng av {0}"
-  },
   "options": {
+    "activeAccounts": {
+      "color": "Ge varje konto en anpassad färg för att skilja mellan dem i jämförelseläge.",
+      "description": "Aktivera eller inaktivera konton. Inaktiverade konton visas inte i kontolistor eller statistik.",
+      "label": "Aktiva Konton",
+      "sumAndCompare": "Aktivering av mer än ett konto aktiverar filteralternativet 'Alla Konton' för statistik för summa och jämförelse."
+    },
+    "cache": {
+      "description": "Aktivera cachingsystem för snabbare visning av redan bearbetad statistikdata.",
+      "label": "Aktivera Cache"
+    },
+    "clearCache": {
+      "description": "Ta bort all cachad statistikdata från alla konton. Kommer att återbyggas när statistiksidan öppnas igen.",
+      "empty": "Cache är tom",
+      "label": "Rensa Cache",
+      "size": "Cachestorlek är {0}"
+    },
+    "darkMode": {
+      "description": "Växla mellan mörkt och ljust färgschema",
+      "label": "Mörkt Läge"
+    },
     "headings": {
       "appearance": "Utseende & Erfarenhet",
       "stats": "Diagram & Data",
       "storage": "Lagring & Cache"
     },
-    "switch": {
-      "on": "På",
-      "off": "Av"
-    },
-    "darkMode": {
-      "label": "Mörkt Läge",
-      "description": "Växla mellan mörkt och ljust färgschema"
-    },
-    "ordinate": {
-      "label": "Vertikalaxel",
-      "description": "Visa vertikalaxel för alla linje- och stapeldiagram"
+    "leaderCount": {
+      "description": "Antal poster som visas i diagram som visar frekventa kontakter (maximalt 999)",
+      "label": "Ledarräkning"
     },
     "localIdentities": {
-      "label": "Lokala Identiteter",
-      "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton"
-    },
-    "startOfWeek": {
-      "label": "Starta Veckan på",
-      "description": "Anpassad start av vecka för alla veckodagsrelaterade diagram"
-    },
-    "activeAccounts": {
-      "label": "Aktiva Konton",
-      "description": "Aktivera eller inaktivera konton. Inaktiverade konton visas inte i kontolistor eller statistik.",
-      "color": "Ge varje konto en anpassad färg för att skilja mellan dem i jämförelseläge.",
-      "sumAndCompare": "Aktivering av mer än ett konto aktiverar filteralternativet 'Alla Konton' för statistik för summa och jämförelse."
-    },
-    "cache": {
-      "label": "Aktivera Cache",
-      "description": "Aktivera cachingsystem för snabbare visning av redan bearbetad statistikdata."
-    },
-    "clearCache": {
-      "label": "Rensa Cache",
-      "description": "Ta bort all cachad statistikdata från alla konton. Kommer att återbyggas när statistiksidan öppnas igen.",
-      "empty": "Cache är tom",
-      "size": "Cachestorlek är {0}"
-    },
-    "note": {
-      "title": "Notering",
-      "reloadStatsPage": "Alternativ sparas automatiskt. Om statistiksidan redan är öppen måste du öppna den igen eller ladda om den för att ändringar ska kunna tillämpas. För vissa alternativ är det också nödvändigt att uppdatera cachad data om cache är aktiverat.",
-      "reloadWindowRequired": "Om ändrat, måste statistikfönstret laddas om",
-      "refreshCacheRequired": "Om ändrat, måste cachen byggas om"
+      "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton",
+      "label": "Lokala Identiteter"
     },
     "message": "-",
+    "note": {
+      "refreshCacheRequired": "Om ändrat, måste cachen byggas om",
+      "reloadStatsPage": "Alternativ sparas automatiskt. Om statistiksidan redan är öppen måste du öppna den igen eller ladda om den för att ändringar ska kunna tillämpas. För vissa alternativ är det också nödvändigt att uppdatera cachad data om cache är aktiverat.",
+      "reloadWindowRequired": "Om ändrat, måste statistikfönstret laddas om",
+      "title": "Notering"
+    },
+    "ordinate": {
+      "description": "Visa vertikalaxel för alla linje- och stapeldiagram",
+      "label": "Vertikalaxel"
+    },
+    "resetOptions": {
+      "description": "Återställ alla alternativ till standardvärdena. Beroende på vilka alternativ du har ändrat tidigare kan en fönster eller cache-uppdatering krävas.",
+      "label": "Återställ alternativ",
+      "removeIdentities": "Detta tar också bort alla lokala identiteter du skapat."
+    },
     "selfMessages": {
-      "label": "Självmeddelanden",
       "description": "Exkludera meddelanden som var skickade från mig till mig själv",
-      "values": {
-        "none": "Inaktiverad",
-        "sameAccount": "Samma Konto Bara",
-        "anyAccount": "Från Alla Konton"
-      },
       "info": {
+        "anyAccount": "Meddelanden där avsändare och mottagare är identiteter från alla konton kommer bli exkluderade",
         "none": "Självmeddelanden kommer inkluderas och behandlas som normala mejl (standard)",
-        "sameAccount": "Meddelanden där avsändare och mottagare är identiteter från samma konto kommer bli exkluderade",
-        "anyAccount": "Meddelanden där avsändare och mottagare är identiteter från alla konton kommer bli exkluderade"
+        "sameAccount": "Meddelanden där avsändare och mottagare är identiteter från samma konto kommer bli exkluderade"
+      },
+      "label": "Självmeddelanden",
+      "values": {
+        "anyAccount": "Från Alla Konton",
+        "none": "Inaktiverad",
+        "sameAccount": "Samma Konto Bara"
       }
     },
-    "leaderCount": {
-      "label": "Ledarräkning",
-      "description": "Antal poster som visas i diagram som visar frekventa kontakter (maximalt 999)"
+    "startOfWeek": {
+      "description": "Anpassad start av vecka för alla veckodagsrelaterade diagram",
+      "label": "Starta Veckan på"
     },
-    "title": "Alternativ",
-    "resetOptions": {
-      "label": "Återställ alternativ",
-      "description": "Återställ alla alternativ till standardvärdena. Beroende på vilka alternativ du har ändrat tidigare kan en fönster eller cache-uppdatering krävas.",
-      "removeIdentities": "Detta tar också bort alla lokala identiteter du skapat."
-    }
+    "switch": {
+      "off": "Av",
+      "on": "På"
+    },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
+    "title": "Alternativ"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} Konto | {0} Konton",
+    "nFolders": "{0} Mapp | {0} Mappar",
+    "nMessages": "{0} Meddelande | {0} Meddelanden",
+    "openAllStats": "Öppna all Statistik",
+    "openOptions": "Öppna Alternativ"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "V",
+      "day": "d",
+      "hour": "t",
+      "minute": "min",
+      "month": "M",
+      "quarter": "K",
+      "second": "s",
+      "week": "W",
+      "year": "Y"
+    },
+    "account": "Konto",
+    "accountEmpty": "Detta konto är tomt, inga mejl hittas.",
+    "allAccounts": "Alla Konton",
+    "charts": {
+      "contactsJunk": {
+        "description": "Antal e-postmeddelanden markerade som Skräppost per avsändare",
+        "empty": "No emails flagged as Junk.",
+        "title": "Flaggad som Skräppost"
+      },
+      "contactsReceived": {
+        "description": "Antal mejl skickade per mottagare",
+        "empty": "No received emails available.",
+        "title": "Mest mottaget från"
+      },
+      "contactsSent": {
+        "description": "Antal mejl mottagna per avsändare",
+        "empty": "No sent emails available.",
+        "title": "Mest skickat till"
+      },
+      "days": {
+        "description": "Antal mejl per dag",
+        "title": "Aktivitet under {0}"
+      },
+      "daytime": {
+        "description": "Antal mejl per tid på dagen",
+        "title": "Dag"
+      },
+      "foldersDistribution": {
+        "description": "Antal e-postmeddelanden per mapp",
+        "title": "Mappdistribution"
+      },
+      "month": {
+        "description": "Antal mejl per månad på året",
+        "title": "Månad"
+      },
+      "months": {
+        "description": "Totala antalet mejl per månad",
+        "title": "Månader"
+      },
+      "quarters": {
+        "description": "Totalt antal mejl per kvartal",
+        "title": "Kvartal"
+      },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
+        "title": "Tags"
+      },
+      "temporalDistribution": {
+        "description": "Antal mejl per veckodag per timme",
+        "title": "Timlig fördelning"
+      },
+      "weekday": {
+        "description": "Antal mejl per dag på veckan",
+        "title": "Veckodag"
+      },
+      "weeks": {
+        "description": "Totala antalet mejl per vecka",
+        "title": "Veckor"
+      },
+      "years": {
+        "description": "Totala antalet mejl per år",
+        "title": "År"
+      }
+    },
+    "contact": "Kontakt",
+    "dataCollected": "Data samlad {0} sen",
+    "disclaimer": "ThirdStats gör inget anspråk för korrektheten på de uppgifter som visas. <br /> Vid eventuella problem, <a href='{0}' target='_blank'> skapa en felrapport </a>.",
+    "folder": "Mapp",
+    "junkMails": "Skräppost",
+    "junkScore": "Skräppoäng av {0}",
+    "loadingInProgress": "Inläsning av alla mejl från detta konto pågår…",
+    "mailsPerDay": "Mejl per dag",
+    "mailsPerMonth": "Mejl per månad",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
+    "mailsReceived": "Mottagna mejl",
+    "mailsSent": "Skickade mejl",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
+    "mailsTotal": "Antal mejl",
+    "mailsUnread": "Olästa mejl",
+    "mailsWeek": "mejl/vecka",
+    "mailsYear": "mejl/år",
+    "message": "-",
+    "niceWork": "Bra jobbat!",
+    "nonEmptyFolders": "icke-tomma mappar | icke-tom mapp | icke-tomma mappar",
+    "percentOfReceived": "{0}% av mottagna",
+    "percentOfTotal": "{0}% av totalen",
+    "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>",
+    "timePeriod": "Tidsperiod",
+    "title": "Statistics",
+    "tooltips": {
+      "clear": "Rensa urval",
+      "comparison": "Jämför konton i ett diagram",
+      "comparisonWhenAccountsOption": "Kontojämförelse är endast tillgänglig\nom mer än ett konto är aktiverat i tilläggsalternativ",
+      "comparisonWhenFilter": "Kontojämförelse är endast tillgänglig\nom 'Alla Konton' har valts i kontofiltret ovan",
+      "error": {
+        "dateFormat": "Format YYYY-MM-DD krävs, e.g. 2020-01-31",
+        "dateOrderEnd": "Slutdatum måste vara efter startdatum",
+        "dateOrderStart": "Startdatum måste vara före slutdatum",
+        "dateUnreal": "Ett giltigt datum krävs",
+        "empty": "Indata krävs"
+      },
+      "expand": "Expandera diagramområdet",
+      "exportData": "Exportera för närvarande visad data som JSON-fil",
+      "folder": {
+        "notAvailable": "Mappar är inte tillgängliga för {0}"
+      },
+      "period": {
+        "end": "Till Datum\nTips: Skriver du '{0}' blir det '{1}'",
+        "start": "Från Datum\nTips: Skriver du '{0}' blir det '{1}'"
+      },
+      "refresh": "Uppdatera data",
+      "shrink": "Krymp diagramområdet",
+      "sum": "Visa summan av alla konton"
+    },
+    "withinYears": "inom {0} år"
   }
 }
