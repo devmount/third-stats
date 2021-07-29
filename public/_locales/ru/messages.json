@@ -75,8 +75,8 @@
       "on": "Вкл"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Строить диаграммы о тегах, используя соответствующие цвета тегов",
+      "label": "Цвета тегов"
     },
     "title": "Настройки"
   },
@@ -94,11 +94,11 @@
       "day": "д",
       "hour": "ч",
       "minute": "мин",
-      "month": "M",
+      "month": "м",
       "quarter": "К",
       "second": "с",
-      "week": "W",
-      "year": "Y"
+      "week": "н",
+      "year": "г"
     },
     "account": "Аккаунт",
     "accountEmpty": "Пустой аккаунт, писем нет.",
@@ -106,17 +106,17 @@
     "charts": {
       "contactsJunk": {
         "description": "Количество спам писем по отправителю",
-        "empty": "No emails flagged as Junk.",
+        "empty": "Нет писем, помеченных как нежелательные.",
         "title": "Помечено как Спам"
       },
       "contactsReceived": {
         "description": "Количество писем, полученных от",
-        "empty": "No received emails available.",
+        "empty": "Полученные электронные письма отсутствуют.",
         "title": "Наибольшее число входящих"
       },
       "contactsSent": {
         "description": "Количество писем, отправленных адресату",
-        "empty": "No sent emails available.",
+        "empty": "Отправленные сообщения электронной почты отсутствуют.",
         "title": "Наибольшее число исходящих"
       },
       "days": {
@@ -144,9 +144,9 @@
         "title": "Кварталы"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
-        "title": "Tags"
+        "description": "Общее количество писем по каждому тегу",
+        "empty": "Данные тегов отсутствуют.",
+        "title": "Теги"
       },
       "temporalDistribution": {
         "description": "Количество писем за день недели за час",
@@ -174,14 +174,14 @@
     "loadingInProgress": "Идет обработка писем…",
     "mailsPerDay": "Писем за день",
     "mailsPerMonth": "Писем за месяц",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Письма в квартал",
+    "mailsPerTag": "Сообщения на метку",
+    "mailsPerWeek": "Сообщения в неделю",
+    "mailsPerYear": "Почта в год",
     "mailsReceived": "Входящих писем",
     "mailsSent": "Исходящих писем",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Почта со звездочками",
+    "mailsTagged": "{0} письма с меткой",
     "mailsTotal": "Всего писем",
     "mailsUnread": "Непрочитанных писем",
     "message": "-",
@@ -191,7 +191,7 @@
     "percentOfTotal": "{0}% от общего количества",
     "starAndImprove": "Оцените и улучшите этот проект на <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Период",
-    "title": "Statistics",
+    "title": "Статистика",
     "tooltips": {
       "clear": "Сброс фильтра",
       "comparison": "Сравнить аккаунты на одном графике",
