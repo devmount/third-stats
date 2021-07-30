@@ -97,7 +97,7 @@
       "month": "M",
       "quarter": "¼",
       "second": "mp",
-      "week": "W",
+      "week": "H",
       "year": "Y"
     },
     "account": "Fiók",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "Címkék"
       },
       "temporalDistribution": {
         "description": "Hétköznap / óra e-mailek száma",
@@ -191,7 +191,7 @@
     "percentOfTotal": "Az összes {0}%-a",
     "starAndImprove": "Légy sztár, villálj a <a href='{0}' target='_blank'>GitHub</a>on.",
     "timePeriod": "Dátumtartomány",
-    "title": "Statistics",
+    "title": "Statisztika",
     "tooltips": {
       "clear": "Kijelölés törlése",
       "comparison": "Fiókok összehasonlítása egy diagramban",

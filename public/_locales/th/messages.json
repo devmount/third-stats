@@ -15,13 +15,13 @@
     },
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Clear Cache",
+      "empty": "ล้างแคชทั้งหมดแล้ว",
+      "label": "ล้างแคช",
       "size": "Cache size is {0}"
     },
     "darkMode": {
       "description": "Switch between dark and light color scheme",
-      "label": "Dark Mode"
+      "label": "โหมดมืด"
     },
     "headings": {
       "appearance": "Appearance & Experience",
@@ -41,7 +41,7 @@
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "หมายเหตุ"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -62,23 +62,23 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Disabled",
+        "none": "ปิดใช้งาน",
         "sameAccount": "Same Account Only"
       }
     },
     "startOfWeek": {
       "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "label": "เริ่มต้นสัปดาห์ใน"
     },
     "switch": {
-      "off": "Off",
-      "on": "On"
+      "off": "ปิด",
+      "on": "เปิด"
     },
     "tagColors": {
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Options"
+    "title": "ตัวเลือก"
   },
   "popup": {
     "message": "-",
@@ -86,14 +86,14 @@
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "openOptions": "เปิดตัวเลือก"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "W",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "นาที",
       "month": "M",
       "quarter": "Q",
       "second": "s",
@@ -102,7 +102,7 @@
     },
     "account": "บัญชีผู้ใช้",
     "accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
-    "allAccounts": "All Accounts",
+    "allAccounts": "บัญชีผู้ใช้ทั้งหมด",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "แท็ก"
       },
       "temporalDistribution": {
         "description": "จำนวนอีเมลต่อวันต่อชั่วโมง",
@@ -165,10 +165,10 @@
         "title": "ปี"
       }
     },
-    "contact": "Contact",
+    "contact": "ติดต่อ",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "โฟลเดอร์",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
     "loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้…",
@@ -190,10 +190,10 @@
     "percentOfReceived": "{0}% ของที่ได้รับ",
     "percentOfTotal": "{0}% ของทั้งหมด",
     "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "ช่วงวันที่",
+    "title": "สถิติ",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "ล้างการเลือก",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
@@ -213,7 +213,7 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Refresh data",
+      "refresh": "รีเฟรชข้อมูล",
       "shrink": "หดพื้นที่แผนภูมิ",
       "sum": "Show sum of all accounts"
     },

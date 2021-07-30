@@ -62,7 +62,7 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Disabled",
+        "none": "已禁用",
         "sameAccount": "Same Account Only"
       }
     },
@@ -78,7 +78,7 @@
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Options"
+    "title": "选项"
   },
   "popup": {
     "message": "-",
@@ -86,23 +86,23 @@
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "openOptions": "打开选项"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "周",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "分钟",
       "month": "M",
       "quarter": "季",
       "second": "s",
-      "week": "W",
+      "week": "星期",
       "year": "Y"
     },
     "account": "账号",
     "accountEmpty": "此账号为空，没有邮件。",
-    "allAccounts": "All Accounts",
+    "allAccounts": "所有帐户",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "标签"
       },
       "temporalDistribution": {
         "description": "每小时每个工作日的电子邮件数量",
@@ -165,10 +165,10 @@
         "title": "年"
       }
     },
-    "contact": "Contact",
+    "contact": "联系人",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "文件夹",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
     "loadingInProgress": "正在加载此账号所有邮件……",
@@ -190,10 +190,10 @@
     "percentOfReceived": "已收取 {0}%",
     "percentOfTotal": "占总数 {0}%",
     "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "日期范围",
+    "title": "统计",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "清除选择",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",

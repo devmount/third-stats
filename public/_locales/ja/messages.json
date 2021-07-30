@@ -97,7 +97,7 @@
       "month": "M",
       "quarter": "四半期",
       "second": "秒",
-      "week": "W",
+      "week": "曜日",
       "year": "Y"
     },
     "account": "アカウント",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "タグ"
       },
       "temporalDistribution": {
         "description": "平日1時間あたりのールの数",
@@ -191,7 +191,7 @@
     "percentOfTotal": "全体の{0}%",
     "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください",
     "timePeriod": "日付範囲",
-    "title": "Statistics",
+    "title": "統計",
     "tooltips": {
       "clear": "選択を消去する",
       "comparison": "1つのチャートでアカウントを比較する",

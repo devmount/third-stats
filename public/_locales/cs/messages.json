@@ -16,7 +16,7 @@
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
       "empty": "Cache is empty",
-      "label": "Clear Cache",
+      "label": "Vymazat mezipaměť",
       "size": "Cache size is {0}"
     },
     "darkMode": {
@@ -41,7 +41,7 @@
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "Poznámka"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -62,13 +62,13 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Disabled",
+        "none": "Vypnuto",
         "sameAccount": "Same Account Only"
       }
     },
     "startOfWeek": {
       "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "label": "Počáteční den týdne"
     },
     "switch": {
       "off": "Vypnuto",
@@ -78,7 +78,7 @@
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Options"
+    "title": "Možnosti"
   },
   "popup": {
     "message": "-",
@@ -86,7 +86,7 @@
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "openOptions": "Otevřené možnosti"
   },
   "stats": {
     "abbreviations": {
@@ -102,7 +102,7 @@
     },
     "account": "Účet",
     "accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
-    "allAccounts": "All Accounts",
+    "allAccounts": "Všechny účty",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "Štítky"
       },
       "temporalDistribution": {
         "description": "Počet e-mailů dle dní v týdnu a denní doby",
@@ -165,10 +165,10 @@
         "title": "Roky"
       }
     },
-    "contact": "Contact",
+    "contact": "Kontakt",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "Složka",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
     "loadingInProgress": "Načítám všechny e-mail z tohoto účtu…",
@@ -190,16 +190,16 @@
     "percentOfReceived": "{0}% přijatých",
     "percentOfTotal": "{0}% z celkového počtu",
     "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "Rozsah dat",
+    "title": "Statistiky",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "Zrušit výběr",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
       "error": {
         "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
+        "dateOrderEnd": "Datum ukončení musí být po datu zahájení",
         "dateOrderStart": "Start date must be before end date",
         "dateUnreal": "A valid date is required",
         "empty": "Input is required"
@@ -213,7 +213,7 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Refresh data",
+      "refresh": "Aktualizovat údaje",
       "shrink": "Zmenšit graf",
       "sum": "Show sum of all accounts"
     },

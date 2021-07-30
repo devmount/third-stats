@@ -16,7 +16,7 @@
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
       "empty": "Cache is empty",
-      "label": "Clear Cache",
+      "label": "Netejar memòria cau",
       "size": "Cache size is {0}"
     },
     "darkMode": {
@@ -41,7 +41,7 @@
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "Nota"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -62,13 +62,13 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Disabled",
+        "none": "Desactivat",
         "sameAccount": "Same Account Only"
       }
     },
     "startOfWeek": {
       "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "label": "La setmana comença"
     },
     "switch": {
       "off": "Desactivar",
@@ -78,7 +78,7 @@
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Options"
+    "title": "Opcions"
   },
   "popup": {
     "message": "-",
@@ -86,23 +86,23 @@
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "openOptions": "Obre opcions"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "S",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "mín",
       "month": "M",
       "quarter": "Q",
       "second": "s",
-      "week": "W",
+      "week": "S",
       "year": "Y"
     },
     "account": "Compte",
     "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
-    "allAccounts": "All Accounts",
+    "allAccounts": "Tots els comptes",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "Etiquetes"
       },
       "temporalDistribution": {
         "description": "Nombre de correus per dia de setmana i hora",
@@ -165,10 +165,10 @@
         "title": "Anys"
       }
     },
-    "contact": "Contact",
+    "contact": "Contacte",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "Carpeta",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
     "loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs…",
@@ -190,10 +190,10 @@
     "percentOfReceived": "{0}% de rebuts",
     "percentOfTotal": "{0}% de total",
     "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "Interval de dates",
+    "title": "Estadístiques",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "Esborra la selecció",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
@@ -213,7 +213,7 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Refresh data",
+      "refresh": "Actualitza les dades",
       "shrink": "Redueix l'àrea del gràfic",
       "sum": "Show sum of all accounts"
     },

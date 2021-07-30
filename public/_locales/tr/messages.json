@@ -15,8 +15,8 @@
     },
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Clear Cache",
+      "empty": "Önbellek Temizdir",
+      "label": "Önbelleği temizle",
       "size": "Cache size is {0}"
     },
     "darkMode": {
@@ -41,7 +41,7 @@
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "Not"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -62,13 +62,13 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Disabled",
+        "none": "Devre dışı",
         "sameAccount": "Same Account Only"
       }
     },
     "startOfWeek": {
       "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "label": "Haftanın ilk günü"
     },
     "switch": {
       "off": "Kapat",
@@ -78,7 +78,7 @@
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Options"
+    "title": "Seçenekler"
   },
   "popup": {
     "message": "-",
@@ -86,23 +86,23 @@
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "openOptions": "Ayarları Aç"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "H",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "dk",
       "month": "M",
       "quarter": "Ç",
       "second": "s",
-      "week": "W",
+      "week": "H",
       "year": "Y"
     },
     "account": "Hesap",
     "accountEmpty": "Bu hesap boş, e-posta yok.",
-    "allAccounts": "All Accounts",
+    "allAccounts": "Tüm hesaplar",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "Etiketler"
       },
       "temporalDistribution": {
         "description": "Hafta içi her saatte e-posta sayısı",
@@ -165,10 +165,10 @@
         "title": "Yıllık"
       }
     },
-    "contact": "Contact",
+    "contact": "Kişi",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "Klasör",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
     "loadingInProgress": "Bu hesaptan e-postaların yüklenmesi devam ediyor…",
@@ -190,10 +190,10 @@
     "percentOfReceived": "%{0} alındı",
     "percentOfTotal": "Toplamın %{0}",
     "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "Tarih aralığı",
+    "title": "İstatistikler",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "Seçimi temizle",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
@@ -213,7 +213,7 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Refresh data",
+      "refresh": "Verileri yenile",
       "shrink": "Grafik alanını küçült",
       "sum": "Show sum of all accounts"
     },

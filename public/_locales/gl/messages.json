@@ -93,11 +93,11 @@
       "calendarWeek": "S",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "mín",
       "month": "M",
       "quarter": "T",
       "second": "s",
-      "week": "W",
+      "week": "S",
       "year": "Y"
     },
     "account": "Conta",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "Etiquetas"
       },
       "temporalDistribution": {
         "description": "Correos por día e hora",
@@ -191,7 +191,7 @@
     "percentOfTotal": "{0}% do total",
     "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Intervalo de datas",
-    "title": "Statistics",
+    "title": "Estatísticas",
     "tooltips": {
       "clear": "Borrar selección",
       "comparison": "Compare as contas nun gráfico",

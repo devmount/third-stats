@@ -16,7 +16,7 @@
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
       "empty": "Cache is empty",
-      "label": "Clear Cache",
+      "label": "कैश को साफ़ करें",
       "size": "Cache size is {0}"
     },
     "darkMode": {
@@ -41,7 +41,7 @@
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Note"
+      "title": "नोट"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -62,13 +62,13 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Disabled",
+        "none": "अक्षम किया गया",
         "sameAccount": "Same Account Only"
       }
     },
     "startOfWeek": {
       "description": "Custom start of week for all weekday related charts",
-      "label": "Start the Week on"
+      "label": "सप्ताह प्रारंभ"
     },
     "switch": {
       "off": "बंद करे",
@@ -78,7 +78,7 @@
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Options"
+    "title": "विकल्प"
   },
   "popup": {
     "message": "-",
@@ -86,14 +86,14 @@
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Open Options"
+    "openOptions": "विकल्प खोलें"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "W",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "मिनट",
       "month": "M",
       "quarter": "Q",
       "second": "s",
@@ -102,7 +102,7 @@
     },
     "account": "खाता",
     "accountEmpty": "इस खाते में कोई मेल नहीं है।",
-    "allAccounts": "All Accounts",
+    "allAccounts": "सभी खाते",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "टैग"
       },
       "temporalDistribution": {
         "description": "हर सप्ताह में प्रति घंटे आने वाले ईमेल की संख्या",
@@ -165,10 +165,10 @@
         "title": "साल"
       }
     },
-    "contact": "Contact",
+    "contact": "संपर्क",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Folder",
+    "folder": "फ़ोल्डर",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
     "loadingInProgress": "इस खाते के सभी मेल प्राप्त किए जा रहे है…",
@@ -190,10 +190,10 @@
     "percentOfReceived": "{0}% प्राप्त किया",
     "percentOfTotal": "कुल का {0}%",
     "starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें",
-    "timePeriod": "Date range",
-    "title": "Statistics",
+    "timePeriod": "तिथि सीमा",
+    "title": "स्टैटीस्टिक्स",
     "tooltips": {
-      "clear": "Clear selection",
+      "clear": "चयन साफ़ करें",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
@@ -213,7 +213,7 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Refresh data",
+      "refresh": "डेटा रिफ्रेश करें",
       "shrink": "चार्ट क्षेत्र सिकोड़ें",
       "sum": "Show sum of all accounts"
     },

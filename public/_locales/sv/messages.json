@@ -97,7 +97,7 @@
       "month": "M",
       "quarter": "K",
       "second": "s",
-      "week": "W",
+      "week": "V",
       "year": "Y"
     },
     "account": "Konto",
@@ -146,7 +146,7 @@
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tags"
+        "title": "Taggar"
       },
       "temporalDistribution": {
         "description": "Antal mejl per veckodag per timme",
@@ -191,7 +191,7 @@
     "percentOfTotal": "{0}% av totalen",
     "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Tidsperiod",
-    "title": "Statistics",
+    "title": "Statistik",
     "tooltips": {
       "clear": "Rensa urval",
       "comparison": "Jämför konton i ett diagram",
