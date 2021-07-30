@@ -3,38 +3,120 @@
     "message": "आपके थंडरबर्ड ईमेल खातों के लिए सरल और सुंदर आँकड़े"
   },
   "options": {
+    "activeAccounts": {
+      "color": "Give each account a custom color to distinguish between them in comparison mode.",
+      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
+      "label": "Active Accounts",
+      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+    },
+    "cache": {
+      "description": "Enable caching system for faster display of already processed stats data.",
+      "label": "Activate Cache"
+    },
+    "clearCache": {
+      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
+      "empty": "Cache is empty",
+      "label": "कैश को साफ़ करें",
+      "size": "Cache size is {0}"
+    },
     "darkMode": {
       "description": "डार्क और लाइट कलर स्कीम के बीच स्विच करें",
       "label": "डार्क मोड"
+    },
+    "headings": {
+      "appearance": "Appearance & Experience",
+      "stats": "Charts & Data",
+      "storage": "Storage & Cache"
+    },
+    "leaderCount": {
+      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
+      "label": "Leader Count"
     },
     "localIdentities": {
       "description": "स्थानीय खातों के लिए 'से भेजा' के रूप में पहचान करने के लिए एक कॉमा सेपरेटेड ईमेल पतों की सूची",
       "label": "स्थानीय पहचान"
     },
     "message": "-",
+    "note": {
+      "refreshCacheRequired": "If changed, cache needs to be rebuild",
+      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
+      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "title": "नोट"
+    },
+    "ordinate": {
+      "description": "Display vertical axis for all line and bar charts",
+      "label": "Vertical Axis"
+    },
+    "resetOptions": {
+      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
+      "label": "Reset Options",
+      "removeIdentities": "This will also remove all local identities you created."
+    },
+    "selfMessages": {
+      "description": "Exclude messages that were sent from me to myself",
+      "info": {
+        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
+        "none": "Messages to self will be included and treated as normal emails (default)",
+        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+      },
+      "label": "Messages to Self",
+      "values": {
+        "anyAccount": "From Any Account",
+        "none": "अक्षम किया गया",
+        "sameAccount": "Same Account Only"
+      }
+    },
+    "startOfWeek": {
+      "description": "Custom start of week for all weekday related charts",
+      "label": "सप्ताह प्रारंभ"
+    },
     "switch": {
       "off": "बंद करे",
       "on": "चालू करे"
-    }
+    },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
+    "title": "विकल्प"
   },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} खाता | {0} खाते"
+    "nAccounts": "{0} खाता | {0} खाते",
+    "nFolders": "{0} Folder | {0} Folders",
+    "nMessages": "{0} Message | {0} Messages",
+    "openAllStats": "Open all Stats",
+    "openOptions": "विकल्प खोलें"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "W",
-      "quarter": "Q"
+      "day": "d",
+      "hour": "h",
+      "minute": "मिनट",
+      "month": "M",
+      "quarter": "Q",
+      "second": "s",
+      "week": "W",
+      "year": "Y"
     },
     "account": "खाता",
     "accountEmpty": "इस खाते में कोई मेल नहीं है।",
+    "allAccounts": "सभी खाते",
     "charts": {
+      "contactsJunk": {
+        "description": "Number of emails marked as Junk per sender",
+        "empty": "No emails flagged as Junk.",
+        "title": "Flagged as Junk"
+      },
       "contactsReceived": {
         "description": "को सबसे ज़्यादा भेजे गए है",
+        "empty": "No received emails available.",
         "title": "द्वारा सबसे ज़्यादा प्राप्त किए गए है"
       },
       "contactsSent": {
         "description": "प्रत्येक प्रेषक के द्वारा पाए गए मेल।",
+        "empty": "No sent emails available.",
         "title": "को सबसे ज़्यादा भेजे गए है"
       },
       "days": {
@@ -44,6 +126,10 @@
       "daytime": {
         "description": "प्रति दिन, समय के हिसाब से ईमेल की संख्या",
         "title": "दिन"
+      },
+      "foldersDistribution": {
+        "description": "Number of emails per folder",
+        "title": "Folders distribution"
       },
       "month": {
         "description": "प्रति माह ईमेल की संख्या",
@@ -56,6 +142,11 @@
       "quarters": {
         "description": "प्रति त्रिमास ईमेल की संख्या",
         "title": "त्रिमास"
+      },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
+        "title": "टैग"
       },
       "temporalDistribution": {
         "description": "हर सप्ताह में प्रति घंटे आने वाले ईमेल की संख्या",
@@ -74,23 +165,57 @@
         "title": "साल"
       }
     },
+    "contact": "संपर्क",
+    "dataCollected": "Data collected {0} ago",
+    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "folder": "फ़ोल्डर",
+    "junkMails": "Junk mails",
+    "junkScore": "Junk score of {0}",
     "loadingInProgress": "इस खाते के सभी मेल प्राप्त किए जा रहे है…",
     "mailsPerDay": "मेल्स प्रति दिन",
     "mailsPerMonth": "मेल्स प्रति महिना",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
     "mailsReceived": "मेल्स प्राप्त हुए",
     "mailsSent": "मेल्स भेज दिए गए",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
     "mailsTotal": "कुल मेल",
     "mailsUnread": "अपठित मेल्स",
-    "mailsWeek": "मेल्स/सप्ताह",
-    "mailsYear": "मेल्स/साल",
     "message": "-",
     "niceWork": "बोहोत ख़ूब!",
+    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
     "percentOfReceived": "{0}% प्राप्त किया",
     "percentOfTotal": "कुल का {0}%",
     "starAndImprove": "<a href='{0}' target='_blank'>गिटहब</a> पर इस प्रोजेक्ट को स्टार करें और सुधारें",
+    "timePeriod": "तिथि सीमा",
+    "title": "स्टैटीस्टिक्स",
     "tooltips": {
+      "clear": "चयन साफ़ करें",
+      "comparison": "Compare accounts in one chart",
+      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
+      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "error": {
+        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateOrderEnd": "End date must be after start date",
+        "dateOrderStart": "Start date must be before end date",
+        "dateUnreal": "A valid date is required",
+        "empty": "Input is required"
+      },
       "expand": "चार्ट क्षेत्र का विस्तार करें",
-      "shrink": "चार्ट क्षेत्र सिकोड़ें"
+      "exportData": "Export currently displayed data as JSON file",
+      "folder": {
+        "notAvailable": "Folders are not available for {0}"
+      },
+      "period": {
+        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
+        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+      },
+      "refresh": "डेटा रिफ्रेश करें",
+      "shrink": "चार्ट क्षेत्र सिकोड़ें",
+      "sum": "Show sum of all accounts"
     },
     "withinYears": "{0} साल के भीतर"
   }

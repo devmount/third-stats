@@ -72,7 +72,11 @@
     },
     "switch": {
       "off": "Off",
-      "on": "On"
+      "on": "Sì"
+    },
+    "tagColors": {
+      "description": "Disegna grafici sui tag utilizzando i colori dei tag corrispondenti",
+      "label": "Colori tag"
     },
     "title": "Opzioni"
   },
@@ -86,27 +90,33 @@
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "W",
-      "day": "d",
-      "hour": "h",
+      "calendarWeek": "S",
+      "day": "g",
+      "hour": "o",
       "minute": "min",
-      "quarter": "Q",
-      "second": "s"
+      "month": "M",
+      "quarter": "T",
+      "second": "s",
+      "week": "S",
+      "year": "a"
     },
-    "account": "Account",
+    "account": "Conto",
     "accountEmpty": "Questo account è vuoto, non ci sono email qui.",
     "allAccounts": "Tutti i account",
     "charts": {
       "contactsJunk": {
         "description": "Numero di messaggi di posta elettronica contrassegnati come Posta indesiderata per mittente",
+        "empty": "Nessuna email contrassegnata come spazzatura.",
         "title": "Contrassegnato come spazzatura"
       },
       "contactsReceived": {
         "description": "Numero di email ricevute per indirizzo",
+        "empty": "Nessuna e-mail ricevuta disponibile.",
         "title": "Più ricevute da"
       },
       "contactsSent": {
         "description": "Numero di email inviate per indirizzo",
+        "empty": "Nessuna e-mail inviata disponibile.",
         "title": "Più inviate a"
       },
       "days": {
@@ -132,6 +142,11 @@
       "quarters": {
         "description": "Numero totale di email per trimestre",
         "title": "Trimestri"
+      },
+      "tagsCount": {
+        "description": "Numero totale di e-mail per tag",
+        "empty": "Nessun dato di tag disponibile.",
+        "title": "Tag"
       },
       "temporalDistribution": {
         "description": "Numero di email per giorno della settimana e orario",
@@ -159,12 +174,16 @@
     "loadingInProgress": "Caricamento di tutte le email da questo account in corso…",
     "mailsPerDay": "Mail al giorno",
     "mailsPerMonth": "Mail al mese",
+    "mailsPerQuarter": "Messaggi per trimestre",
+    "mailsPerTag": "Messaggi per tag",
+    "mailsPerWeek": "Messaggi a settimana",
+    "mailsPerYear": "Messaggi all'anno",
     "mailsReceived": "Mail ricevute",
     "mailsSent": "Mail inviate",
+    "mailsStarred": "Messaggi stellati",
+    "mailsTagged": "{0} messaggi taggati",
     "mailsTotal": "Mail totali",
     "mailsUnread": "Mail non lette",
-    "mailsWeek": "mail/settimana",
-    "mailsYear": "mail/anno",
     "message": "-",
     "niceWork": "Ottimo lavoro!",
     "nonEmptyFolders": "cartelle non vuote | cartella non vuota | cartelle non vuote",
@@ -172,6 +191,7 @@
     "percentOfTotal": "{0}% del totale",
     "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Periodo di tempo",
+    "title": "Statistiche",
     "tooltips": {
       "clear": "Cancella selezione",
       "comparison": "Confronta i conti in un grafico",

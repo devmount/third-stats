@@ -2,201 +2,221 @@
   "extensionDescription": {
     "message": "Estatísticas visualmente atractivas para as túas contas de correo en Thunderbird"
   },
-  "popup": {
-    "message": "-",
-    "nAccounts": "{0} Conta | {0} Contas",
-    "openAllStats": "Abre todas as estatísticas",
-    "openOptions": "Abre as opcións",
-    "nFolders": "{0} Cartafol | {0} Cartafoles",
-    "nMessages": "{0} Mensaxe | {0} Mensaxes"
-  },
-  "stats": {
-    "mailsTotal": "Total correos",
-    "withinYears": "nos últimos {0} anos",
-    "mailsUnread": "Correos sen ler",
-    "niceWork": "Bo traballo!",
-    "percentOfReceived": "{0}% dos recibidos",
-    "mailsReceived": "Correos recibidos",
-    "percentOfTotal": "{0}% do total",
-    "mailsSent": "Correos enviados",
-    "mailsPerMonth": "Correos por mes",
-    "mailsYear": "correos/ano",
-    "mailsPerDay": "Correos por día",
-    "mailsWeek": "correos/semana",
-    "loadingInProgress": "Cargando todos os correos desta conta…",
-    "accountEmpty": "Esta conta non ten ningún correo.",
-    "charts": {
-      "years": {
-        "title": "Anos",
-        "description": "Número total de correos por ano"
-      },
-      "quarters": {
-        "title": "Trimestres",
-        "description": "Número total de correos por trimestre"
-      },
-      "months": {
-        "title": "Meses",
-        "description": "Número total de correos por mes"
-      },
-      "weeks": {
-        "title": "Semanas",
-        "description": "Número total de correos por semanas"
-      },
-      "days": {
-        "title": "Actividade en {0}",
-        "description": "Número de recibidos por día"
-      },
-      "daytime": {
-        "title": "Hora do día",
-        "description": "Número de correos por hora"
-      },
-      "weekday": {
-        "title": "Día (da semana)",
-        "description": "Número de correos por día (da semana)"
-      },
-      "month": {
-        "title": "Meses",
-        "description": "Número total de correos por mes"
-      },
-      "temporalDistribution": {
-        "title": "Distribución temporal",
-        "description": "Correos por día e hora"
-      },
-      "contactsReceived": {
-        "title": "Máis correos recibidos de",
-        "description": "Número de correos recibidos por remitente"
-      },
-      "contactsSent": {
-        "title": "Máis correos enviados a",
-        "description": "Número de correos enviados por destinatario"
-      },
-      "foldersDistribution": {
-        "description": "Número de correos electrónicos por cartafol",
-        "title": "Distribución dos cartafoles"
-      },
-      "contactsJunk": {
-        "description": "Número de correos electrónicos marcados como lixo por remitente",
-        "title": "Marcado como lixo"
-      }
-    },
-    "tooltips": {
-      "expand": "Aumentar área da gráfica",
-      "shrink": "Diminuír área da gráfica",
-      "refresh": "Actualizar",
-      "clear": "Borrar selección",
-      "period": {
-        "start": "A partir da data\nConsello: escribir \"{0}\" convértese en \"{1}\"",
-        "end": "Ata a data\nConsello: escribir \"{0}\" convértese en \"{1}\""
-      },
-      "error": {
-        "empty": "Obrigatorio",
-        "dateFormat": "Requírese o formato AAAA-MM-DD, por exemplo 2020-01-31",
-        "dateUnreal": "É necesaria unha data válida",
-        "dateOrderStart": "A data de inicio debe ser anterior á data de finalización",
-        "dateOrderEnd": "A data de finalización debe ser posterior á data de inicio"
-      },
-      "folder": {
-        "notAvailable": "Os cartafoles non están dispoñibles para {0}"
-      },
-      "comparison": "Compare as contas nun gráfico",
-      "sum": "Mostrar a suma de todas as contas",
-      "exportData": "Exporta os datos mostrados como ficheiro JSON",
-      "comparisonWhenAccountsOption": "A comparación de contas só está dispoñible se hai máis dunha conta activada nas opcións da extensión",
-      "comparisonWhenFilter": "A comparación de contas só está dispoñible se selecciona \"Todas as contas\" no filtro de contas superior"
-    },
-    "abbreviations": {
-      "calendarWeek": "S",
-      "quarter": "T",
-      "day": "d",
-      "hour": "h",
-      "minute": "min",
-      "second": "s"
-    },
-    "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>",
-    "message": "-",
-    "account": "Conta",
-    "timePeriod": "Intervalo de datas",
-    "dataCollected": "Datos recompilados hai {0}",
-    "allAccounts": "Todas as contas",
-    "nonEmptyFolders": "cartafoles non baleiros | cartafol non baleiro | cartafoles non baleiros",
-    "contact": "Contacto",
-    "disclaimer": "ThirdStats non reclama a exactitude dos datos amosados. <br /> En caso de posibles problemas, <a href='{0}' target='_blank'> crea un informe de erros</a>.",
-    "junkMails": "Correo lixo",
-    "junkScore": "Puntuación de lixo de {0}",
-    "folder": "Cartafol"
-  },
   "options": {
-    "switch": {
-      "on": "Acendido",
-      "off": "Apagado"
+    "activeAccounts": {
+      "color": "Dálle a cada conta unha cor personalizada para distinguir entre elas no modo de comparación.",
+      "description": "Activar ou desactivar contas. As contas desactivadas non aparecerán en ningunha lista de contas nin estatísticas.",
+      "label": "Contas activas",
+      "sumAndCompare": "Activar máis dunha conta habilita a opción de filtro de estatísticas de \"Todas as contas\" para a vista de suma e comparación."
+    },
+    "cache": {
+      "description": "Habilite o sistema de caché para amosar máis rápido os datos de estatísticas xa procesados.",
+      "label": "Activa a caché"
+    },
+    "clearCache": {
+      "description": "Elimina todos os datos das estatísticas na caché de todas as contas. Reconstruirase ao abrir de novo a páxina de estatísticas.",
+      "empty": "A caché está baleira",
+      "label": "Baleirar a caché",
+      "size": "O tamaño da caché é {0}"
     },
     "darkMode": {
-      "label": "Modo escuro",
-      "description": "Cambia entre o modo escuro e claro"
+      "description": "Cambia entre o modo escuro e claro",
+      "label": "Modo escuro"
     },
-    "localIdentities": {
-      "label": "Identidades locais",
-      "description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais"
-    },
-    "message": "-",
     "headings": {
       "appearance": "Aspecto e experiencia",
       "stats": "Gráficos e datos",
       "storage": "Almacenamento e caché"
     },
-    "ordinate": {
-      "label": "Eixe vertical",
-      "description": "Mostrar o eixe vertical para todos os gráficos de barras e liñas"
+    "leaderCount": {
+      "description": "Número de entradas mostradas nos gráficos que mostran contactos frecuentes (999 como máximo)",
+      "label": "Conta principal"
     },
-    "startOfWeek": {
-      "label": "Comeza a semana o",
-      "description": "Inicio da semana para todos os gráficos relacionados coa semana"
+    "localIdentities": {
+      "description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais",
+      "label": "Identidades locais"
     },
-    "activeAccounts": {
-      "label": "Contas activas",
-      "description": "Activar ou desactivar contas. As contas desactivadas non aparecerán en ningunha lista de contas nin estatísticas.",
-      "color": "Dálle a cada conta unha cor personalizada para distinguir entre elas no modo de comparación.",
-      "sumAndCompare": "Activar máis dunha conta habilita a opción de filtro de estatísticas de \"Todas as contas\" para a vista de suma e comparación."
-    },
-    "cache": {
-      "label": "Activa a caché",
-      "description": "Habilite o sistema de caché para amosar máis rápido os datos de estatísticas xa procesados."
-    },
-    "clearCache": {
-      "label": "Baleirar a caché",
-      "description": "Elimina todos os datos das estatísticas na caché de todas as contas. Reconstruirase ao abrir de novo a páxina de estatísticas.",
-      "empty": "A caché está baleira",
-      "size": "O tamaño da caché é {0}"
-    },
+    "message": "-",
     "note": {
-      "title": "Nota",
+      "refreshCacheRequired": "Se se cambia, a caché debe reconstruírse",
       "reloadStatsPage": "As opcións gárdanse automaticamente. Algúns cambios de opción non se poden aplicar automaticamente a unha páxina de estatísticas xa aberta nin a entradas de caché existentes, se a caché está activada. Están marcados coas iconas correspondentes.",
       "reloadWindowRequired": "Se se cambia, a xanela de estatísticas debe volver cargarse",
-      "refreshCacheRequired": "Se se cambia, a caché debe reconstruírse"
+      "title": "Nota"
+    },
+    "ordinate": {
+      "description": "Mostrar o eixe vertical para todos os gráficos de barras e liñas",
+      "label": "Eixe vertical"
+    },
+    "resetOptions": {
+      "description": "Restablece todas as opcións aos seus valores predeterminados. Dependendo das opcións que foran cambiadas anteriormente pode que sexa necesario actualizar a xanela ou a caché.",
+      "label": "Restablecer as opcións",
+      "removeIdentities": "Isto tamén eliminará todas as identidades locais creadas."
     },
     "selfMessages": {
-      "label": "Mensaxes para min mesmo/a",
       "description": "Exclúe as mensaxes enviadas por min a min mesmo",
-      "values": {
-        "none": "Desactivado",
-        "sameAccount": "Só a mesma conta",
-        "anyAccount": "De calquera conta"
-      },
       "info": {
+        "anyAccount": "Excluiranse as mensaxes onde o remitente e o destinatario son identidades de calquera conta",
         "none": "As mensaxes para min mesmo/a incluiranse e trataranse como correos electrónicos normais (predeterminado)",
-        "sameAccount": "Excluiranse as mensaxes onde o remitente e o destinatario son identidades da mesma conta",
-        "anyAccount": "Excluiranse as mensaxes onde o remitente e o destinatario son identidades de calquera conta"
+        "sameAccount": "Excluiranse as mensaxes onde o remitente e o destinatario son identidades da mesma conta"
+      },
+      "label": "Mensaxes para min mesmo/a",
+      "values": {
+        "anyAccount": "De calquera conta",
+        "none": "Desactivado",
+        "sameAccount": "Só a mesma conta"
       }
     },
-    "leaderCount": {
-      "label": "Conta principal",
-      "description": "Número de entradas mostradas nos gráficos que mostran contactos frecuentes (999 como máximo)"
+    "startOfWeek": {
+      "description": "Inicio da semana para todos os gráficos relacionados coa semana",
+      "label": "Comeza a semana o"
     },
-    "title": "Opcións",
-    "resetOptions": {
-      "label": "Restablecer as opcións",
-      "description": "Restablece todas as opcións aos seus valores predeterminados. Dependendo das opcións que foran cambiadas anteriormente pode que sexa necesario actualizar a xanela ou a caché.",
-      "removeIdentities": "Isto tamén eliminará todas as identidades locais creadas."
-    }
+    "switch": {
+      "off": "Apagado",
+      "on": "Acendido"
+    },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
+    "title": "Opcións"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} Conta | {0} Contas",
+    "nFolders": "{0} Cartafol | {0} Cartafoles",
+    "nMessages": "{0} Mensaxe | {0} Mensaxes",
+    "openAllStats": "Abre todas as estatísticas",
+    "openOptions": "Abre as opcións"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "S",
+      "day": "d",
+      "hour": "h",
+      "minute": "mín",
+      "month": "M",
+      "quarter": "T",
+      "second": "s",
+      "week": "S",
+      "year": "Y"
+    },
+    "account": "Conta",
+    "accountEmpty": "Esta conta non ten ningún correo.",
+    "allAccounts": "Todas as contas",
+    "charts": {
+      "contactsJunk": {
+        "description": "Número de correos electrónicos marcados como lixo por remitente",
+        "empty": "No emails flagged as Junk.",
+        "title": "Marcado como lixo"
+      },
+      "contactsReceived": {
+        "description": "Número de correos recibidos por remitente",
+        "empty": "No received emails available.",
+        "title": "Máis correos recibidos de"
+      },
+      "contactsSent": {
+        "description": "Número de correos enviados por destinatario",
+        "empty": "No sent emails available.",
+        "title": "Máis correos enviados a"
+      },
+      "days": {
+        "description": "Número de recibidos por día",
+        "title": "Actividade en {0}"
+      },
+      "daytime": {
+        "description": "Número de correos por hora",
+        "title": "Hora do día"
+      },
+      "foldersDistribution": {
+        "description": "Número de correos electrónicos por cartafol",
+        "title": "Distribución dos cartafoles"
+      },
+      "month": {
+        "description": "Número total de correos por mes",
+        "title": "Meses"
+      },
+      "months": {
+        "description": "Número total de correos por mes",
+        "title": "Meses"
+      },
+      "quarters": {
+        "description": "Número total de correos por trimestre",
+        "title": "Trimestres"
+      },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
+        "title": "Etiquetas"
+      },
+      "temporalDistribution": {
+        "description": "Correos por día e hora",
+        "title": "Distribución temporal"
+      },
+      "weekday": {
+        "description": "Número de correos por día (da semana)",
+        "title": "Día (da semana)"
+      },
+      "weeks": {
+        "description": "Número total de correos por semanas",
+        "title": "Semanas"
+      },
+      "years": {
+        "description": "Número total de correos por ano",
+        "title": "Anos"
+      }
+    },
+    "contact": "Contacto",
+    "dataCollected": "Datos recompilados hai {0}",
+    "disclaimer": "ThirdStats non reclama a exactitude dos datos amosados. <br /> En caso de posibles problemas, <a href='{0}' target='_blank'> crea un informe de erros</a>.",
+    "folder": "Cartafol",
+    "junkMails": "Correo lixo",
+    "junkScore": "Puntuación de lixo de {0}",
+    "loadingInProgress": "Cargando todos os correos desta conta…",
+    "mailsPerDay": "Correos por día",
+    "mailsPerMonth": "Correos por mes",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
+    "mailsReceived": "Correos recibidos",
+    "mailsSent": "Correos enviados",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
+    "mailsTotal": "Total correos",
+    "mailsUnread": "Correos sen ler",
+    "message": "-",
+    "niceWork": "Bo traballo!",
+    "nonEmptyFolders": "cartafoles non baleiros | cartafol non baleiro | cartafoles non baleiros",
+    "percentOfReceived": "{0}% dos recibidos",
+    "percentOfTotal": "{0}% do total",
+    "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>",
+    "timePeriod": "Intervalo de datas",
+    "title": "Estatísticas",
+    "tooltips": {
+      "clear": "Borrar selección",
+      "comparison": "Compare as contas nun gráfico",
+      "comparisonWhenAccountsOption": "A comparación de contas só está dispoñible se hai máis dunha conta activada nas opcións da extensión",
+      "comparisonWhenFilter": "A comparación de contas só está dispoñible se selecciona \"Todas as contas\" no filtro de contas superior",
+      "error": {
+        "dateFormat": "Requírese o formato AAAA-MM-DD, por exemplo 2020-01-31",
+        "dateOrderEnd": "A data de finalización debe ser posterior á data de inicio",
+        "dateOrderStart": "A data de inicio debe ser anterior á data de finalización",
+        "dateUnreal": "É necesaria unha data válida",
+        "empty": "Obrigatorio"
+      },
+      "expand": "Aumentar área da gráfica",
+      "exportData": "Exporta os datos mostrados como ficheiro JSON",
+      "folder": {
+        "notAvailable": "Os cartafoles non están dispoñibles para {0}"
+      },
+      "period": {
+        "end": "Ata a data\nConsello: escribir \"{0}\" convértese en \"{1}\"",
+        "start": "A partir da data\nConsello: escribir \"{0}\" convértese en \"{1}\""
+      },
+      "refresh": "Actualizar",
+      "shrink": "Diminuír área da gráfica",
+      "sum": "Mostrar a suma de todas as contas"
+    },
+    "withinYears": "nos últimos {0} anos"
   }
 }

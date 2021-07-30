@@ -26,8 +26,8 @@ const messages = {
 	"sv":    require("../public/_locales/sv/messages.json"),    // Swedish
 	"th":    require("../public/_locales/th/messages.json"),    // Thai
 	"tr":    require("../public/_locales/tr/messages.json"),    // Turkish
-	"zh-cn": require("../public/_locales/zh-cn/messages.json"), // Simplified Chinese
-	"zh-tw": require("../public/_locales/zh-tw/messages.json"), // Traditional Chinese
+	"zh-cn": require("../public/_locales/zh-Hans-CN/messages.json"), // Simplified Chinese
+	"zh-tw": require("../public/_locales/zh-Hant-TW/messages.json"), // Traditional Chinese
 }
 import { pluralizationPolish } from "./utils"
 const i18n = new VueI18n({

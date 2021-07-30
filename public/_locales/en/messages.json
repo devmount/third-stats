@@ -38,9 +38,9 @@
     },
     "message": "-",
     "note": {
+      "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
       "title": "Note"
     },
     "ordinate": {
@@ -97,6 +97,7 @@
       "month": "M",
       "quarter": "Q",
       "second": "s",
+      "week": "W",
       "year": "Y"
     },
     "account": "Account",
@@ -173,8 +174,8 @@
     "loadingInProgress": "Loading of all emails from this account in progress…",
     "mailsPerDay": "Mails per day",
     "mailsPerMonth": "Mails per month",
-    "mailsPerTag": "Mails per tag",
     "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
     "mailsPerWeek": "Mails per week",
     "mailsPerYear": "Mails per year",
     "mailsReceived": "Mails received",
@@ -183,8 +184,6 @@
     "mailsTagged": "{0} mails tagged",
     "mailsTotal": "Mails total",
     "mailsUnread": "Mails unread",
-    "mailsWeek": "mails/week",
-    "mailsYear": "mails/year",
     "message": "-",
     "niceWork": "Nice work!",
     "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",

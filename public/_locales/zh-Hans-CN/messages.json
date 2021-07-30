@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Wspaniale ukazane statystyki dla twoich kont pocztowych w Thunderbirdzie"
+    "message": "精美地呈现您 Thunderbird 邮件账号数据"
   },
   "options": {
     "activeAccounts": {
@@ -10,38 +10,38 @@
       "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "启用缓存系统以加快显示已处理数据资料。",
+      "label": "激活缓存"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
-      "label": "Wyczyść pamięć podręczną",
-      "size": "Cache size is {0}"
+      "description": "清除来自所有账号的所有缓存数据资料，将会于再次开启数据页面时重构。",
+      "empty": "缓存为空",
+      "label": "清除缓存",
+      "size": "缓存大小是 {0}"
     },
     "darkMode": {
-      "description": "Przełączanie pomiędzy ciemnym i jasnym schematem kolorów",
-      "label": "tryb ciemny"
+      "description": "切换深色与浅色主题",
+      "label": "深色主题"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "外观与体验",
+      "stats": "图表与资料",
+      "storage": "存储与缓存"
     },
     "leaderCount": {
       "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
       "label": "Leader Count"
     },
     "localIdentities": {
-      "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych",
-      "label": "Tożsamości lokalne"
+      "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”",
+      "label": "本地身份"
     },
     "message": "-",
     "note": {
       "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
+      "reloadStatsPage": "选项已自动储存。如果数据页面已经开启，你需要重新开启或刷新页面以应用最新选项。",
       "reloadWindowRequired": "If changed, stats window needs to be reloaded",
-      "title": "Uwaga"
+      "title": "注意"
     },
     "ordinate": {
       "description": "Display vertical axis for all line and bar charts",
@@ -62,47 +62,47 @@
       "label": "Messages to Self",
       "values": {
         "anyAccount": "From Any Account",
-        "none": "Wyłączone",
+        "none": "已禁用",
         "sameAccount": "Same Account Only"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
-      "label": "Początek tygodnia"
+      "description": "自订所有星期相关图表的开始日子",
+      "label": "一周开始于"
     },
     "switch": {
-      "off": "wył.",
-      "on": "wł."
+      "off": "关",
+      "on": "开"
     },
     "tagColors": {
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
     },
-    "title": "Opcje"
+    "title": "选项"
   },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} Konto | {0} Konta",
+    "nAccounts": "账号 {0} | 账号 {0}",
     "nFolders": "{0} Folder | {0} Folders",
     "nMessages": "{0} Message | {0} Messages",
     "openAllStats": "Open all Stats",
-    "openOptions": "Otwórz ustawienia"
+    "openOptions": "打开选项"
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "TK",
+      "calendarWeek": "周",
       "day": "d",
       "hour": "h",
-      "minute": "min",
+      "minute": "分钟",
       "month": "M",
-      "quarter": "Ć",
+      "quarter": "季",
       "second": "s",
-      "week": "T",
+      "week": "星期",
       "year": "Y"
     },
-    "account": "Konto",
-    "accountEmpty": "To konto jest puste, nie ma żadnych e-maili.",
-    "allAccounts": "Wszystkie konta",
+    "account": "账号",
+    "accountEmpty": "此账号为空，没有邮件。",
+    "allAccounts": "所有帐户",
     "charts": {
       "contactsJunk": {
         "description": "Number of emails marked as Junk per sender",
@@ -110,90 +110,90 @@
         "title": "Flagged as Junk"
       },
       "contactsReceived": {
-        "description": "Najwięcej wysłanych do",
+        "description": "每位收件人发送邮件数",
         "empty": "No received emails available.",
-        "title": "Najwięcej odebranych od"
+        "title": "最多收取来自"
       },
       "contactsSent": {
-        "description": "Liczba otrzymanych e-maili na odbiorce",
+        "description": "每位寄件人收取邮件数",
         "empty": "No sent emails available.",
-        "title": "Najwięcej wysłanych do"
+        "title": "最多发送送往"
       },
       "days": {
-        "description": "Liczba e-maili na datę",
-        "title": "Działalność w roku {0}"
+        "description": "每个日期的电子邮件数",
+        "title": "活动于 {0}"
       },
       "daytime": {
-        "description": "Wiadomości dziennie",
-        "title": "Dziennie"
+        "description": "一天内每时间段邮件数",
+        "title": "一天内"
       },
       "foldersDistribution": {
         "description": "Number of emails per folder",
         "title": "Folders distribution"
       },
       "month": {
-        "description": "Wszystkich wiadomości miesięcznie",
-        "title": "Miesiąc"
+        "description": "一年内每月邮件数",
+        "title": "每月"
       },
       "months": {
-        "description": "Wszystkich wiadomości miesięcznie",
-        "title": "Miesięcznie"
+        "description": "每月邮件总数",
+        "title": "月"
       },
       "quarters": {
-        "description": "Total number of emails per quarter",
-        "title": "Quarters"
+        "description": "每季度邮件总数",
+        "title": "季度"
       },
       "tagsCount": {
         "description": "Total number of emails per tag",
         "empty": "No tag data available.",
-        "title": "Tagi"
+        "title": "标签"
       },
       "temporalDistribution": {
-        "description": "Liczba e-maili w ciągu godziny w ciągu dnia tygodnia",
-        "title": "Rozkład w czasie"
+        "description": "每小时每个工作日的电子邮件数量",
+        "title": "时间分布"
       },
       "weekday": {
-        "description": "Maile w dni robocze",
-        "title": "Dni Robocze"
+        "description": "一周内每日邮件数",
+        "title": "一周内"
       },
       "weeks": {
-        "description": "Całkowita liczba e-maili w tygodniu",
-        "title": "Tygodnie"
+        "description": "每周邮件总数",
+        "title": "周"
       },
       "years": {
-        "description": "Wszystkich wiadomości na rocznie",
-        "title": "Rocznie"
+        "description": "每年邮件总数",
+        "title": "年"
       }
     },
-    "contact": "Kontakt",
+    "contact": "联系人",
     "dataCollected": "Data collected {0} ago",
     "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
-    "folder": "Teczka",
+    "folder": "文件夹",
     "junkMails": "Junk mails",
     "junkScore": "Junk score of {0}",
-    "loadingInProgress": "Trwa wczytywanie wszystkich e-maili z tego konta…",
-    "mailsPerDay": "wiadomości dziennie",
-    "mailsPerMonth": "Wiadomości na miesiąc",
+    "loadingInProgress": "正在加载此账号所有邮件……",
+    "mailsPerDay": "每日邮件",
+    "mailsPerMonth": "每月邮件",
     "mailsPerQuarter": "Mails per quarter",
     "mailsPerTag": "Mails per tag",
     "mailsPerWeek": "Mails per week",
     "mailsPerYear": "Mails per year",
-    "mailsReceived": "Otrzymanych",
-    "mailsSent": "Wysłanych wiadomości",
+    "mailsReceived": "邮件已收取",
+    "mailsSent": "邮件已发送",
     "mailsStarred": "Mails starred",
     "mailsTagged": "{0} mails tagged",
-    "mailsTotal": "Wszystkich wiadomości",
-    "mailsUnread": "Nieprzeczytanych wiadomości",
+    "mailsTotal": "邮件总数",
+    "mailsUnread": "邮件未读取",
     "message": "-",
-    "niceWork": "Dobra robota!",
+    "niceWork": "做得不错！",
     "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
-    "percentOfReceived": "{0}% otrzymanych",
-    "percentOfTotal": "{0}% wszystkich",
-    "starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>",
-    "timePeriod": "Zakres dat",
-    "title": "Statystyki",
+    "percentOfReceived": "已收取 {0}%",
+    "percentOfTotal": "占总数 {0}%",
+    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
+    "timePeriod": "日期范围",
+    "title": "统计",
     "tooltips": {
-      "clear": "Wyczyść wybór",
+      "clear": "清除选择",
       "comparison": "Compare accounts in one chart",
       "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
       "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
@@ -204,7 +204,7 @@
         "dateUnreal": "A valid date is required",
         "empty": "Input is required"
       },
-      "expand": "Rozwiń obszar wykresu",
+      "expand": "放大图表范围",
       "exportData": "Export currently displayed data as JSON file",
       "folder": {
         "notAvailable": "Folders are not available for {0}"
@@ -213,10 +213,10 @@
         "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
         "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
       },
-      "refresh": "Odśwież dane",
-      "shrink": "Zmniejszanie obszaru wykresu",
+      "refresh": "刷新资料",
+      "shrink": "缩小图表范围",
       "sum": "Show sum of all accounts"
     },
-    "withinYears": "z {0} lat"
+    "withinYears": "{0} 年内"
   }
 }

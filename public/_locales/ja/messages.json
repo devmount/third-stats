@@ -2,201 +2,221 @@
   "extensionDescription": {
     "message": "Thunderbirdメールアカウントの統計"
   },
-  "popup": {
-    "message": "-",
-    "nAccounts": "{0}アカウント | {0}アカウント",
-    "openAllStats": "すべての統計を開く",
-    "openOptions": "オプションを開く",
-    "nFolders": "{0} フォルダー | {0} フォルダー",
-    "nMessages": "{0} メッセージ | {0} メッセージ"
-  },
-  "stats": {
-    "mailsTotal": "メッセージ全件数",
-    "withinYears": "過去{0}年間",
-    "mailsUnread": "未読メール",
-    "niceWork": "ナイスワーク！",
-    "percentOfReceived": "全体の{0}%",
-    "mailsReceived": "受信メール",
-    "percentOfTotal": "全体の{0}%",
-    "mailsSent": "送信メール",
-    "mailsPerMonth": "1か月あたりのメール数",
-    "mailsYear": "1年あたりのメール数",
-    "mailsPerDay": "1日あたりのメール数",
-    "mailsWeek": "1週間あたりのメール数",
-    "loadingInProgress": "このアカウントからのすべてのメールを読み込み中です。",
-    "accountEmpty": "このアカウントにはメールはありません。",
-    "charts": {
-      "years": {
-        "title": "年間",
-        "description": "年間のメールの総数"
-      },
-      "quarters": {
-        "title": "四半期",
-        "description": "四半期間のメールの総数"
-      },
-      "months": {
-        "title": "月間",
-        "description": "月間のメールの総数"
-      },
-      "weeks": {
-        "title": "週",
-        "description": "1週間のメールの総数"
-      },
-      "days": {
-        "title": "{0}年のメール総数",
-        "description": "1日の時間あたりのール数"
-      },
-      "daytime": {
-        "title": "日中",
-        "description": "1日の時間あたりのメール数"
-      },
-      "weekday": {
-        "title": "週日",
-        "description": "1日あたりのメール数"
-      },
-      "month": {
-        "title": "月間",
-        "description": "月間のメールの総数"
-      },
-      "temporalDistribution": {
-        "title": "時間分配",
-        "description": "平日1時間あたりのールの数"
-      },
-      "contactsReceived": {
-        "title": "最多受信先メール",
-        "description": "受信者あたりのメール送信数"
-      },
-      "contactsSent": {
-        "title": "最多送信先メール",
-        "description": "送信者あたりのメール受信数"
-      },
-      "foldersDistribution": {
-        "description": "フォルダーあたりのメール数 ",
-        "title": "フォルダーの配布 "
-      },
-      "contactsJunk": {
-        "description": "送信者ごとに迷惑メールとしてマークされたメールの数 ",
-        "title": "ジャンクとしてフラグが立てられました "
-      }
-    },
-    "tooltips": {
-      "expand": "チャートを拡張",
-      "shrink": "チャートを縮小",
-      "refresh": "データを更新する",
-      "clear": "選択を消去する",
-      "period": {
-        "start": "開始日：{0}と入力すると{1}になります。",
-        "end": "終了日：{0}と入力すると{1}になります"
-      },
-      "error": {
-        "empty": "必須項目",
-        "dateFormat": "フォーマットは年-月-日です。例： 2020-01-31 ",
-        "dateUnreal": "日付が有効ではありません",
-        "dateOrderStart": "有効な日付を入力してください",
-        "dateOrderEnd": "有効な日付を入力してください"
-      },
-      "folder": {
-        "notAvailable": "{0}のフォルダーは利用できません。"
-      },
-      "comparison": "1つのチャートでアカウントを比較する",
-      "sum": "すべてのアカウントの合計を表示する ",
-      "exportData": "現在表示されているデータをJSONファイルとしてエクスポート",
-      "comparisonWhenAccountsOption": "アドオンオプションで複数のアカウントがアクティブ化されている場合 は、アカウントの比較がご利用いただけます。\n",
-      "comparisonWhenFilter": "上記のアカウントフィルターで「すべてのアカウント」が選択されている場合 は、アカウントの比較がご利用いただけます。\n"
-    },
-    "abbreviations": {
-      "calendarWeek": "曜日",
-      "quarter": "四半期",
-      "day": "日",
-      "hour": "時間\n",
-      "minute": "分",
-      "second": "秒"
-    },
-    "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください",
-    "message": "-",
-    "account": "アカウント",
-    "timePeriod": "日付範囲",
-    "dataCollected": "{0}前に収集されたデータ",
-    "allAccounts": "すべてのアカウント",
-    "nonEmptyFolders": "空でないフォルダー| 空でないフォルダー| 空でないフォルダー",
-    "contact": "コンタクト",
-    "disclaimer": "ThirdStatsは、表示されたデータの正確性を主張しません。<br />問題が発生する可能性がある場合は、<ahref = '{0}' target = '_ blank'>バグレポートを作成してください。</a>",
-    "junkMails": "ジャンクメール",
-    "junkScore": "{0}のジャンクスコア",
-    "folder": "フォルダー"
-  },
   "options": {
-    "switch": {
-      "on": "オン",
-      "off": "オフ"
+    "activeAccounts": {
+      "color": "比較モードでアカウントを区別するために、各アカウントにカスタムカラーを付けます。 ",
+      "description": "アカウントを有効または無効にできます。 無効にされたアカウントは、アカウントリストまたは統計に表示されません。 ",
+      "label": "アカウント設定",
+      "sumAndCompare": "複数のアカウントをアクティブ化すると、合計ビューと比較ビューの[すべてのアカウント]統計フィルターオプションが有効になります。"
+    },
+    "cache": {
+      "description": "キャッシュシステムを有効にすると、すでに処理された統計データをより速く表示することが可能になります。",
+      "label": "キャッシュ設定"
+    },
+    "clearCache": {
+      "description": "キャッシュされたすべての統計データをすべてのアカウントから削除します。 統計ページを再度開くと再構築されます。 ",
+      "empty": "キャッシュが空欄です。",
+      "label": "キャッシュの消去",
+      "size": "キャッシュサイズは{0}です 。"
     },
     "darkMode": {
-      "label": "ダークとライトのスキーム",
-      "description": "ダークスキームかライトスキームを選択"
+      "description": "ダークスキームかライトスキームを選択",
+      "label": "ダークとライトのスキーム"
     },
-    "localIdentities": {
-      "label": "ローカルID",
-      "description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください。"
-    },
-    "message": "-",
     "headings": {
       "appearance": "外観と統計",
       "stats": "チャートとデータ",
       "storage": "ストレージとキャッシュ"
     },
-    "ordinate": {
-      "label": "縦軸",
-      "description": "折れ線グラフと棒グラフの縦軸を表示します。"
+    "leaderCount": {
+      "description": "頻繁な連絡先を表示するエントリーの数（最大999まで）",
+      "label": "リーダー数"
     },
-    "startOfWeek": {
-      "label": "週始めを設定",
-      "description": "チャートに表示する週始めを設定してください。"
+    "localIdentities": {
+      "description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください。",
+      "label": "ローカルID"
     },
-    "activeAccounts": {
-      "label": "アカウント設定",
-      "description": "アカウントを有効または無効にできます。 無効にされたアカウントは、アカウントリストまたは統計に表示されません。 ",
-      "color": "比較モードでアカウントを区別するために、各アカウントにカスタムカラーを付けます。 ",
-      "sumAndCompare": "複数のアカウントをアクティブ化すると、合計ビューと比較ビューの[すべてのアカウント]統計フィルターオプションが有効になります。"
-    },
-    "cache": {
-      "label": "キャッシュ設定",
-      "description": "キャッシュシステムを有効にすると、すでに処理された統計データをより速く表示することが可能になります。"
-    },
-    "clearCache": {
-      "label": "キャッシュの消去",
-      "description": "キャッシュされたすべての統計データをすべてのアカウントから削除します。 統計ページを再度開くと再構築されます。 ",
-      "empty": "キャッシュが空欄です。",
-      "size": "キャッシュサイズは{0}です 。"
-    },
+    "message": "-",
     "note": {
-      "title": "注意事項",
+      "refreshCacheRequired": "変更された場合、キャッシュを再構築する必要があります。",
       "reloadStatsPage": "オプションは自動的に保存されますが、キャッシュがアクティブ化されている場合、一部のオプションの変更は、すでに開いている統計ページまたは既存のキャッシュエントリーには自動的に適応されません。 それらは対応するアイコンでマークされています。",
       "reloadWindowRequired": "変更された場合、統計ウィンドウを再ロードする必要があります。",
-      "refreshCacheRequired": "変更された場合、キャッシュを再構築する必要があります。"
+      "title": "注意事項"
+    },
+    "ordinate": {
+      "description": "折れ線グラフと棒グラフの縦軸を表示します。",
+      "label": "縦軸"
+    },
+    "resetOptions": {
+      "description": "すべてのオプションをデフォルト値にリセットします。 以前に変更したオプションによっては、ウィンドウまたはキャッシュの更新が必要になる場合があります。 ",
+      "label": "オプションをリセットする",
+      "removeIdentities": "これにより、作成したすべてのローカルIDも削除されます。 "
     },
     "selfMessages": {
-      "label": "自己へのメッセージ",
       "description": "自分に送信されたメッセージを除外する",
-      "values": {
-        "none": "無効にする",
-        "sameAccount": "同じアカウントのみ",
-        "anyAccount": "全てのアカウント"
-      },
       "info": {
+        "anyAccount": "送信者と受信者がいずれかのアカウントのIDであるメッセージは除外されます 。",
         "none": "自分宛のメッセージが含まれ、通常の電子メールとして扱われます。（デフォルト）",
-        "sameAccount": "送信者と受信者が同じアカウントのIDであるメッセージは除外されます 。",
-        "anyAccount": "送信者と受信者がいずれかのアカウントのIDであるメッセージは除外されます 。"
+        "sameAccount": "送信者と受信者が同じアカウントのIDであるメッセージは除外されます 。"
+      },
+      "label": "自己へのメッセージ",
+      "values": {
+        "anyAccount": "全てのアカウント",
+        "none": "無効にする",
+        "sameAccount": "同じアカウントのみ"
       }
     },
-    "leaderCount": {
-      "label": "リーダー数",
-      "description": "頻繁な連絡先を表示するエントリーの数（最大999まで）"
+    "startOfWeek": {
+      "description": "チャートに表示する週始めを設定してください。",
+      "label": "週始めを設定"
     },
-    "title": "オプション",
-    "resetOptions": {
-      "label": "オプションをリセットする",
-      "description": "すべてのオプションをデフォルト値にリセットします。 以前に変更したオプションによっては、ウィンドウまたはキャッシュの更新が必要になる場合があります。 ",
-      "removeIdentities": "これにより、作成したすべてのローカルIDも削除されます。 "
-    }
+    "switch": {
+      "off": "オフ",
+      "on": "オン"
+    },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
+    "title": "オプション"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0}アカウント | {0}アカウント",
+    "nFolders": "{0} フォルダー | {0} フォルダー",
+    "nMessages": "{0} メッセージ | {0} メッセージ",
+    "openAllStats": "すべての統計を開く",
+    "openOptions": "オプションを開く"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "曜日",
+      "day": "日",
+      "hour": "時間\n",
+      "minute": "分",
+      "month": "M",
+      "quarter": "四半期",
+      "second": "秒",
+      "week": "曜日",
+      "year": "Y"
+    },
+    "account": "アカウント",
+    "accountEmpty": "このアカウントにはメールはありません。",
+    "allAccounts": "すべてのアカウント",
+    "charts": {
+      "contactsJunk": {
+        "description": "送信者ごとに迷惑メールとしてマークされたメールの数 ",
+        "empty": "No emails flagged as Junk.",
+        "title": "ジャンクとしてフラグが立てられました "
+      },
+      "contactsReceived": {
+        "description": "受信者あたりのメール送信数",
+        "empty": "No received emails available.",
+        "title": "最多受信先メール"
+      },
+      "contactsSent": {
+        "description": "送信者あたりのメール受信数",
+        "empty": "No sent emails available.",
+        "title": "最多送信先メール"
+      },
+      "days": {
+        "description": "1日の時間あたりのール数",
+        "title": "{0}年のメール総数"
+      },
+      "daytime": {
+        "description": "1日の時間あたりのメール数",
+        "title": "日中"
+      },
+      "foldersDistribution": {
+        "description": "フォルダーあたりのメール数 ",
+        "title": "フォルダーの配布 "
+      },
+      "month": {
+        "description": "月間のメールの総数",
+        "title": "月間"
+      },
+      "months": {
+        "description": "月間のメールの総数",
+        "title": "月間"
+      },
+      "quarters": {
+        "description": "四半期間のメールの総数",
+        "title": "四半期"
+      },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
+        "title": "タグ"
+      },
+      "temporalDistribution": {
+        "description": "平日1時間あたりのールの数",
+        "title": "時間分配"
+      },
+      "weekday": {
+        "description": "1日あたりのメール数",
+        "title": "週日"
+      },
+      "weeks": {
+        "description": "1週間のメールの総数",
+        "title": "週"
+      },
+      "years": {
+        "description": "年間のメールの総数",
+        "title": "年間"
+      }
+    },
+    "contact": "コンタクト",
+    "dataCollected": "{0}前に収集されたデータ",
+    "disclaimer": "ThirdStatsは、表示されたデータの正確性を主張しません。<br />問題が発生する可能性がある場合は、<ahref = '{0}' target = '_ blank'>バグレポートを作成してください。</a>",
+    "folder": "フォルダー",
+    "junkMails": "ジャンクメール",
+    "junkScore": "{0}のジャンクスコア",
+    "loadingInProgress": "このアカウントからのすべてのメールを読み込み中です。",
+    "mailsPerDay": "1日あたりのメール数",
+    "mailsPerMonth": "1か月あたりのメール数",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
+    "mailsReceived": "受信メール",
+    "mailsSent": "送信メール",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
+    "mailsTotal": "メッセージ全件数",
+    "mailsUnread": "未読メール",
+    "message": "-",
+    "niceWork": "ナイスワーク！",
+    "nonEmptyFolders": "空でないフォルダー| 空でないフォルダー| 空でないフォルダー",
+    "percentOfReceived": "全体の{0}%",
+    "percentOfTotal": "全体の{0}%",
+    "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください",
+    "timePeriod": "日付範囲",
+    "title": "統計",
+    "tooltips": {
+      "clear": "選択を消去する",
+      "comparison": "1つのチャートでアカウントを比較する",
+      "comparisonWhenAccountsOption": "アドオンオプションで複数のアカウントがアクティブ化されている場合 は、アカウントの比較がご利用いただけます。\n",
+      "comparisonWhenFilter": "上記のアカウントフィルターで「すべてのアカウント」が選択されている場合 は、アカウントの比較がご利用いただけます。\n",
+      "error": {
+        "dateFormat": "フォーマットは年-月-日です。例： 2020-01-31 ",
+        "dateOrderEnd": "有効な日付を入力してください",
+        "dateOrderStart": "有効な日付を入力してください",
+        "dateUnreal": "日付が有効ではありません",
+        "empty": "必須項目"
+      },
+      "expand": "チャートを拡張",
+      "exportData": "現在表示されているデータをJSONファイルとしてエクスポート",
+      "folder": {
+        "notAvailable": "{0}のフォルダーは利用できません。"
+      },
+      "period": {
+        "end": "終了日：{0}と入力すると{1}になります",
+        "start": "開始日：{0}と入力すると{1}になります。"
+      },
+      "refresh": "データを更新する",
+      "shrink": "チャートを縮小",
+      "sum": "すべてのアカウントの合計を表示する "
+    },
+    "withinYears": "過去{0}年間"
   }
 }
