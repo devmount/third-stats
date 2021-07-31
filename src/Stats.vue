@@ -268,7 +268,7 @@
 								:data-tooltip="$t('stats.mailsPerWeek')"
 								@click="activateTab('numbers', 'weeks')"
 							>
-								<span class="text-mono">{{ $t("stats.abbreviations.calendarWeek") }}</span>
+								<span class="text-mono">{{ $t("stats.abbreviations.week") }}</span>
 							</span>
 							<span
 								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
