@@ -1083,7 +1083,7 @@ export default {
 		// basic data structure to display charts
 		// used for comparing account data
 		initComparisonData () {
-			return { 
+			return {
 				yearsData: {},
 				quartersData: {},
 				monthsData: {},
