@@ -4,7 +4,7 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
+      "color": "為每個帳號提供自定義色彩，以便在比較模式中區分它們。",
       "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。",
       "label": "啟用帳號",
       "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
