@@ -90,7 +90,10 @@ export default {
 					},
 					plugins: {
 						tooltip: {
-							enabled: this.tooltips
+							enabled: this.tooltips,
+							callbacks: {
+								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label
+							}
 						},
 					},
 					scales: {
