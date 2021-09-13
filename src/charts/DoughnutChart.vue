@@ -19,7 +19,7 @@ export default {
 	props: {
 		title: String,
 		description: String,
-		info: String,
+		info: Object,
 		labels: Array,
 		datasets: Array,
 	},
@@ -52,7 +52,11 @@ export default {
 					plugins: {
 						tooltip: {
 							intersect: true,
-							position: 'nearest'
+							position: 'nearest',
+							callbacks: {
+								title: context => context[0].label,
+								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label
+							}
 						}
 					}
 				}

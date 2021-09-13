@@ -509,7 +509,7 @@
 								rounding="5px"
 								:dataset="daysChartData.received"
 								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
-								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{label}: {value}'"
+								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{value} {label}'"
 								class="mt-2 mb-1-5"
 							/>
 							<!-- activity per day sent -->
@@ -519,7 +519,7 @@
 								rounding="5px"
 								:dataset="daysChartData.sent"
 								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
-								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{label}: {value}'"
+								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{value} {label}'"
 							/>
 						</div>
 					</div>
@@ -636,7 +636,7 @@
 								rounding="5px"
 								:dataset="weekdayPerHourChartData.received"
 								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{label}: {value}'"
+								:tooltips="'{y}, {x}:00\n{value}: {label}'"
 								class="mt-1-5 mb-1-5"
 							/>
 							<!-- emails per weekday per hour sent -->
@@ -646,7 +646,7 @@
 								rounding="5px"
 								:dataset="weekdayPerHourChartData.sent"
 								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{label}: {value}'"
+								:tooltips="'{y}, {x}:00\n{value}: {label}'"
 							/>
 						</div>
 					</div>
@@ -1938,7 +1938,7 @@ export default {
 				let data = []
 				labels.map(y => data.push(y in d ? d[y] : 0))
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2001,7 +2001,7 @@ export default {
 					}
 				}
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2064,7 +2064,7 @@ export default {
 					}
 				}
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2117,7 +2117,7 @@ export default {
 					data.push(y in d && w in d[y] ? d[y][w] : 0)
 				})
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2154,7 +2154,7 @@ export default {
 				const d = this.comparison.daytimeData[a.id]
 				// add dataset for this account
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: Object.values(d),
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2206,7 +2206,7 @@ export default {
 					data.push(data.shift())
 				// add dataset for this account
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2242,7 +2242,7 @@ export default {
 			this.accounts.forEach((a) => {
 				// add dataset for this account
 				datasets.push({
-					label: this.$t("stats.mailsTotal") + ", " + a.name,
+					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
 					data: Object.values(this.comparison.monthData[a.id]),
 					borderColor: this.preferences.accountColors[a.id]
 				})

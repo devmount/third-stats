@@ -93,7 +93,10 @@ export default {
 					plugins: {
 						tooltip: {
 							intersect: true,
-							position: 'nearest'
+							position: 'nearest',
+							callbacks: {
+								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label
+							}
 						}
 					}
 				}
