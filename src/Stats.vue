@@ -636,7 +636,7 @@
 								rounding="5px"
 								:dataset="weekdayPerHourChartData.received"
 								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{value}: {label}'"
+								:tooltips="'{y}, {x}:00\n{value} {label}'"
 								class="mt-1-5 mb-1-5"
 							/>
 							<!-- emails per weekday per hour sent -->
@@ -646,7 +646,7 @@
 								rounding="5px"
 								:dataset="weekdayPerHourChartData.sent"
 								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{value}: {label}'"
+								:tooltips="'{y}, {x}:00\n{value} {label}'"
 							/>
 						</div>
 					</div>
