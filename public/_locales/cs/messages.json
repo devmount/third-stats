@@ -4,33 +4,33 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "color": "Nastavte rozdílnou barvu pro každý účet, rozlišíte je pak ve srovnávacím režimu.",
+      "description": "Povolení nebo zakázání účtů. Zakázané účty se nezobrazí v žádném seznamu účtů ani v statistikách.",
+      "label": "Aktivní účty",
+      "sumAndCompare": "Aktivací více než jednoho účtu povolíte filtr „Všechny účty“ pro zobrazení součtu a porovnání."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "Povolí použití mezipaměti pro rychlejší zobrazení již zpracovaných statistik.",
+      "label": "Aktivovat mezipaměť"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
+      "description": "Vymaže všechny uložené statistiky ze všech účtů. Při opětovném otevření stránky statistik se vše spočítá znovu.",
+      "empty": "Mezipaměť je prázdná",
       "label": "Vymazat mezipaměť",
-      "size": "Cache size is {0}"
+      "size": "Velikost mezipaměti je {0}"
     },
     "darkMode": {
       "description": "Přepíná mezi tmavým a světlým barevným schématem",
       "label": "Tmavý režím"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "Vzhled a chování",
+      "stats": "Grafy a data",
+      "storage": "Úložiště a mezipaměť"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "Počet záznamů zobrazených v grafech častých kontaktů (maximálně 999)",
+      "label": "Počet častých kontaktů"
     },
     "localIdentities": {
       "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')",
@@ -38,36 +38,36 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "refreshCacheRequired": "Při změně se musí znovu sestavit mezipaměť",
+      "reloadStatsPage": "Nastavení se ukládá automaticky. Některé změny nelze automaticky použít na již otevřenou stránku statistik nebo na existující položky mezipaměti (pokud je aktivována). Tyto jsou označeny odpovídajícími ikonami.",
+      "reloadWindowRequired": "Při změně musíte znovu načíst okno statistik",
       "title": "Poznámka"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "Zobrazení svislé osy pro všechny řádkové a sloupcové grafy",
+      "label": "Vertikální osa"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "Obnovit nastavení do výchozího stavu. V závislosti na tom, které možnosti jste změnili dříve, může být vyžadováno znovunačtení okna nebo přepočet mezipaměti.",
+      "label": "Obnovit nastavení",
+      "removeIdentities": "Toto odstraní také všechny místní identity, které jste vytvořili."
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "Vyloučit zprávy, které jsem si poslal/a sám/sama.",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "Zprávy, kde odesílatel a příjemce jsou identitou z libovolného účtu, budou vyloučeny",
+        "none": "Zprávy pro sebe budou zahrnuty a považovány za běžné e-maily (výchozí)",
+        "sameAccount": "Zprávy, kde odesílatel a příjemce jsou identitou ze stejného účtu, budou vyloučeny"
       },
-      "label": "Messages to Self",
+      "label": "Zprávy pro sebe",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "Z libovolného účtu",
         "none": "Vypnuto",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "Pouze ze stejného účtu"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
+      "description": "Vlastní začátek týdne pro všechny grafy související s pracovními dny",
       "label": "Počáteční den týdne"
     },
     "switch": {
@@ -75,48 +75,48 @@
       "on": "Zapnuto"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Kreslit grafy o značkách odpovídajícími barvami",
+      "label": "Barvy značek"
     },
     "title": "Možnosti"
   },
   "popup": {
     "message": "-",
     "nAccounts": "{0} Účet | {0} Účtů",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nFolders": "{0} Složka | {0} Složek",
+    "nMessages": "{0} Zpráva | {0} Zpráv",
+    "openAllStats": "Otevřít všechny statistiky",
     "openOptions": "Otevřené možnosti"
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "W",
+      "calendarWeek": "T",
       "day": "d",
       "hour": "h",
       "minute": "min",
       "month": "M",
       "quarter": "Q",
       "second": "s",
-      "week": "W",
-      "year": "Y"
+      "week": "T",
+      "year": "R"
     },
     "account": "Účet",
     "accountEmpty": "Tento účet je prázdný, nejsou tu žádné e-maily.",
     "allAccounts": "Všechny účty",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "Počet e-mailů označených jako nevyžádaná pošta podle odesílatele",
+        "empty": "Žádné emaily označené jako Spam.",
+        "title": "Označen jako Spam"
       },
       "contactsReceived": {
         "description": "Počet e-mailů odeslaných jednotlivým příjemcům",
-        "empty": "No received emails available.",
+        "empty": "Žádné přijaté e-maily nejsou k dispozici.",
         "title": "Nejvíce přijato"
       },
       "contactsSent": {
         "description": "Počet e-mailů přijatých od jednotlivých odesílatelů",
-        "empty": "No sent emails available.",
+        "empty": "Žádné odeslané e-maily nejsou k dispozici.",
         "title": "Nejvíce odesláno"
       },
       "days": {
@@ -128,8 +128,8 @@
         "title": "Během dne"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "Počet e-mailů podle složek",
+        "title": "Distribuce složek"
       },
       "month": {
         "description": "Celkový počet e-mailů podle měsíců",
@@ -144,8 +144,8 @@
         "title": "Kvartály"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Celkový počet emailů podle značky",
+        "empty": "Data značek nejsou k dispozici.",
         "title": "Štítky"
       },
       "temporalDistribution": {
@@ -166,27 +166,27 @@
       }
     },
     "contact": "Kontakt",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "Data získaná před {0}",
+    "disclaimer": "ThirdStats neposkytuje žádný nárok na správnost zobrazených dat. <br />V případě možných problémů prosím <a href='{0}' target='_blank'>vytvořte hlášení o chybě</a>.",
     "folder": "Složka",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "junkMails": "Nevyžádaná pošta",
+    "junkScore": "Nevyžádané skóre {0}",
     "loadingInProgress": "Načítám všechny e-mail z tohoto účtu…",
     "mailsPerDay": "E-mailů za den",
     "mailsPerMonth": "E-mailů za měsíc",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "E-mailů za kvartál",
+    "mailsPerTag": "E-maily podle značek",
+    "mailsPerWeek": "E-mailů za týden",
+    "mailsPerYear": "E-mailů za rok",
     "mailsReceived": "Přijaté",
     "mailsSent": "Odeslané",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "E-mailů s hvězdičkou",
+    "mailsTagged": "{0} e-mailů označeno",
     "mailsTotal": "Celkem e-mailů",
     "mailsUnread": "Nepřečtené",
     "message": "-",
     "niceWork": "Pěkná práce!",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "neprázdných složek | neprázdná složka | neprázdných složek",
     "percentOfReceived": "{0}% přijatých",
     "percentOfTotal": "{0}% z celkového počtu",
     "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>",
@@ -194,28 +194,28 @@
     "title": "Statistiky",
     "tooltips": {
       "clear": "Zrušit výběr",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "Porovnat účty v jednom grafu",
+      "comparisonWhenAccountsOption": "Porovnání účtů je k dispozici pouze\npokud je aktivován více než jeden účet v nastavení doplňku",
+      "comparisonWhenFilter": "Porovnání účtů je k dispozici pouze\npokud je ve výše uvedeném filtru účtů vybrána možnost „Všechny účty“",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateFormat": "Vyžaduje se formát YYYY-MM-DD, např. 2020-01-31",
         "dateOrderEnd": "Datum ukončení musí být po datu zahájení",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateOrderStart": "Počáteční datum musí být před koncovým datem",
+        "dateUnreal": "Je vyžadováno platné datum",
+        "empty": "Povinné pole"
       },
       "expand": "Zvětšit graf",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "Exportovat aktuálně zobrazená data jako soubor JSON",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "Pro {0} nejsou složky k dispozici"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "Do data\nTip: Zadáním '{0}' vznikne '{1}'",
+        "start": "Od data\nTip: Zadáním '{0}' vznikne '{1}'"
       },
       "refresh": "Aktualizovat údaje",
       "shrink": "Zmenšit graf",
-      "sum": "Show sum of all accounts"
+      "sum": "Zobrazit součet všech účtů"
     },
     "withinYears": "během {0} let"
   }
