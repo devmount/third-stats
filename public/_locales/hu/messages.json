@@ -25,15 +25,15 @@
     },
     "headings": {
       "appearance": "Megjelenés és tapasztalat",
-      "stats": "Diagramok és adatok",
+      "stats": "Ábrázolások és adatok",
       "storage": "Tárolás és gyorsítótár"
     },
     "leaderCount": {
-      "description": "A gyakori kapcsolattartókat felsoroló diagramokban szereplő bejegyzések száma (legfeljebb 999)",
+      "description": "A gyakori kapcsolattartókat felsoroló ábrázolásokban szereplő bejegyzések száma (legfeljebb 999)",
       "label": "Vezérszám"
     },
     "localIdentities": {
-      "description": "A lista e-mail címét, hogy ismerje a „küldött” a helyi fiókok",
+      "description": "A levélcímlista, hogy ismerje a „küldött” a helyi fiókok",
       "label": "Helyi személyazonosságok"
     },
     "message": "-",
@@ -44,7 +44,7 @@
       "title": "Megjegyzés"
     },
     "ordinate": {
-      "description": "A függőleges tengely megjelenítése az összes vonalas és oszlopdiagramon",
+      "description": "A függőleges tengely megjelenítése az összes vonalas- és oszlopábrázoláson",
       "label": "Függőleges tengely"
     },
     "resetOptions": {
@@ -67,7 +67,7 @@
       }
     },
     "startOfWeek": {
-      "description": "A hét egyéni kezdete az összes hétköznapi diagramhoz",
+      "description": "A hét egyéni kezdete az összes hétköznapi ábrázoláshoz",
       "label": "Kezdje a hetet"
     },
     "switch": {
@@ -75,8 +75,8 @@
       "on": "Be"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Ábrázolás rajzolása a címke színeivel",
+      "label": "Címke színe"
     },
     "title": "Beállítások"
   },
@@ -94,74 +94,74 @@
       "day": "n",
       "hour": "ó",
       "minute": "p",
-      "month": "M",
+      "month": "h",
       "quarter": "¼",
       "second": "mp",
       "week": "H",
-      "year": "Y"
+      "year": "é"
     },
     "account": "Fiók",
-    "accountEmpty": "Ez a postafiók üres, itt nincsenek e-mailek.",
+    "accountEmpty": "Ez a postafiók üres, itt nincsenek levelek.",
     "allAccounts": "Minden postafiók",
     "charts": {
       "contactsJunk": {
-        "description": "Levélszemétként megjelölt e-mailek száma küldőnként",
-        "empty": "No emails flagged as Junk.",
+        "description": "Levelek száma megjelölt levélszemétként küldőnként",
+        "empty": "Nincs e-mail megjelölése levélszemétként.",
         "title": "Levélszemétként megjelölve"
       },
       "contactsReceived": {
-        "description": "Feladónként kapott e-mailek száma",
-        "empty": "No received emails available.",
+        "description": "Beérkezett levelek száma feladónként",
+        "empty": "Nincsenek fogadott levelek.",
         "title": "A legtöbb kapott"
       },
       "contactsSent": {
-        "description": "A címzettenként elküldött e-mailek száma",
-        "empty": "No sent emails available.",
+        "description": "Elküldött levelek száma címzettenként",
+        "empty": "Nem elérhető küldött levelek.",
         "title": "A legtöbbet elküldték"
       },
       "days": {
-        "description": "E-mailek száma dátum szerint",
+        "description": "Levelek száma dátum szerint",
         "title": "Tevékenység itt: {0}"
       },
       "daytime": {
-        "description": "E-mailek száma napszakonként",
+        "description": "Levelek száma napszakonként",
         "title": "Nappal"
       },
       "foldersDistribution": {
-        "description": "E-mailek száma mappánként",
+        "description": "Levelek száma mappánként",
         "title": "Mappák terjesztése"
       },
       "month": {
-        "description": "E-mailek száma az év hónapjában",
+        "description": "Levelek száma az év hónapjában",
         "title": "Hónap"
       },
       "months": {
-        "description": "E-mailek teljes száma havonta",
+        "description": "Összes levelek száma havonta",
         "title": "Hónapok"
       },
       "quarters": {
-        "description": "Az e-mailek száma negyedévenként",
+        "description": "Összes levelek száma negyedévenként",
         "title": "Negyedek"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Összes levelek száma címkénként",
+        "empty": "Címkeadatok nem állnak rendelkezésre.",
         "title": "Címkék"
       },
       "temporalDistribution": {
-        "description": "Hétköznap / óra e-mailek száma",
+        "description": "Levelek száma hétköznaponként óraként",
         "title": "Időbeli eloszlása"
       },
       "weekday": {
-        "description": "E-mailek száma a hét minden napján",
+        "description": "Levelek száma a hét minden egyes napján",
         "title": "Hétköznap"
       },
       "weeks": {
-        "description": "Heti e-mailek teljes száma",
+        "description": "Összes levelek száma hetente",
         "title": "Hetek"
       },
       "years": {
-        "description": "Éves e-mailek teljes száma",
+        "description": "Összes levelek száma évente",
         "title": "Évek"
       }
     },
@@ -171,19 +171,19 @@
     "folder": "Mappa",
     "junkMails": "Levélszemetek",
     "junkScore": "{0} levélszemét pontszám",
-    "loadingInProgress": "A fiók összes e-mailének betöltése folyamatban van…",
-    "mailsPerDay": "Levél naponta",
-    "mailsPerMonth": "Levél havonta",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "loadingInProgress": "A fiók összes levelének betöltése folyamatban van…",
+    "mailsPerDay": "Levelek száma naponta",
+    "mailsPerMonth": "Levelek száma havonta",
+    "mailsPerQuarter": "Levelek száma negyedévente",
+    "mailsPerTag": "Levelek száma címkénként",
+    "mailsPerWeek": "Levelek száma hetente",
+    "mailsPerYear": "Levelek száma évente",
     "mailsReceived": "Levelek fogadva",
     "mailsSent": "Levelek elküldve",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
-    "mailsTotal": "Levelek összesen",
-    "mailsUnread": "Mails unread",
+    "mailsStarred": "Levelek csillagozva",
+    "mailsTagged": "{0} level címkézve",
+    "mailsTotal": "Összes levelek száma",
+    "mailsUnread": "Levelek olvasatlan",
     "message": "-",
     "niceWork": "Szép munka!",
     "nonEmptyFolders": "nem üres mappák | nem üres mappa | nem üres mappák",
@@ -194,7 +194,7 @@
     "title": "Statisztika",
     "tooltips": {
       "clear": "Kijelölés törlése",
-      "comparison": "Fiókok összehasonlítása egy diagramban",
+      "comparison": "Fiókok összehasonlítása egy ábrázolásban",
       "comparisonWhenAccountsOption": "A fiókok összehasonlítása csak akkor érhető el, ha egynél több fiók engedélyezett a kiegészítő beállításokban",
       "comparisonWhenFilter": "A fiókok összehasonlítása csak akkor érhető el, ha a fenti fiókszűrőben az „Összes fiók” van kiválasztva.",
       "error": {
@@ -204,8 +204,8 @@
         "dateUnreal": "Érvényes dátumot kell megadni",
         "empty": "Bevitel szükséges"
       },
-      "expand": "Diagramterület kibontása",
-      "exportData": "Exportálja a jelenleg megjelenített adatokat JSON fájlként",
+      "expand": "Ábrázolásterület kibontása",
+      "exportData": "Jelenlegi megjelenített adatok exportálása JSON-fájlként",
       "folder": {
         "notAvailable": "A(z) {0} mappák nem érhetők el"
       },
@@ -214,7 +214,7 @@
         "start": "Dátumtól\nTipp: A(z) „{0}” begépelése „{1}” lesz"
       },
       "refresh": "Adatok frissítése",
-      "shrink": "Diagramterület csökkentése",
+      "shrink": "Ábrázolásterület csökkentése",
       "sum": "Az összes fiók összegének megjelenítése"
     },
     "withinYears": "{0} éven belül"
