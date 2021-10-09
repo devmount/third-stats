@@ -75,8 +75,8 @@
       "on": "オン"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "対応するタグの色を使ってタグのチャートを描く",
+      "label": "タグの色"
     },
     "title": "オプション"
   },
