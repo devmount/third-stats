@@ -35,6 +35,7 @@ const messages = {
 	"pl":    require("../public/_locales/pl/messages.json"),    // Polish
 	"pt":    require("../public/_locales/pt/messages.json"),    // Portuguese
 	"ru":    require("../public/_locales/ru/messages.json"),    // Russian
+	"sk":    require("../public/_locales/sk/messages.json"),    // Slovak
 	"sv":    require("../public/_locales/sv/messages.json"),    // Swedish
 	"th":    require("../public/_locales/th/messages.json"),    // Thai
 	"tr":    require("../public/_locales/tr/messages.json"),    // Turkish
