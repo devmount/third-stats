@@ -129,7 +129,7 @@
       },
       "foldersDistribution": {
         "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "title": "Distribució de carpetes"
       },
       "month": {
         "description": "Nombre total de correus electrònics al mes",

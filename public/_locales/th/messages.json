@@ -4,70 +4,70 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "color": "ให้แต่ละบัญชีกำหนดสีเองเพื่อแยกแยะความแตกต่างระหว่างพวกเขาในโหมดเปรียบเทียบ",
+      "description": "เปิดหรือปิดใช้งาน บัญชีบัญชีที่ถูกปิดใช้งานจะไม่ปรากฏในรายการบัญชีหรือสถิติใดๆ",
+      "label": "บัญชีที่ใช้งานอยู่",
+      "sumAndCompare": "การเปิดใช้งานมากกว่าหนึ่งบัญชีทำให้ตัวเลือกตัวกรองสถิติ 'บัญชีทั้งหมด' สำหรับมุมมองผลรวมและการเปรียบเทียบ"
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "เปิดใช้งานระบบแคชสำหรับการแสดงผลข้อมูลสถิติที่ประมวลผลแล้วได้เร็วขึ้น",
+      "label": "เปิดใช้งานแคช"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
+      "description": "ลบข้อมูลสถิติที่เก็บไว้ทั้งหมดออกจากบัญชีทั้งหมด แล้วจะสร้างใหม่หลังเปิดหน้าสถิติอีกครั้ง",
       "empty": "ล้างแคชทั้งหมดแล้ว",
       "label": "ล้างแคช",
-      "size": "Cache size is {0}"
+      "size": "ขนาดแคชคือ {0}"
     },
     "darkMode": {
-      "description": "Switch between dark and light color scheme",
+      "description": "สลับระหว่างโหมดมืดและโหมดสว่าง",
       "label": "โหมดมืด"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "ลักษณะที่ปรากฏและประสบการณ์",
+      "stats": "แผนภูมิและข้อมูล",
+      "storage": "ที่เก็บข้อมูลและแคช"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "จำนวนรายการที่แสดงในแผนภูมิแสดงรายชื่อผู้ติดต่อบ่อย (สูงสุด 999)",
+      "label": "จำนวนผู้นำ"
     },
     "localIdentities": {
-      "description": "A list of email addresses to recognize as 'sent from' for local accounts",
-      "label": "Local Identities"
+      "description": "รายชื่อที่อยู่อีเมลที่จะจดจำว่าเป็น 'ส่งจาก' สำหรับบัญชีภายในเครื่อง",
+      "label": "อัตลักษณ์ท้องถิ่น"
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "refreshCacheRequired": "หากมีการเปลี่ยนแปลงจะต้องสร้างแคชใหม่",
+      "reloadStatsPage": "ตัวเลือกจะถูกบันทึกโดยอัตโนมัติ การเปลี่ยนแปลงตัวเลือกบางอย่างไม่สามารถนำไปใช้โดยอัตโนมัติกับหน้าสถิติที่เปิดอยู่แล้วหรือรายการแคชที่มีอยู่ หากมีการเปิดใช้งานแคช จะถูกทำเครื่องหมายด้วยไอคอนที่สอดคล้องกัน",
+      "reloadWindowRequired": "หากมีการเปลี่ยนแปลงหน้าต่างสถิติจะต้องโหลดใหม่",
       "title": "หมายเหตุ"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "แสดงแกนแนวตั้งสำหรับทุกเส้นและแผนภูมิแท่ง",
+      "label": "แกนแนวตั้ง"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "รีเซ็ตตัวเลือกทั้งหมดให้เป็นค่าเริ่มต้น อาจจำเป็นต้องมีการรีเฟรชหน้าต่างหรือการรีเฟรชแคช ทั้งนี้ขึ้นอยู่กับตัวเลือกที่คุณเปลี่ยนก่อนหน้านี้",
+      "label": "ตัวเลือกการรีเซ็ต",
+      "removeIdentities": "นอกจากนี้ยังจะลบข้อมูลประจำตัวของท้องถิ่นทั้งหมดที่คุณสร้างขึ้น"
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "ยกเว้นข้อความที่ส่งจากฉันถึงตัวฉันเอง",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "ข้อความที่ผู้ส่งและผู้รับเป็นตัวตนจากบัญชีใดๆ จะไม่ถูกรวม",
+        "none": "ข้อความไปยังตนเองจะถูกรวมและถือว่าเป็นอีเมลปกติ (ค่าเริ่มต้น)",
+        "sameAccount": "ข้อความที่ผู้ส่งและผู้รับเป็นตัวตนจากบัญชีเดียวกัน จะไม่ถูกรวม"
       },
-      "label": "Messages to Self",
+      "label": "ข้อความถึงตนเอง",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "จากบัญชีใดก็ได้",
         "none": "ปิดใช้งาน",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "บัญชีเดียวกันเท่านั้น"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
+      "description": "กำหนดวันเริ่มต้นของสัปดาห์เอง สำหรับชาร์ตที่เกี่ยวข้องกับวันทำงานทั้งหมด",
       "label": "เริ่มต้นสัปดาห์ใน"
     },
     "switch": {
@@ -75,48 +75,48 @@
       "on": "เปิด"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "วาดแผนภูมิเกี่ยวกับแท็กโดยใช้สีแท็กที่สอดคล้องกัน",
+      "label": "สีป้ายกำกับ"
     },
     "title": "ตัวเลือก"
   },
   "popup": {
     "message": "-",
     "nAccounts": "{0} บัญชีผู้ใช้ | {0} บัญชี",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nFolders": "{0} โฟลเดอร์ | {0} โฟลเดอร์",
+    "nMessages": "{0} ข้อความ | {0} ข้อความ",
+    "openAllStats": "เปิดสถิติทั้งหมด",
     "openOptions": "เปิดตัวเลือก"
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "W",
-      "day": "d",
-      "hour": "h",
+      "calendarWeek": "ส",
+      "day": "ว",
+      "hour": "ชม",
       "minute": "นาที",
-      "month": "M",
-      "quarter": "Q",
-      "second": "s",
-      "week": "W",
-      "year": "Y"
+      "month": "ด",
+      "quarter": "ต",
+      "second": "วิ",
+      "week": "ส",
+      "year": "ป"
     },
     "account": "บัญชีผู้ใช้",
     "accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
     "allAccounts": "บัญชีผู้ใช้ทั้งหมด",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "จำนวนอีเมลที่ทำเครื่องหมายว่าเป็นขยะต่อผู้ส่ง",
+        "empty": "ไม่มีอีเมลที่ถูกตั้งค่าสถานะเป็นขยะ",
+        "title": "ถูกตั้งค่าสถานะเป็นขยะ"
       },
       "contactsReceived": {
         "description": "จำนวนเมลที่ส่งจากผู้ส่ง",
-        "empty": "No received emails available.",
+        "empty": "ไม่มีอีเมลที่ได้รับ",
         "title": "รับมากที่สุดจาก"
       },
       "contactsSent": {
         "description": "จำนวนเมลที่รับจากผู้ส่ง",
-        "empty": "No sent emails available.",
+        "empty": "ไม่มีอีเมลที่ส่งออก",
         "title": "ส่งมากที่สุดถึง"
       },
       "days": {
@@ -128,8 +128,8 @@
         "title": "วัน"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "จำนวนอีเมลต่อโฟลเดอร์",
+        "title": "การแจกจ่ายโฟลเดอร์"
       },
       "month": {
         "description": "จำนวนอีเมลต่อเดือน",
@@ -144,8 +144,8 @@
         "title": "ไตรมาส"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "จำนวนอีเมลทั้งหมดต่อแท็ก",
+        "empty": "ไม่มีข้อมูลแท็ก",
         "title": "แท็ก"
       },
       "temporalDistribution": {
@@ -166,27 +166,27 @@
       }
     },
     "contact": "ติดต่อ",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "ข้อมูลที่เก็บรวบรวม {0} ที่ผ่านมา",
+    "disclaimer": "ThirdStats ไม่รับรองความถูกต้องของข้อมูลที่แสดง<br />ในกรณีที่มีปัญหาโปรด <a href='{0}' target='_blank'>สร้างรายงานข้อผิดพลาด</a>",
     "folder": "โฟลเดอร์",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "junkMails": "อีเมลขยะ",
+    "junkScore": "คะแนนขยะ {0}",
     "loadingInProgress": "กำลังโหลดอีเมลทั้งหมดของบัญชีนี้…",
     "mailsPerDay": "เมล / วัน",
     "mailsPerMonth": "เมลต่อเดือน",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "อีเมลต่อไตรมาส",
+    "mailsPerTag": "อีเมลต่อแท็ก",
+    "mailsPerWeek": "อีเมลต่อสัปดาห์",
+    "mailsPerYear": "อีเมลต่อปี",
     "mailsReceived": "เมลที่ได้รับ",
     "mailsSent": "ส่งเมลแล้ว",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "เมล์ติดดาว",
+    "mailsTagged": "{0} อีเมลที่ติดแท็ก",
     "mailsTotal": "เมลทั้งหมด",
     "mailsUnread": "เมลที่ไม่ได้อ่าน",
     "message": "-",
     "niceWork": "ทำได้ดีมาก!",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "โฟลเดอร์ไม่ว่างเปล่า | โฟลเดอร์ไม่ว่างเปล่า | โฟลเดอร์ไม่ว่างเปล่า",
     "percentOfReceived": "{0}% ของที่ได้รับ",
     "percentOfTotal": "{0}% ของทั้งหมด",
     "starAndImprove": "กดดาวและพัฒนาโปรเจคท์นี้ได้ที่ <a href='{0}' target='_blank'>Github</a>",
@@ -194,28 +194,28 @@
     "title": "สถิติ",
     "tooltips": {
       "clear": "ล้างการเลือก",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "เปรียบเทียบบัญชีในหนึ่งแผนภูมิ",
+      "comparisonWhenAccountsOption": "การเปรียบเทียบบัญชีจะใช้ได้เท่านั้น\nหากเปิดใช้งานมากกว่าหนึ่งบัญชีในตัวเลือก Add-on",
+      "comparisonWhenFilter": "การเปรียบเทียบบัญชีจะใช้ได้เท่านั้น\nหากเลือก “บัญชีทั้งหมด” ในบัญชีที่กรองด้านบน",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateFormat": "ต้องมีรูปแบบ YYY-MM-DD เช่น 2020-01-31",
+        "dateOrderEnd": "วันที่สิ้นสุดต้องเป็นหลังจากวันที่เริ่มต้น",
+        "dateOrderStart": "วันที่เริ่มต้นต้องเป็นวันก่อนวันสิ้นสุด",
+        "dateUnreal": "ต้องระบุวันที่ถูกต้อง",
+        "empty": "จำเป็นต้องป้อนข้อมูล"
       },
       "expand": "ขยายพื้นที่แผนภูมิ",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "ส่งออกข้อมูลที่แสดงอยู่ในปัจจุบันเป็นไฟล์ JSON",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "โฟลเดอร์ไม่พร้อมใช้งานสำหรับ {0}"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "ถึงวันที่\nเคล็ดลับ: พิมพ์ '{0}' กลายเป็น '{1}'",
+        "start": "จากวันที่\nเคล็ดลับ: พิมพ์ '{0}' กลายเป็น '{1}'"
       },
       "refresh": "รีเฟรชข้อมูล",
       "shrink": "หดพื้นที่แผนภูมิ",
-      "sum": "Show sum of all accounts"
+      "sum": "แสดงผลรวมของบัญชีทั้งหมด"
     },
     "withinYears": "ภายใน {0} ปี"
   }

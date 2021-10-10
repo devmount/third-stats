@@ -1,0 +1,222 @@
+{
+  "extensionDescription": {
+    "message": "Krásne vizualizované štatistiky pre vaše e-mailové kontá Thunderbird"
+  },
+  "options": {
+    "activeAccounts": {
+      "color": "Pridajte každému účtu vlastnú farbu, aby ste ich v režime porovnávania odlíšili.",
+      "description": "Povoľte alebo zakážte účty. Zakázané účty sa nezobrazia v žiadnom zozname účtov ani v štatistikách.",
+      "label": "Aktívne účty",
+      "sumAndCompare": "Aktiváciou viac ako jedného účtu aktivujete možnosť filtrovania štatistík \"Všetky účty\" pre zobrazenie súčtu a porovnania."
+    },
+    "cache": {
+      "description": "Povoľte systému ukladanie do vyrovnávacej pamäte pre rýchlejšie zobrazenie už spracovaných údajov štatistík.",
+      "label": "Aktivovať vyrovnávaciu pamäť"
+    },
+    "clearCache": {
+      "description": "Odstrániť všetky údaje štatistík z vyrovnávacej pamäte zo všetkých účtov. Obnovia sa pri opätovnom otvorení stránky so štatistikami.",
+      "empty": "Vyrovnávacia pamäť je prázdna",
+      "label": "Vyčistiť vyrovnávaciu pamäť",
+      "size": "Veľkosť vyrovnávacej pamäte je {0}"
+    },
+    "darkMode": {
+      "description": "Prepínanie medzi tmavými a svetlými farebnými schémami",
+      "label": "Tmavý režim"
+    },
+    "headings": {
+      "appearance": "Vzhľad a skúsenosti",
+      "stats": "Grafy a údaje",
+      "storage": "Ukladanie a vyrovnávacia pamäť"
+    },
+    "leaderCount": {
+      "description": "Počet záznamov zobrazených v grafoch s častými kontaktmi (maximálne 999)",
+      "label": "Počet vedúcich"
+    },
+    "localIdentities": {
+      "description": "Zoznam emailových adries, ktoré sa majú rozpoznať ako \"odoslané z\" pre miestne účty",
+      "label": "Miestne identity"
+    },
+    "message": "-",
+    "note": {
+      "refreshCacheRequired": "Ak sa zmení, vyrovnávaciu pamäť je potrebné obnoviť",
+      "reloadStatsPage": "Nastavenia sa automaticky uložia. Niektoré zmeny nastavení nie je možné automaticky aplikovať na už otvorenú stránku so štatistikami alebo na existujúce položky vyrovnávacej pamäte, ak je aktivovaná vyrovnávacia pamäť. Sú označené príslušnými ikonami.",
+      "reloadWindowRequired": "Ak sa zmení, musí sa znova načítať okno štatistík",
+      "title": "Poznámka"
+    },
+    "ordinate": {
+      "description": "Zobraziť vertikálnu os pre všetky čiarové a stĺpcové grafy",
+      "label": "Vertikálna os"
+    },
+    "resetOptions": {
+      "description": "Obnoviť všetky nastavenia na ich predvolené hodnoty. V závislosti od toho, ktoré nastavenia ste predtým zmenili, môže byť potrebné obnovenie okna alebo vyrovnávacej pamäte.",
+      "label": "Obnoviť nastavenia",
+      "removeIdentities": "Tým sa odstránia aj všetky lokálne identity, ktoré ste vytvorili."
+    },
+    "selfMessages": {
+      "description": "Vynechať správy, ktoré boli odoslané sebe samému odo mňa",
+      "info": {
+        "anyAccount": "Správy, v ktorých sú odosielateľ a príjemca sú identitami z akéhokoľvek účtu, budú vylúčené.",
+        "none": "Správy sebe samému budú zahrnuté a spracované ako bežné emaily (predvolené)",
+        "sameAccount": "Správy, ktorých odosielateľ a príjemca sú identity z toho istého účtu, budú vylúčené"
+      },
+      "label": "Správy sebe",
+      "values": {
+        "anyAccount": "Z ľubovoľného účtu",
+        "none": "Vypnuté",
+        "sameAccount": "Iba z rovnakého účtu"
+      }
+    },
+    "startOfWeek": {
+      "description": "Vlastný začiatok týždňa pre všetky grafy týkajúce sa dní v týždni",
+      "label": "Prvý deň týždňa"
+    },
+    "switch": {
+      "off": "Vypnuté",
+      "on": "Zapnuté"
+    },
+    "tagColors": {
+      "description": "Vykreslí grafy o popisoch pomocou zodpovedajúcich farieb popisov",
+      "label": "Farby popisu"
+    },
+    "title": "Možnosti"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} Účet | {0} Účtov",
+    "nFolders": "{0} Priečinok | {0} Priečinkov",
+    "nMessages": "{0} Správa | {0} Správ",
+    "openAllStats": "Otvoriť všetky štatistiky",
+    "openOptions": "Otvoriť nastavenia"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "T",
+      "day": "d",
+      "hour": "h",
+      "minute": "min",
+      "month": "M",
+      "quarter": "Š",
+      "second": "s",
+      "week": "T",
+      "year": "R"
+    },
+    "account": "Účet",
+    "accountEmpty": "Tento účet je prázdny, nie sú tu žiadne emaily.",
+    "allAccounts": "Všetky účty",
+    "charts": {
+      "contactsJunk": {
+        "description": "Počet emailov označených ako nevyžiadané na odosielateľa",
+        "empty": "Žiadne emaily nie sú označené ako nevyžiadané.",
+        "title": "Označené ako nevyžiadané"
+      },
+      "contactsReceived": {
+        "description": "Počet prijatých emailov na odosielateľa",
+        "empty": "Nie sú k dispozícii žiadne prijaté emaily.",
+        "title": "Najviac prijatých od"
+      },
+      "contactsSent": {
+        "description": "Počet odoslaných emailov na príjemcu",
+        "empty": "Nie sú k dispozícii žiadne odoslané emaily.",
+        "title": "Najviac odoslaných na"
+      },
+      "days": {
+        "description": "Počet emailov na dátum",
+        "title": "Aktivita v {0}"
+      },
+      "daytime": {
+        "description": "Počet emailov v jednotlivých denných hodinách",
+        "title": "Počas dňa"
+      },
+      "foldersDistribution": {
+        "description": "Počet emailov na priečinok",
+        "title": "Rozdelenie do priečinkov"
+      },
+      "month": {
+        "description": "Počet emailov za mesiac v roku",
+        "title": "Mesiac"
+      },
+      "months": {
+        "description": "Celkový počet emailov za mesiac",
+        "title": "Mesiace"
+      },
+      "quarters": {
+        "description": "Celkový počet emailov za štvrťrok",
+        "title": "Štvrťroky"
+      },
+      "tagsCount": {
+        "description": "Celkový počet emailov na popis",
+        "empty": "Nie sú k dispozícii žiadne údaje o popisoch.",
+        "title": "Popisy"
+      },
+      "temporalDistribution": {
+        "description": "Počet emailov za deň za hodinu",
+        "title": "Časová distribúcia"
+      },
+      "weekday": {
+        "description": "Počet emailov za deň v týždni",
+        "title": "Dni v týždni"
+      },
+      "weeks": {
+        "description": "Celkový počet emailov za týždeň",
+        "title": "Týždne"
+      },
+      "years": {
+        "description": "Celkový počet emailov za rok",
+        "title": "Roky"
+      }
+    },
+    "contact": "Kontakt",
+    "dataCollected": "Údaje zozbierané pred {0}",
+    "disclaimer": "ThirdStats si nerobí nárok na správnosť zobrazených údajov.<br />V prípade možných problémov, prosím <a href='{0}' target='_blank'>vytvorte hlásenie o chybe</a>.",
+    "folder": "Priečinok",
+    "junkMails": "Nevyžiadaná pošta",
+    "junkScore": "Skóre nevyžiadanej pošty {0}",
+    "loadingInProgress": "Prebieha načítanie všetkých emailov z tohto účtu...",
+    "mailsPerDay": "Emailov za deň",
+    "mailsPerMonth": "Emailov za mesiac",
+    "mailsPerQuarter": "Emailov za štvrťrok",
+    "mailsPerTag": "Emailov na popis",
+    "mailsPerWeek": "Emailov za týždeň",
+    "mailsPerYear": "Emailov za rok",
+    "mailsReceived": "Prijaté emaily",
+    "mailsSent": "Odoslané emaily",
+    "mailsStarred": "Emaily označené hviezdičkou",
+    "mailsTagged": "{0} emailov s popisom",
+    "mailsTotal": "Emaily celkom",
+    "mailsUnread": "Neprečítané emaily",
+    "message": "-",
+    "niceWork": "Dobrá práca!",
+    "nonEmptyFolders": "neprázdne priečinky | neprázdny priečinok | neprázdne priečinky",
+    "percentOfReceived": "{0}% z prijatých",
+    "percentOfTotal": "{0}% z celkového počtu",
+    "starAndImprove": "Buď hviezdou, forkni ma na <a href='{0}' target='_blank'>GitHub</a>.",
+    "timePeriod": "Rozsah dátumov",
+    "title": "Štatistiky",
+    "tooltips": {
+      "clear": "Zrušiť výber",
+      "comparison": "Porovnanie účtov v jednom grafe",
+      "comparisonWhenAccountsOption": "Porovnanie účtov je k dispozícii \nlen ak je aktivovaný viac ako jeden účet v nastaveniach doplnku",
+      "comparisonWhenFilter": "Porovnanie účtov je k dispozícii len\nak je vo filtri účtov vybraná možnosť \"Všetky účty\".",
+      "error": {
+        "dateFormat": "Vyžaduje sa formát RRRR-MM-DD, napr. 2020-01-31",
+        "dateOrderEnd": "Dátum ukončenia musí byť po dátume začiatku",
+        "dateOrderStart": "Dátum začiatku musí byť pred dátumom ukončenia",
+        "dateUnreal": "Vyžaduje sa platný dátum",
+        "empty": "Vyžaduje sa vstup"
+      },
+      "expand": "Rozšíriť oblasť grafu",
+      "exportData": "Exportovať aktuálne zobrazené dáta ako súbor JSON",
+      "folder": {
+        "notAvailable": "Priečinky nie sú k dispozícii pre {0}"
+      },
+      "period": {
+        "end": "K dátumu\nTip: Napísaním '{0}' sa stane '{1}'",
+        "start": "Od dátumu\nTip: Napísaním '{0}' sa stane '{1}'"
+      },
+      "refresh": "Obnoviť údaje",
+      "shrink": "Zmenšiť oblasť grafu",
+      "sum": "Zobraziť súčet všetkých účtov"
+    },
+    "withinYears": "za {0} rokov"
+  }
+}
