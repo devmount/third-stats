@@ -49,7 +49,7 @@
     },
     "resetOptions": {
       "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
+      "label": "重置选项",
       "removeIdentities": "This will also remove all local identities you created."
     },
     "selfMessages": {

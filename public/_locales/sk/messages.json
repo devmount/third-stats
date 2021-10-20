@@ -14,7 +14,7 @@
       "label": "Aktivovať vyrovnávaciu pamäť"
     },
     "clearCache": {
-      "description": "Odstrániť všetky údaje štatistík z vyrovnávacej pamäte zo všetkých účtov. Obnovia sa pri opätovnom otvorení stránky so štatistikami.",
+      "description": "Odstránia sa všetky údaje štatistík z vyrovnávacej pamäte zo všetkých účtov. Obnovia sa pri opätovnom otvorení stránky so štatistikami.",
       "empty": "Vyrovnávacia pamäť je prázdna",
       "label": "Vyčistiť vyrovnávaciu pamäť",
       "size": "Veľkosť vyrovnávacej pamäte je {0}"
@@ -24,7 +24,7 @@
       "label": "Tmavý režim"
     },
     "headings": {
-      "appearance": "Vzhľad a skúsenosti",
+      "appearance": "Vzhľad a dojem",
       "stats": "Grafy a údaje",
       "storage": "Ukladanie a vyrovnávacia pamäť"
     },
@@ -55,7 +55,7 @@
     "selfMessages": {
       "description": "Vynechať správy, ktoré boli odoslané sebe samému odo mňa",
       "info": {
-        "anyAccount": "Správy, v ktorých sú odosielateľ a príjemca sú identitami z akéhokoľvek účtu, budú vylúčené.",
+        "anyAccount": "Budú vylúčené správy, v ktorých odosielateľ a príjemca sú identitami z akéhokoľvek účtu",
         "none": "Správy sebe samému budú zahrnuté a spracované ako bežné emaily (predvolené)",
         "sameAccount": "Správy, ktorých odosielateľ a príjemca sú identity z toho istého účtu, budú vylúčené"
       },
@@ -182,7 +182,7 @@
     "mailsSent": "Odoslané emaily",
     "mailsStarred": "Emaily označené hviezdičkou",
     "mailsTagged": "{0} emailov s popisom",
-    "mailsTotal": "Emaily celkom",
+    "mailsTotal": "Emailov celkom",
     "mailsUnread": "Neprečítané emaily",
     "message": "-",
     "niceWork": "Dobrá práca!",
