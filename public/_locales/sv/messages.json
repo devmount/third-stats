@@ -75,8 +75,8 @@
       "on": "På"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Rita diagram om taggar med hjälp av motsvarande taggfärger",
+      "label": "Taggfärger"
     },
     "title": "Alternativ"
   },
@@ -98,7 +98,7 @@
       "quarter": "K",
       "second": "s",
       "week": "V",
-      "year": "Y"
+      "year": "Å"
     },
     "account": "Konto",
     "accountEmpty": "Detta konto är tomt, inga mejl hittas.",
@@ -106,17 +106,17 @@
     "charts": {
       "contactsJunk": {
         "description": "Antal e-postmeddelanden markerade som Skräppost per avsändare",
-        "empty": "No emails flagged as Junk.",
+        "empty": "Inga mejl flaggade som skräp.",
         "title": "Flaggad som Skräppost"
       },
       "contactsReceived": {
         "description": "Antal mejl skickade per mottagare",
-        "empty": "No received emails available.",
+        "empty": "Inga mottagna mejl tillgängliga.",
         "title": "Mest mottaget från"
       },
       "contactsSent": {
         "description": "Antal mejl mottagna per avsändare",
-        "empty": "No sent emails available.",
+        "empty": "Inga skickade mejl tillgängliga.",
         "title": "Mest skickat till"
       },
       "days": {
@@ -144,8 +144,8 @@
         "title": "Kvartal"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Totalt antal mejl per tagg",
+        "empty": "Inga taggdata tillgängliga.",
         "title": "Taggar"
       },
       "temporalDistribution": {
@@ -174,14 +174,14 @@
     "loadingInProgress": "Inläsning av alla mejl från detta konto pågår…",
     "mailsPerDay": "Mejl per dag",
     "mailsPerMonth": "Mejl per månad",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Mejl per kvartal",
+    "mailsPerTag": "Mejl per tagg",
+    "mailsPerWeek": "Mejl per vecka",
+    "mailsPerYear": "Mejl per år",
     "mailsReceived": "Mottagna mejl",
     "mailsSent": "Skickade mejl",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Märkta mejl",
+    "mailsTagged": "{0} mejl taggade",
     "mailsTotal": "Antal mejl",
     "mailsUnread": "Olästa mejl",
     "message": "-",
