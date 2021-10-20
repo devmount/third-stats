@@ -1,0 +1,222 @@
+{
+  "extensionDescription": {
+    "message": "Prachtig gevisualiseerde statistieken voor je Thunderbird-e-mailaccounts"
+  },
+  "options": {
+    "activeAccounts": {
+      "color": "Geef elk account een aangepaste kleur om ze in de vergelijkingsmodus te onderscheiden.",
+      "description": "Accounts in- of uitschakelen. Uitgeschakelde accounts worden niet weergegeven in een lijst met accounts of statistieken.",
+      "label": "Actieve accounts",
+      "sumAndCompare": "Als u meer dan één account activeert, is de optie 'Alle accounts' statistieken filter optie voor som- en vergelijkingsweergave."
+    },
+    "cache": {
+      "description": "Schakel het cachesysteem in voor een snellere weergave van reeds verwerkte statistieken gegevens.",
+      "label": "Cache activeren"
+    },
+    "clearCache": {
+      "description": "Verwijder alle statistieken in de cache van alle accounts. Wordt opnieuw opgebouwd als je de statistieken pagina opnieuw opent.",
+      "empty": "Cache is leeg",
+      "label": "Cache wissen",
+      "size": "De grootte van de cache is {0}"
+    },
+    "darkMode": {
+      "description": "Schakel tussen donker en licht kleurenschema",
+      "label": "Donkere modus"
+    },
+    "headings": {
+      "appearance": "Uiterlijk en ervaring",
+      "stats": "Diagrammen en gegevens",
+      "storage": "Opslag en cache"
+    },
+    "leaderCount": {
+      "description": "Aantal vermeldingen weergegeven in diagrammen met frequente contacten (maximaal 999)",
+      "label": "Leader Count"
+    },
+    "localIdentities": {
+      "description": "Een lijst met e-mailadressen die je kunt herkennen als 'verzonden van' voor lokale accounts",
+      "label": "Lokale identiteiten"
+    },
+    "message": "-",
+    "note": {
+      "refreshCacheRequired": "If changed, cache needs to be rebuild",
+      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
+      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "title": "Notitie"
+    },
+    "ordinate": {
+      "description": "Display vertical axis for all line and bar charts",
+      "label": "Vertical Axis"
+    },
+    "resetOptions": {
+      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
+      "label": "Reset Options",
+      "removeIdentities": "This will also remove all local identities you created."
+    },
+    "selfMessages": {
+      "description": "Exclude messages that were sent from me to myself",
+      "info": {
+        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
+        "none": "Messages to self will be included and treated as normal emails (default)",
+        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+      },
+      "label": "Messages to Self",
+      "values": {
+        "anyAccount": "From Any Account",
+        "none": "Uitgeschakeld",
+        "sameAccount": "Same Account Only"
+      }
+    },
+    "startOfWeek": {
+      "description": "Custom start of week for all weekday related charts",
+      "label": "Week starten op"
+    },
+    "switch": {
+      "off": "UIT",
+      "on": "AAN"
+    },
+    "tagColors": {
+      "description": "Draw charts about tags using corresponding tag colors",
+      "label": "Tag Colors"
+    },
+    "title": "Opties"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} Account | {0} Accounts",
+    "nFolders": "{0} Folder | {0} Folders",
+    "nMessages": "{0} Message | {0} Messages",
+    "openAllStats": "Open all Stats",
+    "openOptions": "Open opties"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "W",
+      "day": "d",
+      "hour": "h",
+      "minute": "Min",
+      "month": "M",
+      "quarter": "Q",
+      "second": "s",
+      "week": "W",
+      "year": "Y"
+    },
+    "account": "Rekening",
+    "accountEmpty": "This account is empty, no emails here.",
+    "allAccounts": "All Accounts",
+    "charts": {
+      "contactsJunk": {
+        "description": "Number of emails marked as Junk per sender",
+        "empty": "No emails flagged as Junk.",
+        "title": "Flagged as Junk"
+      },
+      "contactsReceived": {
+        "description": "Number of emails received per sender",
+        "empty": "No received emails available.",
+        "title": "Most received from"
+      },
+      "contactsSent": {
+        "description": "Number of emails sent per recipient",
+        "empty": "No sent emails available.",
+        "title": "Most sent to"
+      },
+      "days": {
+        "description": "Number of emails per date",
+        "title": "Activity in {0}"
+      },
+      "daytime": {
+        "description": "Number of emails per time of day",
+        "title": "Daytime"
+      },
+      "foldersDistribution": {
+        "description": "Number of emails per folder",
+        "title": "Folders distribution"
+      },
+      "month": {
+        "description": "Number of emails per month of year",
+        "title": "Maand"
+      },
+      "months": {
+        "description": "Total number of emails per month",
+        "title": "Maanden"
+      },
+      "quarters": {
+        "description": "Total number of emails per quarter",
+        "title": "Kwartalen"
+      },
+      "tagsCount": {
+        "description": "Total number of emails per tag",
+        "empty": "No tag data available.",
+        "title": "Labels"
+      },
+      "temporalDistribution": {
+        "description": "Number of emails per weekday per hour",
+        "title": "Temporal distribution"
+      },
+      "weekday": {
+        "description": "Number of emails per day of week",
+        "title": "Weekdag"
+      },
+      "weeks": {
+        "description": "Total number of emails per week",
+        "title": "Weken"
+      },
+      "years": {
+        "description": "Total number of emails per year",
+        "title": "jaren"
+      }
+    },
+    "contact": "Contactpersoon",
+    "dataCollected": "Data collected {0} ago",
+    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "folder": "Map",
+    "junkMails": "Junk mails",
+    "junkScore": "Junk score of {0}",
+    "loadingInProgress": "Loading of all emails from this account in progress…",
+    "mailsPerDay": "Mails per day",
+    "mailsPerMonth": "Mails per month",
+    "mailsPerQuarter": "Mails per quarter",
+    "mailsPerTag": "Mails per tag",
+    "mailsPerWeek": "Mails per week",
+    "mailsPerYear": "Mails per year",
+    "mailsReceived": "Mails received",
+    "mailsSent": "Mails sent",
+    "mailsStarred": "Mails starred",
+    "mailsTagged": "{0} mails tagged",
+    "mailsTotal": "Mails total",
+    "mailsUnread": "Mails unread",
+    "message": "-",
+    "niceWork": "Goed gedaan!",
+    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "percentOfReceived": "{0}% of received",
+    "percentOfTotal": "{0}% of total",
+    "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
+    "timePeriod": "Datumbereik",
+    "title": "Statistieken",
+    "tooltips": {
+      "clear": "Selectie wissen",
+      "comparison": "Compare accounts in one chart",
+      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
+      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "error": {
+        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateOrderEnd": "De einddatum moet na de begindatum zijn.",
+        "dateOrderStart": "Start date must be before end date",
+        "dateUnreal": "A valid date is required",
+        "empty": "Input is required"
+      },
+      "expand": "Expand chart area",
+      "exportData": "Export currently displayed data as JSON file",
+      "folder": {
+        "notAvailable": "Folders are not available for {0}"
+      },
+      "period": {
+        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
+        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+      },
+      "refresh": "Gegevens vernieuwen",
+      "shrink": "Shrink chart area",
+      "sum": "Show sum of all accounts"
+    },
+    "withinYears": "within {0} years"
+  }
+}

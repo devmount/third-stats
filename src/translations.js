@@ -9,6 +9,7 @@ const messages = {
 	"hi":    require("../public/_locales/hi/messages.json"),    // Hindi
 	"hu":    require("../public/_locales/hu/messages.json"),    // Hungarian
 	"it":    require("../public/_locales/it/messages.json"),    // Italian
+	"nl":    require("../public/_locales/nl/messages.json"),    // Dutch
 	"ja":    require("../public/_locales/ja/messages.json"),    // Japanese
 	"pl":    require("../public/_locales/pl/messages.json"),    // Polish
 	"pt":    require("../public/_locales/pt/messages.json"),    // Portuguese
