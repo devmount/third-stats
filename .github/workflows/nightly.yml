@@ -1,4 +1,5 @@
-# This workflow will do a clean install of node dependencies and build the application across different versions of node
+# This workflow will do a clean install of node dependencies
+# and build the application with node
 # It creates a thunderbird add-on .xpi file from it and stores it as artifact
 
 name: Nightly build
@@ -13,15 +14,12 @@ jobs:
   # create the build files and push them to CDN
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 17
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 17.x
     - name: Get Timestamp
       id: timestamp
       run: |
@@ -42,7 +40,7 @@ jobs:
     - name: Build filename
       id: file
       run: |
-        filename=third-stats_${{ steps.version.outputs.next }}-alpha.${{steps.timestamp.outputs.now}}.xpi
+        filename=third-stats_${{ steps.version.outputs.next }}-alpha.${{ steps.timestamp.outputs.now }}.xpi
         echo "Built filename ${filename}"
         echo ::set-output name=name::${filename}
     - name: Build app using Yarn
@@ -61,11 +59,13 @@ jobs:
         name: third-stats-nightly
         path: ${{ steps.file.outputs.name }}
     - name: Push add-on to CDN
-      uses: kostya-ten/ssh-server-deploy@v4
+      uses: burnett01/rsync-deployments@5.2
       with:
-        host: ${{ secrets.CDN_HOST }}
-        port: ${{ secrets.CDN_PORT }}
-        username: ${{ secrets.CDN_USER }}
-        password: ${{ secrets.CDN_PASS }}
-        scp_source: ${{ steps.file.outputs.name }}
-        scp_target: ${{ secrets.CDN_PATH }}/
+        switches: -avzr --delete
+        path: ${{ steps.file.outputs.name }}
+        remote_path: ${{ secrets.CDN_PATH }}
+        remote_host: ${{ secrets.CDN_HOST }}
+        remote_port: ${{ secrets.CDN_PORT }}
+        remote_user: ${{ secrets.CDN_USER }}
+        remote_key: ${{ secrets.CDN_SSH_KEY }}
+        remote_key_pass: ${{ secrets.CDN_SSH_PHRASE }}
