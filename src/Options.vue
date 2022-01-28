@@ -333,10 +333,11 @@
 </template>
 
 <script>
-import { defaultColors } from "./definitions"
-import { formatBytes, localStartOfWeek } from "./utils"
+import { defineComponent } from 'vue';
+import { defaultColors } from "./definitions";
+import { formatBytes, localStartOfWeek } from "./utils";
 
-export default {
+export default defineComponent({
 	name: "Options",
 	data () {
 		return {
@@ -519,7 +520,7 @@ export default {
 			immediate: false
 		}
 	}
-}
+});
 </script>
 
 <style lang="stylus">

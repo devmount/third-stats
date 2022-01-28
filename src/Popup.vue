@@ -68,11 +68,13 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
+
 // internal components
 import { traverseAccount } from "./utils";
 import LineChart from "./charts/LineChart"
 
-export default {
+export default defineComponent({
 	name: "Popup",
 	components: { LineChart },
 	data () {
@@ -162,7 +164,7 @@ export default {
 			})
 		}
 	}
-}
+});
 </script>
 
 <style lang="stylus">

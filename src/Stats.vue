@@ -831,6 +831,8 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
+
 // internal components
 import { accentColors, defaultColors } from "./definitions";
 import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
@@ -901,7 +903,7 @@ const sortAndLimitObjectToArray = (obj, limit) => {
 // helper function to see if array contains another array
 const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
-export default {
+export default defineComponent({
 	name: "Stats",
 	components: { LineChart, BarChart, HeatMap, DoughnutChart, LiveAge },
 	data () {
@@ -2500,7 +2502,7 @@ export default {
 			}
 		}
 	}
-}
+});
 </script>
 
 <style lang="stylus">

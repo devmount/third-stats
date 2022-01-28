@@ -122,7 +122,7 @@ const formatBytes = (bytes, decimals=2) => {
 }
 
 // special pluralization rules
-const pluralizationPolish = (n) => {
+const pluralPolish = (n) => {
 	if (n === 1) return 1
 	const endsWith = n % 10
 	if (([2, 3, 4].indexOf(endsWith) >= 0) && (n < 12) && (n > 14)) return 2
@@ -139,5 +139,5 @@ export {
 	quarterNumber,
 	yyyymmdd,
 	formatBytes,
-	pluralizationPolish
+	pluralPolish
 }

@@ -3,7 +3,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   props: {
     date: Number
 	},
@@ -30,5 +32,5 @@ export default {
 			if (secondsPast > 86400) return parseInt(secondsPast/86400) + this.$t("stats.abbreviations.day")
 		},
 	}
-}
+});
 </script>

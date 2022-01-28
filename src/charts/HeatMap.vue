@@ -10,11 +10,11 @@
 			+ 'grid-gap: ' + spacing + ';'
 		"
 	>
-		<template v-for="(y, n) in labels.y">
-			<div class="y-label text-gray text-tiny text-right" :key="y">
+		<template v-for="(y, n) in labels.y" :key="y">
+			<div class="y-label text-gray text-tiny text-right">
 				<div>{{ y }}</div>
 			</div>
-			<template v-for="(x, m) in labels.x">
+			<template v-for="(x, m) in labels.x" :key="x*y">
 				<div
 					:style="
 						'background: rgba(' + rgb + ', ' + opacity(dataset.data[n][m]) + ');'
@@ -22,7 +22,6 @@
 					"
 					:data-tooltip="buildTooltip(x, y, dataset.label, dataset.data[n][m])"
 					class="cell tooltip"
-					:key="x*y"
 				></div>
 			</template>
 		</template>
@@ -35,7 +34,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
 	props: {
 		title: String,
 		description: String,
@@ -76,7 +77,7 @@ export default {
 			return this.labels.y.length
 		},
 	}
-}
+});
 </script>
 
 <style lang="stylus">

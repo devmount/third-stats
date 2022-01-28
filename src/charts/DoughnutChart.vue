@@ -13,9 +13,10 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
 import { Chart } from '../chart.config'
 
-export default {
+export default defineComponent({
 	props: {
 		title: String,
 		description: String,
@@ -91,7 +92,7 @@ export default {
 			this.chart.update();
 		}
 	}
-}
+});
 </script>
 
 <style lang="stylus">
