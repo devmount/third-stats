@@ -23,11 +23,11 @@ export default defineComponent({
 	},
 	data () {
 		return {
-			id: Math.random().toString(36).substring(7),
-			chart: null
+			id: Math.random().toString(36).substring(7)
 		}
 	},
 	mounted () {
+		this.chart = null;
 		if (this.labels && this.datasets) {
 			this.draw()
 		}
@@ -63,9 +63,26 @@ export default defineComponent({
 					maintainAspectRatio: false,
 					datasets: {
 						bar: {
-							borderWidth: this.horizontal ? { right: 2} : { top: 2 },
+							borderWidth: this.horizontal ? { right: 2 } : { top: 2 },
 							barPercentage: 1,
 							categoryPercentage: .6,
+						}
+					},
+					plugins: {
+						tooltip: {
+							displayColors: true,
+							intersect: true,
+							position: 'nearest',
+							callbacks: {
+								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
+								labelColor: context => {
+									return {
+										borderWidth: 2,
+										borderColor: context.dataset.borderColor,
+										backgroundColor: context.dataset.borderColor + '33',
+									};
+								}
+							}
 						}
 					},
 					scales: {
@@ -89,15 +106,6 @@ export default defineComponent({
 								drawBorder: false,
 							},
 							beginAtZero: true
-						}
-					},
-					plugins: {
-						tooltip: {
-							intersect: true,
-							position: 'nearest',
-							callbacks: {
-								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label
-							}
 						}
 					}
 				}

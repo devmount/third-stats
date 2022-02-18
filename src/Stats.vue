@@ -497,29 +497,28 @@
 								@click="activateTab('activity', label)"
 							>
 								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
-									{{ $t("stats.charts." + label + ".title", [preferences.sections.activity.year]) }}
+									{{ preferences.sections.activity.year == (new Date()).getFullYear()
+											? $t("stats.charts." + label + ".latestActivity")
+											: $t("stats.charts." + label + ".title", [preferences.sections.activity.year]) }}
 								</span>
 							</li>
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- activity per day received -->
-							<HeatMap
-								rgb="10, 132, 255"
-								spacing="1px"
-								rounding="5px"
-								:dataset="daysChartData.received"
-								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
-								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{value} {label}'"
-								class="mt-2 mb-1-5"
+							<MatrixChart
+								color="#0a84ff"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 53, rows: 7 }"
+								:datasets="[dateChartData.received]"
 							/>
 							<!-- activity per day sent -->
-							<HeatMap
-								rgb="230, 77, 185"
-								spacing="1px"
-								rounding="5px"
-								:dataset="daysChartData.sent"
-								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
-								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{value} {label}'"
+							<MatrixChart
+								color="#e64db9"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 53, rows: 7 }"
+								:datasets="[dateChartData.sent]"
 							/>
 						</div>
 					</div>
@@ -630,24 +629,21 @@
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- emails per weekday per hour received -->
-							<HeatMap
-								rgb="10, 132, 255"
-								spacing="1px"
-								rounding="5px"
-								:dataset="weekdayPerHourChartData.received"
-								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{value} {label}'"
-								class="mt-1-5 mb-1-5"
-							/>
+							<!-- <MatrixChart
+								color="#0a84ff"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 24, rows: 7 }"
+								:datasets="[weekdayPerHourChartData.received]"
+							/> -->
 							<!-- emails per weekday per hour sent -->
-							<HeatMap
-								rgb="230, 77, 185"
-								spacing="1px"
-								rounding="5px"
-								:dataset="weekdayPerHourChartData.sent"
-								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{value} {label}'"
-							/>
+							<!-- <MatrixChart
+								color="#e64db9"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 24, rows: 7 }"
+								:datasets="[weekdayPerHourChartData.sent]"
+							/> -->
 						</div>
 					</div>
 					<!-- section: leader -->
@@ -835,9 +831,10 @@ import { defineComponent } from 'vue';
 
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek, startOfToday } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
+import MatrixChart from "./charts/MatrixChart"
 import HeatMap from "./charts/HeatMap"
 import DoughnutChart from "./charts/DoughnutChart"
 import LiveAge from "./parts/LiveAge"
@@ -905,7 +902,7 @@ const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default defineComponent({
 	name: "Stats",
-	components: { LineChart, BarChart, HeatMap, DoughnutChart, LiveAge },
+	components: { LineChart, BarChart, MatrixChart, HeatMap, DoughnutChart, LiveAge },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
@@ -1051,6 +1048,10 @@ export default defineComponent({
 					sent: {},
 				},
 				daysData: {
+					received: {},
+					sent: {},
+				},
+				dateData: {
 					received: {},
 					sent: {},
 				},
@@ -1290,11 +1291,13 @@ export default defineComponent({
 			data.weekdayData[type][wd]++
 			// month
 			data.monthData[type][mo]++
-			// weekday per calendar week
-			if (!(ywn in data.daysData[type])) {
-				data.daysData[type][ywn] = new NumberedObject(7,53)
+			// date data
+			const iso = m.date.toISOString().substr(0, 10);
+			if (!(iso in data.dateData[type])) {
+				data.dateData[type][iso] = 1;
+			} else {
+				data.dateData[type][iso]++;
 			}
-			data.daysData[type][ywn][wd][wn-1]++
 			// weekday per hour
 			data.weekdayPerHourData[type][wd][dt]++
 			// contacts (leaderboards)
@@ -2254,45 +2257,33 @@ export default defineComponent({
 				labels: this.monthNames
 			}
 		},
-		// prepare data for activity heatmaps
-		daysChartData () {
-			let r = this.preferences.sections.activity.year in this.display.daysData.received
-				? Object.values(this.display.daysData.received[this.preferences.sections.activity.year])
-				: Object.values(new NumberedObject(7,53))
-			let s = this.preferences.sections.activity.year in this.display.daysData.sent
-				? Object.values(this.display.daysData.sent[this.preferences.sections.activity.year])
-				: Object.values(new NumberedObject(7,53))
-			let ylabels = [...this.weekdayNames]
-			let xlabels = Array.from(Array(54).keys())
-			xlabels.shift()
-			// start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++) {
-				r.push(r.shift())
-				s.push(s.shift())
-				ylabels.push(ylabels.shift())
-			}
+		// prepare data for single date matrix charts
+		dateChartData () {
+			const end = startOfToday();
+			let rd = Object.entries(this.display.dateData ? this.display.dateData.received : []);
+			let r = this.preferences.sections.activity.year == (new Date().getFullYear())
+				? rd.filter(e => new Date(e[0]) > new Date(new Date().setDate(end.getDate() - 365)))
+				: rd.filter(e => e[0].substring(0,4) == this.preferences.sections.activity.year);
+			let sd = Object.entries(this.display.dateData ? this.display.dateData.sent : []);
+			let s = this.preferences.sections.activity.year == (new Date().getFullYear())
+				? sd.filter(e => new Date(e[0]) > new Date(new Date().setDate(end.getDate() - 365)))
+				: sd.filter(e => e[0].substring(0,4) == this.preferences.sections.activity.year);
+			// TODO: handle this.preferences.startOfWeek
+			console.log(r);
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
 				sent: { label: this.$t("stats.mailsSent"), data: s },
-				ylabels: ylabels,
-				xlabels: xlabels,
 			}
 		},
 		// prepare data for weekday/hour heatmaps
 		weekdayPerHourChartData () {
 			let r = Object.values(this.display.weekdayPerHourData.received)
 			let s = Object.values(this.display.weekdayPerHourData.sent)
-			let labels = [...this.weekdayNames]
-			// start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++) {
-				r.push(r.shift())
-				s.push(s.shift())
-				labels.push(labels.shift())
-			}
+			// TODO: handle this.preferences.startOfWeek
+			console.log(r);
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
 				sent: { label: this.$t("stats.mailsSent"), data: s },
-				labels: labels
 			}
 		},
 		// prepare data for sent emails leaderboard horizontal bar chart

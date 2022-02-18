@@ -43,11 +43,11 @@ export default defineComponent({
 	},
 	data () {
 		return {
-			id: Math.random().toString(36).substring(7),
-			chart: null
+			id: Math.random().toString(36).substring(7)
 		}
 	},
 	mounted () {
+		this.chart = null;
 		if (this.labels && this.datasets) {
 			this.draw()
 		}
@@ -93,7 +93,14 @@ export default defineComponent({
 						tooltip: {
 							enabled: this.tooltips,
 							callbacks: {
-								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label
+								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
+								labelColor: context => {
+									return {
+										borderWidth: 2,
+										borderColor: context.dataset.borderColor,
+										backgroundColor: context.dataset.borderColor + '33',
+									};
+								},
 							}
 						},
 					},

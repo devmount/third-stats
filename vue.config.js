@@ -32,7 +32,7 @@ module.exports = {
 			}
 		},
 		optimization: {
-			minimize: true // set this to false to disable obfuscation
+			minimize: false // set this to false to disable obfuscation
 		},
 		module: {
 			rules: [

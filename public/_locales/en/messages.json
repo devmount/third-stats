@@ -121,7 +121,8 @@
       },
       "days": {
         "description": "Number of emails per date",
-        "title": "Activity in {0}"
+        "title": "Activity in {0}",
+        "latestActivity": "Latest Activity"
       },
       "daytime": {
         "description": "Number of emails per time of day",

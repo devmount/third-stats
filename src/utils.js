@@ -111,6 +111,18 @@ const yyyymmdd = (d) => {
 	return d.toISOString().replace(/-/g, '').slice(0,8)
 }
 
+// return day of week in iso format
+const isoDayOfWeek = d => {
+  let wd = d.getDay();   // 0..6, from sunday
+  wd = (wd + 6) % 7 + 1; // 1..7 from monday
+  return String(wd);
+}
+
+const startOfToday = () => {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+}
+
 // format bytes and append unit
 const formatBytes = (bytes, decimals=2) => {
 	if (bytes === 0) return "0 Bytes"
@@ -129,6 +141,7 @@ const pluralPolish = (n) => {
 	return 0
 }
 
+
 export {
 	queryMessages,
 	traverseAccount,
@@ -138,6 +151,8 @@ export {
 	localStartOfWeek,
 	quarterNumber,
 	yyyymmdd,
+	isoDayOfWeek,
+	startOfToday,
 	formatBytes,
 	pluralPolish
 }

@@ -10,6 +10,9 @@
 	},
 	"dependencies": {
 		"chart.js": "^3.3.0",
+		"chartjs-adapter-date-fns": "^2.0.0",
+		"chartjs-chart-matrix": "^1.1.1",
+		"date-fns": "^2.28.0",
 		"vue": "^3.2.0",
 		"vue-i18n": "^9.2.0-beta.30"
 	},
