@@ -15,13 +15,16 @@ import { isoDayOfWeek } from '../utils';
 
 export default defineComponent({
 	props: {
-		title: String,
-		description: String,
-		color: String,
-		spacing: String,
-		rounding: String,
-		dimension: Object, // {cols, rows}
-		datasets: Array,   // [{data: [[], [], ...], label: ''}, ...]
+		title: String,       // chart title (optional)
+		description: String, // chart description (optional)
+		color: String,       // cell color, gets transparized depending on value
+		spacing: String,     // cell spacing in px
+		rounding: String,    // border-radius in px
+		dimension: Object,   // {cols, rows}
+		parseTime: Boolean,  // if true, parse values as Date objects
+		datasets: Array,     // [{data: [[], [], ...], label: ''}, ...]
+												 // parseTime true: data: [[date, value], [date, value], ...]
+												 // parseTime false: data: [[x, y, value], [x, y, value], ...]
 	},
 	data () {
 		return {
@@ -39,15 +42,17 @@ export default defineComponent({
 		processedDatasets (datasets) {
 			datasets = JSON.parse(JSON.stringify(datasets))
 			datasets.map(d => {
-				const max = Math.max(...d.data.map(e => e[1]));
 				d.data = d.data.map(e => {
 					return {
 						x: e[0],
-						y: isoDayOfWeek(new Date(e[0])),
-						d: new Date(e[0]).toLocaleDateString(this.$i18n.locale, { year: 'numeric', month: 'long', day: 'numeric' }),
-						v: e[1]
+						y: this.parseTime ? isoDayOfWeek(new Date(e[0])) : e[1],
+						d: this.parseTime
+							? new Date(e[0]).toLocaleDateString(this.$i18n.locale, { year: 'numeric', month: 'long', day: 'numeric' })
+							: null,
+						v: this.parseTime ? e[1] : e[2]
 					}
 				});
+				const max = Math.max(...d.data.map(e => e.v));
 				d.backgroundColor = c => {
 					const value = c.dataset.data[c.dataIndex]?.v ?? 0;
 					const alpha = value / max;
@@ -61,6 +66,84 @@ export default defineComponent({
 			return datasets;
 		},
 		draw () {
+			const scales = this.parseTime
+				? {
+					y: {
+						type: 'time',
+						offset: true,
+						time: {
+							unit: 'day',
+							round: 'day',
+							isoWeekday: 1,
+							parser: 'i',
+							displayFormats: {
+								day: 'iiiiii'
+							}
+						},
+						reverse: true,
+						position: 'left',
+						ticks: {
+							maxRotation: 0,
+							autoSkip: true,
+							padding: 5,
+						},
+						grid: {
+							display: false,
+							drawBorder: false,
+							tickLength: 0
+						}
+					},
+					x: {
+						type: 'time',
+						time: {
+							unit: 'month',
+							round: 'week',
+							isoWeekday: 1,
+							displayFormats: {
+								month: 'MMM'
+							}
+						},
+						ticks: {
+							maxRotation: 0,
+							autoSkip: true,
+							autoSkipPadding: 10,
+						},
+						grid: {
+							display: false,
+							drawBorder: false,
+							tickLength: 0,
+						}
+					}
+				}
+				: {
+					y: {
+						offset: true,
+						reverse: true,
+						position: 'left',
+						ticks: {
+							maxRotation: 0,
+							autoSkip: true,
+							padding: 5,
+						},
+						grid: {
+							display: false,
+							drawBorder: false,
+							tickLength: 0
+						}
+					},
+					x: {
+						ticks: {
+							maxRotation: 0,
+							autoSkip: true,
+							autoSkipPadding: 10,
+						},
+						grid: {
+							display: false,
+							drawBorder: false,
+							tickLength: 0,
+						}
+					}
+				};
 			this.chart = new Chart(this.id, {
 				type: "matrix",
 				data: {
@@ -96,54 +179,7 @@ export default defineComponent({
 							}
 						},
 					},
-					scales: {
-						y: {
-							type: 'time',
-							offset: true,
-							time: {
-								unit: 'day',
-								round: 'day',
-								isoWeekday: 1,
-								parser: 'i',
-								displayFormats: {
-									day: 'iiiiii'
-								}
-							},
-							reverse: true,
-							position: 'left',
-							ticks: {
-								maxRotation: 0,
-								autoSkip: true,
-								padding: 5,
-							},
-							grid: {
-								display: false,
-								drawBorder: false,
-								tickLength: 0
-							}
-						},
-						x: {
-							type: 'time',
-							time: {
-								unit: 'month',
-								round: 'week',
-								isoWeekday: 1,
-								displayFormats: {
-									month: 'MMM'
-								}
-							},
-							ticks: {
-								maxRotation: 0,
-								autoSkip: true,
-								autoSkipPadding: 10,
-							},
-							grid: {
-								display: false,
-								drawBorder: false,
-								tickLength: 0,
-							}
-						}
-					}
+					scales: scales
 				}
 			})
 		}

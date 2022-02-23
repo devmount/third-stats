@@ -510,6 +510,7 @@
 								:spacing="1"
 								:rounding="5"
 								:dimension="{ cols: 53, rows: 7 }"
+								:parseTime="true"
 								:datasets="[dateChartData.received]"
 							/>
 							<!-- activity per day sent -->
@@ -517,6 +518,7 @@
 								color="#e64db9"
 								:spacing="1"
 								:rounding="5"
+								:parseTime="true"
 								:dimension="{ cols: 53, rows: 7 }"
 								:datasets="[dateChartData.sent]"
 							/>
@@ -629,21 +631,23 @@
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- emails per weekday per hour received -->
-							<!-- <MatrixChart
+							<MatrixChart
 								color="#0a84ff"
 								:spacing="1"
 								:rounding="5"
 								:dimension="{ cols: 24, rows: 7 }"
+								:parseTime="false"
 								:datasets="[weekdayPerHourChartData.received]"
-							/> -->
+							/>
 							<!-- emails per weekday per hour sent -->
-							<!-- <MatrixChart
+							<MatrixChart
 								color="#e64db9"
 								:spacing="1"
 								:rounding="5"
 								:dimension="{ cols: 24, rows: 7 }"
+								:parseTime="false"
 								:datasets="[weekdayPerHourChartData.sent]"
-							/> -->
+							/>
 						</div>
 					</div>
 					<!-- section: leader -->
@@ -2277,10 +2281,12 @@ export default defineComponent({
 		},
 		// prepare data for weekday/hour heatmaps
 		weekdayPerHourChartData () {
-			let r = Object.values(this.display.weekdayPerHourData.received)
-			let s = Object.values(this.display.weekdayPerHourData.sent)
+			let rd = Object.values(this.display.weekdayPerHourData.received)
+			let sd = Object.values(this.display.weekdayPerHourData.sent)
+			let r = rd.reduce((p,c,day) => [...p,...c.map((n,hour) => [hour, day, n])], []);
+			let s = sd.reduce((p,c,day) => [...p,...c.map((n,hour) => [hour, day, n])], []);
+			console.log(r,s);
 			// TODO: handle this.preferences.startOfWeek
-			console.log(r);
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
 				sent: { label: this.$t("stats.mailsSent"), data: s },
