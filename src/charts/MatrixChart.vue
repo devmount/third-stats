@@ -44,12 +44,12 @@ export default defineComponent({
 			datasets.map(d => {
 				d.data = d.data.map(e => {
 					return {
-						x: e[0],
-						y: this.parseTime ? isoDayOfWeek(new Date(e[0])) : e[1],
+						x: this.parseTime ? e[0] : new Date(e[0]).getHours(),
+						y: isoDayOfWeek(new Date(e[0])),
 						d: this.parseTime
 							? new Date(e[0]).toLocaleDateString(this.$i18n.locale, { year: 'numeric', month: 'long', day: 'numeric' })
 							: null,
-						v: this.parseTime ? e[1] : e[2]
+						v: e[1]
 					}
 				});
 				const max = Math.max(...d.data.map(e => e.v));
@@ -66,84 +66,6 @@ export default defineComponent({
 			return datasets;
 		},
 		draw () {
-			const scales = this.parseTime
-				? {
-					y: {
-						type: 'time',
-						offset: true,
-						time: {
-							unit: 'day',
-							round: 'day',
-							isoWeekday: 1,
-							parser: 'i',
-							displayFormats: {
-								day: 'iiiiii'
-							}
-						},
-						reverse: true,
-						position: 'left',
-						ticks: {
-							maxRotation: 0,
-							autoSkip: true,
-							padding: 5,
-						},
-						grid: {
-							display: false,
-							drawBorder: false,
-							tickLength: 0
-						}
-					},
-					x: {
-						type: 'time',
-						time: {
-							unit: 'month',
-							round: 'week',
-							isoWeekday: 1,
-							displayFormats: {
-								month: 'MMM'
-							}
-						},
-						ticks: {
-							maxRotation: 0,
-							autoSkip: true,
-							autoSkipPadding: 10,
-						},
-						grid: {
-							display: false,
-							drawBorder: false,
-							tickLength: 0,
-						}
-					}
-				}
-				: {
-					y: {
-						offset: true,
-						reverse: true,
-						position: 'left',
-						ticks: {
-							maxRotation: 0,
-							autoSkip: true,
-							padding: 5,
-						},
-						grid: {
-							display: false,
-							drawBorder: false,
-							tickLength: 0
-						}
-					},
-					x: {
-						ticks: {
-							maxRotation: 0,
-							autoSkip: true,
-							autoSkipPadding: 10,
-						},
-						grid: {
-							display: false,
-							drawBorder: false,
-							tickLength: 0,
-						}
-					}
-				};
 			this.chart = new Chart(this.id, {
 				type: "matrix",
 				data: {
@@ -179,7 +101,54 @@ export default defineComponent({
 							}
 						},
 					},
-					scales: scales
+					scales: {
+						y: {
+							type: 'time',
+							offset: true,
+							time: {
+								unit: 'day',
+								round: 'day',
+								isoWeekday: 1,
+								parser: 'i',
+								displayFormats: {
+									day: 'iiiiii'
+								}
+							},
+							reverse: true,
+							position: 'left',
+							ticks: {
+								maxRotation: 0,
+								autoSkip: true,
+								padding: 5,
+							},
+							grid: {
+								display: false,
+								drawBorder: false,
+								tickLength: 0
+							}
+						},
+						x: {
+							type: this.parseTime ? 'time' : 'linear',
+							time: this.parseTime ? {
+								unit: 'month',
+								round: 'week',
+								isoWeekday: 1,
+								displayFormats: { month: 'MMM' }
+							} : null,
+							ticks: {
+								maxRotation: 0,
+								autoSkip: true,
+								autoSkipPadding: 10,
+							},
+							grid: {
+								display: false,
+								drawBorder: false,
+								tickLength: 0,
+							},
+							min: this.parseTime ? undefined : 0,
+							max: this.parseTime ? undefined : 23
+						}
+					}
 				}
 			})
 		}
