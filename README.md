@@ -99,12 +99,14 @@ Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-we
 
 Many thanks especially to those who helped translating this add-on and making it more accessable for people around the globe:
 
+- Brazilian Portuguese [@TenisonJr](https://github.com/TenisonJr)
 - Catalan: [@altmas5](https://github.com/altmas5) [@Leos1113](https://github.com/Leos1113)
+- Chinese (China): [@jswildcards](https://github.com/jswildcards)
+- Chinese (Taiwan): [@Hsins](https://github.com/Hsins)
 - Czech: [@ajyan](https://github.com/ajyan) [@martinsustek](https://github.com/martinsustek)
-- German: [@devmount](https://github.com/devmount)
-- Spanish: [@roninJosue](https://github.com/roninJosue) [@SabrinaFZ](https://github.com/SabrinaFZ)
 - French: [@antoinevth](https://github.com/antoinevth) [@aurelienrouze](https://github.com/aurelienrouze)
 - Galician: [@uveic](https://github.com/uveic)
+- German: [@devmount](https://github.com/devmount)
 - Hindi: [@kunaljain0212](https://github.com/kunaljain0212) [@mdfaizan7](https://github.com/mdfaizan7)
 - Hungarian: [@ovari](https://github.com/ovari/)
 - Italian: [@leobia](https://github.com/leobia) [@edmael](https://github.com/edmael)
@@ -113,11 +115,10 @@ Many thanks especially to those who helped translating this add-on and making it
 - Portuguese: [@printf-ana](https://github.com/printf-ana) [@di3goCS](https://github.com/di3goCS)
 - Russian: [@kerlon5](https://github.com/kerlon5) [@maria-muravyova](https://github.com/maria-muravyova)
 - Slovak: [@dodog](https://github.com/dodog)
+- Spanish: [@roninJosue](https://github.com/roninJosue) [@SabrinaFZ](https://github.com/SabrinaFZ)
 - Swedish: [@FrejBjornsson](https://github.com/FrejBjornsson)
 - Thai: [@kerlos](https://github.com/kerlos)
 - Turkish: [@tosbaha](https://github.com/tosbaha)
-- Chinese (China): [@jswildcards](https://github.com/jswildcards)
-- Chinese (Taiwan): [@Hsins](https://github.com/Hsins)
 
 ## Licence
 
