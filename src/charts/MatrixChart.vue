@@ -3,7 +3,7 @@
 	<h2 v-if="title" class="text-center">{{ title }}</h2>
 	<p v-if="description" class="text-gray text-center">{{ description }}</p>
 	<div class="chart-container">
-		<canvas :id="id"></canvas>
+		<canvas :id="cid"></canvas>
 	</div>
 </div>
 </template>
@@ -15,6 +15,7 @@ import { isoDayOfWeek } from '../utils';
 
 export default defineComponent({
 	props: {
+		cid: String,         // chart ID, must be unique on page
 		title: String,       // chart title (optional)
 		description: String, // chart description (optional)
 		color: String,       // cell color, gets transparized depending on value
@@ -22,14 +23,10 @@ export default defineComponent({
 		rounding: String,    // border-radius in px
 		dimension: Object,   // {cols, rows}
 		parseTime: Boolean,  // if true, parse values as Date objects
+		refresh: Number,     // property to watch changes from
 		datasets: Array,     // [{data: [[], [], ...], label: ''}, ...]
 												 // parseTime true: data: [[date, value], [date, value], ...]
 												 // parseTime false: data: [[x, y, value], [x, y, value], ...]
-	},
-	data () {
-		return {
-			id: Math.random().toString(36).substring(7)
-		}
 	},
 	mounted () {
 		// hold chart instance
@@ -39,8 +36,8 @@ export default defineComponent({
 		}
 	},
 	methods: {
-		processedDatasets (datasets) {
-			datasets = JSON.parse(JSON.stringify(datasets))
+		processedDatasets () {
+			let datasets = JSON.parse(JSON.stringify(this.datasets))
 			datasets.map(d => {
 				d.data = d.data.map(e => {
 					return {
@@ -48,7 +45,7 @@ export default defineComponent({
 						y: isoDayOfWeek(new Date(e[0])),
 						d: this.parseTime
 							? new Date(e[0]).toLocaleDateString(this.$i18n.locale, { year: 'numeric', month: 'long', day: 'numeric' })
-							: null,
+							: new Date(e[0]).toLocaleDateString(this.$i18n.locale, { weekday: 'long', hour: 'numeric' }),
 						v: e[1]
 					}
 				});
@@ -66,13 +63,12 @@ export default defineComponent({
 			return datasets;
 		},
 		draw () {
-			this.chart = new Chart(this.id, {
+			this.chart = new Chart(this.cid, {
 				type: "matrix",
 				data: {
-					datasets: this.processedDatasets(this.datasets)
+					datasets: this.processedDatasets()
 				},
 				options: {
-					responsive: true,
 					maintainAspectRatio: false,
 					animation: {
 						numbers: { duration: 0 },
@@ -108,7 +104,7 @@ export default defineComponent({
 							time: {
 								unit: 'day',
 								round: 'day',
-								isoWeekday: 1,
+								isoWeekday: true,
 								parser: 'i',
 								displayFormats: {
 									day: 'iiiiii'
@@ -118,8 +114,7 @@ export default defineComponent({
 							position: 'left',
 							ticks: {
 								maxRotation: 0,
-								autoSkip: true,
-								padding: 5,
+								padding: 15,
 							},
 							grid: {
 								display: false,
@@ -129,24 +124,28 @@ export default defineComponent({
 						},
 						x: {
 							type: this.parseTime ? 'time' : 'linear',
+							offset: false,
 							time: this.parseTime ? {
 								unit: 'month',
 								round: 'week',
-								isoWeekday: 1,
+								isoWeekday: true,
 								displayFormats: { month: 'MMM' }
 							} : null,
 							ticks: {
 								maxRotation: 0,
-								autoSkip: true,
-								autoSkipPadding: 10,
+								stepSize: 1,
+								padding: 5,
 							},
 							grid: {
 								display: false,
 								drawBorder: false,
 								tickLength: 0,
 							},
-							min: this.parseTime ? undefined : 0,
-							max: this.parseTime ? undefined : 23
+						}
+					},
+					layout: {
+						padding: {
+							right: this.parseTime ? 10 : 0
 						}
 					}
 				}
@@ -155,13 +154,10 @@ export default defineComponent({
 	},
 	watch: {
 		// update chart if data changes in an animatable way
-		datasets: {
-			handler (newDatasets) {
-				this.chart.data.datasets = this.processedDatasets(newDatasets);
-				this.chart.update();
-			},
-			immediate: false,
-			deep: false
+		refresh () {
+			console.log(this.minTime, this.maxTime);
+			this.chart.data.datasets = this.processedDatasets();
+			this.chart.update();
 		},
 	}
 });

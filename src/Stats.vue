@@ -506,21 +506,25 @@
 						<div class="tab-content chart-group mt-1">
 							<!-- activity per day received -->
 							<MatrixChart
+								cid="activity-received"
 								color="#0a84ff"
 								:spacing="1"
 								:rounding="5"
 								:dimension="{ cols: 53, rows: 7 }"
 								:parseTime="true"
 								:datasets="[dateChartData.received]"
+								:refresh="preferences.sections.activity.year"
 							/>
 							<!-- activity per day sent -->
 							<MatrixChart
+								cid="activity-send"
 								color="#e64db9"
 								:spacing="1"
 								:rounding="5"
 								:parseTime="true"
 								:dimension="{ cols: 53, rows: 7 }"
 								:datasets="[dateChartData.sent]"
+								:refresh="preferences.sections.activity.year"
 							/>
 						</div>
 					</div>
@@ -632,6 +636,7 @@
 						<div class="tab-content chart-group mt-1">
 							<!-- emails per weekday per hour received -->
 							<MatrixChart
+								cid="wd-per-hour-received"
 								color="#0a84ff"
 								:spacing="1"
 								:rounding="5"
@@ -641,6 +646,7 @@
 							/>
 							<!-- emails per weekday per hour sent -->
 							<MatrixChart
+								cid="wd-per-hour-send"
 								color="#e64db9"
 								:spacing="1"
 								:rounding="5"
@@ -2266,14 +2272,13 @@ export default defineComponent({
 			const end = startOfToday();
 			let rd = Object.entries(this.display.dateData ? this.display.dateData.received : []);
 			let r = this.preferences.sections.activity.year == (new Date().getFullYear())
-				? rd.filter(e => new Date(e[0]) > new Date(new Date().setDate(end.getDate() - 365)))
+				? rd.filter(e => new Date(e[0]) > new Date(new Date().setYear(end.getFullYear() - 1)))
 				: rd.filter(e => e[0].substring(0,4) == this.preferences.sections.activity.year);
 			let sd = Object.entries(this.display.dateData ? this.display.dateData.sent : []);
 			let s = this.preferences.sections.activity.year == (new Date().getFullYear())
-				? sd.filter(e => new Date(e[0]) > new Date(new Date().setDate(end.getDate() - 365)))
+				? sd.filter(e => new Date(e[0]) > new Date(new Date().setYear(end.getFullYear() - 1)))
 				: sd.filter(e => e[0].substring(0,4) == this.preferences.sections.activity.year);
 			// TODO: handle this.preferences.startOfWeek
-			console.log(r);
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
 				sent: { label: this.$t("stats.mailsSent"), data: s },
@@ -2286,15 +2291,14 @@ export default defineComponent({
 			let initDate = new Date(1970,0,5);
 			let r = rd.reduce((p,c,day) => [...p,...c.map((n,hour) => {
 				let d = new Date(initDate.setDate(5+day));
-				d = new Date(d.setHours(hour+1, 0, 0));
+				d = new Date(d.setHours(hour, 0, 0));
 				return [d.toISOString(), n]
 			})], []);
 			let s = sd.reduce((p,c,day) => [...p,...c.map((n,hour) => {
 				let d = new Date(initDate.setDate(5+day));
-				d = new Date(d.setHours(hour+1, 0, 0));
+				d = new Date(d.setHours(hour, 0, 0));
 				return [d.toISOString(), n]
 			})], []);
-			console.log(r,s);
 			// TODO: handle this.preferences.startOfWeek
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
