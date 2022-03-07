@@ -513,7 +513,6 @@
 								:dimension="{ cols: 53, rows: 7 }"
 								:parseTime="true"
 								:datasets="[dateChartData.received]"
-								:refresh="preferences.sections.activity.year"
 							/>
 							<!-- activity per day sent -->
 							<MatrixChart
@@ -524,7 +523,6 @@
 								:parseTime="true"
 								:dimension="{ cols: 53, rows: 7 }"
 								:datasets="[dateChartData.sent]"
-								:refresh="preferences.sections.activity.year"
 							/>
 						</div>
 					</div>

@@ -23,10 +23,7 @@ export default defineComponent({
 		rounding: String,    // border-radius in px
 		dimension: Object,   // {cols, rows}
 		parseTime: Boolean,  // if true, parse values as Date objects
-		refresh: Number,     // property to watch changes from
-		datasets: Array,     // [{data: [[], [], ...], label: ''}, ...]
-												 // parseTime true: data: [[date, value], [date, value], ...]
-												 // parseTime false: data: [[x, y, value], [x, y, value], ...]
+		datasets: Array,     // [{data: [[date, value], [date, value], ...], label: ''}, ...]
 	},
 	mounted () {
 		// hold chart instance
@@ -154,10 +151,11 @@ export default defineComponent({
 	},
 	watch: {
 		// update chart if data changes in an animatable way
-		refresh () {
-			console.log(this.minTime, this.maxTime);
-			this.chart.data.datasets = this.processedDatasets();
-			this.chart.update();
+		datasets (newData, previousData) {
+			if (JSON.stringify(newData) != JSON.stringify(previousData)) {
+				this.chart.data.datasets = this.processedDatasets();
+				this.chart.update();
+			}
 		},
 	}
 });
