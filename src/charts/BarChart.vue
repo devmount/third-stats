@@ -61,6 +61,7 @@ export default defineComponent({
 					indexAxis: this.horizontal ? 'y' : 'x',
 					responsive: true,
 					maintainAspectRatio: false,
+					maxBarThickness: 50,
 					datasets: {
 						bar: {
 							borderWidth: this.horizontal ? { right: 2 } : { top: 2 },
