@@ -5,7 +5,7 @@
 			'dark': options.dark,
 			'light': !options.dark,
 			'text-normal': true,
-			'background-normal': options.dark,
+			'background-alt': options.dark,
 			'background-highlight-contrast': !options.dark,
 			'embedded': !ownOptionsPage
 		}"

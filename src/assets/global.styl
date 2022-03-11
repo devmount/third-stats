@@ -3,11 +3,12 @@ mode = {
 	dark: {
 		accent1:    #e64db9
 		accent2:    #0a84ff
-		back:       #23222b
+		back:       #1c1b22
+		back2:      #23222b
 		front:      #f9f9fa
 		gray1:      #8a8a97
 		gray2:      #38383d
-		gray3:      #323138
+		gray3:      #23222b
 		highlight:  #ffffff
 		secondary1: #cdcdd3
 		secondary2: #000000
@@ -19,12 +20,13 @@ mode = {
 		accent1:    #e64db9
 		accent2:    #0a84ff
 		back:       #f9f9fa
-		front:      #23222b
+		back2:      #f9f9fa
+		front:      #1c1b22
 		gray1:      #58585d
 		gray2:      #aaaab7
 		gray3:      #ededf3
 		highlight:  #000000
-		secondary1: #323138
+		secondary1: #23222b
 		secondary2: #ffffff
 		shade:      #6d6d6f
 		icon:       #607d8b
@@ -114,6 +116,8 @@ for m, c in mode
 			color: c.highlight !important
 		.background-normal, &.background-normal
 			background: c.back
+		.background-alt, &.background-alt
+			background: c.back2
 		.background-highlight, &.background-highlight
 			background: c.highlight
 		.background-highlight-contrast, &.background-highlight-contrast
@@ -163,6 +167,8 @@ for m, c in mode
 	margin-top: 5rem
 .mt-6
 	margin-top: 6rem
+.mt-7
+	margin-top: 7rem
 .ml-1
 	margin-left: 1rem
 .ml-2
@@ -408,7 +414,7 @@ select
 	for m, c in mode
 		.{m} &
 			color: c.front
-			background: c.gray3 url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
+			background: c.back url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%204%205%22%3E%3Cpath%20fill=%22%23" substr(s("%s", c.gray2),1,6) "%22%20d=%22M2%200L0%202h4zm0%205L0%203h4z%22/%3E%3C/svg%3E") no-repeat right .5em center / .6em .75em
 			border-color: c.gray2
 		.{m} &:hover:not(.disabled)
 			border-color: c.gray1
@@ -585,7 +591,7 @@ input[type=color]
 		.{m} &
 			.switch-label
 				border-color: c.gray2
-				background: c.gray3
+				background: c.back
 				&::before
 					color: c.gray1
 				&::after

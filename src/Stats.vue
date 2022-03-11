@@ -323,7 +323,7 @@
 				</div>
 			</section>
 			<!-- charts -->
-			<section v-if="display.numbers.total > 0" class="charts mt-2">
+			<section v-if="display.numbers.total > 0" class="charts mt-3">
 				<div
 					id="chart-area-top"
 					class="chart-area"
@@ -2607,7 +2607,7 @@ body
 				text-align: center
 				.featured
 					font-size: 3.25em
-					line-height: 1em
+					line-height: 1.25em
 					font-weight: 500
 
 		.charts
