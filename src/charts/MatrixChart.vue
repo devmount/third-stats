@@ -126,7 +126,9 @@ export default defineComponent({
 								unit: 'month',
 								round: 'week',
 								isoWeekday: true,
-								displayFormats: { month: 'MMM' }
+								displayFormats: {
+									month: 'MMM'
+								}
 							} : null,
 							ticks: {
 								maxRotation: 0,

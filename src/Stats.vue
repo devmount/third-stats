@@ -2286,14 +2286,14 @@ export default defineComponent({
 		weekdayPerHourChartData () {
 			let rd = Object.values(this.display.weekdayPerHourData.received)
 			let sd = Object.values(this.display.weekdayPerHourData.sent)
-			let initDate = new Date(1970,0,5);
+			let initDate = new Date(1970,0,4);
 			let r = rd.reduce((p,c,day) => [...p,...c.map((n,hour) => {
-				let d = new Date(initDate.setDate(5+day));
+				let d = new Date(initDate.setDate(4+day));
 				d = new Date(d.setHours(hour, 0, 0));
 				return [d.toISOString(), n]
 			})], []);
 			let s = sd.reduce((p,c,day) => [...p,...c.map((n,hour) => {
-				let d = new Date(initDate.setDate(5+day));
+				let d = new Date(initDate.setDate(4+day));
 				d = new Date(d.setHours(hour, 0, 0));
 				return [d.toISOString(), n]
 			})], []);
