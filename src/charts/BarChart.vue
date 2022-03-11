@@ -94,7 +94,7 @@ export default defineComponent({
 							},
 							ticks: {
 								maxRotation: 0,
-								autoSkipPadding: 10,
+								padding: this.horizontal ? 0 : 10,
 							},
 							beginAtZero: true
 						},
@@ -104,6 +104,10 @@ export default defineComponent({
 							grid: {
 								display: false,
 								drawBorder: false,
+							},
+							ticks: {
+								maxRotation: 0,
+								padding: this.horizontal ? 0 : 10,
 							},
 							beginAtZero: true
 						}
