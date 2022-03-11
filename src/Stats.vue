@@ -2540,7 +2540,7 @@ body
 			#chart-area-top
 				grid-template-columns: calc(100% - 1130px - 2rem) 1130px
 				&.first-column-only
-					grid-template-columns: calc(100%-1rem) 0%
+					grid-template-columns: calc(100% - 1rem) 0%
 				.resizer
 					display: list-item
 			#chart-area-main
