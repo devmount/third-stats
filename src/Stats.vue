@@ -2182,8 +2182,8 @@ export default defineComponent({
 			const r = Object.values(this.display.weekdayData.received)
 			const s = Object.values(this.display.weekdayData.sent)
 			let labels = [...this.weekdayNames]
-			// start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++) {
+			// TODO: start week with user defined day of week
+			for (let d = 0; d < 1/*this.preferences.startOfWeek*/; d++) {
 				r.push(r.shift())
 				s.push(s.shift())
 				labels.push(labels.shift())
@@ -2208,14 +2208,14 @@ export default defineComponent({
 		weekdayComparedChartData () {
 			let datasets = []
 			let labels = [...this.weekdayNames]
-			// labels: start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++)
+			// TODO: labels: start week with user defined day of week
+			for (let d = 0; d < 1/*this.preferences.startOfWeek*/; d++)
 				labels.push(labels.shift())
 			// compute dataset for each account
 			this.accounts.forEach((a) => {
 				const data = Object.values(this.comparison.weekdayData[a.id])
-				// data: start week with user defined day of week
-				for (let d = 0; d < this.preferences.startOfWeek; d++)
+				// TODO: data: start week with user defined day of week
+				for (let d = 0; d < 1/*this.preferences.startOfWeek*/; d++)
 					data.push(data.shift())
 				// add dataset for this account
 				datasets.push({

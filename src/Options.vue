@@ -67,7 +67,7 @@
 			<section class="mb-3">
 				<h2>{{ $t("options.headings.stats") }}</h2>
 				<!-- option: startOfWeek -->
-				<div class="entry">
+				<!-- <div class="entry">
 					<label for="start">
 						{{ $t("options.startOfWeek.label") }}
 						<span class="d-block text-gray text-small">{{ $t("options.startOfWeek.description") }}</span>
@@ -77,7 +77,7 @@
 							<option v-for="(name, pos) in weekdayNames" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
-				</div>
+				</div> -->
 				<!-- option: addresses -->
 				<div class="entry">
 					<label for="local">
