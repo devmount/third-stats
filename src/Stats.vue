@@ -1055,10 +1055,6 @@ export default defineComponent({
 					received: {},
 					sent: {},
 				},
-				daysData: {
-					received: {},
-					sent: {},
-				},
 				dateData: {
 					received: {},
 					sent: {},
@@ -1299,7 +1295,7 @@ export default defineComponent({
 			data.weekdayData[type][wd]++
 			// month
 			data.monthData[type][mo]++
-			// date data
+			// dates
 			const iso = m.date.toISOString().substr(0, 10);
 			if (!(iso in data.dateData[type])) {
 				data.dateData[type][iso] = 1;
@@ -1486,11 +1482,11 @@ export default defineComponent({
 					.map(y => { sum.weeksData.received[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.received[y] ? p.concat(c.weeksData.received[y]) : p, [])) })
 				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.weeksData.sent)])], [])
 					.map(y => { sum.weeksData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.sent[y] ? p.concat(c.weeksData.sent[y]) : p, [])) })
-				// days
-				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.daysData.received)])], [])
-					.map(y => { sum.daysData.received[y] = sumObjectsArrays(accountsData.reduce((p,c) => c.daysData.received[y] ? p.concat(c.daysData.received[y]) : p, [])) })
-				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.daysData.sent)])], [])
-					.map(y => { sum.daysData.sent[y] = sumObjectsArrays(accountsData.reduce((p,c) => c.daysData.sent[y] ? p.concat(c.daysData.sent[y]) : p, [])) })
+				// dates
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.dateData.received)])], [])
+					.map(d => { sum.dateData.received[d] = accountsData.reduce((p,c) => c.dateData.received[d] ? p+c.dateData.received[d] : p, 0) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.dateData.sent)])], [])
+					.map(d => { sum.dateData.sent[d] = accountsData.reduce((p,c) => c.dateData.sent[d] ? p+c.dateData.sent[d] : p, 0) })
 				// daytime
 				for (let h = 0; h < 24; h++) {
 					sum.daytimeData.received[h] = accountsData.reduce((p,c) =>  p+c.daytimeData.received[h], 0)
