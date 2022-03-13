@@ -843,7 +843,6 @@ import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarte
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
 import MatrixChart from "./charts/MatrixChart"
-import HeatMap from "./charts/HeatMap"
 import DoughnutChart from "./charts/DoughnutChart"
 import LiveAge from "./parts/LiveAge"
 
@@ -910,7 +909,7 @@ const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default defineComponent({
 	name: "Stats",
-	components: { LineChart, BarChart, MatrixChart, HeatMap, DoughnutChart, LiveAge },
+	components: { LineChart, BarChart, MatrixChart, DoughnutChart, LiveAge },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
@@ -2278,7 +2277,7 @@ export default defineComponent({
 				sent: { label: this.$t("stats.mailsSent"), data: s },
 			}
 		},
-		// prepare data for weekday/hour heatmaps
+		// prepare data for weekday/hour matrix charts
 		weekdayPerHourChartData () {
 			let rd = Object.values(this.display.weekdayPerHourData.received)
 			let sd = Object.values(this.display.weekdayPerHourData.sent)
