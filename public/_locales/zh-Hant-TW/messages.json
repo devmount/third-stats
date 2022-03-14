@@ -7,7 +7,7 @@
       "color": "為每個帳號提供自定義色彩，以便在比較模式中區分它們。",
       "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。",
       "label": "啟用帳號",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "sumAndCompare": "激活多個帳戶會啟用“所有帳戶”統計信息過濾器選項以用於總和和比較視圖。"
     },
     "cache": {
       "description": "啟用快取系統以更快地顯示已處理的統計資料。",
@@ -29,8 +29,8 @@
       "storage": "儲存和快取"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "列出常用聯繫人的圖表中顯示的條目數（最多 999 個）",
+      "label": "聯繫人數"
     },
     "localIdentities": {
       "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識",
@@ -38,9 +38,9 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
+      "refreshCacheRequired": "如果更改，緩存需要重建",
       "reloadStatsPage": "選項將自動保存。如果已經開啟統計頁面，則必須重新開啟或重新讀取才能應用變更。",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "reloadWindowRequired": "如果更改，則需要重新加載統計信息窗口",
       "title": "注意"
     },
     "ordinate": {
@@ -48,22 +48,22 @@
       "label": "垂直軸"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "將所有選項重置為其默認值。 根據您之前更改的選項，可能需要刷新窗口或緩存。",
+      "label": "重置選項",
+      "removeIdentities": "這也將刪除您創建的所有本地身份。"
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "排除我發送給我自己的消息",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "發件人和收件人是來自任何帳戶的身份的郵件將被排除在外",
+        "none": "給自己的消息將被包括在內並被視為普通電子郵件（默認）",
+        "sameAccount": "發件人和收件人是來自同一帳戶的身份的郵件將被排除在外"
       },
-      "label": "Messages to Self",
+      "label": "給自己的信息",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "從任何帳戶",
         "none": "已停用",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "僅限同一帳戶"
       }
     },
     "startOfWeek": {
@@ -75,8 +75,8 @@
       "on": "開啟"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "使用相應的標籤顏色繪製關於標籤的圖表",
+      "label": "標記顏色"
     },
     "title": "選項"
   },
@@ -84,43 +84,44 @@
     "message": "-",
     "nAccounts": "{0} 帳號 | {0} 帳號",
     "nFolders": "{0} 文件夾 | {0} 文件夾",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nMessages": "{0} 留言 | {0} 條消息",
+    "openAllStats": "打開所有統計",
     "openOptions": "打開選項"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "週",
-      "day": "d",
-      "hour": "h",
+      "day": "日",
+      "hour": "小時",
       "minute": "分鐘",
-      "month": "M",
+      "month": "月",
       "quarter": "季",
-      "second": "s",
+      "second": "倅",
       "week": "星期",
-      "year": "Y"
+      "year": "年"
     },
     "account": "帳號",
     "accountEmpty": "當前帳號為空，並沒有任何郵件。",
     "allAccounts": "所有帳號",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "每個發件人標記為垃圾郵件的數量",
+        "empty": "沒有電子郵件被標記為垃圾郵件。",
+        "title": "標記為垃圾"
       },
       "contactsReceived": {
         "description": "每位收件人發送的電子郵件數量",
-        "empty": "No received emails available.",
+        "empty": "沒有收到的電子郵件可用。",
         "title": "收到最多郵件來自"
       },
       "contactsSent": {
         "description": "每位寄件人收到的電子郵件數量",
-        "empty": "No sent emails available.",
+        "empty": "沒有可用的已發送電子郵件。",
         "title": "寄送最多郵件去往"
       },
       "days": {
         "description": "每個日期的電子郵件數",
+        "latestActivity": "最新活動",
         "title": "{0} 天內的活躍狀況"
       },
       "daytime": {
@@ -128,8 +129,8 @@
         "title": "天"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "每個文件夾的電子郵件數量",
+        "title": "文件夾分佈"
       },
       "month": {
         "description": "每年每月的郵件數",
@@ -144,8 +145,8 @@
         "title": "季"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "每個標籤的電子郵件總數",
+        "empty": "沒有可用的標籤數據。",
         "title": "標籤"
       },
       "temporalDistribution": {
@@ -166,27 +167,27 @@
       }
     },
     "contact": "分享聯絡人",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "{0}前收集的數據",
+    "disclaimer": "ThirdStats 不聲明所顯示數據的正確性。<br />如果可能出現問題，請<a href='{0}' target='_blank'>創建錯誤報告</a>。",
     "folder": "文件夾",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "junkMails": "垃圾郵件",
+    "junkScore": "垃圾分數 {0}",
     "loadingInProgress": "正在讀取當前帳號的所有電子郵件……",
     "mailsPerDay": "每日郵件",
     "mailsPerMonth": "每月郵件",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "每季度的郵件",
+    "mailsPerTag": "每個標籤的郵件",
+    "mailsPerWeek": "每週郵件",
+    "mailsPerYear": "每年的郵件",
     "mailsReceived": "已收到郵件",
     "mailsSent": "已寄送郵件",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "已加星標的郵件",
+    "mailsTagged": "{0} 封已標記的郵件",
     "mailsTotal": "郵件總數",
     "mailsUnread": "未閱讀郵件",
     "message": "-",
     "niceWork": "幹得好！",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "非空文件夾 | 非空文件夾 | 非空文件夾",
     "percentOfReceived": "已收到郵件的 {0}%",
     "percentOfTotal": "佔郵件總數的 {0}%",
     "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
@@ -194,9 +195,9 @@
     "title": "統計",
     "tooltips": {
       "clear": "清除選取內容",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "在一張圖表中比較賬戶",
+      "comparisonWhenAccountsOption": "帳戶比較僅可用\n如果在附加選項中激活了多個帳戶",
+      "comparisonWhenFilter": "帳戶比較僅可用\n如果在上面的帳戶過濾器中選擇了“所有帳戶”",
       "error": {
         "dateFormat": "日期格式為 YYYY-MM-DD，例如：2020-01-31",
         "dateOrderEnd": "結束日期必須晚於開始日期",
@@ -205,7 +206,7 @@
         "empty": "請輸入內容"
       },
       "expand": "展開圖表區域",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "將當前顯示的數據導出為 JSON 文件",
       "folder": {
         "notAvailable": "文件夾不可用於 {0}"
       },
@@ -215,7 +216,7 @@
       },
       "refresh": "重新整理資料",
       "shrink": "收起圖表區域",
-      "sum": "Show sum of all accounts"
+      "sum": "顯示所有帳戶的總和"
     },
     "withinYears": "{0} 年內"
   }

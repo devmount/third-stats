@@ -75,8 +75,8 @@
       "on": "Acendido"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Debuxa gráficos sobre as etiquetas utilizando as cores correspondentes",
+      "label": "Etiqueta Cores"
     },
     "title": "Opcións"
   },
@@ -94,11 +94,11 @@
       "day": "d",
       "hour": "h",
       "minute": "mín",
-      "month": "M",
+      "month": "m",
       "quarter": "T",
       "second": "s",
       "week": "S",
-      "year": "Y"
+      "year": "a"
     },
     "account": "Conta",
     "accountEmpty": "Esta conta non ten ningún correo.",
@@ -106,21 +106,22 @@
     "charts": {
       "contactsJunk": {
         "description": "Número de correos electrónicos marcados como lixo por remitente",
-        "empty": "No emails flagged as Junk.",
+        "empty": "Non hai correos electrónicos marcados como lixo.",
         "title": "Marcado como lixo"
       },
       "contactsReceived": {
         "description": "Número de correos recibidos por remitente",
-        "empty": "No received emails available.",
+        "empty": "Non hai correos electrónicos recibidos dispoñibles.",
         "title": "Máis correos recibidos de"
       },
       "contactsSent": {
         "description": "Número de correos enviados por destinatario",
-        "empty": "No sent emails available.",
+        "empty": "Non hai correos electrónicos enviados dispoñibles.",
         "title": "Máis correos enviados a"
       },
       "days": {
         "description": "Número de recibidos por día",
+        "latestActivity": "Última actividade",
         "title": "Actividade en {0}"
       },
       "daytime": {
@@ -144,8 +145,8 @@
         "title": "Trimestres"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Número total de correos electrónicos por etiqueta",
+        "empty": "Non hai datos de etiquetas dispoñibles.",
         "title": "Etiquetas"
       },
       "temporalDistribution": {
@@ -174,14 +175,14 @@
     "loadingInProgress": "Cargando todos os correos desta conta…",
     "mailsPerDay": "Correos por día",
     "mailsPerMonth": "Correos por mes",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Correos por trimestre",
+    "mailsPerTag": "Correos por etiqueta",
+    "mailsPerWeek": "Correos por semana",
+    "mailsPerYear": "Correos por ano",
     "mailsReceived": "Correos recibidos",
     "mailsSent": "Correos enviados",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Os correos destacados",
+    "mailsTagged": "{0} correos etiquetados",
     "mailsTotal": "Total correos",
     "mailsUnread": "Correos sen ler",
     "message": "-",

@@ -5,7 +5,7 @@
 			'dark': options.dark,
 			'light': !options.dark,
 			'text-normal': true,
-			'background-normal': options.dark,
+			'background-alt': options.dark,
 			'background-highlight-contrast': !options.dark,
 			'embedded': !ownOptionsPage
 		}"
@@ -67,7 +67,7 @@
 			<section class="mb-3">
 				<h2>{{ $t("options.headings.stats") }}</h2>
 				<!-- option: startOfWeek -->
-				<div class="entry">
+				<!-- <div class="entry">
 					<label for="start">
 						{{ $t("options.startOfWeek.label") }}
 						<span class="d-block text-gray text-small">{{ $t("options.startOfWeek.description") }}</span>
@@ -77,7 +77,7 @@
 							<option v-for="(name, pos) in weekdayNames" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
-				</div>
+				</div> -->
 				<!-- option: addresses -->
 				<div class="entry">
 					<label for="local">
@@ -333,10 +333,11 @@
 </template>
 
 <script>
-import { defaultColors } from "./definitions"
-import { formatBytes, localStartOfWeek } from "./utils"
+import { defineComponent } from 'vue';
+import { defaultColors } from "./definitions";
+import { formatBytes, localStartOfWeek } from "./utils";
 
-export default {
+export default defineComponent({
 	name: "Options",
 	data () {
 		return {
@@ -519,7 +520,7 @@ export default {
 			immediate: false
 		}
 	}
-}
+});
 </script>
 
 <style lang="stylus">

@@ -121,6 +121,7 @@
       },
       "days": {
         "description": "Número de correos por día",
+        "latestActivity": "Última actividad",
         "title": "Actividad en {0}"
       },
       "daytime": {

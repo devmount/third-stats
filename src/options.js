@@ -1,25 +1,24 @@
-import Vue from "vue"
-import Options from "./Options.vue"
+// init app
+import { createApp } from 'vue';
+import Options from '@/Options.vue';
+const app = createApp(Options);
 
-// vue configuration
-Vue.config.productionTip = false
-Vue.config.devtools = false
+// set global properties
+app.config.globalProperties.$version = process.env.VUE_APP_VERSION;
 
 // internationalization
-import VueI18n from "vue-i18n"
-Vue.use(VueI18n)
-import { messages } from "./translations"
-import { pluralizationPolish } from "./utils"
-const i18n = new VueI18n({
+import { createI18n } from 'vue-i18n';
+import messages from "./translations";
+import { pluralPolish } from "./utils";
+const i18n = createI18n({
 	locale: messenger.i18n.getUILanguage(),
 	fallbackLocale: "en",
 	messages,
-	pluralizationRules: {
-		"pl": (choice) => pluralizationPolish(choice)
-	}
-})
+	pluralRules: {
+		"pl": pluralPolish
+	},
+});
+app.use(i18n);
 
-new Vue({
-	i18n,
-	render: h => h(Options),
-}).$mount("#options")
+// ready? let's go!
+app.mount('#options');

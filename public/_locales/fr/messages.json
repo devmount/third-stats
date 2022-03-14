@@ -121,6 +121,7 @@
       },
       "days": {
         "description": "Nombre de messages par jour",
+        "latestActivity": "Dernière Activité",
         "title": "Activité dans {0}"
       },
       "daytime": {

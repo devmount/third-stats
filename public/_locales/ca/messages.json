@@ -4,33 +4,33 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "color": "Doneu a cada compte un color personalitzat per distingir-los en mode de comparació.",
+      "description": "Activa o desactiva els comptes. Els comptes desactivats no apareixeran a cap llista de comptes o estadístiques.",
+      "label": "Comptes actius",
+      "sumAndCompare": "Si activeu més d'un compte, s'activa l'opció de filtre d'estadístiques \"Tots els comptes\" per a la visualització de suma i comparació."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "Habiliteu el sistema de memòria cau per a una visualització més ràpida de les dades estadístiques ja processades.",
+      "label": "Activa la memòria cau"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
-      "empty": "Cache is empty",
+      "description": "Elimineu totes les dades d'estadístiques a la memòria cau de tots els comptes. Es reconstruirà en tornar a obrir la pàgina d'estadístiques.",
+      "empty": "La memòria cau està buida",
       "label": "Netejar memòria cau",
-      "size": "Cache size is {0}"
+      "size": "La mida de la memòria cau és {0}"
     },
     "darkMode": {
       "description": "Canvia entre l'esquema de colors fosc i clar",
       "label": "Mode fosc"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "Aparença i experiència",
+      "stats": "Gràfics i dades",
+      "storage": "Emmagatzematge i memòria cau"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "Nombre d'entrades que es mostren als gràfics amb contactes freqüents (999 com a màxim)",
+      "label": "Recompte de contactes"
     },
     "localIdentities": {
       "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals",
@@ -38,36 +38,36 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "refreshCacheRequired": "Si es canvia, la memòria cau s'ha de reconstruir",
+      "reloadStatsPage": "Les opcions es guarden automàticament. Alguns canvis d'opció no es poden aplicar automàticament a una pàgina d'estadístiques ja oberta o a les entrades de la memòria cau existents, si la memòria cau està activada. Estan marcats amb les icones corresponents.",
+      "reloadWindowRequired": "Si es canvia, la finestra d'estadístiques s'ha de tornar a carregar",
       "title": "Nota"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "Mostra l'eix vertical de tots els gràfics de línies i barres",
+      "label": "Eix vertical"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "Restableix totes les opcions als seus valors predeterminats. Depenent de les opcions que hàgiu canviat abans, pot ser que calgui una actualització de la finestra o de la memòria cau.",
+      "label": "Restableix les opcions",
+      "removeIdentities": "Això també eliminarà totes les identitats locals que heu creat."
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "Exclou els missatges que em van enviar a mi mateix",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "S'exclouran els missatges on l'emissor i el receptor siguin identitats de qualsevol compte",
+        "none": "Els missatges per a un mateix s'inclouran i es tractaran com a correus electrònics normals (per defecte)",
+        "sameAccount": "S'exclouran els missatges on l'emissor i el receptor siguin identitats del mateix compte"
       },
-      "label": "Messages to Self",
+      "label": "Missatges a un mateix",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "Des de qualsevol compte",
         "none": "Desactivat",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "Només el mateix compte"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
+      "description": "Inici de setmana personalitzat per a tots els gràfics relacionats amb els dies laborables",
       "label": "La setmana comença"
     },
     "switch": {
@@ -75,17 +75,17 @@
       "on": "Activar"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Dibuixa gràfics sobre les etiquetes utilitzant els colors d'etiquetes corresponents",
+      "label": "Etiqueta Colors"
     },
     "title": "Opcions"
   },
   "popup": {
     "message": "-",
     "nAccounts": "{0} Compte | {0} Comptes",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nFolders": "{0} Carpeta | {0} Carpetes",
+    "nMessages": "{0} Missatge | {0} Missatges",
+    "openAllStats": "Obre totes les estadístiques",
     "openOptions": "Obre opcions"
   },
   "stats": {
@@ -94,33 +94,34 @@
       "day": "d",
       "hour": "h",
       "minute": "mín",
-      "month": "M",
-      "quarter": "Q",
+      "month": "m",
+      "quarter": "t",
       "second": "s",
       "week": "S",
-      "year": "Y"
+      "year": "a"
     },
     "account": "Compte",
     "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
     "allAccounts": "Tots els comptes",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "Nombre de correus electrònics marcats com a brossa per remitent",
+        "empty": "No s'ha marcat cap correu electrònic com a brossa.",
+        "title": "Marcat com a brossa"
       },
       "contactsReceived": {
         "description": "Nombre de correus electrònics rebuts per destinatari",
-        "empty": "No received emails available.",
+        "empty": "No hi ha cap correu electrònic rebut disponible.",
         "title": "La majoria rebuts de"
       },
       "contactsSent": {
         "description": "Nombre de correus electrònics enviats per remitent",
-        "empty": "No sent emails available.",
+        "empty": "No hi ha cap correu electrònic enviat disponible.",
         "title": "La majoria enviats a"
       },
       "days": {
         "description": "Nombre de correus per dia",
+        "latestActivity": "Última Activitat",
         "title": "Activitat en {0}"
       },
       "daytime": {
@@ -128,7 +129,7 @@
         "title": "Hora"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
+        "description": "Nombre de correus electrònics per carpeta",
         "title": "Distribució de carpetes"
       },
       "month": {
@@ -144,8 +145,8 @@
         "title": "quadrimestre"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Nombre total de correus electrònics per etiqueta",
+        "empty": "No hi ha dades d'etiquetes disponibles.",
         "title": "Etiquetes"
       },
       "temporalDistribution": {
@@ -166,27 +167,27 @@
       }
     },
     "contact": "Contacte",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "Dades recollides fa {0}",
+    "disclaimer": "ThirdStats no reclama la correcció de les dades mostrades.<br />En cas de possibles problemes, <a href='{0}' target='_blank'>creeu un informe d'error</a>.",
     "folder": "Carpeta",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "junkMails": "Correus brossa",
+    "junkScore": "Puntuació no desitjada de {0}",
     "loadingInProgress": "Carregant tots els correus electrònics d'aquest compte en curs…",
     "mailsPerDay": "Correus al dia",
     "mailsPerMonth": "Correus al mes",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Correus per trimestre",
+    "mailsPerTag": "Correus per etiqueta",
+    "mailsPerWeek": "Correus per setmana",
+    "mailsPerYear": "Correus per any",
     "mailsReceived": "Correus rebuts",
     "mailsSent": "Correus enviats",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Els correus destacats",
+    "mailsTagged": "{0} correus etiquetats",
     "mailsTotal": "Correus en total",
     "mailsUnread": "Correus no llegits",
     "message": "-",
     "niceWork": "Bon treball!",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "carpetes no buides | carpeta no buida | carpetes no buides",
     "percentOfReceived": "{0}% de rebuts",
     "percentOfTotal": "{0}% de total",
     "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>",
@@ -194,28 +195,28 @@
     "title": "Estadístiques",
     "tooltips": {
       "clear": "Esborra la selecció",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "Compareu els comptes en un gràfic",
+      "comparisonWhenAccountsOption": "La comparació de comptes només està disponible\nsi hi ha més d'un compte activat a les opcions de complements",
+      "comparisonWhenFilter": "La comparació de comptes només està disponible\nsi se selecciona \"Tots els comptes\" al filtre de comptes anterior",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateFormat": "Cal el format AAAA-MM-DD, p. ex. 2020-01-31",
+        "dateOrderEnd": "La data de finalització ha de ser posterior a la data d'inici",
+        "dateOrderStart": "La data d'inici ha de ser anterior a la data de finalització",
+        "dateUnreal": "Es requereix una data vàlida",
+        "empty": "Es requereix una entrada"
       },
       "expand": "Amplia l'àrea del gràfic",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "Exporta les dades que es mostren actualment com a fitxer JSON",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "Les carpetes no estan disponibles per a {0}"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "Quedar\nConsell: escriure \"{0}\" es converteix en \"{1}\"",
+        "start": "Des de la data\nConsell: escriure \"{0}\" es converteix en \"{1}\""
       },
       "refresh": "Actualitza les dades",
       "shrink": "Redueix l'àrea del gràfic",
-      "sum": "Show sum of all accounts"
+      "sum": "Mostra la suma de tots els comptes"
     },
     "withinYears": "en {0} anys"
   }

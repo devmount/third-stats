@@ -121,6 +121,7 @@
       },
       "days": {
         "description": "Antal mejl per dag",
+        "latestActivity": "Senaste aktivitet",
         "title": "Aktivitet under {0}"
       },
       "daytime": {

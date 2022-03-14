@@ -40,7 +40,7 @@
     "note": {
       "refreshCacheRequired": "Se houver alterações, o cache precisa ser refeito",
       "reloadStatsPage": "As opções são salvas automaticamente. Se o cache estiver ativado algumas alterações de opções podem não ser aplicadas automaticamente a uma página de estatísticas já aberta ou a entradas de cache existentes. Elas são marcadas com os ícones correspondentes.",
-      "reloadWindowRequired": "Se houver alterações, a janela de estatísticas precisa ser recarregada",
+      "reloadWindowRequired": "Se houver alterações, a janela de estatísticas precisará ser recarregada",
       "title": "Observação"
     },
     "ordinate": {
@@ -121,6 +121,7 @@
       },
       "days": {
         "description": "Número de e-mails por data",
+        "latestActivity": "Atividade mais recente",
         "title": "Atividade em {0}"
       },
       "daytime": {

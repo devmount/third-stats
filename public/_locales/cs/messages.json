@@ -121,6 +121,7 @@
       },
       "days": {
         "description": "Počet e-mailů za den",
+        "latestActivity": "Poslední aktivita",
         "title": "Aktivita za {0}"
       },
       "daytime": {

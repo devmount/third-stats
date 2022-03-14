@@ -323,7 +323,7 @@
 				</div>
 			</section>
 			<!-- charts -->
-			<section v-if="display.numbers.total > 0" class="charts mt-2">
+			<section v-if="display.numbers.total > 0" class="charts mt-3">
 				<div
 					id="chart-area-top"
 					class="chart-area"
@@ -497,29 +497,32 @@
 								@click="activateTab('activity', label)"
 							>
 								<span class="transition-color transition-border-image border-bottom-gradient-accent2-accent1">
-									{{ $t("stats.charts." + label + ".title", [preferences.sections.activity.year]) }}
+									{{ preferences.sections.activity.year == (new Date()).getFullYear()
+											? $t("stats.charts." + label + ".latestActivity")
+											: $t("stats.charts." + label + ".title", [preferences.sections.activity.year]) }}
 								</span>
 							</li>
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- activity per day received -->
-							<HeatMap
-								rgb="10, 132, 255"
-								spacing="1px"
-								rounding="5px"
-								:dataset="daysChartData.received"
-								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
-								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{value} {label}'"
-								class="mt-2 mb-1-5"
+							<MatrixChart
+								cid="activity-received"
+								color="#0a84ff"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 53, rows: 7 }"
+								:parseTime="true"
+								:datasets="[dateChartData.received]"
 							/>
 							<!-- activity per day sent -->
-							<HeatMap
-								rgb="230, 77, 185"
-								spacing="1px"
-								rounding="5px"
-								:dataset="daysChartData.sent"
-								:labels="{ y: daysChartData.ylabels, x: daysChartData.xlabels }"
-								:tooltips="'{y}, ' + $t('stats.abbreviations.calendarWeek') + '{x}\n{value} {label}'"
+							<MatrixChart
+								cid="activity-send"
+								color="#e64db9"
+								:spacing="1"
+								:rounding="5"
+								:parseTime="true"
+								:dimension="{ cols: 53, rows: 7 }"
+								:datasets="[dateChartData.sent]"
 							/>
 						</div>
 					</div>
@@ -630,23 +633,24 @@
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- emails per weekday per hour received -->
-							<HeatMap
-								rgb="10, 132, 255"
-								spacing="1px"
-								rounding="5px"
-								:dataset="weekdayPerHourChartData.received"
-								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{value} {label}'"
-								class="mt-1-5 mb-1-5"
+							<MatrixChart
+								cid="wd-per-hour-received"
+								color="#0a84ff"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 24, rows: 7 }"
+								:parseTime="false"
+								:datasets="[weekdayPerHourChartData.received]"
 							/>
 							<!-- emails per weekday per hour sent -->
-							<HeatMap
-								rgb="230, 77, 185"
-								spacing="1px"
-								rounding="5px"
-								:dataset="weekdayPerHourChartData.sent"
-								:labels="{ y: weekdayPerHourChartData.labels, x: Array.from(Array(24).keys())}"
-								:tooltips="'{y}, {x}:00\n{value} {label}'"
+							<MatrixChart
+								cid="wd-per-hour-send"
+								color="#e64db9"
+								:spacing="1"
+								:rounding="5"
+								:dimension="{ cols: 24, rows: 7 }"
+								:parseTime="false"
+								:datasets="[weekdayPerHourChartData.sent]"
 							/>
 						</div>
 					</div>
@@ -831,12 +835,14 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue';
+
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek, startOfToday } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
-import HeatMap from "./charts/HeatMap"
+import MatrixChart from "./charts/MatrixChart"
 import DoughnutChart from "./charts/DoughnutChart"
 import LiveAge from "./parts/LiveAge"
 
@@ -901,9 +907,9 @@ const sortAndLimitObjectToArray = (obj, limit) => {
 // helper function to see if array contains another array
 const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
-export default {
+export default defineComponent({
 	name: "Stats",
-	components: { LineChart, BarChart, HeatMap, DoughnutChart, LiveAge },
+	components: { LineChart, BarChart, MatrixChart, DoughnutChart, LiveAge },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts
@@ -1048,7 +1054,7 @@ export default {
 					received: {},
 					sent: {},
 				},
-				daysData: {
+				dateData: {
 					received: {},
 					sent: {},
 				},
@@ -1288,11 +1294,13 @@ export default {
 			data.weekdayData[type][wd]++
 			// month
 			data.monthData[type][mo]++
-			// weekday per calendar week
-			if (!(ywn in data.daysData[type])) {
-				data.daysData[type][ywn] = new NumberedObject(7,53)
+			// dates
+			const iso = m.date.toISOString().substr(0, 10);
+			if (!(iso in data.dateData[type])) {
+				data.dateData[type][iso] = 1;
+			} else {
+				data.dateData[type][iso]++;
 			}
-			data.daysData[type][ywn][wd][wn-1]++
 			// weekday per hour
 			data.weekdayPerHourData[type][wd][dt]++
 			// contacts (leaderboards)
@@ -1473,11 +1481,11 @@ export default {
 					.map(y => { sum.weeksData.received[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.received[y] ? p.concat(c.weeksData.received[y]) : p, [])) })
 				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.weeksData.sent)])], [])
 					.map(y => { sum.weeksData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.sent[y] ? p.concat(c.weeksData.sent[y]) : p, [])) })
-				// days
-				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.daysData.received)])], [])
-					.map(y => { sum.daysData.received[y] = sumObjectsArrays(accountsData.reduce((p,c) => c.daysData.received[y] ? p.concat(c.daysData.received[y]) : p, [])) })
-				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.daysData.sent)])], [])
-					.map(y => { sum.daysData.sent[y] = sumObjectsArrays(accountsData.reduce((p,c) => c.daysData.sent[y] ? p.concat(c.daysData.sent[y]) : p, [])) })
+				// dates
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.dateData.received)])], [])
+					.map(d => { sum.dateData.received[d] = accountsData.reduce((p,c) => c.dateData.received[d] ? p+c.dateData.received[d] : p, 0) })
+				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.dateData.sent)])], [])
+					.map(d => { sum.dateData.sent[d] = accountsData.reduce((p,c) => c.dateData.sent[d] ? p+c.dateData.sent[d] : p, 0) })
 				// daytime
 				for (let h = 0; h < 24; h++) {
 					sum.daytimeData.received[h] = accountsData.reduce((p,c) =>  p+c.daytimeData.received[h], 0)
@@ -2169,8 +2177,8 @@ export default {
 			const r = Object.values(this.display.weekdayData.received)
 			const s = Object.values(this.display.weekdayData.sent)
 			let labels = [...this.weekdayNames]
-			// start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++) {
+			// TODO: start week with user defined day of week
+			for (let d = 0; d < 1/*this.preferences.startOfWeek*/; d++) {
 				r.push(r.shift())
 				s.push(s.shift())
 				labels.push(labels.shift())
@@ -2195,14 +2203,14 @@ export default {
 		weekdayComparedChartData () {
 			let datasets = []
 			let labels = [...this.weekdayNames]
-			// labels: start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++)
+			// TODO: labels: start week with user defined day of week
+			for (let d = 0; d < 1/*this.preferences.startOfWeek*/; d++)
 				labels.push(labels.shift())
 			// compute dataset for each account
 			this.accounts.forEach((a) => {
 				const data = Object.values(this.comparison.weekdayData[a.id])
-				// data: start week with user defined day of week
-				for (let d = 0; d < this.preferences.startOfWeek; d++)
+				// TODO: data: start week with user defined day of week
+				for (let d = 0; d < 1/*this.preferences.startOfWeek*/; d++)
 					data.push(data.shift())
 				// add dataset for this account
 				datasets.push({
@@ -2252,45 +2260,42 @@ export default {
 				labels: this.monthNames
 			}
 		},
-		// prepare data for activity heatmaps
-		daysChartData () {
-			let r = this.preferences.sections.activity.year in this.display.daysData.received
-				? Object.values(this.display.daysData.received[this.preferences.sections.activity.year])
-				: Object.values(new NumberedObject(7,53))
-			let s = this.preferences.sections.activity.year in this.display.daysData.sent
-				? Object.values(this.display.daysData.sent[this.preferences.sections.activity.year])
-				: Object.values(new NumberedObject(7,53))
-			let ylabels = [...this.weekdayNames]
-			let xlabels = Array.from(Array(54).keys())
-			xlabels.shift()
-			// start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++) {
-				r.push(r.shift())
-				s.push(s.shift())
-				ylabels.push(ylabels.shift())
-			}
+		// prepare data for single date matrix charts
+		dateChartData () {
+			const end = startOfToday();
+			let rd = Object.entries(this.display.dateData ? this.display.dateData.received : []);
+			let r = this.preferences.sections.activity.year == (new Date().getFullYear())
+				? rd.filter(e => new Date(e[0]) > new Date(new Date().setYear(end.getFullYear() - 1)))
+				: rd.filter(e => e[0].substring(0,4) == this.preferences.sections.activity.year);
+			let sd = Object.entries(this.display.dateData ? this.display.dateData.sent : []);
+			let s = this.preferences.sections.activity.year == (new Date().getFullYear())
+				? sd.filter(e => new Date(e[0]) > new Date(new Date().setYear(end.getFullYear() - 1)))
+				: sd.filter(e => e[0].substring(0,4) == this.preferences.sections.activity.year);
+			// TODO: handle this.preferences.startOfWeek
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
 				sent: { label: this.$t("stats.mailsSent"), data: s },
-				ylabels: ylabels,
-				xlabels: xlabels,
 			}
 		},
-		// prepare data for weekday/hour heatmaps
+		// prepare data for weekday/hour matrix charts
 		weekdayPerHourChartData () {
-			let r = Object.values(this.display.weekdayPerHourData.received)
-			let s = Object.values(this.display.weekdayPerHourData.sent)
-			let labels = [...this.weekdayNames]
-			// start week with user defined day of week
-			for (let d = 0; d < this.preferences.startOfWeek; d++) {
-				r.push(r.shift())
-				s.push(s.shift())
-				labels.push(labels.shift())
-			}
+			let rd = Object.values(this.display.weekdayPerHourData.received)
+			let sd = Object.values(this.display.weekdayPerHourData.sent)
+			let initDate = new Date(1970,0,4);
+			let r = rd.reduce((p,c,day) => [...p,...c.map((n,hour) => {
+				let d = new Date(initDate.setDate(4+day));
+				d = new Date(d.setHours(hour, 0, 0));
+				return [d.toISOString(), n]
+			})], []);
+			let s = sd.reduce((p,c,day) => [...p,...c.map((n,hour) => {
+				let d = new Date(initDate.setDate(4+day));
+				d = new Date(d.setHours(hour, 0, 0));
+				return [d.toISOString(), n]
+			})], []);
+			// TODO: handle this.preferences.startOfWeek
 			return {
 				received: { label: this.$t("stats.mailsReceived"), data: r },
 				sent: { label: this.$t("stats.mailsSent"), data: s },
-				labels: labels
 			}
 		},
 		// prepare data for sent emails leaderboard horizontal bar chart
@@ -2500,7 +2505,7 @@ export default {
 			}
 		}
 	}
-}
+});
 </script>
 
 <style lang="stylus">
@@ -2530,7 +2535,7 @@ body
 			#chart-area-top
 				grid-template-columns: calc(100% - 1130px - 2rem) 1130px
 				&.first-column-only
-					grid-template-columns: calc(100%-1rem) 0%
+					grid-template-columns: calc(100% - 1rem) 0%
 				.resizer
 					display: list-item
 			#chart-area-main
@@ -2597,7 +2602,7 @@ body
 				text-align: center
 				.featured
 					font-size: 3.25em
-					line-height: 1em
+					line-height: 1.25em
 					font-weight: 500
 
 		.charts
