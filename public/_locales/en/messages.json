@@ -32,6 +32,11 @@
       "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
       "label": "Leader Count"
     },
+    "liveCountUp": {
+      "description": "Show live progress of calculated numbers when processing stats data",
+      "info": "Enabling this may increase processing time",
+      "label": "Live Count Up"
+    },
     "localIdentities": {
       "description": "A list of email addresses to recognize as 'sent from' for local accounts",
       "label": "Local Identities"

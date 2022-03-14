@@ -136,8 +136,8 @@ export default defineComponent({
 							const r = stored["stats-" + a.id].yearsData.received
 							const s = stored["stats-" + a.id].yearsData.sent
 							let labels = [], d = []
-							const start = new Date(stored["stats-" + a.id].numbers.start)
-							const end = stored["stats-" + a.id].numbers.end ? new Date(stored["stats-" + a.id].numbers.end) : new Date()
+							const start = new Date(stored["stats-" + a.id].meta.start)
+							const end = stored["stats-" + a.id].meta.end ? new Date(stored["stats-" + a.id].meta.end) : new Date()
 							for (let y = start.getFullYear(); y <= end.getFullYear(); ++y) {
 								labels.push(y)
 								d.push((y in r ? r[y] : 0) + (y in s ? s[y] : 0))
