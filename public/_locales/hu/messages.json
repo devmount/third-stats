@@ -121,6 +121,7 @@
       },
       "days": {
         "description": "Levelek száma dátum szerint",
+        "latestActivity": "Legutóbbi tevékenység",
         "title": "Tevékenység itt: {0}"
       },
       "daytime": {

@@ -4,33 +4,33 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
-      "label": "Active Accounts",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "color": "Karşılaştırma modunda her hesaba aralarında ayrım yapmak için özel bir renk verin.",
+      "description": "Hesapları etkinleştirin veya devre dışı bırakın. Devre dışı bırakılan hesaplar, herhangi bir hesap listesinde veya istatistikte görünmez.",
+      "label": "Aktif Hesaplar",
+      "sumAndCompare": "Birden fazla hesabı etkinleştirmek, toplam ve karşılaştırma görünümü için 'Tüm Hesaplar' istatistik filtresi seçeneğini etkinleştirir."
     },
     "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
+      "description": "Halihazırda işlenmiş istatistik verilerinin daha hızlı görüntülenmesi için önbelleğe alma sistemini etkinleştirin.",
+      "label": "Önbelleği Etkinleştir"
     },
     "clearCache": {
-      "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
+      "description": "Tüm hesaplardan önbelleğe alınmış tüm istatistik verilerini kaldırın. İstatistikler sayfası tekrar açıldığında yeniden oluşturulacak.",
       "empty": "Önbellek Temizdir",
       "label": "Önbelleği temizle",
-      "size": "Cache size is {0}"
+      "size": "Önbellek boyutu: {0}"
     },
     "darkMode": {
       "description": "Koyu ve açık renk düzeni arasında geçiş yapın",
       "label": "Karanlık Modu"
     },
     "headings": {
-      "appearance": "Appearance & Experience",
-      "stats": "Charts & Data",
-      "storage": "Storage & Cache"
+      "appearance": "Görünüm & Deneyim",
+      "stats": "Grafikler ve Veriler",
+      "storage": "Depolama ve Önbellek"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "Sık görüşülen kişileri listeleyen çizelgelerde gösterilen giriş sayısı (maksimum 999)",
+      "label": "Kişi Sayısı"
     },
     "localIdentities": {
       "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
@@ -38,36 +38,36 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "refreshCacheRequired": "Değiştirilirse, önbelleğin yeniden oluşturulması gerekir",
+      "reloadStatsPage": "Seçenekler otomatik olarak kaydedilir. Bazı seçenek değişiklikleri, önceden açık olan bir istatistik sayfasına veya önbellek etkinleştirildiyse mevcut önbellek girişlerine otomatik olarak uygulanamaz. İlgili simgelerle işaretlenirler.",
+      "reloadWindowRequired": "Değiştirilirse, istatistikler penceresinin yeniden yüklenmesi gerekir",
       "title": "Not"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "Tüm çizgi ve çubuk grafikler için dikey ekseni görüntüle",
+      "label": "Dikey eksen"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "Tüm seçenekleri varsayılan değerlerine sıfırlayın. Daha önce hangi seçenekleri değiştirdiğinize bağlı olarak, bir pencere veya önbellek yenileme gerekebilir.",
+      "label": "Ayarları sıfırla",
+      "removeIdentities": "Bu, oluşturduğunuz tüm yerel kimlikleri de kaldıracaktır."
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "Benden kendime gönderilen mesajları hariç tut",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "Gönderici ve alıcının herhangi bir hesaptan kimlik olduğu mesajlar hariç tutulacaktır.",
+        "none": "Kendine iletiler dahil edilecek ve normal e-postalar olarak kabul edilecektir (varsayılan)",
+        "sameAccount": "Gönderici ve alıcının aynı hesaptan kimlik olduğu mesajlar hariç tutulacaktır."
       },
-      "label": "Messages to Self",
+      "label": "Kendime Mesajlar",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "Herhangi Bir Hesaptan",
         "none": "Devre dışı",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "Sadece Aynı Hesap"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
+      "description": "Hafta içi tüm grafikler için özel hafta başlangıcı",
       "label": "Haftanın ilk günü"
     },
     "switch": {
@@ -75,52 +75,53 @@
       "on": "Aç"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "İlgili etiket renklerini kullanarak etiketler hakkında çizelgeler çizin",
+      "label": "Etiket Renkleri"
     },
     "title": "Seçenekler"
   },
   "popup": {
     "message": "-",
     "nAccounts": "{0} Hesap | {0} Hesaplar",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nFolders": "{0} Klasör | {0} Klasörler",
+    "nMessages": "{0} Mesaj | {0} Mesajlar",
+    "openAllStats": "Tüm İstatistikleri Aç",
     "openOptions": "Ayarları Aç"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "H",
-      "day": "d",
-      "hour": "h",
+      "day": "g",
+      "hour": "s",
       "minute": "dk",
-      "month": "M",
+      "month": "a",
       "quarter": "Ç",
       "second": "s",
       "week": "H",
-      "year": "Y"
+      "year": "y"
     },
     "account": "Hesap",
     "accountEmpty": "Bu hesap boş, e-posta yok.",
     "allAccounts": "Tüm hesaplar",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "Gönderici başına Önemsiz olarak işaretlenen e-posta sayısı",
+        "empty": "Önemsiz olarak işaretlenmiş e-posta yok.",
+        "title": "Önemsiz olarak işaretlendi"
       },
       "contactsReceived": {
         "description": "Alıcı başına gönderilen e-posta sayısı",
-        "empty": "No received emails available.",
+        "empty": "Alınan e-posta yok.",
         "title": "En çok gelen"
       },
       "contactsSent": {
         "description": "Gönderen başına alınan e-posta sayısı",
-        "empty": "No sent emails available.",
+        "empty": "Gönderilmiş e-posta yok.",
         "title": "En çok gönderilen"
       },
       "days": {
         "description": "Günlük e-posta sayısı",
+        "latestActivity": "sonuncu aktivite",
         "title": "{0} Etkinlik"
       },
       "daytime": {
@@ -128,8 +129,8 @@
         "title": "Saatlik"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "Klasör başına e-posta sayısı",
+        "title": "Klasör dağıtımı"
       },
       "month": {
         "description": "Ay başına e-posta sayısı",
@@ -144,8 +145,8 @@
         "title": "Çeyrek"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Etiket başına toplam e-posta sayısı",
+        "empty": "Etiket verisi yok.",
         "title": "Etiketler"
       },
       "temporalDistribution": {
@@ -166,27 +167,27 @@
       }
     },
     "contact": "Kişi",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "{0} önce toplanan veriler",
+    "disclaimer": "ThirdStats, görüntülenen verilerin doğruluğu konusunda hiçbir iddiada bulunmaz.<br />Olası sorunlar olması durumunda, lütfen <a href='{0}' target='_blank'>bir hata raporu oluşturun</a>.",
     "folder": "Klasör",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "junkMails": "Önemsiz postalar",
+    "junkScore": "Önemsiz puan {0}",
     "loadingInProgress": "Bu hesaptan e-postaların yüklenmesi devam ediyor…",
     "mailsPerDay": "Günlük E-posta",
     "mailsPerMonth": "Aylık E-posta",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "Çeyrek başına posta sayısı",
+    "mailsPerTag": "Etiket başına posta sayısı",
+    "mailsPerWeek": "Haftalık postalar",
+    "mailsPerYear": "Yıllık posta sayısı",
     "mailsReceived": "Alınan E-posta",
     "mailsSent": "Gönderilen E-posta",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "Yıldızlı postalar",
+    "mailsTagged": "{0} posta etiketlendi",
     "mailsTotal": "Toplam e-posta",
     "mailsUnread": "Okunmamış e-posta",
     "message": "-",
     "niceWork": "İyi İş!",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "boş olmayan klasörler | boş olmayan klasör | boş olmayan klasörler",
     "percentOfReceived": "%{0} alındı",
     "percentOfTotal": "Toplamın %{0}",
     "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin",
@@ -194,28 +195,28 @@
     "title": "İstatistikler",
     "tooltips": {
       "clear": "Seçimi temizle",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "Hesapları tek bir grafikte karşılaştırın",
+      "comparisonWhenAccountsOption": "Hesap karşılaştırması yalnızca kullanılabilir\neklenti seçeneklerinde birden fazla hesap etkinleştirildiyse",
+      "comparisonWhenFilter": "Hesap karşılaştırması yalnızca kullanılabilir\nyukarıdaki hesaplar filtresinde 'Tüm Hesaplar' seçiliyse",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateFormat": "YYYY-AA-GG biçimi gereklidir, ör. 2020-01-31",
+        "dateOrderEnd": "Bitiş tarihi, başlangıç tarihinden sonra olmalıdır",
+        "dateOrderStart": "Başlangıç tarihi, bitiş tarihinden önce olmalıdır",
+        "dateUnreal": "Geçerli bir tarih gerekli",
+        "empty": "Giriş gerekli"
       },
       "expand": "Grafik alanını genişlet",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "Şu anda görüntülenen verileri JSON dosyası olarak dışa aktarın",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "{0} için klasörler mevcut değil"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "Bugüne kadar\nİpucu: '{0}' yazıldığında '{1}' olur",
+        "start": "İtibaren\nİpucu: '{0}' yazıldığında '{1}' olur"
       },
       "refresh": "Verileri yenile",
       "shrink": "Grafik alanını küçült",
-      "sum": "Show sum of all accounts"
+      "sum": "Tüm hesapların toplamını göster"
     },
     "withinYears": "{0} yıl içersinde"
   }

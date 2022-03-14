@@ -94,11 +94,11 @@
       "day": "日",
       "hour": "時間\n",
       "minute": "分",
-      "month": "M",
+      "month": "月",
       "quarter": "四半期",
       "second": "秒",
       "week": "曜日",
-      "year": "Y"
+      "year": "年"
     },
     "account": "アカウント",
     "accountEmpty": "このアカウントにはメールはありません。",
@@ -106,21 +106,22 @@
     "charts": {
       "contactsJunk": {
         "description": "送信者ごとに迷惑メールとしてマークされたメールの数 ",
-        "empty": "No emails flagged as Junk.",
+        "empty": "迷惑メールとしてフラグが立っているメールはありません。",
         "title": "ジャンクとしてフラグが立てられました "
       },
       "contactsReceived": {
         "description": "受信者あたりのメール送信数",
-        "empty": "No received emails available.",
+        "empty": "受信メールはありません。",
         "title": "最多受信先メール"
       },
       "contactsSent": {
         "description": "送信者あたりのメール受信数",
-        "empty": "No sent emails available.",
+        "empty": "送信済みメールは利用できません。",
         "title": "最多送信先メール"
       },
       "days": {
         "description": "1日の時間あたりのール数",
+        "latestActivity": "最新の活動",
         "title": "{0}年のメール総数"
       },
       "daytime": {
@@ -144,8 +145,8 @@
         "title": "四半期"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "タグごとのメール総数",
+        "empty": "タグのデータはありません。",
         "title": "タグ"
       },
       "temporalDistribution": {
@@ -174,14 +175,14 @@
     "loadingInProgress": "このアカウントからのすべてのメールを読み込み中です。",
     "mailsPerDay": "1日あたりのメール数",
     "mailsPerMonth": "1か月あたりのメール数",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "四半期ごとのメール配信数",
+    "mailsPerTag": "タグごとのメール数",
+    "mailsPerWeek": "週あたりのメール数",
+    "mailsPerYear": "年間メール配信数",
     "mailsReceived": "受信メール",
     "mailsSent": "送信メール",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "星付きメール",
+    "mailsTagged": "タグ付けされた{0}メール",
     "mailsTotal": "メッセージ全件数",
     "mailsUnread": "未読メール",
     "message": "-",

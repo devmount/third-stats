@@ -38,36 +38,36 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
-      "reloadStatsPage": "Options are automatically saved. Some option changes cannot be automatically applied to an already open stats page or to existing cache entries, if cache is activated. They are marked with corresponding icons.",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "refreshCacheRequired": "Indien gewijzigd, moet de cache opnieuw worden opgebouwd",
+      "reloadStatsPage": "Opties worden automatisch opgeslagen. Sommige optie veranderingen kunnen niet automatisch worden toegepast op een reeds geopende statistieken pagina of op bestaande cache items, als cache is geactiveerd. Zij zijn gemarkeerd met overeenkomstige pictogrammen.",
+      "reloadWindowRequired": "Indien gewijzigd, moet het statistiekenvenster opnieuw worden geladen",
       "title": "Notitie"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "Verticale as weergeven voor alle lijn- en staafdiagrammen",
+      "label": "Verticale As"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
-      "label": "Reset Options",
-      "removeIdentities": "This will also remove all local identities you created."
+      "description": "Zet alle opties terug op hun standaardwaarden. Afhankelijk van welke opties u eerder hebt gewijzigd, kan een venster- of cache-verversing nodig zijn.",
+      "label": "Reset Opties",
+      "removeIdentities": "Dit zal ook alle lokale identiteiten verwijderen die je hebt aangemaakt."
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "Sluit berichten uit die van mij naar mezelf zijn gestuurd",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "Berichten waarbij de afzender en de ontvanger identiteiten zijn van eender welke rekening, worden uitgesloten",
+        "none": "Berichten aan zichzelf zullen worden opgenomen en behandeld als normale e-mails (standaard)",
+        "sameAccount": "Berichten waarbij afzender en ontvanger identiteiten van dezelfde rekening zijn, worden uitgesloten"
       },
-      "label": "Messages to Self",
+      "label": "Boodschappen aan jezelf",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "Van elke rekening",
         "none": "Uitgeschakeld",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "Alleen dezelfde rekening"
       }
     },
     "startOfWeek": {
-      "description": "Custom start of week for all weekday related charts",
+      "description": "Aangepast begin van de week voor alle weekdag-gerelateerde grafieken",
       "label": "Week starten op"
     },
     "switch": {
@@ -75,148 +75,149 @@
       "on": "AAN"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "Teken grafieken over tags met overeenkomstige tag kleuren",
+      "label": "Tag Kleuren"
     },
     "title": "Opties"
   },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} Account | {0} Accounts",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nAccounts": "{0} Rekening | {0} Rekeningen",
+    "nFolders": "{0} Map | {0} Mappen",
+    "nMessages": "{0} Bericht | {0} Berichten",
+    "openAllStats": "Open alle statistieken",
     "openOptions": "Open opties"
   },
   "stats": {
     "abbreviations": {
-      "calendarWeek": "W",
+      "calendarWeek": "w",
       "day": "d",
-      "hour": "h",
+      "hour": "u",
       "minute": "Min",
-      "month": "M",
-      "quarter": "Q",
-      "second": "s",
-      "week": "W",
-      "year": "Y"
+      "month": "m",
+      "quarter": "k",
+      "second": "t",
+      "week": "w",
+      "year": "j"
     },
     "account": "Rekening",
-    "accountEmpty": "This account is empty, no emails here.",
-    "allAccounts": "All Accounts",
+    "accountEmpty": "Deze rekening is leeg, geen e-mails hier.",
+    "allAccounts": "Alle Rekeningen",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "Aantal e-mails gemarkeerd als junk per afzender",
+        "empty": "Geen e-mails gemarkeerd als ongewenst.",
+        "title": "Gemarkeerd als rommel"
       },
       "contactsReceived": {
-        "description": "Number of emails received per sender",
-        "empty": "No received emails available.",
-        "title": "Most received from"
+        "description": "Aantal ontvangen e-mails per afzender",
+        "empty": "Geen ontvangen e-mails beschikbaar.",
+        "title": "De meeste ontvangen van"
       },
       "contactsSent": {
-        "description": "Number of emails sent per recipient",
-        "empty": "No sent emails available.",
-        "title": "Most sent to"
+        "description": "Aantal verzonden e-mails per ontvanger",
+        "empty": "Geen verzonden e-mails beschikbaar.",
+        "title": "De meeste gestuurd naar"
       },
       "days": {
-        "description": "Number of emails per date",
-        "title": "Activity in {0}"
+        "description": "Aantal e-mails per datum",
+        "latestActivity": "Laatste Activiteit",
+        "title": "Activiteit in {0}"
       },
       "daytime": {
-        "description": "Number of emails per time of day",
-        "title": "Daytime"
+        "description": "Aantal e-mails per tijdstip van de dag",
+        "title": "Overdag"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "Aantal e-mails per map",
+        "title": "Verdeling van de mappen"
       },
       "month": {
-        "description": "Number of emails per month of year",
+        "description": "Aantal e-mails per maand van het jaar",
         "title": "Maand"
       },
       "months": {
-        "description": "Total number of emails per month",
+        "description": "Totaal aantal e-mails per maand",
         "title": "Maanden"
       },
       "quarters": {
-        "description": "Total number of emails per quarter",
+        "description": "Totaal aantal e-mails per kwartaal",
         "title": "Kwartalen"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "Totaal aantal e-mails per tag",
+        "empty": "Geen gegevens over merktekens beschikbaar.",
         "title": "Labels"
       },
       "temporalDistribution": {
-        "description": "Number of emails per weekday per hour",
-        "title": "Temporal distribution"
+        "description": "Aantal e-mails per weekdag per uur",
+        "title": "Temporele spreiding"
       },
       "weekday": {
-        "description": "Number of emails per day of week",
+        "description": "Aantal e-mails per dag van de week",
         "title": "Weekdag"
       },
       "weeks": {
-        "description": "Total number of emails per week",
+        "description": "Totaal aantal e-mails per week",
         "title": "Weken"
       },
       "years": {
-        "description": "Total number of emails per year",
+        "description": "Totaal aantal e-mails per jaar",
         "title": "jaren"
       }
     },
     "contact": "Contactpersoon",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "Gegevens verzameld {0} geleden",
+    "disclaimer": "ThirdStats maakt geen aanspraak op de juistheid van de getoonde gegevens.<br />In geval van mogelijke problemen, gelieve <a href='{0}' target='_blank'>een bug report</a> aan te maken.",
     "folder": "Map",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
-    "loadingInProgress": "Loading of all emails from this account in progress…",
-    "mailsPerDay": "Mails per day",
-    "mailsPerMonth": "Mails per month",
-    "mailsPerQuarter": "Mails per quarter",
+    "junkMails": "Ongewenste e-mail",
+    "junkScore": "Rommel score van {0}",
+    "loadingInProgress": "Laden van alle e-mails van dit account in uitvoering...",
+    "mailsPerDay": "Mails per dag",
+    "mailsPerMonth": "Mails per maand",
+    "mailsPerQuarter": "Mails per kwartaal",
     "mailsPerTag": "Mails per tag",
     "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
-    "mailsReceived": "Mails received",
-    "mailsSent": "Mails sent",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
-    "mailsTotal": "Mails total",
-    "mailsUnread": "Mails unread",
+    "mailsPerYear": "Mails per jaar",
+    "mailsReceived": "Ontvangen mails",
+    "mailsSent": "Mails verstuurd",
+    "mailsStarred": "Mails met sterretjes",
+    "mailsTagged": "{0} mails getagd",
+    "mailsTotal": "Mails totaal",
+    "mailsUnread": "Mails ongelezen",
     "message": "-",
     "niceWork": "Goed gedaan!",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
-    "percentOfReceived": "{0}% of received",
-    "percentOfTotal": "{0}% of total",
-    "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
+    "nonEmptyFolders": "niet-lege mappen | niet-lege map | niet-lege mappen",
+    "percentOfReceived": "{0}% van ontvangen",
+    "percentOfTotal": "{0}% van het totaal",
+    "starAndImprove": "Wees een ster, fork me op <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Datumbereik",
     "title": "Statistieken",
     "tooltips": {
       "clear": "Selectie wissen",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "Vergelijk rekeningen in één grafiek",
+      "comparisonWhenAccountsOption": "Accountvergelijking is alleen beschikbaar\nindien meer dan één rekening is geactiveerd in add-on opties",
+      "comparisonWhenFilter": "Accountvergelijking is alleen beschikbaar\nindien \"Alle rekeningen\" is geselecteerd in bovenstaande rekeningenfilter",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
+        "dateFormat": "Formaat JJJJ-MM-DD is vereist, bijv. 2020-01-31",
         "dateOrderEnd": "De einddatum moet na de begindatum zijn.",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateOrderStart": "De begindatum moet vóór de einddatum liggen",
+        "dateUnreal": "Een geldige datum is vereist",
+        "empty": "Invoer is vereist"
       },
-      "expand": "Expand chart area",
-      "exportData": "Export currently displayed data as JSON file",
+      "expand": "Grafiekgebied uitbreiden",
+      "exportData": "Exporteer momenteel weergegeven gegevens als JSON-bestand",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "Mappen zijn niet beschikbaar voor {0}"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "Naar datum\nTip: \"{0}\" typen wordt \"{1}",
+        "start": "Van Datum\nTip: \"{0}\" typen wordt \"{1}"
       },
       "refresh": "Gegevens vernieuwen",
-      "shrink": "Shrink chart area",
-      "sum": "Show sum of all accounts"
+      "shrink": "Grafiekgebied verkleinen",
+      "sum": "Toon de som van alle rekeningen"
     },
-    "withinYears": "within {0} years"
+    "withinYears": "binnen {0} jaar"
   }
 }

@@ -4,10 +4,10 @@
   },
   "options": {
     "activeAccounts": {
-      "color": "Give each account a custom color to distinguish between them in comparison mode.",
-      "description": "Enable or disable accounts. Disabled accounts won't appear in any accounts list or stats.",
+      "color": "给每个账户一个自定义颜色，以便在比较模式下区分它们。",
+      "description": "启用或停用账户。被禁用的账户不会出现在任何账户列表或统计资料中。",
       "label": "活跃账户",
-      "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
+      "sumAndCompare": "激活一个以上的账户，可以启用 \"所有账户 \"统计过滤选项，以进行汇总和比较查看。"
     },
     "cache": {
       "description": "启用缓存系统以加快显示已处理数据资料。",
@@ -29,8 +29,8 @@
       "storage": "存储与缓存"
     },
     "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+      "description": "图表中显示的经常联系的条目数量（最多999个）。",
+      "label": "联系数"
     },
     "localIdentities": {
       "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”",
@@ -38,32 +38,32 @@
     },
     "message": "-",
     "note": {
-      "refreshCacheRequired": "If changed, cache needs to be rebuild",
+      "refreshCacheRequired": "如果改变了，需要重建缓存",
       "reloadStatsPage": "选项已自动储存。如果数据页面已经开启，你需要重新开启或刷新页面以应用最新选项。",
-      "reloadWindowRequired": "If changed, stats window needs to be reloaded",
+      "reloadWindowRequired": "如果改变，统计窗口需要重新加载",
       "title": "注意"
     },
     "ordinate": {
-      "description": "Display vertical axis for all line and bar charts",
-      "label": "Vertical Axis"
+      "description": "为所有线图和柱状图显示垂直轴",
+      "label": "垂直轴"
     },
     "resetOptions": {
-      "description": "Reset all options to their default values. Depending on which options you changed before, a window or cache refresh may be required.",
+      "description": "将所有选项重置为其默认值。取决于你之前改变了哪些选项，可能需要刷新窗口或缓存。",
       "label": "重置选项",
-      "removeIdentities": "This will also remove all local identities you created."
+      "removeIdentities": "这也将删除你创建的所有本地身份。"
     },
     "selfMessages": {
-      "description": "Exclude messages that were sent from me to myself",
+      "description": "排除由我发给自己的信息",
       "info": {
-        "anyAccount": "Messages where sender and receiver are identities from any account will be excluded",
-        "none": "Messages to self will be included and treated as normal emails (default)",
-        "sameAccount": "Messages where sender and receiver are identities from the same account will be excluded"
+        "anyAccount": "发件人和收件人是任何账户的身份的信息将被排除。",
+        "none": "给自己的邮件将被包括在内，并被视为正常的电子邮件（默认）。",
+        "sameAccount": "发件人和收件人为同一账户的信息将被排除。"
       },
-      "label": "Messages to Self",
+      "label": "给自己的信息",
       "values": {
-        "anyAccount": "From Any Account",
+        "anyAccount": "从任何账户",
         "none": "已禁用",
-        "sameAccount": "Same Account Only"
+        "sameAccount": "仅限同一账户"
       }
     },
     "startOfWeek": {
@@ -75,52 +75,53 @@
       "on": "开"
     },
     "tagColors": {
-      "description": "Draw charts about tags using corresponding tag colors",
-      "label": "Tag Colors"
+      "description": "使用相应的标签颜色绘制关于标签的图表",
+      "label": "标签颜色"
     },
     "title": "选项"
   },
   "popup": {
     "message": "-",
     "nAccounts": "账号 {0} | 账号 {0}",
-    "nFolders": "{0} Folder | {0} Folders",
-    "nMessages": "{0} Message | {0} Messages",
-    "openAllStats": "Open all Stats",
+    "nFolders": "{0} 文件夹｜{0} 文件夹",
+    "nMessages": "{0} 信息 | {0} 信息",
+    "openAllStats": "打开所有统计资料",
     "openOptions": "打开选项"
   },
   "stats": {
     "abbreviations": {
       "calendarWeek": "周",
-      "day": "d",
-      "hour": "h",
+      "day": "天",
+      "hour": "小时",
       "minute": "分钟",
-      "month": "M",
+      "month": "月",
       "quarter": "季",
-      "second": "s",
+      "second": "第二",
       "week": "星期",
-      "year": "Y"
+      "year": "年"
     },
     "account": "账号",
     "accountEmpty": "此账号为空，没有邮件。",
     "allAccounts": "所有帐户",
     "charts": {
       "contactsJunk": {
-        "description": "Number of emails marked as Junk per sender",
-        "empty": "No emails flagged as Junk.",
-        "title": "Flagged as Junk"
+        "description": "每个发件人被标记为垃圾邮件的邮件数量",
+        "empty": "没有标记为垃圾邮件的邮件。",
+        "title": "被标记为废品"
       },
       "contactsReceived": {
         "description": "每位收件人发送邮件数",
-        "empty": "No received emails available.",
+        "empty": "没有收到的电子邮件。",
         "title": "最多收取来自"
       },
       "contactsSent": {
         "description": "每位寄件人收取邮件数",
-        "empty": "No sent emails available.",
+        "empty": "没有发送的电子邮件。",
         "title": "最多发送送往"
       },
       "days": {
         "description": "每个日期的电子邮件数",
+        "latestActivity": "最新活动",
         "title": "活动于 {0}"
       },
       "daytime": {
@@ -128,8 +129,8 @@
         "title": "一天内"
       },
       "foldersDistribution": {
-        "description": "Number of emails per folder",
-        "title": "Folders distribution"
+        "description": "每个文件夹中的电子邮件数量",
+        "title": "文件夹分配"
       },
       "month": {
         "description": "一年内每月邮件数",
@@ -144,8 +145,8 @@
         "title": "季度"
       },
       "tagsCount": {
-        "description": "Total number of emails per tag",
-        "empty": "No tag data available.",
+        "description": "每个标签的电子邮件总数",
+        "empty": "没有标签数据。",
         "title": "标签"
       },
       "temporalDistribution": {
@@ -166,27 +167,27 @@
       }
     },
     "contact": "联系人",
-    "dataCollected": "Data collected {0} ago",
-    "disclaimer": "ThirdStats makes no claim to the correctness of the data displayed.<br />In case of possible problems, please <a href='{0}' target='_blank'>create a bug report</a>.",
+    "dataCollected": "数据收集于{0}年前",
+    "disclaimer": "第三方统计局对所显示的数据的正确性不作要求。<br />如果可能出现问题，请<a href='{0}' target='_blank'>创建一个错误报告</a>。",
     "folder": "文件夹",
-    "junkMails": "Junk mails",
-    "junkScore": "Junk score of {0}",
+    "junkMails": "垃圾邮件",
+    "junkScore": "垃圾分数为{0}。",
     "loadingInProgress": "正在加载此账号所有邮件……",
     "mailsPerDay": "每日邮件",
     "mailsPerMonth": "每月邮件",
-    "mailsPerQuarter": "Mails per quarter",
-    "mailsPerTag": "Mails per tag",
-    "mailsPerWeek": "Mails per week",
-    "mailsPerYear": "Mails per year",
+    "mailsPerQuarter": "每季度邮寄量",
+    "mailsPerTag": "每个标签的邮件数",
+    "mailsPerWeek": "每星期的邮件",
+    "mailsPerYear": "每年的邮件",
     "mailsReceived": "邮件已收取",
     "mailsSent": "邮件已发送",
-    "mailsStarred": "Mails starred",
-    "mailsTagged": "{0} mails tagged",
+    "mailsStarred": "邮件星级",
+    "mailsTagged": "{0}邮件被标记",
     "mailsTotal": "邮件总数",
     "mailsUnread": "邮件未读取",
     "message": "-",
     "niceWork": "做得不错！",
-    "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
+    "nonEmptyFolders": "非空文件夹｜非空文件夹｜非空文件夹",
     "percentOfReceived": "已收取 {0}%",
     "percentOfTotal": "占总数 {0}%",
     "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
@@ -194,28 +195,28 @@
     "title": "统计",
     "tooltips": {
       "clear": "清除选择",
-      "comparison": "Compare accounts in one chart",
-      "comparisonWhenAccountsOption": "Account comparison is only available\nif more than one account is activated in add-on options",
-      "comparisonWhenFilter": "Account comparison is only available\nif 'All Accounts' is selected in accounts filter above",
+      "comparison": "在一个图表中比较账户",
+      "comparisonWhenAccountsOption": "帐户比较只有在以下情况下才可用\n如果在附加选项中激活了一个以上的账户的话",
+      "comparisonWhenFilter": "帐户比较只有在以下情况下才可用\n如果在上面的账户过滤器中选择了 \"所有账户 \"的话",
       "error": {
-        "dateFormat": "Format YYYY-MM-DD is required, e.g. 2020-01-31",
-        "dateOrderEnd": "End date must be after start date",
-        "dateOrderStart": "Start date must be before end date",
-        "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "dateFormat": "要求格式为YYY-MM-DD，例如：2020-01-31",
+        "dateOrderEnd": "结束日期必须是在开始日期之后",
+        "dateOrderStart": "开始日期必须在结束日期之前",
+        "dateUnreal": "需要一个有效的日期",
+        "empty": "需要输入"
       },
       "expand": "放大图表范围",
-      "exportData": "Export currently displayed data as JSON file",
+      "exportData": "将当前显示的数据导出为JSON文件",
       "folder": {
-        "notAvailable": "Folders are not available for {0}"
+        "notAvailable": "文件夹不能用于{0}。"
       },
       "period": {
-        "end": "To Date\nTip: Typing '{0}' becomes '{1}'",
-        "start": "From Date\nTip: Typing '{0}' becomes '{1}'"
+        "end": "到日期\n提示：输入'{0}'变成'{1}'。",
+        "start": "来自日期\n提示：输入'{0}'变成'{1}'。"
       },
       "refresh": "刷新资料",
       "shrink": "缩小图表范围",
-      "sum": "Show sum of all accounts"
+      "sum": "显示所有账户的总和"
     },
     "withinYears": "{0} 年内"
   }
