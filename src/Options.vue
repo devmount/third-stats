@@ -62,6 +62,31 @@
 						</label>
 					</div>
 				</div>
+				<!-- option: live count up -->
+				<div class="entry">
+					<label for="liveCountUp">
+						{{ $t("options.liveCountUp.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.liveCountUp.description") }}</span>
+					</label>
+					<div class="action">
+						<label class="switch mb-0-5">
+							<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
+							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
+							<span class="switch-handle"></span> 
+						</label>
+						<div class="d-flex gap-0-5 align-items-center text-gray">
+							<div>
+								<svg class="icon icon-small text-middle" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<line x1="12" y1="8" x2="12.01" y2="8" />
+									<rect x="4" y="4" width="16" height="16" rx="2" />
+									<polyline points="11 12 12 12 12 16 13 16" />
+								</svg>
+							</div>
+							<span class="text-small">{{ $t("options.liveCountUp.info") }}</span>
+						</div>
+					</div>
+				</div>
 			</section>
 			<!-- section related to charts and data retrieval -->
 			<section class="mb-3">
@@ -170,7 +195,7 @@
 						<div class="text-gray text-small">{{ $t("options.selfMessages.description") }}</div>
 					</label>
 					<div class="action d-flex flex-wrap">
-						<select class="flex-grow mb-1" v-model="options.selfMessages" id="selfMessages">
+						<select class="flex-grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
 							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ $t("options.selfMessages.values." + val) }}</option>
 						</select>
 						<div class="d-flex gap-0-5 align-items-center text-gray">
@@ -244,7 +269,7 @@
 						<span class="d-block text-gray text-small">{{ $t("options.clearCache.description") }}</span>
 					</label>
 					<div class="action">
-						<button @click="clearCache" class="mb-1">{{ $t("options.clearCache.label") }}</button>
+						<button @click="clearCache" class="mb-0-5">{{ $t("options.clearCache.label") }}</button>
 						<div class="d-flex gap-0-5 align-items-center text-gray">
 							<div>
 								<svg class="icon icon-small text-middle" viewBox="0 0 24 24">
@@ -286,7 +311,7 @@
 						<div class="text-gray text-small">{{ $t("options.resetOptions.description") }}</div>
 					</label>
 					<div class="action">
-						<button @click="resetOptions" class="mb-1">{{ $t("options.resetOptions.label") }}</button>
+						<button @click="resetOptions" class="mb-0-5">{{ $t("options.resetOptions.label") }}</button>
 						<div v-if="options.addresses && options.addresses.length > 0" class="d-flex gap-0-5 align-items-center text-gray">
 							<div>
 								<svg class="icon icon-small text-middle" viewBox="0 0 24 24">
@@ -364,6 +389,7 @@ export default defineComponent({
 			dark = false,
 			ordinate = true,
 			tagColors = false,
+			liveCountUp = true,
 			startOfWeek = -1,
 			addresses = "",
 			accounts = [],
@@ -380,6 +406,7 @@ export default defineComponent({
 					dark: dark === null ? this.options.dark : dark,
 					ordinate: ordinate === null ? this.options.ordinate : ordinate,
 					tagColors: tagColors === null ? this.options.tagColors : tagColors,
+					liveCountUp: liveCountUp === null ? this.options.liveCountUp : liveCountUp,
 					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
 					addresses: addresses === null ? this.options.addresses : addresses,
 					accounts: accounts === null ? this.options.accounts : accounts,

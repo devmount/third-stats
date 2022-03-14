@@ -992,6 +992,7 @@ export default defineComponent({
 				dark: false,    // preferences loaded from stored options
 				ordinate: true,
 				tagColors: false,
+				liveCountUp: true,
 				startOfWeek: localStartOfWeek(),
 				localIdentities: [],
 				accounts: [],
@@ -1109,6 +1110,7 @@ export default defineComponent({
 					if (n.dark != o.dark) this.preferences.dark = n.dark
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 					if (n.tagColors != o.tagColors) this.preferences.tagColors = n.tagColors
+					if (n.liveCountUp != o.liveCountUp) this.preferences.liveCountUp = n.liveCountUp
 					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
 					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.toLowerCase().split(",").map(x => x.trim())
 					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
@@ -1128,6 +1130,7 @@ export default defineComponent({
 				this.preferences.dark = result.options.dark ? true : false
 				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.tagColors = result.options.tagColors ? true : false
+				this.preferences.liveCountUp = result.options.liveCountUp ? true : false
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
@@ -1352,7 +1355,8 @@ export default defineComponent({
 					}
 				})
 			}
-			// this.display.numbers = data.numbers;
+			// live update numbers section if corresponding option is enabled
+			if (this.preferences.liveCountUp) this.display.numbers = data.numbers;
 		},
 		// check if a contact is involved in a message
 		// = <contact> is either author or recipient, CC or BCC of <message>
