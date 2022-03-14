@@ -1024,7 +1024,9 @@ export default defineComponent({
 		initData () {
 			return { 
 				meta: {
-					timestamp: null
+					timestamp: null,
+					start: this.active.period.start ? new Date(this.active.period.start) : new Date(),
+					end: this.active.period.end ? new Date(this.active.period.end) : new Date(),
 				},
 				numbers: {
 					total: 0,
@@ -1035,8 +1037,6 @@ export default defineComponent({
 					tagged: 0,
 					junk: 0,
 					junkScore: 0,
-					start: this.active.period.start ? new Date(this.active.period.start) : new Date(),
-					end: this.active.period.end ? new Date(this.active.period.end) : new Date(),
 				},
 				yearsData: {
 					received: {},
@@ -1238,9 +1238,9 @@ export default defineComponent({
 			if (m.junk) data.numbers.junk++
 			data.numbers.junkScore += m.junkScore
 			// calculate starting date (= date of oldest email)
-			const start = new Date(data.numbers.start)
+			const start = new Date(data.meta.start)
 			if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
-				data.numbers.start = m.date
+				data.meta.start = m.date
 			}
 			// years
 			const y = m.date.getFullYear()
@@ -1352,6 +1352,7 @@ export default defineComponent({
 					}
 				})
 			}
+			// this.display.numbers = data.numbers;
 		},
 		// check if a contact is involved in a message
 		// = <contact> is either author or recipient, CC or BCC of <message>
@@ -1459,8 +1460,8 @@ export default defineComponent({
 				sum.numbers.tagged = accountsData.reduce((p,c) => p+(c.numbers.tagged ?? 0), 0)
 				sum.numbers.junk = accountsData.reduce((p,c) => p+c.numbers.junk, 0)
 				sum.numbers.junkScore = accountsData.reduce((p,c) => p+c.numbers.junkScore, 0)/accountsData.length
-				sum.numbers.start = accountsData.reduce((p,c) => p < c.numbers.start ? p : c.numbers.start, 0)
-				sum.numbers.end = accountsData.reduce((p,c) => p >= c.numbers.end ? p : c.numbers.end, 0)
+				sum.meta.start = accountsData.reduce((p,c) => p < c.meta.start ? p : c.meta.start, 0)
+				sum.meta.end = accountsData.reduce((p,c) => p >= c.meta.end ? p : c.meta.end, 0)
 				// years
 				accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.yearsData.received)])], [])
 					.map(y => { sum.yearsData.received[y] = accountsData.reduce((p,c) => c.yearsData.received[y] ? p+c.yearsData.received[y] : p, 0) })
@@ -1583,8 +1584,8 @@ export default defineComponent({
 		async updatePeriod () {
 			if (this.validPeriod()) {
 				await this.loadAccount(this.active.account, true)
-				this.display.numbers.start = new Date(this.active.period.start)
-				this.display.numbers.end = new Date(this.active.period.end)
+				this.display.meta.start = new Date(this.active.period.start)
+				this.display.meta.end = new Date(this.active.period.end)
 				this.adjustSelectedYear()
 			}
 		},
@@ -1712,8 +1713,8 @@ export default defineComponent({
 		// corrects selected year, if it's out of the current date range
 		// called after data got reprocessed
 		adjustSelectedYear () {
-			const min = new Date(this.display.numbers.start).getFullYear()
-			const max = new Date(this.display.numbers.end).getFullYear()
+			const min = new Date(this.display.meta.start).getFullYear()
+			const max = new Date(this.display.meta.end).getFullYear()
 			const current = this.preferences.sections.activity.year
 			if (current < min) this.preferences.sections.activity.year = min
 			if (current > max) this.preferences.sections.activity.year = max
@@ -1793,8 +1794,8 @@ export default defineComponent({
 		// number of days from oldest email till today or depending on period filter
 		days () {
 			const oneDay = 24 * 60 * 60 * 1000
-			const start = new Date(this.display.numbers.start)
-			const end = this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			const start = new Date(this.display.meta.start)
+			const end = this.display.meta.end ? new Date(this.display.meta.end) : new Date()
 			return Math.round(Math.abs((start - end) / oneDay))
 		},
 		// number of weeks from oldest email till today
@@ -2441,11 +2442,11 @@ export default defineComponent({
 		},
 		// first date in currently displayed data
 		minDate () {
-			return new Date(this.display.numbers.start)
+			return new Date(this.display.meta.start)
 		},
 		// last date in currently displayed data
 		maxDate () {
-			return this.display.numbers.end ? new Date(this.display.numbers.end) : new Date()
+			return this.display.meta.end ? new Date(this.display.meta.end) : new Date()
 		},
 		// year minDate
 		minYear () {
