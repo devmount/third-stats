@@ -1018,6 +1018,10 @@ export default defineComponent({
 		await this.getTags()
 		// retrieve all accounts
 		await this.getAccounts()
+		// start auto-processing in intervals
+		setInterval(() => {
+			this.loadAccount('sum', true);
+		}, 60 * 1000);
 	},
 	methods: {
 		// basic data structure to display numbers and charts
@@ -1393,7 +1397,7 @@ export default defineComponent({
 			return true
 		},
 		// retrieve and process data of account with <id=accountId>
-		// or of multiple accounts with <id=sum>
+		// gets called multiple times if processing was invoked for all accounts
 		async refresh (id) {
 			// get currently selected account
 			const account = await messenger.accounts.get(id)
