@@ -1546,7 +1546,7 @@ export default defineComponent({
 				sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])))
 
 				// show summed stats or keep current view if processing was invoked automatically
-				this.display = auto ? accountsData[displayedAccountKey] : sum;
+				this.display = auto && displayedAccountKey ? accountsData[displayedAccountKey] : sum;
 
 				// retrieve all values of account objects for comparison views
 				let comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
@@ -1567,9 +1567,6 @@ export default defineComponent({
 					comparison.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent])
 				})
 				this.comparison = comparison
-
-				// finally adjust displayed activity year
-				this.adjustSelectedYear()
 			} else {
 				// load single account from id
 				const account = await messenger.accounts.get(id)
@@ -1590,10 +1587,10 @@ export default defineComponent({
 					this.progress.current = 0
 					this.progress.max = 0
 				}
-				// adjust displayed activity year
-				this.adjustSelectedYear()
 			}
-			// stop loading indication
+			// finally adjust displayed activity year
+			this.adjustSelectedYear()
+			// finished - stop loading indication
 			this.loading = false
 		},
 		// reset folder filter
