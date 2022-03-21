@@ -13,6 +13,10 @@
       "description": "Enable caching system for faster display of already processed stats data.",
       "label": "Activate Cache"
     },
+    "autoRefresh": {
+      "description": "Enable automatic reprocessing of the stats data in the background. Set a time interval in minutes (minimum of 5).",
+      "label": "Automatic Processing"
+    },
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
       "empty": "Cache is empty",

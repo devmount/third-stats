@@ -993,6 +993,8 @@ export default defineComponent({
 				ordinate: true,
 				tagColors: false,
 				liveCountUp: true,
+				autoRefresh: true,
+				autoRefreshInterval: 30,
 				startOfWeek: localStartOfWeek(),
 				localIdentities: [],
 				accounts: [],
@@ -1019,11 +1021,13 @@ export default defineComponent({
 		// retrieve all accounts
 		await this.getAccounts()
 		// start auto-processing in intervals
-		setInterval(() => {
-			if (!this.loading) {
-				this.loadAccount('sum', true, true);
-			}
-		}, 60 * 1000);
+		if (this.preferences.autoRefresh) {
+			setInterval(() => {
+				if (!this.loading) {
+					this.loadAccount('sum', true, true);
+				}
+			}, Number(this.preferences.autoRefreshInterval) * 60 * 1000);
+		}
 	},
 	methods: {
 		// basic data structure to display numbers and charts
@@ -1117,6 +1121,8 @@ export default defineComponent({
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 					if (n.tagColors != o.tagColors) this.preferences.tagColors = n.tagColors
 					if (n.liveCountUp != o.liveCountUp) this.preferences.liveCountUp = n.liveCountUp
+					if (n.autoRefresh != o.autoRefresh) this.preferences.autoRefresh = n.autoRefresh
+					if (n.autoRefreshInterval != o.autoRefreshInterval) this.preferences.autoRefreshInterval = n.autoRefreshInterval
 					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
 					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.toLowerCase().split(",").map(x => x.trim())
 					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
@@ -1137,6 +1143,8 @@ export default defineComponent({
 				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.tagColors = result.options.tagColors ? true : false
 				this.preferences.liveCountUp = result.options.liveCountUp ? true : false
+				this.preferences.autoRefresh = result.options.autoRefresh ? true : false
+				this.preferences.autoRefreshInterval = result.options.autoRefreshInterval ? result.options.autoRefreshInterval : 30
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
