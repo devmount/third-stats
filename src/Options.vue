@@ -123,12 +123,12 @@
 								/>
 							</div>
 							<div class="d-flex flex-direction-column button-group-vertical">
-								<button @click="options.autoRefreshInterval++" class="h-1-25 py-0 px-0-5">
+								<button @click="incrementAutoRefreshInterval()" class="h-1-25 py-0 px-0-5">
 									<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
 										<polyline points="6,12 12,6 18,12" />
 									</svg>
 								</button>
-								<button @click="options.autoRefreshInterval > 5 ? options.autoRefreshInterval-- : null" class="h-1-25 py-0 px-0-5">
+								<button @click="decrementAutoRefreshInterval()" class="h-1-25 py-0 px-0-5">
 									<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
 										<polyline points="6,5 12,11 18,5" />
 									</svg>
@@ -279,7 +279,16 @@
 						<div class="text-gray text-small">{{ $t("options.leaderCount.description") }}</div>
 					</label>
 					<div class="action d-flex input-group">
-						<input class="flex-grow" type="number" v-model="options.leaderCount" placeholder="20" min="1" max="999" id="leaderCount" />
+						<input
+							class="flex-grow"
+							id="leaderCount"
+							type="number"
+							v-model="options.leaderCount"
+							placeholder="20"
+							min="1"
+							max="999"
+							@change="checkLeaderCount()"
+						/>
 						<div class="d-flex flex-direction-column button-group-vertical">
 							<button @click="incrementLeaderCount()" class="h-1-25 py-0 px-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
@@ -530,6 +539,22 @@ export default defineComponent({
 			await messenger.storage.local.set({ options: { addresses: addresses } })
 			this.options.addresses = addresses
 		},
+		// increases auto refresh interval up without limit
+		incrementAutoRefreshInterval () {
+			this.options.autoRefreshInterval++;
+		},
+		// decreases auto refresh interval down to limit 5
+		decrementAutoRefreshInterval () {
+			if (this.options.autoRefreshInterval > 5) {
+				this.options.autoRefreshInterval--
+			}
+		},
+		// check auto refresh number input to stay in allowed range
+		checkAutoRefreshInterval () {
+			if (this.options.autoRefreshInterval < 5) {
+				this.options.autoRefreshInterval = 5;
+			}
+		},
 		// increases leader count up to limit 999
 		incrementLeaderCount () {
 			if (this.options.leaderCount < 999) {
@@ -542,10 +567,13 @@ export default defineComponent({
 				this.options.leaderCount--
 			}
 		},
-		// check auto refresh number input to stay in allowed range
-		checkAutoRefreshInterval () {
-			if (this.options.autoRefreshInterval < 5) {
-				this.options.autoRefreshInterval = 5;
+		// check leader count input to stay in allowed range
+		checkLeaderCount () {
+			if (this.options.leaderCount < 1) {
+				this.options.leaderCount = 1;
+			}
+			if (this.options.leaderCount > 999) {
+				this.options.leaderCount = 999;
 			}
 		},
 		// clear all cached stats entries
