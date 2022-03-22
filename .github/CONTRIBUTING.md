@@ -20,7 +20,7 @@ Before creating bug reports, please make sure there isn't already an existing is
 
 Enhancement suggestions are also tracked as [GitHub issues](https://github.com/devmount/third-stats/issues). Before creating enhancement suggestions, please check the existing issues as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please include as many details as possible. Fill in [the feature-request template](https://github.com/devmount/third-stats/issues/new?template=feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
-### Pull Requests
+### Provide Code via Pull Requests
 
 Simply fill in [the required template](PULL_REQUEST_TEMPLATE.md). Please do not include issue numbers in the PR title, but mention it in the PR body.
 
@@ -53,3 +53,18 @@ You can add a new translation or improve an existing one by taking the following
 6. Choose a language and start translating. As this project is public, you don't need any authentification, just start to translate ThridStats. You'll be made a trusted translator later.
 
 If you run into any problems, leave a comment on [the corresponding issue #343](https://github.com/devmount/third-stats/issues/343) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
+
+### Beta-Testing
+
+Testing and reporting bugs is a great way to help! Here's how:
+
+1. Download the [latest nightly build from the ThirdStats CDN](https://third-stats.cdn.devmount.com/) (XPI file)
+2. Start Thunderbird and install the XPI file by going to _Settings_ > _Add-ons and Themes_ > _Extensions_ > _Gear_ Button > _Install Add-on from file_ > Choose the downloaded XPI file
+3. Now start using ThirdStats and check if...
+    - ThirdStats logo appears in the menu and the popup shows all active accounts
+    - add-on options page displays properly, alle options can be changed, options can be reset
+    - stats page display properly, data is shown correctly, processing works, all filter work as expected
+
+If you run into any problems, leave a comment on [the corresponding issue #370](https://github.com/devmount/third-stats/issues/370) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
+
+Thanks a lot for your support 💚
