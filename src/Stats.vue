@@ -993,6 +993,8 @@ export default defineComponent({
 				ordinate: true,
 				tagColors: false,
 				liveCountUp: true,
+				autoRefresh: true,
+				autoRefreshInterval: 30,
 				startOfWeek: localStartOfWeek(),
 				localIdentities: [],
 				accounts: [],
@@ -1018,6 +1020,14 @@ export default defineComponent({
 		await this.getTags()
 		// retrieve all accounts
 		await this.getAccounts()
+		// start auto-processing in intervals
+		if (this.preferences.autoRefresh) {
+			setInterval(() => {
+				if (!this.loading) {
+					this.loadAccount('sum', true, true);
+				}
+			}, Number(this.preferences.autoRefreshInterval) * 60 * 1000);
+		}
 	},
 	methods: {
 		// basic data structure to display numbers and charts
@@ -1111,6 +1121,8 @@ export default defineComponent({
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 					if (n.tagColors != o.tagColors) this.preferences.tagColors = n.tagColors
 					if (n.liveCountUp != o.liveCountUp) this.preferences.liveCountUp = n.liveCountUp
+					if (n.autoRefresh != o.autoRefresh) this.preferences.autoRefresh = n.autoRefresh
+					if (n.autoRefreshInterval != o.autoRefreshInterval) this.preferences.autoRefreshInterval = n.autoRefreshInterval
 					if (n.startOfWeek != o.startOfWeek) this.preferences.startOfWeek = n.startOfWeek
 					if (n.addresses != o.addresses) this.preferences.localIdentities = n.addresses.toLowerCase().split(",").map(x => x.trim())
 					if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) this.preferences.accounts = n.accounts
@@ -1131,6 +1143,8 @@ export default defineComponent({
 				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.tagColors = result.options.tagColors ? true : false
 				this.preferences.liveCountUp = result.options.liveCountUp ? true : false
+				this.preferences.autoRefresh = result.options.autoRefresh ? true : false
+				this.preferences.autoRefreshInterval = result.options.autoRefreshInterval ? result.options.autoRefreshInterval : 30
 				this.preferences.startOfWeek = result.options.startOfWeek ? result.options.startOfWeek : 0
 				this.preferences.localIdentities = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : []
 				this.preferences.accounts = result.options.accounts ? result.options.accounts : []
@@ -1393,14 +1407,14 @@ export default defineComponent({
 			return true
 		},
 		// retrieve and process data of account with <id=accountId>
-		// or of multiple accounts with <id=sum>
-		async refresh (id) {
+		// gets called multiple times if processing was invoked for all accounts
+		async refresh (id, auto=false) {
 			// get currently selected account
 			const account = await messenger.accounts.get(id)
 			// process data of this account again
 			const accountData = await this.processAccount(account)
-			// directly display data if only one single account was processed
-			if (this.singleAccount) {
+			// directly display data if only one single account was manually processed
+			if (this.singleAccount && !auto) {
 				this.display = JSON.parse(JSON.stringify(accountData))
 			}
 			// only store reprocessed data if cache is enabled and no filter is set
@@ -1412,13 +1426,14 @@ export default defineComponent({
 			// return processed account data
 			return accountData
 		},
-		// load data of given account <id=accountId> or all accounts <id=sum>
+		// load data of given account <id=accountId> or all accounts <id='sum'>
 		// from cache <refresh=false> or reprocess from scratch <refresh=true>
-		async loadAccount (id, refresh) {
+		// while reprocessing was invoked manually <auto=false> or automaticalle <auto=true>
+		async loadAccount (id, refresh, auto=false) {
 			// start loading indication
 			this.loading = true
 			// check id type
-			if (!this.singleAccount && this.preferences.cache) {
+			if (id === 'sum' && this.preferences.cache) {
 				// set tab title
 				document.title = "ThirdStats: " + this.$t("stats.allAccounts")
 				// deactivate list of folders
@@ -1431,6 +1446,13 @@ export default defineComponent({
 				// init progress indicator
 				this.progress.current = 1
 				this.progress.max = accounts.reduce((p,c) => p+traverseAccount(c).length, 0)
+				// when auto processing remember displayed account key and disable live counts
+				let displayedAccountKey = null;
+				let liveCountUpDisabled = false;
+				if (auto && this.preferences.liveCountUp) {
+					liveCountUpDisabled = true;
+					this.preferences.liveCountUp = false;
+				}
 				await Promise.all(accounts.map(async a => {
 					// get data from storage
 					const result = await messenger.storage.local.get("stats-" + a.id)
@@ -1440,10 +1462,18 @@ export default defineComponent({
 						this.progress.current += a.folderCount
 					} else {
 						// otherwise (re)process account
-						const data = await this.refresh(a.id)
+						const data = await this.refresh(a.id, auto)
 						accountsData.push(JSON.parse(JSON.stringify(data)))
+						// remember key of currently displayed account if auto processed
+						if (auto && this.active.account == a.id) {
+							displayedAccountKey = accountsData.length - 1;
+						}
 					}
 				}))
+				// enable live counts again if set
+				if (auto && liveCountUpDisabled) {
+					this.preferences.liveCountUp = true;
+				}
 				// finish progress indicator
 				this.progress.current = 0
 				this.progress.max = 0
@@ -1523,8 +1553,8 @@ export default defineComponent({
 				// tags
 				sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])))
 
-				// show summed stats
-				this.display = sum
+				// show summed stats or keep current view if processing was invoked automatically
+				this.display = auto && displayedAccountKey ? accountsData[displayedAccountKey] : sum;
 
 				// retrieve all values of account objects for comparison views
 				let comparison = JSON.parse(JSON.stringify(this.initComparisonData()))
@@ -1545,9 +1575,6 @@ export default defineComponent({
 					comparison.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent])
 				})
 				this.comparison = comparison
-
-				// finally adjust displayed activity year
-				this.adjustSelectedYear()
 			} else {
 				// load single account from id
 				const account = await messenger.accounts.get(id)
@@ -1568,10 +1595,10 @@ export default defineComponent({
 					this.progress.current = 0
 					this.progress.max = 0
 				}
-				// adjust displayed activity year
-				this.adjustSelectedYear()
 			}
-			// stop loading indication
+			// finally adjust displayed activity year
+			this.adjustSelectedYear()
+			// finished - stop loading indication
 			this.loading = false
 		},
 		// reset folder filter

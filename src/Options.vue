@@ -87,6 +87,56 @@
 						</div>
 					</div>
 				</div>
+				<!-- option: auto processing -->
+				<div class="entry">
+					<label for="autoRefresh">
+						<div class="d-flex align-items-end gap-0-5">
+							{{ $t("options.autoRefresh.label") }}
+							<span class="tooltip text-gray mb--0-25" :data-tooltip="$t('options.note.reloadWindowRequired')">
+								<svg class="icon icon-tiny" viewBox="0 0 24 24">
+									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+									<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+									<path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+									<line x1="12" y1="9" x2="12" y2="12" />
+									<line x1="12" y1="15" x2="12.01" y2="15" />
+								</svg>
+							</span>
+						</div>
+						<div class="text-gray text-small">{{ $t("options.autoRefresh.description") }}</div>
+					</label>
+					<div class="action d-flex align-items-center gap-1">
+						<label class="switch flex-no-shrink">
+							<input type="checkbox" id="autoRefresh" v-model="options.autoRefresh" />
+							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
+							<span class="switch-handle"></span> 
+						</label>
+						<div v-if="options.autoRefresh" class="action d-flex flex-grow input-group">
+							<div class="d-flex flex-grow" :data-unit="$t('stats.abbreviations.minute')">
+								<input
+									class="flex-grow"
+									id="autoRefreshInterval"
+									type="number"
+									v-model="options.autoRefreshInterval"
+									placeholder="30"
+									min="5"
+									@change="checkAutoRefreshInterval()"
+								/>
+							</div>
+							<div class="d-flex flex-direction-column button-group-vertical">
+								<button @click="incrementAutoRefreshInterval()" class="h-1-25 py-0 px-0-5">
+									<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
+										<polyline points="6,12 12,6 18,12" />
+									</svg>
+								</button>
+								<button @click="decrementAutoRefreshInterval()" class="h-1-25 py-0 px-0-5">
+									<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
+										<polyline points="6,5 12,11 18,5" />
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</section>
 			<!-- section related to charts and data retrieval -->
 			<section class="mb-3">
@@ -166,7 +216,7 @@
 					</label>
 					<div class="action">
 						<div v-for="(a, i) in allAccounts" :key="i" class="d-flex justify-space-between">
-							<label class="checkbox cursor-pointer text-overflow-ellipsis flex-dont-grow">
+							<label class="checkbox cursor-pointer text-overflow-ellipsis flex-no-grow">
 								<input type="checkbox" :value="a.id" v-model="options.accounts" />
 								<i class="checkbox-icon"></i> {{ a.name }}
 							</label>
@@ -229,7 +279,16 @@
 						<div class="text-gray text-small">{{ $t("options.leaderCount.description") }}</div>
 					</label>
 					<div class="action d-flex input-group">
-						<input class="flex-grow" type="number" v-model="options.leaderCount" placeholder="20" min="1" max="999" id="leaderCount" />
+						<input
+							class="flex-grow"
+							id="leaderCount"
+							type="number"
+							v-model="options.leaderCount"
+							placeholder="20"
+							min="1"
+							max="999"
+							@change="checkLeaderCount()"
+						/>
 						<div class="d-flex flex-direction-column button-group-vertical">
 							<button @click="incrementLeaderCount()" class="h-1-25 py-0 px-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
@@ -390,6 +449,8 @@ export default defineComponent({
 			ordinate = true,
 			tagColors = false,
 			liveCountUp = true,
+			autoRefresh = true,
+			autoRefreshInterval = 30,
 			startOfWeek = -1,
 			addresses = "",
 			accounts = [],
@@ -407,6 +468,8 @@ export default defineComponent({
 					ordinate: ordinate === null ? this.options.ordinate : ordinate,
 					tagColors: tagColors === null ? this.options.tagColors : tagColors,
 					liveCountUp: liveCountUp === null ? this.options.liveCountUp : liveCountUp,
+					autoRefresh: autoRefresh === null ? this.options.autoRefresh : autoRefresh,
+					autoRefreshInterval: autoRefreshInterval === null ? this.options.autoRefreshInterval : autoRefreshInterval,
 					startOfWeek: startOfWeek === null ? this.options.startOfWeek : startOfWeek,
 					addresses: addresses === null ? this.options.addresses : addresses,
 					accounts: accounts === null ? this.options.accounts : accounts,
@@ -476,6 +539,22 @@ export default defineComponent({
 			await messenger.storage.local.set({ options: { addresses: addresses } })
 			this.options.addresses = addresses
 		},
+		// increases auto refresh interval up without limit
+		incrementAutoRefreshInterval () {
+			this.options.autoRefreshInterval++;
+		},
+		// decreases auto refresh interval down to limit 5
+		decrementAutoRefreshInterval () {
+			if (this.options.autoRefreshInterval > 5) {
+				this.options.autoRefreshInterval--
+			}
+		},
+		// check auto refresh number input to stay in allowed range
+		checkAutoRefreshInterval () {
+			if (this.options.autoRefreshInterval < 5) {
+				this.options.autoRefreshInterval = 5;
+			}
+		},
 		// increases leader count up to limit 999
 		incrementLeaderCount () {
 			if (this.options.leaderCount < 999) {
@@ -486,6 +565,15 @@ export default defineComponent({
 		decrementLeaderCount () {
 			if (this.options.leaderCount > 1) {
 				this.options.leaderCount--
+			}
+		},
+		// check leader count input to stay in allowed range
+		checkLeaderCount () {
+			if (this.options.leaderCount < 1) {
+				this.options.leaderCount = 1;
+			}
+			if (this.options.leaderCount > 999) {
+				this.options.leaderCount = 999;
 			}
 		},
 		// clear all cached stats entries
