@@ -183,9 +183,67 @@
 			</header>
 			<!-- tab stats navigation -->
 			<nav class="menu">
-				<ul class="tab">
-					<li v-for="i in ['General','Contacts','Events','Tasks']" :key="i" class="tab-item cursor-default">
-						<span>{{ i }}</span>
+				<ul class="tab justify-center">
+					<li class="tab-item cursor-default active background-normal">
+						<span>
+							<svg class="icon icon-small" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<polyline points="12 4 4 8 12 12 20 8 12 4" />
+								<polyline points="4 12 12 16 20 12" />
+								<polyline points="4 16 12 20 20 16" />
+							</svg>
+							Counts
+						</span>
+					</li>
+					<li class="tab-item cursor-default text-hover-accent2 cursor-pointer">
+						<span>
+							<svg class="icon icon-small" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+								<path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+								<path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+							</svg>
+							Storage
+						</span>
+					</li>
+					<li class="tab-item cursor-default text-hover-accent2 cursor-pointer">
+						<span>
+							<svg class="icon icon-small" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<circle cx="9" cy="7" r="4" />
+								<path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+								<path d="M16 3.13a4 4 0 0 1 0 7.75" />
+								<path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+							</svg>
+							Contacts
+						</span>
+					</li>
+					<li class="tab-item cursor-default text-hover-accent2 cursor-pointer">
+						<span>
+							<svg class="icon icon-small" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<rect x="4" y="5" width="16" height="16" rx="2" />
+								<line x1="16" y1="3" x2="16" y2="7" />
+								<line x1="8" y1="3" x2="8" y2="7" />
+								<line x1="4" y1="11" x2="20" y2="11" />
+								<rect x="8" y="15" width="2" height="2" />
+							</svg>
+							Events
+						</span>
+					</li>
+					<li class="tab-item cursor-default text-hover-accent2 cursor-pointer">
+						<span>
+							<svg class="icon icon-small" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+								<path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
+								<path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
+								<path d="M3.5 17.5l1.5 1.5l2.5 -2.5" />
+								<line x1="11" y1="6" x2="20" y2="6" />
+								<line x1="11" y1="12" x2="20" y2="12" />
+								<line x1="11" y1="18" x2="20" y2="18" />
+							</svg>
+							Tasks
+						</span>
 					</li>
 				</ul>
 			</nav>
@@ -2559,7 +2617,7 @@ body
 #stats
 	min-height: 100vh
 	background: #23222b !important;
-	background: linear-gradient(180deg, #23222b 173px, #1c1b22 173px) !important;
+	background: linear-gradient(180deg, #23222b 182px, #1c1b22 182px) !important;
 
 	.container
 		width: 100%

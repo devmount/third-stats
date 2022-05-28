@@ -689,6 +689,19 @@ input[type=color]
 					border-image: linear-gradient(to right, c.accent2, c.accent1) 100% 1
 				color: c.highlight
 
+// menu
+.menu
+	.tab
+		border: none
+		.tab-item
+			> span
+				display: flex
+				gap: .5rem
+				align-items: center
+				padding: .75rem 1.25rem
+		.tab-item.active > span
+			border-top: 1px solid #0a84ff
+
 // tags
 .tag
 	display: inline-block
