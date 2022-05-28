@@ -181,6 +181,14 @@
 					</div>
 				</div>
 			</header>
+			<!-- tab stats navigation -->
+			<nav class="menu">
+				<ul class="tab">
+					<li v-for="i in ['General','Contacts','Events','Tasks']" :key="i" class="tab-item cursor-default">
+						<span>{{ i }}</span>
+					</li>
+				</ul>
+			</nav>
 			<!-- fetured numbers -->
 			<section class="numbers mx-auto mt-2">
 				<!-- total -->
@@ -2550,6 +2558,8 @@ body
 // layout and content
 #stats
 	min-height: 100vh
+	background: #23222b !important;
+	background: linear-gradient(180deg, #23222b 173px, #1c1b22 173px) !important;
 
 	.container
 		width: 100%
