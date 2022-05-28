@@ -20,8 +20,8 @@
 		"@intlify/vue-i18n-loader": "^4.1.0",
 		"@vue/cli-plugin-babel": "^5.0.0-beta.2",
 		"@vue/cli-service": "^5.0.0-beta.2",
-		"stylus": "^0.57.0",
-		"stylus-loader": "^6.2.0"
+		"stylus": "^0.58.0",
+		"stylus-loader": "^7.0.0"
 	},
 	"browserslist": [
 		"Firefox ESR"

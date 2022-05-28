@@ -122,7 +122,7 @@ Many thanks especially to those who helped translating this add-on and making it
 
 ## Licence
 
-[MIT License](./LICENSE)
+This Thunderbird add-on is licensed under [MIT License](./LICENSE).
 
 ---
 
