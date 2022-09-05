@@ -9,18 +9,18 @@
 		"push-translations": "localazy upload existing"
 	},
 	"dependencies": {
-		"chart.js": "^3.3.0",
+		"chart.js": "^3.9.1",
 		"chartjs-adapter-date-fns": "^2.0.0",
 		"chartjs-chart-matrix": "^1.1.1",
-		"date-fns": "^2.28.0",
-		"vue": "^3.2.0",
-		"vue-i18n": "^9.2.0-beta.30"
+		"date-fns": "^2.29.2",
+		"vue": "^3.2.38",
+		"vue-i18n": "^9.2.2"
 	},
 	"devDependencies": {
-		"@intlify/vue-i18n-loader": "^4.1.0",
-		"@vue/cli-plugin-babel": "^5.0.0-beta.2",
-		"@vue/cli-service": "^5.0.0-beta.2",
-		"stylus": "^0.58.0",
+		"@intlify/vue-i18n-loader": "^4.2.0",
+		"@vue/cli-plugin-babel": "^5.0.8",
+		"@vue/cli-service": "^5.0.8",
+		"stylus": "^0.59.0",
 		"stylus-loader": "^7.0.0"
 	},
 	"browserslist": [
