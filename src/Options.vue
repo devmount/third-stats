@@ -182,7 +182,7 @@
 							</button>
 						</div>
 						<div>
-							<span class="tag text-small" v-for="a in addressList">
+							<span class="tag text-small" v-for="a in addressList" :key="a">
 								{{ a }}
 								<svg @click="removeAddress(a)" class="icon icon-bold icon-text cursor-pointer" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -413,6 +413,7 @@
 				{{ $t("options.note.refreshCacheRequired") }}
 			</div>
 		</footer>
+		<project-meta class="mt-6 pb-6" />
 	</div>
 </template>
 
@@ -420,9 +421,11 @@
 import { defineComponent } from 'vue';
 import { defaultColors } from "./definitions";
 import { formatBytes, localStartOfWeek } from "./utils";
+import ProjectMeta from "./parts/ProjectMeta"
 
 export default defineComponent({
 	name: "Options",
+	components: { ProjectMeta },
 	data () {
 		return {
 			input: {

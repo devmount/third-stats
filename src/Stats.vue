@@ -800,36 +800,7 @@
 				</div>
 			</section>
 			<!-- footer -->
-			<footer class="mt-6 text-center">
-				<div class="text-gray">
-					<span class="text-middle mr-1">ThirdStats {{ $version }}</span>
-					<svg
-						v-if="preferences.dark"
-						class="icon icon-dark icon-text icon-thin d-inline text-middle cursor-pointer"
-						viewBox="0 0 24 24"
-						@click.prevent="preferences.dark = false"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<circle cx="12" cy="12" r="4" />
-						<path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
-					</svg>
-					<svg
-						v-else
-						class="icon icon-light icon-text icon-thin d-inline text-middle cursor-pointer"
-						viewBox="0 0 24 24"
-						@click.prevent="preferences.dark = true"
-					>
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<path d="M12 3c0.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
-					</svg>
-					<!-- TODO: lang switch -->
-					<!-- <select v-model="$i18n.locale" class="form-select" id="language">
-						<option v-for="(lang, i) in Object.keys($i18n.messages)" :key="i" :value="lang">{{ lang }}</option>
-					</select> -->
-				</div>
-				<div class="text-gray" v-html="$t('stats.starAndImprove', ['https://github.com/devmount/third-stats'])"></div>
-				<div class="text-gray mt-1" v-html="$t('stats.disclaimer', ['https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md'])"></div>
-			</footer>
+			<project-meta class="mt-6 " />
 		</div>
 	</div>
 </template>
@@ -845,6 +816,7 @@ import BarChart from "./charts/BarChart"
 import MatrixChart from "./charts/MatrixChart"
 import DoughnutChart from "./charts/DoughnutChart"
 import LiveAge from "./parts/LiveAge"
+import ProjectMeta from "./parts/ProjectMeta"
 
 // helper class for object generation
 class NumberedObject {
@@ -909,7 +881,7 @@ const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
 export default defineComponent({
 	name: "Stats",
-	components: { LineChart, BarChart, MatrixChart, DoughnutChart, LiveAge },
+	components: { LineChart, BarChart, MatrixChart, DoughnutChart, LiveAge, ProjectMeta },
 	data () {
 		return {
 			accounts: [],    // list of all existing accounts

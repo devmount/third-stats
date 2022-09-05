@@ -196,6 +196,9 @@ for m, c in mode
 .mx-auto
 	margin-right: auto
 	margin-left: auto
+.my-2
+	margin-top: 2rem
+	margin-bottom: 2rem
 .my-3
 	margin-top: 3rem
 	margin-bottom: 3rem
@@ -355,11 +358,14 @@ for m, c in mode
 				stroke: c.gray2
 			&.icon-gray-alt
 				stroke: c.gray1
+			&.icon-accent1
+				stroke: c.accent1
 			&.icon-accent2
 				stroke: c.accent2
 			&.icon-hover-accent > *
 				transition: inherit
 			&.icon-hover-accent:hover
+				stroke: currentColor
 				.icon-part-accent1
 					stroke: c.accent1
 				.icon-part-accent1-faded
@@ -378,29 +384,46 @@ for m, c in mode
 			box-shadow: 0 8px 15px -8px c.shade
 
 // form
-button
+button, .btn
 	appearance: none
-	border: none
+	border: 1px solid
 	border-radius: 2px
 	padding: 1rem 2rem
 	transition: all transition.duration transition.function
 	cursor: pointer
-	color: mode.dark.highlight
+	color: mode.dark.highlight !important
 	&.disabled
 		cursor: not-allowed
 	&:focus
 		z-index: 50
+	&.btn-thin
+		padding: .5rem 1rem
+	&.btn-outline
+		background: transparent
 	for m, c in mode
 		.{m} &
+			border-color: c.accent2
+		.{m} &.btn-accent1
+			border-color: c.accent1
+		.{m} &:not(.btn-outline)
 			background: c.accent2
 		.{m} &.button-secondary
+			border-color: c.gray2
 			background: c.gray2
 		.{m} &:hover
 			background: darken(c.accent2, 20%)
+			.icon
+				stroke: c.highlight
 		.{m} &:active
 			background: lighten(c.accent2, 25%)
 		.{m} &:focus
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
+		.{m} &.btn-accent1:hover
+			background: darken(c.accent1, 20%)
+		.{m} &.btn-accent1:active
+			background: lighten(c.accent1, 25%)
+		.{m} &.btn-accent1:focus
+			box-shadow: 0 0 0 .25rem rgba(c.accent1, .2)
 
 select
 	appearance: none
