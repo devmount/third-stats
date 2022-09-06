@@ -63,6 +63,7 @@
 					/>
 				</div>
 			</section>
+			<project-meta class="mt-2" :compact="true" />
 		</div>
 	</div>
 </template>
@@ -72,11 +73,12 @@ import { defineComponent } from 'vue';
 
 // internal components
 import { traverseAccount } from "./utils";
-import LineChart from "./charts/LineChart"
+import LineChart from "./charts/LineChart";
+import ProjectMeta from "./parts/ProjectMeta";
 
 export default defineComponent({
 	name: "Popup",
-	components: { LineChart },
+	components: { LineChart, ProjectMeta },
 	data () {
 		return {
 			accounts: [],   // list of all existing accounts

@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donate",
+    "introduction": "If you like ThirdStats and want to support this project, any of the following is a huge help:",
+    "review": "Review",
+    "share": "Share",
+    "star": "Star",
+    "translate": "Translate"
+  },
   "extensionDescription": {
     "message": "Beautifully visualized statistics for your Thunderbird Email Accounts"
   },
@@ -199,7 +207,6 @@
     "nonEmptyFolders": "non-empty folders | non-empty folder | non-empty folders",
     "percentOfReceived": "{0}% of received",
     "percentOfTotal": "{0}% of total",
-    "starAndImprove": "Be a star, fork me on <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Date range",
     "title": "Statistics",
     "tooltips": {
