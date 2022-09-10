@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donare",
+    "introduction": "Se ti piace ThirdStats e vuoi sostenere questo progetto, uno dei seguenti è di grande aiuto:",
+    "review": "Recensione",
+    "share": "Condividere",
+    "star": "Stella",
+    "translate": "Traduci"
+  },
   "extensionDescription": {
     "message": "Uno splendido modo di visualizzare le statistiche per i tuoi account su Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Abilita o disabilita gli account. Gli account disabilitati non verranno visualizzati in nessun elenco di account o statistiche.",
       "label": "Account attivi",
       "sumAndCompare": "L'attivazione di più di un account abilita l'opzione di filtro delle statistiche \"Tutti gli account\" per la visualizzazione della somma e del confronto."
+    },
+    "autoRefresh": {
+      "description": "Abilita la rielaborazione automatica dei dati delle statistiche in background. Impostare un intervallo di tempo in minuti (minimo 5).",
+      "label": "Elaborazione automatica"
     },
     "cache": {
       "description": "Abilita il sistema di caching per una visualizzazione più rapida dei dati statistici già elaborati.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Numero di voci mostrate nei grafici che elencano i contatti frequenti (massimo 999)",
       "label": "Conteggio leader"
+    },
+    "liveCountUp": {
+      "description": "Mostra i progressi in tempo reale dei numeri calcolati durante l'elaborazione dei dati",
+      "info": "L'attivazione di questa opzione può aumentare il tempo",
+      "label": "Conteggio in diretta"
     },
     "localIdentities": {
       "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "cartelle non vuote | cartella non vuota | cartelle non vuote",
     "percentOfReceived": "{0}% delle ricevute",
     "percentOfTotal": "{0}% del totale",
-    "starAndImprove": "Aggiungi una Stella e migliora questo progetto su <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Periodo di tempo",
     "title": "Statistiche",
     "tooltips": {

@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "寄付",
+    "introduction": "ThirdStatsが好きで、このプロジェクトをサポートしたいなら、次のいずれかが大きな助けになります。",
+    "review": "レビュー",
+    "share": "分け合う",
+    "star": "星",
+    "translate": "翻訳"
+  },
   "extensionDescription": {
     "message": "Thunderbirdメールアカウントの統計"
   },
@@ -8,6 +16,10 @@
       "description": "アカウントを有効または無効にできます。 無効にされたアカウントは、アカウントリストまたは統計に表示されません。 ",
       "label": "アカウント設定",
       "sumAndCompare": "複数のアカウントをアクティブ化すると、合計ビューと比較ビューの[すべてのアカウント]統計フィルターオプションが有効になります。"
+    },
+    "autoRefresh": {
+      "description": "バックグラウンドで統計データの自動再処理を有効にします。時間間隔を分単位で設定します (最小 5)。",
+      "label": "自動処理"
     },
     "cache": {
       "description": "キャッシュシステムを有効にすると、すでに処理された統計データをより速く表示することが可能になります。",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "頻繁な連絡先を表示するエントリーの数（最大999まで）",
       "label": "リーダー数"
+    },
+    "liveCountUp": {
+      "description": "統計データの処理時に計算された数値の進捗をライブで表示",
+      "info": "これを有効にすると、処理時間が長くなる場合があります",
+      "label": "ライブカウントアップ"
     },
     "localIdentities": {
       "description": "ローカルアカウントの「送信元」として認識する電子メールアドレスはコンマで区切ってください。",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "空でないフォルダー| 空でないフォルダー| 空でないフォルダー",
     "percentOfReceived": "全体の{0}%",
     "percentOfTotal": "全体の{0}%",
-    "starAndImprove": "<a href='{0}' target='_blank'>Github</a>でこのプロジェクトをスターティングして改善してください",
     "timePeriod": "日付範囲",
     "title": "統計",
     "tooltips": {

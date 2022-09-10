@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Spende",
+    "introduction": "Wenn dir ThirdStats gefällt und du dieses Projekt unterstützen möchtest, ist jede der folgenden Möglichkeiten eine große Hilfe:",
+    "review": "Rezension",
+    "share": "Teilen",
+    "star": "Stern",
+    "translate": "Übersetzen"
+  },
   "extensionDescription": {
     "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
   },
@@ -8,6 +16,10 @@
       "description": "Einzelne Konten aktivieren oder deaktivieren. Deaktivierte Konten werden nicht gelistet und von der Statistik ausgeschlossen.",
       "label": "Aktive Konten",
       "sumAndCompare": "Wenn mehr als ein Konto aktiviert ist, ist die Filteroption \"Alle Konten\" für Summen- und Vergleichsansicht verfügbar."
+    },
+    "autoRefresh": {
+      "description": "Aktiviert die automatische Berechnung der Statistikdaten im Hintergrund. Es kann das Zeitintervall in Minuten definiert werden (mindestens 5).",
+      "label": "Automatische Berechnung"
     },
     "cache": {
       "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)",
       "label": "Anzahl häufiger Kontakte"
+    },
+    "liveCountUp": {
+      "description": "Live-Fortschritt der berechneten Zahlen bei der Berechnung von Statistikdaten anzeigen",
+      "info": "Das Aktivieren dieser Option kann eine erhöhte Berechnungsdauer zur Folge haben",
+      "label": "Echtzeit Aktualisierung"
     },
     "localIdentities": {
       "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "nicht leere Ordner | nicht leerer Ordner | nicht leere Ordner",
     "percentOfReceived": "{0}% von Empfangenen",
     "percentOfTotal": "{0}% von Gesamt",
-    "starAndImprove": "Mach mich zum Star auf <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Zeitraum",
     "title": "Statistik",
     "tooltips": {

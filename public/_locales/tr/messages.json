@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Bağış",
+    "introduction": "ThirdStats'i seviyorsanız ve bu projeyi desteklemek istiyorsanız, aşağıdakilerden herhangi biri çok yardımcı olur:",
+    "review": "Gözden Geçir",
+    "share": "Paylaş",
+    "star": "Yıldız",
+    "translate": "Çeviri"
+  },
   "extensionDescription": {
     "message": "Thunderbird E-posta Hesaplarınız için güzel istatistikler"
   },
@@ -8,6 +16,10 @@
       "description": "Hesapları etkinleştirin veya devre dışı bırakın. Devre dışı bırakılan hesaplar, herhangi bir hesap listesinde veya istatistikte görünmez.",
       "label": "Aktif Hesaplar",
       "sumAndCompare": "Birden fazla hesabı etkinleştirmek, toplam ve karşılaştırma görünümü için 'Tüm Hesaplar' istatistik filtresi seçeneğini etkinleştirir."
+    },
+    "autoRefresh": {
+      "description": "Arka planda istatistik verilerinin otomatik olarak yeniden işlenmesini etkinleştirin. Dakika olarak bir zaman aralığı ayarlayın (en az 5).",
+      "label": "Otomatik İşleme"
     },
     "cache": {
       "description": "Halihazırda işlenmiş istatistik verilerinin daha hızlı görüntülenmesi için önbelleğe alma sistemini etkinleştirin.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Sık görüşülen kişileri listeleyen çizelgelerde gösterilen giriş sayısı (maksimum 999)",
       "label": "Kişi Sayısı"
+    },
+    "liveCountUp": {
+      "description": "İstatistik verilerini işlerken hesaplanan sayıların canlı ilerlemesini göster",
+      "info": "Bunu etkinleştirmek işlem süresini artırabilir",
+      "label": "Canlı Sayım"
     },
     "localIdentities": {
       "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "boş olmayan klasörler | boş olmayan klasör | boş olmayan klasörler",
     "percentOfReceived": "%{0} alındı",
     "percentOfTotal": "Toplamın %{0}",
-    "starAndImprove": "Bu projeye <a href='{0}' target='_blank'>Github</a> da yıldız ekleyin ve geliştirin",
     "timePeriod": "Tarih aralığı",
     "title": "İstatistikler",
     "tooltips": {

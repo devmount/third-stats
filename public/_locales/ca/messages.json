@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donar",
+    "introduction": "Si t'agrada ThirdStats i vols donar suport a aquest projecte, qualsevol dels següents és de gran ajuda:",
+    "review": "Ressenya",
+    "share": "Compartir",
+    "star": "Estrella",
+    "translate": "Traduir"
+  },
   "extensionDescription": {
     "message": "Estadístiques visualment belles per als seus comptes de correu electrònic del Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Activa o desactiva els comptes. Els comptes desactivats no apareixeran a cap llista de comptes o estadístiques.",
       "label": "Comptes actius",
       "sumAndCompare": "Si activeu més d'un compte, s'activa l'opció de filtre d'estadístiques \"Tots els comptes\" per a la visualització de suma i comparació."
+    },
+    "autoRefresh": {
+      "description": "Activa el reprocessament automàtic de les dades estadístiques en segon pla. Estableix un interval de temps en minuts (mínim de 5).",
+      "label": "Processament automàtic"
     },
     "cache": {
       "description": "Habiliteu el sistema de memòria cau per a una visualització més ràpida de les dades estadístiques ja processades.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Nombre d'entrades que es mostren als gràfics amb contactes freqüents (999 com a màxim)",
       "label": "Recompte de contactes"
+    },
+    "liveCountUp": {
+      "description": "Mostra el progrés en directe dels números calculats quan es processen les dades estadístiques",
+      "info": "Habilitar això pot augmentar el temps de processament",
+      "label": "Compte en directe"
     },
     "localIdentities": {
       "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "carpetes no buides | carpeta no buida | carpetes no buides",
     "percentOfReceived": "{0}% de rebuts",
     "percentOfTotal": "{0}% de total",
-    "starAndImprove": "Destacar i millorar aquest projecte a <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Interval de dates",
     "title": "Estadístiques",
     "tooltips": {

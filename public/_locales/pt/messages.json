@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Doar",
+    "introduction": "Se você gosta do ThirdStats e quer apoiar este projeto, qualquer um dos seguintes é de grande ajuda:",
+    "review": "Revisão",
+    "share": "Compartilhar",
+    "star": "Estrela",
+    "translate": "Traduzir"
+  },
   "extensionDescription": {
     "message": "Visualização elegante de estatísticas para suas contas de e-mail Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Habilitar ou desabilitar contas. Contas desativadas não irão aparecer em qualquer lista ou estatística de contas.",
       "label": "Contas Ativas",
       "sumAndCompare": "Ativar mais de uma conta habilita a opção de filtro de estatísticas 'Todas as contas' para visualização de soma e comparação."
+    },
+    "autoRefresh": {
+      "description": "Ative o reprocessamento automático dos dados de estatísticas em segundo plano. Defina um intervalo de tempo em minutos (mínimo de 5).",
+      "label": "Processamento automático"
     },
     "cache": {
       "description": "Habilitar sistema de cache para exibição mais rápida de dados já processados.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Número de entradas mostradas em gráficos que listam contatos frequentes (máximo de 999)",
       "label": "Contagem de líderes"
+    },
+    "liveCountUp": {
+      "description": "Mostrar o progresso ao vivo dos números calculados ao processar dados estatísticos",
+      "info": "Ativar isso pode aumentar o tempo de processamento",
+      "label": "Contagem regressiva ao vivo"
     },
     "localIdentities": {
       "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "pastas não vazias | pasta não vazia | pastas não vazias",
     "percentOfReceived": "{0}% de recebidos",
     "percentOfTotal": "{0}% do total",
-    "starAndImprove": "Dê uma estrela e melhore esse projeto no <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Período",
     "title": "Estatísticas",
     "tooltips": {

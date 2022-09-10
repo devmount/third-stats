@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Przekaż datek",
+    "introduction": "Jeśli lubisz ThirdStats i chcesz wesprzeć ten projekt, którekolwiek z poniższych jest ogromną pomocą:",
+    "review": "Recenzja",
+    "share": "Udostępnij",
+    "star": "Gwiazda",
+    "translate": "Tłumacz"
+  },
   "extensionDescription": {
     "message": "Wspaniale ukazane statystyki dla twoich kont pocztowych w Thunderbirdzie"
   },
@@ -8,6 +16,10 @@
       "description": "Włączanie i wyłączanie kont. Wyłączone konta nie będą wyświetlane na żadnej liście kont ani w statystykach.",
       "label": "Aktywne konta",
       "sumAndCompare": "Aktywowanie więcej niż jednego konta powoduje włączenie opcji filtrowania statystyk \"Wszystkie konta\" w widoku sum i porównań."
+    },
+    "autoRefresh": {
+      "description": "Włącz automatyczne ponowne przetwarzanie danych statystycznych w tle. Ustaw odstęp czasu w minutach (minimum 5).",
+      "label": "Automatyczne przetwarzanie"
     },
     "cache": {
       "description": "Włączenie systemu buforowania w celu szybszego wyświetlania już przetworzonych danych statystycznych.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Liczba pozycji wyświetlanych na wykresach z listą częstych kontaktów (maksymalnie 999)",
       "label": "Liczba kontaktów"
+    },
+    "liveCountUp": {
+      "description": "Pokaż na żywo postęp obliczonych liczb podczas przetwarzania danych statystycznych",
+      "info": "Włączenie tego może wydłużyć czas przetwarzania",
+      "label": "Liczenie na żywo"
     },
     "localIdentities": {
       "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "niepustych folderów | niepuste foldery | niepuste foldery",
     "percentOfReceived": "{0}% otrzymanych",
     "percentOfTotal": "{0}% wszystkich",
-    "starAndImprove": "Oznacz gwiazdką i wesprzyj ten projekt na <a href='{0}' target='_blank'>Githubie</a>",
     "timePeriod": "Zakres dat",
     "title": "Statystyki",
     "tooltips": {

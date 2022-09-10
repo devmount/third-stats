@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Doneren",
+    "introduction": "Als je ThirdStats leuk vindt en dit project wilt steunen, is een van de volgende dingen een enorme hulp:",
+    "review": "Recensie",
+    "share": "Delen",
+    "star": "Ster",
+    "translate": "Vertalen"
+  },
   "extensionDescription": {
     "message": "Prachtig gevisualiseerde statistieken voor je Thunderbird-e-mailaccounts"
   },
@@ -8,6 +16,10 @@
       "description": "Accounts in- of uitschakelen. Uitgeschakelde accounts worden niet weergegeven in een lijst met accounts of statistieken.",
       "label": "Actieve accounts",
       "sumAndCompare": "Als u meer dan één account activeert, is de optie 'Alle accounts' statistieken filter optie voor som- en vergelijkingsweergave."
+    },
+    "autoRefresh": {
+      "description": "Automatische herverwerking van de statistische gegevens op de achtergrond mogelijk maken. Stel een tijdsinterval in minuten in (minimaal 5).",
+      "label": "Automatische verwerking"
     },
     "cache": {
       "description": "Schakel het cachesysteem in voor een snellere weergave van reeds verwerkte statistieken gegevens.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Aantal vermeldingen weergegeven in diagrammen met frequente contacten (maximaal 999)",
       "label": "Leader Count"
+    },
+    "liveCountUp": {
+      "description": "Live-voortgang van berekende getallen weergeven bij het verwerken van statistische gegevens",
+      "info": "Dit inschakelen kan de verwerkingstijd verlengen",
+      "label": "Live tellen"
     },
     "localIdentities": {
       "description": "Een lijst met e-mailadressen die je kunt herkennen als 'verzonden van' voor lokale accounts",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "niet-lege mappen | niet-lege map | niet-lege mappen",
     "percentOfReceived": "{0}% van ontvangen",
     "percentOfTotal": "{0}% van het totaal",
-    "starAndImprove": "Wees een ster, fork me op <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Datumbereik",
     "title": "Statistieken",
     "tooltips": {

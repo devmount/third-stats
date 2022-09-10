@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Darovat",
+    "introduction": "Pokud se vám líbí ThirdStats a chcete podpořit tento projekt, některý z následujících možností je obrovská pomoc:",
+    "review": "Přezkum",
+    "share": "Sdílet",
+    "star": "Hvězda",
+    "translate": "Přeložit"
+  },
   "extensionDescription": {
     "message": "Krásně vizualizované statistiky pro vaše e-mailové účty Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Povolení nebo zakázání účtů. Zakázané účty se nezobrazí v žádném seznamu účtů ani v statistikách.",
       "label": "Aktivní účty",
       "sumAndCompare": "Aktivací více než jednoho účtu povolíte filtr „Všechny účty“ pro zobrazení součtu a porovnání."
+    },
+    "autoRefresh": {
+      "description": "Povolte automatické přepracování statistických dat na pozadí. Nastavte časový interval v minutách (minimálně 5).",
+      "label": "Automatické zpracování"
     },
     "cache": {
       "description": "Povolí použití mezipaměti pro rychlejší zobrazení již zpracovaných statistik.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Počet záznamů zobrazených v grafech častých kontaktů (maximálně 999)",
       "label": "Počet častých kontaktů"
+    },
+    "liveCountUp": {
+      "description": "Zobrazit aktuální průběh vypočítaných čísel při zpracování statistických dat",
+      "info": "Tato aktivace může prodloužit dobu zpracování",
+      "label": "Živé počítání"
     },
     "localIdentities": {
       "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "neprázdných složek | neprázdná složka | neprázdných složek",
     "percentOfReceived": "{0}% přijatých",
     "percentOfTotal": "{0}% z celkového počtu",
-    "starAndImprove": "Označte tento projekt hvězdičkou a vylepšete jej na <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Rozsah dat",
     "title": "Statistiky",
     "tooltips": {

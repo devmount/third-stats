@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donar",
+    "introduction": "Se che gusta ThirdStats e queres apoiar este proxecto, calquera das seguintes é unha gran axuda:",
+    "review": "Revisar",
+    "share": "Compartir",
+    "star": "Estrela",
+    "translate": "Traducir"
+  },
   "extensionDescription": {
     "message": "Estatísticas visualmente atractivas para as túas contas de correo en Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Activar ou desactivar contas. As contas desactivadas non aparecerán en ningunha lista de contas nin estatísticas.",
       "label": "Contas activas",
       "sumAndCompare": "Activar máis dunha conta habilita a opción de filtro de estatísticas de \"Todas as contas\" para a vista de suma e comparación."
+    },
+    "autoRefresh": {
+      "description": "Activa o reprocesamento automático dos datos estatísticos en segundo plano. Establece un intervalo de tempo en minutos (mínimo de 5).",
+      "label": "Procesamento automático"
     },
     "cache": {
       "description": "Habilite o sistema de caché para amosar máis rápido os datos de estatísticas xa procesados.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Número de entradas mostradas nos gráficos que mostran contactos frecuentes (999 como máximo)",
       "label": "Conta principal"
+    },
+    "liveCountUp": {
+      "description": "Mostra o progreso en directo dos números calculados ao procesar os datos das estatísticas",
+      "info": "Activar isto pode aumentar o tempo de procesamento",
+      "label": "Conta en directo"
     },
     "localIdentities": {
       "description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "cartafoles non baleiros | cartafol non baleiro | cartafoles non baleiros",
     "percentOfReceived": "{0}% dos recibidos",
     "percentOfTotal": "{0}% do total",
-    "starAndImprove": "Segue ou mellora este proxecto en <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Intervalo de datas",
     "title": "Estatísticas",
     "tooltips": {

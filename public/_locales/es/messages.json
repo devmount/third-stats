@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donar",
+    "introduction": "Si te gusta ThirdStats y quieres apoyar este proyecto, cualquiera de las siguientes opciones es de gran ayuda:",
+    "review": "Revisar",
+    "share": "Compartir",
+    "star": "Estrella",
+    "translate": "Traducir"
+  },
   "extensionDescription": {
     "message": "Estadísticas visualmente bellas para sus cuentas de correo electrónico de Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Habilita o deshabilita cuentas. Las cuentas deshabilitadas no aparecerán en ninguna lista de cuentas ni estadísticas.",
       "label": "Cuentas activas",
       "sumAndCompare": "Al activar más de una cuenta, se habilita la opción de filtro de estadísticas «Todas las cuentas» para la vista de suma y comparación."
+    },
+    "autoRefresh": {
+      "description": "Habilita el reprocesamiento automático de los datos de estadísticas en segundo plano. Establezca un intervalo de tiempo en minutos (mínimo de 5).",
+      "label": "Procesamiento automático"
     },
     "cache": {
       "description": "Activa el sistema de almacenamiento en caché para mostrar más rápidamente los datos de estadísticas ya procesados.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Número de entradas que se muestran en los gráficos que muestran contactos frecuentes (máximo 999)",
       "label": "Recuento de líderes"
+    },
+    "liveCountUp": {
+      "description": "Mostrar el progreso en directo de los números calculados al procesar datos de estadísticas",
+      "info": "Habilitar esto puede aumentar el tiempo de procesamiento",
+      "label": "Cuenta hacia arriba en vivo"
     },
     "localIdentities": {
       "description": "Una lista de direcciones de correos separados por coma para reconocer como 'enviados desde' para cuentas locales",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "carpetas no vacías | carpeta no vacía | carpetas no vacías",
     "percentOfReceived": "{0}% de recibidos",
     "percentOfTotal": "{0}% del total",
-    "starAndImprove": "Destaca y mejora este proyecto en <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Rango de fecha",
     "title": "Estadísticas",
     "tooltips": {

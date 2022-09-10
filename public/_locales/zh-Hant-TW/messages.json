@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "捐",
+    "introduction": "如果你喜歡 ThirdStats 並希望支持這個項目，以下任何一個都是一個巨大的幫助：",
+    "review": "檢閱",
+    "share": "分享",
+    "star": "星",
+    "translate": "翻譯"
+  },
   "extensionDescription": {
     "message": "將您 Thunderbird 電子郵件帳號中統計資料進行視覺化"
   },
@@ -8,6 +16,10 @@
       "description": "啟用或禁用帳號。禁用的帳號不會出現在任何帳號列表或統計資料中。",
       "label": "啟用帳號",
       "sumAndCompare": "激活多個帳戶會啟用“所有帳戶”統計信息過濾器選項以用於總和和比較視圖。"
+    },
+    "autoRefresh": {
+      "description": "在背景中啟用自動重新處理統計資料。以分鐘為單位設定時間間隔 (最少 5 個)。",
+      "label": "自動加工"
     },
     "cache": {
       "description": "啟用快取系統以更快地顯示已處理的統計資料。",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "列出常用聯繫人的圖表中顯示的條目數（最多 999 個）",
       "label": "聯繫人數"
+    },
+    "liveCountUp": {
+      "description": "在處理統計數據時顯示計算數字的實時進度",
+      "info": "啟用此選項可能會增加處理時間",
+      "label": "活計數"
     },
     "localIdentities": {
       "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識",
@@ -96,7 +113,7 @@
       "minute": "分鐘",
       "month": "月",
       "quarter": "季",
-      "second": "倅",
+      "second": "秒",
       "week": "星期",
       "year": "年"
     },
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "非空文件夾 | 非空文件夾 | 非空文件夾",
     "percentOfReceived": "已收到郵件的 {0}%",
     "percentOfTotal": "佔郵件總數的 {0}%",
-    "starAndImprove": "到當前專案的<a href='{0}' target='_blank'>GitHub 倉庫</a>給予支持與改善",
     "timePeriod": "日期範圍",
     "title": "統計",
     "tooltips": {
@@ -206,7 +222,7 @@
         "empty": "請輸入內容"
       },
       "expand": "展開圖表區域",
-      "exportData": "將當前顯示的數據導出為 JSON 文件",
+      "exportData": "將當前顯示的數據匯出為 JSON 文件",
       "folder": {
         "notAvailable": "文件夾不可用於 {0}"
       },
