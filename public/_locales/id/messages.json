@@ -1,0 +1,239 @@
+{
+  "cta": {
+    "donate": "Donasi",
+    "message": "Jika Anda menyukai ThirdStats dan ingin mendukung proyek ini, salah satu dari berikut ini sangat membantu:",
+    "review": "Ulasan",
+    "share": "Bagikan",
+    "star": "Bintang",
+    "translate": "Terjemahkan"
+  },
+  "extensionDescription": {
+    "message": "Statistik yang divisualisasikan dengan indah untuk Akun Email Thunderbird Anda"
+  },
+  "options": {
+    "activeAccounts": {
+      "color": "Berikan setiap akun warna khusus untuk membedakannya dalam mode perbandingan.",
+      "description": "Aktifkan atau nonaktifkan akun. Akun yang dinonaktifkan tidak akan muncul di daftar akun atau statistik apa pun.",
+      "label": "Akun Aktif",
+      "sumAndCompare": "Mengaktifkan lebih dari satu akun memungkinkan opsi filter statistik 'Semua Akun' untuk tampilan jumlah dan perbandingan."
+    },
+    "autoRefresh": {
+      "description": "Aktifkan pemrosesan ulang otomatis data statistik di latar belakang. Tetapkan interval waktu dalam menit (minimal 5).",
+      "label": "Pemrosesan Otomatis"
+    },
+    "cache": {
+      "description": "Aktifkan sistem caching untuk tampilan data statistik yang sudah diproses lebih cepat.",
+      "label": "Aktifkan Cache"
+    },
+    "clearCache": {
+      "description": "Hapus semua data statistik cache dari semua akun. Akan dibangun kembali pada membuka halaman statistik lagi.",
+      "empty": "Cache sudah Dibersihkan",
+      "label": "Hapus cache",
+      "size": "Ukuran cache adalah {0}"
+    },
+    "darkMode": {
+      "description": "Beralih antara skema warna gelap dan terang",
+      "label": "Mode Gelap"
+    },
+    "headings": {
+      "appearance": "Penampilan & Pengalaman",
+      "stats": "Grafik & Data",
+      "storage": "Penyimpanan & Cache"
+    },
+    "leaderCount": {
+      "description": "Jumlah entri yang ditampilkan dalam bagan yang mencantumkan kontak yang sering (maksimum 999)",
+      "label": "Hitungan Pemimpin"
+    },
+    "liveCountUp": {
+      "description": "Tampilkan kemajuan langsung dari angka yang dihitung saat memproses data statistik",
+      "info": "Mengaktifkan ini dapat meningkatkan waktu pemrosesan",
+      "label": "Hitung Langsung"
+    },
+    "localIdentities": {
+      "description": "Daftar alamat email untuk dikenali sebagai 'dikirim dari' untuk akun lokal",
+      "label": "Identitas Lokal"
+    },
+    "message": "-",
+    "note": {
+      "refreshCacheRequired": "Jika diubah, cache perlu dibangun kembali",
+      "reloadStatsPage": "Opsi disimpan secara otomatis. Beberapa perubahan opsi tidak dapat diterapkan secara otomatis ke halaman statistik yang sudah terbuka atau entri cache yang ada, jika cache diaktifkan. Mereka ditandai dengan ikon yang sesuai.",
+      "reloadWindowRequired": "Jika diubah, jendela statistik perlu dimuat ulang",
+      "title": "Catatan"
+    },
+    "ordinate": {
+      "description": "Tampilkan sumbu vertikal untuk semua diagram garis dan batang",
+      "label": "Sumbu Vertikal"
+    },
+    "resetOptions": {
+      "description": "Setel ulang semua opsi ke nilai defaultnya. Bergantung pada opsi mana yang Anda ubah sebelumnya, penyegaran jendela atau cache mungkin diperlukan.",
+      "label": "Opsi Atur Ulang",
+      "removeIdentities": "Ini juga akan menghapus semua identitas lokal yang Anda buat."
+    },
+    "selfMessages": {
+      "description": "Kecualikan pesan yang dikirim dari saya ke diri saya sendiri",
+      "info": {
+        "anyAccount": "Pesan di mana pengirim dan penerima adalah identitas dari akun mana pun akan dikecualikan",
+        "none": "Pesan untuk diri sendiri akan disertakan dan diperlakukan sebagai email biasa (default)",
+        "sameAccount": "Pesan di mana pengirim dan penerima adalah identitas dari akun yang sama akan dikecualikan"
+      },
+      "label": "Pesan ke Diri",
+      "values": {
+        "anyAccount": "Dari Akun Apa Pun",
+        "none": "Dinonaktifkan",
+        "sameAccount": "Akun yang Sama Saja"
+      }
+    },
+    "startOfWeek": {
+      "description": "Awal minggu khusus untuk semua grafik terkait hari kerja",
+      "label": "Mulai Minggu ini"
+    },
+    "switch": {
+      "off": "Mati",
+      "on": "Aktif"
+    },
+    "tagColors": {
+      "description": "Menggambar bagan tentang tag menggunakan warna tag yang sesuai",
+      "label": "Warna Tag"
+    },
+    "title": "Opsi"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} Akun | {0} Akun",
+    "nFolders": "{0} Folder | {0} Folder",
+    "nMessages": "{0} Pesan | {0} Pesan",
+    "openAllStats": "Buka semua Statistik",
+    "openOptions": "Buka Opsi"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "m",
+      "day": "h",
+      "hour": "j",
+      "minute": "mnt",
+      "month": "b",
+      "quarter": "k",
+      "second": "d",
+      "week": "m",
+      "year": "t"
+    },
+    "account": "Akun",
+    "accountEmpty": "Akun ini kosong, tidak ada email di sini.",
+    "allAccounts": "Semua Akun",
+    "charts": {
+      "contactsJunk": {
+        "description": "Jumlah email yang ditandai sebagai Sampah per pengirim",
+        "empty": "Tidak ada email yang ditandai sebagai Sampah.",
+        "title": "Ditandai sebagai Sampah"
+      },
+      "contactsReceived": {
+        "description": "Jumlah email yang diterima per pengirim",
+        "empty": "Tidak ada email yang diterima.",
+        "title": "Paling banyak diterima dari"
+      },
+      "contactsSent": {
+        "description": "Jumlah email yang dikirim per penerima",
+        "empty": "Tidak ada email terkirim yang tersedia.",
+        "title": "Sebagian besar dikirim ke"
+      },
+      "days": {
+        "description": "Jumlah email per tanggal",
+        "latestActivity": "Aktivitas Terbaru",
+        "title": "Aktivitas di {0}"
+      },
+      "daytime": {
+        "description": "Jumlah email per waktu hari",
+        "title": "Siang hari"
+      },
+      "foldersDistribution": {
+        "description": "Jumlah email per folder",
+        "title": "Distribusi folder"
+      },
+      "month": {
+        "description": "Jumlah email per bulan dalam setahun",
+        "title": "Bulan"
+      },
+      "months": {
+        "description": "Jumlah total email per bulan",
+        "title": "Bulan"
+      },
+      "quarters": {
+        "description": "Jumlah total email per kuartal",
+        "title": "Tempat"
+      },
+      "tagsCount": {
+        "description": "Jumlah total email per tag",
+        "empty": "Tidak ada data tag yang tersedia.",
+        "title": "Tag"
+      },
+      "temporalDistribution": {
+        "description": "Jumlah email per hari kerja per jam",
+        "title": "Distribusi temporal"
+      },
+      "weekday": {
+        "description": "Jumlah email per hari dalam seminggu",
+        "title": "Hari kerja"
+      },
+      "weeks": {
+        "description": "Jumlah total email per minggu",
+        "title": "Minggu"
+      },
+      "years": {
+        "description": "Jumlah total email per tahun",
+        "title": "Tahun"
+      }
+    },
+    "contact": "Kontak",
+    "dataCollected": "Data dikumpulkan {0} lalu",
+    "disclaimer": "ThirdStats tidak membuat klaim atas kebenaran data yang ditampilkan. <br />Jika terjadi masalah, silakan <a href='{0}' target='_blank'>buat laporan bug</a>.",
+    "folder": "Map",
+    "junkMails": "Surat sampah",
+    "junkScore": "Skor sampah {0}",
+    "loadingInProgress": "Memuat semua email dari akun ini sedang berlangsung...",
+    "mailsPerDay": "Mail per hari",
+    "mailsPerMonth": "Surat per bulan",
+    "mailsPerQuarter": "Surat per kuartal",
+    "mailsPerTag": "Email per tag",
+    "mailsPerWeek": "Surat per minggu",
+    "mailsPerYear": "Surat per tahun",
+    "mailsReceived": "Email diterima",
+    "mailsSent": "Email dikirim",
+    "mailsStarred": "Mail membintangi",
+    "mailsTagged": "{0} mail ditag",
+    "mailsTotal": "Total surat",
+    "mailsUnread": "Surat belum dibaca",
+    "message": "-",
+    "niceWork": "Karya yang bagus!",
+    "nonEmptyFolders": "folder bukan kosong | folder bukan kosong | folder tidak kosong",
+    "percentOfReceived": "{0}% dari yang diterima",
+    "percentOfTotal": "{0}% dari total",
+    "timePeriod": "Rentang tanggal",
+    "title": "Statistik",
+    "tooltips": {
+      "clear": "Batalkan pilihan",
+      "comparison": "Bandingkan akun dalam satu bagan",
+      "comparisonWhenAccountsOption": "Perbandingan akun hanya tersedia\njika lebih dari satu akun diaktifkan dalam opsi add-on",
+      "comparisonWhenFilter": "Perbandingan akun hanya tersedia\njika 'Semua Akun' dipilih dalam filter akun di atas",
+      "error": {
+        "dateFormat": "Format TTTT-BB-HH diperlukan, mis. 2020-01-31",
+        "dateOrderEnd": "Tanggal akhir harus setelah tanggal mulai",
+        "dateOrderStart": "Tanggal mulai harus sebelum tanggal akhir",
+        "dateUnreal": "Diperlukan tanggal yang valid",
+        "empty": "Input diperlukan"
+      },
+      "expand": "Perluas area grafik",
+      "exportData": "Ekspor saat ini ditampilkan data sebagai file JSON",
+      "folder": {
+        "notAvailable": "Folder tidak tersedia untuk {0}"
+      },
+      "period": {
+        "end": "Sampai Tanggal\nTip: Mengetik '{0}' menjadi '{1}'",
+        "start": "Dari Tanggal\nTip: Mengetik '{0}' menjadi '{1}'"
+      },
+      "refresh": "Menyegarkan data",
+      "shrink": "Kecilkan area grafik",
+      "sum": "Tampilkan jumlah semua akun"
+    },
+    "withinYears": "dalam {0} tahun"
+  }
+}

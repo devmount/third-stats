@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Doar",
+    "message": "Se você gosta do ThirdStats e deseja apoiar este projeto, qualquer um dos seguintes é uma grande ajuda:",
+    "review": "Revisão",
+    "share": "Compartilhar",
+    "star": "Estrela",
+    "translate": "Traduzir"
+  },
   "extensionDescription": {
     "message": "Estatísticas atraentes para suas contas de e-mail Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Ativa ou desativa contas. Contas desativadas não aparecerão em nenhuma lista de contas ou estatísticas.",
       "label": "Contas Ativas",
       "sumAndCompare": "Ativar mais de uma conta habilita a opção de filtro de estatísticas 'Todas as Contas' para visualização de soma e comparação."
+    },
+    "autoRefresh": {
+      "description": "Ative o reprocessamento automático dos dados estatísticos em segundo plano. Defina um intervalo de tempo em minutos (mínimo de 5).",
+      "label": "Processamento automático"
     },
     "cache": {
       "description": "Ativa o sistema de armazenamento em cache para exibição mais rápida de estatísticas já processadas.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Número de entradas exibidas nos gráficos que listam contatos frequentes (máximo de 999)",
       "label": "Contagem de Líderes"
+    },
+    "liveCountUp": {
+      "description": "Mostre o progresso ao vivo de números calculados ao processar dados de estatísticas",
+      "info": "Ativar isso pode aumentar o tempo de processamento",
+      "label": "Contagem ao vivo"
     },
     "localIdentities": {
       "description": "Uma lista de endereços cujos e-mails serão reconhecidos como “enviados” para contas locais.",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "pastas não vazias | pasta não vazia | pastas não vazias",
     "percentOfReceived": "{0}% de recebidos",
     "percentOfTotal": "{0}% do total",
-    "starAndImprove": "Dê uma estrela e contribua com este projeto no <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Intervalo de tempo",
     "title": "Estatísticas",
     "tooltips": {

@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Adományoz",
+    "message": "Ha tetszik a ThirdStats, és támogatni szeretné ezt a projektet, az alábbiak bármelyike óriási segítség:",
+    "review": "Értékelés",
+    "share": "Megosztás",
+    "star": "Csillag",
+    "translate": "Fordítás"
+  },
   "extensionDescription": {
     "message": "Gyönyörűen megjelenített statisztikák a Thunderbird levelező postafiókokhoz"
   },
@@ -8,6 +16,10 @@
       "description": "Fiókok engedélyezése vagy letiltása. A letiltott fiókok nem jelennek meg a fióklistában vagy a statisztikákban.",
       "label": "Elérhető fiókok",
       "sumAndCompare": "Több fiók aktiválása engedélyezi az „Összes fiók” statisztika szűrő opciót összeg és összehasonlító nézethez."
+    },
+    "autoRefresh": {
+      "description": "Engedélyezze a statisztikai adatok automatikus újrafeldolgozását a háttérben. Állítson be egy időintervallumot percben (legalább 5).",
+      "label": "Automatikus feldolgozás"
     },
     "cache": {
       "description": "A gyorsítótár-rendszer engedélyezése a már feldolgozott statisztikai adatok gyorsabb megjelenítéséhez.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "A gyakori kapcsolattartókat felsoroló ábrázolásokban szereplő bejegyzések száma (legfeljebb 999)",
       "label": "Vezérszám"
+    },
+    "liveCountUp": {
+      "description": "A kiszámított számok élő előrehaladásának megjelenítése statisztikai adatok feldolgozásakor",
+      "info": "Ennek engedélyezése növelheti a feldolgozási időt",
+      "label": "Élő Count Up"
     },
     "localIdentities": {
       "description": "A levélcímlista, hogy ismerje a „küldött” a helyi fiókok",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "nem üres mappák | nem üres mappa | nem üres mappák",
     "percentOfReceived": "A beérkezett adatok {0}%-a",
     "percentOfTotal": "Az összes {0}%-a",
-    "starAndImprove": "Légy sztár, villálj a <a href='{0}' target='_blank'>GitHub</a>on.",
     "timePeriod": "Dátumtartomány",
     "title": "Statisztika",
     "tooltips": {

@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donera",
+    "message": "Om du gillar ThirdStats och vill stödja detta projekt är något av följande till stor hjälp:",
+    "review": "Omdöme",
+    "share": "Dela",
+    "star": "Stjärna",
+    "translate": "Översätt"
+  },
   "extensionDescription": {
     "message": "Vackert visualiserad statistik för dina E-postkonton i Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Aktivera eller inaktivera konton. Inaktiverade konton visas inte i kontolistor eller statistik.",
       "label": "Aktiva Konton",
       "sumAndCompare": "Aktivering av mer än ett konto aktiverar filteralternativet 'Alla Konton' för statistik för summa och jämförelse."
+    },
+    "autoRefresh": {
+      "description": "Aktivera automatisk upparbetning av statistikdata i bakgrunden. Ställ in ett tidsintervall i minuter (minst 5).",
+      "label": "Automatisk Bearbetning"
     },
     "cache": {
       "description": "Aktivera cachingsystem för snabbare visning av redan bearbetad statistikdata.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Antal poster som visas i diagram som visar frekventa kontakter (maximalt 999)",
       "label": "Ledarräkning"
+    },
+    "liveCountUp": {
+      "description": "Visa direktförlopp för beräknade tal vid bearbetning av statistikdata",
+      "info": "Aktivering av detta kan öka bearbetningstiden",
+      "label": "Live Räkna Upp"
     },
     "localIdentities": {
       "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "icke-tomma mappar | icke-tom mapp | icke-tomma mappar",
     "percentOfReceived": "{0}% av mottagna",
     "percentOfTotal": "{0}% av totalen",
-    "starAndImprove": "Ge en 'Stjärna' och förbättra detta projekt på <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Tidsperiod",
     "title": "Statistik",
     "tooltips": {

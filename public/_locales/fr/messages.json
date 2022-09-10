@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Donner",
+    "message": "Si vous aimez ThirdStats et que vous souhaitez soutenir ce projet, l'un des éléments suivants vous sera d'une grande aide :",
+    "review": "Critique",
+    "share": "Partager",
+    "star": "Étoile",
+    "translate": "Traduire"
+  },
   "extensionDescription": {
     "message": "Affichage de statistiques pour vos comptes mails Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
       "label": "Comptes actifs",
       "sumAndCompare": "L'activation de plusieurs comptes active l'option de filtre de statistiques «Tous les comptes» pour la vue de somme et de comparaison."
+    },
+    "autoRefresh": {
+      "description": "Activez le retraitement automatique des données statistiques en arrière-plan. Définissez un intervalle de temps en minutes (minimum de 5).",
+      "label": "Traitement automatique"
     },
     "cache": {
       "description": "Activez le système de mise en cache pour un affichage plus rapide des données de statistiques déjà traitées.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Nombre d'entrées figurant dans les tableaux des contacts fréquents (999 au maximum)",
       "label": "Tableau de classement"
+    },
+    "liveCountUp": {
+      "description": "Afficher la progression en direct des nombres calculés lors du traitement des données statistiques",
+      "info": "Activer cette option peut augmenter le temps de traitement",
+      "label": "Comptage en direct"
     },
     "localIdentities": {
       "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "dossiers non vides | dossier non vide | dossiers non vides",
     "percentOfReceived": "{0}% des reçus",
     "percentOfTotal": "{0}% du total",
-    "starAndImprove": "Star et améliore ce projet sur <a href='{0}' target='_blank'>Github</a>",
     "timePeriod": "Période de temps",
     "title": "Statistiques",
     "tooltips": {

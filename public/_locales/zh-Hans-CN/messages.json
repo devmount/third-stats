@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "捐款",
+    "message": "如果你喜欢 ThirdStats 并想支持这个项目，以下任何一项都将大有帮助：",
+    "review": "回顾",
+    "share": "分享",
+    "star": "明星",
+    "translate": "翻译"
+  },
   "extensionDescription": {
     "message": "精美地呈现您 Thunderbird 邮件账号数据"
   },
@@ -8,6 +16,10 @@
       "description": "启用或停用账户。被禁用的账户不会出现在任何账户列表或统计资料中。",
       "label": "活跃账户",
       "sumAndCompare": "激活一个以上的账户，可以启用 \"所有账户 \"统计过滤选项，以进行汇总和比较查看。"
+    },
+    "autoRefresh": {
+      "description": "在后台启用统计数据自动重新处理。以分钟为单位设置时间间隔（最少为 5）。",
+      "label": "自动处理"
     },
     "cache": {
       "description": "启用缓存系统以加快显示已处理数据资料。",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "图表中显示的经常联系的条目数量（最多999个）。",
       "label": "联系数"
+    },
+    "liveCountUp": {
+      "description": "处理统计数据时显示计算数字的实时进度",
+      "info": "启用此选项可能会增加处理时间",
+      "label": "直播向上计数"
     },
     "localIdentities": {
       "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "非空文件夹｜非空文件夹｜非空文件夹",
     "percentOfReceived": "已收取 {0}%",
     "percentOfTotal": "占总数 {0}%",
-    "starAndImprove": "请到 <a href='{0}' target='_blank'>Github</a> 支持及改善此专案",
     "timePeriod": "日期范围",
     "title": "统计",
     "tooltips": {

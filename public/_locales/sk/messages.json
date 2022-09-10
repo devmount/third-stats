@@ -1,4 +1,12 @@
 {
+  "cta": {
+    "donate": "Prispieť",
+    "message": "Ak sa vám ThirdStats páči a chcete tento projekt podporiť, veľmi vám pomôže niektorá z nasledujúcich možností:",
+    "review": "Recenzia",
+    "share": "Zdieľať",
+    "star": "Hviezdička",
+    "translate": "Preložiť"
+  },
   "extensionDescription": {
     "message": "Krásne vizualizované štatistiky pre vaše e-mailové kontá Thunderbird"
   },
@@ -8,6 +16,10 @@
       "description": "Povoľte alebo zakážte účty. Zakázané účty sa nezobrazia v žiadnom zozname účtov ani v štatistikách.",
       "label": "Aktívne účty",
       "sumAndCompare": "Aktiváciou viac ako jedného účtu aktivujete možnosť filtrovania štatistík \"Všetky účty\" pre zobrazenie súčtu a porovnania."
+    },
+    "autoRefresh": {
+      "description": "Povoliť automatické opätovné spracovanie údajov štatistík na pozadí. Nastavte časový interval v minútach (minimálne 5).",
+      "label": "Automatické spracovanie"
     },
     "cache": {
       "description": "Povoľte systému ukladanie do vyrovnávacej pamäte pre rýchlejšie zobrazenie už spracovaných údajov štatistík.",
@@ -31,6 +43,11 @@
     "leaderCount": {
       "description": "Počet záznamov zobrazených v grafoch s častými kontaktmi (maximálne 999)",
       "label": "Počet vedúcich"
+    },
+    "liveCountUp": {
+      "description": "Zobraziť aktuálny stav vypočítaných čísel pri spracovaní údajov štatistík",
+      "info": "Povolenie tejto funkcie môže predĺžiť čas spracovania",
+      "label": "Počítanie naživo"
     },
     "localIdentities": {
       "description": "Zoznam emailových adries, ktoré sa majú rozpoznať ako \"odoslané z\" pre miestne účty",
@@ -190,7 +207,6 @@
     "nonEmptyFolders": "neprázdne priečinky | neprázdny priečinok | neprázdne priečinky",
     "percentOfReceived": "{0}% z prijatých",
     "percentOfTotal": "{0}% z celkového počtu",
-    "starAndImprove": "Buď hviezdou, forkni ma na <a href='{0}' target='_blank'>GitHub</a>.",
     "timePeriod": "Rozsah dátumov",
     "title": "Štatistiky",
     "tooltips": {

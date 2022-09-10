@@ -5,7 +5,7 @@
 			ThirdStats <code>v{{ $version }}</code>
 		</div>
 		<!-- cta -->
-		<div v-if="!compact" class="text-gray mt-1">{{ $t('cta.introduction') }}</div>
+		<div v-if="!compact" class="text-gray mt-1">{{ $t('cta.message') }}</div>
 		<div class="d-flex gap-1 justify-center mt-2">
 			<a
 				:href="links.donate"
