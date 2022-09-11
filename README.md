@@ -99,16 +99,19 @@ Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-we
 
 Many thanks especially to those who helped translating this add-on and making it more accessable for people around the globe:
 
-- Brazilian Portuguese [@TenisonJr](https://github.com/TenisonJr)
+- Brazilian Portuguese: [@TenisonJr](https://github.com/TenisonJr)
 - Catalan: [@altmas5](https://github.com/altmas5) [@Leos1113](https://github.com/Leos1113)
 - Chinese (China): [@jswildcards](https://github.com/jswildcards)
 - Chinese (Taiwan): [@Hsins](https://github.com/Hsins)
 - Czech: [@ajyan](https://github.com/ajyan) [@martinsustek](https://github.com/martinsustek)
+- Dutch: [@devmount](https://github.com/devmount)
+- English: [@devmount](https://github.com/devmount)
 - French: [@antoinevth](https://github.com/antoinevth) [@aurelienrouze](https://github.com/aurelienrouze)
 - Galician: [@uveic](https://github.com/uveic)
 - German: [@devmount](https://github.com/devmount)
 - Hindi: [@kunaljain0212](https://github.com/kunaljain0212) [@mdfaizan7](https://github.com/mdfaizan7)
 - Hungarian: [@ovari](https://github.com/ovari/)
+- Indonesian: [@devmount](https://github.com/devmount)
 - Italian: [@leobia](https://github.com/leobia) [@edmael](https://github.com/edmael)
 - Japanese: [@marcelstoer](https://github.com/marcelstoer)
 - Polish: [@dfoltynski](https://github.com/dfoltynski) [@wikiyu](https://github.com/wikiyu)
@@ -119,6 +122,7 @@ Many thanks especially to those who helped translating this add-on and making it
 - Swedish: [@FrejBjornsson](https://github.com/FrejBjornsson)
 - Thai: [@kerlos](https://github.com/kerlos)
 - Turkish: [@tosbaha](https://github.com/tosbaha)
+- Ukrainian: [@devmount](https://github.com/devmount)
 
 ## Licence
 
