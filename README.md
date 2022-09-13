@@ -29,13 +29,12 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 
 ## Features
 
-- Showing various stats in different chart types:
-  - Check key numbers like total emails per account
-  - Analyze the progress of email counts (received and sent) per year, per month, per daytime, per weekday, per folder and many more
-  - See your most busy hours during the week
-  - Find out, which contacts are the ones sending most emails
+- Check key numbers like total, received or sent emails per account
+- Analyze the progress of email counts per year, per month, per daytime, per weekday, per folder and many more
+- See your most busy hours during the week
+- Find out, which contacts are the ones sending most emails
 - Filter stats for a specific folder, date range or contact
-- Compare differend email accounts with each other and define their color
+- Compare different email accounts with each other and define their color
 - Set Options for account selection, theme, caching system and a lot more customizations
 - Enjoy the responsive stats page adapting to different viewport sizes
 - Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish and Ukrainian
