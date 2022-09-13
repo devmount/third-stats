@@ -30,19 +30,15 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 ## Features
 
 - Showing various stats in different chart types:
-  - Total numbers of emails and folders per account
-  - Sum of received and sent emails per year and per month
-  - Sum of received and sent emails per daytime and per weekday
-  - Temporal distribution of received and sent emails per weekday per hour
-  - Leaderboards of most contacted email addresses
-  - Distribution of emails per folder
-- Filter stats for a specific folder, period of time or contact
-- Comparison view for accounts with custom account colors
-- Deactivate accounts you don't want to include (add-on option)
-- Use a dark or a light theme (add-on option)
-- Use a caching system to store already processed data (add-on option)
-- Responsive stats page to adapt to different viewport sizes
-- Language support for Catalan, Chinese, Czech, English, French, Galician, German, Hindi, Hungarian, Italian, Japanese, Polish, Portuguese, Russian, Spanish, Swedish, Thai and Turkish
+  - Check key numbers like total emails per account
+  - Analyze the progress of email counts (received and sent) per year, per month, per daytime, per weekday, per folder and many more
+  - See your most busy hours during the week
+  - Find out, which contacts are the ones sending most emails
+- Filter stats for a specific folder, date range or contact
+- Compare differend email accounts with each other and define their color
+- Set Options for account selection, theme, caching system and a lot more customizations
+- Enjoy the responsive stats page adapting to different viewport sizes
+- Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish and Ukrainian
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
@@ -74,11 +70,9 @@ Contributions are very welcome! See the [Contribution Guidelines](./.github/CONT
 
 ### Become a tester
 
-Cutting edge alpha releases of ThirdStats can be found on the [dedicated ThirdStats CDN](https://third-stats.cdn.devmount.com/). You can install these alpha releases and test them as you like.
+Cutting edge alpha releases of ThirdStats can be found on the [dedicated ThirdStats CDN](https://third-stats.cdn.devmount.com/). You can manually install these alpha releases and test them as you like.
 
 If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md). If you have ideas for additional features, please [issue a feature request](https://github.com/devmount/third-stats/issues/new?template=feature_request.md).
-
-⚠ Keep in mind: Alpha releases can be unstable and break things.
 
 ### Become a ThirdStats developer
 
@@ -104,14 +98,10 @@ Many thanks especially to those who helped translating this add-on and making it
 - Chinese (China): [@jswildcards](https://github.com/jswildcards)
 - Chinese (Taiwan): [@Hsins](https://github.com/Hsins)
 - Czech: [@ajyan](https://github.com/ajyan) [@martinsustek](https://github.com/martinsustek)
-- Dutch: [@devmount](https://github.com/devmount)
-- English: [@devmount](https://github.com/devmount)
 - French: [@antoinevth](https://github.com/antoinevth) [@aurelienrouze](https://github.com/aurelienrouze)
 - Galician: [@uveic](https://github.com/uveic)
-- German: [@devmount](https://github.com/devmount)
 - Hindi: [@kunaljain0212](https://github.com/kunaljain0212) [@mdfaizan7](https://github.com/mdfaizan7)
 - Hungarian: [@ovari](https://github.com/ovari/)
-- Indonesian: [@devmount](https://github.com/devmount)
 - Italian: [@leobia](https://github.com/leobia) [@edmael](https://github.com/edmael)
 - Japanese: [@marcelstoer](https://github.com/marcelstoer)
 - Polish: [@dfoltynski](https://github.com/dfoltynski) [@wikiyu](https://github.com/wikiyu)
@@ -122,7 +112,6 @@ Many thanks especially to those who helped translating this add-on and making it
 - Swedish: [@FrejBjornsson](https://github.com/FrejBjornsson)
 - Thai: [@kerlos](https://github.com/kerlos)
 - Turkish: [@tosbaha](https://github.com/tosbaha)
-- Ukrainian: [@devmount](https://github.com/devmount)
 
 ## Licence
 
@@ -130,4 +119,4 @@ This Thunderbird add-on is licensed under [MIT License](./LICENSE).
 
 ---
 
-This add-on is completely free to use. If you enjoy it and don't have the time to contribute, please consider [donating via Paypal](https://paypal.me/devmount) or [sponsoring me](https://github.com/sponsors/devmount) for further development. :green_heart:
+This add-on is completely free to use. If you enjoy it and don't have the time to contribute, please consider [donating via Paypal](https://paypal.me/devmount) or [sponsoring me](https://github.com/sponsors/devmount) to support further development. :green_heart:
