@@ -827,6 +827,7 @@ class NumberedObject {
 		})
 	}
 }
+
 // helper function for objects sum, given array of flat objects
 const sumObjects = (objs) => {
 	const res = objs.reduce((a, b) => {
@@ -838,6 +839,7 @@ const sumObjects = (objs) => {
 	}, {})
 	return res
 }
+
 // helper function for objects sum, given array of objects of flat objects
 const sumObjectsObjects = (objs) => {
 	const res = objs.reduce((a, b) => {
@@ -849,6 +851,7 @@ const sumObjectsObjects = (objs) => {
 	}, {})
 	return res
 }
+
 // helper function for objects sum, given array of objects of arrays
 const sumObjectsArrays = (objs) => {
 	const res = objs.reduce((a, b) => {
@@ -864,6 +867,7 @@ const sumObjectsArrays = (objs) => {
 	}, {})
 	return res
 }
+
 // helper function to sort object properties by value, limit entries and return an object again
 const sortAndLimitObject = (obj, limit=0) => {
 	if (limit <= 0) limit = Object.keys(obj).length
@@ -872,10 +876,12 @@ const sortAndLimitObject = (obj, limit=0) => {
 		.slice(0, limit)
 		.reduce((result, key) => { result[key] = r[key]; return result; }, {})
 }
+
 // helper function to sort object properties by value, limit entries and return an array
-const sortAndLimitObjectToArray = (obj, limit) => {
-	return Object.entries(obj).sort(([,a],[,b]) => b-a).slice(0, limit)
-}
+// const sortAndLimitObjectToArray = (obj, limit) => {
+// 	return Object.entries(obj).sort(([,a],[,b]) => b-a).slice(0, limit)
+// }
+
 // helper function to see if array contains another array
 const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v))
 
@@ -1151,7 +1157,7 @@ export default defineComponent({
 			this.identities = identities
 			// extract account id from url GET parameter
 			const uri = window.location.search.substring(1)
-			const id = (new URLSearchParams(uri)).get("s")
+			let id = (new URLSearchParams(uri)).get("s")
 			if (!id || (id == "sum" && !this.preferences.cache) || (id == "sum" && accounts.length <= 1)) id = accounts[0].id
 			this.active.account = id
 		},
@@ -2479,18 +2485,18 @@ export default defineComponent({
 		// on change of active account reset filter
 		// and load new accounts data accordingly
 		async "active.account" (id) {
-			if (id) {
-				// reset preferences
-				this.preferences.sections.total.comparison = false
-				// reset folder filter
-				this.resetFolder(false)
-				// reset contact filter
-				this.resetContact(false)
-				// process data for given account, refresh if date range or contact filter is set
-				await this.loadAccount(id, (this.active.period.start && this.active.period.end) || this.active.contact)
-				// rebuild contact list
-				this.contacts = this.allProcessedContacts
-			}
+			// default to all accounts page if no id given
+			if (!id) id = 'sum';
+			// reset preferences
+			this.preferences.sections.total.comparison = false
+			// reset folder filter
+			this.resetFolder(false)
+			// reset contact filter
+			this.resetContact(false)
+			// process data for given account, refresh if date range or contact filter is set
+			await this.loadAccount(id, (this.active.period.start && this.active.period.end) || this.active.contact)
+			// rebuild contact list
+			this.contacts = this.allProcessedContacts
 		},
 		// on change of active folder
 		// retrieve data again for current account selection

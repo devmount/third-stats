@@ -10,7 +10,7 @@ function main() {
         badgeText: '',
         defaultIcons: '',
         title: 'ThirdStats',
-        url: '../stats.html?s=sum'
+        url: '../stats.html'
       }
     );
   }
