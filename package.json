@@ -9,7 +9,7 @@
 		"push-translations": "localazy upload existing"
 	},
 	"dependencies": {
-		"chart.js": "^3.9.1",
+		"chart.js": "^4.0.1",
 		"chartjs-adapter-date-fns": "^2.0.0",
 		"chartjs-chart-matrix": "^1.1.1",
 		"date-fns": "^2.29.2",
