@@ -219,7 +219,8 @@
         "dateOrderEnd": "End date must be after start date",
         "dateOrderStart": "Start date must be before end date",
         "dateUnreal": "A valid date is required",
-        "empty": "Input is required"
+        "empty": "Input is required",
+        "processing": "An error occured during processing, displayed stats may not be complete."
       },
       "expand": "Expand chart area",
       "exportData": "Export currently displayed data as JSON file",
