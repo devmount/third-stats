@@ -5,22 +5,27 @@ const queryMessages = async function* (folder, fromDate, toDate) {
 	const from = new Date(fromDate);
 	const to = new Date(toDate);
 	// paginate messages
-  let page = await messenger.messages.list(folder);
-  for (let message of page.messages) {
-		const messagesOutsideDateFilter = message.date < from || message.date > to;
-		if (!(dateFilterActive && messagesOutsideDateFilter)) {
-			yield message;
-		}
-  }
-  while (page.id) {
-    page = await messenger.messages.continueList(page.id);
-    for (let message of page.messages) {
+	try {
+		let page = await messenger.messages.list(folder);
+		for (let message of page.messages) {
 			const messagesOutsideDateFilter = message.date < from || message.date > to;
 			if (!(dateFilterActive && messagesOutsideDateFilter)) {
 				yield message;
 			}
-    }
-  }
+		}
+		while (page.id) {
+			page = await messenger.messages.continueList(page.id);
+			for (let message of page.messages) {
+				const messagesOutsideDateFilter = message.date < from || message.date > to;
+				if (!(dateFilterActive && messagesOutsideDateFilter)) {
+					yield message;
+				}
+			}
+		}
+	} catch(error) {
+		await messenger.storage.local.set({ error: true });
+		console.error(error);
+	}
 }
 
 // flatten folder hierarchie of given account

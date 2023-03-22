@@ -43,11 +43,10 @@ jobs:
         filename=third-stats_${{ steps.version.outputs.next }}-alpha.${{ steps.timestamp.outputs.now }}.xpi
         echo "Built filename ${filename}"
         echo ::set-output name=name::${filename}
-    - name: Build app using Yarn
+    - name: Build app using NPM
       run: |
-        npm install -g yarn
-        yarn install
-        yarn build
+        npm install
+        npm run build
     - name: Create Thunderbird add-on (.xpi)
       shell: bash
       run: |

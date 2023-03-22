@@ -219,7 +219,8 @@
         "dateOrderEnd": "结束日期必须是在开始日期之后",
         "dateOrderStart": "开始日期必须在结束日期之前",
         "dateUnreal": "需要一个有效的日期",
-        "empty": "需要输入"
+        "empty": "需要输入",
+        "processing": "在处理过程中发生了一个错误，显示的统计资料可能不完整。"
       },
       "expand": "放大图表范围",
       "exportData": "将当前显示的数据导出为JSON文件",

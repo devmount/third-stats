@@ -43,6 +43,18 @@
 								<line class="icon-part-accent2-faded" x1="11" y1="19.94" x2="11" y2="19.95" />
 							</svg>
 						</div>
+						<div
+							v-if="error.processing"
+							class="align-center tooltip tooltip-bottom d-inline-flex ml-0-5"
+							:data-tooltip="$t('stats.tooltips.error.processing')"
+						>
+							<svg class="icon icon-bold icon-small icon-accent1-faded icon-hover-accent" viewBox="0 0 24 24">
+								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+								<path class="icon-part-accent1" d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"></path>
+								<path class="icon-part-accent1" d="M12 9v4"></path>
+								<path class="icon-part-accent1" d="M12 17h.01"></path>
+							</svg>
+						</div>
 					</div>
 					<!-- folder selection -->
 					<div class="filter-folder d-flex">
@@ -905,6 +917,7 @@ export default defineComponent({
 				}
 			},
 			error: {
+				processing: false, // indicates if there where any errors on message retrieval
 				period: {
 					start: [],   // indicates if currently configured start of period of time is valid
 					end: [],     // indicates if currently configured end of period of time is valid
@@ -998,6 +1011,9 @@ export default defineComponent({
 		await this.getTags()
 		// retrieve all accounts
 		await this.getAccounts()
+		// check if error occured during previous processing
+		const { error } = await messenger.storage.local.get("error")
+		this.error.processing = error;
 		// start auto-processing in intervals
 		if (this.preferences.autoRefresh) {
 			setInterval(() => {
@@ -1196,6 +1212,10 @@ export default defineComponent({
 				// post processing: add timestamp of finished processing
 				accountData.meta.timestamp = Date.now()
 			})
+			// check if error occured during processing
+			const { error } = await messenger.storage.local.get("error")
+			this.error.processing = error;
+
 			return accountData
 		},
 		// retrieve all messages of a given <folder> with accounts <identities>
@@ -1440,6 +1460,7 @@ export default defineComponent({
 						this.progress.current += a.folderCount
 					} else {
 						// otherwise (re)process account
+						await messenger.storage.local.set({ error: false })
 						const data = await this.refresh(a.id, auto)
 						accountsData.push(JSON.parse(JSON.stringify(data)))
 						// remember key of currently displayed account if auto processed
@@ -1569,6 +1590,7 @@ export default defineComponent({
 					// otherwise retrieve it first/again and track progress by processed folder countck
 					this.progress.current = 1
 					this.progress.max = this.folders.length
+					await messenger.storage.local.set({ error: false })
 					await this.refresh(id)
 					this.progress.current = 0
 					this.progress.max = 0

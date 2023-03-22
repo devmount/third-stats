@@ -219,7 +219,8 @@
         "dateOrderEnd": "La fecha de finalización debe ser posterior a la fecha de inicio",
         "dateOrderStart": "La fecha de inicio debe ser anterior a la fecha final",
         "dateUnreal": "Se requiere una fecha válida",
-        "empty": "Se requiere una entrada"
+        "empty": "Se requiere una entrada",
+        "processing": "Se ha producido un error durante el procesamiento, las estadísticas mostradas pueden no estar completas."
       },
       "expand": "Expandir área del gráfico",
       "exportData": "Exportar los datos mostrados actualmente como archivo JSON",

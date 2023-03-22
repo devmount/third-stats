@@ -219,7 +219,8 @@
         "dateOrderEnd": "A befejezés dátumának a kezdő dátum után kell lennie",
         "dateOrderStart": "A kezdő dátumnak a befejezés dátuma előtt kell lennie",
         "dateUnreal": "Érvényes dátumot kell megadni",
-        "empty": "Bevitel szükséges"
+        "empty": "Bevitel szükséges",
+        "processing": "A feldolgozás során hiba történt, a megjelenített statisztikák nem teljesek."
       },
       "expand": "Ábrázolásterület kibontása",
       "exportData": "Jelenlegi megjelenített adatok exportálása JSON-fájlként",

@@ -11,7 +11,7 @@
 	"dependencies": {
 		"chart.js": "^4.0.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
-		"chartjs-chart-matrix": "^1.1.1",
+		"chartjs-chart-matrix": "^2.0.1",
 		"date-fns": "^2.29.2",
 		"vue": "^3.2.38",
 		"vue-i18n": "^9.2.2"

@@ -219,7 +219,8 @@
         "dateOrderEnd": "Das Enddatum muss nach dem Startdatum liegen",
         "dateOrderStart": "Das Startdatum muss vor dem Enddatum liegen",
         "dateUnreal": "Ein gültiges Datum ist erforderlich",
-        "empty": "Eingabe ist erforderlich"
+        "empty": "Eingabe ist erforderlich",
+        "processing": "Ein Fehler ist bei der Verarbeitung aufgetreten, die angezeigten Zahlen sind möglicherweise unvollständig."
       },
       "expand": "Bereich vergrößern",
       "exportData": "Aktuell angezeigte Daten als JSON-Datei exportieren",

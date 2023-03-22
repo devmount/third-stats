@@ -219,7 +219,8 @@
         "dateOrderEnd": "La data de finalització ha de ser posterior a la data d'inici",
         "dateOrderStart": "La data d'inici ha de ser anterior a la data de finalització",
         "dateUnreal": "Es requereix una data vàlida",
-        "empty": "Es requereix una entrada"
+        "empty": "Es requereix una entrada",
+        "processing": "S'ha produït un error durant el processament, és possible que les estadístiques mostrades no estiguin completes."
       },
       "expand": "Amplia l'àrea del gràfic",
       "exportData": "Exporta les dades que es mostren actualment com a fitxer JSON",
