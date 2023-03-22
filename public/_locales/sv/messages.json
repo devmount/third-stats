@@ -219,7 +219,8 @@
         "dateOrderEnd": "Slutdatum måste vara efter startdatum",
         "dateOrderStart": "Startdatum måste vara före slutdatum",
         "dateUnreal": "Ett giltigt datum krävs",
-        "empty": "Indata krävs"
+        "empty": "Indata krävs",
+        "processing": "Ett fel inträffade under bearbetningen, visad statistik kanske inte är komplett."
       },
       "expand": "Expandera diagramområdet",
       "exportData": "Exportera för närvarande visad data som JSON-fil",

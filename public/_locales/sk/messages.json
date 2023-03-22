@@ -219,7 +219,8 @@
         "dateOrderEnd": "Dátum ukončenia musí byť po dátume začiatku",
         "dateOrderStart": "Dátum začiatku musí byť pred dátumom ukončenia",
         "dateUnreal": "Vyžaduje sa platný dátum",
-        "empty": "Vyžaduje sa vstup"
+        "empty": "Vyžaduje sa vstup",
+        "processing": "Počas spracovania došlo k chybe, zobrazené štatistiky nemusia byť úplné."
       },
       "expand": "Rozšíriť oblasť grafu",
       "exportData": "Exportovať aktuálne zobrazené dáta ako súbor JSON",

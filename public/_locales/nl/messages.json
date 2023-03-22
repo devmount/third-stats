@@ -219,7 +219,8 @@
         "dateOrderEnd": "De einddatum moet na de begindatum zijn.",
         "dateOrderStart": "De begindatum moet vóór de einddatum liggen",
         "dateUnreal": "Een geldige datum is vereist",
-        "empty": "Invoer is vereist"
+        "empty": "Invoer is vereist",
+        "processing": "Er is een fout opgetreden tijdens de verwerking, de weergegeven statistieken zijn mogelijk niet volledig."
       },
       "expand": "Grafiekgebied uitbreiden",
       "exportData": "Exporteer momenteel weergegeven gegevens als JSON-bestand",

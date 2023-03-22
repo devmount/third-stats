@@ -219,7 +219,8 @@
         "dateOrderEnd": "結束日期必須晚於開始日期",
         "dateOrderStart": "開始日期必須早於結束日期",
         "dateUnreal": "必須輸入有效日期",
-        "empty": "請輸入內容"
+        "empty": "請輸入內容",
+        "processing": "處理過程中發生錯誤，顯示的統計數據可能不完整。"
       },
       "expand": "展開圖表區域",
       "exportData": "將當前顯示的數據匯出為 JSON 文件",

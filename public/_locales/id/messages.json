@@ -219,7 +219,8 @@
         "dateOrderEnd": "Tanggal akhir harus setelah tanggal mulai",
         "dateOrderStart": "Tanggal mulai harus sebelum tanggal akhir",
         "dateUnreal": "Diperlukan tanggal yang valid",
-        "empty": "Input diperlukan"
+        "empty": "Input diperlukan",
+        "processing": "Terjadi kesalahan selama pemrosesan, statistik yang ditampilkan mungkin tidak lengkap."
       },
       "expand": "Perluas area grafik",
       "exportData": "Ekspor saat ini ditampilkan data sebagai file JSON",

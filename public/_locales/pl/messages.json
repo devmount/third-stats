@@ -219,7 +219,8 @@
         "dateOrderEnd": "Data końcowa musi przypadać po dacie początkowej",
         "dateOrderStart": "Data początkowa musi być wcześniejsza niż data końcowa",
         "dateUnreal": "Wymagana jest ważna data",
-        "empty": "Wymagane są dane wejściowe"
+        "empty": "Wymagane są dane wejściowe",
+        "processing": "Podczas przetwarzania wystąpił błąd, wyświetlane statystyki mogą nie być kompletne."
       },
       "expand": "Rozwiń obszar wykresu",
       "exportData": "Eksportuj aktualnie wyświetlane dane jako plik JSON",

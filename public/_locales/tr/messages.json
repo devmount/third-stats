@@ -4,7 +4,7 @@
     "message": "ThirdStats'i seviyorsanız ve bu projeyi desteklemek istiyorsanız, aşağıdakilerden herhangi biri çok yardımcı olur:",
     "review": "Gözden Geçir",
     "share": "Paylaş",
-    "star": "Yıldız",
+    "star": "Yıldızla",
     "translate": "Çeviri"
   },
   "extensionDescription": {
@@ -27,13 +27,13 @@
     },
     "clearCache": {
       "description": "Tüm hesaplardan önbelleğe alınmış tüm istatistik verilerini kaldırın. İstatistikler sayfası tekrar açıldığında yeniden oluşturulacak.",
-      "empty": "Önbellek Temizdir",
+      "empty": "Önbellek Temiz",
       "label": "Önbelleği temizle",
       "size": "Önbellek boyutu: {0}"
     },
     "darkMode": {
       "description": "Koyu ve açık renk düzeni arasında geçiş yapın",
-      "label": "Karanlık Modu"
+      "label": "Karanlık Mod"
     },
     "headings": {
       "appearance": "Görünüm & Deneyim",
@@ -99,9 +99,9 @@
   },
   "popup": {
     "message": "-",
-    "nAccounts": "{0} Hesap | {0} Hesaplar",
-    "nFolders": "{0} Klasör | {0} Klasörler",
-    "nMessages": "{0} Mesaj | {0} Mesajlar",
+    "nAccounts": "{0} Hesap | {0} Hesap",
+    "nFolders": "{0} Klasör | {0} Klasör",
+    "nMessages": "{0} Mesaj | {0} Mesaj",
     "openAllStats": "Tüm İstatistikleri Aç",
     "openOptions": "Ayarları Aç"
   },
@@ -172,7 +172,7 @@
       },
       "weekday": {
         "description": "Gün başına e-posta sayısı",
-        "title": "Gün"
+        "title": "Hafta içi"
       },
       "weeks": {
         "description": "Haftalık toplam e-posta sayısı",
@@ -212,14 +212,15 @@
     "tooltips": {
       "clear": "Seçimi temizle",
       "comparison": "Hesapları tek bir grafikte karşılaştırın",
-      "comparisonWhenAccountsOption": "Hesap karşılaştırması yalnızca kullanılabilir\neklenti seçeneklerinde birden fazla hesap etkinleştirildiyse",
+      "comparisonWhenAccountsOption": "Hesap karşılaştırması yalnızca\neklenti seçeneklerinde birden fazla hesap etkinleştirildiyse kullanılabilir",
       "comparisonWhenFilter": "Hesap karşılaştırması yalnızca kullanılabilir\nyukarıdaki hesaplar filtresinde 'Tüm Hesaplar' seçiliyse",
       "error": {
         "dateFormat": "YYYY-AA-GG biçimi gereklidir, ör. 2020-01-31",
         "dateOrderEnd": "Bitiş tarihi, başlangıç tarihinden sonra olmalıdır",
         "dateOrderStart": "Başlangıç tarihi, bitiş tarihinden önce olmalıdır",
         "dateUnreal": "Geçerli bir tarih gerekli",
-        "empty": "Giriş gerekli"
+        "empty": "Giriş gerekli",
+        "processing": "İşleme sırasında bir hata oluştu, görüntülenen istatistikler tamamlanmamış olabilir."
       },
       "expand": "Grafik alanını genişlet",
       "exportData": "Şu anda görüntülenen verileri JSON dosyası olarak dışa aktarın",

@@ -219,7 +219,8 @@
         "dateOrderEnd": "Datum ukončení musí být po datu zahájení",
         "dateOrderStart": "Počáteční datum musí být před koncovým datem",
         "dateUnreal": "Je vyžadováno platné datum",
-        "empty": "Povinné pole"
+        "empty": "Povinné pole",
+        "processing": "Při zpracování došlo k chybě, zobrazené statistiky nemusí být úplné."
       },
       "expand": "Zvětšit graf",
       "exportData": "Exportovat aktuálně zobrazená data jako soubor JSON",
