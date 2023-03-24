@@ -21,7 +21,7 @@
 			</a>
 			<a
 				:href="links.share"
-				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center tooltip-top"
+				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center btn-accent2 tooltip-top"
 				:class="{ tooltip: compact }"
 				:data-tooltip="$t('cta.share')"
 			>
@@ -33,7 +33,7 @@
 			</a>
 			<a
 				:href="links.star"
-				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center tooltip-top"
+				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center btn-accent2 tooltip-top"
 				:class="{ tooltip: compact }"
 				:data-tooltip="$t('cta.star')"
 			>
@@ -45,7 +45,7 @@
 			</a>
 			<a
 				:href="links.review"
-				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center tooltip-top"
+				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center btn-accent2 tooltip-top"
 				:class="{ tooltip: compact }"
 				:data-tooltip="$t('cta.review')"
 			>
@@ -58,7 +58,7 @@
 			</a>
 			<a
 				:href="links.translate"
-				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center tooltip-top"
+				class="btn btn-thin btn-outline d-flex gap-0-5 align-items-center btn-accent2 tooltip-top"
 				:class="{ tooltip: compact }"
 				:data-tooltip="$t('cta.translate')"
 			>
@@ -74,7 +74,11 @@
 			</a>
 		</div>
 		<!-- disclaimer -->
-		<div v-if="!compact" class="text-gray mt-2" v-html="$t('stats.disclaimer', ['https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md'])"></div>
+		<div
+			v-if="!compact"
+			class="text-gray mt-2"
+			v-html="$t('stats.disclaimer', ['https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md'])"
+		></div>
 	</section>
 </template>
 

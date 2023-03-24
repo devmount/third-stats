@@ -114,6 +114,8 @@ for m, c in mode
 		.text-hover-highlight:hover,
 		.text-hover-highlight:hover *
 			color: c.highlight !important
+		.text-hover-light:hover
+			color: mode.dark.highlight !important
 		.background-normal, &.background-normal
 			background: c.back
 		.background-alt, &.background-alt
@@ -395,7 +397,7 @@ button, .btn
 	padding: 1rem 2rem
 	transition: all transition.duration transition.function
 	cursor: pointer
-	color: mode.dark.highlight !important
+	color: mode.dark.highlight
 	&.disabled
 		cursor: not-allowed
 	&:focus
@@ -408,7 +410,11 @@ button, .btn
 		.{m} &
 			border-color: c.accent2
 		.{m} &.btn-accent1
+			color: c.accent1
 			border-color: c.accent1
+		.{m} &.btn-accent2
+			color: c.accent2
+			border-color: c.accent2
 		.{m} &:not(.btn-outline)
 			background: c.accent2
 		.{m} &.button-secondary
@@ -417,14 +423,18 @@ button, .btn
 		.{m} &:hover
 			background: darken(c.accent2, 20%)
 			.icon
-				stroke: c.highlight
+				stroke: mode.dark.highlight
 				transform: scale(1.1)
 		.{m} &:active
 			background: lighten(c.accent2, 25%)
 		.{m} &:focus
 			box-shadow: 0 0 0 .25rem rgba(c.accent2, .2)
 		.{m} &.btn-accent1:hover
+			color: mode.dark.highlight
 			background: darken(c.accent1, 20%)
+		.{m} &.btn-accent2:hover
+			color: mode.dark.highlight
+			background: darken(c.accent2, 20%)
 		.{m} &.btn-accent1:active
 			background: lighten(c.accent1, 25%)
 		.{m} &.btn-accent1:focus
