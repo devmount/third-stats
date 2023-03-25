@@ -8,7 +8,19 @@ function main() {
       {
         badgeBackgroundColor: '#e64db9',
         badgeText: '',
-        defaultIcons: '',
+        defaultIcons: '../icon.svg',
+        themeIcons: [
+          {
+            dark: '../icon-dark.svg',
+            light: '../icon-light.svg',
+            size: 16
+          },
+          {
+            dark: '../icon-dark.svg',
+            light: '../icon-light.svg',
+            size: 32
+          }
+        ],
         title: 'ThirdStats',
         url: '../stats.html'
       }
