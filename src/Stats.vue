@@ -1,5 +1,5 @@
 <template>
-	<div id="stats" class="text-normal background-normal position-relative" :class="scheme">
+	<div class="text-normal background-normal position-relative">
 		<!-- progress indicator -->
 		<div class="progress position-fixed w-available top-0 right-0">
 			<div
@@ -26,7 +26,7 @@
 							<option v-else disabled>{{ $t("stats.allAccounts") }}</option>
 							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
 						</select>
-						<div v-show="loading" :class="scheme + ' loading align-center loader-accent2'"></div>
+						<div v-show="loading" class="loading align-center loader-accent2"></div>
 						<div
 							v-show="!loading"
 							class="refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex"
@@ -822,7 +822,7 @@ import { defineComponent } from 'vue';
 
 // internal components
 import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek, startOfToday } from "./utils";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek, startOfToday, setTheme } from "./utils";
 import LineChart from "./charts/LineChart"
 import BarChart from "./charts/BarChart"
 import MatrixChart from "./charts/MatrixChart"
@@ -980,7 +980,7 @@ export default defineComponent({
 						comparison: false
 					}
 				},
-				dark: false,    // preferences loaded from stored options
+				dark: false,   // preference loaded from stored theme
 				ordinate: true,
 				tagColors: false,
 				liveCountUp: true,
@@ -1111,7 +1111,7 @@ export default defineComponent({
 				if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
 					const n = result.options.newValue, o = result.options.oldValue
 					// only update those options that changed
-					if (n.dark != o.dark) this.preferences.dark = n.dark
+					if (n.theme != o.theme) this.preferences.dark = setTheme(n.theme);
 					if (n.ordinate != o.ordinate) this.preferences.ordinate = n.ordinate
 					if (n.tagColors != o.tagColors) this.preferences.tagColors = n.tagColors
 					if (n.liveCountUp != o.liveCountUp) this.preferences.liveCountUp = n.liveCountUp
@@ -1133,7 +1133,7 @@ export default defineComponent({
 			const result = await messenger.storage.local.get("options")
 			// only load options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
-				this.preferences.dark = result.options.dark ? true : false
+				this.preferences.dark = setTheme(result.options.theme ?? 'system');
 				this.preferences.ordinate = result.options.ordinate ? true : false
 				this.preferences.tagColors = result.options.tagColors ? true : false
 				this.preferences.liveCountUp = result.options.liveCountUp ? true : false
@@ -2458,10 +2458,6 @@ export default defineComponent({
 		examplePeriodFormatted () {
 			let d = new Date()
 			return d.toISOString().slice(0,10)
-		},
-		// convert theme preference into scheme name
-		scheme () {
-			return this.preferences.dark ? "dark" : "light"
 		},
 		// return account colors of all active accounts comma separated as single string
 		accountsColorGradient () {

@@ -1,5 +1,5 @@
 <template>
-	<div id="popup" class="text-normal position-relative">
+	<div class="text-normal position-relative">
 		<div class="container pt-1">
 			<!-- header containing number of accounts and linking to stats page -->
 			<header class="d-flex gap-0-5 mb-1-5">
@@ -72,7 +72,7 @@
 import { defineComponent } from 'vue';
 
 // internal components
-import { traverseAccount } from "./utils";
+import { traverseAccount, setTheme } from "./utils";
 import LineChart from "./charts/LineChart";
 import ProjectMeta from "./parts/ProjectMeta";
 
@@ -95,8 +95,6 @@ export default defineComponent({
 		this.loading = true
 		// get stored options
 		await this.getOptions()
-		// set theme to body element to style popup caret too
-		document.body.className = this.options.dark ? 'dark background-normal' : 'light background-modal'
 		// start account processing
 		await this.getAccounts()
 		// stop loading indication
@@ -109,7 +107,12 @@ export default defineComponent({
 			const result = await messenger.storage.local.get("options")
 			// only load needed options if they have been set, otherwise default settings will be kept
 			if (result && result.options) {
-				this.options.dark = result.options.dark ? true : false
+				this.options.dark = setTheme(
+					result.options.theme ?? 'system',
+					document.body,
+					['dark', 'background-normal'],
+					['light', 'background-modal']
+				);
 				this.options.accounts = result.options.accounts ? result.options.accounts : []
 				this.options.cache = result.options.cache ? true : false
 			}

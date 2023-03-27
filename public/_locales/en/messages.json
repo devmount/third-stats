@@ -31,9 +31,12 @@
       "label": "Clear Cache",
       "size": "Cache size is {0}"
     },
-    "darkMode": {
+    "theme": {
       "description": "Switch between dark and light color scheme",
-      "label": "Dark Mode"
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark",
+      "label": "Theme"
     },
     "headings": {
       "appearance": "Appearance & Experience",
