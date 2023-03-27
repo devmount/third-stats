@@ -95,6 +95,13 @@
       "description": "Ábrázolás rajzolása a címke színeivel",
       "label": "Címke színe"
     },
+    "theme": {
+      "dark": "Sötét",
+      "description": "Sötét és világos színvilág váltása",
+      "label": "Sötét mód",
+      "light": "Világos",
+      "system": "Rendszer"
+    },
     "title": "Beállítások"
   },
   "popup": {

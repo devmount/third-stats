@@ -95,6 +95,13 @@
       "description": "Teken grafieken over tags met overeenkomstige tag kleuren",
       "label": "Tag Kleuren"
     },
+    "theme": {
+      "dark": "Donker",
+      "description": "Schakel tussen donker en licht kleurenschema",
+      "label": "Donkere modus",
+      "light": "Licht",
+      "system": "Systeem"
+    },
     "title": "Opties"
   },
   "popup": {

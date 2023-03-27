@@ -752,7 +752,7 @@ loader(size, border)
 	animation: rotate 1s 0s infinite linear
 	border: border solid
 	for m, c in mode
-		&.{m}
+		.{m} &
 			border-color: c.gray3
 			border-top-color: c.gray1
 			&.loader-accent2

@@ -95,6 +95,13 @@
       "description": "Dessinez des graphiques sur les étiquettes en utilisant les couleurs d'étiquettes correspondantes.",
       "label": "Couleurs de l'étiquette"
     },
+    "theme": {
+      "dark": "Sombre",
+      "description": "Passer du mode sombre au mode clair",
+      "label": "Mode sombre",
+      "light": "Clair",
+      "system": "Système"
+    },
     "title": "Options"
   },
   "popup": {

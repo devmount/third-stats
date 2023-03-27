@@ -95,6 +95,13 @@
       "description": "Rita diagram om taggar med hjälp av motsvarande taggfärger",
       "label": "Taggfärger"
     },
+    "theme": {
+      "dark": "Mörk",
+      "description": "Växla mellan mörkt och ljust färgschema",
+      "label": "Mörkt Läge",
+      "light": "Ljus",
+      "system": "System"
+    },
     "title": "Alternativ"
   },
   "popup": {

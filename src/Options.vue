@@ -1,14 +1,7 @@
 <template>
 	<div
-		id="options"
-		:class="{
-			'dark': options.dark,
-			'light': !options.dark,
-			'text-normal': true,
-			'background-alt': options.dark,
-			'background-highlight-contrast': !options.dark,
-			'embedded': !ownOptionsPage
-		}"
+		class="text-normal"
+		:class="{ 'embedded': !ownOptionsPage }"
 	>
 		<header v-if="ownOptionsPage" class="pt-2 mx-auto">
 			<h1 class="d-flex align-items-center">
@@ -20,18 +13,18 @@
 			<!-- section related to ThirdStats appearance and UI -->
 			<section class="mb-3">
 				<h2>{{ $t("options.headings.appearance") }}</h2>
-				<!-- option: dark -->
+				<!-- option: theme -->
 				<div class="entry">
-					<label for="dark">
-						{{ $t("options.darkMode.label") }}
-						<span class="d-block text-gray text-small">{{ $t("options.darkMode.description") }}</span>
+					<label for="theme">
+						{{ $t("options.theme.label") }}
+						<span class="d-block text-gray text-small">{{ $t("options.theme.description") }}</span>
 					</label>
-					<div class="action">
-						<label class="switch">
-							<input type="checkbox" id="dark" v-model="options.dark" />
-							<span class="switch-label" :data-on="$t('options.switch.on')" :data-off="$t('options.switch.off')"></span> 
-							<span class="switch-handle"></span> 
-						</label>
+					<div class="action d-flex">
+						<select class="flex-grow" v-model="options.theme" id="theme">
+							<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
+								{{ $t("options.theme." + theme) }}
+							</option>
+						</select>
 					</div>
 				</div>
 				<!-- option: ordinate -->
@@ -419,17 +412,17 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { defaultColors } from "./definitions";
-import { formatBytes, localStartOfWeek } from "./utils";
-import ProjectMeta from "./parts/ProjectMeta"
+import { defaultColors } from './definitions';
+import { formatBytes, localStartOfWeek, setTheme } from './utils';
+import ProjectMeta from './parts/ProjectMeta'
 
 export default defineComponent({
-	name: "Options",
+	name: 'Options',
 	components: { ProjectMeta },
 	data () {
 		return {
 			input: {
-				address: "",
+				address: '',
 			},
 			options: (JSON.parse(JSON.stringify(this.optionsObject()))).options,
 			allAccounts: [],
@@ -448,26 +441,26 @@ export default defineComponent({
 	methods: {
 		// create options object with given values or default values
 		optionsObject (
-			dark = false,
-			ordinate = true,
-			tagColors = false,
-			liveCountUp = true,
-			autoRefresh = true,
+			theme               = 'system',
+			ordinate            = true,
+			tagColors           = false,
+			liveCountUp         = true,
+			autoRefresh         = true,
 			autoRefreshInterval = 30,
-			startOfWeek = -1,
-			addresses = "",
-			accounts = [],
-			accountColors = {},
-			selfMessages = "none",
-			leaderCount = 20,
-			cache = true
+			startOfWeek         = -1,
+			addresses           = '',
+			accounts            = [],
+			accountColors       = {},
+			selfMessages        = 'none',
+			leaderCount         = 20,
+			cache               = true,
 		) {
 			// prepare default values
 			if (startOfWeek < 0) startOfWeek = localStartOfWeek()	
 			// return options object
 			return {
 				options: {
-					dark: dark === null ? this.options.dark : dark,
+					theme: theme === null ? this.options.theme : theme,
 					ordinate: ordinate === null ? this.options.ordinate : ordinate,
 					tagColors: tagColors === null ? this.options.tagColors : tagColors,
 					liveCountUp: liveCountUp === null ? this.options.liveCountUp : liveCountUp,
@@ -490,6 +483,13 @@ export default defineComponent({
 			if (result && result.options) {
 				// merge option objects to overwrite attributes by saved ones while keeping new attributes
 				this.options = {...this.options, ...result.options}
+				// handle theme
+				setTheme(
+					this.options.theme,
+					document.body,
+					['dark', 'background-alt'],
+					['light', 'background-highlight-contrast']
+				);
 			}
 		},
 		// get all existing accounts
@@ -626,13 +626,19 @@ export default defineComponent({
 		ownOptionsPage () {
 			const uri = window.location.search.substring(1)
 			return Boolean((new URLSearchParams(uri)).get("s"))
-		}
+		},
 	},
 	watch: {
 		// save options object on each single option change
 		options: {
 			handler (newOptions) {
-				messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) })
+				messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) });
+				setTheme(
+					newOptions.theme,
+					document.body,
+					['dark', 'background-alt'],
+					['light', 'background-highlight-contrast']
+				);
 			},
 			deep: true,
 			immediate: false

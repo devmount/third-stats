@@ -95,6 +95,13 @@
       "description": "Debuxa gráficos sobre as etiquetas utilizando as cores correspondentes",
       "label": "Etiqueta Cores"
     },
+    "theme": {
+      "dark": "Escuro",
+      "description": "Cambia entre o modo escuro e claro",
+      "label": "Modo escuro",
+      "light": "Claro",
+      "system": "Sistema"
+    },
     "title": "Opcións"
   },
   "popup": {

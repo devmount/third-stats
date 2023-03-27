@@ -95,6 +95,13 @@
       "description": "Diagramme zu Schlagworten sollen die entsprechenden Schlagwortfarben nutzen ",
       "label": "Farben von Schlagworten"
     },
+    "theme": {
+      "dark": "Dunkel",
+      "description": "Auswahl eines hellen oder dunklen Farbschemas",
+      "label": "Nachtmodus",
+      "light": "Hell",
+      "system": "System"
+    },
     "title": "Einstellungen"
   },
   "popup": {
