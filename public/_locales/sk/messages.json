@@ -95,6 +95,13 @@
       "description": "Vykreslí grafy o popisoch pomocou zodpovedajúcich farieb popisov",
       "label": "Farby popisu"
     },
+    "theme": {
+      "dark": "Tmavá",
+      "description": "Prepínanie medzi tmavými a svetlými farebnými schémami",
+      "label": "Tmavý režim",
+      "light": "Svetlá",
+      "system": "Systém"
+    },
     "title": "Možnosti"
   },
   "popup": {

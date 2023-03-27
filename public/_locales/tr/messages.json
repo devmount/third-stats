@@ -95,6 +95,13 @@
       "description": "İlgili etiket renklerini kullanarak etiketler hakkında çizelgeler çizin",
       "label": "Etiket Renkleri"
     },
+    "theme": {
+      "dark": "Karanlık",
+      "description": "Koyu ve açık renk düzeni arasında geçiş yapın",
+      "label": "Karanlık Mod",
+      "light": "Işık",
+      "system": "Sistem"
+    },
     "title": "Seçenekler"
   },
   "popup": {

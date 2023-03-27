@@ -95,6 +95,13 @@
       "description": "Desenha gráficos sobre etiquetas usando as cores das etiquetas correspondentes",
       "label": "Cores de Etiquetas"
     },
+    "theme": {
+      "dark": "Escuro",
+      "description": "Alterna entre os temas claro e escuro",
+      "label": "Tema Escuro",
+      "light": "Claro",
+      "system": "Sistema"
+    },
     "title": "Opções"
   },
   "popup": {

@@ -95,6 +95,13 @@
       "description": "Dibuixa gràfics sobre les etiquetes utilitzant els colors d'etiquetes corresponents",
       "label": "Etiqueta Colors"
     },
+    "theme": {
+      "dark": "Fosc",
+      "description": "Canvia entre l'esquema de colors fosc i clar",
+      "label": "Mode fosc",
+      "light": "Clar",
+      "system": "Sistema"
+    },
     "title": "Opcions"
   },
   "popup": {

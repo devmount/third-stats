@@ -95,6 +95,13 @@
       "description": "Dibuja gráficos sobre etiquetas utilizando los colores de etiqueta correspondientes",
       "label": "Colores de etiqueta"
     },
+    "theme": {
+      "dark": "Oscuro",
+      "description": "Cambiar entre esquema de color obscuro y claro",
+      "label": "Modo obscuro",
+      "light": "Claro",
+      "system": "Sistema"
+    },
     "title": "Opciones"
   },
   "popup": {

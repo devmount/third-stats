@@ -95,6 +95,13 @@
       "description": "Rysuj wykresy dotyczące znaczników, używając odpowiednich kolorów znaczników",
       "label": "Tag Kolory"
     },
+    "theme": {
+      "dark": "Ciemny",
+      "description": "Przełączanie pomiędzy ciemnym i jasnym schematem kolorów",
+      "label": "tryb ciemny",
+      "light": "Jasny",
+      "system": "System"
+    },
     "title": "Opcje"
   },
   "popup": {

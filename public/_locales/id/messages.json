@@ -95,6 +95,13 @@
       "description": "Menggambar bagan tentang tag menggunakan warna tag yang sesuai",
       "label": "Warna Tag"
     },
+    "theme": {
+      "dark": "Gelap",
+      "description": "Beralih antara skema warna gelap dan terang",
+      "label": "Mode Gelap",
+      "light": "Terang",
+      "system": "Sistem"
+    },
     "title": "Opsi"
   },
   "popup": {

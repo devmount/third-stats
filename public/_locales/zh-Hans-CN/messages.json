@@ -95,6 +95,13 @@
       "description": "使用相应的标签颜色绘制关于标签的图表",
       "label": "标签颜色"
     },
+    "theme": {
+      "dark": "深色",
+      "description": "切换深色与浅色主题",
+      "label": "深色主题",
+      "light": "浅色",
+      "system": "系统"
+    },
     "title": "选项"
   },
   "popup": {

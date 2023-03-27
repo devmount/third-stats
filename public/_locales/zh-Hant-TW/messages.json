@@ -95,6 +95,13 @@
       "description": "使用相應的標籤顏色繪製關於標籤的圖表",
       "label": "標記顏色"
     },
+    "theme": {
+      "dark": "深色",
+      "description": "切換淺色與深色佈景主題",
+      "label": "深色模式",
+      "light": "淺色",
+      "system": "系統"
+    },
     "title": "選項"
   },
   "popup": {

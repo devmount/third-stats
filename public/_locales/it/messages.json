@@ -95,6 +95,13 @@
       "description": "Disegna grafici sui tag utilizzando i colori dei tag corrispondenti",
       "label": "Colori tag"
     },
+    "theme": {
+      "dark": "Scuro",
+      "description": "Passa dalla combinazione di colori chiari e scuri",
+      "label": "Modalità scura",
+      "light": "Chiaro",
+      "system": "Sistema"
+    },
     "title": "Opzioni"
   },
   "popup": {

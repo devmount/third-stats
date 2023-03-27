@@ -95,6 +95,13 @@
       "description": "Kreslit grafy o značkách odpovídajícími barvami",
       "label": "Barvy značek"
     },
+    "theme": {
+      "dark": "Tmavý",
+      "description": "Přepíná mezi tmavým a světlým barevným schématem",
+      "label": "Tmavý režím",
+      "light": "Světlý",
+      "system": "Systém"
+    },
     "title": "Možnosti"
   },
   "popup": {
