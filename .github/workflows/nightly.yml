@@ -6,9 +6,9 @@ name: Nightly build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   # create the build files and push them to CDN
