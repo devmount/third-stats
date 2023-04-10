@@ -5,8 +5,8 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
-		"pull-translations": "localazy download",
-		"push-translations": "localazy upload existing"
+		"getlang": "localazy download",
+		"setlang": "localazy upload existing"
 	},
 	"dependencies": {
 		"chart.js": "^4.0.1",
