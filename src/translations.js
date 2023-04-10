@@ -1,3 +1,5 @@
+import { pluralPolish, pluralUkrainian } from "@/utils.js";
+
 import ca   from '../public/_locales/ca/messages.json'         // Catalan
 import cs   from '../public/_locales/cs/messages.json'         // Czech
 import de   from '../public/_locales/de/messages.json'         // German
@@ -23,6 +25,34 @@ import uk   from '../public/_locales/uk/messages.json'         // Ukrainian
 import zhcn from '../public/_locales/zh-Hans-CN/messages.json' // Chinese (China, Simplified)
 import zhtw from '../public/_locales/zh-Hant-TW/messages.json' // Chinese (Taiwan, Traditional)
 
-export default {
-	ca, cs, de, en, es, fr, gl, hi, hu, id, it, nl, ja, pl, pt, ptbr, ru, sk, sv, th, tr, uk, zhcn, zhtw
+export const messages = {
+	ca,
+	cs,
+	de,
+	en,
+	es,
+	fr,
+	gl,
+	hi,
+	hu,
+	id,
+	it,
+	nl,
+	ja,
+	pl,
+	pt,
+	ptbr,
+	ru,
+	sk,
+	sv,
+	th,
+	tr,
+	uk,
+	zhcn,
+	zhtw,
+}
+
+export const pluralRules = {
+	"pl": pluralPolish,
+	"uk": pluralUkrainian,
 }
