@@ -17,15 +17,12 @@ app.mixin({
 
 // internationalization
 import { createI18n } from 'vue-i18n';
-import messages from "./translations";
-import { pluralPolish } from "./utils";
+import { messages, pluralRules } from "@/translations.js";
 const i18n = createI18n({
 	locale: messenger.i18n.getUILanguage(),
 	fallbackLocale: "en",
 	messages,
-	pluralRules: {
-		"pl": pluralPolish
-	},
+	pluralRules,
 });
 app.use(i18n);
 
