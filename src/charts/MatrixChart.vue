@@ -10,8 +10,8 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { Chart, color } from '../chart.config';
-import { isoDayOfWeek } from '../utils';
+import { Chart, color } from '@/chart.config.js';
+import { isoDayOfWeek } from '@/utils.js';
 
 export default defineComponent({
 	props: {

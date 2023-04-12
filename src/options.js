@@ -4,7 +4,7 @@ import Options from '@/Options.vue';
 const app = createApp(Options);
 
 // set global properties
-app.config.globalProperties.$version = process.env.VUE_APP_VERSION;
+app.config.globalProperties.$version = APP_VERSION;
 
 // internationalization
 import { createI18n } from 'vue-i18n';

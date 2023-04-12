@@ -79,7 +79,7 @@ Here is how you can set up a local development environment:
 
 1. [Clone](https://help.github.com/en/articles/cloning-a-repository) this project with Git
 2. Install dependencies by running `npm install` within the cloned directory `third-stats/`
-3. Start the development server with `npm run serve`
+3. Start the development server with `npm run dev`
 4. Open development site by going to <http://localhost:8080> in your browser
 
 Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-webextensions.readthedocs.io/en/latest/index.html). This means that some JavaScript objects won't be available in your browser as development environment. If you want to test your changes in Thunderbird, do the following:

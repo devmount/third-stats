@@ -4,13 +4,13 @@
 			<!-- header containing number of accounts and linking to stats page -->
 			<header class="d-flex gap-0-5 mb-1-5">
 				<h3 class="flex-grow">
-					<span class="mr-1">{{ $tc("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
+					<span class="mr-1">{{ $t("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
 					<span v-if="loading" class="loading"></span>
 				</h3>
 				<div
 					class="cursor-pointer tooltip tooltip-left transition-color"
 					:data-tooltip="$t('popup.openAllStats')"
-					@click.prevent="openTab('stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
+					@click.prevent="openTab('index.stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
 				>
 					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -21,7 +21,7 @@
 				<div
 					class="cursor-pointer tooltip tooltip-left transition-color"
 					:data-tooltip="$t('popup.openOptions')"
-					@click.prevent="openTab('options.html', '1')"
+					@click.prevent="openTab('index.options.html', '1')"
 				>
 					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -40,13 +40,13 @@
 					}"
 					v-for="a in accounts"
 					:key="a.id"
-					@click.prevent="openTab('stats.html', a.id)"
+					@click.prevent="openTab('index.stats.html', a.id)"
 				>
 					<div class="position-relative z-5">
 						<h4>{{ a.name }}</h4>
 						<div class="text-small text-secondary">
-							{{ $tc("popup.nFolders", a.folderCount, [a.folderCount]) }}
-							<div v-if="a.hasOwnProperty('messageCount')">{{ $tc("popup.nMessages", a.messageCount, [a.messageCount]) }}</div>
+							{{ $t("popup.nFolders", a.folderCount, [a.folderCount]) }}
+							<div v-if="a.hasOwnProperty('messageCount')">{{ $t("popup.nMessages", a.messageCount, [a.messageCount]) }}</div>
 						</div>
 					</div>
 					<LineChart
@@ -70,11 +70,9 @@
 
 <script>
 import { defineComponent } from 'vue';
-
-// internal components
-import { traverseAccount, setTheme } from "./utils";
-import LineChart from "./charts/LineChart";
-import ProjectMeta from "./parts/ProjectMeta";
+import { traverseAccount, setTheme } from "@/utils.js";
+import LineChart from "@/charts/LineChart.vue";
+import ProjectMeta from "@/parts/ProjectMeta.vue";
 
 export default defineComponent({
 	name: "Popup",

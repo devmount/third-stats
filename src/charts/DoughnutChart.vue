@@ -14,7 +14,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { Chart } from '../chart.config'
+import { Chart } from '@/chart.config.js';
 
 export default defineComponent({
 	props: {

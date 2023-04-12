@@ -4,7 +4,6 @@
 
 <script>
 import { defineComponent } from 'vue';
-
 export default defineComponent({
   props: {
     date: Number
