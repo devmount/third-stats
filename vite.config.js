@@ -7,10 +7,10 @@ export default defineConfig({
 	plugins: [
 		vue(),
 		VueI18nPlugin({
-      include: resolve(__dirname, './public/_locales/**/messages.json'),
+			include: resolve(__dirname, './public/_locales/**/messages.json'),
 			strictMessage: false,
 			// escapeHtml: true,
-    })
+		})
 	],
 	define: {
 		APP_VERSION: JSON.stringify(process.env.npm_package_version),
