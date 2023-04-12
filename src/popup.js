@@ -4,7 +4,7 @@ import Popup from '@/Popup.vue';
 const app = createApp(Popup);
 
 // set global properties
-app.config.globalProperties.$version = process.env.VUE_APP_VERSION;
+app.config.globalProperties.$version = APP_VERSION;
 
 // internationalization
 import { createI18n } from 'vue-i18n';

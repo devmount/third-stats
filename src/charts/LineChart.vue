@@ -16,7 +16,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { Chart, transparentGradientLine } from '../chart.config'
+import { Chart, transparentGradientLine } from '@/chart.config.js';
 
 export default defineComponent({
 	props: {

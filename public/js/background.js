@@ -22,7 +22,7 @@ function main() {
           }
         ],
         title: 'ThirdStats',
-        url: '../stats.html'
+        url: '../index.stats.html'
       }
     );
   }

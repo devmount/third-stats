@@ -126,7 +126,7 @@
 					</div>
 					<!-- contact selection -->
 					<div class="filter-contact d-flex">
-						<label for="contact" class="align-center text-gray p-0-5">{{ $tc("stats.contact", 1) }}</label>
+						<label for="contact" class="align-center text-gray p-0-5">{{ $t("stats.contact", 1) }}</label>
 						<div class="d-flex align-stretch tooltip-bottom">
 							<select
 								id="contact"
@@ -173,7 +173,7 @@
 					<div
 						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1"
 						:data-tooltip="$t('popup.openOptions')"
-						@click.prevent="openTab('options.html', '1')"
+						@click.prevent="openTab('index.options.html', '1')"
 					>
 						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -765,7 +765,7 @@
 							<!-- folders emails received -->
 							<DoughnutChart
 								v-if="tabs.folders.foldersDistribution"
-								:info="{ number: foldersChartData.labels.length, label: $tc('stats.nonEmptyFolders', foldersChartData.labels.length) }"
+								:info="{ number: foldersChartData.labels.length, label: $t('stats.nonEmptyFolders', foldersChartData.labels.length) }"
 								:datasets="foldersChartData.datasets"
 								:labels="foldersChartData.labels"
 							/>
@@ -821,14 +821,14 @@
 import { defineComponent } from 'vue';
 
 // internal components
-import { accentColors, defaultColors } from "./definitions";
-import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek, startOfToday, setTheme } from "./utils";
-import LineChart from "./charts/LineChart"
-import BarChart from "./charts/BarChart"
-import MatrixChart from "./charts/MatrixChart"
-import DoughnutChart from "./charts/DoughnutChart"
-import LiveAge from "./parts/LiveAge"
-import ProjectMeta from "./parts/ProjectMeta"
+import { accentColors, defaultColors } from "@/definitions.js";
+import { queryMessages, traverseAccount, extractEmailAddress, weekNumber, quarterNumber, yyyymmdd, weeksBetween, localStartOfWeek, startOfToday, setTheme } from "@/utils.js";
+import LineChart from "@/charts/LineChart.vue";
+import BarChart from "@/charts/BarChart.vue";
+import MatrixChart from "@/charts/MatrixChart.vue";
+import DoughnutChart from "@/charts/DoughnutChart.vue";
+import LiveAge from "@/parts/LiveAge.vue";
+import ProjectMeta from "@/parts/ProjectMeta.vue";
 
 // helper class for object generation
 class NumberedObject {
@@ -994,7 +994,7 @@ export default defineComponent({
 				leaderCount: 20,
 				cache: true,
 			},
-			publicPath: process.env.BASE_URL
+			publicPath: import.meta.env.BASE_URL
 		}
 	},
 	async created () {
@@ -1978,7 +1978,7 @@ export default defineComponent({
 				let data = []
 				labels.map(y => data.push(y in d ? d[y] : 0))
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2041,7 +2041,7 @@ export default defineComponent({
 					}
 				}
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2104,7 +2104,7 @@ export default defineComponent({
 					}
 				}
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2157,7 +2157,7 @@ export default defineComponent({
 					data.push(y in d && w in d[y] ? d[y][w] : 0)
 				})
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2194,7 +2194,7 @@ export default defineComponent({
 				const d = this.comparison.daytimeData[a.id]
 				// add dataset for this account
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: Object.values(d),
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2246,7 +2246,7 @@ export default defineComponent({
 					data.push(data.shift())
 				// add dataset for this account
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: data,
 					borderColor: this.preferences.accountColors[a.id]
 				})
@@ -2282,7 +2282,7 @@ export default defineComponent({
 			this.accounts.forEach((a) => {
 				// add dataset for this account
 				datasets.push({
-					label: this.$tc("popup.nMessages", 2) + " - " + a.name,
+					label: this.$t("popup.nMessages", 2) + " - " + a.name,
 					data: Object.values(this.comparison.monthData[a.id]),
 					borderColor: this.preferences.accountColors[a.id]
 				})

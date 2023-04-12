@@ -13,7 +13,7 @@
 		}
 	},
 	"browser_action": {
-		"default_popup": "popup.html",
+		"default_popup": "index.popup.html",
 		"default_title": "ThirdStats",
 		"default_icon": "./icon.svg"
 	},
@@ -23,7 +23,7 @@
 		]
 	},
 	"options_ui": {
-		"page": "./options.html",
+		"page": "./index.options.html",
 		"open_in_tab": false,
 		"browser_style": true
 	},

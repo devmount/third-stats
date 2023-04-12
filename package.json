@@ -3,8 +3,9 @@
 	"version": "1.10.0",
 	"private": false,
 	"scripts": {
-		"serve": "vue-cli-service serve",
-		"build": "vue-cli-service build",
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview",
 		"getlang": "localazy download",
 		"setlang": "localazy upload existing"
 	},
@@ -12,23 +13,17 @@
 		"chart.js": "^4.0.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"chartjs-chart-matrix": "^2.0.1",
-		"date-fns": "^2.29.2",
 		"vue": "^3.2.38",
 		"vue-i18n": "^9.2.2"
 	},
 	"devDependencies": {
-		"@intlify/vue-i18n-loader": "^4.2.0",
-		"@vue/cli-plugin-babel": "^5.0.8",
-		"@vue/cli-service": "^5.0.8",
+		"@intlify/unplugin-vue-i18n": "^0.10.0",
+		"@vitejs/plugin-vue": "^4.1.0",
 		"stylus": "^0.59.0",
-		"stylus-loader": "^7.0.0"
+		"stylus-loader": "^7.0.0",
+		"vite": "^4.2.1"
 	},
 	"browserslist": [
 		"Firefox ESR"
-	],
-	"babel": {
-		"presets": [
-			"@vue/cli-plugin-babel/preset"
-		]
-	}
+	]
 }

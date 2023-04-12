@@ -412,9 +412,9 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { defaultColors } from './definitions';
-import { formatBytes, localStartOfWeek, setTheme } from './utils';
-import ProjectMeta from './parts/ProjectMeta'
+import { defaultColors } from '@/definitions.js';
+import { formatBytes, localStartOfWeek, setTheme } from '@/utils.js';
+import ProjectMeta from '@/parts/ProjectMeta.vue'
 
 export default defineComponent({
 	name: 'Options',
@@ -427,7 +427,7 @@ export default defineComponent({
 			options: (JSON.parse(JSON.stringify(this.optionsObject()))).options,
 			allAccounts: [],
 			cacheSize: -1,
-			publicPath: process.env.BASE_URL
+			publicPath: import.meta.env.BASE_URL
 		}
 	},
 	async created () {
