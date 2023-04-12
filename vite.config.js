@@ -9,7 +9,7 @@ export default defineConfig({
 		VueI18nPlugin({
       include: resolve(__dirname, './public/_locales/**/messages.json'),
 			strictMessage: false,
-			escapeHtml: true,
+			// escapeHtml: true,
     })
 	],
 	define: {
