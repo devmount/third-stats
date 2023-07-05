@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 17
+    - name: Use Node.js 18
       uses: actions/setup-node@v1
       with:
-        node-version: 17.x
+        node-version: 18.x
     - name: Get Timestamp
       id: timestamp
       run: |
