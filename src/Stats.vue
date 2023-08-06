@@ -1206,6 +1206,8 @@ export default defineComponent({
 				accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, self.preferences.leaderCount)
 				accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, self.preferences.leaderCount)
 				accountData.contacts.junk = sortAndLimitObject(accountData.contacts.junk, self.preferences.leaderCount)
+				// post processing: sort and reduce size of tags to configured limit
+				accountData.tags = sortAndLimitObject(accountData.tags, self.preferences.leaderCount);
 				// post processing: sort folders
 				accountData.folders.received = sortAndLimitObject(accountData.folders.received)
 				accountData.folders.sent = sortAndLimitObject(accountData.folders.sent)
@@ -1550,7 +1552,7 @@ export default defineComponent({
 				sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])))
 				sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])))
 				// tags
-				sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])))
+				sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])), this.preferences.leaderCount)
 
 				// show summed stats or keep current view if processing was invoked automatically
 				this.display = auto && displayedAccountKey ? accountsData[displayedAccountKey] : sum;
