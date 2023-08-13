@@ -34,6 +34,7 @@ const defaultOptions = {
 	selfMessages:        'none',
 	leaderCount:         20,
 	cache:               true,
+	// startofWeek:
 };
 
 // tab navigation for stats page
