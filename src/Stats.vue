@@ -345,7 +345,7 @@
 					<div class="tab-area">
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsTotal"
+								v-for="(id, key) in tabsTotal"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom border-bottom-accent2"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -450,7 +450,7 @@
 							/>
 							<!-- emails per month over total time -->
 							<LineChart
-								v-if="tabTotal === tabsTotal.month && !preferences.sections.total.comparison"
+								v-if="tabTotal === tabsTotal.months && !preferences.sections.total.comparison"
 								:datasets="monthsChartData.datasets"
 								:labels="monthsChartData.labels"
 								:ordinate="options.ordinate"
@@ -458,7 +458,7 @@
 								:unfinished="active.period.end == null"
 							/>
 							<LineChart
-								v-if="tabTotal === tabsTotal.month && preferences.sections.total.comparison"
+								v-if="tabTotal === tabsTotal.months && preferences.sections.total.comparison"
 								:datasets="monthsComparedChartData.datasets"
 								:labels="monthsComparedChartData.labels"
 								:ordinate="options.ordinate"
@@ -504,7 +504,7 @@
 						</div>
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsActivity"
+								v-for="(id, key) in tabsActivity"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -550,7 +550,7 @@
 					<div class="tab-area">
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsOnedim"
+								v-for="(id, key) in tabsOnedim"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -640,7 +640,7 @@
 					<div class="tab-area">
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsTwodim"
+								v-for="(id, key) in tabsTwodim"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -681,7 +681,7 @@
 					<div class="tab-area">
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsLeader"
+								v-for="(id, key) in tabsLeader"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -761,7 +761,7 @@
 					<div class="tab-area" v-if="display.folders">
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsFolders"
+								v-for="(id, key) in tabsFolders"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -790,7 +790,7 @@
 					<div class="tab-area" v-if="display.tags">
 						<ul class="tab">
 							<li
-								v-for="(key, id) in tabsTags"
+								v-for="(id, key) in tabsTags"
 								:key="key"
 								class="tab-item cursor-default tooltip tooltip-bottom"
 								:data-tooltip="t('stats.charts.' + key + '.description')"
@@ -939,12 +939,6 @@ const progress = reactive({
 	max: 0,     // upper limit for progress indicator
 });
 
-// processed data to show; data structure see initData
-const display = ref({});
-
-// subset of processed data to show data for account comparison view; data structure see initComparisonData
-const comparison = ref({});
-
 // preferences for stats page configuration
 const preferences = reactive({
 	sections: {
@@ -962,7 +956,7 @@ const preferences = reactive({
 });
 
 // initially load default add-on options
-const options = reactive(defaultOptions);
+const options = reactive({...defaultOptions});
 
 // basic data structure to display stats numbers and charts
 // used for single and multi-account display
@@ -1030,6 +1024,9 @@ const initData = () => ({
 	tags: {},
 });
 
+// processed data to show; data structure see initData
+const display = ref(initData());
+
 // basic data structure to display charts
 // used for comparing account data if multiple accounts are active
 const initComparisonData = () => ({
@@ -1041,6 +1038,8 @@ const initComparisonData = () => ({
 	weekdayData: {},
 	monthData: {},
 });
+// subset of processed data to show data for account comparison view; data structure see initComparisonData
+const comparison = ref(initComparisonData());
 
 // adds a listener for storage change events
 // makes reactions on for option changes possible
@@ -1139,8 +1138,8 @@ const getAccounts = async () => {
 	// store identities of all activated accounts
 	let activeIdentities = list.reduce((p,c) => p.concat(c.identities.map(i => i.email.toLowerCase())), []);
 	// add local identities if any local account is active
-	if (list.some(a => a.type == "none")) {
-		options.addresses.map(l => activeIdentities.push(l.toLowerCase()));
+	if (options.addresses && list.some(a => a.type == "none")) {
+		options.addresses.forEach(l => activeIdentities.push(l.toLowerCase()));
 	}
 	identities.value = activeIdentities;
 	// extract account id from url GET parameter
@@ -1154,84 +1153,84 @@ const getAccounts = async () => {
 // and update given <data> object
 const analyzeMessage = (data, m, identityList) => {
 	// check filter:contact
-	if (active.contact && !contactInvolved(active.contact, m)) return
+	if (active.contact && !contactInvolved(active.contact, m)) return;
 	// check for self messages, if exclusion is enabled
 	if (options.selfMessages && options.selfMessages != "none") {
-		const ids = options.selfMessages == "sameAccount" ? identityList : identities.value
-		if (isSelfMessage(m, ids)) return
+		const ids = options.selfMessages == "sameAccount" ? identityList : identities.value;
+		if (isSelfMessage(m, ids)) return;
 	}
 	// now start analyses
-	let type = ""
-	const author = extractEmailAddress(m.author)
+	let type = "";
+	const author = extractEmailAddress(m.author);
 	// numbers
-	data.numbers.total++
-	if (m.read === false) data.numbers.unread++
+	data.numbers.total++;
+	if (m.read === false) data.numbers.unread++;
 	if (identityList.includes(author)) {
-		data.numbers.sent++
-		type = "sent"
+		data.numbers.sent++;
+		type = "sent";
 	} else {
-		data.numbers.received++
-		type = "received"
+		data.numbers.received++;
+		type = "received";
 	}
-	if (m.junk) data.numbers.junk++
-	data.numbers.junkScore += m.junkScore
+	if (m.junk) data.numbers.junk++;
+	data.numbers.junkScore += m.junkScore;
 	// calculate starting date (= date of oldest email)
-	const start = new Date(data.meta.start)
+	const start = new Date(data.meta.start);
 	if (m.date && m.date.getTime() > 0 && m.date.getTime() < start.getTime()) {
-		data.meta.start = m.date
+		data.meta.start = m.date;
 	}
 	// years
-	const y = m.date.getFullYear()
+	const y = m.date.getFullYear();
 	if (!(y in data.yearsData[type])) {
-		data.yearsData[type][y] = 1
+		data.yearsData[type][y] = 1;
 	} else {
-		data.yearsData[type][y]++
+		data.yearsData[type][y]++;
 	}
 	// quarters
-	const qn = quarterNumber(m.date)
+	const qn = quarterNumber(m.date);
 	if (!(y in data.quartersData[type])) {
-		data.quartersData[type][y] = {}
-		data.quartersData[type][y][qn] = 1
+		data.quartersData[type][y] = {};
+		data.quartersData[type][y][qn] = 1;
 	} else {
 		if (!(qn in data.quartersData[type][y])) {
-			data.quartersData[type][y][qn] = 1
+			data.quartersData[type][y][qn] = 1;
 		} else {
-			data.quartersData[type][y][qn]++
+			data.quartersData[type][y][qn]++;
 		}
 	}
 	// months
-	const mo = m.date.getMonth()
+	const mo = m.date.getMonth();
 	if (!(y in data.monthsData[type])) {
-		data.monthsData[type][y] = {}
-		data.monthsData[type][y][mo] = 1
+		data.monthsData[type][y] = {};
+		data.monthsData[type][y][mo] = 1;
 	} else {
 		if (!(mo in data.monthsData[type][y])) {
-			data.monthsData[type][y][mo] = 1
+			data.monthsData[type][y][mo] = 1;
 		} else {
-			data.monthsData[type][y][mo]++
+			data.monthsData[type][y][mo]++;
 		}
 	}
 	// weeks
-	const wn = weekNumber(m.date)
-	const ywn = wn == 53 && mo == 0 ? y-1 : y // adjust year for first days of January that are before week 1
+	const wn = weekNumber(m.date);
+	const ywn = wn == 53 && mo == 0 ? y-1 : y; // adjust year for first days of January that are before week 1
 	if (!(ywn in data.weeksData[type])) {
-		data.weeksData[type][ywn] = {}
-		data.weeksData[type][ywn][wn] = 1
+		data.weeksData[type][ywn] = {};
+		data.weeksData[type][ywn][wn] = 1;
 	} else {
 		if (!(wn in data.weeksData[type][ywn])) {
-			data.weeksData[type][ywn][wn] = 1
+			data.weeksData[type][ywn][wn] = 1;
 		} else {
-			data.weeksData[type][ywn][wn]++
+			data.weeksData[type][ywn][wn]++;
 		}
 	}
 	// daytime
-	const dt = m.date.getHours()
-	data.daytimeData[type][dt]++
+	const dt = m.date.getHours();
+	data.daytimeData[type][dt]++;
 	// weekday
-	const wd = m.date.getDay()
-	data.weekdayData[type][wd]++
+	const wd = m.date.getDay();
+	data.weekdayData[type][wd]++;
 	// month
-	data.monthData[type][mo]++
+	data.monthData[type][mo]++;
 	// dates
 	const iso = m.date.toISOString().substr(0, 10);
 	if (!(iso in data.dateData[type])) {
@@ -1240,24 +1239,24 @@ const analyzeMessage = (data, m, identityList) => {
 		data.dateData[type][iso]++;
 	}
 	// weekday per hour
-	data.weekdayPerHourData[type][wd][dt]++
+	data.weekdayPerHourData[type][wd][dt]++;
 	// contacts (leaderboards)
 	switch (type) {
 		case 'sent':
-			const recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase())
+			const recipients = m.recipients.map(r => extractEmailAddress(r).toLowerCase());
 			recipients.forEach(r => {
 				if (!(r in data.contacts.sent)) {
-					data.contacts.sent[r] = 1
+					data.contacts.sent[r] = 1;
 				} else {
-					data.contacts.sent[r]++
+					data.contacts.sent[r]++;
 				}
-			})
+			});
 			break;
 		case 'received':
 			if (!(author in data.contacts.received)) {
-				data.contacts.received[author] = 1
+				data.contacts.received[author] = 1;
 			} else {
-				data.contacts.received[author]++
+				data.contacts.received[author]++;
 			}
 			break;
 		default:
@@ -1265,30 +1264,30 @@ const analyzeMessage = (data, m, identityList) => {
 	}
 	if (m.junk) {
 		if (!(author in data.contacts.junk)) {
-			data.contacts.junk[author] = 1
+			data.contacts.junk[author] = 1;
 		} else {
-			data.contacts.junk[author]++
+			data.contacts.junk[author]++;
 		}
 	}
 	// folders
-	const f = m.folder.name
+	const f = m.folder.name;
 	if (!(f in data.folders[type])) {
-		data.folders[type][f] = 1
+		data.folders[type][f] = 1;
 	} else {
-		data.folders[type][f]++
+		data.folders[type][f]++;
 	}
 	// star
-	if (m.flagged === true) data.numbers.starred++
+	if (m.flagged === true) data.numbers.starred++;
 	// tags
 	if (m.tags.length > 0) {
-		data.numbers.tagged++
+		data.numbers.tagged++;
 		m.tags.forEach(tag => {
 			if (!(tag in data.tags)) {
-				data.tags[tag] = 1
+				data.tags[tag] = 1;
 			} else {
-				data.tags[tag]++
+				data.tags[tag]++;
 			}
-		})
+		});
 	}
 	// live update numbers section if corresponding option is enabled
 	if (options.liveCountUp) display.value.numbers = data.numbers;
@@ -1299,7 +1298,7 @@ const analyzeMessage = (data, m, identityList) => {
 const processMessages = async (data, folder, identityList) => {
 	if (folder) {
 		for await (let m of queryMessages(folder, active.period.start, active.period.end)) {
-			analyzeMessage(data, m, identityList)
+			analyzeMessage(data, m, identityList);
 		}
 	}
 };
@@ -1683,17 +1682,15 @@ const formatPeriod = (key) => {
 // cycles forward through numbers tabs
 // jumps to first tab if last tab reached
 const nextNumbersUnit = () => {
-	const tabs = Object.keys(tabsNumbers);
-	const current = tabNumbers.value-1;
-	tabNumbers.value = tabsNumbers[(tabs.indexOf(current)+1)%tabs.length];
+	const tabsCount = Object.keys(tabsNumbers).length;
+	tabNumbers.value = (tabNumbers.value % tabsCount) + 1;
 };
 
 // cycles backwards through numbers tabs
 // jumps to last tab if first tab reached
 const previousNumbersUnit = () => {
-	const tabs = Object.keys(tabsNumbers);
-	const current = tabNumbers.value-1;
-	tabNumbers.value = tabsNumbers[(tabs.length+tabs.indexOf(current)-1)%tabs.length];
+	const tabsCount = Object.keys(tabsNumbers).length;
+	tabNumbers.value = (((tabNumbers.value-2 % tabsCount) + tabsCount) % tabsCount) + 1;
 };
 
 // first date in currently displayed data
@@ -1972,7 +1969,7 @@ const monthsChartData = computed(() => {
 			// trim months after end date
 			if (y == maxYear.value && m > maxDate.value.getMonth()) break;
 			// organize labels and data
-			labels.push(y + " " + monthNames[m]);
+			labels.push(y + " " + monthNames(locale)[m]);
 			dr.push(y in r && m in r[y] ? r[y][m] : 0);
 			ds.push(y in s && m in s[y] ? s[y][m] : 0);
 		}
@@ -2007,7 +2004,7 @@ const monthsComparedChartData = computed(() => {
 				// trim months after end date
 				if (y == maxYear.value && m > maxDate.value.getMonth()) break;
 				// generate labels in first iteration
-				if (i == 0) labels.push(y + " " + monthNames[m]);
+				if (i == 0) labels.push(y + " " + monthNames(locale)[m]);
 				// fill all data values, default to 0 if not existing for this combination
 				data.push(y in d && m in d[y] ? d[y][m] : 0);
 			}
@@ -2120,7 +2117,7 @@ const daytimeComparedChartData = computed(() => {
 const weekdayChartData = computed(() => {
 	const r = Object.values(display.value.weekdayData.received);
 	const s = Object.values(display.value.weekdayData.sent);
-	let labels = [...weekdayNames];
+	let labels = [...weekdayNames(locale)];
 	// TODO: start week with user defined day of week
 	for (let d = 0; d < 1/*options.startOfWeek*/; d++) {
 		r.push(r.shift());
@@ -2146,7 +2143,7 @@ const weekdayChartData = computed(() => {
 // prepare comparison data for weekday bar chart
 const weekdayComparedChartData = computed(() => {
 	let datasets = [];
-	let labels = [...weekdayNames];
+	let labels = [...weekdayNames(locale)];
 	// TODO: labels: start week with user defined day of week
 	for (let d = 0; d < 1/*options.startOfWeek*/; d++) {
 		labels.push(labels.shift());
@@ -2187,7 +2184,7 @@ const monthChartData = computed(() => {
 				borderColor: accentColors[1],
 			},
 		],
-		labels: monthNames,
+		labels: monthNames(locale),
 	};
 });
 // prepare comparison data for month bar chart
@@ -2204,7 +2201,7 @@ const monthComparedChartData = computed(() => {
 	});
 	return {
 		datasets: datasets,
-		labels: monthNames,
+		labels: monthNames(locale),
 	};
 });
 
@@ -2362,7 +2359,7 @@ const tagsChartDataExists = computed(() => {
 // merges received and sent contacts to a distinct list for contacts filter
 const contacts = computed(() => {
 	const r = display.value.contacts.received, s = display.value.contacts.sent;
-	return Array.from(new Set([...Object.keys(r), ...Object.keys(s)]));
+	return Array.from(new Set([...Object.keys(r), ...Object.keys(s)])).sort();
 });
 
 // return account colors of all active accounts comma separated as single string
@@ -2441,9 +2438,6 @@ watch(
 onMounted(async () => {
 	// set initial tab title
 	document.title = "ThirdStats";
-	// initially reset displayed data
-	display.value = initData();
-	comparison.value = initComparisonData();
 	// listen for option changes in local storage
 	addStorageListener();
 	// get stored options
