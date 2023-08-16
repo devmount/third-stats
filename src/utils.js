@@ -314,6 +314,16 @@ const setTheme = (theme, element=document.documentElement, darkClasses=['dark'],
 	}
 };
 
+// open given url in new tab
+// appends GET parameter if given
+const openTab = (url, get="") => {
+	messenger.tabs.create({
+		active: true,
+		url: get ? url + "?s=" + get : url,
+	});
+};
+
+
 export {
 	arrayContainsArray,
 	contactInvolved,
@@ -326,6 +336,7 @@ export {
 	monthNames,
 	NumberedObject,
 	oneDigit,
+	openTab,
 	pluralPolish,
 	pluralUkrainian,
 	quarterNumber,

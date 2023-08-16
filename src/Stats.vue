@@ -173,7 +173,7 @@
 					<div
 						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1"
 						:data-tooltip="t('popup.openOptions')"
-						@click.prevent="openTab('index.options.html', '1')"
+						@click.prevent="openTab('index.options.html')"
 					>
 						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -861,6 +861,7 @@ import {
 	monthNames,
 	NumberedObject,
 	oneDigit,
+	openTab,
 	quarterNumber,
 	queryMessages,
 	setTheme,
@@ -1734,12 +1735,6 @@ const exportJson = () => {
 		'filename': yyyymmdd(new Date()) + "_third-stats-export.json",
 		'saveAs': true
 	}).then(() => {}, () => {}); // TODO: [alert] Successfully started download | Download aborted
-};
-
-// open given url in new tab
-// appends GET parameter if given
-const openTab = (url, get="") => {
-	messenger.tabs.create({ active: true, url: get ? "?s=" + get : url });
 };
 
 // tooltip for account comparison button
