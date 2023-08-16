@@ -1043,7 +1043,7 @@ const initComparisonData = () => ({
 const comparison = ref(initComparisonData());
 
 // adds a listener for storage change events
-// makes reactions on for option changes possible
+// makes reactions on option changes possible
 const addStorageListener = () => {
 	messenger.storage.onChanged.addListener((result, area) => {
 		if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
@@ -1098,7 +1098,12 @@ const getOptions = async () => {
 	const result = await messenger.storage.local.get("options");
 	// only load options if they have been set, otherwise default settings will be kept
 	if (result && result.options) {
-		options.dark = setTheme(result.options.theme ?? defaultOptions.theme);
+		options.dark = setTheme(
+			result.options.theme ?? defaultOptions.theme,
+			document.body,
+			['dark', 'background-normal'],
+			['light', 'background-highlight-contrast']
+		);
 		options.ordinate = result.options.ordinate ?? defaultOptions.ordinate;
 		options.tagColors = result.options.tagColors ?? defaultOptions.tagColors;
 		options.liveCountUp = result.options.liveCountUp ?? defaultOptions.liveCountUp;
