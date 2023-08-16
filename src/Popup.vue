@@ -21,7 +21,7 @@
 				<div
 					class="cursor-pointer tooltip tooltip-left transition-color"
 					:data-tooltip="t('popup.openOptions')"
-					@click.prevent="openTab('index.options.html', '1')"
+					@click.prevent="openTab('index.options.html')"
 				>
 					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -70,7 +70,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
-import { traverseAccount, setTheme } from "@/utils.js";
+import { traverseAccount, setTheme, openTab } from "@/utils.js";
 import { useI18n } from 'vue-i18n';
 import LineChart from "@/charts/LineChart.vue";
 import ProjectMeta from "@/parts/ProjectMeta.vue";
@@ -143,16 +143,6 @@ const getAccounts = async () => {
 		}
 	}));
 	accounts.value = accountList;
-};
-
-// open given url in new tab
-// appends GET parameter
-const openTab = (url, get="") => {
-	if (get) url += "?s=" + get
-	messenger.tabs.create({
-		active: true,
-		url: url
-	})
 };
 
 onMounted(async () => {

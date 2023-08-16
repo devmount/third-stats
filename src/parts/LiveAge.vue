@@ -1,35 +1,40 @@
 <template>
-	<span v-html="$t('stats.dataCollected', ['<span class=\'text-normal\'>' + timePassedSinceDataRetrieval + '</span>'])"></span>
+	<span
+		v-html="t('stats.dataCollected', ['<span class=\'text-normal\'>' + timePassedSinceDataRetrieval + '</span>'])"
+	></span>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-export default defineComponent({
-  props: {
-    date: Number
-	},
-	data () {
-		return {
-			now: Date.now(),
-			repeater: null
-		}
-	},
-	created () {
-		// update current timestamp
-		this.repeater = setInterval(() => { this.now = Date.now() }, 1000)
-	},
-	beforeDestroy () {
-		clearInterval(this.repeater)
-	},
-	computed: {
-		// calculates the time between current and given timestamp with human readable time units
-		timePassedSinceDataRetrieval () {
-			let secondsPast = (this.now - this.date) / 1000
-			if (secondsPast < 60) return parseInt(secondsPast) + this.$t("stats.abbreviations.second")
-			if (secondsPast < 3600) return parseInt(secondsPast/60) + this.$t("stats.abbreviations.minute")
-			if (secondsPast <= 86400) return parseInt(secondsPast/3600) + this.$t("stats.abbreviations.hour")
-			if (secondsPast > 86400) return parseInt(secondsPast/86400) + this.$t("stats.abbreviations.day")
-		},
+<script setup>
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
+const props = defineProps({
+	// date to show live aging for
+	date: {
+		type: Number,
 	}
+});
+
+const now = ref(Date.now());
+const repeater = ref();
+
+onMounted(() => {
+	// update timestamp every second
+	repeater.value = setInterval(() => { now.value = Date.now() }, 1000);
+});
+
+onBeforeUnmount(() => {
+	clearInterval(repeater.value);
+});
+
+// calculates the time between current and given timestamp with human readable time units
+const timePassedSinceDataRetrieval = computed(() => {
+	const secondsPast = (now.value - props.date) / 1000;
+	if (secondsPast < 60)     return parseInt(secondsPast) + t("stats.abbreviations.second");
+	if (secondsPast < 3600)   return parseInt(secondsPast/60) + t("stats.abbreviations.minute");
+	if (secondsPast <= 86400) return parseInt(secondsPast/3600) + t("stats.abbreviations.hour");
+	if (secondsPast > 86400)  return parseInt(secondsPast/86400) + t("stats.abbreviations.day");
 });
 </script>

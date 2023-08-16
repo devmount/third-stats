@@ -8,129 +8,137 @@
 </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
+import { computed, onMounted, watch } from 'vue';
 import { Chart, transparentGradientBar } from '@/chart.config.js';
 
-export default defineComponent({
-	props: {
-		title: String,
-		description: String,
-		labels: Array,
-		datasets: Array,
-		horizontal: Boolean,
-		ordinate: Boolean,
-	},
-	data () {
-		return {
-			id: Math.random().toString(36).substring(7)
-		}
-	},
-	mounted () {
-		this.chart = null;
-		if (this.labels && this.datasets) {
-			this.draw()
-		}
-	},
-	computed: {
-		processedDatasets () {
-			let datasets = this.datasets
-			datasets.map(d => {
-				d.backgroundColor = context => {
-					const { ctx, chartArea } = context.chart;
-					if (!chartArea) return null;
-					return transparentGradientBar(ctx,
-						chartArea,
-						Array.isArray(d.borderColor) ? d.borderColor[context.dataIndex] : d.borderColor,
-						this.horizontal
-					);
+let chart = null;
+const id = Math.random().toString(36).substring(7);
+
+const props = defineProps({
+	title: String,
+	description: String,
+	labels: Array,
+	datasets: Array,
+	horizontal: Boolean,
+	ordinate: Boolean,
+});
+
+
+const processedDatasets = computed(() => {
+	const data = props.datasets;
+	data.map(d => {
+		d.backgroundColor = context => {
+			const { ctx, chartArea } = context.chart;
+			if (!chartArea) return null;
+			return transparentGradientBar(
+				ctx,
+				chartArea,
+				Array.isArray(d.borderColor) ? d.borderColor[context.dataIndex] : d.borderColor,
+				props.horizontal
+			);
+		};
+	});
+	return data;
+});
+
+const draw = () => {
+	chart = new Chart(id, {
+		type: "bar",
+		data: {
+			datasets: processedDatasets.value,
+			labels: props.labels,
+		},
+		options: {
+			indexAxis: props.horizontal ? 'y' : 'x',
+			responsive: true,
+			maintainAspectRatio: false,
+			maxBarThickness: 50,
+			datasets: {
+				bar: {
+					borderWidth: props.horizontal ? { right: 2 } : { top: 2 },
+					barPercentage: 1,
+					categoryPercentage: .6,
 				}
-			})
-			return datasets
-		}
-	},
-	methods: {
-		draw () {
-			this.chart = new Chart(this.id, {
-				type: "bar",
-				data: {
-					datasets: this.processedDatasets,
-					labels: this.labels,
-				},
-				options: {
-					indexAxis: this.horizontal ? 'y' : 'x',
-					responsive: true,
-					maintainAspectRatio: false,
-					maxBarThickness: 50,
-					datasets: {
-						bar: {
-							borderWidth: this.horizontal ? { right: 2 } : { top: 2 },
-							barPercentage: 1,
-							categoryPercentage: .6,
-						}
-					},
-					plugins: {
-						tooltip: {
-							displayColors: true,
-							intersect: true,
-							position: 'nearest',
-							callbacks: {
-								label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
-								labelColor: context => {
-									return {
-										borderWidth: 2,
-										borderColor: context.dataset.borderColor,
-										backgroundColor: context.dataset.borderColor + '33',
-									};
-								}
-							}
-						}
-					},
-					scales: {
-						x: {
-							stacked: false,
-							grid: {
-								display: false,
-								drawBorder: false,
-							},
-							ticks: {
-								maxRotation: 0,
-								padding: this.horizontal ? 0 : 10,
-							},
-							beginAtZero: true
-						},
-						y: {
-							display: this.horizontal || this.ordinate,
-							stacked: false,
-							grid: {
-								display: false,
-								drawBorder: false,
-							},
-							ticks: {
-								maxRotation: 0,
-								padding: this.horizontal ? 0 : 10,
-							},
-							beginAtZero: true
+			},
+			plugins: {
+				tooltip: {
+					displayColors: true,
+					intersect: true,
+					position: 'nearest',
+					callbacks: {
+						label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
+						labelColor: context => {
+							return {
+								borderWidth: 2,
+								borderColor: context.dataset.borderColor,
+								backgroundColor: context.dataset.borderColor + '33',
+							};
 						}
 					}
 				}
-			})
-		},
-	},
-	watch: {
-		// update chart if data changes in an animatable way
-		datasets () {
-			this.chart.data.labels = this.labels
-			this.chart.data.datasets = this.processedDatasets
-			this.chart.update()
-		},
-		// update chart if ordinate display changes
-		ordinate (newValue) {
-			this.chart.options.scales.y.display = this.horizontal || newValue
-			this.chart.update()
+			},
+			scales: {
+				x: {
+					border: {
+						display: false,
+					},
+					stacked: false,
+					grid: {
+						display: false,
+						drawBorder: false,
+					},
+					ticks: {
+						maxRotation: 0,
+						padding: props.horizontal ? 0 : 10,
+					},
+					beginAtZero: true,
+				},
+				y: {
+					border: {
+						display: false,
+					},
+					display: props.horizontal || props.ordinate,
+					stacked: false,
+					grid: {
+						display: false,
+						drawBorder: false,
+					},
+					ticks: {
+						maxRotation: 0,
+						padding: props.horizontal ? 0 : 10,
+					},
+					beginAtZero: true,
+				}
+			}
 		}
+	});
+};
+
+onMounted(() => {
+	if (props.labels && props.datasets) {
+		draw();
 	}
 });
+
+// update chart if data changes in an animatable way
+watch(
+	() => props.datasets,
+	() => {
+		chart.data.labels = props.labels;
+		chart.data.datasets = processedDatasets.value;
+		chart.update();
+	}
+);
+
+// update chart if ordinate display changes
+watch(
+	() => props.ordinate,
+	(newValue) => {
+		chart.options.scales.y.display = props.horizontal || newValue;
+		chart.update();
+	}
+);
 </script>
 
 <style lang="stylus">

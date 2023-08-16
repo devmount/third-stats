@@ -142,7 +142,7 @@
 					</label>
 					<div class="action d-flex">
 						<select class="flex-grow" v-model="options.startOfWeek" id="start">
-							<option v-for="(name, pos) in weekdayNames" :key="pos" :value="pos">{{ name }}</option>
+							<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
 				</div> -->
@@ -412,9 +412,9 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
-import { defaultColors } from '@/definitions.js';
+import { defaultColors, defaultOptions } from '@/definitions.js';
 import { useI18n } from 'vue-i18n';
-import { formatBytes, localStartOfWeek, setTheme } from '@/utils.js';
+import { formatBytes, setTheme } from '@/utils.js';
 import ProjectMeta from '@/parts/ProjectMeta.vue'
 
 const { t, locale } = useI18n();
@@ -431,44 +431,8 @@ const selfMessagesOptions = [
 	"anyAccount",
 ];
 
-// create options object with given values or default values
-const optionsObject = (
-	theme               = 'system',
-	ordinate            = true,
-	tagColors           = false,
-	liveCountUp         = true,
-	autoRefresh         = true,
-	autoRefreshInterval = 30,
-	startOfWeek         = -1,
-	addresses           = '',
-	accounts            = [],
-	accountColors       = {},
-	selfMessages        = 'none',
-	leaderCount         = 20,
-	cache               = true,
-) => {
-	// prepare default values
-	if (startOfWeek < 0) startOfWeek = localStartOfWeek()	
-	// return options object
-	return {
-		options: {
-			theme: theme === null ? options.value.theme : theme,
-			ordinate: ordinate === null ? options.value.ordinate : ordinate,
-			tagColors: tagColors === null ? options.value.tagColors : tagColors,
-			liveCountUp: liveCountUp === null ? options.value.liveCountUp : liveCountUp,
-			autoRefresh: autoRefresh === null ? options.value.autoRefresh : autoRefresh,
-			autoRefreshInterval: autoRefreshInterval === null ? options.value.autoRefreshInterval : autoRefreshInterval,
-			startOfWeek: startOfWeek === null ? options.value.startOfWeek : startOfWeek,
-			addresses: addresses === null ? options.value.addresses : addresses,
-			accounts: accounts === null ? options.value.accounts : accounts,
-			accountColors: accountColors === null ? options.value.accountColors : accountColors,
-			selfMessages: selfMessages === null ? options.value.selfMessages : selfMessages,
-			leaderCount: leaderCount === null ? options.value.leaderCount : leaderCount,
-			cache: cache === null ? options.value.cache : cache,
-		}
-	}
-};
-const options = ref((JSON.parse(JSON.stringify(optionsObject()))).options);
+// create options object with default values
+const options = ref(defaultOptions);
 
 // get all saved add-on settings
 const getSettings = async () => {
@@ -597,20 +561,10 @@ const clearCache = async () => {
 // reset options to their default value
 const resetOptions = async () => {
 	// save options default values
-	await messenger.storage.local.set(JSON.parse(JSON.stringify(optionsObject())));
-	options.value = (JSON.parse(JSON.stringify(optionsObject()))).options;
+	await messenger.storage.local.set({ options: defaultOptions });
+	options.value = defaultOptions;
 	await getAccounts();
 };
-
-// array of localized, short day of week names
-const weekdayNames = computed(() => {
-	let names = [];
-	for (let wd = 1; wd <= 7; wd++) {
-		const d = new Date(1970, 1, wd); // choose a date to retrieve weekdays from, starting on a Sunday
-		names.push(d.toLocaleDateString(locale, { weekday: "long" }));
-	}
-	return names;
-});
 
 // array of email addresses configured for local account identities
 const addressList = computed(() => {
