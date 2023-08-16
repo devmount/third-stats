@@ -96,6 +96,9 @@ const draw = () => {
 			},
 			scales: {
 				x: {
+					border: {
+						display: false,
+					},
 					display: props.abscissa,
 					alignToPixels: true,
 					stacked: false,
@@ -110,6 +113,9 @@ const draw = () => {
 					beginAtZero: true
 				},
 				y: {
+					border: {
+						display: false,
+					},
 					display: props.ordinate,
 					stacked: false,
 					grid: {

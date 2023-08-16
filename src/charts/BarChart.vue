@@ -88,6 +88,9 @@ export default defineComponent({
 					},
 					scales: {
 						x: {
+							border: {
+								display: false,
+							},
 							stacked: false,
 							grid: {
 								display: false,
@@ -100,6 +103,9 @@ export default defineComponent({
 							beginAtZero: true
 						},
 						y: {
+							border: {
+								display: false,
+							},
 							display: this.horizontal || this.ordinate,
 							stacked: false,
 							grid: {

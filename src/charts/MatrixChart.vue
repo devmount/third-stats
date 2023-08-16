@@ -96,6 +96,9 @@ export default defineComponent({
 					},
 					scales: {
 						y: {
+							border: {
+								display: false,
+							},
 							type: 'time',
 							offset: true,
 							time: {
@@ -120,6 +123,9 @@ export default defineComponent({
 							}
 						},
 						x: {
+							border: {
+								display: false,
+							},
 							type: this.parseTime ? 'time' : 'linear',
 							offset: false,
 							time: this.parseTime ? {
