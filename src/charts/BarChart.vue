@@ -9,8 +9,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { Chart, transparentGradientBar } from '@/chart.config.js';
+
+let chart = null;
+const id = Math.random().toString(36).substring(7);
 
 const props = defineProps({
 	title: String,
@@ -21,12 +24,10 @@ const props = defineProps({
 	ordinate: Boolean,
 });
 
-const id = Math.random().toString(36).substring(7);
-const chart = ref(null);
 
 const processedDatasets = computed(() => {
-	const datasets = props.datasets;
-	datasets.map(d => {
+	const data = props.datasets;
+	data.map(d => {
 		d.backgroundColor = context => {
 			const { ctx, chartArea } = context.chart;
 			if (!chartArea) return null;
@@ -38,11 +39,11 @@ const processedDatasets = computed(() => {
 			);
 		};
 	});
-	return datasets;
+	return data;
 });
 
 const draw = () => {
-	chart.value = new Chart(id, {
+	chart = new Chart(id, {
 		type: "bar",
 		data: {
 			datasets: processedDatasets.value,
@@ -124,9 +125,9 @@ onMounted(() => {
 watch(
 	() => props.datasets,
 	() => {
-		chart.value.data.labels = props.labels;
-		chart.value.data.datasets = processedDatasets.value;
-		chart.value.update();
+		chart.data.labels = props.labels;
+		chart.data.datasets = processedDatasets.value;
+		chart.update();
 	}
 );
 
@@ -134,8 +135,8 @@ watch(
 watch(
 	() => props.ordinate,
 	(newValue) => {
-		chart.value.options.scales.y.display = props.horizontal || newValue;
-		chart.value.update();
+		chart.options.scales.y.display = props.horizontal || newValue;
+		chart.update();
 	}
 );
 </script>
