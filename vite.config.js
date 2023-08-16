@@ -21,7 +21,7 @@ export default defineConfig({
 		},
 	},
 	build: {
-		minify: false, // set to false to make source code readable
+		minify: true, // set to false to make source code readable
 		rollupOptions: {
 			input: {
 				popup: resolve(__dirname, 'index.popup.html'),
