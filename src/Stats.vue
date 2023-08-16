@@ -1964,7 +1964,7 @@ const monthsChartData = computed(() => {
 			// trim months after end date
 			if (y == maxYear.value && m > maxDate.value.getMonth()) break;
 			// organize labels and data
-			labels.push(y + " " + monthNames(locale)[m]);
+			labels.push(y + " " + monthNames(locale.value)[m]);
 			dr.push(y in r && m in r[y] ? r[y][m] : 0);
 			ds.push(y in s && m in s[y] ? s[y][m] : 0);
 		}
@@ -1999,7 +1999,7 @@ const monthsComparedChartData = computed(() => {
 				// trim months after end date
 				if (y == maxYear.value && m > maxDate.value.getMonth()) break;
 				// generate labels in first iteration
-				if (i == 0) labels.push(y + " " + monthNames(locale)[m]);
+				if (i == 0) labels.push(y + " " + monthNames(locale.value)[m]);
 				// fill all data values, default to 0 if not existing for this combination
 				data.push(y in d && m in d[y] ? d[y][m] : 0);
 			}
@@ -2112,7 +2112,7 @@ const daytimeComparedChartData = computed(() => {
 const weekdayChartData = computed(() => {
 	const r = Object.values(display.value.weekdayData.received);
 	const s = Object.values(display.value.weekdayData.sent);
-	let labels = [...weekdayNames(locale)];
+	let labels = [...weekdayNames(locale.value)];
 	// TODO: start week with user defined day of week
 	for (let d = 0; d < 1/*options.startOfWeek*/; d++) {
 		r.push(r.shift());
@@ -2138,7 +2138,7 @@ const weekdayChartData = computed(() => {
 // prepare comparison data for weekday bar chart
 const weekdayComparedChartData = computed(() => {
 	let datasets = [];
-	let labels = [...weekdayNames(locale)];
+	let labels = [...weekdayNames(locale.value)];
 	// TODO: labels: start week with user defined day of week
 	for (let d = 0; d < 1/*options.startOfWeek*/; d++) {
 		labels.push(labels.shift());
@@ -2179,7 +2179,7 @@ const monthChartData = computed(() => {
 				borderColor: accentColors[1],
 			},
 		],
-		labels: monthNames(locale),
+		labels: monthNames(locale.value),
 	};
 });
 // prepare comparison data for month bar chart
@@ -2196,7 +2196,7 @@ const monthComparedChartData = computed(() => {
 	});
 	return {
 		datasets: datasets,
-		labels: monthNames(locale),
+		labels: monthNames(locale.value),
 	};
 });
 
@@ -2303,7 +2303,7 @@ const foldersChartData = computed(() => {
 	const r = display.value.folders.received, s = display.value.folders.sent;
 	let dr = [], ds = [], labels = [];
 	let all = Array.from(new Set([...Object.keys(r), ...Object.keys(s)]));
-	all.sort((a, b) => a.localeCompare(b, locale, { sensitivity: "base" }));
+	all.sort((a, b) => a.localeCompare(b, locale.value, { sensitivity: "base" }));
 	all.forEach(d => {
 		dr.push(r[d] ? r[d] : 0)
 		ds.push(s[d] ? s[d] : 0)

@@ -142,7 +142,7 @@
 					</label>
 					<div class="action d-flex">
 						<select class="flex-grow" v-model="options.startOfWeek" id="start">
-							<option v-for="(name, pos) in weekdayNames" :key="pos" :value="pos">{{ name }}</option>
+							<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
 				</div> -->
@@ -565,16 +565,6 @@ const resetOptions = async () => {
 	options.value = defaultOptions;
 	await getAccounts();
 };
-
-// array of localized, short day of week names
-const weekdayNames = computed(() => {
-	let names = [];
-	for (let wd = 1; wd <= 7; wd++) {
-		const d = new Date(1970, 1, wd); // choose a date to retrieve weekdays from, starting on a Sunday
-		names.push(d.toLocaleDateString(locale, { weekday: "long" }));
-	}
-	return names;
-});
 
 // array of email addresses configured for local account identities
 const addressList = computed(() => {
