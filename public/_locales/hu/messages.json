@@ -40,9 +40,9 @@
       "stats": "Ábrázolások és adatok",
       "storage": "Tárolás és gyorsítótár"
     },
-    "leaderCount": {
-      "description": "A gyakori kapcsolattartókat felsoroló ábrázolásokban szereplő bejegyzések száma (legfeljebb 999)",
-      "label": "Vezérszám"
+    "maxListCount": {
+      "description": "A listadiagramokban megjelenített bejegyzések maximális száma (kapcsolatok és címkék, maximum 999)",
+      "label": "Maximális listahossz"
     },
     "liveCountUp": {
       "description": "A kiszámított számok élő előrehaladásának megjelenítése statisztikai adatok feldolgozásakor",

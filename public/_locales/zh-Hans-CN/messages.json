@@ -40,9 +40,9 @@
       "stats": "图表与资料",
       "storage": "存储与缓存"
     },
-    "leaderCount": {
-      "description": "图表中显示的经常联系的条目数量（最多999个）。",
-      "label": "联系数"
+    "maxListCount": {
+      "description": "列表图表中显示的最大条目数（联系人和标签，最多 999）",
+      "label": "最大列表长度"
     },
     "liveCountUp": {
       "description": "处理统计数据时显示计算数字的实时进度",

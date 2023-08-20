@@ -40,9 +40,9 @@
       "stats": "Diagram & Data",
       "storage": "Lagring & Cache"
     },
-    "leaderCount": {
-      "description": "Antal poster som visas i diagram som visar frekventa kontakter (maximalt 999)",
-      "label": "Ledarräkning"
+    "maxListCount": {
+      "description": "Maximalt antal poster som visas i listdiagram (kontakter och taggar, max 999)",
+      "label": "Maximal längd på listan"
     },
     "liveCountUp": {
       "description": "Visa direktförlopp för beräknade tal vid bearbetning av statistikdata",

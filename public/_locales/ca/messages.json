@@ -40,9 +40,9 @@
       "stats": "Gràfics i dades",
       "storage": "Emmagatzematge i memòria cau"
     },
-    "leaderCount": {
-      "description": "Nombre d'entrades que es mostren als gràfics amb contactes freqüents (999 com a màxim)",
-      "label": "Recompte de contactes"
+    "maxListCount": {
+      "description": "Nombre màxim d'entrades que es mostren als gràfics de llista (correus i etiquetes, 999 màxim)",
+      "label": "Longitud màxima de la llista"
     },
     "liveCountUp": {
       "description": "Mostra el progrés en directe dels números calculats quan es processen les dades estadístiques",
