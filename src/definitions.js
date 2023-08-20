@@ -32,7 +32,7 @@ const defaultOptions = {
 	accounts:            [],
 	accountColors:       {},
 	selfMessages:        'none',
-	leaderCount:         20,
+	maxListCount:        20,
 	cache:               true,
 	// startofWeek:
 };
