@@ -1082,8 +1082,8 @@ const addStorageListener = () => {
 			if (n.selfMessages != o.selfMessages) {
 				options.selfMessages = n.selfMessages;
 			}
-			if (n.leaderCount != o.leaderCount) {
-				options.leaderCount = n.leaderCount;
+			if (n.maxListCount != o.maxListCount) {
+				options.maxListCount = n.maxListCount;
 			}
 			if (n.cache != o.cache) {
 				options.cache = n.cache;
@@ -1114,7 +1114,7 @@ const getOptions = async () => {
 		options.accounts = result.options.accounts ?? defaultOptions.accounts;
 		options.accountColors = result.options.accountColors ?? defaultOptions.accountColors;
 		options.selfMessages = result.options.selfMessages ?? defaultOptions.selfMessages;
-		options.leaderCount = result.options.leaderCount ?? defaultOptions.leaderCount;
+		options.maxListCount = result.options.maxListCount ?? defaultOptions.maxListCount;
 		options.cache = result.options.cache ?? defaultOptions.cache;
 	}
 };
@@ -1327,10 +1327,11 @@ const processAccount = async (a) => {
 		// increment current progress by 1 for each folder
 		progress.current++;
 	}));
-	// post processing: sort and reduce size of contacts to configured limit
-	accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, options.leaderCount);
-	accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, options.leaderCount);
-	accountData.contacts.junk = sortAndLimitObject(accountData.contacts.junk, options.leaderCount);
+	// post processing: sort and reduce size of lists to configured limit
+	accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, options.maxListCount);
+	accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, options.maxListCount);
+	accountData.contacts.junk = sortAndLimitObject(accountData.contacts.junk, options.maxListCount);
+	accountData.tags = sortAndLimitObject(accountData.tags, options.maxListCount);
 	// post processing: sort folders
 	accountData.folders.received = sortAndLimitObject(accountData.folders.received);
 	accountData.folders.sent = sortAndLimitObject(accountData.folders.sent);
@@ -1501,14 +1502,14 @@ const loadAccount = async (id, refresh, auto=false) => {
 			}
 		}
 		// contacts
-		sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), options.leaderCount);
-		sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), options.leaderCount);
-		sum.contacts.junk = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.junk ?? []), [])), options.leaderCount);
+		sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), options.maxListCount);
+		sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), options.maxListCount);
+		sum.contacts.junk = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.junk ?? []), [])), options.maxListCount);
 		// folders
 		sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])));
 		sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])));
 		// tags
-		sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])));
+		sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])), options.maxListCount);
 
 		// show summed stats or keep current view if processing was invoked automatically
 		display.value = auto && displayedAccountKey ? accountsData[displayedAccountKey] : sum;

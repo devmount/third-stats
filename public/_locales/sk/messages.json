@@ -40,9 +40,9 @@
       "stats": "Grafy a údaje",
       "storage": "Ukladanie a vyrovnávacia pamäť"
     },
-    "leaderCount": {
-      "description": "Počet záznamov zobrazených v grafoch s častými kontaktmi (maximálne 999)",
-      "label": "Počet vedúcich"
+    "maxListCount": {
+      "description": "Maximálny počet položiek zobrazených v grafoch zoznamu (kontakty a značky, maximálne 999)",
+      "label": "Maximálna dĺžka zoznamu"
     },
     "liveCountUp": {
       "description": "Zobraziť aktuálny stav vypočítaných čísel pri spracovaní údajov štatistík",

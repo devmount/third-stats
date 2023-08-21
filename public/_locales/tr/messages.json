@@ -40,9 +40,9 @@
       "stats": "Grafikler ve Veriler",
       "storage": "Depolama ve Önbellek"
     },
-    "leaderCount": {
-      "description": "Sık görüşülen kişileri listeleyen çizelgelerde gösterilen giriş sayısı (maksimum 999)",
-      "label": "Kişi Sayısı"
+    "maxListCount": {
+      "description": "Liste grafiklerinde gösterilen maksimum giriş sayısı (kişiler ve etiketler, maksimum 999)",
+      "label": "Maksimum Liste Uzunluğu"
     },
     "liveCountUp": {
       "description": "İstatistik verilerini işlerken hesaplanan sayıların canlı ilerlemesini göster",

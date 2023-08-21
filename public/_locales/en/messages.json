@@ -43,9 +43,9 @@
       "stats": "Charts & Data",
       "storage": "Storage & Cache"
     },
-    "leaderCount": {
-      "description": "Number of entries shown in charts listing frequent contacts (999 maximum)",
-      "label": "Leader Count"
+    "maxListCount": {
+      "description": "Maximum number of entries shown in list charts (contacts and tags, 999 maximum)",
+      "label": "Maximum List Length"
     },
     "liveCountUp": {
       "description": "Show live progress of calculated numbers when processing stats data",

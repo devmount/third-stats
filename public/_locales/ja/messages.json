@@ -40,9 +40,9 @@
       "stats": "チャートとデータ",
       "storage": "ストレージとキャッシュ"
     },
-    "leaderCount": {
-      "description": "頻繁な連絡先を表示するエントリーの数（最大999まで）",
-      "label": "リーダー数"
+    "maxListCount": {
+      "description": "リストチャートに表示されるエントリーの最大数（連絡先とタグ、最大999件）",
+      "label": "リストの最大長"
     },
     "liveCountUp": {
       "description": "統計データの処理時に計算された数値の進捗をライブで表示",

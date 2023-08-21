@@ -40,9 +40,9 @@
       "stats": "Grafy a data",
       "storage": "Úložiště a mezipaměť"
     },
-    "leaderCount": {
-      "description": "Počet záznamů zobrazených v grafech častých kontaktů (maximálně 999)",
-      "label": "Počet častých kontaktů"
+    "maxListCount": {
+      "description": "Maximální počet položek zobrazených v grafech seznamu (kontakty a značky, maximálně 999)",
+      "label": "Maximální délka seznamu"
     },
     "liveCountUp": {
       "description": "Zobrazit aktuální průběh vypočítaných čísel při zpracování statistických dat",

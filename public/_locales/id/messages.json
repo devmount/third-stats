@@ -40,9 +40,9 @@
       "stats": "Grafik & Data",
       "storage": "Penyimpanan & Cache"
     },
-    "leaderCount": {
-      "description": "Jumlah entri yang ditampilkan dalam bagan yang mencantumkan kontak yang sering (maksimum 999)",
-      "label": "Hitungan Pemimpin"
+    "maxListCount": {
+      "description": "Jumlah maksimum entri yang ditampilkan dalam bagan daftar (kontak dan tag, maksimum 999)",
+      "label": "Panjang Daftar Maksimum"
     },
     "liveCountUp": {
       "description": "Tampilkan kemajuan langsung dari angka yang dihitung saat memproses data statistik",

@@ -40,9 +40,9 @@
       "stats": "Grafici e Dati",
       "storage": "Archiviazione e Cache"
     },
-    "leaderCount": {
-      "description": "Numero di voci mostrate nei grafici che elencano i contatti frequenti (massimo 999)",
-      "label": "Conteggio leader"
+    "maxListCount": {
+      "description": "Numero massimo di voci visualizzate nei grafici degli elenchi (contatti e tag, massimo 999)",
+      "label": "Lunghezza massima dell'elenco"
     },
     "liveCountUp": {
       "description": "Mostra i progressi in tempo reale dei numeri calcolati durante l'elaborazione dei dati",

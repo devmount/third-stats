@@ -40,9 +40,9 @@
       "stats": "Diagrammen en gegevens",
       "storage": "Opslag en cache"
     },
-    "leaderCount": {
-      "description": "Aantal vermeldingen weergegeven in diagrammen met frequente contacten (maximaal 999)",
-      "label": "Leader Count"
+    "maxListCount": {
+      "description": "Maximumaantal items dat wordt weergegeven in lijstgrafieken (contactpersonen en tags, maximaal 999)",
+      "label": "Maximale lijstlengte"
     },
     "liveCountUp": {
       "description": "Live-voortgang van berekende getallen weergeven bij het verwerken van statistische gegevens",

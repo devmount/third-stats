@@ -254,11 +254,11 @@
 						</div>
 					</div>
 				</div>
-				<!-- option: leaderCount -->
+				<!-- option: maxListCount -->
 				<div class="entry">
-					<label for="leaderCount">
+					<label for="maxListCount">
 						<div class="d-flex align-items-end gap-0-5">
-							{{ t("options.leaderCount.label") }}
+							{{ t("options.maxListCount.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
 								<svg class="icon icon-tiny" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -269,26 +269,26 @@
 								</svg>
 							</span>
 						</div>
-						<div class="text-gray text-small">{{ t("options.leaderCount.description") }}</div>
+						<div class="text-gray text-small">{{ t("options.maxListCount.description") }}</div>
 					</label>
 					<div class="action d-flex input-group">
 						<input
 							class="flex-grow"
-							id="leaderCount"
+							id="maxListCount"
 							type="number"
-							v-model="options.leaderCount"
+							v-model="options.maxListCount"
 							placeholder="20"
 							min="1"
 							max="999"
-							@change="checkLeaderCount()"
+							@change="checkmaxListCount()"
 						/>
 						<div class="d-flex flex-direction-column button-group-vertical">
-							<button @click="incrementLeaderCount()" class="h-1-25 py-0 px-0-5">
+							<button @click="incrementmaxListCount()" class="h-1-25 py-0 px-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
 									<polyline points="6,12 12,6 18,12" />
 								</svg>
 							</button>
-							<button @click="decrementLeaderCount()" class="h-1-25 py-0 px-0-5">
+							<button @click="decrementmaxListCount()" class="h-1-25 py-0 px-0-5">
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 20">
 									<polyline points="6,5 12,11 18,5" />
 								</svg>
@@ -525,26 +525,26 @@ const checkAutoRefreshInterval = () => {
 };
 
 // increases leader count up to limit 999
-const incrementLeaderCount = () => {
-	if (options.value.leaderCount < 999) {
-		options.value.leaderCount++;
+const incrementmaxListCount = () => {
+	if (options.value.maxListCount < 999) {
+		options.value.maxListCount++;
 	}
 };
 
 // decreases leader count down to limit 1
-const decrementLeaderCount = () => {
-	if (options.value.leaderCount > 1) {
-		options.value.leaderCount--;
+const decrementmaxListCount = () => {
+	if (options.value.maxListCount > 1) {
+		options.value.maxListCount--;
 	}
 };
 
 // check leader count input to stay in allowed range
-const checkLeaderCount = () => {
-	if (options.value.leaderCount < 1) {
-		options.value.leaderCount = 1;
+const checkmaxListCount = () => {
+	if (options.value.maxListCount < 1) {
+		options.value.maxListCount = 1;
 	}
-	if (options.value.leaderCount > 999) {
-		options.value.leaderCount = 999;
+	if (options.value.maxListCount > 999) {
+		options.value.maxListCount = 999;
 	}
 };
 

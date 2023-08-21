@@ -40,9 +40,9 @@
       "stats": "Diagramme & Daten",
       "storage": "Speicher & Cache"
     },
-    "leaderCount": {
-      "description": "Anzahl der Einträge in Diagrammen welche häufige Kontakte auflisten (maximal 999)",
-      "label": "Anzahl häufiger Kontakte"
+    "maxListCount": {
+      "description": "Maximale Anzahl der Einträge in Diagrammen welche Daten auflisten (Kontakte und Tags, maximal 999)",
+      "label": "Maximale Listenlänge"
     },
     "liveCountUp": {
       "description": "Live-Fortschritt der berechneten Zahlen bei der Berechnung von Statistikdaten anzeigen",

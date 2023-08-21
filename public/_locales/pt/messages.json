@@ -40,9 +40,9 @@
       "stats": "Gráficos e Dados",
       "storage": "Armazenamento e Cache"
     },
-    "leaderCount": {
-      "description": "Número de entradas mostradas em gráficos que listam contatos frequentes (máximo de 999)",
-      "label": "Contagem de líderes"
+    "maxListCount": {
+      "description": "Número máximo de entradas apresentadas em gráficos de listas (contactos e etiquetas, máximo de 999)",
+      "label": "Comprimento máximo da lista"
     },
     "liveCountUp": {
       "description": "Mostrar o progresso ao vivo dos números calculados ao processar dados estatísticos",

@@ -40,9 +40,9 @@
       "stats": "Wykresy & Dane",
       "storage": "Pamięć masowa & Podręczna"
     },
-    "leaderCount": {
-      "description": "Liczba pozycji wyświetlanych na wykresach z listą częstych kontaktów (maksymalnie 999)",
-      "label": "Liczba kontaktów"
+    "maxListCount": {
+      "description": "Maksymalna liczba wpisów wyświetlanych na wykresach list (kontakty i tagi, maksymalnie 999)",
+      "label": "Maksymalna długość listy"
     },
     "liveCountUp": {
       "description": "Pokaż na żywo postęp obliczonych liczb podczas przetwarzania danych statystycznych",
