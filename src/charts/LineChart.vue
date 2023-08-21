@@ -6,7 +6,7 @@
 		class="chart-container"
 		:style="{
 			width: width ?? 'auto',
-			height: height ?? 'auto'
+			height: height ?? 'auto',
 		}"
 	>
 		<canvas :id="id"></canvas>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, watch } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 import { Chart, transparentGradientLine } from '@/chart.config.js';
 
 let chart = null;
@@ -96,6 +96,9 @@ const draw = () => {
 			},
 			scales: {
 				x: {
+					border: {
+						display: false,
+					},
 					display: props.abscissa,
 					alignToPixels: true,
 					stacked: false,
@@ -110,6 +113,9 @@ const draw = () => {
 					beginAtZero: true
 				},
 				y: {
+					border: {
+						display: false,
+					},
 					display: props.ordinate,
 					stacked: false,
 					grid: {
@@ -122,6 +128,12 @@ const draw = () => {
 		}
 	});
 };
+
+onMounted(() => {
+	if (props.labels && props.datasets) {
+		draw()
+	}
+});
 
 // update chart if data changes in an animatable way
 watch(
@@ -143,12 +155,6 @@ watch(
 		chart.update()
 	}
 );
-
-onMounted(() => {
-	if (props.labels && props.datasets) {
-		draw()
-	}
-});
 </script>
 
 <style lang="stylus">

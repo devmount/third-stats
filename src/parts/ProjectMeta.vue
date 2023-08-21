@@ -1,11 +1,11 @@
 <template>
-	<section class="text-center">
+	<section>
 		<!-- title with version -->
-		<div class="text-gray">
+		<div class="text-gray text-small text-center">
 			ThirdStats <code>{{ version }}</code>
 		</div>
 		<!-- cta -->
-		<div v-if="!compact" class="text-gray mt-1">{{ t('cta.message') }}</div>
+		<div v-if="!compact" class="text-gray text-center mt-1">{{ t('cta.message') }}</div>
 		<div class="d-flex gap-1 justify-center mt-2">
 			<a
 				:href="links.donate"
@@ -76,7 +76,7 @@
 		<!-- disclaimer -->
 		<div
 			v-if="!compact"
-			class="text-gray mt-2"
+			class="text-gray text-center mt-2"
 			v-html="t('stats.disclaimer', ['https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md'])"
 		></div>
 	</section>
