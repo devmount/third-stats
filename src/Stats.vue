@@ -1323,7 +1323,7 @@ const processAccount = async (a) => {
 	const accountData = initData();
 	await Promise.all(foldersList.map(async f => {
 		// analyze all messages in all folders
-		await processMessages(accountData, JSON.parse(JSON.stringify(f)), identities);
+		await processMessages(accountData, f, identities);
 		// increment current progress by 1 for each folder
 		progress.current++;
 	}));
