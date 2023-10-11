@@ -1,6 +1,6 @@
 <template>
 	<div class="relative">
-		<div class="flex flex-col gap-2 p-4">
+		<div class="flex flex-col gap-4 p-4">
 			<!-- header containing number of accounts and linking to stats page -->
 			<header class="flex justify-between items-center">
 				<h3 class="font-normal text-xl flex gap-4 items-center">
@@ -33,15 +33,15 @@
 					:key="a.id"
 					class="
 						group relative cursor-pointer shadow-xl py-3 px-4 rounded transition-colors truncate
-						bg-white dark:bg-zinc-800 hover:bg-blue-500
+						bg-white dark:bg-zinc-800 hover:!bg-blue-500
 					"
 					@click.prevent="openTab('index.stats.html', a.id)"
 				>
 					<div class="position-relative z-5">
-						<h4 class="whitespace-nowrap font-semibold text-sm group-hover:text-white">
+						<h4 class="whitespace-nowrap font-semibold text-sm group-hover:!text-white">
 							{{ a.name }}
 						</h4>
-						<div class="text-xs text-zinc-700 dark:text-zinc-400 group-hover:text-white">
+						<div class="text-xs text-zinc-700 dark:text-zinc-400 group-hover:!text-white">
 							<div>{{ t("popup.nFolders", [a.folderCount], a.folderCount) }}</div>
 							<div v-if="a.hasOwnProperty('messageCount')">
 								{{ t("popup.nMessages", [a.messageCount], a.messageCount) }}
@@ -94,12 +94,7 @@ const getOptions = async () => {
 	const result = await messenger.storage.local.get("options")
 	// only load needed options if they have been set, otherwise default settings will be kept
 	if (result && result.options) {
-		options.dark = setTheme(
-			result.options.theme ?? 'system',
-			document.body,
-			['dark', 'background-normal'],
-			['light', 'background-modal']
-		);
+		options.dark = setTheme(result.options.theme ?? 'system');
 		options.accounts = result.options.accounts ? result.options.accounts : []
 		options.cache = result.options.cache ? true : false
 	}
