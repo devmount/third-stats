@@ -1,64 +1,63 @@
 <template>
-	<div class="text-normal position-relative">
-		<div class="container pt-1">
+	<div class="relative">
+		<div class="flex flex-col gap-2 p-4">
 			<!-- header containing number of accounts and linking to stats page -->
-			<header class="d-flex gap-0-5 mb-1-5">
-				<h3 class="flex-grow">
-					<span class="mr-1">{{ t("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
-					<span v-if="loading" class="loading"></span>
+			<header class="flex justify-between items-center">
+				<h3 class="font-normal text-xl flex gap-4 items-center">
+					<span>{{ t("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
+					<loader v-if="loading"></loader>
 				</h3>
-				<div
-					class="cursor-pointer tooltip tooltip-left transition-color"
-					:data-tooltip="t('popup.openAllStats')"
-					@click.prevent="openTab('index.stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
-				>
-					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<polyline class="icon-part-accent2" points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
-						<polyline class="icon-part-accent1" points="4 12 7 8 11 10 16 4 20 8" />
-					</svg>
-				</div>
-				<div
-					class="cursor-pointer tooltip tooltip-left transition-color"
-					:data-tooltip="t('popup.openOptions')"
-					@click.prevent="openTab('index.options.html')"
-				>
-					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-						<path class="icon-part-accent2" d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-						<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
-					</svg>
+				<div class="flex gap-2">
+					<tooltip
+						class="group cursor-pointer"
+						:content="t('popup.openAllStats')"
+						position="left"
+						@click="openTab('index.stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
+					>
+						<icon-third-stats class="!w-6 !h-6" />
+					</tooltip>
+					<tooltip
+						class="group cursor-pointer"
+						:content="t('popup.openOptions')"
+						position="left"
+						@click="openTab('index.options.html')"
+					>
+						<icon-settings class="!w-6 !h-6" />
+					</tooltip>
 				</div>
 			</header>
 			<!-- list of all accounts -->
-			<section class="accounts">
+			<section class="grid grid-cols-2 gap-5">
 				<div
-					class="background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
-					:class="{
-						'background-gray': options.dark,
-						'background-highlight-contrast': !options.dark,
-					}"
 					v-for="a in accounts"
 					:key="a.id"
+					class="
+						group relative cursor-pointer shadow-xl py-3 px-4 rounded transition-colors truncate
+						bg-white dark:bg-zinc-800 hover:bg-blue-500
+					"
 					@click.prevent="openTab('index.stats.html', a.id)"
 				>
 					<div class="position-relative z-5">
-						<h4>{{ a.name }}</h4>
-						<div class="text-small text-secondary">
-							{{ t("popup.nFolders", a.folderCount, [a.folderCount]) }}
-							<div v-if="a.hasOwnProperty('messageCount')">{{ t("popup.nMessages", a.messageCount, [a.messageCount]) }}</div>
+						<h4 class="whitespace-nowrap font-semibold text-sm group-hover:text-white">
+							{{ a.name }}
+						</h4>
+						<div class="text-xs text-zinc-700 dark:text-zinc-400 group-hover:text-white">
+							<div>{{ t("popup.nFolders", [a.folderCount], a.folderCount) }}</div>
+							<div v-if="a.hasOwnProperty('messageCount')">
+								{{ t("popup.nMessages", [a.messageCount], a.messageCount) }}
+							</div>
 						</div>
 					</div>
-					<LineChart
+					<line-chart
 						v-if="a.hasOwnProperty('messageCount') && a.messageCount > 0"
-						class="background-chart z-0"
+						class="absolute bottom-0 left-0 z-0"
 						:datasets="a.yearsData.datasets"
 						:labels="a.yearsData.labels"
 						:ordinate="false"
 						:abscissa="false"
 						:tooltips="false"
 						:thickness="1"
-						width="160px"
+						width="180px"
 						height="70px"
 					/>
 				</div>
@@ -72,6 +71,10 @@
 import { ref, reactive, onMounted } from 'vue';
 import { traverseAccount, setTheme, openTab } from "@/utils.js";
 import { useI18n } from 'vue-i18n';
+import IconSettings from "@/icons/IconSettings.vue";
+import IconThirdStats from "@/icons/IconThirdStats.vue";
+import Tooltip from "@/components/Tooltip.vue";
+import Loader from "@/components/Loader.vue";
 import LineChart from "@/charts/LineChart.vue";
 import ProjectMeta from "@/parts/ProjectMeta.vue";
 
@@ -156,50 +159,3 @@ onMounted(async () => {
 	loading.value = false;
 });
 </script>
-
-<style lang="stylus">
-@require "assets/global"
-
-// general
-html, body
-	width: 380px
-	overflow-y: auto
-	overflow-x: hidden
-
-// layout
-#popup
-	width: 100%
-	height: 100%
-
-	.container
-		padding-left: 20px
-		padding-right: 20px
-		padding-bottom: 20px
-		header
-			h3
-				margin: 0
-				font-weight: 400
-				font-size: 20px
-		.loading
-			loader 16px 3px
-		.accounts
-			display: grid
-			grid-template-columns: 1fr 1fr
-			gap: 20px
-			& > div
-				padding: .75rem 1rem
-				border-radius: 4px
-				transition: all .2s
-				overflow: hidden
-				h4
-					margin: 0
-					font-weight: normal
-					white-space: nowrap
-					overflow: hidden
-					text-overflow: ellipsis
-				.background-chart
-					position: absolute
-					bottom: 0
-					left: 0
-
-</style>
