@@ -20,7 +20,7 @@
 						class="group cursor-pointer"
 						:content="t('popup.openOptions')"
 						position="left"
-						@click="openTab('index.options.html')"
+						@click="openTab('index.options.html', 1)"
 					>
 						<icon-settings class="!w-6 !h-6" />
 					</tooltip>

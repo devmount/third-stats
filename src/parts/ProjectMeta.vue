@@ -5,7 +5,7 @@
 			ThirdStats <code>{{ version }}</code>
 		</div>
 		<!-- cta -->
-		<div v-if="!compact" class="text-zinc-500 text-center">{{ t('cta.message') }}</div>
+		<div v-if="!compact" class="text-zinc-500 text-sm text-center">{{ t('cta.message') }}</div>
 		<div class="flex gap-4 justify-center">
 			<template
 				v-for="(link, key) in links"
@@ -14,7 +14,7 @@
 				<tooltip :content="t(`cta.${key}`)" :disabled="!compact">
 					<a
 						:href="link.url"
-						class="py-2 px-4 border rounded-sm flex gap-0-5 items-center transition-colors hover:text-white"
+						class="py-2 px-4 border rounded-sm flex gap-2 items-center transition-colors hover:text-white"
 						:class="{
 							'text-fuchsia-500 border-fuchsia-500 hover:bg-fuchsia-500': key === 'donate',
 							'text-blue-500 border-blue-500 hover:bg-blue-500': key !== 'donate',
@@ -29,7 +29,7 @@
 		<!-- disclaimer -->
 		<div
 			v-if="!compact"
-			class="text-zinc-500 text-center"
+			class="text-zinc-500 text-sm text-center"
 			v-html="t('stats.disclaimer', ['https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md'])"
 		></div>
 	</section>
