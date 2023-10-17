@@ -297,19 +297,24 @@ const pluralUkrainian = (n) => {
  * handle theme changes, returns true if dark was detected
  * 
  * @param {String} theme Supported themes are system|dark|light
- * @param {HTMLElement} element DOM element to add/remove classes on
+ * @param {HTMLElement|Array} el DOM element(s) to add/remove classes on
  * @param {Array} darkClasses List of classes representing dark mode
  * @param {Array} lightClasses List of classes representing light mode
  * @returns {Boolean} True, if dark mode was set
  */
-const setTheme = (theme, element=document.documentElement, darkClasses=['dark'], lightClasses=['light']) => {
+const setTheme = (theme, el=document.documentElement, darkClasses=['dark'], lightClasses=['light']) => {
+	const elements = [...el];
 	if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-		element.classList.remove(...lightClasses);
-		element.classList.add(...darkClasses);
+		elements.forEach((element) => {
+			element.classList.remove(...lightClasses);
+			element.classList.add(...darkClasses);
+		});
 		return true;
 	} else {
-		element.classList.remove(...darkClasses);
-		element.classList.add(...lightClasses);
+		elements.forEach((element) => {
+			element.classList.remove(...darkClasses);
+			element.classList.add(...lightClasses);
+		});
 		return false;
 	}
 };

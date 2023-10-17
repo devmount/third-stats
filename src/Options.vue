@@ -1,25 +1,26 @@
 <template>
 	<div
-		class="text-normal"
-		:class="{ 'embedded': !ownOptionsPage }"
+		class="flex flex-col justify-center w-full max-w-4xl mx-auto pt-2"
+		:class="{
+			'px-4 gap-4': ownOptionsPage,
+			'px-2 gap-2': !ownOptionsPage,
+		}"
 	>
-		<header v-if="ownOptionsPage" class="pt-2 mx-auto">
-			<h1 class="d-flex align-items-center">
-				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo">
-				{{ t("options.title") }}
-			</h1>
+		<header v-if="ownOptionsPage" class="flex items-center gap-4 pt-4">
+			<icon-third-stats class="!w-12 !h-12" colored />
+			<h1 class="text-4xl font-bold">{{ t("options.title") }}</h1>
 		</header>
-		<div class="container mx-auto">
+		<div class="flex flex-col gap-12">
 			<!-- section related to ThirdStats appearance and UI -->
 			<section class="mb-3">
-				<h2>{{ t("options.headings.appearance") }}</h2>
+				<h2 class="text-2xl font-light">{{ t("options.headings.appearance") }}</h2>
 				<!-- option: theme -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="theme">
 						{{ t("options.theme.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.theme.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.theme.description") }}</span>
 					</label>
-					<div class="action d-flex">
+					<div class="flex self-center">
 						<select class="flex-grow" v-model="options.theme" id="theme">
 							<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
 								{{ t("options.theme." + theme) }}
@@ -28,12 +29,12 @@
 					</div>
 				</div>
 				<!-- option: ordinate -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="ordinate">
 						{{ t("options.ordinate.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.ordinate.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.ordinate.description") }}</span>
 					</label>
-					<div class="action d-flex">
+					<div class="flex self-center">
 						<label class="switch">
 							<input type="checkbox" id="ordinate" v-model="options.ordinate" />
 							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
@@ -42,12 +43,12 @@
 					</div>
 				</div>
 				<!-- option: tag colors -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="tagColors">
 						{{ t("options.tagColors.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.tagColors.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.tagColors.description") }}</span>
 					</label>
-					<div class="action d-flex">
+					<div class="flex self-center">
 						<label class="switch">
 							<input type="checkbox" id="tagColors" v-model="options.tagColors" />
 							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
@@ -56,10 +57,10 @@
 					</div>
 				</div>
 				<!-- option: live count up -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="liveCountUp">
 						{{ t("options.liveCountUp.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.liveCountUp.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.liveCountUp.description") }}</span>
 					</label>
 					<div class="action">
 						<label class="switch mb-0-5">
@@ -81,7 +82,7 @@
 					</div>
 				</div>
 				<!-- option: auto processing -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="autoRefresh">
 						<div class="d-flex align-items-end gap-0-5">
 							{{ t("options.autoRefresh.label") }}
@@ -97,7 +98,7 @@
 						</div>
 						<div class="text-gray text-small">{{ t("options.autoRefresh.description") }}</div>
 					</label>
-					<div class="action d-flex align-items-center gap-1">
+					<div class="flex self-center align-items-center gap-1">
 						<label class="switch flex-no-shrink">
 							<input type="checkbox" id="autoRefresh" v-model="options.autoRefresh" />
 							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
@@ -133,21 +134,21 @@
 			</section>
 			<!-- section related to charts and data retrieval -->
 			<section class="mb-3">
-				<h2>{{ t("options.headings.stats") }}</h2>
+				<h2 class="text-2xl font-light">{{ t("options.headings.stats") }}</h2>
 				<!-- option: startOfWeek -->
-				<!-- <div class="entry">
+				<!-- <div class="grid grid-cols-option gap-8 mb-4">
 					<label for="start">
 						{{ t("options.startOfWeek.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.startOfWeek.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.startOfWeek.description") }}</span>
 					</label>
-					<div class="action d-flex">
+					<div class="flex self-center">
 						<select class="flex-grow" v-model="options.startOfWeek" id="start">
 							<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
 				</div> -->
 				<!-- option: addresses -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="local">
 						<div class="d-flex align-items-end gap-0-5">
 							{{ t("options.localIdentities.label") }}
@@ -221,7 +222,7 @@
 					</div>
 				</div>
 				<!-- option: selfMessages -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="selfMessages">
 						<div class="d-flex align-items-end gap-0-5">
 							{{ t("options.selfMessages.label") }}
@@ -237,7 +238,7 @@
 						</div>
 						<div class="text-gray text-small">{{ t("options.selfMessages.description") }}</div>
 					</label>
-					<div class="action d-flex flex-wrap">
+					<div class="flex self-center flex-wrap">
 						<select class="flex-grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
 							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ t("options.selfMessages.values." + val) }}</option>
 						</select>
@@ -255,7 +256,7 @@
 					</div>
 				</div>
 				<!-- option: maxListCount -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="maxListCount">
 						<div class="d-flex align-items-end gap-0-5">
 							{{ t("options.maxListCount.label") }}
@@ -271,7 +272,7 @@
 						</div>
 						<div class="text-gray text-small">{{ t("options.maxListCount.description") }}</div>
 					</label>
-					<div class="action d-flex input-group">
+					<div class="flex self-center input-group">
 						<input
 							class="flex-grow"
 							id="maxListCount"
@@ -299,12 +300,12 @@
 			</section>
 			<!-- section related to store processed data -->
 			<section class="mb-3">
-				<h2>{{ t("options.headings.storage") }}</h2>
+				<h2 class="text-2xl font-light">{{ t("options.headings.storage") }}</h2>
 				<!-- option: cache -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label for="cache">
 						{{ t("options.cache.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.cache.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.cache.description") }}</span>
 					</label>
 					<div class="action">
 						<label class="switch">
@@ -315,10 +316,10 @@
 					</div>
 				</div>
 				<!-- action: clear cache -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label>
 						{{ t("options.clearCache.label") }}
-						<span class="d-block text-gray text-small">{{ t("options.clearCache.description") }}</span>
+						<span class="block text-zinc-500">{{ t("options.clearCache.description") }}</span>
 					</label>
 					<div class="action">
 						<button @click="clearCache" class="mb-0-5">{{ t("options.clearCache.label") }}</button>
@@ -337,7 +338,7 @@
 					</div>
 				</div>
 				<!-- action: reset options -->
-				<div class="entry">
+				<div class="grid grid-cols-option gap-8 mb-4">
 					<label>
 						<div class="d-flex align-items-end gap-0-5">
 							{{ t("options.resetOptions.label") }}
@@ -415,10 +416,10 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { defaultColors, defaultOptions } from '@/definitions.js';
 import { useI18n } from 'vue-i18n';
 import { formatBytes, setTheme } from '@/utils.js';
+import IconThirdStats from "@/icons/IconThirdStats.vue";
 import ProjectMeta from '@/parts/ProjectMeta.vue'
 
 const { t, locale } = useI18n();
-const publicPath = import.meta.env.BASE_URL;
 
 const input = ref({ address: '' });
 const allAccounts = ref([]);
@@ -431,23 +432,31 @@ const selfMessagesOptions = [
 	"anyAccount",
 ];
 
+// true if options are opened in own options page or false if embedded
+const ownOptionsPage = Boolean(
+	(new URLSearchParams(window.location.search.substring(1))).get("s")
+);
+
 // create options object with default values
 const options = ref(defaultOptions);
 
 // get all saved add-on settings
 const getSettings = async () => {
+	// show scroll bar if own options page
+	if (ownOptionsPage) {
+		document.body.classList.remove('overflow-y-hidden');
+	}
 	// only load options from storage if they have been set, otherwise default settings will be kept
 	const result = await messenger.storage.local.get("options");
 	if (result && result.options) {
 		// merge option objects to overwrite attributes by saved ones while keeping new attributes
 		options.value = {...options.value, ...result.options};
 		// handle theme
-		setTheme(
-			options.value.theme,
-			document.body,
-			['dark', 'background-alt'],
-			['light', 'background-highlight-contrast']
-		);
+		const darkClasses = ['dark'];
+		if (!ownOptionsPage) {
+			darkClasses.push('!bg-tboptions');
+		}
+		setTheme(options.value.theme, [document.documentElement, document.body], darkClasses);
 	}
 };
 
@@ -578,23 +587,16 @@ const formattedCacheSize = computed(() => {
 	return formatBytes(cacheSize.value);
 });
 
-// check if options are opened in own options page
-const ownOptionsPage = computed(() => {
-	const uri = window.location.search.substring(1)
-	return Boolean((new URLSearchParams(uri)).get("s"))
-});
-
 // save options object on each single option change
 watch(
 	() => options.value,
 	(newOptions) => {
 		messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) });
-		setTheme(
-			newOptions.theme,
-			document.body,
-			['dark', 'background-alt'],
-			['light', 'background-highlight-contrast']
-		);
+		const darkClasses = ['dark'];
+		if (!ownOptionsPage) {
+			darkClasses.push('!bg-tboptions');
+		}
+		setTheme(newOptions.theme, [document.documentElement, document.body], darkClasses);
 	},
 	{
 		deep: true,
@@ -611,50 +613,3 @@ onMounted(async () => {
 	getCacheSize();
 });
 </script>
-
-<style lang="stylus">
-@require "assets/global"
-
-// general
-html, body
-	min-height: 300px
-
-// layout
-#options
-	width: 100%
-	min-height: 100vh
-
-	header,	footer,	.container
-		width: calc(100% - 2rem)
-		max-width: 840px
-		padding: 1rem
-
-	&.embedded	
-		header,	footer,	.container
-			width: 100%
-			max-width: auto
-			padding-left: .5rem
-			padding-right: .5rem
-		.container > section:first-child > h2
-			margin-top: 0
-	
-	header
-		h1
-			margin: 0
-			.logo
-				height: 48px
-		
-	.container
-		&>section
-			h2
-				font-weight: 300
-			.entry
-				display: grid
-				grid-template-columns: 1fr 50%
-				column-gap: 2rem
-				margin-bottom: 1rem
-				.action
-					align-self: center
-	
-
-</style>

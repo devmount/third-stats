@@ -19,5 +19,8 @@ const i18n = createI18n({
 });
 app.use(i18n);
 
+// init basic css with tailwind imports
+import '@/assets/main.css';
+
 // ready? let's go!
 app.mount('#options');
