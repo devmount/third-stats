@@ -6,6 +6,9 @@
   input, select, textarea {
     @apply transition-colors !py-1.5 border-zinc-400 dark:border-zinc-750 focus:!ring-4 focus:!ring-blue-400/20 hover:!border-blue-400 focus:!border-blue-600 dark:!bg-zinc-925 dark:!text-zinc-100 hover:disabled:!border-black;
   }
+  input[type="checkbox"] {
+    @apply w-6 h-6 checked:!bg-blue-500 focus:!outline-1 focus:!outline-blue-500
+  }
   button, a {
     @apply transition-colors;
   }
