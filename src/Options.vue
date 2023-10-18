@@ -72,33 +72,35 @@
 				<!-- option: auto processing -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="autoRefresh">
-						<div class="d-flex align-items-end gap-0-5">
+						<div class="flex items-end gap-2">
 							{{ t("options.autoRefresh.label") }}
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
+							<tooltip :content="t('options.note.reloadWindowRequired')">
 								<icon-refresh-alert class="!w-5 !h-5" />
-							</span>
+							</tooltip>
 						</div>
-						<div class="text-gray text-small">{{ t("options.autoRefresh.description") }}</div>
+						<span class="block text-zinc-500">{{ t("options.autoRefresh.description") }}</span>
 					</label>
-					<div class="flex self-center align-items-center gap-1">
+					<div class="flex self-center items-center gap-4">
 						<input type="checkbox" id="autoRefresh" v-model="options.autoRefresh" />
-						<div v-if="options.autoRefresh" class="action d-flex flex-grow input-group">
-							<div class="d-flex flex-grow" :data-unit="t('stats.abbreviations.minute')">
-								<input
-									class="flex-grow"
-									id="autoRefreshInterval"
-									type="number"
-									v-model="options.autoRefreshInterval"
-									placeholder="30"
-									min="5"
-									step="1"
-									@change="checkAutoRefreshInterval()"
-								/>
+						<div v-if="options.autoRefresh" class="flex grow relative">
+							<input
+								class="grow"
+								id="autoRefreshInterval"
+								type="number"
+								v-model="options.autoRefreshInterval"
+								placeholder="30"
+								min="5"
+								step="1"
+								@change="checkAutoRefreshInterval()"
+							/>
+							<div class="absolute z-30 right-11 top-2">
+								{{ t('stats.abbreviations.minute') }}
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
+
 			<!-- section related to charts and data retrieval -->
 			<section class="flex flex-col gap-4">
 				<h2 class="text-2xl font-light">{{ t("options.headings.stats") }}</h2>
@@ -109,15 +111,16 @@
 						<span class="block text-zinc-500">{{ t("options.startOfWeek.description") }}</span>
 					</label>
 					<div class="flex self-center">
-						<select class="flex-grow" v-model="options.startOfWeek" id="start">
+						<select class="grow" v-model="options.startOfWeek" id="start">
 							<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
 						</select>
 					</div>
 				</div> -->
+
 				<!-- option: addresses -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="local">
-						<div class="d-flex align-items-end gap-0-5">
+						<div class="flex items-end gap-0-5">
 							{{ t("options.localIdentities.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
@@ -126,8 +129,8 @@
 						<div class="text-gray text-small">{{ t("options.localIdentities.description") }}</div>
 					</label>
 					<div class="action">
-						<div class="d-flex input-group">
-							<input class="flex-grow" type="email" v-model="input.address" placeholder="hello@devmount.de" id="local" />
+						<div class="flex input-group">
+							<input class="grow" type="email" v-model="input.address" placeholder="hello@devmount.de" id="local" />
 							<button @click="addAddress" class="p-0-5">
 								<icon-plus class="!w-5 !h-5" />
 							</button>
@@ -140,10 +143,11 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- option: account selection -->
 				<div class="entry" v-if="options.accounts">
 					<label>
-						<div class="d-flex align-items-end gap-0-5">
+						<div class="flex items-end gap-0-5">
 							{{ t("options.activeAccounts.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
 								<icon-refresh-alert class="!w-5 !h-5" />
@@ -156,22 +160,23 @@
 						</div>
 					</label>
 					<div class="action">
-						<div v-for="(a, i) in allAccounts" :key="i" class="d-flex justify-space-between">
+						<div v-for="(a, i) in allAccounts" :key="i" class="flex justify-space-between">
 							<label class="checkbox cursor-pointer text-overflow-ellipsis flex-no-grow">
 								<input type="checkbox" :value="a.id" v-model="options.accounts" />
 								<i class="checkbox-icon"></i> {{ a.name }}
 							</label>
-							<label :for="'color-' + a.name" class="cursor-pointer d-flex align-items-center gap-0-5">
+							<label :for="'color-' + a.name" class="cursor-pointer flex items-center gap-0-5">
 								<input type="color" :id="'color-' + a.name" v-model="options.accountColors[a.id]" />
 								<span class="text-mono text-tiny">{{ options.accountColors[a.id] }}</span>
 							</label>
 						</div>
 					</div>
 				</div>
+
 				<!-- option: selfMessages -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="selfMessages">
-						<div class="d-flex align-items-end gap-0-5">
+						<div class="flex items-end gap-0-5">
 							{{ t("options.selfMessages.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
@@ -180,19 +185,20 @@
 						<div class="text-gray text-small">{{ t("options.selfMessages.description") }}</div>
 					</label>
 					<div class="flex self-center flex-wrap">
-						<select class="flex-grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
+						<select class="grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
 							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ t("options.selfMessages.values." + val) }}</option>
 						</select>
-						<div class="d-flex gap-0-5 align-items-center text-gray">
+						<div class="flex gap-0-5 items-center text-gray">
 							<icon-info-square class="!w-5 !h-5" />
 							<span class="text-small">{{ t("options.selfMessages.info." + options.selfMessages) }}</span>
 						</div>
 					</div>
 				</div>
+
 				<!-- option: maxListCount -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="maxListCount">
-						<div class="d-flex align-items-end gap-0-5">
+						<div class="flex items-end gap-0-5">
 							{{ t("options.maxListCount.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
@@ -202,7 +208,7 @@
 					</label>
 					<div class="flex self-center input-group">
 						<input
-							class="flex-grow"
+							class="grow"
 							id="maxListCount"
 							type="number"
 							v-model="options.maxListCount"
@@ -218,6 +224,7 @@
 			<!-- section related to store processed data -->
 			<section class="flex flex-col gap-4">
 				<h2 class="text-2xl font-light">{{ t("options.headings.storage") }}</h2>
+
 				<!-- option: cache -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="cache">
@@ -228,6 +235,7 @@
 						<input type="checkbox" id="cache" v-model="options.cache" />
 					</div>
 				</div>
+
 				<!-- action: clear cache -->
 				<div class="grid grid-cols-option gap-8">
 					<label>
@@ -236,17 +244,18 @@
 					</label>
 					<div class="action">
 						<button @click="clearCache" class="mb-0-5">{{ t("options.clearCache.label") }}</button>
-						<div class="d-flex gap-0-5 align-items-center text-gray">
+						<div class="flex gap-0-5 items-center text-gray">
 							<icon-info-square class="!w-5 !h-5" />
 							<span class="text-small" v-if="cacheSize > 0">{{ t("options.clearCache.size", [formattedCacheSize]) }}</span>
 							<span class="text-small" v-else>{{ t("options.clearCache.empty") }}</span>
 						</div>
 					</div>
 				</div>
+
 				<!-- action: reset options -->
 				<div class="grid grid-cols-option gap-8">
 					<label>
-						<div class="d-flex align-items-end gap-0-5">
+						<div class="flex items-end gap-0-5">
 							{{ t("options.resetOptions.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
 								<icon-refresh-alert class="!w-5 !h-5" />
@@ -259,7 +268,7 @@
 					</label>
 					<div class="action">
 						<button @click="resetOptions" class="mb-0-5">{{ t("options.resetOptions.label") }}</button>
-						<div v-if="options.addresses && options.addresses.length > 0" class="d-flex gap-0-5 align-items-center text-gray">
+						<div v-if="options.addresses && options.addresses.length > 0" class="flex gap-0-5 items-center text-gray">
 							<icon-info-square class="!w-5 !h-5" />
 							<span class="text-small">{{ t("options.resetOptions.removeIdentities") }}</span>
 						</div>
@@ -273,11 +282,11 @@
 			<div class="text-gray text-small mb-0-5">
 				{{ t("options.note.reloadStatsPage") }}
 			</div>
-			<div class="d-flex align-items-center gap-0-5 mb-0-5 text-gray text-small">
+			<div class="flex items-center gap-0-5 mb-0-5 text-gray text-small">
 				<icon-refresh-alert class="!w-5 !h-5" />
 				{{ t("options.note.reloadWindowRequired") }}
 			</div>
-			<div class="d-flex align-items-center gap-0-5 text-gray text-small">
+			<div class="flex items-center gap-0-5 text-gray text-small">
 				<icon-database-exclamation class="!w-5 !h-5" />
 				{{ t("options.note.refreshCacheRequired") }}
 			</div>
@@ -298,6 +307,7 @@ import IconRefreshAlert from "@/icons/IconRefreshAlert.vue";
 import IconThirdStats from "@/icons/IconThirdStats.vue";
 import IconX from "@/icons/IconX.vue";
 import ProjectMeta from '@/parts/ProjectMeta.vue'
+import Tooltip from "@/components/Tooltip.vue";
 
 const { t, locale } = useI18n();
 
