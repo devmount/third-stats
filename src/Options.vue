@@ -72,7 +72,7 @@
 						<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
 						<div class="flex gap-2 items-center text-zinc-500">
 							<icon-info-square class="!w-5 !h-5" />
-							<span class="text-xs">{{ t("options.liveCountUp.info") }}</span>
+							<span class="text-sm">{{ t("options.liveCountUp.info") }}</span>
 						</div>
 					</div>
 				</div>
@@ -177,7 +177,7 @@
 							{{ t("options.activeAccounts.sumAndCompare") }}
 						</span>
 					</label>
-					<div class="flex flex-col justify-center">
+					<div class="flex flex-col justify-center gap-1">
 						<div v-for="(a, i) in allAccounts" :key="i" class="flex justify-between gap-2">
 							<label class="cursor-pointer truncate grow-0">
 								<input type="checkbox" :value="a.id" v-model="options.accounts" />
@@ -196,21 +196,21 @@
 					<label for="selfMessages">
 						<div class="flex items-end gap-2">
 							{{ t("options.selfMessages.label") }}
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
+							<tooltip :content="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
-							</span>
+							</tooltip>
 						</div>
 						<span class="block text-zinc-500">
 							{{ t("options.selfMessages.description") }}
 						</span>
 					</label>
-					<div class="flex self-center flex-wrap">
+					<div class="flex self-center flex-wrap gap-2">
 						<select class="grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
 							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ t("options.selfMessages.values." + val) }}</option>
 						</select>
-						<div class="flex gap-0-5 items-center text-gray">
-							<icon-info-square class="!w-5 !h-5" />
-							<span class="text-small">{{ t("options.selfMessages.info." + options.selfMessages) }}</span>
+						<div class="flex gap-2 items-center text-zinc-500">
+							<icon-info-square class="!w-5 !h-5 shrink-0" />
+							<span class="text-sm">{{ t("options.selfMessages.info." + options.selfMessages) }}</span>
 						</div>
 					</div>
 				</div>
@@ -220,9 +220,9 @@
 					<label for="maxListCount">
 						<div class="flex items-end gap-2">
 							{{ t("options.maxListCount.label") }}
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
+							<tooltip :content="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
-							</span>
+							</tooltip>
 						</div>
 						<span class="block text-zinc-500">
 							{{ t("options.maxListCount.description") }}
@@ -283,12 +283,12 @@
 					<label>
 						<div class="flex items-end gap-2">
 							{{ t("options.resetOptions.label") }}
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
+							<tooltip :content="t('options.note.reloadWindowRequired')">
 								<icon-refresh-alert class="!w-5 !h-5" />
-							</span>
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
+							</tooltip>
+							<tooltip :content="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
-							</span>
+							</tooltip>
 						</div>
 						<span class="block text-zinc-500">
 							{{ t("options.resetOptions.description") }}
