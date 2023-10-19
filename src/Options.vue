@@ -15,13 +15,15 @@
 
 			<!-- section related to ThirdStats appearance and UI -->
 			<section class="flex flex-col gap-4">
-				<h2 class="text-2xl font-light">{{ t("options.headings.appearance") }}</h2>
+				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.appearance") }}</h2>
 
 				<!-- option: theme -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="theme">
 						{{ t("options.theme.label") }}
-						<span class="block text-zinc-500">{{ t("options.theme.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.theme.description") }}
+						</span>
 					</label>
 					<div class="flex self-center">
 						<select class="grow" v-model="options.theme" id="theme">
@@ -36,7 +38,9 @@
 				<div class="grid grid-cols-option gap-8">
 					<label for="ordinate">
 						{{ t("options.ordinate.label") }}
-						<span class="block text-zinc-500">{{ t("options.ordinate.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.ordinate.description") }}
+						</span>
 					</label>
 					<div class="flex self-center">
 						<input type="checkbox" id="ordinate" v-model="options.ordinate" />
@@ -47,7 +51,9 @@
 				<div class="grid grid-cols-option gap-8">
 					<label for="tagColors">
 						{{ t("options.tagColors.label") }}
-						<span class="block text-zinc-500">{{ t("options.tagColors.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.tagColors.description") }}
+						</span>
 					</label>
 					<div class="flex self-center">
 						<input type="checkbox" id="tagColors" v-model="options.tagColors" />
@@ -58,7 +64,9 @@
 				<div class="grid grid-cols-option gap-8">
 					<label for="liveCountUp">
 						{{ t("options.liveCountUp.label") }}
-						<span class="block text-zinc-500">{{ t("options.liveCountUp.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.liveCountUp.description") }}
+						</span>
 					</label>
 					<div class="flex flex-col self-center gap-2">
 						<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
@@ -78,7 +86,9 @@
 								<icon-refresh-alert class="!w-5 !h-5" />
 							</tooltip>
 						</div>
-						<span class="block text-zinc-500">{{ t("options.autoRefresh.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.autoRefresh.description") }}
+						</span>
 					</label>
 					<div class="flex self-center items-center gap-4">
 						<input type="checkbox" id="autoRefresh" v-model="options.autoRefresh" />
@@ -103,12 +113,14 @@
 
 			<!-- section related to charts and data retrieval -->
 			<section class="flex flex-col gap-4">
-				<h2 class="text-2xl font-light">{{ t("options.headings.stats") }}</h2>
+				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.stats") }}</h2>
 				<!-- option: startOfWeek -->
 				<!-- <div class="grid grid-cols-option gap-8">
 					<label for="start">
 						{{ t("options.startOfWeek.label") }}
-						<span class="block text-zinc-500">{{ t("options.startOfWeek.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.startOfWeek.description") }}
+						</span>
 					</label>
 					<div class="flex self-center">
 						<select class="grow" v-model="options.startOfWeek" id="start">
@@ -120,54 +132,60 @@
 				<!-- option: addresses -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="local">
-						<div class="flex items-end gap-0-5">
+						<div class="flex items-end gap-2">
 							{{ t("options.localIdentities.label") }}
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
+							<tooltip :content="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
-							</span>
+							</tooltip>
 						</div>
-						<div class="text-gray text-small">{{ t("options.localIdentities.description") }}</div>
+						<span class="block text-zinc-500">
+							{{ t("options.localIdentities.description") }}
+						</span>
 					</label>
-					<div class="action">
-						<div class="flex input-group">
+					<div class="flex flex-col gap-2">
+						<div class="flex">
 							<input class="grow" type="email" v-model="input.address" placeholder="hello@devmount.de" id="local" />
-							<button @click="addAddress" class="p-0-5">
+							<btn @click="addAddress" class="rounded-l-none">
 								<icon-plus class="!w-5 !h-5" />
-							</button>
+							</btn>
 						</div>
-						<div>
-							<span class="tag text-small" v-for="a in addressList" :key="a">
+						<div class="flex flex-wrap items-center gap-2">
+							<span
+								class="text-sm bg-zinc-300 dark:bg-zinc-700/75 rounded-sm py-1 px-2 flex items-center gap-1"
+								v-for="a in addressList"
+								:key="a"
+							>
 								{{ a }}
-								<icon-x class="!w-4 !h-4 cursor-pointer" @click="removeAddress(a)" />
+								<icon-x class="!w-4 !h-4 cursor-pointer hover:text-fuchsia-500" @click="removeAddress(a)" />
 							</span>
 						</div>
 					</div>
 				</div>
 
 				<!-- option: account selection -->
-				<div class="entry" v-if="options.accounts">
+				<div v-if="options.accounts" class="grid grid-cols-option gap-8">
 					<label>
-						<div class="flex items-end gap-0-5">
+						<div class="flex items-end gap-2">
 							{{ t("options.activeAccounts.label") }}
-							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
+							<tooltip :content="t('options.note.reloadWindowRequired')">
 								<icon-refresh-alert class="!w-5 !h-5" />
-							</span>
+							</tooltip>
 						</div>
-						<div class="text-gray text-small">
+						<span class="block text-zinc-500">
 							{{ t("options.activeAccounts.description") }}
 							{{ t("options.activeAccounts.color") }}<br />
 							{{ t("options.activeAccounts.sumAndCompare") }}
-						</div>
+						</span>
 					</label>
-					<div class="action">
-						<div v-for="(a, i) in allAccounts" :key="i" class="flex justify-space-between">
-							<label class="checkbox cursor-pointer text-overflow-ellipsis flex-no-grow">
+					<div class="flex flex-col justify-center">
+						<div v-for="(a, i) in allAccounts" :key="i" class="flex justify-between gap-2">
+							<label class="cursor-pointer truncate grow-0">
 								<input type="checkbox" :value="a.id" v-model="options.accounts" />
-								<i class="checkbox-icon"></i> {{ a.name }}
+								<span class="pl-2">{{ a.name }}</span>
 							</label>
-							<label :for="'color-' + a.name" class="cursor-pointer flex items-center gap-0-5">
+							<label :for="'color-' + a.name" class="cursor-pointer flex items-center gap-2">
 								<input type="color" :id="'color-' + a.name" v-model="options.accountColors[a.id]" />
-								<span class="text-mono text-tiny">{{ options.accountColors[a.id] }}</span>
+								<span class="font-mono text-xs">{{ options.accountColors[a.id] }}</span>
 							</label>
 						</div>
 					</div>
@@ -176,13 +194,15 @@
 				<!-- option: selfMessages -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="selfMessages">
-						<div class="flex items-end gap-0-5">
+						<div class="flex items-end gap-2">
 							{{ t("options.selfMessages.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
 							</span>
 						</div>
-						<div class="text-gray text-small">{{ t("options.selfMessages.description") }}</div>
+						<span class="block text-zinc-500">
+							{{ t("options.selfMessages.description") }}
+						</span>
 					</label>
 					<div class="flex self-center flex-wrap">
 						<select class="grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
@@ -198,13 +218,15 @@
 				<!-- option: maxListCount -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="maxListCount">
-						<div class="flex items-end gap-0-5">
+						<div class="flex items-end gap-2">
 							{{ t("options.maxListCount.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.refreshCacheRequired')">
 								<icon-database-exclamation class="!w-5 !h-5" />
 							</span>
 						</div>
-						<div class="text-gray text-small">{{ t("options.maxListCount.description") }}</div>
+						<span class="block text-zinc-500">
+							{{ t("options.maxListCount.description") }}
+						</span>
 					</label>
 					<div class="flex self-center input-group">
 						<input
@@ -223,13 +245,15 @@
 			</section>
 			<!-- section related to store processed data -->
 			<section class="flex flex-col gap-4">
-				<h2 class="text-2xl font-light">{{ t("options.headings.storage") }}</h2>
+				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.storage") }}</h2>
 
 				<!-- option: cache -->
 				<div class="grid grid-cols-option gap-8">
 					<label for="cache">
 						{{ t("options.cache.label") }}
-						<span class="block text-zinc-500">{{ t("options.cache.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.cache.description") }}
+						</span>
 					</label>
 					<div class="action">
 						<input type="checkbox" id="cache" v-model="options.cache" />
@@ -240,7 +264,9 @@
 				<div class="grid grid-cols-option gap-8">
 					<label>
 						{{ t("options.clearCache.label") }}
-						<span class="block text-zinc-500">{{ t("options.clearCache.description") }}</span>
+						<span class="block text-zinc-500">
+							{{ t("options.clearCache.description") }}
+						</span>
 					</label>
 					<div class="action">
 						<button @click="clearCache" class="mb-0-5">{{ t("options.clearCache.label") }}</button>
@@ -255,7 +281,7 @@
 				<!-- action: reset options -->
 				<div class="grid grid-cols-option gap-8">
 					<label>
-						<div class="flex items-end gap-0-5">
+						<div class="flex items-end gap-2">
 							{{ t("options.resetOptions.label") }}
 							<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
 								<icon-refresh-alert class="!w-5 !h-5" />
@@ -264,7 +290,9 @@
 								<icon-database-exclamation class="!w-5 !h-5" />
 							</span>
 						</div>
-						<div class="text-gray text-small">{{ t("options.resetOptions.description") }}</div>
+						<span class="block text-zinc-500">
+							{{ t("options.resetOptions.description") }}
+						</span>
 					</label>
 					<div class="action">
 						<button @click="resetOptions" class="mb-0-5">{{ t("options.resetOptions.label") }}</button>
@@ -308,6 +336,7 @@ import IconThirdStats from "@/icons/IconThirdStats.vue";
 import IconX from "@/icons/IconX.vue";
 import ProjectMeta from '@/parts/ProjectMeta.vue'
 import Tooltip from "@/components/Tooltip.vue";
+import Btn from "@/components/Btn.vue";
 
 const { t, locale } = useI18n();
 
