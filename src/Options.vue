@@ -228,7 +228,7 @@
 							{{ t("options.maxListCount.description") }}
 						</span>
 					</label>
-					<div class="flex self-center input-group">
+					<div class="self-center">
 						<input
 							class="grow"
 							id="maxListCount"
@@ -243,6 +243,7 @@
 					</div>
 				</div>
 			</section>
+
 			<!-- section related to store processed data -->
 			<section class="flex flex-col gap-4">
 				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.storage") }}</h2>
@@ -255,7 +256,7 @@
 							{{ t("options.cache.description") }}
 						</span>
 					</label>
-					<div class="action">
+					<div class="self-center">
 						<input type="checkbox" id="cache" v-model="options.cache" />
 					</div>
 				</div>
@@ -268,12 +269,15 @@
 							{{ t("options.clearCache.description") }}
 						</span>
 					</label>
-					<div class="action">
-						<button @click="clearCache" class="mb-0-5">{{ t("options.clearCache.label") }}</button>
-						<div class="flex gap-0-5 items-center text-gray">
-							<icon-info-square class="!w-5 !h-5" />
-							<span class="text-small" v-if="cacheSize > 0">{{ t("options.clearCache.size", [formattedCacheSize]) }}</span>
-							<span class="text-small" v-else>{{ t("options.clearCache.empty") }}</span>
+					<div class="flex flex-col self-center items-start gap-2">
+						<btn @click="clearCache" class="flex gap-2 items-center">
+							<icon-database-x class="!w-5 !h-5" />
+							{{ t("options.clearCache.label") }}
+						</btn>
+						<div class="flex gap-2 items-center text-zinc-500">
+							<icon-info-square class="!w-5 !h-5 shrink-0" />
+							<span class="text-sm" v-if="cacheSize > 0">{{ t("options.clearCache.size", [formattedCacheSize]) }}</span>
+							<span class="text-sm" v-else>{{ t("options.clearCache.empty") }}</span>
 						</div>
 					</div>
 				</div>
@@ -294,9 +298,12 @@
 							{{ t("options.resetOptions.description") }}
 						</span>
 					</label>
-					<div class="action">
-						<button @click="resetOptions" class="mb-0-5">{{ t("options.resetOptions.label") }}</button>
-						<div v-if="options.addresses && options.addresses.length > 0" class="flex gap-0-5 items-center text-gray">
+					<div class="flex flex-col self-center items-start gap-2">
+						<btn @click="resetOptions" class="flex gap-2 items-center">
+							<icon-settings-x class="!w-5 !h-5" />
+							{{ t("options.resetOptions.label") }}
+						</btn>
+						<div v-if="options.addresses && options.addresses.length > 0" class="flex gap-2 items-center text-zinc-500">
 							<icon-info-square class="!w-5 !h-5" />
 							<span class="text-small">{{ t("options.resetOptions.removeIdentities") }}</span>
 						</div>
@@ -328,15 +335,17 @@ import { defaultColors, defaultOptions } from '@/definitions.js';
 import { formatBytes, setTheme } from '@/utils.js';
 import { ref, onMounted, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import Btn from "@/components/Btn.vue";
 import IconDatabaseExclamation from "@/icons/IconDatabaseExclamation.vue";
+import IconDatabaseX from "@/icons/IconDatabaseX.vue";
 import IconInfoSquare from "@/icons/IconInfoSquare.vue";
 import IconPlus from "@/icons/IconPlus.vue";
 import IconRefreshAlert from "@/icons/IconRefreshAlert.vue";
+import IconSettingsX from "@/icons/IconSettingsX.vue";
 import IconThirdStats from "@/icons/IconThirdStats.vue";
 import IconX from "@/icons/IconX.vue";
 import ProjectMeta from '@/parts/ProjectMeta.vue'
 import Tooltip from "@/components/Tooltip.vue";
-import Btn from "@/components/Btn.vue";
 
 const { t, locale } = useI18n();
 
