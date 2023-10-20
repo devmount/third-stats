@@ -1,7 +1,7 @@
 <template>
 	<section class="flex flex-col gap-4">
 		<!-- title with version -->
-		<div class="text-zinc-500 text-sm text-center">
+		<div class="text-zinc-500 text-center">
 			ThirdStats <code>{{ version }}</code>
 		</div>
 		<!-- cta -->

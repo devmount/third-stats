@@ -70,9 +70,9 @@
 					</label>
 					<div class="flex flex-col self-center gap-2">
 						<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
-						<div class="flex gap-2 items-center text-zinc-500">
+						<div class="flex gap-2 items-center text-zinc-500 text-sm">
 							<icon-info-square class="!w-5 !h-5" />
-							<span class="text-sm">{{ t("options.liveCountUp.info") }}</span>
+							<span>{{ t("options.liveCountUp.info") }}</span>
 						</div>
 					</div>
 				</div>
@@ -208,9 +208,9 @@
 						<select class="grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
 							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ t("options.selfMessages.values." + val) }}</option>
 						</select>
-						<div class="flex gap-2 items-center text-zinc-500">
+						<div class="flex gap-2 items-center text-zinc-500 text-sm">
 							<icon-info-square class="!w-5 !h-5 shrink-0" />
-							<span class="text-sm">{{ t("options.selfMessages.info." + options.selfMessages) }}</span>
+							<span>{{ t("options.selfMessages.info." + options.selfMessages) }}</span>
 						</div>
 					</div>
 				</div>
@@ -274,10 +274,10 @@
 							<icon-database-x class="!w-5 !h-5" />
 							{{ t("options.clearCache.label") }}
 						</btn>
-						<div class="flex gap-2 items-center text-zinc-500">
+						<div class="flex gap-2 items-center text-zinc-500 text-sm">
 							<icon-info-square class="!w-5 !h-5 shrink-0" />
-							<span class="text-sm" v-if="cacheSize > 0">{{ t("options.clearCache.size", [formattedCacheSize]) }}</span>
-							<span class="text-sm" v-else>{{ t("options.clearCache.empty") }}</span>
+							<span v-if="cacheSize > 0">{{ t("options.clearCache.size", [formattedCacheSize]) }}</span>
+							<span v-else>{{ t("options.clearCache.empty") }}</span>
 						</div>
 					</div>
 				</div>
@@ -303,25 +303,28 @@
 							<icon-settings-x class="!w-5 !h-5" />
 							{{ t("options.resetOptions.label") }}
 						</btn>
-						<div v-if="options.addresses && options.addresses.length > 0" class="flex gap-2 items-center text-zinc-500">
+						<div
+							v-if="options.addresses && options.addresses.length > 0"
+							class="flex gap-2 items-center text-zinc-500 text-sm"
+						>
 							<icon-info-square class="!w-5 !h-5" />
-							<span class="text-small">{{ t("options.resetOptions.removeIdentities") }}</span>
+							<span>{{ t("options.resetOptions.removeIdentities") }}</span>
 						</div>
 					</div>
 				</div>
 			</section>
 		</div>
-		<hr />
-		<footer class="mx-auto pb-3">
-			<label class="mb-0-5">{{ t("options.note.title") }}</label>
-			<div class="text-gray text-small mb-0-5">
+		<hr class="border-zinc-400 dark:border-zinc-700 my-8" />
+		<footer class="flex flex-col gap-2 pb-8">
+			<label>{{ t("options.note.title") }}</label>
+			<div class="text-zinc-500 text-sm">
 				{{ t("options.note.reloadStatsPage") }}
 			</div>
-			<div class="flex items-center gap-0-5 mb-0-5 text-gray text-small">
+			<div class="flex items-center gap-2 text-zinc-500 text-sm">
 				<icon-refresh-alert class="!w-5 !h-5" />
 				{{ t("options.note.reloadWindowRequired") }}
 			</div>
-			<div class="flex items-center gap-0-5 text-gray text-small">
+			<div class="flex items-center gap-2 text-zinc-500 text-sm">
 				<icon-database-exclamation class="!w-5 !h-5" />
 				{{ t("options.note.refreshCacheRequired") }}
 			</div>
