@@ -32,13 +32,13 @@
 					v-for="a in accounts"
 					:key="a.id"
 					class="
-						group relative cursor-pointer shadow-xl py-3 px-4 rounded transition-colors truncate
+						group relative cursor-pointer shadow-xl py-3 px-4 rounded transition-colors
 						bg-white dark:bg-zinc-800 hover:!bg-blue-500
 					"
 					@click.prevent="openTab('index.stats.html', a.id)"
 				>
 					<div class="position-relative z-5">
-						<h4 class="whitespace-nowrap font-semibold text-sm group-hover:!text-white">
+						<h4 class="whitespace-nowrap w-full truncate font-semibold text-sm group-hover:!text-white">
 							{{ a.name }}
 						</h4>
 						<div class="text-xs text-zinc-700 dark:text-zinc-400 group-hover:!text-white">

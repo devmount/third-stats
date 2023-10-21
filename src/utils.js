@@ -303,7 +303,7 @@ const pluralUkrainian = (n) => {
  * @returns {Boolean} True, if dark mode was set
  */
 const setTheme = (theme, el=document.documentElement, darkClasses=['dark'], lightClasses=['light']) => {
-	const elements = [...el];
+	const elements = Array.isArray(el) ? [...el] : [el];
 	if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 		elements.forEach((element) => {
 			element.classList.remove(...lightClasses);
