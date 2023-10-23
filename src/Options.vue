@@ -151,7 +151,7 @@
 						</div>
 						<div class="flex flex-wrap items-center gap-2">
 							<span
-								class="text-sm bg-zinc-300 dark:bg-zinc-700/75 rounded-sm py-1 px-2 flex items-center gap-1"
+								class="text-sm bg-zinc-200 dark:bg-zinc-700/75 rounded-sm py-1 px-2 flex items-center gap-1"
 								v-for="a in addressList"
 								:key="a"
 							>
@@ -228,7 +228,7 @@
 							{{ t("options.maxListCount.description") }}
 						</span>
 					</label>
-					<div class="self-center">
+					<div class="flex self-center">
 						<input
 							class="grow"
 							id="maxListCount"
@@ -270,7 +270,7 @@
 						</span>
 					</label>
 					<div class="flex flex-col self-center items-start gap-2">
-						<btn @click="clearCache" class="flex gap-2 items-center">
+						<btn @click="clearCache" class="flex gap-2 items-center py-4 px-8">
 							<icon-database-x class="!w-5 !h-5" />
 							{{ t("options.clearCache.label") }}
 						</btn>
@@ -299,7 +299,7 @@
 						</span>
 					</label>
 					<div class="flex flex-col self-center items-start gap-2">
-						<btn @click="resetOptions" class="flex gap-2 items-center">
+						<btn @click="resetOptions" class="flex gap-2 items-center py-4 px-8">
 							<icon-settings-x class="!w-5 !h-5" />
 							{{ t("options.resetOptions.label") }}
 						</btn>
@@ -384,10 +384,12 @@ const getSettings = async () => {
 		options.value = {...options.value, ...result.options};
 		// handle theme
 		const darkClasses = ['dark'];
+		const lightClasses = ['light'];
 		if (!ownOptionsPage) {
 			darkClasses.push('!bg-tboptions');
+			lightClasses.push('!bg-white');
 		}
-		setTheme(options.value.theme, [document.documentElement, document.body], darkClasses);
+		setTheme(options.value.theme, [document.documentElement, document.body], darkClasses, lightClasses);
 	}
 };
 
@@ -498,10 +500,12 @@ watch(
 	(newOptions) => {
 		messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) });
 		const darkClasses = ['dark'];
+		const lightClasses = ['light'];
 		if (!ownOptionsPage) {
 			darkClasses.push('!bg-tboptions');
+			lightClasses.push('!bg-white');
 		}
-		setTheme(newOptions.theme, [document.documentElement, document.body], darkClasses);
+		setTheme(options.value.theme, [document.documentElement, document.body], darkClasses, lightClasses);
 	},
 	{
 		deep: true,
