@@ -299,7 +299,7 @@
 						</span>
 					</label>
 					<div class="flex flex-col self-center items-start gap-2">
-						<btn @click="resetOptions" class="flex gap-2 items-center py-4 px-8">
+						<btn @click="resetOptions" class="flex gap-2 items-center py-4 px-8" em>
 							<icon-settings-x class="!w-5 !h-5" />
 							{{ t("options.resetOptions.label") }}
 						</btn>
