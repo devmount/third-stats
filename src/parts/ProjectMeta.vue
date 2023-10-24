@@ -12,17 +12,10 @@
 				:key="key"
 			>
 				<tooltip :content="t(`cta.${key}`)" :disabled="!compact">
-					<a
-						:href="link.url"
-						class="py-2 px-4 border rounded-sm flex gap-2 items-center transition-colors hover:text-white"
-						:class="{
-							'text-fuchsia-500 border-fuchsia-500 hover:bg-fuchsia-500': key === 'donate',
-							'text-blue-500 border-blue-500 hover:bg-blue-500': key !== 'donate',
-						}"
-					>
+					<btn-link :href="link.url" :em="key === 'donate'" hollow>
 						<component :is="link.icon" class="!w-5 !h-5" />
 						<span v-if="!compact">{{ t(`cta.${key}`) }}</span>
-					</a>
+					</btn-link>
 				</tooltip>
 			</template>
 		</div>
@@ -44,6 +37,7 @@ import IconLanguage from "@/icons/IconLanguage.vue";
 import IconPencil from "@/icons/IconPencil.vue";
 import IconStar from "@/icons/IconStar.vue";
 import Tooltip from "@/components/Tooltip.vue";
+import BtnLink from "@/components/BtnLink.vue";
 
 const { t } = useI18n();
 const version = inject('version');

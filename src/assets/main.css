@@ -16,7 +16,7 @@
     @apply rounded-full border-none;
   }
   button {
-    @apply rounded-sm border cursor-pointer text-center disabled:opacity-75 disabled:cursor-default transition-colors py-1.5 px-2.5 focus:!ring-4;
+    @apply flex gap-2 items-center rounded-sm border cursor-pointer text-center disabled:opacity-75 disabled:cursor-default transition-colors py-1.5 px-2.5 focus:!ring-4;
   }
   a {
     @apply transition-colors;
