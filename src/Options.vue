@@ -347,7 +347,7 @@ import IconRefreshAlert from "@/icons/IconRefreshAlert.vue";
 import IconSettingsX from "@/icons/IconSettingsX.vue";
 import IconThirdStats from "@/icons/IconThirdStats.vue";
 import IconX from "@/icons/IconX.vue";
-import ProjectMeta from '@/parts/ProjectMeta.vue'
+import ProjectMeta from '@/partials/ProjectMeta.vue'
 import Tooltip from "@/components/Tooltip.vue";
 
 const { t, locale } = useI18n();

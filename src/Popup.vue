@@ -5,7 +5,7 @@
 			<header class="flex justify-between items-center">
 				<h3 class="font-normal text-xl flex gap-4 items-center">
 					<span>{{ t("popup.nAccounts", accounts.length, [accounts.length]) }}</span>
-					<loader v-if="loading"></loader>
+					<loader v-if="loading" />
 				</h3>
 				<div class="flex gap-2">
 					<tooltip
@@ -76,7 +76,7 @@ import IconThirdStats from "@/icons/IconThirdStats.vue";
 import Tooltip from "@/components/Tooltip.vue";
 import Loader from "@/components/Loader.vue";
 import LineChart from "@/charts/LineChart.vue";
-import ProjectMeta from "@/parts/ProjectMeta.vue";
+import ProjectMeta from "@/partials/ProjectMeta.vue";
 
 const { t } = useI18n();
 

@@ -189,7 +189,7 @@
 						class="d-inline-block tooltip tooltip-bottom"
 						:data-tooltip="formatDate(display.meta.timestamp, locale)"
 					>
-						<LiveAge class="cursor-default" :date="display.meta.timestamp" />
+						<live-age class="cursor-default" :date="display.meta.timestamp" />
 					</div>
 				</div>
 			</header>
@@ -881,8 +881,8 @@ import LineChart from "@/charts/LineChart.vue";
 import BarChart from "@/charts/BarChart.vue";
 import MatrixChart from "@/charts/MatrixChart.vue";
 import DoughnutChart from "@/charts/DoughnutChart.vue";
-import LiveAge from "@/parts/LiveAge.vue";
-import ProjectMeta from "@/parts/ProjectMeta.vue";
+import LiveAge from "@/partials/LiveAge.vue";
+import ProjectMeta from "@/partials/ProjectMeta.vue";
 
 const { t, locale } = useI18n();
 
