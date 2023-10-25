@@ -40,18 +40,18 @@
       "stats": "Wykresy & Dane",
       "storage": "Pamięć masowa & Podręczna"
     },
-    "maxListCount": {
-      "description": "Maksymalna liczba wpisów wyświetlanych na wykresach list (kontakty i tagi, maksymalnie 999)",
-      "label": "Maksymalna długość listy"
+    "identities": {
+      "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych",
+      "label": "Tożsamości lokalne"
     },
     "liveCountUp": {
       "description": "Pokaż na żywo postęp obliczonych liczb podczas przetwarzania danych statystycznych",
       "info": "Włączenie tego może wydłużyć czas przetwarzania",
       "label": "Liczenie na żywo"
     },
-    "localIdentities": {
-      "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych",
-      "label": "Tożsamości lokalne"
+    "maxListCount": {
+      "description": "Maksymalna liczba wpisów wyświetlanych na wykresach list (kontakty i tagi, maksymalnie 999)",
+      "label": "Maksymalna długość listy"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Przywróć wartości domyślne wszystkich opcji. W zależności od tego, które opcje zostały wcześniej zmienione, może być wymagane odświeżenie okna lub pamięci podręcznej.",
       "label": "Opcje resetowania",
-      "removeIdentities": "Spowoduje to również usunięcie wszystkich utworzonych tożsamości lokalnych."
+      "info": "Spowoduje to również usunięcie wszystkich utworzonych tożsamości lokalnych."
     },
     "selfMessages": {
       "description": "Wyklucz wiadomości wysłane przeze mnie do siebie",

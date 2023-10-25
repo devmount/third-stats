@@ -40,18 +40,18 @@
       "stats": "Diagram & Data",
       "storage": "Lagring & Cache"
     },
-    "maxListCount": {
-      "description": "Maximalt antal poster som visas i listdiagram (kontakter och taggar, max 999)",
-      "label": "Maximal längd på listan"
+    "identities": {
+      "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton",
+      "label": "Lokala Identiteter"
     },
     "liveCountUp": {
       "description": "Visa direktförlopp för beräknade tal vid bearbetning av statistikdata",
       "info": "Aktivering av detta kan öka bearbetningstiden",
       "label": "Live Räkna Upp"
     },
-    "localIdentities": {
-      "description": "En kommaseparerad lista med mejladresser att känna igen som 'skickat från' för lokala konton",
-      "label": "Lokala Identiteter"
+    "maxListCount": {
+      "description": "Maximalt antal poster som visas i listdiagram (kontakter och taggar, max 999)",
+      "label": "Maximal längd på listan"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Återställ alla alternativ till standardvärdena. Beroende på vilka alternativ du har ändrat tidigare kan en fönster eller cache-uppdatering krävas.",
       "label": "Återställ alternativ",
-      "removeIdentities": "Detta tar också bort alla lokala identiteter du skapat."
+      "info": "Detta tar också bort alla lokala identiteter du skapat."
     },
     "selfMessages": {
       "description": "Exkludera meddelanden som var skickade från mig till mig själv",

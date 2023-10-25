@@ -40,18 +40,18 @@
       "stats": "Ábrázolások és adatok",
       "storage": "Tárolás és gyorsítótár"
     },
-    "maxListCount": {
-      "description": "A listadiagramokban megjelenített bejegyzések maximális száma (kapcsolatok és címkék, maximum 999)",
-      "label": "Maximális listahossz"
+    "identities": {
+      "description": "A levélcímlista, hogy ismerje a „küldött” a helyi fiókok",
+      "label": "Helyi személyazonosságok"
     },
     "liveCountUp": {
       "description": "A kiszámított számok élő előrehaladásának megjelenítése statisztikai adatok feldolgozásakor",
       "info": "Ennek engedélyezése növelheti a feldolgozási időt",
       "label": "Élő Count Up"
     },
-    "localIdentities": {
-      "description": "A levélcímlista, hogy ismerje a „küldött” a helyi fiókok",
-      "label": "Helyi személyazonosságok"
+    "maxListCount": {
+      "description": "A listadiagramokban megjelenített bejegyzések maximális száma (kapcsolatok és címkék, maximum 999)",
+      "label": "Maximális listahossz"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Állítsa vissza az összes beállítást az alapértelmezett értékre. A korábban megváltoztatott beállításoktól függően szükség lehet egy ablak vagy gyorsítótár frissítésére.",
       "label": "Beállítások visszaállítása",
-      "removeIdentities": "Ez eltávolítja az összes helyi személyazonosságot, amelyet létrehozott. "
+      "info": "Ez eltávolítja az összes helyi személyazonosságot, amelyet létrehozott. "
     },
     "selfMessages": {
       "description": "Kizárja azokat az üzeneteket, amelyeket tőlem küldtem magamnak",

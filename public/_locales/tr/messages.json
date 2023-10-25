@@ -40,18 +40,18 @@
       "stats": "Grafikler ve Veriler",
       "storage": "Depolama ve Önbellek"
     },
-    "maxListCount": {
-      "description": "Liste grafiklerinde gösterilen maksimum giriş sayısı (kişiler ve etiketler, maksimum 999)",
-      "label": "Maksimum Liste Uzunluğu"
+    "identities": {
+      "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
+      "label": "Yerel Kimlikler"
     },
     "liveCountUp": {
       "description": "İstatistik verilerini işlerken hesaplanan sayıların canlı ilerlemesini göster",
       "info": "Bunu etkinleştirmek işlem süresini artırabilir",
       "label": "Canlı Sayım"
     },
-    "localIdentities": {
-      "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
-      "label": "Yerel Kimlikler"
+    "maxListCount": {
+      "description": "Liste grafiklerinde gösterilen maksimum giriş sayısı (kişiler ve etiketler, maksimum 999)",
+      "label": "Maksimum Liste Uzunluğu"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Tüm seçenekleri varsayılan değerlerine sıfırlayın. Daha önce hangi seçenekleri değiştirdiğinize bağlı olarak, bir pencere veya önbellek yenileme gerekebilir.",
       "label": "Ayarları sıfırla",
-      "removeIdentities": "Bu, oluşturduğunuz tüm yerel kimlikleri de kaldıracaktır."
+      "info": "Bu, oluşturduğunuz tüm yerel kimlikleri de kaldıracaktır."
     },
     "selfMessages": {
       "description": "Benden kendime gönderilen mesajları hariç tut",

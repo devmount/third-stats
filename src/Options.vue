@@ -18,79 +18,32 @@
 				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.appearance") }}</h2>
 
 				<!-- option: theme -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="theme">
-						{{ t("options.theme.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.theme.description") }}
-						</span>
-					</label>
-					<div class="flex self-center">
-						<select class="grow" v-model="options.theme" id="theme">
-							<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
-								{{ t("options.theme." + theme) }}
-							</option>
-						</select>
-					</div>
-				</div>
+				<option-row field="theme">
+					<select class="grow" v-model="options.theme" id="theme">
+						<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
+							{{ t(`options.theme.${theme}`) }}
+						</option>
+					</select>
+				</option-row>
 
 				<!-- option: ordinate -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="ordinate">
-						{{ t("options.ordinate.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.ordinate.description") }}
-						</span>
-					</label>
-					<div class="flex self-center">
-						<input type="checkbox" id="ordinate" v-model="options.ordinate" />
-					</div>
-				</div>
+				<option-row field="ordinate">
+					<input type="checkbox" id="ordinate" v-model="options.ordinate" />
+				</option-row>
 
 				<!-- option: tag colors -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="tagColors">
-						{{ t("options.tagColors.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.tagColors.description") }}
-						</span>
-					</label>
-					<div class="flex self-center">
-						<input type="checkbox" id="tagColors" v-model="options.tagColors" />
-					</div>
-				</div>
+				<option-row field="tagColors">
+					<input type="checkbox" id="tagColors" v-model="options.tagColors" />
+				</option-row>
 
 				<!-- option: live count up -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="liveCountUp">
-						{{ t("options.liveCountUp.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.liveCountUp.description") }}
-						</span>
-					</label>
-					<div class="flex flex-col self-center gap-2">
-						<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
-						<div class="flex gap-2 items-center text-zinc-500 text-sm">
-							<icon-info-square class="!w-5 !h-5" />
-							<span>{{ t("options.liveCountUp.info") }}</span>
-						</div>
-					</div>
-				</div>
+				<option-row field="liveCountUp" info>
+					<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
+				</option-row>
 
 				<!-- option: auto processing -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="autoRefresh">
-						<div class="flex items-end gap-2">
-							{{ t("options.autoRefresh.label") }}
-							<tooltip :content="t('options.note.reloadWindowRequired')">
-								<icon-refresh-alert class="!w-5 !h-5" />
-							</tooltip>
-						</div>
-						<span class="block text-zinc-500">
-							{{ t("options.autoRefresh.description") }}
-						</span>
-					</label>
-					<div class="flex self-center items-center gap-4">
+				<option-row field="autoRefresh" requires-reload>
+					<div class="flex items-center gap-4">
 						<input type="checkbox" id="autoRefresh" v-model="options.autoRefresh" />
 						<div v-if="options.autoRefresh" class="flex grow relative">
 							<input
@@ -108,75 +61,55 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</option-row>
+
 			</section>
 
 			<!-- section related to charts and data retrieval -->
 			<section class="flex flex-col gap-4">
 				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.stats") }}</h2>
+
 				<!-- option: startOfWeek -->
-				<!-- <div class="grid grid-cols-option gap-8">
-					<label for="start">
-						{{ t("options.startOfWeek.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.startOfWeek.description") }}
-						</span>
-					</label>
-					<div class="flex self-center">
-						<select class="grow" v-model="options.startOfWeek" id="start">
-							<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
-						</select>
-					</div>
-				</div> -->
+				<!-- <option-row field="startOfWeek">
+					<select class="grow" v-model="options.startOfWeek" id="startOfWeek">
+						<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">
+							{{ name }}
+						</option>
+					</select>
+				</option-row> -->
 
 				<!-- option: addresses -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="local">
-						<div class="flex items-end gap-2">
-							{{ t("options.localIdentities.label") }}
-							<tooltip :content="t('options.note.refreshCacheRequired')">
-								<icon-database-exclamation class="!w-5 !h-5" />
-							</tooltip>
-						</div>
-						<span class="block text-zinc-500">
-							{{ t("options.localIdentities.description") }}
-						</span>
-					</label>
+				<option-row field="identities" requires-reprocessing>
 					<div class="flex flex-col gap-2">
 						<div class="flex">
-							<input class="grow" type="email" v-model="input.address" placeholder="hello@devmount.de" id="local" />
+							<input
+								class="grow"
+								type="email"
+								v-model="input.address"
+								placeholder="hello@devmount.de"
+								id="identities"
+							/>
 							<btn @click="addAddress" class="rounded-l-none">
 								<icon-plus class="!w-5 !h-5" />
 							</btn>
 						</div>
 						<div class="flex flex-wrap items-center gap-2">
-							<span
-								class="text-sm bg-zinc-200 dark:bg-zinc-700/75 rounded-sm py-1 px-2 flex items-center gap-1"
-								v-for="a in addressList"
-								:key="a"
-							>
-								{{ a }}
-								<icon-x class="!w-4 !h-4 cursor-pointer hover:text-fuchsia-500" @click="removeAddress(a)" />
-							</span>
+							<tag v-for="a in addressList" :key="a" :label="a" @remove="removeAddress(a)" />
 						</div>
 					</div>
-				</div>
+				</option-row>
 
 				<!-- option: account selection -->
-				<div v-if="options.accounts" class="grid grid-cols-option gap-8">
-					<label>
-						<div class="flex items-end gap-2">
-							{{ t("options.activeAccounts.label") }}
-							<tooltip :content="t('options.note.reloadWindowRequired')">
-								<icon-refresh-alert class="!w-5 !h-5" />
-							</tooltip>
-						</div>
-						<span class="block text-zinc-500">
-							{{ t("options.activeAccounts.description") }}
-							{{ t("options.activeAccounts.color") }}<br />
-							{{ t("options.activeAccounts.sumAndCompare") }}
-						</span>
-					</label>
+				<option-row
+					v-if="options.accounts"
+					field="activeAccounts"
+					:description="`
+						${t('options.activeAccounts.description')}
+						${t('options.activeAccounts.color')}
+						${t('options.activeAccounts.sumAndCompare')}
+					`"
+					requires-reload
+				>
 					<div class="flex flex-col justify-center gap-1">
 						<div v-for="(a, i) in allAccounts" :key="i" class="flex justify-between gap-2">
 							<label class="cursor-pointer truncate grow-0">
@@ -189,59 +122,35 @@
 							</label>
 						</div>
 					</div>
-				</div>
+				</option-row>
 
 				<!-- option: selfMessages -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="selfMessages">
-						<div class="flex items-end gap-2">
-							{{ t("options.selfMessages.label") }}
-							<tooltip :content="t('options.note.refreshCacheRequired')">
-								<icon-database-exclamation class="!w-5 !h-5" />
-							</tooltip>
-						</div>
-						<span class="block text-zinc-500">
-							{{ t("options.selfMessages.description") }}
-						</span>
-					</label>
-					<div class="flex self-center flex-wrap gap-2">
-						<select class="grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
-							<option v-for="val in selfMessagesOptions" :key="val" :value="val">{{ t("options.selfMessages.values." + val) }}</option>
-						</select>
-						<div class="flex gap-2 items-center text-zinc-500 text-sm">
-							<icon-info-square class="!w-5 !h-5 shrink-0" />
-							<span>{{ t("options.selfMessages.info." + options.selfMessages) }}</span>
-						</div>
-					</div>
-				</div>
+				<option-row
+					field="selfMessages"
+					:info-text="t(`options.selfMessages.info.${options.selfMessages}`)"
+					requires-reprocessing
+				>
+					<select class="grow" v-model="options.selfMessages" id="selfMessages">
+						<option v-for="val in selfMessagesOptions" :key="val" :value="val">
+							{{ t(`options.selfMessages.values.${val}`) }}
+						</option>
+					</select>
+				</option-row>
 
 				<!-- option: maxListCount -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="maxListCount">
-						<div class="flex items-end gap-2">
-							{{ t("options.maxListCount.label") }}
-							<tooltip :content="t('options.note.refreshCacheRequired')">
-								<icon-database-exclamation class="!w-5 !h-5" />
-							</tooltip>
-						</div>
-						<span class="block text-zinc-500">
-							{{ t("options.maxListCount.description") }}
-						</span>
-					</label>
-					<div class="flex self-center">
-						<input
-							class="grow"
-							id="maxListCount"
-							type="number"
-							v-model="options.maxListCount"
-							placeholder="20"
-							min="1"
-							max="999"
-							step="1"
-							@change="checkMaxListCount()"
-						/>
-					</div>
-				</div>
+				<option-row field="maxListCount" requires-reprocessing>
+					<input
+						class="grow"
+						id="maxListCount"
+						type="number"
+						v-model="options.maxListCount"
+						placeholder="20"
+						min="1"
+						max="999"
+						step="1"
+						@change="checkMaxListCount()"
+					/>
+				</option-row>
 			</section>
 
 			<!-- section related to store processed data -->
@@ -249,72 +158,43 @@
 				<h2 class="text-2xl font-light pb-2">{{ t("options.headings.storage") }}</h2>
 
 				<!-- option: cache -->
-				<div class="grid grid-cols-option gap-8">
-					<label for="cache">
-						{{ t("options.cache.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.cache.description") }}
-						</span>
-					</label>
-					<div class="self-center">
-						<input type="checkbox" id="cache" v-model="options.cache" />
-					</div>
-				</div>
+				<option-row field="cache">
+					<input type="checkbox" id="cache" v-model="options.cache" />
+				</option-row>
 
 				<!-- action: clear cache -->
-				<div class="grid grid-cols-option gap-8">
-					<label>
+				<option-row
+					field="clearCache"
+					:info-text="
+						cacheSize > 0
+							? t('options.clearCache.size', [formattedCacheSize])
+							: t('options.clearCache.empty')
+					"
+				>
+					<btn @click="clearCache" class="py-4 px-8 self-start">
+						<icon-database-x class="!w-5 !h-5" />
 						{{ t("options.clearCache.label") }}
-						<span class="block text-zinc-500">
-							{{ t("options.clearCache.description") }}
-						</span>
-					</label>
-					<div class="flex flex-col self-center items-start gap-2">
-						<btn @click="clearCache" class="py-4 px-8">
-							<icon-database-x class="!w-5 !h-5" />
-							{{ t("options.clearCache.label") }}
-						</btn>
-						<div class="flex gap-2 items-center text-zinc-500 text-sm">
-							<icon-info-square class="!w-5 !h-5 shrink-0" />
-							<span v-if="cacheSize > 0">{{ t("options.clearCache.size", [formattedCacheSize]) }}</span>
-							<span v-else>{{ t("options.clearCache.empty") }}</span>
-						</div>
-					</div>
-				</div>
+					</btn>
+				</option-row>
 
 				<!-- action: reset options -->
-				<div class="grid grid-cols-option gap-8">
-					<label>
-						<div class="flex items-end gap-2">
-							{{ t("options.resetOptions.label") }}
-							<tooltip :content="t('options.note.reloadWindowRequired')">
-								<icon-refresh-alert class="!w-5 !h-5" />
-							</tooltip>
-							<tooltip :content="t('options.note.refreshCacheRequired')">
-								<icon-database-exclamation class="!w-5 !h-5" />
-							</tooltip>
-						</div>
-						<span class="block text-zinc-500">
-							{{ t("options.resetOptions.description") }}
-						</span>
-					</label>
-					<div class="flex flex-col self-center items-start gap-2">
-						<btn @click="resetOptions" class="py-4 px-8" em>
-							<icon-settings-x class="!w-5 !h-5" />
-							{{ t("options.resetOptions.label") }}
-						</btn>
-						<div
-							v-if="options.addresses && options.addresses.length > 0"
-							class="flex gap-2 items-center text-zinc-500 text-sm"
-						>
-							<icon-info-square class="!w-5 !h-5" />
-							<span>{{ t("options.resetOptions.removeIdentities") }}</span>
-						</div>
-					</div>
-				</div>
+				<option-row
+					field="resetOptions"
+					:info="options.addresses && options.addresses.length > 0"
+					requires-reload
+					requires-reprocessing
+				>
+					<btn @click="resetOptions" class="py-4 px-8 self-start" em>
+						<icon-settings-x class="!w-5 !h-5" />
+						{{ t("options.resetOptions.label") }}
+					</btn>
+				</option-row>
+
 			</section>
 		</div>
+
 		<hr class="border-zinc-400 dark:border-zinc-700 my-8" />
+
 		<footer class="flex flex-col gap-2 pb-8">
 			<label>{{ t("options.note.title") }}</label>
 			<div class="text-zinc-500 text-sm">
@@ -346,9 +226,10 @@ import IconPlus from "@/icons/IconPlus.vue";
 import IconRefreshAlert from "@/icons/IconRefreshAlert.vue";
 import IconSettingsX from "@/icons/IconSettingsX.vue";
 import IconThirdStats from "@/icons/IconThirdStats.vue";
-import IconX from "@/icons/IconX.vue";
 import ProjectMeta from '@/partials/ProjectMeta.vue'
 import Tooltip from "@/components/Tooltip.vue";
+import OptionRow from "@/components/OptionRow.vue";
+import Tag from "@/components/Tag.vue";
 
 const { t, locale } = useI18n();
 

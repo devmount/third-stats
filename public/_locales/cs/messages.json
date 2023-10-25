@@ -40,18 +40,18 @@
       "stats": "Grafy a data",
       "storage": "Úložiště a mezipaměť"
     },
-    "maxListCount": {
-      "description": "Maximální počet položek zobrazených v grafech seznamu (kontakty a značky, maximálně 999)",
-      "label": "Maximální délka seznamu"
+    "identities": {
+      "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')",
+      "label": "Místní identity"
     },
     "liveCountUp": {
       "description": "Zobrazit aktuální průběh vypočítaných čísel při zpracování statistických dat",
       "info": "Tato aktivace může prodloužit dobu zpracování",
       "label": "Živé počítání"
     },
-    "localIdentities": {
-      "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')",
-      "label": "Místní identity"
+    "maxListCount": {
+      "description": "Maximální počet položek zobrazených v grafech seznamu (kontakty a značky, maximálně 999)",
+      "label": "Maximální délka seznamu"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Obnovit nastavení do výchozího stavu. V závislosti na tom, které možnosti jste změnili dříve, může být vyžadováno znovunačtení okna nebo přepočet mezipaměti.",
       "label": "Obnovit nastavení",
-      "removeIdentities": "Toto odstraní také všechny místní identity, které jste vytvořili."
+      "info": "Toto odstraní také všechny místní identity, které jste vytvořili."
     },
     "selfMessages": {
       "description": "Vyloučit zprávy, které jsem si poslal/a sám/sama.",

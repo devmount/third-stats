@@ -40,18 +40,18 @@
       "stats": "Diagrammen en gegevens",
       "storage": "Opslag en cache"
     },
-    "maxListCount": {
-      "description": "Maximumaantal items dat wordt weergegeven in lijstgrafieken (contactpersonen en tags, maximaal 999)",
-      "label": "Maximale lijstlengte"
+    "identities": {
+      "description": "Een lijst met e-mailadressen die je kunt herkennen als 'verzonden van' voor lokale accounts",
+      "label": "Lokale identiteiten"
     },
     "liveCountUp": {
       "description": "Live-voortgang van berekende getallen weergeven bij het verwerken van statistische gegevens",
       "info": "Dit inschakelen kan de verwerkingstijd verlengen",
       "label": "Live tellen"
     },
-    "localIdentities": {
-      "description": "Een lijst met e-mailadressen die je kunt herkennen als 'verzonden van' voor lokale accounts",
-      "label": "Lokale identiteiten"
+    "maxListCount": {
+      "description": "Maximumaantal items dat wordt weergegeven in lijstgrafieken (contactpersonen en tags, maximaal 999)",
+      "label": "Maximale lijstlengte"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Zet alle opties terug op hun standaardwaarden. Afhankelijk van welke opties u eerder hebt gewijzigd, kan een venster- of cache-verversing nodig zijn.",
       "label": "Reset Opties",
-      "removeIdentities": "Dit zal ook alle lokale identiteiten verwijderen die je hebt aangemaakt."
+      "info": "Dit zal ook alle lokale identiteiten verwijderen die je hebt aangemaakt."
     },
     "selfMessages": {
       "description": "Sluit berichten uit die van mij naar mezelf zijn gestuurd",

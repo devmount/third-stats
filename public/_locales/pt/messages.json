@@ -40,18 +40,18 @@
       "stats": "Gráficos e Dados",
       "storage": "Armazenamento e Cache"
     },
-    "maxListCount": {
-      "description": "Número máximo de entradas apresentadas em gráficos de listas (contactos e etiquetas, máximo de 999)",
-      "label": "Comprimento máximo da lista"
+    "identities": {
+      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais",
+      "label": "Identidades Locais"
     },
     "liveCountUp": {
       "description": "Mostrar o progresso ao vivo dos números calculados ao processar dados estatísticos",
       "info": "Ativar isso pode aumentar o tempo de processamento",
       "label": "Contagem regressiva ao vivo"
     },
-    "localIdentities": {
-      "description": "Uma lista de endereços de e-mail separados por vírgulas para reconhecer como \"enviado de\" para contas locais",
-      "label": "Identidades Locais"
+    "maxListCount": {
+      "description": "Número máximo de entradas apresentadas em gráficos de listas (contactos e etiquetas, máximo de 999)",
+      "label": "Comprimento máximo da lista"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Restaurar todas as opções para os valores padrão. Dependendo de quais opções você alterou, uma atualização de janela ou cache pode ser solicitada.",
       "label": "Opções de restauração",
-      "removeIdentities": "Isso também irá remover todas as identidades locais que você criou."
+      "info": "Isso também irá remover todas as identidades locais que você criou."
     },
     "selfMessages": {
       "description": "Excluir mensagens que foram enviadas de mim para mim",

@@ -40,18 +40,18 @@
       "stats": "Diagramme & Daten",
       "storage": "Speicher & Cache"
     },
-    "maxListCount": {
-      "description": "Maximale Anzahl der Einträge in Diagrammen welche Daten auflisten (Kontakte und Tags, maximal 999)",
-      "label": "Maximale Listenlänge"
+    "identities": {
+      "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten",
+      "label": "Lokale Identitäten"
     },
     "liveCountUp": {
       "description": "Live-Fortschritt der berechneten Zahlen bei der Berechnung von Statistikdaten anzeigen",
       "info": "Das Aktivieren dieser Option kann eine erhöhte Berechnungsdauer zur Folge haben",
       "label": "Echtzeit Aktualisierung"
     },
-    "localIdentities": {
-      "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten",
-      "label": "Lokale Identitäten"
+    "maxListCount": {
+      "description": "Maximale Anzahl der Einträge in Diagrammen welche Daten auflisten (Kontakte und Tags, maximal 999)",
+      "label": "Maximale Listenlänge"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Alle Einstellungen auf die Standardwerte zurücksetzen.",
       "label": "Einstellungen zurücksetzen",
-      "removeIdentities": "Dadurch werden auch alle lokalen Identitäten gelöscht."
+      "info": "Dadurch werden auch alle lokalen Identitäten gelöscht."
     },
     "selfMessages": {
       "description": "Nachrichten ausschließen, die von mir an mich selbst gesendet wurden",

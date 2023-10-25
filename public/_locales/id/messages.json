@@ -40,18 +40,18 @@
       "stats": "Grafik & Data",
       "storage": "Penyimpanan & Cache"
     },
-    "maxListCount": {
-      "description": "Jumlah maksimum entri yang ditampilkan dalam bagan daftar (kontak dan tag, maksimum 999)",
-      "label": "Panjang Daftar Maksimum"
+    "identities": {
+      "description": "Daftar alamat email untuk dikenali sebagai 'dikirim dari' untuk akun lokal",
+      "label": "Identitas Lokal"
     },
     "liveCountUp": {
       "description": "Tampilkan kemajuan langsung dari angka yang dihitung saat memproses data statistik",
       "info": "Mengaktifkan ini dapat meningkatkan waktu pemrosesan",
       "label": "Hitung Langsung"
     },
-    "localIdentities": {
-      "description": "Daftar alamat email untuk dikenali sebagai 'dikirim dari' untuk akun lokal",
-      "label": "Identitas Lokal"
+    "maxListCount": {
+      "description": "Jumlah maksimum entri yang ditampilkan dalam bagan daftar (kontak dan tag, maksimum 999)",
+      "label": "Panjang Daftar Maksimum"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Setel ulang semua opsi ke nilai defaultnya. Bergantung pada opsi mana yang Anda ubah sebelumnya, penyegaran jendela atau cache mungkin diperlukan.",
       "label": "Opsi Atur Ulang",
-      "removeIdentities": "Ini juga akan menghapus semua identitas lokal yang Anda buat."
+      "info": "Ini juga akan menghapus semua identitas lokal yang Anda buat."
     },
     "selfMessages": {
       "description": "Kecualikan pesan yang dikirim dari saya ke diri saya sendiri",

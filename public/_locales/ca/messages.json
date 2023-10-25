@@ -40,18 +40,18 @@
       "stats": "Gràfics i dades",
       "storage": "Emmagatzematge i memòria cau"
     },
-    "maxListCount": {
-      "description": "Nombre màxim d'entrades que es mostren als gràfics de llista (correus i etiquetes, 999 màxim)",
-      "label": "Longitud màxima de la llista"
+    "identities": {
+      "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals",
+      "label": "Identitats locals"
     },
     "liveCountUp": {
       "description": "Mostra el progrés en directe dels números calculats quan es processen les dades estadístiques",
       "info": "Habilitar això pot augmentar el temps de processament",
       "label": "Compte en directe"
     },
-    "localIdentities": {
-      "description": "Una llista d'adreces de correu electrònic separades per comes per reconèixer com a 'enviats' per a comptes locals",
-      "label": "Identitats locals"
+    "maxListCount": {
+      "description": "Nombre màxim d'entrades que es mostren als gràfics de llista (correus i etiquetes, 999 màxim)",
+      "label": "Longitud màxima de la llista"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Restableix totes les opcions als seus valors predeterminats. Depenent de les opcions que hàgiu canviat abans, pot ser que calgui una actualització de la finestra o de la memòria cau.",
       "label": "Restableix les opcions",
-      "removeIdentities": "Això també eliminarà totes les identitats locals que heu creat."
+      "info": "Això també eliminarà totes les identitats locals que heu creat."
     },
     "selfMessages": {
       "description": "Exclou els missatges que em van enviar a mi mateix",

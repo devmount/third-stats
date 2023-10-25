@@ -40,18 +40,18 @@
       "stats": "Gráficos e datos",
       "storage": "Almacenamento e caché"
     },
-    "maxListCount": {
-      "description": "Número máximo de entradas mostradas nos gráficos de lista (contactos e etiquetas, 999 como máximo)",
-      "label": "Lonxitude máxima da lista"
+    "identities": {
+      "description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais",
+      "label": "Identidades locais"
     },
     "liveCountUp": {
       "description": "Mostra o progreso en directo dos números calculados ao procesar os datos das estatísticas",
       "info": "Activar isto pode aumentar o tempo de procesamento",
       "label": "Conta en directo"
     },
-    "localIdentities": {
-      "description": "Lista de correos electrónicos separada por comas para recoñecer como 'enviados desde' para contas locais",
-      "label": "Identidades locais"
+    "maxListCount": {
+      "description": "Número máximo de entradas mostradas nos gráficos de lista (contactos e etiquetas, 999 como máximo)",
+      "label": "Lonxitude máxima da lista"
     },
     "message": "-",
     "note": {
@@ -67,7 +67,7 @@
     "resetOptions": {
       "description": "Restablece todas as opcións aos seus valores predeterminados. Dependendo das opcións que foran cambiadas anteriormente pode que sexa necesario actualizar a xanela ou a caché.",
       "label": "Restablecer as opcións",
-      "removeIdentities": "Isto tamén eliminará todas as identidades locais creadas."
+      "info": "Isto tamén eliminará todas as identidades locais creadas."
     },
     "selfMessages": {
       "description": "Exclúe as mensaxes enviadas por min a min mesmo",
