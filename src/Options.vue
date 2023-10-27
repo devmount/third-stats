@@ -221,13 +221,11 @@ import { useI18n } from 'vue-i18n';
 import Btn from "@/components/Btn.vue";
 import IconDatabaseExclamation from "@/icons/IconDatabaseExclamation.vue";
 import IconDatabaseX from "@/icons/IconDatabaseX.vue";
-import IconInfoSquare from "@/icons/IconInfoSquare.vue";
 import IconPlus from "@/icons/IconPlus.vue";
 import IconRefreshAlert from "@/icons/IconRefreshAlert.vue";
 import IconSettingsX from "@/icons/IconSettingsX.vue";
 import IconThirdStats from "@/icons/IconThirdStats.vue";
 import ProjectMeta from '@/partials/ProjectMeta.vue'
-import Tooltip from "@/components/Tooltip.vue";
 import OptionRow from "@/components/OptionRow.vue";
 import Tag from "@/components/Tag.vue";
 

@@ -15,7 +15,10 @@ module.exports = {
       },
       gridTemplateColumns: {
         option: '1fr 50%',
-      }
+      },
+      transitionProperty: {
+        'width': 'width',
+      },
     },
   },
   darkMode: 'class',

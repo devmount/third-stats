@@ -1,14 +1,7 @@
 <template>
-	<div class="text-normal background-normal position-relative">
+	<div class="relative">
 		<!-- progress indicator -->
-		<div class="progress position-fixed w-available top-0 right-0">
-			<div
-				class="h-0-25 text-center background-accent2 tooltip tooltip-bottom"
-				:class="{ 'transition-width': processingState>0 && processingState<100 }"
-				:style="'width:' + processingState + '%;'"
-				:data-tooltip="oneDigit(processingState) + '%'"
-			></div>
-		</div>
+		<progress-bar :progress="processingState" />
 		<div class="container pt-2 pb-6">
 			<!-- title heading and filter -->
 			<header id="header">
@@ -829,7 +822,7 @@
 				</div>
 			</section>
 			<!-- footer -->
-			<project-meta class="mt-6 " />
+			<project-meta class="mt-6 pb-6" />
 		</div>
 	</div>
 </template>
@@ -883,6 +876,7 @@ import MatrixChart from "@/charts/MatrixChart.vue";
 import DoughnutChart from "@/charts/DoughnutChart.vue";
 import LiveAge from "@/partials/LiveAge.vue";
 import ProjectMeta from "@/partials/ProjectMeta.vue";
+import ProgressBar from "@/components/ProgressBar.vue";
 
 const { t, locale } = useI18n();
 
