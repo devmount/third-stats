@@ -1044,7 +1044,7 @@ const addStorageListener = () => {
 			const n = result.options.newValue, o = result.options.oldValue
 			// only update those options that changed
 			if (n.theme != o.theme) {
-				options.dark = setTheme(n.theme);
+				options.dark = setTheme(n.theme, [document.documentElement, document.body]);
 			}
 			if (n.ordinate != o.ordinate) {
 				options.ordinate = n.ordinate;
@@ -1094,7 +1094,7 @@ const getOptions = async () => {
 	if (result && result.options) {
 		options.dark = setTheme(
 			result.options.theme ?? defaultOptions.theme,
-			document.body,
+			[document.documentElement, document.body],
 			['dark', 'background-normal'],
 			['light', 'background-highlight-contrast']
 		);
@@ -2456,16 +2456,7 @@ onMounted(async () => {
 </script>
 
 <style lang="stylus">
-@require "assets/global"
-
-// general
-body
-	overflow-x: hidden
-
-// layout and content
 #stats
-	min-height: 100vh
-
 	.container
 		width: 100%
 		height: 100%
