@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      borderWidth: {
+        '3': '3px',
+      },
       colors: {
         tboptions: '#23222b',
         zinc: {

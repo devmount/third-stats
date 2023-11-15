@@ -2,190 +2,174 @@
 	<div class="relative">
 		<!-- progress indicator -->
 		<progress-bar :progress="processingState" />
-		<div class="container pt-2 pb-6">
+		<div class="flex flex-col justify-center px-4 pt-2 gap-4">
 			<!-- title heading and filter -->
-			<header id="header">
-				<h1 class="mr-2 d-flex align-items-center">
-					<img class="logo mr-1" src="/icon.svg" alt="ThirdStats Logo">
-					{{ t("stats.title") }}
-				</h1>
+			<header class="flex justify-between items-center">
+				<div class="flex items-center gap-4 pt-4">
+					<icon-third-stats class="!w-12 !h-12" colored />
+					<h1 class="text-4xl font-bold">{{ t("stats.title") }}</h1>
+				</div>
 				<!-- filter area -->
-				<div class="filter d-flex flex-wrap gap-1">
+				<div class="flex flex-wrap gap-4">
 					<!-- account selection -->
-					<div class="filter-account d-flex">
-						<label for="account" class="align-center text-gray p-0-5">{{ t("stats.account") }}</label>
-						<select v-model="active.account" :disabled="isLoading" class="align-stretch w-6" :class="{ disabled: isLoading }" id="account">
-							<option v-if="accounts.length > 1 && options.cache" :value="'sum'">{{ t("stats.allAccounts") }}</option>
-							<option v-else disabled>{{ t("stats.allAccounts") }}</option>
-							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
-						</select>
-						<div v-show="isLoading" class="loading align-center loader-accent2"></div>
-						<div
+					<div class="flex items-center gap-2">
+						<label>
+							<span class="text-gray-500 p-2">{{ t("stats.account") }}</span>
+							<select v-model="active.account" class="w-32" :disabled="isLoading">
+								<option v-if="accounts.length > 1 && options.cache" :value="'sum'">
+									{{ t("stats.allAccounts") }}
+								</option>
+								<option v-else disabled>
+									{{ t("stats.allAccounts") }}
+								</option>
+								<option v-for="a in accounts" :key="a.id" :value="a.id">
+									{{ a.name }}
+								</option>
+							</select>
+						</label>
+						<loader v-if="isLoading" class="w-6 h-6 border-3" />
+						<tooltip
 							v-show="!isLoading"
-							class="refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex"
-							:data-tooltip="t('stats.tooltips.refresh')"
+							class="group cursor-pointer"
+							:content="t('stats.tooltips.refresh')"
+							position="bottom"
 							@click="loadAccount(active.account, true)"
 						>
-							<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
-								<line class="icon-part-accent2" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
-								<line class="icon-part-accent2-faded" x1="4.06" y1="11" x2="4.06" y2="11.01" />
-								<line class="icon-part-accent2-faded" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
-								<line class="icon-part-accent2-faded" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
-								<line class="icon-part-accent2-faded" x1="11" y1="19.94" x2="11" y2="19.95" />
-							</svg>
-						</div>
-						<div
+							<icon-rotate-clockwise2 class="group-hover:stroke-blue-500" />
+						</tooltip>
+						<tooltip
 							v-if="error.account"
-							class="align-center tooltip tooltip-bottom d-inline-flex ml-0-5"
-							:data-tooltip="t('stats.tooltips.error.processing')"
+							:content="t('stats.tooltips.error.processing')"
+							position="bottom"
 						>
-							<svg class="icon icon-bold icon-small icon-accent1-faded icon-hover-accent" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								<path class="icon-part-accent1" d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"></path>
-								<path class="icon-part-accent1" d="M12 9v4"></path>
-								<path class="icon-part-accent1" d="M12 17h.01"></path>
-							</svg>
-						</div>
+							<icon-alert-triangle class="stroke-fuchsia-500" />
+						</tooltip>
 					</div>
 					<!-- folder selection -->
-					<div class="filter-folder d-flex">
-						<label for="folder" class="align-center text-gray p-0-5">{{ t("stats.folder") }}</label>
-						<div
-							class="d-flex align-stretch tooltip-bottom"
-							:class="{ tooltip: !singleAccount }"
-							:data-tooltip="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
-						>
-							<select
-								id="folder"
-								v-model="active.folder"
-								:disabled="isLoading || !singleAccount"
-								class="align-stretch w-6"
-								:class="{ disabled: isLoading || !singleAccount }"
+					<div class="flex items-center gap-1">
+						<label class="flex">
+							<span class="text-gray-500 p-2">{{ t("stats.folder") }}</span>
+							<tooltip
+								:disabled="singleAccount"
+								:content="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
+								position="bottom"
 							>
-								<option v-for="f in folders" :key="f.path" :value="f">{{ formatFolder(f) }}</option>
-							</select>
-						</div>
-						<div
-							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-							:class="{ 'cursor-na': isLoading || !singleAccount }"
-							:data-tooltip="t('stats.tooltips.clear')"
+								<select v-model="active.folder" class="w-32" :disabled="isLoading || !singleAccount">
+									<option v-for="f in folders" :key="f.path" :value="f">
+										{{ formatFolder(f) }}
+									</option>
+								</select>
+							</tooltip>
+						</label>
+						<tooltip
+							class="group cursor-pointer"
+							:class="{ 'cursor-not-allowed': isLoading || !singleAccount }"
+							:content="t('stats.tooltips.clear')"
+							position="bottom"
 							@click="singleAccount ? resetFolder(true) : null"
 						>
-							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading && singleAccount }" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
-								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</div>
+							<icon-x :class="{ 'group-hover:stroke-blue-500': !isLoading && singleAccount }" />
+						</tooltip>
 					</div>
 					<!-- time period selection -->
-					<div class="filter-period d-flex">
-						<label for="start" class="align-center text-gray p-0-5">{{ t("stats.timePeriod") }}</label>
-						<div class="input-group d-flex align-stretch">
-							<div
-								class="d-flex tooltip tooltip-bottom"
-								v-for="f in ['start', 'end']"
-								:key="f"
-								:data-tooltip="error.period[f].length > 0 ? error.period[f].join('\n') : t('stats.tooltips.period.' + f, [examplePeriodShort, examplePeriodFormatted])"
-								:class="{ 'tooltip-error': error.period[f].length > 0 }"
-							>
-								<input
-									type="text"
-									:id="f"
-									v-model="active.period[f]"
-									class="align-stretch w-6"
-									:class="{ error: error.period[f].length > 0 }"
-									placeholder="YYYY-MM-DD"
-									@blur="formatPeriod(f)"
-									v-on:keyup.enter="formatPeriod(f); updatePeriod()"
-								/>
+					<div class="flex items-center gap-1">
+						<label class="flex">
+							<span class="text-gray-500 p-2">{{ t("stats.timePeriod") }}</span>
+							<div class="flex">
+								<tooltip
+									v-for="f in ['start', 'end']"
+									:key="f"
+									:content="
+										error.period[f].length > 0
+											? error.period[f].join('\n')
+											: t(`stats.tooltips.period.${f}`, [examplePeriodShort, examplePeriodFormatted])
+									"
+									position="bottom"
+									:is-error="error.period[f].length > 0"
+								>
+									<input
+										type="text"
+										v-model="active.period[f]"
+										class="w-32"
+										:class="{ error: error.period[f].length > 0 }"
+										placeholder="YYYY-MM-DD"
+										@blur="formatPeriod(f)"
+										v-on:keyup.enter="formatPeriod(f); updatePeriod();"
+									/>
+								</tooltip>
+								<btn @click="updatePeriod">
+									<icon-check />
+								</btn>
 							</div>
-							<button @click="updatePeriod" class="button-secondary align-center p-0-5">
-								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-									<path d="M5 12l5 5l10 -10" />
-								</svg>
-							</button>
-						</div>
-						<div class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center" :data-tooltip="t('stats.tooltips.clear')" @click="resetPeriod(true)">
-							<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
-								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</div>
+						</label>
+						<tooltip
+							class="group cursor-pointer"
+							:content="t('stats.tooltips.clear')"
+							position="bottom"
+							@click="resetPeriod(true)"
+						>
+							<icon-x class="group-hover:stroke-blue-500" />
+						</tooltip>
 					</div>
 					<!-- contact selection -->
-					<div class="filter-contact d-flex">
-						<label for="contact" class="align-center text-gray p-0-5">{{ t("stats.contact", 1) }}</label>
-						<div class="d-flex align-stretch tooltip-bottom">
-							<select
-								id="contact"
-								v-model="active.contact"
-								:disabled="isLoading"
-								class="align-stretch w-6"
-								:class="{ disabled: isLoading }"
+					<div class="flex items-center gap-1">
+						<label class="flex">
+							<span class="text-gray-500 p-2">{{ t("stats.contact", 1) }}</span>
+							<tooltip
+								:disabled="singleAccount"
+								:content="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
+								position="bottom"
 							>
-								<option v-for="c in contacts" :key="c" :value="c">{{ c }}</option>
-							</select>
-						</div>
-						<div
-							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-							:class="{ 'cursor-na': isLoading }"
-							:data-tooltip="t('stats.tooltips.clear')"
+								<select v-model="active.contact" class="w-32" :disabled="isLoading">
+									<option v-for="c in contacts" :key="c" :value="c">
+										{{ c }}
+									</option>
+								</select>
+							</tooltip>
+						</label>
+						<tooltip
+							class="group cursor-pointer"
+							:class="{ 'cursor-not-allowed': isLoading }"
+							:content="t('stats.tooltips.clear')"
+							position="bottom"
 							@click="!isLoading ? resetContact(true) : null"
 						>
-							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading }" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
-								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</div>
+							<icon-x :class="{ 'group-hover:stroke-blue-500': !isLoading }" />
+						</tooltip>
 					</div>
 				</div>
 				<!-- action buttons -->
 				<div class="action d-inline-flex gap-1 ml-2">
 					<!-- data export -->
-					<div
-						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-						:data-tooltip="t('stats.tooltips.exportData')"
+					<tooltip
+						class="group cursor-pointer"
+						:content="t('stats.tooltips.exportData')"
+						position="bottom"
 						@click="exportJson()"
 					>
-						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path class="icon-part-accent2" d="M14 3v4a1 1 0 0 0 1 1h4" />
-							<path class="icon-part-accent2" d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-							<line class="icon-part-accent1" x1="9" y1="17" x2="9" y2="12" />
-							<line class="icon-part-accent1-faded" x1="12" y1="17" x2="12" y2="16" />
-							<line class="icon-part-accent1" x1="15" y1="17" x2="15" y2="14" />
-						</svg>
-					</div>
+						<icon-file-download />
+					</tooltip>
 					<!-- options launcher -->
-					<div
-						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1"
-						:data-tooltip="t('popup.openOptions')"
-						@click.prevent="openTab('index.options.html', 1)"
+					<tooltip
+						class="group cursor-pointer"
+						:content="t('popup.openOptions')"
+						position="bottom"
+						@click="openTab('index.options.html', 1)"
 					>
-						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-							<path class="icon-part-accent2" d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-							<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
-						</svg>
-					</div>
-				</div>
-				<!-- meta infos -->
-				<div class="meta text-gray text-right">
-					<div
-						v-if="display.meta && display.meta.timestamp"
-						class="d-inline-block tooltip tooltip-bottom"
-						:data-tooltip="formatDate(display.meta.timestamp, locale)"
-					>
-						<live-age class="cursor-default" :date="display.meta.timestamp" />
-					</div>
+						<icon-settings />
+					</tooltip>
 				</div>
 			</header>
+			<!-- meta infos -->
+			<section class="meta text-gray text-right">
+				<div
+					v-if="display.meta && display.meta.timestamp"
+					class="d-inline-block tooltip tooltip-bottom"
+					:data-tooltip="formatDate(display.meta.timestamp, locale)"
+				>
+					<live-age class="cursor-default" :date="display.meta.timestamp" />
+				</div>
+			</section>
 			<!-- fetured numbers -->
 			<section class="numbers mx-auto mt-2">
 				<!-- total -->
@@ -408,7 +392,7 @@
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- emails per year over total time -->
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.years && !preferences.sections.total.comparison"
 								:datasets="yearsChartData.datasets"
 								:labels="yearsChartData.labels"
@@ -416,7 +400,7 @@
 								:abscissa="true"
 								:unfinished="active.period.end == null"
 							/>
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.years && preferences.sections.total.comparison"
 								:datasets="yearsComparedChartData.datasets"
 								:labels="yearsComparedChartData.labels"
@@ -425,7 +409,7 @@
 								:unfinished="active.period.end == null"
 							/>
 							<!-- emails per quarter over total time -->
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.quarters && !preferences.sections.total.comparison"
 								:datasets="quartersChartData.datasets"
 								:labels="quartersChartData.labels"
@@ -433,7 +417,7 @@
 								:abscissa="true"
 								:unfinished="active.period.end == null"
 							/>
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.quarters && preferences.sections.total.comparison"
 								:datasets="quartersComparedChartData.datasets"
 								:labels="quartersComparedChartData.labels"
@@ -442,7 +426,7 @@
 								:unfinished="active.period.end == null"
 							/>
 							<!-- emails per month over total time -->
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.months && !preferences.sections.total.comparison"
 								:datasets="monthsChartData.datasets"
 								:labels="monthsChartData.labels"
@@ -450,7 +434,7 @@
 								:abscissa="true"
 								:unfinished="active.period.end == null"
 							/>
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.months && preferences.sections.total.comparison"
 								:datasets="monthsComparedChartData.datasets"
 								:labels="monthsComparedChartData.labels"
@@ -459,7 +443,7 @@
 								:unfinished="active.period.end == null"
 							/>
 							<!-- emails per week over total time -->
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.weeks && !preferences.sections.total.comparison"
 								:datasets="weeksChartData.datasets"
 								:labels="weeksChartData.labels"
@@ -467,7 +451,7 @@
 								:abscissa="true"
 								:unfinished="active.period.end == null"
 							/>
-							<LineChart
+							<line-chart
 								v-if="tabTotal === tabsTotal.weeks && preferences.sections.total.comparison"
 								:datasets="weeksComparedChartData.datasets"
 								:labels="weeksComparedChartData.labels"
@@ -516,7 +500,7 @@
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- activity per day received -->
-							<MatrixChart
+							<matrix-chart
 								cid="activity-received"
 								color="#0a84ff"
 								:spacing="1"
@@ -526,7 +510,7 @@
 								:datasets="[dateChartData.received]"
 							/>
 							<!-- activity per day sent -->
-							<MatrixChart
+							<matrix-chart
 								cid="activity-send"
 								color="#e64db9"
 								:spacing="1"
@@ -589,39 +573,39 @@
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- emails per time of day -->
-							<BarChart
+							<bar-chart
 								v-if="tabOnedim === tabsOnedim.daytime && !preferences.sections.onedim.comparison"
 								:datasets="daytimeChartData.datasets"
 								:labels="daytimeChartData.labels"
 								:ordinate="options.ordinate"
 							/>
-							<BarChart
+							<bar-chart
 								v-if="tabOnedim === tabsOnedim.daytime && preferences.sections.onedim.comparison"
 								:datasets="daytimeComparedChartData.datasets"
 								:labels="daytimeComparedChartData.labels"
 								:ordinate="options.ordinate"
 							/>
 							<!-- emails per day of week -->
-							<BarChart
+							<bar-chart
 								v-if="tabOnedim === tabsOnedim.weekday && !preferences.sections.onedim.comparison"
 								:datasets="weekdayChartData.datasets"
 								:labels="weekdayChartData.labels"
 								:ordinate="options.ordinate"
 							/>
-							<BarChart
+							<bar-chart
 								v-if="tabOnedim === tabsOnedim.weekday && preferences.sections.onedim.comparison"
 								:datasets="weekdayComparedChartData.datasets"
 								:labels="weekdayComparedChartData.labels"
 								:ordinate="options.ordinate"
 							/>
 							<!-- emails per month of year -->
-							<BarChart
+							<bar-chart
 								v-if="tabOnedim === tabsOnedim.month && !preferences.sections.onedim.comparison"
 								:datasets="monthChartData.datasets"
 								:labels="monthChartData.labels"
 								:ordinate="options.ordinate"
 							/>
-							<BarChart
+							<bar-chart
 								v-if="tabOnedim === tabsOnedim.month && preferences.sections.onedim.comparison"
 								:datasets="monthComparedChartData.datasets"
 								:labels="monthComparedChartData.labels"
@@ -649,7 +633,7 @@
 						</ul>
 						<div class="tab-content chart-group mt-1">
 							<!-- emails per weekday per hour received -->
-							<MatrixChart
+							<matrix-chart
 								cid="wd-per-hour-received"
 								color="#0a84ff"
 								:spacing="1"
@@ -659,7 +643,7 @@
 								:datasets="[weekdayPerHourChartData.received]"
 							/>
 							<!-- emails per weekday per hour sent -->
-							<MatrixChart
+							<matrix-chart
 								cid="wd-per-hour-send"
 								color="#e64db9"
 								:spacing="1"
@@ -698,7 +682,7 @@
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- contacts most emails received from -->
-							<BarChart
+							<bar-chart
 								v-if="tabLeader === tabsLeader.contactsReceived && receivedContactLeadersChartDataExists"
 								:datasets="receivedContactLeadersChartData.datasets"
 								:labels="receivedContactLeadersChartData.labels"
@@ -715,7 +699,7 @@
 								<div class="text-gray mt-1" v-html="t('stats.charts.contactsReceived.empty')"></div>
 							</div>
 							<!-- contacts most emails sent to -->
-							<BarChart
+							<bar-chart
 								v-if="tabLeader === tabsLeader.contactsSent && sentContactLeadersChartDataExists"
 								:datasets="sentContactLeadersChartData.datasets"
 								:labels="sentContactLeadersChartData.labels"
@@ -732,7 +716,7 @@
 								<div class="text-gray mt-1" v-html="t('stats.charts.contactsSent.empty')"></div>
 							</div>
 							<!-- contacts flagged as junk -->
-							<BarChart
+							<bar-chart
 								v-if="tabLeader === tabsLeader.contactsJunk && junkContactLeadersChartDataExists"
 								:datasets="junkContactLeadersChartData.datasets"
 								:labels="junkContactLeadersChartData.labels"
@@ -772,7 +756,7 @@
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- folders emails received -->
-							<DoughnutChart
+							<doughnut-chart
 								:info="{ number: foldersChartData.labels.length, label: t('stats.nonEmptyFolders', foldersChartData.labels.length) }"
 								:datasets="foldersChartData.datasets"
 								:labels="foldersChartData.labels"
@@ -801,7 +785,7 @@
 						</ul>
 						<div class="tab-content mt-1">
 							<!-- tags count -->
-							<BarChart
+							<bar-chart
 								v-if="tagsChartDataExists"
 								:datasets="tagsChartData.datasets"
 								:labels="tagsChartData.labels"
@@ -836,14 +820,14 @@ import {
 	accentColors,
 	defaultColors,
 	defaultOptions,
-	tabsNumbers,
-	tabsTotal,
 	tabsActivity,
-	tabsOnedim,
-	tabsTwodim,
-	tabsLeader,
 	tabsFolders,
+	tabsLeader,
+	tabsNumbers,
+	tabsOnedim,
 	tabsTags,
+	tabsTotal,
+	tabsTwodim,
 } from "@/definitions.js";
 
 import {
@@ -870,13 +854,22 @@ import {
 	yyyymmdd,
 } from "@/utils.js";
 
-import LineChart from "@/charts/LineChart.vue";
 import BarChart from "@/charts/BarChart.vue";
-import MatrixChart from "@/charts/MatrixChart.vue";
 import DoughnutChart from "@/charts/DoughnutChart.vue";
+import IconAlertTriangle from "@/icons/IconAlertTriangle.vue";
+import IconCheck from "@/icons/IconCheck.vue";
+import IconFileDownload from "@/icons/IconFileDownload.vue";
+import IconRotateClockwise2 from "@/icons/IconRotateClockwise2.vue";
+import IconSettings from "@/icons/IconSettings.vue";
+import IconThirdStats from "@/icons/IconThirdStats.vue";
+import IconX from "@/icons/IconX.vue";
+import LineChart from "@/charts/LineChart.vue";
 import LiveAge from "@/partials/LiveAge.vue";
-import ProjectMeta from "@/partials/ProjectMeta.vue";
+import Loader from "@/components/Loader.vue";
+import MatrixChart from "@/charts/MatrixChart.vue";
 import ProgressBar from "@/components/ProgressBar.vue";
+import ProjectMeta from "@/partials/ProjectMeta.vue";
+import Tooltip from "@/components/Tooltip.vue";
 
 const { t, locale } = useI18n();
 
