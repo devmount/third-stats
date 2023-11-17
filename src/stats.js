@@ -1,7 +1,13 @@
 // init app
 import { createApp } from 'vue';
 import Stats from '@/Stats.vue';
+
 const app = createApp(Stats);
+
+// init store
+import { createPinia } from 'pinia';
+const pinia = createPinia();
+app.use(pinia)
 
 // provide global properties
 app.provide('version', APP_VERSION);

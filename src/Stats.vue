@@ -15,7 +15,7 @@
 					<div class="flex items-center gap-2">
 						<label>
 							<span class="text-gray-500 p-2">{{ t("stats.account") }}</span>
-							<select v-model="active.account" class="w-32" :disabled="isLoading">
+							<select v-model="filter.account" class="w-32" :disabled="isLoading">
 								<option v-if="accounts.length > 1 && options.cache" :value="'sum'">
 									{{ t("stats.allAccounts") }}
 								</option>
@@ -33,7 +33,7 @@
 							class="group cursor-pointer"
 							:content="t('stats.tooltips.refresh')"
 							position="bottom"
-							@click="loadAccount(active.account, true)"
+							@click="loadAccount(filter.account, true)"
 						>
 							<icon-rotate-clockwise2 class="group-hover:stroke-blue-500" />
 						</tooltip>
@@ -50,11 +50,11 @@
 						<label class="flex">
 							<span class="text-gray-500 p-2">{{ t("stats.folder") }}</span>
 							<tooltip
-								:disabled="singleAccount"
+								:disabled="filter.singleAccount"
 								:content="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
 								position="bottom"
 							>
-								<select v-model="active.folder" class="w-32" :disabled="isLoading || !singleAccount">
+								<select v-model="filter.folder" class="w-32" :disabled="isLoading || !filter.singleAccount">
 									<option v-for="f in folders" :key="f.path" :value="f">
 										{{ formatFolder(f) }}
 									</option>
@@ -63,12 +63,12 @@
 						</label>
 						<tooltip
 							class="group cursor-pointer"
-							:class="{ 'cursor-not-allowed': isLoading || !singleAccount }"
+							:class="{ 'cursor-not-allowed': isLoading || !filter.singleAccount }"
 							:content="t('stats.tooltips.clear')"
 							position="bottom"
-							@click="singleAccount ? resetFolder(true) : null"
+							@click="filter.singleAccount ? resetFolder(true) : null"
 						>
-							<icon-x :class="{ 'group-hover:stroke-blue-500': !isLoading && singleAccount }" />
+							<icon-x :class="{ 'group-hover:stroke-blue-500': !isLoading && filter.singleAccount }" />
 						</tooltip>
 					</div>
 					<!-- time period selection -->
@@ -89,7 +89,7 @@
 								>
 									<input
 										type="text"
-										v-model="active.period[f]"
+										v-model="filter[f]"
 										class="w-32"
 										:class="{ error: error.period[f].length > 0 }"
 										placeholder="YYYY-MM-DD"
@@ -116,11 +116,11 @@
 						<label class="flex">
 							<span class="text-gray-500 p-2">{{ t("stats.contact", 1) }}</span>
 							<tooltip
-								:disabled="singleAccount"
+								:disabled="filter.singleAccount"
 								:content="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
 								position="bottom"
 							>
-								<select v-model="active.contact" class="w-32" :disabled="isLoading">
+								<select v-model="filter.contact" class="w-32" :disabled="isLoading">
 									<option v-for="c in contacts" :key="c" :value="c">
 										{{ c }}
 									</option>
@@ -139,7 +139,7 @@
 					</div>
 				</div>
 				<!-- action buttons -->
-				<div class="action d-inline-flex gap-1 ml-2">
+				<div class="flex items-center gap-4 ml-auto">
 					<!-- data export -->
 					<tooltip
 						class="group cursor-pointer"
@@ -343,18 +343,18 @@
 							<li
 								class="tooltip tooltip-bottom px-1 ml-auto"
 								:class="{
-									'cursor-pointer': !singleAccount,
-									'text-hover-accent2': !singleAccount
+									'cursor-pointer': !filter.singleAccount,
+									'text-hover-accent2': !filter.singleAccount
 								}"
 								:data-tooltip="tooltipAccountComparison('total')"
-								@click="!singleAccount ? preferences.sections.total.comparison=!preferences.sections.total.comparison : null"
+								@click="!filter.singleAccount ? preferences.sections.total.comparison=!preferences.sections.total.comparison : null"
 							>
 								<svg
 									class="icon icon-text"
 									:class="{
-										'icon-hover-accent': !singleAccount,
-										'icon-accent2': preferences.sections.total.comparison && !singleAccount,
-										'icon-gray': singleAccount
+										'icon-hover-accent': !filter.singleAccount,
+										'icon-accent2': preferences.sections.total.comparison && !filter.singleAccount,
+										'icon-gray': filter.singleAccount
 									}"
 									viewBox="0 0 24 24"
 								>
@@ -398,7 +398,7 @@
 								:labels="yearsChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<line-chart
 								v-if="tabTotal === tabsTotal.years && preferences.sections.total.comparison"
@@ -406,7 +406,7 @@
 								:labels="yearsComparedChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<!-- emails per quarter over total time -->
 							<line-chart
@@ -415,7 +415,7 @@
 								:labels="quartersChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<line-chart
 								v-if="tabTotal === tabsTotal.quarters && preferences.sections.total.comparison"
@@ -423,7 +423,7 @@
 								:labels="quartersComparedChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<!-- emails per month over total time -->
 							<line-chart
@@ -432,7 +432,7 @@
 								:labels="monthsChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<line-chart
 								v-if="tabTotal === tabsTotal.months && preferences.sections.total.comparison"
@@ -440,7 +440,7 @@
 								:labels="monthsComparedChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<!-- emails per week over total time -->
 							<line-chart
@@ -449,7 +449,7 @@
 								:labels="weeksChartData.labels"
 								:ordinate="options.ordinate"
 								:abscissa="true"
-								:unfinished="active.period.end == null"
+								:unfinished="filter.end == null"
 							/>
 							<line-chart
 								v-if="tabTotal === tabsTotal.weeks && preferences.sections.total.comparison"
@@ -548,18 +548,18 @@
 							<li
 								class="tooltip tooltip-bottom px-1 ml-auto"
 								:class="{
-									'cursor-pointer': !singleAccount,
-									'text-hover-accent2': !singleAccount
+									'cursor-pointer': !filter.singleAccount,
+									'text-hover-accent2': !filter.singleAccount
 								}"
 								:data-tooltip="tooltipAccountComparison('onedim')"
-								@click="!singleAccount ? preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison : null"
+								@click="!filter.singleAccount ? preferences.sections.onedim.comparison=!preferences.sections.onedim.comparison : null"
 							>
 								<svg
 									class="icon icon-text"
 									:class="{
-										'icon-hover-accent': !singleAccount,
-										'icon-accent2': preferences.sections.onedim.comparison && !singleAccount,
-										'icon-gray': singleAccount
+										'icon-hover-accent': !filter.singleAccount,
+										'icon-accent2': preferences.sections.onedim.comparison && !filter.singleAccount,
+										'icon-gray': filter.singleAccount
 									}"
 									viewBox="0 0 24 24"
 								>
@@ -814,6 +814,7 @@
 <script setup>
 import { ref, reactive, onMounted, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useStatsFilterStore } from "@/stores/stats-filter";
 
 // internal components
 import {
@@ -872,6 +873,7 @@ import ProjectMeta from "@/partials/ProjectMeta.vue";
 import Tooltip from "@/components/Tooltip.vue";
 
 const { t, locale } = useI18n();
+const filter = useStatsFilterStore();
 
 // example date formats
 const now = new Date();
@@ -892,16 +894,6 @@ const folders = ref([]);
 // list of all existing tags
 const tags = ref([]);
 
-// selected filter field values and field errors
-const active = reactive({
-	account: null, // currently selected account
-	folder: null,  // currently selected folder
-	contact: null, // currently selected contact
-	period: {
-		start: null, // currently configured start of period of time
-		end: null,   // currently configured end of period of time
-	}
-});
 const error = reactive({
 	account: false, // truey if there where any errors on account message retrieval
 	period: {
@@ -951,8 +943,8 @@ const options = reactive({...defaultOptions});
 const initData = () => ({
 	meta: {
 		timestamp: null,
-		start: active.period.start ? new Date(active.period.start) : new Date(),
-		end: active.period.end ? new Date(active.period.end) : new Date(),
+		start: filter.start ? new Date(filter.start) : new Date(),
+		end: filter.end ? new Date(filter.end) : new Date(),
 	},
 	numbers: {
 		total: 0,
@@ -1139,14 +1131,14 @@ const getAccounts = async () => {
 	const uri = window.location.search.substring(1);
 	let id = (new URLSearchParams(uri)).get("s");
 	if (!id || (id == "sum" && !options.cache) || (id == "sum" && list.length <= 1)) id = list[0].id;
-	active.account = id;
+	filter.selectAccount(id);
 };
 
 // extract information of a single message <m> with accounts <identityList>
 // and update given <data> object
 const analyzeMessage = (data, m, identityList) => {
 	// check filter:contact
-	if (active.contact && !contactInvolved(active.contact, m)) return;
+	if (filter.contact && !contactInvolved(filter.contact, m)) return;
 	// check for self messages, if exclusion is enabled
 	if (options.selfMessages && options.selfMessages != "none") {
 		const ids = options.selfMessages == "sameAccount" ? identityList : identities.value;
@@ -1290,7 +1282,7 @@ const analyzeMessage = (data, m, identityList) => {
 // store results in <data> object
 const processMessages = async (data, folder, identityList) => {
 	if (folder) {
-		for await (let m of queryMessages(folder, active.period.start, active.period.end)) {
+		for await (let m of queryMessages(folder, filter.start, filter.end)) {
 			analyzeMessage(data, m, identityList);
 		}
 	}
@@ -1302,7 +1294,7 @@ const processAccount = async (a) => {
 	// get identities from account, or from preferences if it's a local account
 	const identities = a.type != "none" ? a.identities.map(i => i.email.toLowerCase()) : options.addresses;
 	// get all folders and subfolders from given account or selected folder of active account (filter field)
-	const foldersList = active.folder ? [JSON.parse(JSON.stringify(active.folder))] : traverseAccount(a);
+	const foldersList = filter.folder ? [JSON.parse(JSON.stringify(filter.folder))] : traverseAccount(a);
 	// build folder list for filter selection, if not already present
 	if (!folders.value.length) {
 		folders.value = foldersList;
@@ -1333,12 +1325,6 @@ const processAccount = async (a) => {
 	return accountData;
 };
 
-// true, if at least one filter is set
-const filterIsActive = computed(() => active.folder || active.period.start || active.period.end || active.contact);
-
-// true, if just one single account is selected
-const singleAccount = computed(() => active.account !== "sum");
-
 // retrieve and process data of account with <id=accountId>
 // gets called multiple times if processing was invoked for all accounts
 const reprocessData = async (id, auto=false) => {
@@ -1347,11 +1333,11 @@ const reprocessData = async (id, auto=false) => {
 	// process data of this account again
 	const accountData = await processAccount(account);
 	// directly display data if only one single account was manually processed
-	if (singleAccount.value && !auto) {
+	if (filter.singleAccount && !auto) {
 		display.value = JSON.parse(JSON.stringify(accountData));
 	}
 	// only store reprocessed data if cache is enabled and no filter is set
-	if (options.cache && !filterIsActive.value) {
+	if (options.cache && !filter.isActive) {
 		const stats = {};
 		stats["stats-" + id] = JSON.parse(JSON.stringify(accountData));
 		await messenger.storage.local.set(stats);
@@ -1410,7 +1396,7 @@ const loadAccount = async (id, refresh, auto=false) => {
 				const data = await reprocessData(a.id, auto);
 				accountsData.push(JSON.parse(JSON.stringify(data)));
 				// remember key of currently displayed account if auto processed
-				if (auto && active.account == a.id) {
+				if (auto && filter.account == a.id) {
 					displayedAccountKey = accountsData.length - 1;
 				}
 			}
@@ -1551,10 +1537,10 @@ const loadAccount = async (id, refresh, auto=false) => {
 // reset folder filter
 // reload data if requested <reload=true>
 const resetFolder = async (reload) => {
-	active.folder = null;
+	filter.resetFolder();
 	if (reload) {
 		// reprocess current data if another filter is set, otherwise just load account data
-		await loadAccount(active.account, (active.period.start && active.period.end) || active.contact)
+		await loadAccount(filter.account, (filter.start && filter.end) || filter.contact)
 	}
 };
 
@@ -1566,37 +1552,37 @@ const validatePeriod = () => {
 	error.period.start = [];
 	error.period.end = [];
 	// start time is not set
-	if (!active.period.start) {
+	if (!filter.start) {
 		valid = false;
 		error.period.start.push(t("stats.tooltips.error.empty"));
 	}
 	// start time is of wrong format
-	if (!datex.test(active.period.start)) {
+	if (!datex.test(filter.start)) {
 		valid = false;
 		error.period.start.push(t("stats.tooltips.error.dateFormat"));
 	}
 	// start time is no real date
-	if (isNaN(Date.parse(active.period.start))) {
+	if (isNaN(Date.parse(filter.start))) {
 		valid = false;
 		error.period.start.push(t("stats.tooltips.error.dateUnreal"));
 	}
 	// end time is not set
-	if (!active.period.end) {
+	if (!filter.end) {
 		valid = false;
 		error.period.end.push(t("stats.tooltips.error.empty"));
 	}
 	// end time is of wrong format
-	if (!datex.test(active.period.end)) {
+	if (!datex.test(filter.end)) {
 		valid = false;
 		error.period.end.push(t("stats.tooltips.error.dateForma;t"))
 	}
 	// end time is no real date
-	if (isNaN(Date.parse(active.period.end))) {
+	if (isNaN(Date.parse(filter.end))) {
 		valid = false;
 		error.period.end.push(t("stats.tooltips.error.dateUnreal;"))
 	}
 	// start date is before end date
-	if (Date.parse(active.period.start) > Date.parse(active.period.end)) {
+	if (Date.parse(filter.start) > Date.parse(filter.end)) {
 		valid = false;
 		error.period.start.push(t("stats.tooltips.error.dateOrderStart"));
 		error.period.end.push(t("stats.tooltips.error.dateOrderEnd"));
@@ -1608,9 +1594,9 @@ const validatePeriod = () => {
 // calls refresh if filter is valid
 const updatePeriod = async () => {
 	if (validatePeriod()) {
-		await loadAccount(active.account, true);
-		display.value.meta.start = new Date(active.period.start);
-		display.value.meta.end = new Date(active.period.end);
+		await loadAccount(filter.account, true);
+		display.value.meta.start = new Date(filter.start);
+		display.value.meta.end = new Date(filter.end);
 		adjustSelectedYear();
 	}
 };
@@ -1618,24 +1604,23 @@ const updatePeriod = async () => {
 // reset time period filter
 // reload data if requested <reload=true>
 const resetPeriod = async (reload) => {
-	active.period.start = null;
-	active.period.end = null;
+	filter.resetDateRange();
 	error.period.start = [];
 	error.period.end = [];
 	adjustSelectedYear();
 	if (reload) {
 		// reprocess current data if another filter is set, otherwise just load account data
-		await loadAccount(active.account, active.folder || active.contact);
+		await loadAccount(filter.account, filter.folder || filter.contact);
 	}
 };
 
 // reset contact filter
 // reload data if requested <reload=true>
 const resetContact = async (reload) => {
-	active.contact = null;
+	filter.resetContact();
 	if (reload) {
 		// reprocess current data if another filter is set, otherwise just load account data
-		await loadAccount(active.account, (active.period.start && active.period.end) || active.folder);
+		await loadAccount(filter.account, (filter.start && filter.end) || filter.folder);
 	}
 };
 
@@ -1649,27 +1634,11 @@ const formatFolder = (folder) => {
 // format period date input to match YYYY-MM-DD
 // <key> defines the input field, either 'start' or 'end'
 const formatPeriod = (key) => {
-	if (active.period[key]) {
-		let s = active.period[key];
-		// complete year
-		if (s.length == 6) {
-			s = String((new Date()).getFullYear()).slice(0, 2) + s;
-		}
-		// insert dashes
-		if (!s.includes("-")) {
-			s = s.slice(0, 4) + "-" + s.slice(4, 6) + "-" + s.slice(6);
-		}
-		// shorten to 10 characters
-		s = s.slice(0, 10);
-		// set lower limit
-		if (!isNaN(Date.parse(s)) && Date.parse(s) < 0) {
-			s = "1970-01-01";
-		}
-		// set upper limit
-		if (!isNaN(Date.parse(s)) && Date.parse(s) > Date.now()) {
-			s = (new Date()).toISOString().slice(0, 10);
-		}
-		active.period[key] = s;
+	if (key === 'start') {
+		filter.formatStart();
+	}
+	if (key === 'end') {
+		filter.formatEnd();
 	}
 };
 
@@ -1736,7 +1705,7 @@ const tooltipAccountComparison = (section) => {
 	if (options.accounts.length < 2) {
 		return t('stats.tooltips.comparisonWhenAccountsOption');
 	}
-	if (singleAccount.value) {
+	if (filter.singleAccount) {
 		return t('stats.tooltips.comparisonWhenFilter');
 	}
 	return !preferences.sections[section].comparison
@@ -2384,7 +2353,7 @@ const processingState = computed(() => {
 // on change of active account reset filter
 // and load new accounts data accordingly
 watch(
-	() => active.account,
+	() => filter.account,
 	async (id) => {
 		// default to all accounts page if no id given
 		if (!id) id = 'sum';
@@ -2395,18 +2364,18 @@ watch(
 		// reset contact filter
 		resetContact(false);
 		// process data for given account, refresh if date range or contact filter is set
-		await loadAccount(id, (active.period.start && active.period.end) || active.contact);
+		await loadAccount(id, (filter.start && filter.end) || filter.contact);
 	}
 );
 
 // on change of active folder
 // retrieve data again for current account selection
 watch(
-	() => active.folder,
+	() => filter.folder,
 	async (folder) => {
 		if (folder) {
 			// start processing for active folder only
-			await loadAccount(active.account, true);
+			await loadAccount(filter.account, true);
 		}
 	}
 );
@@ -2414,11 +2383,11 @@ watch(
 // on change of active folder
 // retrieve data again for current account selection
 watch(
-	() => active.contact,
+	() => filter.contact,
 	async (contact) => {
 		if (contact) {
 			// start processing for active contact only
-			await loadAccount(active.account, true);
+			await loadAccount(filter.account, true);
 		}
 	}
 );

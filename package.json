@@ -9,9 +9,11 @@
 		"setlang": "localazy upload existing"
 	},
 	"dependencies": {
+		"@vueuse/core": "^10.6.1",
 		"chart.js": "^4.0.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"chartjs-chart-matrix": "^2.0.1",
+		"pinia": "^2.1.7",
 		"vue": "^3.2.38",
 		"vue-i18n": "^9.2.2"
 	},
