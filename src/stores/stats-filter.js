@@ -1,4 +1,5 @@
-import { defineStore } from 'pinia';
+import { computed } from 'vue';
+import { defineStore, patc } from 'pinia';
 import { useLocalStorage } from '@vueuse/core';
 
 // format period date input to match YYYY-MM-DD
@@ -32,59 +33,51 @@ const initialStatsFilter = {
   endDate:   null,
 };
 
-export const useStatsFilterStore = defineStore('stats-filter', {
-  state: () => ({
-    data: useLocalStorage('thirdstats/stats-filter', initialStatsFilter),
-  }),
-  getters: {
-    account() {
-      return this.data.account;
-    },
-    folder() {
-      return this.data.folder;
-    },
-    contact() {
-      return this.data.contact;
-    },
-    start() {
-      return this.data.startDate;
-    },
-    end() {
-      return this.data.endDate;
-    },
-    singleAccount() {
-      return this.data.account !== 'sum';
-    },
-    isActive() {
-      return this.data.folder || this.data.contact || this.data.startDate || this.data.endDate;
-    },
-  },
-  actions: {
-    selectAccount(account) {
-      this.data.account = account;
-    },
-    reset() {
-      this.$patch({ data: initialStatsFilter });
-    },
-    resetFolder() {
-      this.data.folder = null;
-    },
-    resetContact() {
-      this.data.contact = null;
-    },
-    resetDateRange() {
-      this.data.startDate = null;
-      this.data.endDate = null;
-    },
-    formatStart() {
-      if (this.data.startDate) {
-        this.data.startDate = formatDateInput(this.data.startDate);
-      }
-    },
-    formatEnd() {
-      if (this.data.endDate) {
-        this.data.endDate = formatDateInput(this.data.endDate);
-      }
-    },
-  },
+export const useStatsFilterStore = defineStore('stats-filter', () => {
+  const filter = useLocalStorage('thirdstats/stats-filter', initialStatsFilter);
+  const isSingleAccount = computed(() => filter.account !== 'sum' );
+  const isActiveFilter = computed(() => {
+    return filter.folder || filter.contact || filter.startDate || filter.endDate;
+  });
+  function selectAccount (account) {
+    filter.account = account;
+  };
+  function resetFolder () {
+    filter.folder = null;
+  };
+  function resetContact () {
+    filter.contact = null;
+  };
+  function resetDateRange () {
+    filter.startDate = null;
+    filter.endDate = null;
+  };
+  function resetFilter () {
+    resetFolder();
+    resetContact();
+    resetDateRange();
+  };
+  function formatStart () {
+    if (filter.startDate) {
+      filter.startDate = formatDateInput(filter.startDate);
+    }
+  };
+  function formatEnd () {
+    if (filter.endDate) {
+      filter.endDate = formatDateInput(filter.endDate);
+    }
+  };
+
+  return {
+    filter,
+    isSingleAccount,
+    isActiveFilter,
+    selectAccount,
+    resetFilter,
+    resetFolder,
+    resetContact,
+    resetDateRange,
+    formatStart,
+    formatEnd,
+  };
 });
