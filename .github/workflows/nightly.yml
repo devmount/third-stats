@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 18
+    - name: Use Node.js 20
       uses: actions/setup-node@v1
       with:
-        node-version: 18.x
+        node-version: 20.x
     - name: Get Timestamp
       id: timestamp
       run: |
@@ -53,7 +53,7 @@ jobs:
         cd dist/
         zip -q -r ../${{ steps.file.outputs.name }} ./
     - name: Upload add-on nightly build artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: third-stats-nightly
         path: ${{ steps.file.outputs.name }}
