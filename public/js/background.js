@@ -1,10 +1,11 @@
 // this script holds all background activity not related to stats building
 
-function main() {
+const main = async () => {
   // add icon to spaces toolbar
-  if (messenger.spacesToolbar) {
-    messenger.spacesToolbar.addButton(
+  if (messenger.spaces) {
+    await messenger.spaces.create(
       'third_stats',
+      '../index.stats.html',
       {
         badgeBackgroundColor: '#e64db9',
         badgeText: '',
@@ -22,10 +23,9 @@ function main() {
           }
         ],
         title: 'ThirdStats',
-        url: '../index.stats.html'
       }
     );
   }
-}
+};
 
 main();

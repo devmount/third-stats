@@ -1122,7 +1122,7 @@ const getOptions = async () => {
 // retrieve list of tags that can be set on messages
 // their human-friendly name, color, and sort order
 const getTags = async () => {
-	tags.value = await messenger.messages.listTags();
+	tags.value = await messenger.messages.tags.list();
 };
 
 // retrieve accounts and identities list
@@ -1303,7 +1303,7 @@ const analyzeMessage = (data, m, identityList) => {
 // store results in <data> object
 const processMessages = async (data, folder, identityList) => {
 	if (folder) {
-		for await (let m of queryMessages(folder, active.period.start, active.period.end)) {
+		for await (let m of queryMessages(folder.id, active.period.start, active.period.end)) {
 			analyzeMessage(data, m, identityList);
 		}
 	}
@@ -1315,7 +1315,7 @@ const processAccount = async (a) => {
 	// get identities from account, or from preferences if it's a local account
 	const identities = a.type != "none" ? a.identities.map(i => i.email.toLowerCase()) : options.addresses;
 	// get all folders and subfolders from given account or selected folder of active account (filter field)
-	const foldersList = active.folder ? [JSON.parse(JSON.stringify(active.folder))] : traverseAccount(a);
+	const foldersList = active.folder ? [JSON.parse(JSON.stringify(active.folder))] : await traverseAccount(a);
 	// build folder list for filter selection, if not already present
 	if (!folders.value.length) {
 		folders.value = foldersList;
@@ -1402,7 +1402,7 @@ const loadAccount = async (id, refresh, auto=false) => {
 		let accountsData = [];
 		// init progress indicator
 		progress.current = 1;
-		progress.max = activeAccounts.reduce((p,c) => p+traverseAccount(c).length, 0);
+		progress.max = activeAccounts.reduce(async (p,c) => p + (await traverseAccount(c).length), 0);
 		// when auto processing remember displayed account key and disable live counts
 		let displayedAccountKey = null;
 		let liveCountUpDisabled = false;
@@ -1539,7 +1539,7 @@ const loadAccount = async (id, refresh, auto=false) => {
 		// set tab title
 		document.title = "ThirdStats: " + account.name;
 		// (re)calculate list of folders
-		folders.value = traverseAccount(account);
+		folders.value = await traverseAccount(account);
 		// only check storage if no refresh was requested cache is enabled
 		const result = options.cache ? await messenger.storage.local.get("stats-" + id) : null;
 		if (!refresh && result && result["stats-" + id]) {
