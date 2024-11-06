@@ -33,20 +33,22 @@
 			<!-- list of all accounts -->
 			<section class="accounts">
 				<div
+					v-for="a in accounts"
+					:key="a.id"
 					class="background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
 					:class="{
 						'background-gray': options.dark,
 						'background-highlight-contrast': !options.dark,
 					}"
-					v-for="a in accounts"
-					:key="a.id"
 					@click.prevent="openTab('index.stats.html', a.id)"
 				>
 					<div class="position-relative z-5">
 						<h4>{{ a.name }}</h4>
 						<div class="text-small text-secondary">
-							{{ t("popup.nFolders", a.folderCount, [a.folderCount]) }}
-							<div v-if="a.hasOwnProperty('messageCount')">{{ t("popup.nMessages", a.messageCount, [a.messageCount]) }}</div>
+							<div>{{ t("popup.nFolders", [a.folderCount], a.folderCount) }}</div>
+							<div v-if="a.hasOwnProperty('messageCount')">
+								{{ t("popup.nMessages", [a.messageCount], a.messageCount) }}
+							</div>
 						</div>
 					</div>
 					<LineChart
@@ -113,7 +115,7 @@ const getAccounts = async () => {
 	// expand account object with additional data
 	await Promise.all(accountList.map(async a => {
 		// calculate folder count and append to account object
-		const folders = traverseAccount(a);
+		const folders = await traverseAccount(a);
 		a.folderCount = folders.length;
 		// get overall message count when cache is enabled
 		if (options.cache) {
@@ -148,10 +150,13 @@ const getAccounts = async () => {
 onMounted(async () => {
 	// start loading indication
 	loading.value = true;
+
 	// get stored options
 	await getOptions();
+
 	// start account processing
 	await getAccounts();
+
 	// stop loading indication
 	loading.value = false;
 });

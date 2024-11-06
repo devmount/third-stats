@@ -107,14 +107,14 @@ const isSelfMessage = (message, identities) => {
 };
 
 // generator to query messages of given folder
-const queryMessages = async function* (folder, fromDate, toDate) {
+const queryMessages = async function* (folderId, fromDate, toDate) {
 	// handle date filter
 	const dateFilterActive = fromDate && toDate;
 	const from = new Date(fromDate);
 	const to = new Date(toDate);
 	try {
 		// paginate messages
-		let page = await messenger.messages.list(folder);
+		let page = await messenger.messages.list(folderId);
 		for (let message of page.messages) {
 			const messagesOutsideDateFilter = message.date < from || message.date > to;
 			if (!(dateFilterActive && messagesOutsideDateFilter)) {
@@ -137,18 +137,22 @@ const queryMessages = async function* (folder, fromDate, toDate) {
 };
 
 // flatten folder hierarchie of given account
-const traverseAccount = (account) => {
-	let arrayOfFolders = [];
-	// recursive function to traverse all subfolders
+const traverseAccount = async (account) => {
+	const foldersList = [];
+	// Recursive function to traverse all subfolders
 	function traverse(folders) {
-		if (!folders) return;
-		for (let f of folders) {
-			arrayOfFolders.push(f);
+		if (!folders?.length) return;
+		folders.forEach(f => {
+			if (!f.isRoot) foldersList.push(f);
 			traverse(f.subFolders);
-		}
+		});
 	}
-	traverse(account.folders);
-	return arrayOfFolders;
+
+	// Start with root
+	const rootFolder = await messenger.folders.get(account.rootFolder.id, true);
+	traverse([rootFolder]);
+	
+	return foldersList;
 };
 
 // extract an email address from a given string
