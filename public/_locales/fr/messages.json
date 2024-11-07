@@ -1,19 +1,19 @@
 {
   "cta": {
-    "donate": "Donner",
-    "message": "Si vous aimez ThirdStats et que vous souhaitez soutenir ce projet, l'un des éléments suivants vous sera d'une grande aide :",
-    "review": "Critique",
+    "donate": "Faire un don",
+    "message": "Si vous aimez ThirdStats et que vous souhaitez soutenir ce projet, tout ce qui suit sera d'une grande aide :",
+    "review": "Avis",
     "share": "Partager",
     "star": "Étoile",
     "translate": "Traduire"
   },
   "extensionDescription": {
-    "message": "Affichage de statistiques pour vos comptes mails Thunderbird"
+    "message": "Statistiques joliment visualisées pour vos comptes mails Thunderbird"
   },
   "options": {
     "activeAccounts": {
       "color": "Donnez une couleur personnalisée à chaque compte pour les distinguer en mode comparaison.",
-      "description": "Activez ou désactivez les comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
+      "description": "Activation ou désactivation de comptes. Les comptes désactivés n'apparaîtront dans aucune liste de comptes ou statistiques.",
       "label": "Comptes actifs",
       "sumAndCompare": "L'activation de plusieurs comptes active l'option de filtre de statistiques «Tous les comptes» pour la vue de somme et de comparaison."
     },
@@ -40,10 +40,6 @@
       "stats": "Graphiques et Données",
       "storage": "Stockage et Cache"
     },
-    "maxListCount": {
-      "description": "Nombre maximum d'entrées affichées dans les graphiques de liste (contacts et étiquettes, 999 maximum)",
-      "label": "Longueur maximale de la liste"
-    },
     "liveCountUp": {
       "description": "Afficher la progression en direct des nombres calculés lors du traitement des données statistiques",
       "info": "Activer cette option peut augmenter le temps de traitement",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Une liste d'adresses électroniques, séparées par des virgules, à reconnaître comme 'envoyées de' pour les comptes locaux",
       "label": "Identités locales"
+    },
+    "maxListCount": {
+      "description": "Nombre maximum d'entrées affichées dans les graphiques de liste (contacts et étiquettes, 999 maximum)",
+      "label": "Longueur maximale de la liste"
     },
     "message": "-",
     "note": {
@@ -205,21 +205,21 @@
     "mailsPerYear": "Messages par an",
     "mailsReceived": "Messages reçus",
     "mailsSent": "Messages envoyés",
-    "mailsStarred": "Messages en étoile",
-    "mailsTagged": "{0} messages étiquetés",
+    "mailsStarred": "Messages favoris",
+    "mailsTagged": "{0} messages marqués",
     "mailsTotal": "Messages total",
     "mailsUnread": "Messages non lus",
     "message": "-",
     "niceWork": "Beau travail !",
-    "nonEmptyFolders": "dossiers non vides | dossier non vide | dossiers non vides",
+    "nonEmptyFolders": "pas de dossiers vides | pas de dossiers vides | pas de dossiers vides",
     "percentOfReceived": "{0}% des reçus",
     "percentOfTotal": "{0}% du total",
     "timePeriod": "Période de temps",
     "title": "Statistiques",
     "tooltips": {
       "clear": "Effacer la sélection",
-      "comparison": "Comparer les comptes",
-      "comparisonWhenAccountsOption": "La comparaison de compte est uniquement disponible\nsi plusieurs comptes sont activés dans les options",
+      "comparison": "Comparer les comptes dans un seul graphique",
+      "comparisonWhenAccountsOption": "La comparaison de comptes est uniquement disponible\nsi plusieurs comptes sont activés dans les options",
       "comparisonWhenFilter": "La comparaison de compte est uniquement disponible\nsi \"Tous les comptes\" est sélectionné dans le filtre des comptes",
       "error": {
         "dateFormat": "Le format AAAA-MM-JJ est requis, par ex. 2020-01-31",
@@ -230,16 +230,16 @@
         "processing": "Une erreur s'est produite pendant le traitement, les statistiques affichées peuvent ne pas être complètes."
       },
       "expand": "Agrandir la zone du graphique",
-      "exportData": "Exporter les données actuellement affichées sous forme de fichier JSON",
+      "exportData": "Exporter les données affichées sous format de fichier JSON",
       "folder": {
-        "notAvailable": "Les dossiers ne sont pas disponibles pour {0}"
+        "notAvailable": "Dossiers indisponibles pour {0}"
       },
       "period": {
-        "end": "À ce jour\nConseil: taper «{0}» devient «{1}»",
-        "start": "De ce jour\nConseil: taper «{0}» devient «{1}»"
+        "end": "À la date du\nAstuce: taper '{0}' devient '{1}'",
+        "start": "À partir de la Date\nAstuce : taper '{0}' devient '{1}'"
       },
       "refresh": "Actualiser les données",
-      "shrink": "Rétrécir la zone du graphique",
+      "shrink": "Réduire la zone du graphique",
       "sum": "Voir la somme de tous les comptes"
     },
     "withinYears": "en {0} ans"

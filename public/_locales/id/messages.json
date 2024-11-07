@@ -40,10 +40,6 @@
       "stats": "Grafik & Data",
       "storage": "Penyimpanan & Cache"
     },
-    "maxListCount": {
-      "description": "Jumlah maksimum entri yang ditampilkan dalam bagan daftar (kontak dan tag, maksimum 999)",
-      "label": "Panjang Daftar Maksimum"
-    },
     "liveCountUp": {
       "description": "Tampilkan kemajuan langsung dari angka yang dihitung saat memproses data statistik",
       "info": "Mengaktifkan ini dapat meningkatkan waktu pemrosesan",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Daftar alamat email untuk dikenali sebagai 'dikirim dari' untuk akun lokal",
       "label": "Identitas Lokal"
+    },
+    "maxListCount": {
+      "description": "Jumlah maksimum entri yang ditampilkan dalam bagan daftar (kontak dan tag, maksimum 999)",
+      "label": "Panjang Daftar Maksimum"
     },
     "message": "-",
     "note": {

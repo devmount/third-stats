@@ -40,10 +40,6 @@
       "stats": "Ábrázolások és adatok",
       "storage": "Tárolás és gyorsítótár"
     },
-    "maxListCount": {
-      "description": "A listadiagramokban megjelenített bejegyzések maximális száma (kapcsolatok és címkék, maximum 999)",
-      "label": "Maximális listahossz"
-    },
     "liveCountUp": {
       "description": "A kiszámított számok élő előrehaladásának megjelenítése statisztikai adatok feldolgozásakor",
       "info": "Ennek engedélyezése növelheti a feldolgozási időt",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "A levélcímlista, hogy ismerje a „küldött” a helyi fiókok",
       "label": "Helyi személyazonosságok"
+    },
+    "maxListCount": {
+      "description": "A listadiagramokban megjelenített bejegyzések maximális száma (kapcsolatok és címkék, maximum 999)",
+      "label": "Maximális listahossz"
     },
     "message": "-",
     "note": {

@@ -40,10 +40,6 @@
       "stats": "Wykresy & Dane",
       "storage": "Pamięć masowa & Podręczna"
     },
-    "maxListCount": {
-      "description": "Maksymalna liczba wpisów wyświetlanych na wykresach list (kontakty i tagi, maksymalnie 999)",
-      "label": "Maksymalna długość listy"
-    },
     "liveCountUp": {
       "description": "Pokaż na żywo postęp obliczonych liczb podczas przetwarzania danych statystycznych",
       "info": "Włączenie tego może wydłużyć czas przetwarzania",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Lista adresów e-mail, które mają być rozpoznawane jako 'wysłane z' dla kont lokalnych",
       "label": "Tożsamości lokalne"
+    },
+    "maxListCount": {
+      "description": "Maksymalna liczba wpisów wyświetlanych na wykresach list (kontakty i tagi, maksymalnie 999)",
+      "label": "Maksymalna długość listy"
     },
     "message": "-",
     "note": {
@@ -119,7 +119,7 @@
       "hour": "g",
       "minute": "min",
       "month": "m",
-      "quarter": "Ć",
+      "quarter": "K",
       "second": "s",
       "week": "T",
       "year": "r"
@@ -149,15 +149,15 @@
         "title": "Działalność w roku {0}"
       },
       "daytime": {
-        "description": "Wiadomości dziennie",
+        "description": "Liczna e-maili w godzinach",
         "title": "Dziennie"
       },
       "foldersDistribution": {
-        "description": "Liczba wiadomości e-mail w folderze",
+        "description": "Liczba e-maili w folderze",
         "title": "Rozmieszczenie folderów"
       },
       "month": {
-        "description": "Wszystkich wiadomości miesięcznie",
+        "description": "Liczba e-maili w miesiącach",
         "title": "Miesiąc"
       },
       "months": {
@@ -166,7 +166,7 @@
       },
       "quarters": {
         "description": "Całkowita liczba wiadomości e-mail na kwartał",
-        "title": "Kwatery"
+        "title": "Kwartały"
       },
       "tagsCount": {
         "description": "Łączna liczba wiadomości e-mail dla danego znacznika",
@@ -178,7 +178,7 @@
         "title": "Rozkład w czasie"
       },
       "weekday": {
-        "description": "Maile w dni robocze",
+        "description": "Liczba e-maili w dni robocze",
         "title": "Dni Robocze"
       },
       "weeks": {
@@ -197,12 +197,12 @@
     "junkMails": "Wiadomości-śmieci",
     "junkScore": "Wynik śmieci {0}",
     "loadingInProgress": "Trwa wczytywanie wszystkich e-maili z tego konta…",
-    "mailsPerDay": "wiadomości dziennie",
+    "mailsPerDay": "Wiadomości dziennie",
     "mailsPerMonth": "Wiadomości na miesiąc",
-    "mailsPerQuarter": "Listy na kwartał",
-    "mailsPerTag": "Liczba maili na tag",
-    "mailsPerWeek": "Listy w tygodniu",
-    "mailsPerYear": "Listy rocznie",
+    "mailsPerQuarter": "Wiadomości na kwartał",
+    "mailsPerTag": "Wiadomości na tag",
+    "mailsPerWeek": "Wiadomości w tygodniu",
+    "mailsPerYear": "Wiadomości rocznie",
     "mailsReceived": "Otrzymanych",
     "mailsSent": "Wysłanych wiadomości",
     "mailsStarred": "Maile oznaczone gwiazdką",

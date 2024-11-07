@@ -40,10 +40,6 @@
       "stats": "Grafikler ve Veriler",
       "storage": "Depolama ve Önbellek"
     },
-    "maxListCount": {
-      "description": "Liste grafiklerinde gösterilen maksimum giriş sayısı (kişiler ve etiketler, maksimum 999)",
-      "label": "Maksimum Liste Uzunluğu"
-    },
     "liveCountUp": {
       "description": "İstatistik verilerini işlerken hesaplanan sayıların canlı ilerlemesini göster",
       "info": "Bunu etkinleştirmek işlem süresini artırabilir",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Yerel hesaplar için 'gönderen' olarak tanınacak e-posta adreslerinin virgülle ayrılmış listesi",
       "label": "Yerel Kimlikler"
+    },
+    "maxListCount": {
+      "description": "Liste grafiklerinde gösterilen maksimum giriş sayısı (kişiler ve etiketler, maksimum 999)",
+      "label": "Maksimum Liste Uzunluğu"
     },
     "message": "-",
     "note": {

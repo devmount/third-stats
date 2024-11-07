@@ -40,10 +40,6 @@
       "stats": "图表与资料",
       "storage": "存储与缓存"
     },
-    "maxListCount": {
-      "description": "列表图表中显示的最大条目数（联系人和标签，最多 999）",
-      "label": "最大列表长度"
-    },
     "liveCountUp": {
       "description": "处理统计数据时显示计算数字的实时进度",
       "info": "启用此选项可能会增加处理时间",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "利用逗号分隔的电子邮件地址列表来为本地账号认别为“发送自”",
       "label": "本地身份"
+    },
+    "maxListCount": {
+      "description": "列表图表中显示的最大条目数（联系人和标签，最多 999）",
+      "label": "联系数"
     },
     "message": "-",
     "note": {

@@ -40,10 +40,6 @@
       "stats": "圖表和資料",
       "storage": "儲存和快取"
     },
-    "maxListCount": {
-      "description": "列表圖表中顯示的最大條目數（聯繫人和標籤，最多 999）",
-      "label": "最大列表長度"
-    },
     "liveCountUp": {
       "description": "在處理統計數據時顯示計算數字的實時進度",
       "info": "啟用此選項可能會增加處理時間",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "使用逗號隔開的電子郵件列表，作為本機帳號的「來自（sent from）」標識",
       "label": "本機帳號"
+    },
+    "maxListCount": {
+      "description": "列表圖表中顯示的最大條目數（聯繫人和標籤，最多 999）",
+      "label": "最大列表長度"
     },
     "message": "-",
     "note": {

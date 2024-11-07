@@ -40,10 +40,6 @@
       "stats": "Grafici e Dati",
       "storage": "Archiviazione e Cache"
     },
-    "maxListCount": {
-      "description": "Numero massimo di voci visualizzate nei grafici degli elenchi (contatti e tag, massimo 999)",
-      "label": "Lunghezza massima dell'elenco"
-    },
     "liveCountUp": {
       "description": "Mostra i progressi in tempo reale dei numeri calcolati durante l'elaborazione dei dati",
       "info": "L'attivazione di questa opzione può aumentare il tempo",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Un elenco separato da virgole di indirizzi e-mail da riconoscere come 'inviati da' per gli account locali",
       "label": "Identità locali"
+    },
+    "maxListCount": {
+      "description": "Numero massimo di voci visualizzate nei grafici degli elenchi (contatti e tag, massimo 999)",
+      "label": "Lunghezza massima dell'elenco"
     },
     "message": "-",
     "note": {

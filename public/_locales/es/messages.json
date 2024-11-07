@@ -40,10 +40,6 @@
       "stats": "Gráficos y Datos",
       "storage": "Almacenamiento y Caché"
     },
-    "maxListCount": {
-      "description": "Número máximo de entradas mostradas en los gráficos de listas (contactos y etiquetas, 999 como máximo)",
-      "label": "Longitud máxima de la lista"
-    },
     "liveCountUp": {
       "description": "Mostrar el progreso en directo de los números calculados al procesar datos de estadísticas",
       "info": "Habilitar esto puede aumentar el tiempo de procesamiento",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Una lista de direcciones de correos separados por coma para reconocer como 'enviados desde' para cuentas locales",
       "label": "Indetidades locales"
+    },
+    "maxListCount": {
+      "description": "Número máximo de entradas mostradas en los gráficos de listas (contactos y etiquetas, 999 como máximo)",
+      "label": "Longitud máxima de la lista"
     },
     "message": "-",
     "note": {

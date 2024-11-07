@@ -40,10 +40,6 @@
       "stats": "Grafy a data",
       "storage": "Úložiště a mezipaměť"
     },
-    "maxListCount": {
-      "description": "Maximální počet položek zobrazených v grafech seznamu (kontakty a značky, maximálně 999)",
-      "label": "Maximální délka seznamu"
-    },
     "liveCountUp": {
       "description": "Zobrazit aktuální průběh vypočítaných čísel při zpracování statistických dat",
       "info": "Tato aktivace může prodloužit dobu zpracování",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Čárkami oddělený seznam e-mailových adres, které budou považovány za lokální (v poli 'od')",
       "label": "Místní identity"
+    },
+    "maxListCount": {
+      "description": "Maximální počet položek zobrazených v grafech seznamu (kontakty a značky, maximálně 999)",
+      "label": "Maximální délka seznamu"
     },
     "message": "-",
     "note": {

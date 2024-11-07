@@ -40,10 +40,6 @@
       "stats": "Diagramme & Daten",
       "storage": "Speicher & Cache"
     },
-    "maxListCount": {
-      "description": "Maximale Anzahl der Einträge in Diagrammen welche Daten auflisten (Kontakte und Tags, maximal 999)",
-      "label": "Maximale Listenlänge"
-    },
     "liveCountUp": {
       "description": "Live-Fortschritt der berechneten Zahlen bei der Berechnung von Statistikdaten anzeigen",
       "info": "Das Aktivieren dieser Option kann eine erhöhte Berechnungsdauer zur Folge haben",
@@ -52,6 +48,10 @@
     "localIdentities": {
       "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten",
       "label": "Lokale Identitäten"
+    },
+    "maxListCount": {
+      "description": "Maximale Anzahl der Einträge in Diagrammen welche Daten auflisten (Kontakte und Tags, maximal 999)",
+      "label": "Maximale Listenlänge"
     },
     "message": "-",
     "note": {
