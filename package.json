@@ -13,7 +13,7 @@
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"chartjs-chart-matrix": "^2.0.1",
 		"vue": "^3.2.38",
-		"vue-i18n": "^10.0.0"
+		"vue-i18n": "^10.0.5"
 	},
 	"devDependencies": {
 		"@intlify/unplugin-vue-i18n": "^5.0.0",
