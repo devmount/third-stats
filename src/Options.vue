@@ -36,8 +36,8 @@
 					<div class="action d-flex">
 						<label class="switch">
 							<input type="checkbox" id="ordinate" v-model="options.ordinate" />
-							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
-							<span class="switch-handle"></span> 
+							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
+							<span class="switch-handle"></span>
 						</label>
 					</div>
 				</div>
@@ -50,8 +50,8 @@
 					<div class="action d-flex">
 						<label class="switch">
 							<input type="checkbox" id="tagColors" v-model="options.tagColors" />
-							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
-							<span class="switch-handle"></span> 
+							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
+							<span class="switch-handle"></span>
 						</label>
 					</div>
 				</div>
@@ -64,8 +64,8 @@
 					<div class="action">
 						<label class="switch mb-0-5">
 							<input type="checkbox" id="liveCountUp" v-model="options.liveCountUp" />
-							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
-							<span class="switch-handle"></span> 
+							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
+							<span class="switch-handle"></span>
 						</label>
 						<div class="d-flex gap-0-5 align-items-center text-gray">
 							<div>
@@ -100,8 +100,8 @@
 					<div class="action d-flex align-items-center gap-1">
 						<label class="switch flex-no-shrink">
 							<input type="checkbox" id="autoRefresh" v-model="options.autoRefresh" />
-							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
-							<span class="switch-handle"></span> 
+							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
+							<span class="switch-handle"></span>
 						</label>
 						<div v-if="options.autoRefresh" class="action d-flex flex-grow input-group">
 							<div class="d-flex flex-grow" :data-unit="t('stats.abbreviations.minute')">
@@ -309,8 +309,8 @@
 					<div class="action">
 						<label class="switch">
 							<input type="checkbox" id="cache" v-model="options.cache" />
-							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span> 
-							<span class="switch-handle"></span> 
+							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
+							<span class="switch-handle"></span>
 						</label>
 					</div>
 				</div>
@@ -375,6 +375,20 @@
 							</div>
 							<span class="text-small">{{ t("options.resetOptions.removeIdentities") }}</span>
 						</div>
+					</div>
+				</div>
+				<!-- option: debug mode -->
+				<div class="entry">
+					<label for="debug">
+						{{ t("options.debug.label") }}
+						<span class="d-block text-gray text-small">{{ t("options.debug.description") }}</span>
+					</label>
+					<div class="action">
+						<label class="switch">
+							<input type="checkbox" id="debug" v-model="options.debug" />
+							<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
+							<span class="switch-handle"></span>
+						</label>
 					</div>
 				</div>
 			</section>
@@ -629,7 +643,7 @@ html, body
 		max-width: 840px
 		padding: 1rem
 
-	&.embedded	
+	&.embedded
 		header,	footer,	.container
 			width: 100%
 			max-width: auto
@@ -637,13 +651,13 @@ html, body
 			padding-right: .5rem
 		.container > section:first-child > h2
 			margin-top: 0
-	
+
 	header
 		h1
 			margin: 0
 			.logo
 				height: 48px
-		
+
 	.container
 		&>section
 			h2
@@ -655,6 +669,6 @@ html, body
 				margin-bottom: 1rem
 				.action
 					align-self: center
-	
+
 
 </style>
