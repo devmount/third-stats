@@ -21,6 +21,10 @@
       "description": "Enable caching system for faster display of already processed stats data.",
       "label": "Activate Cache"
     },
+    "debug": {
+      "description": "Enable debugging. This creates verbose log messages in the developer tools console while processing stats.",
+      "label": "Debug mode"
+    },
     "autoRefresh": {
       "description": "Enable automatic reprocessing of the stats data in the background. Set a time interval in minutes (minimum of 5).",
       "label": "Automatic Processing"

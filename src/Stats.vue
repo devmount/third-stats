@@ -1354,7 +1354,8 @@ const processAccount = async (a) => {
 
 	// Handle debug output
 	if (options.debug) {
-		console.debug(`Detected identities: ${identities.join(', ')}`);
+		const debugIdentities = identities.length ? identities.join(', ') : 'None';
+		console.debug(`Detected identities: ${debugIdentities}`);
 	}
 
 	// check if error occured during processing
