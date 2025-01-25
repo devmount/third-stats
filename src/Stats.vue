@@ -1089,6 +1089,9 @@ const addStorageListener = () => {
 			if (n.cache != o.cache) {
 				options.cache = n.cache;
 			}
+			if (n.debug != o.debug) {
+				options.debug = n.debug;
+			}
 		}
 	});
 };
