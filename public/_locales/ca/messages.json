@@ -35,6 +35,10 @@
       "description": "Canvia entre l'esquema de colors fosc i clar",
       "label": "Mode fosc"
     },
+    "debug": {
+      "description": "Activa la depuració. Això crea missatges de registre detallats a la consola d'eines per a desenvolupadors mentre es processen les estadístiques.",
+      "label": "Mode de depuració"
+    },
     "headings": {
       "appearance": "Aparença i experiència",
       "stats": "Gràfics i dades",

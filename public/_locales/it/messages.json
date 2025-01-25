@@ -35,6 +35,10 @@
       "description": "Passa dalla combinazione di colori chiari e scuri",
       "label": "Modalità scura"
     },
+    "debug": {
+      "description": "Abilita il debug. Questo crea messaggi di log verbosi nella console degli strumenti per sviluppatori durante l'elaborazione delle statistiche.",
+      "label": "Modalità di debug"
+    },
     "headings": {
       "appearance": "Aspetto ed Esperienza",
       "stats": "Grafici e Dati",

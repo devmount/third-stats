@@ -35,6 +35,10 @@
       "description": "Przełączanie pomiędzy ciemnym i jasnym schematem kolorów",
       "label": "tryb ciemny"
     },
+    "debug": {
+      "description": "Włącz debugowanie. Tworzy to szczegółowe komunikaty dziennika w konsoli narzędzi deweloperskich podczas przetwarzania statystyk.",
+      "label": "Tryb debugowania"
+    },
     "headings": {
       "appearance": "Wygląd & Doświadczenie",
       "stats": "Wykresy & Dane",

@@ -35,6 +35,10 @@
       "description": "Passer du mode sombre au mode clair",
       "label": "Mode sombre"
     },
+    "debug": {
+      "description": "Active le débogage. Cela crée des messages de logs verbeux dans la console des outils de développement pendant le traitement des statistiques.",
+      "label": "Mode débogage"
+    },
     "headings": {
       "appearance": "Apparence et Expérience",
       "stats": "Graphiques et Données",

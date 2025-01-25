@@ -35,6 +35,10 @@
       "description": "Přepíná mezi tmavým a světlým barevným schématem",
       "label": "Tmavý režím"
     },
+    "debug": {
+      "description": "Povolení ladění. Tím se v konzole vývojářských nástrojů při zpracování statistik vytvoří obsáhlé zprávy protokolu.",
+      "label": "Režim ladění"
+    },
     "headings": {
       "appearance": "Vzhled a chování",
       "stats": "Grafy a data",

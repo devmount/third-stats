@@ -35,6 +35,10 @@
       "description": "Koyu ve açık renk düzeni arasında geçiş yapın",
       "label": "Karanlık Mod"
     },
+    "debug": {
+      "description": "Hata ayıklamayı etkinleştirin. Bu, istatistikleri işlerken geliştirici araçları konsolunda ayrıntılı günlük mesajları oluşturur.",
+      "label": "Hata ayıklama modu"
+    },
     "headings": {
       "appearance": "Görünüm & Deneyim",
       "stats": "Grafikler ve Veriler",

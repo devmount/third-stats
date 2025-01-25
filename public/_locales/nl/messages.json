@@ -35,6 +35,10 @@
       "description": "Schakel tussen donker en licht kleurenschema",
       "label": "Donkere modus"
     },
+    "debug": {
+      "description": "Debuggen inschakelen. Dit zorgt voor uitgebreide logberichten in de console van de ontwikkelaarstools tijdens het verwerken van statistieken.",
+      "label": "Debugmodus"
+    },
     "headings": {
       "appearance": "Uiterlijk en ervaring",
       "stats": "Diagrammen en gegevens",

@@ -35,6 +35,10 @@
       "description": "Prepínanie medzi tmavými a svetlými farebnými schémami",
       "label": "Tmavý režim"
     },
+    "debug": {
+      "description": "Povolenie ladenia. Pri spracovaní štatistík sa v konzole vývojárskych nástrojov vytvoria podrobné správy denníka.",
+      "label": "Režim ladenia"
+    },
     "headings": {
       "appearance": "Vzhľad a dojem",
       "stats": "Grafy a údaje",

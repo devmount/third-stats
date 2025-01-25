@@ -35,6 +35,10 @@
       "description": "Beralih antara skema warna gelap dan terang",
       "label": "Mode Gelap"
     },
+    "debug": {
+      "description": "Mengaktifkan debugging. Hal ini menciptakan pesan log yang bertele-tele di konsol alat pengembang saat memproses statistik.",
+      "label": "Mode debug"
+    },
     "headings": {
       "appearance": "Penampilan & Pengalaman",
       "stats": "Grafik & Data",

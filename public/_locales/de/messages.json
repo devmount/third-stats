@@ -35,6 +35,10 @@
       "description": "Auswahl eines hellen oder dunklen Farbschemas",
       "label": "Nachtmodus"
     },
+    "debug": {
+      "description": "Aktiviert Debugging. Dies erzeugt ausführliche Protokollmeldungen in der Konsole der Entwicklertools während der Verarbeitung der Statistikdaten.",
+      "label": "Debugging Modus"
+    },
     "headings": {
       "appearance": "Aussehen & Nutzererlebnis",
       "stats": "Diagramme & Daten",
