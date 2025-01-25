@@ -35,6 +35,10 @@
       "description": "Sötét és világos színvilág váltása",
       "label": "Sötét mód"
     },
+    "debug": {
+      "description": "A hibakeresés engedélyezése. Ez a fejlesztői eszközök konzolján a statisztikák feldolgozása közben bőséges naplóüzeneteket hoz létre.",
+      "label": "Hibakeresési mód"
+    },
     "headings": {
       "appearance": "Megjelenés és tapasztalat",
       "stats": "Ábrázolások és adatok",

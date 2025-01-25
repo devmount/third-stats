@@ -35,6 +35,10 @@
       "description": "切换深色与浅色主题",
       "label": "深色主题"
     },
+    "debug": {
+      "description": "启用调试。这将在处理统计信息时在开发工具控制台中创建详细的日志信息。",
+      "label": "调试模式"
+    },
     "headings": {
       "appearance": "外观与体验",
       "stats": "图表与资料",

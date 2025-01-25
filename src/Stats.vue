@@ -1047,7 +1047,8 @@ const comparison = ref(initComparisonData());
 const addStorageListener = () => {
 	messenger.storage.onChanged.addListener((result, area) => {
 		if (area == "local" && result?.options?.newValue && result?.options?.oldValue) {
-			const n = result.options.newValue, o = result.options.oldValue
+			const n = result.options.newValue;
+			const o = result.options.oldValue;
 			// only update those options that changed
 			if (n.theme != o.theme) {
 				options.dark = setTheme(n.theme);
@@ -1071,7 +1072,7 @@ const addStorageListener = () => {
 				options.startOfWeek = n.startOfWeek;
 			}
 			if (n.addresses != o.addresses) {
-				options.localIdentities = n.addresses.toLowerCase().split(",").map(x => x.trim());
+				options.addresses = n.addresses.toLowerCase().split(",").map(x => x.trim());
 			}
 			if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) {
 				options.accounts = n.accounts;
@@ -1087,6 +1088,9 @@ const addStorageListener = () => {
 			}
 			if (n.cache != o.cache) {
 				options.cache = n.cache;
+			}
+			if (n.debug != o.debug) {
+				options.debug = n.debug;
 			}
 		}
 	});
@@ -1110,12 +1114,13 @@ const getOptions = async () => {
 		options.autoRefresh = result.options.autoRefresh ?? defaultOptions.autoRefresh;
 		options.autoRefreshInterval = result.options.autoRefreshInterval ?? defaultOptions.autoRefreshInterval;
 		// options.startOfWeek = result.options.startOfWeek ?? defaultOptions.startOfWeek;
-		options.localIdentities = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : defaultOptions.addresses;
+		options.addresses = result.options.addresses ? result.options.addresses.toLowerCase().split(",").map(x => x.trim()) : defaultOptions.addresses;
 		options.accounts = result.options.accounts ?? defaultOptions.accounts;
 		options.accountColors = result.options.accountColors ?? defaultOptions.accountColors;
 		options.selfMessages = result.options.selfMessages ?? defaultOptions.selfMessages;
 		options.maxListCount = result.options.maxListCount ?? defaultOptions.maxListCount;
 		options.cache = result.options.cache ?? defaultOptions.cache;
+		options.debug = result.options.debug ?? defaultOptions.debug;
 	}
 };
 
@@ -1144,7 +1149,7 @@ const getAccounts = async () => {
 	// store identities of all activated accounts
 	let activeIdentities = list.reduce((p,c) => p.concat(c.identities.map(i => i.email.toLowerCase())), []);
 	// add local identities if any local account is active
-	if (options.addresses && list.some(a => a.type == "none")) {
+	if (options.addresses.length && list.some(a => ["none", "local"].includes(a.type))) {
 		options.addresses.forEach(l => activeIdentities.push(l.toLowerCase()));
 	}
 	identities.value = activeIdentities;
@@ -1306,6 +1311,18 @@ const processMessages = async (data, folder, identityList) => {
 		for await (let m of queryMessages(folder.id, active.period.start, active.period.end)) {
 			analyzeMessage(data, m, identityList);
 		}
+		// Handle debug output
+		if (options.debug) {
+			const totalOutput = String(data.numbers.total).padStart(6)
+			const receivedOutput = String(data.numbers.received).padStart(6)
+			const sentOutput = String(data.numbers.sent).padStart(6)
+			console.debug(
+				`${totalOutput} %c${receivedOutput} %c${sentOutput}   %c📁 ${folder.path}`,
+				`color:${accentColors[1]}`,
+				`color:${accentColors[0]}`,
+				'color:inherit'
+			);
+		}
 	}
 };
 
@@ -1313,7 +1330,7 @@ const processMessages = async (data, folder, identityList) => {
 // return processed data object structured like initData
 const processAccount = async (a) => {
 	// get identities from account, or from preferences if it's a local account
-	const identities = a.type != "none" ? a.identities.map(i => i.email.toLowerCase()) : options.addresses;
+	const identities = !["none", "local"].includes(a.type) ? a.identities.map(i => i.email.toLowerCase()) : options.addresses;
 	// get all folders and subfolders from given account or selected folder of active account (filter field)
 	const foldersList = active.folder ? [JSON.parse(JSON.stringify(active.folder))] : await traverseAccount(a);
 	// build folder list for filter selection, if not already present
@@ -1337,6 +1354,12 @@ const processAccount = async (a) => {
 	accountData.folders.sent = sortAndLimitObject(accountData.folders.sent);
 	// post processing: add timestamp of finished processing
 	accountData.meta.timestamp = Date.now();
+
+	// Handle debug output
+	if (options.debug) {
+		const debugIdentities = identities.length ? identities.join(', ') : 'None';
+		console.debug(`Detected identities: ${debugIdentities}`);
+	}
 
 	// check if error occured during processing
 	// any error is saved to local storage during processing
@@ -1420,6 +1443,10 @@ const loadAccount = async (id, refresh, auto=false) => {
 			} else {
 				// otherwise (re)process account
 				await messenger.storage.local.set({ error: false });
+				// Handle debug output
+				if (options.debug) {
+					console.debug(`Processing account ${a.name}`, a);
+				}
 				const data = await reprocessData(a.id, auto);
 				accountsData.push(JSON.parse(JSON.stringify(data)));
 				// remember key of currently displayed account if auto processed
@@ -1549,6 +1576,11 @@ const loadAccount = async (id, refresh, auto=false) => {
 			// otherwise retrieve it first/again and track progress by processed folder count
 			progress.current = 1;
 			progress.max = folders.value.length;
+			// Handle debug output
+			if (options.debug) {
+				console.debug(`Processing account ${account.name}`, account);
+				console.debug(` total  %crecvd   %csent   %c📁 Folder path`, `color:${accentColors[1]}`, `color:${accentColors[0]}`, 'color:inherit');
+			}
 			await messenger.storage.local.set({ error: false });
 			await reprocessData(id);
 			progress.current = 0;
@@ -1653,10 +1685,10 @@ const resetContact = async (reload) => {
 };
 
 // format folder select options
-// build <folder> name to match its hierarchy with preceding dashes
-const formatFolder = (folder) => {
+// build <folder> name to match its hierarchy with preceding <indentSymbol>s
+const formatFolder = (folder, indentSymbol = "—") => {
 	const level = (folder.path.match(/\//g) || []).length;
-	return level <= 1 ? folder.name : "—".repeat(level-1) + " " + folder.name;
+	return level <= 1 ? folder.name : indentSymbol.repeat(level-1) + " " + folder.name;
 };
 
 // format period date input to match YYYY-MM-DD
@@ -2543,7 +2575,6 @@ body
 				grid-area: meta
 				justify-self: end
 
-		
 		&>h2
 			font-weight: 300
 

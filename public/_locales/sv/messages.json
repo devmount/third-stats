@@ -35,6 +35,10 @@
       "description": "Växla mellan mörkt och ljust färgschema",
       "label": "Mörkt Läge"
     },
+    "debug": {
+      "description": "Aktivera felsökning. Detta skapar utförliga loggmeddelanden i konsolen för utvecklarverktyg när statistik bearbetas.",
+      "label": "Felsökningsläge"
+    },
     "headings": {
       "appearance": "Utseende & Erfarenhet",
       "stats": "Diagram & Data",

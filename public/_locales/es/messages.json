@@ -35,6 +35,10 @@
       "description": "Cambiar entre esquema de color obscuro y claro",
       "label": "Modo obscuro"
     },
+    "debug": {
+      "description": "Activa la depuración. Esto crea mensajes de registro detallados en la consola de herramientas de desarrollo mientras se procesan las estadísticas.",
+      "label": "Modo depuración"
+    },
     "headings": {
       "appearance": "Apariencia y Experiencia",
       "stats": "Gráficos y Datos",

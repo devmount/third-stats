@@ -34,6 +34,7 @@ const defaultOptions = {
 	selfMessages:        'none',
 	maxListCount:        20,
 	cache:               true,
+	debug:               false,
 	// startofWeek:
 };
 

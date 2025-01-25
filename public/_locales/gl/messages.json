@@ -35,6 +35,10 @@
       "description": "Cambia entre o modo escuro e claro",
       "label": "Modo escuro"
     },
+    "debug": {
+      "description": "Activar a depuración. Isto crea mensaxes de rexistro detalladas na consola de ferramentas para desenvolvedores mentres se procesan as estatísticas.",
+      "label": "Modo de depuración"
+    },
     "headings": {
       "appearance": "Aspecto e experiencia",
       "stats": "Gráficos e datos",

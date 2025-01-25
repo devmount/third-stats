@@ -4,11 +4,11 @@
     "message": "Wenn dir ThirdStats gefällt und du dieses Projekt unterstützen möchtest, ist jede der folgenden Möglichkeiten eine große Hilfe:",
     "review": "Rezension",
     "share": "Teilen",
-    "star": "Stern",
+    "star": "Like",
     "translate": "Übersetzen"
   },
   "extensionDescription": {
-    "message": "Wunderschön visualisierte Statistiken für Thunderbird E-Mail-Konten"
+    "message": "Statistiken für Thunderbird-E-Mail-Konten. In schön."
   },
   "options": {
     "activeAccounts": {
@@ -22,7 +22,7 @@
       "label": "Automatische Berechnung"
     },
     "cache": {
-      "description": "Das Cache-System nutzen um bereits verarbeitete Statistikdaten schneller anzuzeigen",
+      "description": "Das Cache-System nutzen, um bereits verarbeitete Statistikdaten schneller anzuzeigen",
       "label": "Cache aktivieren"
     },
     "clearCache": {
@@ -35,6 +35,10 @@
       "description": "Auswahl eines hellen oder dunklen Farbschemas",
       "label": "Nachtmodus"
     },
+    "debug": {
+      "description": "Aktiviert Debugging. Dies erzeugt ausführliche Protokollmeldungen in der Konsole der Entwicklertools während der Verarbeitung der Statistikdaten.",
+      "label": "Debugging Modus"
+    },
     "headings": {
       "appearance": "Aussehen & Nutzererlebnis",
       "stats": "Diagramme & Daten",
@@ -43,14 +47,14 @@
     "liveCountUp": {
       "description": "Live-Fortschritt der berechneten Zahlen bei der Berechnung von Statistikdaten anzeigen",
       "info": "Das Aktivieren dieser Option kann eine erhöhte Berechnungsdauer zur Folge haben",
-      "label": "Echtzeit Aktualisierung"
+      "label": "Echtzeit-Aktualisierung"
     },
     "localIdentities": {
-      "description": "Eine kommagetrennte Liste von Absender E-Mail-Adressen für lokale Konten",
+      "description": "Eine kommagetrennte Liste von Absender-E-Mail-Adressen für lokale Konten",
       "label": "Lokale Identitäten"
     },
     "maxListCount": {
-      "description": "Maximale Anzahl der Einträge in Diagrammen welche Daten auflisten (Kontakte und Tags, maximal 999)",
+      "description": "Maximale Anzahl der Einträge in Diagrammen, welche Daten auflisten (Kontakte und Tags, maximal 999)",
       "label": "Maximale Listenlänge"
     },
     "message": "-",
@@ -192,7 +196,7 @@
     },
     "contact": "Kontakt",
     "dataCollected": "Daten vor {0} abgerufen",
-    "disclaimer": "ThirdStats erhebt keinen Anspruch auf Korrektheit der angezeigten Daten.<br />Bei möglichen Problemen bitte  <a href='{0}' target='_blank'>einen Bug Report erstellen</a>.",
+    "disclaimer": "ThirdStats erhebt keinen Anspruch auf Korrektheit der angezeigten Daten.<br />Bei möglichen Problemen bitte <a href='{0}' target='_blank'>einen Fehlerbericht erstellen</a>.",
     "folder": "Ordner",
     "junkMails": "Junk-Mails",
     "junkScore": "Junk-Score von {0}",

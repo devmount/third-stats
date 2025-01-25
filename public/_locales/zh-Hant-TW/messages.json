@@ -35,6 +35,10 @@
       "description": "切換淺色與深色佈景主題",
       "label": "深色模式"
     },
+    "debug": {
+      "description": "啟用除錯。這會在處理統計資料時，在開發者工具主控台中建立詳盡的日誌訊息。",
+      "label": "除錯模式"
+    },
     "headings": {
       "appearance": "外觀與體驗",
       "stats": "圖表和資料",

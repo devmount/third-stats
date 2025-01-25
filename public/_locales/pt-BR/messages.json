@@ -35,6 +35,10 @@
       "description": "Alterna entre os temas claro e escuro",
       "label": "Tema Escuro"
     },
+    "debug": {
+      "description": "Habilite a depuração. Isso cria mensagens de log detalhadas no console de ferramentas do desenvolvedor enquanto processa estatísticas.",
+      "label": "Modo de depuração"
+    },
     "headings": {
       "appearance": "Aparência e Experiência",
       "stats": "Gráficos e Dados",

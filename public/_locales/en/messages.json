@@ -17,13 +17,13 @@
       "label": "Active Accounts",
       "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
     },
-    "cache": {
-      "description": "Enable caching system for faster display of already processed stats data.",
-      "label": "Activate Cache"
-    },
     "autoRefresh": {
       "description": "Enable automatic reprocessing of the stats data in the background. Set a time interval in minutes (minimum of 5).",
       "label": "Automatic Processing"
+    },
+    "cache": {
+      "description": "Enable caching system for faster display of already processed stats data.",
+      "label": "Activate Cache"
     },
     "clearCache": {
       "description": "Remove all cached stats data from all accounts. Will be rebuild on opening the stats page again.",
@@ -31,21 +31,14 @@
       "label": "Clear Cache",
       "size": "Cache size is {0}"
     },
-    "theme": {
-      "description": "Switch between dark and light color scheme",
-      "system": "System",
-      "light": "Light",
-      "dark": "Dark",
-      "label": "Theme"
+    "debug": {
+      "description": "Enable debugging. This creates verbose log messages in the developer tools console while processing stats.",
+      "label": "Debug mode"
     },
     "headings": {
       "appearance": "Appearance & Experience",
       "stats": "Charts & Data",
       "storage": "Storage & Cache"
-    },
-    "maxListCount": {
-      "description": "Maximum number of entries shown in list charts (contacts and tags, 999 maximum)",
-      "label": "Maximum List Length"
     },
     "liveCountUp": {
       "description": "Show live progress of calculated numbers when processing stats data",
@@ -55,6 +48,10 @@
     "localIdentities": {
       "description": "A list of email addresses to recognize as 'sent from' for local accounts",
       "label": "Local Identities"
+    },
+    "maxListCount": {
+      "description": "Maximum number of entries shown in list charts (contacts and tags, 999 maximum)",
+      "label": "Maximum List Length"
     },
     "message": "-",
     "note": {
@@ -97,6 +94,13 @@
     "tagColors": {
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"
+    },
+    "theme": {
+      "dark": "Dark",
+      "description": "Switch between dark and light color scheme",
+      "label": "Theme",
+      "light": "Light",
+      "system": "System"
     },
     "title": "Options"
   },
@@ -141,8 +145,8 @@
       },
       "days": {
         "description": "Number of emails per date",
-        "title": "Activity in {0}",
-        "latestActivity": "Latest Activity"
+        "latestActivity": "Latest Activity",
+        "title": "Activity in {0}"
       },
       "daytime": {
         "description": "Number of emails per time of day",
