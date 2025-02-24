@@ -11,8 +11,8 @@ import hi   from '../public/_locales/hi/messages.json'         // Hindi
 import hu   from '../public/_locales/hu/messages.json'         // Hungarian
 import id   from '../public/_locales/id/messages.json'         // Indonesian
 import it   from '../public/_locales/it/messages.json'         // Italian
-import nl   from '../public/_locales/nl/messages.json'         // Dutch
 import ja   from '../public/_locales/ja/messages.json'         // Japanese
+import nl   from '../public/_locales/nl/messages.json'         // Dutch
 import pl   from '../public/_locales/pl/messages.json'         // Polish
 import pt   from '../public/_locales/pt/messages.json'         // Portuguese
 import ptbr from '../public/_locales/pt-BR/messages.json'      // Brazilian Portuguese
@@ -37,8 +37,8 @@ export const messages = {
 	hu,
 	id,
 	it,
-	nl,
 	ja,
+	nl,
 	pl,
 	pt,
 	ptbr,
