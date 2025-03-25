@@ -21,7 +21,7 @@
 		"@vitejs/plugin-vue": "^5.0.5",
 		"stylus": "^0.64.0",
 		"stylus-loader": "^8.1.0",
-		"vite": "^6.0.04"
+		"vite": "^6.2.3"
 	},
 	"browserslist": [
 		"Firefox ESR"
