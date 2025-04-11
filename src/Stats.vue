@@ -1307,10 +1307,12 @@ const analyzeMessage = (data, m, identityList) => {
 // retrieve all messages of a given <folder> with accounts <identityList>
 // store results in <data> object
 const processMessages = async (data, folder, identityList) => {
-	if (folder) {
+	// Only analyze existing, non-virtual folders
+	if (folder && !folder.isUnified && !folder.isVirtual) {
 		for await (let m of queryMessages(folder.id, active.period.start, active.period.end)) {
 			analyzeMessage(data, m, identityList);
 		}
+		
 		// Handle debug output
 		if (options.debug) {
 			const totalOutput = String(data.numbers.total).padStart(6)
