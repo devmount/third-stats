@@ -1160,8 +1160,9 @@ const getAccounts = async () => {
 	active.account = id;
 };
 
-// extract information of a single message <m> with accounts <identityList>
-// and update given <data> object
+// Extract information of a single message <m> with accounts <identityList>
+// and update given <data> object.
+// Returns string type 'sent'|'received'
 const analyzeMessage = (data, m, identityList) => {
 	// check filter:contact
 	if (active.contact && !contactInvolved(active.contact, m)) return;
@@ -1302,6 +1303,8 @@ const analyzeMessage = (data, m, identityList) => {
 	}
 	// live update numbers section if corresponding option is enabled
 	if (options.liveCountUp) display.value.numbers = data.numbers;
+
+	return type;
 };
 
 // retrieve all messages of a given <folder> with accounts <identityList>
@@ -1309,15 +1312,21 @@ const analyzeMessage = (data, m, identityList) => {
 const processMessages = async (data, folder, identityList) => {
 	// Only analyze existing, non-virtual folders
 	if (folder && !folder.isUnified && !folder.isVirtual) {
+		let n = 0, s = 0, r = 0;
 		for await (let m of queryMessages(folder.id, active.period.start, active.period.end)) {
-			analyzeMessage(data, m, identityList);
+			const type = analyzeMessage(data, m, identityList);
+			if (options.debug) {
+				n++;
+				s += type === 'sent' ? 1 : 0;
+				r += type === 'received' ? 1 : 0;
+			}
 		}
 		
 		// Handle debug output
 		if (options.debug) {
-			const totalOutput = String(data.numbers.total).padStart(6)
-			const receivedOutput = String(data.numbers.received).padStart(6)
-			const sentOutput = String(data.numbers.sent).padStart(6)
+			const totalOutput = String(n).padStart(6);
+			const receivedOutput = String(r).padStart(6);
+			const sentOutput = String(s).padStart(6);
 			console.debug(
 				`${totalOutput} %c${receivedOutput} %c${sentOutput}   %c📁 ${folder.path}`,
 				`color:${accentColors[1]}`,
