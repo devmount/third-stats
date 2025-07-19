@@ -22,6 +22,7 @@ import sv   from '../public/_locales/sv/messages.json'         // Swedish
 import th   from '../public/_locales/th/messages.json'         // Thai
 import tr   from '../public/_locales/tr/messages.json'         // Turkish
 import uk   from '../public/_locales/uk/messages.json'         // Ukrainian
+import uz   from '../public/_locales/uz/messages.json'         // Uzbek
 import zhcn from '../public/_locales/zh-Hans-CN/messages.json' // Chinese (China, Simplified)
 import zhtw from '../public/_locales/zh-Hant-TW/messages.json' // Chinese (Taiwan, Traditional)
 
@@ -48,6 +49,7 @@ export const messages = {
 	th,
 	tr,
 	uk,
+	uz,
 	zhcn,
 	zhtw,
 }

@@ -36,7 +36,7 @@
       "label": "tryb ciemny"
     },
     "debug": {
-      "description": "Włącz debugowanie. Tworzy to szczegółowe komunikaty dziennika w konsoli narzędzi deweloperskich podczas przetwarzania statystyk.",
+      "description": "Włącz debugowanie. Tworzy to szczegółowe komunikaty dziennika w konsoli narzędzi programistycznych podczas przetwarzania statystyk.",
       "label": "Tryb debugowania"
     },
     "headings": {
