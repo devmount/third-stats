@@ -107,6 +107,7 @@ const draw = () => {
 					ticks: {
 						maxRotation: 0,
 						padding: props.horizontal ? 0 : 10,
+						autoSkipPadding: 0,
 					},
 					beginAtZero: true,
 				}
