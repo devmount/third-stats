@@ -15,11 +15,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Use Node.js 20
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
-        node-version: 20.x
+        node-version: 20
     - name: Get Timestamp
       id: timestamp
       run: |
@@ -58,7 +58,7 @@ jobs:
         name: third-stats-nightly
         path: ${{ steps.file.outputs.name }}
     - name: Push add-on to CDN
-      uses: burnett01/rsync-deployments@5.2
+      uses: burnett01/rsync-deployments@7.0.2
       with:
         switches: -avzr --delete
         path: ${{ steps.file.outputs.name }}
