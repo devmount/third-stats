@@ -8,7 +8,7 @@ class NumberedObject {
 	constructor(n, m=null) {
 		const a = [...Array(n).keys()];
 		a.map(e => {
-			this[e] = m === null ? 0 : new Array(m).fill(0);
+			this[e] = m === null ? 0 : Array.from({ length: m }).fill(0);
 		});
 	}
 };
@@ -43,7 +43,7 @@ const sumObjectsArrays = (objs) => {
 		for (let k in b) {
 			if (b.hasOwnProperty(k)) {
 				if (!a[k])
-					a[k] = new Array(b[k].length).fill(0);
+					a[k] = Array.from({ length: b[k].length }).fill(0);
 				for(let i=0; i<b[k].length; ++i)
 					a[k][i] = b[k][i] + a[k][i];
 			}
@@ -77,13 +77,12 @@ const contactInvolved = (contact, message) => {
 	const recipients = message.recipients.map(r => extractEmailAddress(r));
 	const ccs = message.ccList.map(r => extractEmailAddress(r));
 	const bccs = message.bccList.map(r => extractEmailAddress(r));
-	if (
+	return (
 		contact == author
 		|| recipients.includes(contact)
 		|| ccs.includes(contact)
 		|| bccs.includes(contact)
-	) return true;
-	else return false;
+	);
 };
 
 // check if a <message> is a self message
