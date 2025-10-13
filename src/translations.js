@@ -5,6 +5,7 @@ import cs   from '../public/_locales/cs/messages.json'         // Czech
 import de   from '../public/_locales/de/messages.json'         // German
 import en   from '../public/_locales/en/messages.json'         // English
 import es   from '../public/_locales/es/messages.json'         // Spanish
+import fi   from '../public/_locales/fi/messages.json'         // Finish
 import fr   from '../public/_locales/fr/messages.json'         // French
 import gl   from '../public/_locales/gl/messages.json'         // Galician
 import hi   from '../public/_locales/hi/messages.json'         // Hindi
@@ -32,6 +33,7 @@ export const messages = {
 	de,
 	en,
 	es,
+	fi,
 	fr,
 	gl,
 	hi,
