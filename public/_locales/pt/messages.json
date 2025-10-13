@@ -135,7 +135,7 @@
       "contactsJunk": {
         "description": "Número de emails marcados como lixo por remetente",
         "empty": "Nenhum e-mail assinalado como Lixo Electrónico.",
-        "title": "Marcado como Lixo"
+        "title": "Marcado como Lixo eletrónico"
       },
       "contactsReceived": {
         "description": "Número de e-mails recebidos por remetente",

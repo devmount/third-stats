@@ -1,0 +1,251 @@
+{
+  "cta": {
+    "donate": "Lahjoita",
+    "message": "Jos pidät ThirdStats ja haluat tukea tätä projektia, mikä tahansa seuraavista on suuri apu:",
+    "review": "Arvostelu",
+    "share": "Jaa",
+    "star": "Tähti",
+    "translate": "Käännä"
+  },
+  "extensionDescription": {
+    "message": "Kauniisti visualisoidut tilastot Thunderbird-sähköpostitileistäsi"
+  },
+  "options": {
+    "activeAccounts": {
+      "color": "Määritä jokaiselle tilille eri väri, jotta voit helposti tunnistaa ne vertailutilassa.",
+      "description": "Ota tilit käyttöön tai poista ne käytöstä. Poistetut tilit eivät näy missään luetteloissa eivätkä sisälly tilastoihin.",
+      "label": "Aktiiviset tilit",
+      "sumAndCompare": "Useamman kuin yhden tilin aktivoiminen mahdollistaa ‘Kaikki tilit’ -suodatusvaihtoehdon kokonaistilastoissa ja vertailunäkymässä."
+    },
+    "autoRefresh": {
+      "description": "Ota käyttöön tilastotietojen automaattinen uudelleenkäsittely taustalla. Aseta aikaväli minuutteina (vähintään 5).",
+      "label": "Automaattinen käsittely"
+    },
+    "cache": {
+      "description": "Ota välimuistijärjestelmä käyttöön jo käsiteltyjen tilitietojen nopeampaa näyttämistä varten.",
+      "label": "Aktivoi välimuisti"
+    },
+    "clearCache": {
+      "description": "Poista välimuistissa olevat tilastotiedot kaikilta tileiltä. Ne luodaan uudelleen, kun ThirdStats avataan seuraavan kerran.",
+      "empty": "Välimuisti on tyhjä",
+      "label": "Tyhjennä välimuisti",
+      "size": "Välimuistin koko on {0}"
+    },
+    "darkMode": {
+      "description": "Vaihda tumman ja vaalean tilan",
+      "label": "Tumma tila"
+    },
+    "debug": {
+      "description": "Ota virheenkorjaus käyttöön. Tämä luo yksityiskohtaisia lokiviestejä kehittäjätyökalujen konsoliin tilastojen käsittelyn aikana.",
+      "label": "Vianmääritystila"
+    },
+    "headings": {
+      "appearance": "Ulkonäkö ja kokemus",
+      "stats": "Kaaviot ja tiedot",
+      "storage": "Tallennus ja välimuisti"
+    },
+    "liveCountUp": {
+      "description": "Näytä laskutoimitusten eteneminen reaaliajassa tilastotietoja käsiteltäessä.",
+      "info": "Tämän toiminnon ottaminen käyttöön voi pidentää käsittelyaikaa",
+      "label": "Elävä laskenta"
+    },
+    "localIdentities": {
+      "description": "Luettelo sähköpostiosoitteista, jotka tunnistetaan paikallisilta tileiltä lähetetyiksi.",
+      "label": "Paikalliset identiteetit"
+    },
+    "maxListCount": {
+      "description": "Luettelokaavioissa näytettävien merkintöjen enimmäismäärä (yhteystiedot ja tunnisteet, enintään 999).",
+      "label": "Luettelon enimmäispituus"
+    },
+    "message": "-",
+    "note": {
+      "refreshCacheRequired": "Jos sitä muutetaan, välimuisti on rakennettava uudelleen.",
+      "reloadStatsPage": "Asetusten muutokset tallennetaan automaattisesti. Jotkin asetukset eivät voi vaikuttaa jo avattuihin tilastosivuihin tai välimuistissa oleviin tietoihin (jos välimuisti on aktiivinen), ja ne on merkitty vastaavilla kuvakkeilla.",
+      "reloadWindowRequired": "Jos sitä muutetaan, tilastoikkuna on ladattava uudelleen.",
+      "title": "Huomautus"
+    },
+    "ordinate": {
+      "description": "Näytä pystyakseli kaikissa viiva- ja pylväsdiagrammeissa.",
+      "label": "Pystyakseli"
+    },
+    "resetOptions": {
+      "description": "Nollaa kaikki asetukset oletusarvoihinsa. Riippuen siitä, mitä asetuksia oli aiemmin muutettu, ikkunan tai välimuistin päivitys voi olla tarpeen.",
+      "label": "Nollaa asetukset",
+      "removeIdentities": "Tämä poistaa myös kaikki määrittämäsi paikalliset identiteetit."
+    },
+    "selfMessages": {
+      "description": "Jätä itselleni lähettämäni viestit pois.",
+      "info": {
+        "anyAccount": "Viestit, joissa lähettäjä ja vastaanottaja ovat identiteettejä millä tahansa tilillä, suljetaan pois.",
+        "none": "Viestit, jotka olen lähettänyt itselleni, käsitellään tavallisina sähköpostiviesteinä ja sisällytetään tilastoihin (oletus)",
+        "sameAccount": "Viestit, joissa sekä lähettäjä että vastaanottaja ovat identiteettejä samalta tililtä, suljetaan pois."
+      },
+      "label": "Viestit itselle",
+      "values": {
+        "anyAccount": "Mistä tahansa tilistä",
+        "none": "Pois käytöstä",
+        "sameAccount": "Vain samalta tililtä"
+      }
+    },
+    "startOfWeek": {
+      "description": "Mukautettu alkava viikonpäivä kaikille viikkokaavioille",
+      "label": "Aloita viikko"
+    },
+    "switch": {
+      "off": "Pois",
+      "on": "Päällä"
+    },
+    "tagColors": {
+      "description": "Renderöi tunnisteiden kaaviot käyttämällä vastaavia tunnisteiden värejä.",
+      "label": "Tunnisteen värit"
+    },
+    "theme": {
+      "dark": "Tumma",
+      "description": "Vaihda tumman ja vaalean tilan",
+      "label": "Teema",
+      "light": "Vaalea",
+      "system": "Järjestelmä"
+    },
+    "title": "Asetukset"
+  },
+  "popup": {
+    "message": "-",
+    "nAccounts": "{0} Tili | {0} Tilit",
+    "nFolders": "{0} Kansio | {0} Kansiot",
+    "nMessages": "{0} Viesti | {0} Viestit",
+    "openAllStats": "Avaa kaikki tilastot",
+    "openOptions": "Avoimet asetukset"
+  },
+  "stats": {
+    "abbreviations": {
+      "calendarWeek": "V",
+      "day": "p",
+      "hour": "t",
+      "minute": "min",
+      "month": "K",
+      "quarter": "N",
+      "second": "s",
+      "week": "V",
+      "year": "V"
+    },
+    "account": "Tili",
+    "accountEmpty": "Tämä tili on tyhjä, sillä ei ole sähköposteja.",
+    "allAccounts": "Kaikki tilit",
+    "charts": {
+      "contactsJunk": {
+        "description": "Roskapostiksi merkittyjen sähköpostien määrä lähettäjäkohtaisesti",
+        "empty": "Ei roskapostiksi merkittyjä sähköposteja.",
+        "title": "Merkitty roskapostiksi"
+      },
+      "contactsReceived": {
+        "description": "Vastaanotettujen sähköpostiviestien määrä lähettäjää kohden",
+        "empty": "Vastaanotettuja sähköposteja ei ole saatavilla.",
+        "title": "Eniten vastaanotetaan"
+      },
+      "contactsSent": {
+        "description": "Lähetettyjen sähköpostien määrä vastaanottajaa kohden",
+        "empty": "Lähetettyjä sähköposteja ei ole saatavilla.",
+        "title": "Useimmat lähetetään"
+      },
+      "days": {
+        "description": "Sähköpostien määrä päivämäärää kohti",
+        "latestActivity": "Viimeisin toiminta",
+        "title": "Toiminta {0}"
+      },
+      "daytime": {
+        "description": "Sähköpostiviestien määrä vuorokaudenajoittain",
+        "title": "Päivällä"
+      },
+      "foldersDistribution": {
+        "description": "Sähköpostien määrä kansiota kohti",
+        "title": "Kansioiden jakelu"
+      },
+      "month": {
+        "description": "Sähköpostiviestien määrä kuukaudessa",
+        "title": "Kuukausi"
+      },
+      "months": {
+        "description": "Sähköpostiviestien kokonaismäärä kuukaudessa",
+        "title": "Kuukautta"
+      },
+      "quarters": {
+        "description": "Sähköpostiviestien kokonaismäärä vuosineljännestä kohden",
+        "title": "Vuosineljännestä"
+      },
+      "tagsCount": {
+        "description": "Sähköpostien kokonaismäärä kunkin tunnisteen kanssa",
+        "empty": "Tunnistetietoja ei ole saatavilla.",
+        "title": "Tunnisteet"
+      },
+      "temporalDistribution": {
+        "description": "Sähköpostien määrä arkipäivisin tuntia kohden",
+        "title": "Ajallinen jakautuminen"
+      },
+      "weekday": {
+        "description": "Sähköpostien määrä viikonpäivää kohti",
+        "title": "Viikonpäivä"
+      },
+      "weeks": {
+        "description": "Sähköpostiviestien kokonaismäärä viikossa",
+        "title": "Viikkoa"
+      },
+      "years": {
+        "description": "Sähköpostiviestien kokonaismäärä vuodessa",
+        "title": "Vuotta"
+      }
+    },
+    "contact": "Ota yhteyttä",
+    "dataCollected": "Kerätyt tiedot {0} sitten",
+    "disclaimer": "ThirdStats ei esitä väitteitä näyttämiensä tietojen tarkkuudesta.<br />Mahdollisten ongelmien ilmetessä voit <a href='{0}' target='_blank'>luoda vikailmoituksen</a>.",
+    "folder": "Kansio",
+    "junkMails": "Roskapostiviestit",
+    "junkScore": "Roskapostin pistemäärä on {0}",
+    "loadingInProgress": "Kaikki tämän tilin sähköpostiviestit käsitellään parhaillaan…",
+    "mailsPerDay": "Sähköpostia päivässä",
+    "mailsPerMonth": "Sähköpostia kuukaudessa",
+    "mailsPerQuarter": "Sähköpostia vuosineljännestä",
+    "mailsPerTag": "Sähköpostia tunnisteen",
+    "mailsPerWeek": "Sähköpostia viikossa",
+    "mailsPerYear": "Sähköpostia vuodessa",
+    "mailsReceived": "Vastaanotetut sähköpostit",
+    "mailsSent": "Lähetetyt sähköpostit",
+    "mailsStarred": "Sähköpostit tähdellä",
+    "mailsTagged": "{0} sähköpostia tunnisteella",
+    "mailsTotal": "Sähköpostia yhteensä",
+    "mailsUnread": "Avaamattomat sähköpostiviestit",
+    "message": "-",
+    "niceWork": "Hyvää työtä!",
+    "nonEmptyFolders": "ei-tyhjät kansiot | ei-tyhjä kansio | ei-tyhjät kansiot",
+    "percentOfReceived": "{0}% vastaanotetuista",
+    "percentOfTotal": "{0}% kokonaismäärästä",
+    "timePeriod": "Päivämääräalue",
+    "title": "Tilastot",
+    "tooltips": {
+      "clear": "Tyhjennä valinta",
+      "comparison": "Vertaile tilejä yhdessä kaaviossa",
+      "comparisonWhenAccountsOption": "Tilien vertailu on käytettävissä vain,\njos useampi kuin yksi tili on aktivoitu tämän laajennuksen asetuksissa.",
+      "comparisonWhenFilter": "Tilivertailu on käytettävissä vain,\njos edellä olevassa tilisuodattimessa on valittu ‘Kaikki tilit’.",
+      "error": {
+        "dateFormat": "Muoto VVVV-KK-PP on käytettävä, esim. 2020-01-31.",
+        "dateOrderEnd": "Viimeisen päivän on oltava ensimmäisen päivän jälkeen",
+        "dateOrderStart": "Alkamispäivän on oltava ennen päättymispäivää",
+        "dateUnreal": "Tarvitaan voimassa oleva päivämäärä",
+        "empty": "Syöttö vaaditaan",
+        "processing": "Käsittelyn aikana tapahtui virhe, näytetyt tilastot eivät ehkä ole täydellisiä."
+      },
+      "expand": "Laajenna kaavion aluetta",
+      "exportData": "Vie parhaillaan näytettävät tiedot JSON-tiedostona",
+      "folder": {
+        "notAvailable": "Kansiot eivät ole käytettävissä {0}"
+      },
+      "period": {
+        "end": "Tähän mennessä\nVinkki: Kirjoittamalla ‘{0}’ tulee ‘{1}’.",
+        "start": "Päivämäärästä\nVinkki: Kirjoittamalla ‘{0}’ tulee ‘{1}’."
+      },
+      "refresh": "Päivitä tiedot",
+      "shrink": "Pienennä kaavion aluetta",
+      "sum": "Näytä kaikkien tilien summa"
+    },
+    "withinYears": "{0} vuoden kuluessa"
+  }
+}
