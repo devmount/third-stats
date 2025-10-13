@@ -1,6 +1,6 @@
 {
 	"name": "third-stats",
-	"version": "1.12.1",
+	"version": "1.12.2",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",

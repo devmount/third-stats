@@ -23,7 +23,7 @@ ThirdStats does store the processed stats data in Thunderbirds own extension sto
 ThirdStats needs 3 permissions to work:
 
 - `accountsRead`: _"See your mail accounts and their folders"_ - This is needed to iterate over all messages in all folders of your Thunderbird accounts to count and process them.
-- `messagesRead`: _"Read your email messages and mark or tag them"_ - This is needed to read the message header and retrieve the following information from it: *author*, *bccList*, *ccList*, *date*, *read*, *recipients*. ThirdStats never reads the email body or marks/tags emails.
+- `messagesRead`: _"Read your email messages and mark or tag them"_ - This is needed to read the message header and retrieve the following information from it: _author_, _bccList_, _ccList_, _date_, _read_, _recipients_. ThirdStats never reads the email body or marks/tags emails.
 - `downloads`: _"Download files and read and modify the browser’s download history"_ - This is needed to export processed stats data as JSON file and provide it as a file download. ThirdStats never reads or modifies the download history.
 
 ### 4. Does it run as a web server with an open port which would expose it to vulnerabilities?

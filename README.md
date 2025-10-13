@@ -37,7 +37,7 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Compare different email accounts with each other and define their color
 - Set Options for account selection, theme, caching system and a lot more customizations
 - Enjoy the responsive stats page adapting to different viewport sizes
-- Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish and Ukrainian
+- Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, Finish, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish, Ukrainian and Uzbek
 
 Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
