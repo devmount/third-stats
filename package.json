@@ -17,7 +17,7 @@
 		"vue-i18n": "^11.1.10"
 	},
 	"devDependencies": {
-		"@intlify/unplugin-vue-i18n": "^6.0.0",
+		"@intlify/unplugin-vue-i18n": "^11.0.1",
 		"@localazy/cli": "^2.0.5",
 		"@vitejs/plugin-vue": "^6.0.0",
 		"oxlint": "^1.9.0",
