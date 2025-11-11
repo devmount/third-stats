@@ -109,8 +109,8 @@ const isSelfMessage = (message, identities) => {
 const queryMessages = async function* (folderId, fromDate, toDate) {
 	// handle date filter
 	const dateFilterActive = fromDate && toDate;
-	const from = new Date(fromDate);
-	const to = new Date(toDate);
+	const from = new Date(fromDate).setUTCHours(0,0,0,0);
+	const to = new Date(toDate).setUTCHours(23,59,59,999);
 	try {
 		// paginate messages
 		let page = await messenger.messages.list(folderId);
