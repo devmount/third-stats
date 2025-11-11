@@ -95,7 +95,9 @@
 								class="d-flex tooltip tooltip-bottom"
 								v-for="f in ['start', 'end']"
 								:key="f"
-								:data-tooltip="error.period[f].length > 0 ? error.period[f].join('\n') : t('stats.tooltips.period.' + f, [examplePeriodShort, examplePeriodFormatted])"
+								:data-tooltip="error.period[f].length > 0
+									? error.period[f].join('\n')
+									: t('stats.tooltips.period.' + f, [examplePeriodShort, examplePeriodFormatted])"
 								:class="{ 'tooltip-error': error.period[f].length > 0 }"
 							>
 								<input
