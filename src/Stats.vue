@@ -2260,12 +2260,10 @@ const dateChartData = computed(() => {
 
 	// Build lookup maps from actual data
 	const receivedMap = Object.fromEntries(
-		Object.entries(display.value.dateData?.received || {})
-			.filter(e => e[0].substring(0, 4) == year)
+		Object.entries(display.value.dateData?.received || {}).filter(e => e[0].substring(0, 4) == year)
 	);
 	const sentMap = Object.fromEntries(
-		Object.entries(display.value.dateData?.sent || {})
-			.filter(e => e[0].substring(0, 4) == year)
+		Object.entries(display.value.dateData?.sent || {}).filter(e => e[0].substring(0, 4) == year)
 	);
 
 	// Generate full year data with 0 for empty days
