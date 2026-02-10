@@ -78,7 +78,8 @@
 							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
 							:class="{ 'cursor-na': isLoading || !singleAccount }"
 							:data-tooltip="t('stats.tooltips.clear')"
-							@click="singleAccount ? resetFolder(true) : null"
+							:disabled="isLoading || !singleAccount"
+							@click="!isLoading && singleAccount ? resetFolder(true) : null"
 						>
 							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading && singleAccount }" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -105,21 +106,33 @@
 									:id="f"
 									v-model="active.period[f]"
 									class="align-stretch w-6"
-									:class="{ error: error.period[f].length > 0 }"
+									:class="{ 'error': error.period[f].length > 0, 'cursor-na': isLoading }"
+									:disabled="isLoading"
 									placeholder="YYYY-MM-DD"
 									@blur="formatPeriod(f)"
-									v-on:keyup.enter="formatPeriod(f); updatePeriod()"
+									@keyup.enter="formatPeriod(f); updatePeriod()"
 								/>
 							</div>
-							<button @click="updatePeriod" class="button-secondary align-center p-0-5">
+							<button
+								class="button-secondary align-center p-0-5"
+								:class="{ 'cursor-na': isLoading }"
+								:disabled="isLoading"
+								@click="!isLoading ? updatePeriod() : null"
+							>
 								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
 									<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 									<path d="M5 12l5 5l10 -10" />
 								</svg>
 							</button>
 						</div>
-						<div class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center" :data-tooltip="t('stats.tooltips.clear')" @click="resetPeriod(true)">
-							<svg class="icon icon-bold icon-gray icon-hover-accent" viewBox="0 0 24 24">
+						<div
+							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+							:class="{ 'cursor-na': isLoading }"
+							:data-tooltip="t('stats.tooltips.clear')"
+							:disabled="isLoading"
+							@click="!isLoading ? resetPeriod(true) : null"
+						>
+							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading }" viewBox="0 0 24 24">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
 								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
 								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
@@ -159,8 +172,9 @@
 					<!-- data export -->
 					<div
 						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+						:class="{ 'cursor-na': isLoading }"
 						:data-tooltip="t('stats.tooltips.exportData')"
-						@click="exportJson()"
+						@click="!isLoading ? exportJson() : null"
 					>
 						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
