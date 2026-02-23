@@ -4,11 +4,14 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
 
 ## Table Of Contents
 
+- [Table Of Contents](#table-of-contents)
 - [How to contribute](#how-to-contribute)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Pull Requests](#pull-requests)
+  - [Provide Code via Pull Requests](#provide-code-via-pull-requests)
+    - [Git Commit Messages](#git-commit-messages)
   - [Providing Translations](#providing-translations)
+  - [Beta-Testing](#beta-testing)
   
 ## How to contribute
 
@@ -59,7 +62,7 @@ If you run into any problems, leave a comment on [the corresponding issue #343](
 Testing and reporting bugs is a great way to help! Here's how:
 
 1. Download the [latest nightly build from the ThirdStats CDN](https://third-stats.cdn.devmount.com/) (XPI file)
-2. Start Thunderbird and install the XPI file by going to _Settings_ > _Add-ons and Themes_ > _Extensions_ > _Gear_ Button > _Install Add-on from file_ > Choose the downloaded XPI file
+2. Start Thunderbird and install the XPI file by going to *Settings* > *Add-ons and Themes* > *Extensions* > *Gear* Button > *Install Add-on from file* > Choose the downloaded XPI file
 3. Now start using ThirdStats and check if...
     - ThirdStats logo appears in the menu and the popup shows all active accounts
     - add-on options page displays properly, alle options can be changed, options can be reset
