@@ -174,42 +174,49 @@ html, body {
 #popup {
 	width: 100%;
 	height: 100%;
-}
-#popup .container {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 20px;
-}
-#popup .container header h3 {
-	margin: 0;
-	font-weight: 400;
-	font-size: 20px;
-}
-#popup .container .loader {
-	height: 16px;
-	width: 16px;
-}
-#popup .container .accounts {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
-}
-#popup .container .accounts > div {
-	padding: 0.75rem 1rem;
-	border-radius: 4px;
-	transition: all 0.2s;
-	overflow: hidden;
-}
-#popup .container .accounts > div h4 {
-	margin: 0;
-	font-weight: normal;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-#popup .container .accounts > div .background-chart {
-	position: absolute;
-	bottom: 0;
-	left: 0;
+	
+	.container {
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		
+		header h3 {
+			margin: 0;
+			font-weight: 400;
+			font-size: 20px;
+		}
+		
+		.loader {
+			height: 16px;
+			width: 16px;
+		}
+		
+		.accounts {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+			
+			> div {
+				padding: 0.75rem 1rem;
+				border-radius: 4px;
+				transition: all 0.2s;
+				overflow: hidden;
+				
+				h4 {
+					margin: 0;
+					font-weight: normal;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				
+				.background-chart {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+				}
+			}
+		}
+	}
 }
 </style>
