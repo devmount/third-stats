@@ -107,25 +107,29 @@ watch(
 .chart {
 	display: flex;
 	flex-flow: column;
-}
-.chart > h2,
-.chart > p {
-	flex: 0 1 auto;
-}
-.chart > .chart-container {
-	position: relative;
-	flex: 1 1 auto;
-}
-.chart > .chart-container .chart-info {
-	position: absolute;
-	bottom: 3rem;
-	left: 50%;
-	transform: translateX(-50%);
-	text-align: center;
-}
-.chart > .chart-container .chart-info .featured {
-	font-size: 3.25em;
-	line-height: 1em;
-	font-weight: 500;
+
+	> h2,
+	> p {
+		flex: 0 1 auto;
+	}
+
+	> .chart-container {
+		position: relative;
+		flex: 1 1 auto;
+
+		.chart-info {
+			position: absolute;
+			bottom: 3rem;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+
+			.chart-info .featured {
+				font-size: 3.25em;
+				line-height: 1em;
+				font-weight: 500;
+			}
+		}
+	}
 }
 </style>

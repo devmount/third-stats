@@ -176,14 +176,15 @@ watch(
 .chart.matrix-chart {
 	display: flex;
 	flex-flow: column;
-}
-.chart.matrix-chart > h2,
-.chart.matrix-chart > p {
-	flex: 0 1 auto;
-}
-.chart.matrix-chart > .chart-container {
-	position: relative;
-	flex: 1 1 auto;
-	min-height: 190px;
+
+	> h2,
+	> p {
+		flex: 0 1 auto;
+	}
+	> .chart-container {
+		position: relative;
+		flex: 1 1 auto;
+		min-height: 190px;
+	}
 }
 </style>
