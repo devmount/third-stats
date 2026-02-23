@@ -26,7 +26,7 @@
 							<option v-else disabled>{{ t("stats.allAccounts") }}</option>
 							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
 						</select>
-						<div v-show="isLoading" class="loading align-center loader-accent2"></div>
+						<div v-show="isLoading" class="align-center loader loader-accent2"></div>
 						<div
 							v-show="!isLoading"
 							class="refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex"
@@ -2532,115 +2532,151 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="stylus">
-@require "assets/global"
+<style>
+@import url('assets/main.css');
 
-// general
-body
-	overflow-x: hidden
+body {
+	overflow-x: hidden;
+}
 
-// layout and content
-#stats
-	min-height: 100vh
+#stats {
+	min-height: 100vh;
+}
+#stats .container {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	box-sizing: border-box;
+}
+@media (max-width: 4320px) {
+	#stats .container {
+		max-width: 2500px;
+	}
+	#stats .container .numbers {
+		max-width: 1500px;
+		grid-template-columns: repeat(7, 1fr);
+	}
+	#stats .container #chart-area-top {
+		grid-template-columns: calc(100% - 1130px - 2rem) 1130px;
+	}
+	#stats .container #chart-area-top.first-column-only {
+		grid-template-columns: calc(100% - 1rem) 0%;
+	}
+	#stats .container #chart-area-top .resizer {
+		display: list-item;
+	}
+	#stats .container #chart-area-main {
+		grid-template-columns: calc(33.33% - 1rem) 550px auto;
+	}
+}
+@media (max-width: 2500px) {
+	#stats .container {
+		max-width: 2200px;
+	}
+}
+@media (max-width: 2000px) {
+	#stats .container {
+		max-width: 1750px;
+	}
+}
+@media (max-width: 1750px) {
+	#stats .container {
+		max-width: 1200px;
+	}
+	#stats .container #header {
+		grid-template-areas: "title meta action" "filter filter filter";
+		grid-template-columns: 1fr auto 5rem;
+	}
+	#stats .container #header .filter {
+		justify-content: end;
+	}
+	#stats .container #chart-area-top {
+		grid-template-columns: calc(100% - 1rem);
+	}
+	#stats .container #chart-area-top .resizer {
+		display: none;
+	}
+	#stats .container #chart-area-main {
+		grid-template-columns: calc(100% - 1rem);
+	}
+}
+@media (max-width: 960px) {
+	#stats .container .numbers {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+#stats .container header {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	display: grid;
+	grid-template-areas: "title filter action" "meta meta meta";
+	grid-template-columns: 1fr auto auto;
+	gap: 1rem;
+	align-items: center;
+}
+#stats .container header h1 {
+	grid-area: title;
+	margin: 0;
+}
+#stats .container header h1 .logo {
+	height: 48px;
+}
+#stats .container header .filter {
+	grid-area: filter;
+	gap: 1rem;
+	margin-left: auto;
+}
+#stats .container header .filter .loader {
+	margin: 4px 4px 4px 7px;
+}
+#stats .container header .filter .refresh {
+	margin-left: 3px;
+}
+#stats .container header .action {
+	grid-area: action;
+	justify-self: end;
+}
+#stats .container header .meta {
+	grid-area: meta;
+	justify-self: end;
+}
+#stats .container>h2 {
+	font-weight: 300;
+}
+#stats .container .numbers {
+	display: grid;
+	column-gap: 1rem;
+	row-gap: 2rem;
+}
+#stats .container .numbers>div {
+	text-align: center;
+}
+#stats .container .numbers>div .featured {
+	font-size: 3.25em;
+	line-height: 1.25em;
+	font-weight: 500;
+}
+#stats .container .charts .chart-area {
+	display: grid;
+	column-gap: 2rem;
+	row-gap: 1rem;
+	transition: grid-template-columns 0.2s;
+}
+#stats .container .charts .chart-area > *,
+#stats .container .charts .chart-area .tab-content:not(.chart-group) > *:not(.tab-empty) {
+	min-height: 380px;
+}
+#stats .container .charts .chart-area .chart {
+	min-width: 0;
+}
+#stats .container .charts .chart-area .chart h2 {
+	margin-bottom: 0;
+}
+#stats .container .charts .chart-area .chart p {
+	margin-top: 0;
+}
 
-	.container
-		width: 100%
-		height: 100%
-		margin: 0 auto
-		padding-left: 1rem
-		padding-right: 1rem
-		box-sizing: border-box
-
-		@media (max-width: 4320px)
-			max-width: 2500px
-			.numbers
-				max-width: 1500px
-				grid-template-columns: repeat(7, 1fr)
-			#chart-area-top
-				grid-template-columns: calc(100% - 1130px - 2rem) 1130px
-				&.first-column-only
-					grid-template-columns: calc(100% - 1rem) 0%
-				.resizer
-					display: list-item
-			#chart-area-main
-				grid-template-columns: calc(33.33% - 1rem) 550px auto
-		@media (max-width: 2500px)
-			max-width: 2200px
-		@media (max-width: 2000px)
-			max-width: 1750px
-		@media (max-width: 1750px)
-			max-width: 1200px
-			#header
-				grid-template-areas: "title meta action" "filter filter filter"
-				grid-template-columns: 1fr auto 5rem
-				.filter
-					justify-content: end
-			#chart-area-top
-				grid-template-columns: calc(100% - 1rem)
-				.resizer
-					display: none
-			#chart-area-main
-				grid-template-columns: calc(100% - 1rem)
-		@media (max-width: 960px)
-			.numbers
-				grid-template-columns: repeat(3, 1fr)
-
-		header
-			margin-top: 0
-			margin-bottom: 1rem
-			display: grid
-			grid-template-areas: "title filter action" "meta meta meta"
-			grid-template-columns: 1fr auto auto;
-			gap: 1rem
-			align-items: center
-			h1
-				grid-area: title
-				margin: 0
-				.logo
-					height: 48px
-			.filter
-				grid-area: filter
-				gap: 1rem
-				margin-left: auto
-				.loading
-					loader 18px 3px
-					margin: 4px 4px 4px 7px
-				.refresh
-					margin-left: 3px
-			.action
-				grid-area: action
-				justify-self: end
-			.meta
-				grid-area: meta
-				justify-self: end
-
-		&>h2
-			font-weight: 300
-
-		.numbers
-			display: grid
-			column-gap: 1rem
-			row-gap: 2rem
-			&>div
-				text-align: center
-				.featured
-					font-size: 3.25em
-					line-height: 1.25em
-					font-weight: 500
-
-		.charts
-			.chart-area
-				display: grid
-				column-gap: 2rem
-				row-gap: 1rem
-				transition: grid-template-columns .2s
-				& > *, .tab-content:not(.chart-group) > *:not(.tab-empty)
-					min-height: 380px
-				.chart
-					min-width: 0
-					h2
-						margin-bottom: 0
-					p
-						margin-top: 0
 
 </style>

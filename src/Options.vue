@@ -626,49 +626,52 @@ onMounted(async () => {
 });
 </script>
 
-<style lang="stylus">
-@require "assets/global"
+<style>
+@import url('assets/main.css');
 
-// general
-html, body
-	min-height: 300px
+html, body {
+	min-height: 300px;
+}
 
-// layout
-#options
-	width: 100%
-	min-height: 100vh
-
-	header,	footer,	.container
-		width: calc(100% - 2rem)
-		max-width: 840px
-		padding: 1rem
-
-	&.embedded
-		header,	footer,	.container
-			width: 100%
-			max-width: auto
-			padding-left: .5rem
-			padding-right: .5rem
-		.container > section:first-child > h2
-			margin-top: 0
-
-	header
-		h1
-			margin: 0
-			.logo
-				height: 48px
-
-	.container
-		&>section
-			h2
-				font-weight: 300
-			.entry
-				display: grid
-				grid-template-columns: 1fr 50%
-				column-gap: 2rem
-				margin-bottom: 1rem
-				.action
-					align-self: center
-
+#options {
+	width: 100%;
+	min-height: 100vh;
+}
+#options header,
+#options footer,
+#options .container {
+	width: calc(100% - 2rem);
+	max-width: 840px;
+	padding: 1rem;
+}
+#options.embedded header,
+#options.embedded footer,
+#options.embedded .container {
+	width: 100%;
+	max-width: auto;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+#options.embedded .container > section:first-child > h2 {
+	margin-top: 0;
+}
+#options header h1 {
+	margin: 0;
+}
+#options header h1 .logo {
+	height: 48px;
+}
+#options .container>section h2 {
+	font-weight: 300;
+}
+#options .container>section .entry {
+	display: grid;
+	grid-template-columns: 1fr 50%;
+	column-gap: 2rem;
+	margin-bottom: 1rem;
+}
+#options .container>section .entry .action {
+	align-self: center;
+}
 
 </style>
