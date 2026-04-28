@@ -108,7 +108,7 @@ Many thanks especially to those who helped translating this add-on and making it
 - Russian: [@kerlon5](https://github.com/kerlon5) [@maria-muravyova](https://github.com/maria-muravyova)
 - Slovak: [@dodog](https://github.com/dodog)
 - Spanish: [@roninJosue](https://github.com/roninJosue) [@SabrinaFZ](https://github.com/SabrinaFZ)
-- Swedish: [@FrejBjornsson](https://github.com/FrejBjornsson)
+- Swedish: [@fringvil](https://github.com/fringvil)
 - Thai: [@kerlos](https://github.com/kerlos)
 - Turkish: [@tosbaha](https://github.com/tosbaha)
 
