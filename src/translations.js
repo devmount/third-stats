@@ -60,3 +60,35 @@ export const pluralRules = {
 	"pl": pluralPolish,
 	"uk": pluralUkrainian,
 }
+
+export const getDateFnsLocale = async (lang) => {
+  switch (lang) {
+		case 'ca':    return (await import('date-fns/locale/ca')).default;
+		case 'cs':    return (await import('date-fns/locale/cs')).default;
+		case 'de':    return (await import('date-fns/locale/de')).default;
+		case 'en':    return (await import('date-fns/locale/en-GB')).default;
+		case 'es':    return (await import('date-fns/locale/es')).default;
+		case 'fi':    return (await import('date-fns/locale/fi')).default;
+		case 'fr':    return (await import('date-fns/locale/fr')).default;
+		case 'gl':    return (await import('date-fns/locale/gl')).default;
+		case 'hi':    return (await import('date-fns/locale/hi')).default;
+		case 'hu':    return (await import('date-fns/locale/hu')).default;
+		case 'id':    return (await import('date-fns/locale/id')).default;
+		case 'it':    return (await import('date-fns/locale/it')).default;
+		case 'nl':    return (await import('date-fns/locale/nl')).default;
+		case 'ja':    return (await import('date-fns/locale/ja')).default;
+		case 'pl':    return (await import('date-fns/locale/pl')).default;
+		case 'pt':    return (await import('date-fns/locale/pt')).default;
+		case 'pt-BR': return (await import('date-fns/locale/pt-BR')).default;
+		case 'ru':    return (await import('date-fns/locale/ru')).default;
+		case 'sk':    return (await import('date-fns/locale/sk')).default;
+		case 'sv':    return (await import('date-fns/locale/sv')).default;
+		case 'th':    return (await import('date-fns/locale/th')).default;
+		case 'tr':    return (await import('date-fns/locale/tr')).default;
+		case 'uk':    return (await import('date-fns/locale/uk')).default;
+		case 'uz':    return (await import('date-fns/locale/uz')).default;
+		case 'zh-CN': return (await import('date-fns/locale/zh-CN')).default;
+		case 'zh-TW': return (await import('date-fns/locale/zh-TW')).default;
+    default:      return (await import('date-fns/locale/en-US')).default;
+  }
+}

@@ -12,6 +12,7 @@
 import { computed, onMounted, watch } from 'vue';
 import { Chart, color } from '@/chart.config.js';
 import { isoDayOfWeek } from '@/utils.js';
+import { getDateFnsLocale } from '@/translations.js';
 import { useI18n } from 'vue-i18n';
 
 const { locale } = useI18n();
@@ -56,7 +57,7 @@ const processedDatasets = computed(() => {
 	return data;
 });
 
-const draw = () => {
+const draw = (localeObject) => {
 	chart = new Chart(props.cid, {
 		type: "matrix",
 		data: {
@@ -97,6 +98,11 @@ const draw = () => {
 						display: false,
 					},
 					type: 'time',
+					adapters: {
+						date: {
+							locale: localeObject
+						}
+					},
 					offset: true,
 					time: {
 						unit: 'day',
@@ -124,6 +130,11 @@ const draw = () => {
 						display: false,
 					},
 					type: props.parseTime ? 'time' : 'linear',
+					adapters: {
+						date: {
+							locale: localeObject
+						}
+					},
 					offset: false,
 					time: props.parseTime ? {
 						unit: 'month',
@@ -154,9 +165,10 @@ const draw = () => {
 	});
 };
 
-onMounted(() => {
+onMounted(async () => {
 	if (props.datasets) {
-		draw();
+		const l = await getDateFnsLocale(locale.value);
+		draw(l);
 	}
 });
 
