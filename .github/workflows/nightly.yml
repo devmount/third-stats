@@ -19,10 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
-    - name: Use Node.js 22
-      uses: actions/setup-node@v6
-      with:
-        node-version: 22
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v6
     - name: Compute Filename
       id: file
       run: |
@@ -38,17 +36,17 @@ jobs:
         filename=third-stats_${next}-alpha.${d}.xpi
         echo "Built filename is ${filename}"
         echo "FILENAME=${filename}" >> $GITHUB_OUTPUT
-    - name: Build app using NPM
+    - name: Build app
       run: |
-        npm install
-        npm run build
+        pnpm install --frozen-lockfile
+        pnpm build
     - name: Create Thunderbird add-on (.xpi)
       shell: bash
       run: |
         cd dist/
         zip -q -r ../${{ steps.file.outputs.FILENAME }} ./
     - name: Upload add-on nightly build artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: third-stats-nightly
         path: ${{ steps.file.outputs.FILENAME }}

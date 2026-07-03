@@ -9,6 +9,7 @@
 		"getlang": "localazy download",
 		"setlang": "localazy upload existing"
 	},
+	"packageManager": "pnpm@11.9.0",
 	"dependencies": {
 		"chart.js": "^4.0.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
