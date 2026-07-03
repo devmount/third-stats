@@ -75,16 +75,16 @@ If you encounter any problem, please [issue a bug report](https://github.com/dev
 
 ### Become a ThirdStats developer
 
-Here is how you can set up a local development environment:
+Here is how you can set up a local development environment. This project uses [pnpm](https://pnpm.io/installation#using-npm) as package manager.
 
 1. [Clone](https://help.github.com/en/articles/cloning-a-repository) this project with Git
-2. Install dependencies by running `npm install` within the cloned directory `third-stats/`
-3. Start the development server with `npm run dev`
+2. Install dependencies by running `pnpm install` within the cloned directory `third-stats/`
+3. Start the development server with `pnpm dev`
 4. Open development site by going to <http://localhost:8080> in your browser
 
 Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-webextensions.readthedocs.io/en/latest/index.html). This means that some JavaScript objects won't be available in your browser as development environment. If you want to test your changes in Thunderbird, do the following:
 
-5. Save all your changes and run `npm run build` to create a production build in the `dist/` directory
+5. Save all your changes and run `pnpm build` to create a production build in the `dist/` directory
 6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
 7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
 
