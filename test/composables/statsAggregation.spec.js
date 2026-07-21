@@ -102,6 +102,14 @@ describe('analyzeMessage', () => {
 		expect(data.folders.received.Archive).toBe(1);
 	});
 
+	it('buckets dateData by local calendar day, not the UTC-shifted day (timezone bug regression)', () => {
+		const data = createStatsData();
+		// midnight local time - a UTC-based key would roll this back a day in any
+		// timezone ahead of UTC, splitting a single local day across two buckets
+		analyzeMessage(data, baseMessage({ date: new Date(2023, 5, 15, 0, 0, 0) }), ['me@example.com'], noopContext);
+		expect(data.dateData.received['2023-06-15']).toBe(1);
+	});
+
 	it('buckets a Jan-1 date with ISO week 53 into the previous year (week-boundary edge case)', () => {
 		const data = createStatsData();
 		// Jan 1, 2010 has ISO week number 53 and belongs to week 53 of 2009

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
 	contactInvolved,
 	isSelfMessage,
+	localDateKey,
 	quarterNumber,
 	sumObjects,
 	sumObjectsObjects,
@@ -82,6 +83,19 @@ describe('contactInvolved', () => {
 
 	it('returns false when the contact is not involved', () => {
 		expect(contactInvolved('dave@example.com', message)).toBe(false);
+	});
+});
+
+describe('localDateKey', () => {
+	it('formats a local date as YYYY-MM-DD without shifting to UTC', () => {
+		// midnight local time - a UTC-based toISOString() would roll this back
+		// a day in any timezone ahead of UTC (the bug this helper fixes)
+		expect(localDateKey(new Date(2023, 5, 15, 0, 0, 0))).toBe('2023-06-15');
+		expect(localDateKey(new Date(2023, 5, 15, 23, 59, 59))).toBe('2023-06-15');
+	});
+
+	it('pads single-digit months and days', () => {
+		expect(localDateKey(new Date(2023, 0, 5))).toBe('2023-01-05');
 	});
 });
 

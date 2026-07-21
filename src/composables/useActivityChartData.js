@@ -1,5 +1,6 @@
 // chart-data shaping for the "activity" section (single-date calendar matrix chart)
 import { computed } from 'vue';
+import { localDateKey } from '@/utils.js';
 
 export function useActivityChartData({ display, activityPrefs, t }) {
 	// prepare data for single date matrix charts
@@ -20,7 +21,7 @@ export function useActivityChartData({ display, activityPrefs, t }) {
 		// Generate full year data with 0 for empty days
 		let r = [], s = [];
 		for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-			const key = d.toISOString().slice(0, 10);
+			const key = localDateKey(d);
 			r.push([key, receivedMap[key] || 0]);
 			s.push([key, sentMap[key] || 0]);
 		}

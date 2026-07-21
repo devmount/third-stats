@@ -227,6 +227,15 @@ const yyyymmdd = (d) => {
 	return d.toISOString().replace(/-/g, '').slice(0,8);
 };
 
+// format given date as YYYY-MM-DD using its local calendar date
+// (unlike toISOString(), this doesn't shift the date across timezones)
+const localDateKey = (d) => {
+	const y = d.getFullYear();
+	const m = String(d.getMonth() + 1).padStart(2, '0');
+	const day = String(d.getDate()).padStart(2, '0');
+	return `${y}-${m}-${day}`;
+};
+
 // return day of week in iso format
 const isoDayOfWeek = d => {
   let wd = d.getDay();   // 0..6, from sunday
@@ -335,6 +344,7 @@ export {
 	formatDate,
 	isoDayOfWeek,
 	isSelfMessage,
+	localDateKey,
 	localStartOfWeek,
 	monthNames,
 	NumberedObject,

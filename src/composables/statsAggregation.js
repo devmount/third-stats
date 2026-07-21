@@ -4,6 +4,7 @@ import {
 	contactInvolved,
 	extractEmailAddress,
 	isSelfMessage,
+	localDateKey,
 	NumberedObject,
 	quarterNumber,
 	sortAndLimitObject,
@@ -175,7 +176,7 @@ const analyzeMessage = (data, message, identityList, context) => {
 	// month
 	data.monthData[type][mo]++;
 	// dates
-	const iso = message.date.toISOString().substr(0, 10);
+	const iso = localDateKey(message.date);
 	if (!(iso in data.dateData[type])) {
 		data.dateData[type][iso] = 1;
 	} else {

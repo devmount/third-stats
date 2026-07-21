@@ -36,4 +36,16 @@ describe('useActivityChartData', () => {
 		activityPrefs.year = 2024;
 		expect(dateChartData.value.received.data.find(([key]) => key === '2024-01-01')[1]).toBe(7);
 	});
+
+	it('generates exactly the local calendar-date keys for the year, with no UTC day-shift (timezone bug regression)', () => {
+		const display = ref({ dateData: { received: {}, sent: {} } });
+		const activityPrefs = reactive({ year: 2023 });
+		const { dateChartData } = useActivityChartData({ display, activityPrefs, t: stubT });
+		const keys = dateChartData.value.received.data.map(([key]) => key);
+		// the first and last day of the year must appear exactly as their own calendar date,
+		// not shifted to the adjacent year as a UTC-based toISOString() key would
+		expect(keys[0]).toBe('2023-01-01');
+		expect(keys[keys.length - 1]).toBe('2023-12-31');
+		expect(keys.every(k => k.startsWith('2023-'))).toBe(true);
+	});
 });
