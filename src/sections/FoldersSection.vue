@@ -1,9 +1,9 @@
 <template>
 	<div class="tab-area" v-if="display.folders">
-		<SectionTabHeader :tab="tabFolders" :tabs="tabsFolders" border-variant="static-gradient" />
+		<section-tab-header :tab="tabFolders" :tabs="tabsFolders" border-variant="static-gradient" />
 		<div class="tab-content mt-1">
 			<!-- folders emails received -->
-			<DoughnutChart
+			<doughnut-chart
 				:info="{
 					number: foldersChartData.labels.length,
 					label: t('stats.nonEmptyFolders', foldersChartData.labels.length),

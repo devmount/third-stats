@@ -1,6 +1,6 @@
 <template>
 	<div class="tab-area">
-		<SectionTabHeader
+		<section-tab-header
 			v-model:tab="tabOnedim"
 			v-model:comparison="preferences.sections.onedim.comparison"
 			:tabs="tabsOnedim"
@@ -12,39 +12,39 @@
 		/>
 		<div class="tab-content mt-1">
 			<!-- emails per time of day -->
-			<BarChart
+			<bar-chart
 				v-if="tabOnedim === tabsOnedim.daytime && !preferences.sections.onedim.comparison"
 				:datasets="daytimeChartData.datasets"
 				:labels="daytimeChartData.labels"
 				:ordinate="options.ordinate"
 			/>
-			<BarChart
+			<bar-chart
 				v-if="tabOnedim === tabsOnedim.daytime && preferences.sections.onedim.comparison"
 				:datasets="daytimeComparedChartData.datasets"
 				:labels="daytimeComparedChartData.labels"
 				:ordinate="options.ordinate"
 			/>
 			<!-- emails per day of week -->
-			<BarChart
+			<bar-chart
 				v-if="tabOnedim === tabsOnedim.weekday && !preferences.sections.onedim.comparison"
 				:datasets="weekdayChartData.datasets"
 				:labels="weekdayChartData.labels"
 				:ordinate="options.ordinate"
 			/>
-			<BarChart
+			<bar-chart
 				v-if="tabOnedim === tabsOnedim.weekday && preferences.sections.onedim.comparison"
 				:datasets="weekdayComparedChartData.datasets"
 				:labels="weekdayComparedChartData.labels"
 				:ordinate="options.ordinate"
 			/>
 			<!-- emails per month of year -->
-			<BarChart
+			<bar-chart
 				v-if="tabOnedim === tabsOnedim.month && !preferences.sections.onedim.comparison"
 				:datasets="monthChartData.datasets"
 				:labels="monthChartData.labels"
 				:ordinate="options.ordinate"
 			/>
-			<BarChart
+			<bar-chart
 				v-if="tabOnedim === tabsOnedim.month && preferences.sections.onedim.comparison"
 				:datasets="monthComparedChartData.datasets"
 				:labels="monthComparedChartData.labels"

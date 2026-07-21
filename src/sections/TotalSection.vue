@@ -1,6 +1,6 @@
 <template>
 	<div class="tab-area">
-		<SectionTabHeader
+		<section-tab-header
 			v-model:tab="tabTotal"
 			v-model:comparison="preferences.sections.total.comparison"
 			v-model:expand="preferences.sections.total.expand"
@@ -15,7 +15,7 @@
 		/>
 		<div class="tab-content mt-1">
 			<!-- emails per year over total time -->
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.years && !preferences.sections.total.comparison"
 				:datasets="yearsChartData.datasets"
 				:labels="yearsChartData.labels"
@@ -23,7 +23,7 @@
 				:abscissa="true"
 				:unfinished="unfinished"
 			/>
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.years && preferences.sections.total.comparison"
 				:datasets="yearsComparedChartData.datasets"
 				:labels="yearsComparedChartData.labels"
@@ -32,7 +32,7 @@
 				:unfinished="unfinished"
 			/>
 			<!-- emails per quarter over total time -->
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.quarters && !preferences.sections.total.comparison"
 				:datasets="quartersChartData.datasets"
 				:labels="quartersChartData.labels"
@@ -40,7 +40,7 @@
 				:abscissa="true"
 				:unfinished="unfinished"
 			/>
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.quarters && preferences.sections.total.comparison"
 				:datasets="quartersComparedChartData.datasets"
 				:labels="quartersComparedChartData.labels"
@@ -49,7 +49,7 @@
 				:unfinished="unfinished"
 			/>
 			<!-- emails per month over total time -->
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.months && !preferences.sections.total.comparison"
 				:datasets="monthsChartData.datasets"
 				:labels="monthsChartData.labels"
@@ -57,7 +57,7 @@
 				:abscissa="true"
 				:unfinished="unfinished"
 			/>
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.months && preferences.sections.total.comparison"
 				:datasets="monthsComparedChartData.datasets"
 				:labels="monthsComparedChartData.labels"
@@ -66,7 +66,7 @@
 				:unfinished="unfinished"
 			/>
 			<!-- emails per week over total time -->
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.weeks && !preferences.sections.total.comparison"
 				:datasets="weeksChartData.datasets"
 				:labels="weeksChartData.labels"
@@ -74,7 +74,7 @@
 				:abscissa="true"
 				:unfinished="unfinished"
 			/>
-			<LineChart
+			<line-chart
 				v-if="tabTotal === tabsTotal.weeks && preferences.sections.total.comparison"
 				:datasets="weeksComparedChartData.datasets"
 				:labels="weeksComparedChartData.labels"

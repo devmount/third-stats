@@ -229,7 +229,7 @@
 						class="d-inline-block tooltip tooltip-bottom"
 						:data-tooltip="formatDate(display.meta.timestamp, locale)"
 					>
-						<LiveAge class="cursor-default" :date="display.meta.timestamp" />
+						<live-age class="cursor-default" :date="display.meta.timestamp" />
 					</div>
 				</div>
 			</header>
@@ -377,7 +377,7 @@
 			<!-- charts -->
 			<section v-if="display.numbers.total > 0" class="charts mt-3">
 				<div id="chart-area-top" class="chart-area" :class="{ 'first-column-only': preferences.sections.total.expand }">
-					<TotalSection
+					<total-section
 						:display="display"
 						:comparison="comparison"
 						:accounts="accounts"
@@ -392,7 +392,7 @@
 						:tooltip-account-comparison="tooltipAccountComparison"
 						:unfinished="active.period.end == null"
 					/>
-					<ActivitySection
+					<activity-section
 						:display="display"
 						:preferences="preferences"
 						:min-year="minYear"
@@ -403,7 +403,7 @@
 					/>
 				</div>
 				<div id="chart-area-main" class="chart-area mt-2">
-					<OnedimSection
+					<onedim-section
 						:display="display"
 						:comparison="comparison"
 						:accounts="accounts"
@@ -413,10 +413,10 @@
 						:accounts-color-gradient="accountsColorGradient"
 						:tooltip-account-comparison="tooltipAccountComparison"
 					/>
-					<TwodimSection :display="display" />
-					<LeaderSection :display="display" :options="options" />
-					<FoldersSection :display="display" />
-					<TagsSection :display="display" :tags="tags" :options="options" />
+					<twodim-section :display="display" />
+					<leader-section :display="display" :options="options" />
+					<folders-section :display="display" />
+					<tags-section :display="display" :tags="tags" :options="options" />
 				</div>
 			</section>
 			<!-- footer -->

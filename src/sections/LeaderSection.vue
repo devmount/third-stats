@@ -1,9 +1,9 @@
 <template>
 	<div class="tab-area">
-		<SectionTabHeader v-model:tab="tabLeader" :tabs="tabsLeader" :tab-color-class="leaderTabColorClass" />
+		<section-tab-header v-model:tab="tabLeader" :tabs="tabsLeader" :tab-color-class="leaderTabColorClass" />
 		<div class="tab-content mt-1">
 			<!-- contacts most emails received from -->
-			<BarChart
+			<bar-chart
 				v-if="tabLeader === tabsLeader.contactsReceived && receivedContactLeadersChartDataExists"
 				:datasets="receivedContactLeadersChartData.datasets"
 				:labels="receivedContactLeadersChartData.labels"
@@ -27,7 +27,7 @@
 				<div class="text-gray mt-1" v-html="t('stats.charts.contactsReceived.empty')"></div>
 			</div>
 			<!-- contacts most emails sent to -->
-			<BarChart
+			<bar-chart
 				v-if="tabLeader === tabsLeader.contactsSent && sentContactLeadersChartDataExists"
 				:datasets="sentContactLeadersChartData.datasets"
 				:labels="sentContactLeadersChartData.labels"
@@ -51,7 +51,7 @@
 				<div class="text-gray mt-1" v-html="t('stats.charts.contactsSent.empty')"></div>
 			</div>
 			<!-- contacts flagged as junk -->
-			<BarChart
+			<bar-chart
 				v-if="tabLeader === tabsLeader.contactsJunk && junkContactLeadersChartDataExists"
 				:datasets="junkContactLeadersChartData.datasets"
 				:labels="junkContactLeadersChartData.labels"

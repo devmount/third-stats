@@ -1,9 +1,9 @@
 <template>
 	<div class="tab-area">
-		<SectionTabHeader :tab="tabTwodim" :tabs="tabsTwodim" border-variant="static-gradient" />
+		<section-tab-header :tab="tabTwodim" :tabs="tabsTwodim" border-variant="static-gradient" />
 		<div class="tab-content chart-group mt-1">
 			<!-- emails per weekday per hour received -->
-			<MatrixChart
+			<matrix-chart
 				cid="wd-per-hour-received"
 				color="#0a84ff"
 				:spacing="1"
@@ -13,7 +13,7 @@
 				:datasets="[weekdayPerHourChartData.received]"
 			/>
 			<!-- emails per weekday per hour sent -->
-			<MatrixChart
+			<matrix-chart
 				cid="wd-per-hour-send"
 				color="#e64db9"
 				:spacing="1"

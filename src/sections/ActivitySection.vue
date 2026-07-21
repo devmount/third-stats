@@ -33,7 +33,7 @@
 				</svg>
 			</div>
 		</div>
-		<SectionTabHeader v-model:tab="tabActivity" :tabs="tabsActivity" border-variant="static-gradient">
+		<section-tab-header v-model:tab="tabActivity" :tabs="tabsActivity" border-variant="static-gradient">
 			<template #label="{ labelKey }">
 				{{
 					preferences.sections.activity.year == new Date().getFullYear()
@@ -41,10 +41,10 @@
 						: t('stats.charts.' + labelKey + '.title', [preferences.sections.activity.year])
 				}}
 			</template>
-		</SectionTabHeader>
+		</section-tab-header>
 		<div class="tab-content chart-group mt-1">
 			<!-- activity per day received -->
-			<MatrixChart
+			<matrix-chart
 				cid="activity-received"
 				color="#0a84ff"
 				:spacing="1"
@@ -54,7 +54,7 @@
 				:datasets="[dateChartData.received]"
 			/>
 			<!-- activity per day sent -->
-			<MatrixChart
+			<matrix-chart
 				cid="activity-send"
 				color="#e64db9"
 				:spacing="1"

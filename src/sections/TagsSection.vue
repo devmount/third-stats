@@ -1,9 +1,9 @@
 <template>
 	<div class="tab-area" v-if="display.tags">
-		<SectionTabHeader :tab="tabTags" :tabs="tabsTags" :tab-color-class="() => 'border-bottom-accent3'" />
+		<section-tab-header :tab="tabTags" :tabs="tabsTags" :tab-color-class="() => 'border-bottom-accent3'" />
 		<div class="tab-content mt-1">
 			<!-- tags count -->
-			<BarChart
+			<bar-chart
 				v-if="tagsChartDataExists"
 				:datasets="tagsChartData.datasets"
 				:labels="tagsChartData.labels"

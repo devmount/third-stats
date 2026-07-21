@@ -54,7 +54,7 @@
 							</div>
 						</div>
 					</div>
-					<LineChart
+					<line-chart
 						v-if="a.hasOwnProperty('messageCount') && a.messageCount > 0"
 						class="background-chart z-0"
 						:datasets="a.yearsData.datasets"
