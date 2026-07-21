@@ -295,13 +295,13 @@ const formatBytes = (bytes, decimals=2) => {
 const pluralPolish = (n) => {
 	if (n === 1) return 1;
 	const lastDigit = n % 10;
-	if (([2, 3, 4].indexOf(lastDigit) >= 0) && (n < 12) && (n > 14)) return 2;
+	if (([2, 3, 4].indexOf(lastDigit) >= 0) && (n < 12 || n > 14)) return 2;
 	return 0;
 };
 const pluralUkrainian = (n) => {
 	const lastDigit = n % 10;
 	if (lastDigit === 1 && n !== 11) return 1;
-	if (([2, 3, 4].indexOf(lastDigit) >= 0) && (n < 12) && (n > 14)) return 2;
+	if (([2, 3, 4].indexOf(lastDigit) >= 0) && (n < 12 || n > 14)) return 2;
 	return 0;
 };
 

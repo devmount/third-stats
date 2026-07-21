@@ -259,17 +259,32 @@ describe('pluralPolish / pluralUkrainian', () => {
 		expect(pluralPolish(1)).toBe(1);
 	});
 
-	it('never returns form 2 - the "few" branch is unreachable ' +
-		'(its `n < 12 && n > 14` guard can never be true)', () => {
-		expect(pluralPolish(2)).toBe(0);
-		expect(pluralPolish(22)).toBe(0);
+	it('returns form 2 ("few") for numbers ending in 2-4, except the 12-14 teens', () => {
+		expect(pluralPolish(2)).toBe(2);
+		expect(pluralPolish(3)).toBe(2);
+		expect(pluralPolish(4)).toBe(2);
+		expect(pluralPolish(22)).toBe(2);
+		expect(pluralPolish(12)).toBe(0);
+		expect(pluralPolish(13)).toBe(0);
+		expect(pluralPolish(14)).toBe(0);
+	});
+
+	it('returns form 0 ("many") for everything else', () => {
+		expect(pluralPolish(5)).toBe(0);
+		expect(pluralPolish(11)).toBe(0);
+		expect(pluralPolish(25)).toBe(0);
 	});
 
 	it('pluralUkrainian returns form 1 for numbers ending in 1 (except 11), else 0', () => {
 		expect(pluralUkrainian(1)).toBe(1);
 		expect(pluralUkrainian(21)).toBe(1);
 		expect(pluralUkrainian(11)).toBe(0);
-		expect(pluralUkrainian(2)).toBe(0);
+	});
+
+	it('pluralUkrainian returns form 2 ("few") for numbers ending in 2-4, except the 12-14 teens', () => {
+		expect(pluralUkrainian(2)).toBe(2);
+		expect(pluralUkrainian(22)).toBe(2);
+		expect(pluralUkrainian(12)).toBe(0);
 	});
 });
 
