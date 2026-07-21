@@ -1,0 +1,44 @@
+<template>
+	<div class="entry" v-if="options.accounts">
+		<label>
+			<div class="d-flex align-items-end gap-0-5">
+				{{ t('options.activeAccounts.label') }}
+				<span class="tooltip text-gray mb--0-25" :data-tooltip="t('options.note.reloadWindowRequired')">
+					<svg class="icon icon-tiny" viewBox="0 0 24 24">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+						<path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+						<line x1="12" y1="9" x2="12" y2="12" />
+						<line x1="12" y1="15" x2="12.01" y2="15" />
+					</svg>
+				</span>
+			</div>
+			<div class="text-gray text-small">
+				{{ t('options.activeAccounts.description') }}
+				{{ t('options.activeAccounts.color') }}<br />
+				{{ t('options.activeAccounts.sumAndCompare') }}
+			</div>
+		</label>
+		<div class="action">
+			<div v-for="(a, i) in allAccounts" :key="i" class="d-flex justify-space-between">
+				<label class="checkbox cursor-pointer text-overflow-ellipsis flex-no-grow">
+					<input type="checkbox" :value="a.id" v-model="options.accounts" />
+					<i class="checkbox-icon"></i> {{ a.name }}
+				</label>
+				<label :for="'color-' + a.name" class="cursor-pointer d-flex align-items-center gap-0-5">
+					<input type="color" :id="'color-' + a.name" v-model="options.accountColors[a.id]" />
+					<span class="text-mono text-tiny">{{ options.accountColors[a.id] }}</span>
+				</label>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script setup>
+import { inject } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { options, allAccounts } = inject('engine');
+
+const { t } = useI18n();
+</script>
