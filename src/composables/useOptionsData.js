@@ -12,8 +12,11 @@ export function useOptionsData() {
 	// all valid option values for selfMessages
 	const selfMessagesOptions = ['none', 'sameAccount', 'anyAccount'];
 
+	// deep clone so mutating `options` never touches the shared defaultOptions singleton
+	const cloneDefaultOptions = () => JSON.parse(JSON.stringify(defaultOptions));
+
 	// create options object with default values
-	const options = ref(defaultOptions);
+	const options = ref(cloneDefaultOptions());
 
 	// get all saved add-on settings
 	const getSettings = async () => {
@@ -66,23 +69,21 @@ export function useOptionsData() {
 		cacheSize.value = allEntriesSize - optionsSize;
 	};
 
-	// add configured email address to list of addresses and save it
-	const addAddress = async () => {
+	// add configured email address to list of addresses
+	const addAddress = () => {
 		if (input.value.address) {
 			let addresses = options.value.addresses ? options.value.addresses + ',' : '';
 			addresses += input.value.address;
-			await messenger.storage.local.set({ options: { addresses: addresses } });
 			options.value.addresses = addresses;
 			input.value.address = '';
 		}
 	};
 
-	// remove given email address from list of addresses and delete it
-	const removeAddress = async (address) => {
+	// remove given email address from list of addresses
+	const removeAddress = (address) => {
 		let addresses = options.value.addresses.replace(address, '');
 		addresses = addresses.replace(/,,/g, ',');
 		addresses = addresses.replace(/^,+|,+$/g, '');
-		await messenger.storage.local.set({ options: { addresses: addresses } });
 		options.value.addresses = addresses;
 	};
 
@@ -143,7 +144,7 @@ export function useOptionsData() {
 	const resetOptions = async () => {
 		// save options default values
 		await messenger.storage.local.set({ options: defaultOptions });
-		options.value = defaultOptions;
+		options.value = cloneDefaultOptions();
 		await getAccounts();
 	};
 

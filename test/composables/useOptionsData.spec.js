@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { useOptionsData } from '@/composables/useOptionsData.js';
+import { defaultOptions } from '@/definitions.js';
 
 // the composable's internal deep watch on `options` fires (asynchronously, via Vue's
 // reactivity flush) on every mutation made below and calls messenger.storage.local.set()
@@ -7,9 +8,64 @@ import { useOptionsData } from '@/composables/useOptionsData.js';
 // watcher's side effects don't throw, regardless of exactly when its microtask fires
 // relative to a given test's completion
 const fakeElement = () => ({ classList: { add: () => {}, remove: () => {}, contains: () => false } });
-vi.stubGlobal('messenger', { storage: { local: { set: vi.fn() } } });
+vi.stubGlobal('messenger', {
+	storage: { local: { set: vi.fn() } },
+	// only needed by resetOptions -> getAccounts
+	runtime: { getBackgroundPage: async () => ({ messenger: { accounts: { list: async () => [] } } }) },
+});
 vi.stubGlobal('document', { body: fakeElement(), documentElement: fakeElement() });
 vi.stubGlobal('window', { matchMedia: () => ({ matches: false }) });
+
+describe('options initial state (defaultOptions aliasing regression)', () => {
+	it('is not the same object reference as the shared defaultOptions singleton', () => {
+		const { options } = useOptionsData();
+		expect(options.value).not.toBe(defaultOptions);
+	});
+
+	it('mutating options does not mutate the shared defaultOptions singleton', () => {
+		const { options } = useOptionsData();
+		options.value.theme = 'dark';
+		options.value.accountColors.abc = '#123456';
+		expect(defaultOptions.theme).toBe('system');
+		expect(defaultOptions.accountColors).toEqual({});
+	});
+
+	it('resetOptions() re-clones defaultOptions rather than re-aliasing it', async () => {
+		const { options, resetOptions } = useOptionsData();
+		options.value.theme = 'dark';
+		await resetOptions();
+		expect(options.value).not.toBe(defaultOptions);
+		options.value.debug = true;
+		expect(defaultOptions.debug).toBe(false);
+	});
+});
+
+describe('addAddress / removeAddress (no redundant partial storage write)', () => {
+	it('addAddress appends the given address and clears the input', () => {
+		const { input, options, addAddress, addressList } = useOptionsData();
+		options.value.addresses = '';
+		input.value.address = 'a@example.com';
+		addAddress();
+		expect(options.value.addresses).toBe('a@example.com');
+		expect(addressList.value).toEqual(['a@example.com']);
+		expect(input.value.address).toBe('');
+	});
+
+	it('addAddress appends to existing addresses with a comma separator', () => {
+		const { input, options, addAddress } = useOptionsData();
+		options.value.addresses = 'a@example.com';
+		input.value.address = 'b@example.com';
+		addAddress();
+		expect(options.value.addresses).toBe('a@example.com,b@example.com');
+	});
+
+	it('removeAddress removes only the given address and normalizes separators', () => {
+		const { options, removeAddress, addressList } = useOptionsData();
+		options.value.addresses = 'a@example.com,b@example.com,c@example.com';
+		removeAddress('b@example.com');
+		expect(addressList.value).toEqual(['a@example.com', 'c@example.com']);
+	});
+});
 
 describe('addressList', () => {
 	it('is empty when addresses is unset', () => {
