@@ -28,28 +28,19 @@
 </template>
 
 <script setup>
-import { ref, toRef } from 'vue';
+import { ref, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { tabsTags } from '@/definitions.js';
 import { useTagsChartData } from '@/composables/useTagsChartData.js';
 import BarChart from '@/charts/BarChart.vue';
 import SectionTabHeader from '@/parts/SectionTabHeader.vue';
 
-const props = defineProps({
-	display: { type: Object, required: true },
-	tags: { type: Array, required: true },
-	options: { type: Object, required: true },
-});
+const { display, tags, options } = inject('engine');
 
 const { t } = useI18n();
 
 // tab navigation local to this section (single-entry tab enum, kept for template consistency)
 const tabTags = ref(tabsTags.tagsCount);
 
-const { tagsChartData, tagsChartDataExists } = useTagsChartData({
-	display: toRef(props, 'display'),
-	tags: toRef(props, 'tags'),
-	options: props.options,
-	t,
-});
+const { tagsChartData, tagsChartDataExists } = useTagsChartData({ display, tags, options, t });
 </script>

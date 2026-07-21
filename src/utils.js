@@ -245,6 +245,13 @@ const startOfToday = () => {
 	return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
 };
 
+// format folder select options
+// build <folder> name to match its hierarchy with preceding <indentSymbol>s
+const formatFolder = (folder, indentSymbol = '—') => {
+	const level = (folder.path.match(/\//g) || []).length;
+	return level <= 1 ? folder.name : indentSymbol.repeat(level - 1) + ' ' + folder.name;
+};
+
 // formats given date <d> human readable, takes locale into account
 const formatDate = (d, locale = 'en') => {
 	const options = {
@@ -338,6 +345,7 @@ export {
 	extractEmailAddress,
 	formatBytes,
 	formatDate,
+	formatFolder,
 	isoDayOfWeek,
 	isSelfMessage,
 	localDateKey,

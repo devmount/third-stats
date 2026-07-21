@@ -5,6 +5,7 @@ import {
 	extractEmailAddress,
 	formatBytes,
 	formatDate,
+	formatFolder,
 	isoDayOfWeek,
 	isSelfMessage,
 	localDateKey,
@@ -212,6 +213,22 @@ describe('formatDate', () => {
 		expect(result).toContain('2023');
 		expect(result).toContain('June');
 		expect(result).toContain('15');
+	});
+});
+
+describe('formatFolder', () => {
+	it('does not indent top-level folders (path with 0 or 1 slash)', () => {
+		expect(formatFolder({ path: 'Inbox', name: 'Inbox' })).toBe('Inbox');
+		expect(formatFolder({ path: 'Inbox/Sub', name: 'Sub' })).toBe('Sub');
+	});
+
+	it('indents nested folders by one indentSymbol per level below the first', () => {
+		expect(formatFolder({ path: 'Inbox/Sub/SubSub', name: 'SubSub' })).toBe('— SubSub');
+		expect(formatFolder({ path: 'Inbox/Sub/SubSub/Deep', name: 'Deep' })).toBe('—— Deep');
+	});
+
+	it('uses a custom indent symbol when given', () => {
+		expect(formatFolder({ path: 'Inbox/Sub/SubSub', name: 'SubSub' }, '>')).toBe('> SubSub');
 	});
 });
 

@@ -79,17 +79,14 @@
 </template>
 
 <script setup>
-import { ref, toRef } from 'vue';
+import { ref, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { tabsLeader } from '@/definitions.js';
 import { useLeaderChartData } from '@/composables/useLeaderChartData.js';
 import BarChart from '@/charts/BarChart.vue';
 import SectionTabHeader from '@/parts/SectionTabHeader.vue';
 
-const props = defineProps({
-	display: { type: Object, required: true },
-	options: { type: Object, required: true },
-});
+const { display, options } = inject('engine');
 
 const { t } = useI18n();
 
@@ -109,9 +106,5 @@ const {
 	receivedContactLeadersChartDataExists,
 	junkContactLeadersChartData,
 	junkContactLeadersChartDataExists,
-} = useLeaderChartData({
-	display: toRef(props, 'display'),
-	options: props.options,
-	t,
-});
+} = useLeaderChartData({ display, options, t });
 </script>

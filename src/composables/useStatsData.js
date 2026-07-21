@@ -527,13 +527,6 @@ export function useStatsData() {
 		}
 	};
 
-	// format folder select options
-	// build <folder> name to match its hierarchy with preceding <indentSymbol>s
-	const formatFolder = (folder, indentSymbol = '—') => {
-		const level = (folder.path.match(/\//g) || []).length;
-		return level <= 1 ? folder.name : indentSymbol.repeat(level - 1) + ' ' + folder.name;
-	};
-
 	// format period date input to match YYYY-MM-DD
 	// <key> defines the input field, either 'start' or 'end'
 	const formatPeriod = (key) => {
@@ -754,7 +747,6 @@ export function useStatsData() {
 		resetContact,
 		resetPeriod,
 		updatePeriod,
-		formatFolder,
 		formatPeriod,
 		nextYear,
 		previousYear,

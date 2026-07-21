@@ -55,23 +55,23 @@
 </template>
 
 <script setup>
-import { ref, toRef } from 'vue';
+import { ref, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { tabsOnedim } from '@/definitions.js';
 import { useOnedimChartData } from '@/composables/useOnedimChartData.js';
 import BarChart from '@/charts/BarChart.vue';
 import SectionTabHeader from '@/parts/SectionTabHeader.vue';
 
-const props = defineProps({
-	display: { type: Object, required: true },
-	comparison: { type: Object, required: true },
-	accounts: { type: Array, required: true },
-	options: { type: Object, required: true },
-	preferences: { type: Object, required: true },
-	singleAccount: { type: Boolean, required: true },
-	accountsColorGradient: { type: String, required: true },
-	tooltipAccountComparison: { type: Function, required: true },
-});
+const {
+	display,
+	comparison,
+	accounts,
+	options,
+	preferences,
+	singleAccount,
+	accountsColorGradient,
+	tooltipAccountComparison,
+} = inject('engine');
 
 const { t, locale } = useI18n();
 
@@ -85,12 +85,5 @@ const {
 	weekdayComparedChartData,
 	monthChartData,
 	monthComparedChartData,
-} = useOnedimChartData({
-	display: toRef(props, 'display'),
-	comparison: toRef(props, 'comparison'),
-	accounts: toRef(props, 'accounts'),
-	options: props.options,
-	t,
-	locale,
-});
+} = useOnedimChartData({ display, comparison, accounts, options, t, locale });
 </script>

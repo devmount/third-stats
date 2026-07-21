@@ -17,174 +17,7 @@
 					{{ t('stats.title') }}
 				</h1>
 				<!-- filter area -->
-				<div class="filter d-flex flex-wrap gap-1">
-					<!-- account selection -->
-					<div class="filter-account d-flex">
-						<label for="account" class="align-center text-gray p-0-5">{{ t('stats.account') }}</label>
-						<select
-							v-model="active.account"
-							:disabled="isLoading"
-							class="align-stretch w-6"
-							:class="{ disabled: isLoading }"
-							id="account"
-						>
-							<option v-if="accounts.length > 1 && options.cache" :value="'sum'">{{ t('stats.allAccounts') }}</option>
-							<option v-else disabled>{{ t('stats.allAccounts') }}</option>
-							<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
-						</select>
-						<div v-show="isLoading" class="align-center loader loader-accent2"></div>
-						<div
-							v-show="!isLoading"
-							class="refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex"
-							:data-tooltip="t('stats.tooltips.refresh')"
-							@click="loadAccount(active.account, true)"
-						>
-							<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
-								<line class="icon-part-accent2" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
-								<line class="icon-part-accent2-faded" x1="4.06" y1="11" x2="4.06" y2="11.01" />
-								<line class="icon-part-accent2-faded" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
-								<line class="icon-part-accent2-faded" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
-								<line class="icon-part-accent2-faded" x1="11" y1="19.94" x2="11" y2="19.95" />
-							</svg>
-						</div>
-						<div
-							v-if="error.account"
-							class="align-center tooltip tooltip-bottom d-inline-flex ml-0-5"
-							:data-tooltip="t('stats.tooltips.error.processing')"
-						>
-							<svg class="icon icon-bold icon-small icon-accent1-faded icon-hover-accent" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-								<path
-									class="icon-part-accent1"
-									d="M10.24 3.957l-8.422 14.06a1.989 1.989 0 0 0 1.7 2.983h16.845a1.989 1.989 0 0 0 1.7 -2.983l-8.423 -14.06a1.989 1.989 0 0 0 -3.4 0z"
-								></path>
-								<path class="icon-part-accent1" d="M12 9v4"></path>
-								<path class="icon-part-accent1" d="M12 17h.01"></path>
-							</svg>
-						</div>
-					</div>
-					<!-- folder selection -->
-					<div class="filter-folder d-flex">
-						<label for="folder" class="align-center text-gray p-0-5">{{ t('stats.folder') }}</label>
-						<div
-							class="d-flex align-stretch tooltip-bottom"
-							:class="{ tooltip: !singleAccount }"
-							:data-tooltip="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
-						>
-							<select
-								id="folder"
-								v-model="active.folder"
-								:disabled="isLoading || !singleAccount"
-								class="align-stretch w-6"
-								:class="{ disabled: isLoading || !singleAccount }"
-							>
-								<option v-for="f in folders" :key="f.path" :value="f">{{ formatFolder(f) }}</option>
-							</select>
-						</div>
-						<div
-							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-							:class="{ 'cursor-na': isLoading || !singleAccount }"
-							:data-tooltip="t('stats.tooltips.clear')"
-							:disabled="isLoading || !singleAccount"
-							@click="!isLoading && singleAccount ? resetFolder(true) : null"
-						>
-							<svg
-								class="icon icon-bold icon-gray"
-								:class="{ 'icon-hover-accent': !isLoading && singleAccount }"
-								viewBox="0 0 24 24"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
-								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</div>
-					</div>
-					<!-- time period selection -->
-					<div class="filter-period d-flex">
-						<label for="start" class="align-center text-gray p-0-5">{{ t('stats.timePeriod') }}</label>
-						<div class="input-group d-flex align-stretch">
-							<div
-								class="d-flex tooltip tooltip-bottom"
-								v-for="f in ['start', 'end']"
-								:key="f"
-								:data-tooltip="
-									error.period[f].length > 0
-										? error.period[f].join('\n')
-										: t('stats.tooltips.period.' + f, [examplePeriodShort, examplePeriodFormatted])
-								"
-								:class="{ 'tooltip-error': error.period[f].length > 0 }"
-							>
-								<input
-									type="text"
-									:id="f"
-									v-model="active.period[f]"
-									class="align-stretch w-6"
-									:class="{ error: error.period[f].length > 0, 'cursor-na': isLoading }"
-									:disabled="isLoading"
-									placeholder="YYYY-MM-DD"
-									@blur="formatPeriod(f)"
-									@keyup.enter="
-										formatPeriod(f);
-										updatePeriod();
-									"
-								/>
-							</div>
-							<button
-								class="button-secondary align-center p-0-5"
-								:class="{ 'cursor-na': isLoading }"
-								:disabled="isLoading"
-								@click="!isLoading ? updatePeriod() : null"
-							>
-								<svg class="icon icon-small icon-bold d-block m-0-auto" viewBox="0 0 24 24">
-									<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-									<path d="M5 12l5 5l10 -10" />
-								</svg>
-							</button>
-						</div>
-						<div
-							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-							:class="{ 'cursor-na': isLoading }"
-							:data-tooltip="t('stats.tooltips.clear')"
-							:disabled="isLoading"
-							@click="!isLoading ? resetPeriod(true) : null"
-						>
-							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading }" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
-								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</div>
-					</div>
-					<!-- contact selection -->
-					<div class="filter-contact d-flex">
-						<label for="contact" class="align-center text-gray p-0-5">{{ t('stats.contact', 1) }}</label>
-						<div class="d-flex align-stretch tooltip-bottom">
-							<select
-								id="contact"
-								v-model="active.contact"
-								:disabled="isLoading"
-								class="align-stretch w-6"
-								:class="{ disabled: isLoading }"
-							>
-								<option v-for="c in contacts" :key="c" :value="c">{{ c }}</option>
-							</select>
-						</div>
-						<div
-							class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-							:class="{ 'cursor-na': isLoading }"
-							:data-tooltip="t('stats.tooltips.clear')"
-							@click="!isLoading ? resetContact(true) : null"
-						>
-							<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading }" viewBox="0 0 24 24">
-								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
-								<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-							</svg>
-						</div>
-					</div>
-				</div>
+				<filter-bar />
 				<!-- action buttons -->
 				<div class="action d-inline-flex gap-1 ml-2">
 					<!-- data export -->
@@ -377,46 +210,15 @@
 			<!-- charts -->
 			<section v-if="display.numbers.total > 0" class="charts mt-3">
 				<div id="chart-area-top" class="chart-area" :class="{ 'first-column-only': preferences.sections.total.expand }">
-					<total-section
-						:display="display"
-						:comparison="comparison"
-						:accounts="accounts"
-						:options="options"
-						:min-year="minYear"
-						:max-year="maxYear"
-						:min-date="minDate"
-						:max-date="maxDate"
-						:preferences="preferences"
-						:single-account="singleAccount"
-						:accounts-color-gradient="accountsColorGradient"
-						:tooltip-account-comparison="tooltipAccountComparison"
-						:unfinished="active.period.end == null"
-					/>
-					<activity-section
-						:display="display"
-						:preferences="preferences"
-						:min-year="minYear"
-						:max-year="maxYear"
-						:years-list="yearsList"
-						:next-year="nextYear"
-						:previous-year="previousYear"
-					/>
+					<total-section />
+					<activity-section />
 				</div>
 				<div id="chart-area-main" class="chart-area mt-2">
-					<onedim-section
-						:display="display"
-						:comparison="comparison"
-						:accounts="accounts"
-						:options="options"
-						:preferences="preferences"
-						:single-account="singleAccount"
-						:accounts-color-gradient="accountsColorGradient"
-						:tooltip-account-comparison="tooltipAccountComparison"
-					/>
-					<twodim-section :display="display" />
-					<leader-section :display="display" :options="options" />
-					<folders-section :display="display" />
-					<tags-section :display="display" :tags="tags" :options="options" />
+					<onedim-section />
+					<twodim-section />
+					<leader-section />
+					<folders-section />
+					<tags-section />
 				</div>
 			</section>
 			<!-- footer -->
@@ -426,7 +228,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, provide } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 // internal components
@@ -436,6 +238,7 @@ import { useStatsData } from '@/composables/useStatsData.js';
 
 import LiveAge from '@/parts/LiveAge.vue';
 import ProjectMeta from '@/parts/ProjectMeta.vue';
+import FilterBar from '@/filters/FilterBar.vue';
 import TotalSection from '@/sections/TotalSection.vue';
 import ActivitySection from '@/sections/ActivitySection.vue';
 import OnedimSection from '@/sections/OnedimSection.vue';
@@ -446,13 +249,6 @@ import TagsSection from '@/sections/TagsSection.vue';
 
 const { t, locale } = useI18n();
 
-// example date formats
-const now = new Date();
-// returns the current date as example for short period input (YYMMDD)
-const examplePeriodShort = now.toISOString().replace(/-/g, '').slice(2, 8);
-// returns the current date as example for formatted period input (YYYY-MM-DD)
-const examplePeriodFormatted = now.toISOString().slice(0, 10);
-
 // tab navigation for the featured-numbers unit cycler (per-section tabs now live in their own components)
 const tabNumbers = ref(tabsNumbers.weeks);
 
@@ -460,39 +256,11 @@ const tabNumbers = ref(tabsNumbers.weeks);
 // this composable owns accounts/identities/folders/tags/active/error/isLoading/progress/
 // preferences/options/display/comparison internally, so it must only be invoked here.
 const engine = useStatsData();
-const {
-	accounts,
-	folders,
-	tags,
-	active,
-	error,
-	isLoading,
-	progress,
-	preferences,
-	options,
-	display,
-	comparison,
-	singleAccount,
-	minDate,
-	maxDate,
-	minYear,
-	maxYear,
-	yearsList,
-	accountsColorGradient,
-	processingState,
-	contacts,
-	loadAccount,
-	resetFolder,
-	resetContact,
-	resetPeriod,
-	updatePeriod,
-	formatFolder,
-	formatPeriod,
-	nextYear,
-	previousYear,
-	exportJson,
-	tooltipAccountComparison,
-} = engine;
+const { display, isLoading, preferences, processingState, exportJson } = engine;
+
+// provide the whole engine once here - every filter/section component injects
+// whichever slices it needs directly, instead of receiving them as props
+provide('engine', engine);
 
 // cycles forward through numbers tabs
 // jumps to first tab if last tab reached

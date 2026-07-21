@@ -68,31 +68,19 @@
 </template>
 
 <script setup>
-import { ref, toRef } from 'vue';
+import { ref, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { tabsActivity } from '@/definitions.js';
 import { useActivityChartData } from '@/composables/useActivityChartData.js';
 import MatrixChart from '@/charts/MatrixChart.vue';
 import SectionTabHeader from '@/parts/SectionTabHeader.vue';
 
-const props = defineProps({
-	display: { type: Object, required: true },
-	preferences: { type: Object, required: true },
-	minYear: { type: Number, required: true },
-	maxYear: { type: Number, required: true },
-	yearsList: { type: Array, required: true },
-	nextYear: { type: Function, required: true },
-	previousYear: { type: Function, required: true },
-});
+const { display, preferences, minYear, maxYear, yearsList, nextYear, previousYear } = inject('engine');
 
 const { t } = useI18n();
 
 // tab navigation local to this section
 const tabActivity = ref(tabsActivity.days);
 
-const { dateChartData } = useActivityChartData({
-	display: toRef(props, 'display'),
-	activityPrefs: props.preferences.sections.activity,
-	t,
-});
+const { dateChartData } = useActivityChartData({ display, activityPrefs: preferences.sections.activity, t });
 </script>
