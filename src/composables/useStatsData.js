@@ -5,7 +5,15 @@ import { ref, reactive, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { accentColors, defaultColors, defaultOptions } from '@/definitions.js';
-import { queryMessages, setTheme, sortAndLimitObject, traverseAccount, yyyymmdd } from '@/utils.js';
+import {
+	filterActiveAccounts,
+	queryMessages,
+	setTheme,
+	sortAndLimitObject,
+	statsCacheKey,
+	traverseAccount,
+	yyyymmdd,
+} from '@/utils.js';
 import {
 	analyzeMessage,
 	buildComparisonData,
@@ -188,9 +196,7 @@ export function useStatsData() {
 			});
 		}
 		// filter list of accounts if user configured custom list
-		if (options.accounts.length > 0 && options.accounts.length < list.length) {
-			list = list.filter((a) => options.accounts.includes(a.id));
-		}
+		list = filterActiveAccounts(list, options.accounts);
 		// store accounts
 		accounts.value = list;
 		// store identities of all activated accounts
@@ -313,7 +319,7 @@ export function useStatsData() {
 		// only store reprocessed data if cache is enabled and no filter is set
 		if (options.cache && !filterIsActive.value) {
 			const stats = {};
-			stats['stats-' + id] = JSON.parse(JSON.stringify(accountData));
+			stats[statsCacheKey(id)] = JSON.parse(JSON.stringify(accountData));
 			await messenger.storage.local.set(stats);
 		}
 		// return processed account data
@@ -343,10 +349,7 @@ export function useStatsData() {
 			// deactivate list of folders
 			folders.value = [];
 			// iterate over all activated accounts
-			const activeAccounts =
-				options.accounts.length > 0 && options.accounts.length < accounts.value.length
-					? accounts.value.filter((a) => options.accounts.includes(a.id))
-					: accounts.value;
+			const activeAccounts = filterActiveAccounts(accounts.value, options.accounts);
 			let accountsData = [];
 			// init progress indicator
 			progress.current = 1;
@@ -361,10 +364,10 @@ export function useStatsData() {
 			await Promise.all(
 				activeAccounts.map(async (a) => {
 					// get data from storage
-					const result = await messenger.storage.local.get('stats-' + a.id);
-					if (!refresh && result && result['stats-' + a.id]) {
+					const result = await messenger.storage.local.get(statsCacheKey(a.id));
+					if (!refresh && result && result[statsCacheKey(a.id)]) {
 						// if no refresh requested and this accounts data was cached before, take data from cache
-						accountsData.push(JSON.parse(JSON.stringify(result['stats-' + a.id])));
+						accountsData.push(JSON.parse(JSON.stringify(result[statsCacheKey(a.id)])));
 						progress.current += a.folderCount;
 					} else {
 						// otherwise (re)process account
@@ -406,10 +409,10 @@ export function useStatsData() {
 			// (re)calculate list of folders
 			folders.value = await traverseAccount(account);
 			// only check storage if no refresh was requested cache is enabled
-			const result = options.cache ? await messenger.storage.local.get('stats-' + id) : null;
-			if (!refresh && result && result['stats-' + id]) {
+			const result = options.cache ? await messenger.storage.local.get(statsCacheKey(id)) : null;
+			if (!refresh && result && result[statsCacheKey(id)]) {
 				// if cache is enabled and data already exists in storage, display it directly
-				display.value = JSON.parse(JSON.stringify(result['stats-' + id]));
+				display.value = JSON.parse(JSON.stringify(result[statsCacheKey(id)]));
 			} else {
 				// otherwise retrieve it first/again and track progress by processed folder count
 				progress.current = 1;

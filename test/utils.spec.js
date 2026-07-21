@@ -3,6 +3,7 @@ import {
 	arrayContainsArray,
 	contactInvolved,
 	extractEmailAddress,
+	filterActiveAccounts,
 	formatBytes,
 	formatDate,
 	formatFolder,
@@ -21,6 +22,7 @@ import {
 	setTheme,
 	sortAndLimitObject,
 	sortAndLimitObjectToArray,
+	statsCacheKey,
 	sumObjects,
 	sumObjectsArrays,
 	sumObjectsObjects,
@@ -170,6 +172,26 @@ describe('arrayContainsArray', () => {
 
 	it('is true for an empty target array (vacuous truth)', () => {
 		expect(arrayContainsArray(['a'], [])).toBe(true);
+	});
+});
+
+describe('filterActiveAccounts', () => {
+	const accountList = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
+
+	it('returns the full list unchanged when no subset is configured', () => {
+		expect(filterActiveAccounts(accountList, [])).toEqual(accountList);
+	});
+
+	it('returns the full list unchanged when the configured subset covers everyone', () => {
+		expect(filterActiveAccounts(accountList, ['a', 'b', 'c'])).toEqual(accountList);
+	});
+
+	it('filters down to only the matching ids for a smaller non-empty subset', () => {
+		expect(filterActiveAccounts(accountList, ['b'])).toEqual([{ id: 'b' }]);
+	});
+
+	it('preserves the original list order when filtering', () => {
+		expect(filterActiveAccounts(accountList, ['c', 'a'])).toEqual([{ id: 'a' }, { id: 'c' }]);
 	});
 });
 
@@ -339,6 +361,16 @@ describe('sortAndLimitObjectToArray', () => {
 describe('sumObjectsArrays', () => {
 	it('sums arrays element-wise per key across objects', () => {
 		expect(sumObjectsArrays([{ a: [1, 2] }, { a: [3, 4], b: [1] }])).toEqual({ a: [4, 6], b: [1] });
+	});
+});
+
+describe('statsCacheKey', () => {
+	it('builds the cache key for a string account id', () => {
+		expect(statsCacheKey('abc123')).toBe('stats-abc123');
+	});
+
+	it('builds the cache key for a numeric account id', () => {
+		expect(statsCacheKey(42)).toBe('stats-42');
 	});
 });
 

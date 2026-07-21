@@ -72,6 +72,18 @@ const sortAndLimitObjectToArray = (obj, limit) => {
 // helper function to see if array contains another array
 const arrayContainsArray = (arr, target) => target.every((v) => arr.includes(v));
 
+// filter <accountList> down to only the accounts in <activeAccountIds>, but only if a
+// smaller, non-empty subset was actually configured (empty or full-length = "no filter")
+const filterActiveAccounts = (accountList, activeAccountIds) => {
+	if (activeAccountIds.length > 0 && activeAccountIds.length < accountList.length) {
+		return accountList.filter((a) => activeAccountIds.includes(a.id));
+	}
+	return accountList;
+};
+
+// build the messenger.storage.local cache key for a given account's stats blob
+const statsCacheKey = (accountId) => 'stats-' + accountId;
+
 // check if a contact is involved in a message
 // = <contact> is either author or recipient, CC or BCC of <message>
 const contactInvolved = (contact, message) => {
@@ -343,6 +355,7 @@ export {
 	arrayContainsArray,
 	contactInvolved,
 	extractEmailAddress,
+	filterActiveAccounts,
 	formatBytes,
 	formatDate,
 	formatFolder,
@@ -362,6 +375,7 @@ export {
 	sortAndLimitObject,
 	sortAndLimitObjectToArray,
 	startOfToday,
+	statsCacheKey,
 	sumObjects,
 	sumObjectsArrays,
 	sumObjectsObjects,
