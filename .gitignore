@@ -3,6 +3,7 @@
 # build files
 node_modules
 dist
+coverage
 
 # scripts and config
 deploy.sh
