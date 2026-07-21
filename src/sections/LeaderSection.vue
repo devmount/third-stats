@@ -79,13 +79,10 @@ const { t } = useI18n();
 // tab navigation local to this section
 const tabLeader = ref(tabsLeader.contactsReceived);
 
-// NOTE: preserves the original (always-false) comparison - `key` is the tab's string
-// property name while tabsLeader.* are numeric ids, so none of these classes ever apply.
-// Left as-is; not in scope for this refactor.
 const leaderTabColorClass = (key) => ({
-	'border-bottom-accent1': key === tabsLeader.contactsSent,
-	'border-bottom-accent2': key === tabsLeader.contactsReceived,
-	'border-bottom-accent3': key === tabsLeader.contactsJunk,
+	'border-bottom-accent1': key === 'contactsSent',
+	'border-bottom-accent2': key === 'contactsReceived',
+	'border-bottom-accent3': key === 'contactsJunk',
 });
 
 const {
