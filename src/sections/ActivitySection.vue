@@ -1,31 +1,45 @@
 <template>
 	<div v-show="!preferences.sections.total.expand" class="tab-area position-relative">
 		<div class="position-absolute top-0-5 right-0-5 d-flex gap-0-5">
-			<div class="d-inline-flex align-center" :class="{'cursor-pointer': preferences.sections.activity.year > minYear}" @click.prevent="previousYear()">
-				<svg class="icon icon-bold icon-gray-alt icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year <= minYear}" viewBox="0 0 24 24">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+			<div
+				class="d-inline-flex align-center"
+				:class="{ 'cursor-pointer': preferences.sections.activity.year > minYear }"
+				@click.prevent="previousYear()"
+			>
+				<svg
+					class="icon icon-bold icon-gray-alt icon-hover-accent"
+					:class="{ 'v-hidden': preferences.sections.activity.year <= minYear }"
+					viewBox="0 0 24 24"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
 				</svg>
 			</div>
 			<select v-model="preferences.sections.activity.year" name="year">
 				<option v-for="y in yearsList" :key="y" :value="y">{{ y }}</option>
 			</select>
-			<div class="d-inline-flex align-center" :class="{'cursor-pointer': preferences.sections.activity.year < maxYear}" @click.prevent="nextYear()">
-				<svg class="icon icon-bold icon-gray-alt icon-hover-accent" :class="{'v-hidden': preferences.sections.activity.year >= maxYear}" viewBox="0 0 24 24">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+			<div
+				class="d-inline-flex align-center"
+				:class="{ 'cursor-pointer': preferences.sections.activity.year < maxYear }"
+				@click.prevent="nextYear()"
+			>
+				<svg
+					class="icon icon-bold icon-gray-alt icon-hover-accent"
+					:class="{ 'v-hidden': preferences.sections.activity.year >= maxYear }"
+					viewBox="0 0 24 24"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
 				</svg>
 			</div>
 		</div>
-		<SectionTabHeader
-			v-model:tab="tabActivity"
-			:tabs="tabsActivity"
-			border-variant="static-gradient"
-		>
+		<SectionTabHeader v-model:tab="tabActivity" :tabs="tabsActivity" border-variant="static-gradient">
 			<template #label="{ labelKey }">
-				{{ preferences.sections.activity.year == (new Date()).getFullYear()
-						? t("stats.charts." + labelKey + ".latestActivity")
-						: t("stats.charts." + labelKey + ".title", [preferences.sections.activity.year]) }}
+				{{
+					preferences.sections.activity.year == new Date().getFullYear()
+						? t('stats.charts.' + labelKey + '.latestActivity')
+						: t('stats.charts.' + labelKey + '.title', [preferences.sections.activity.year])
+				}}
 			</template>
 		</SectionTabHeader>
 		<div class="tab-content chart-group mt-1">

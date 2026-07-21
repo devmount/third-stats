@@ -12,14 +12,15 @@ export function useActivityChartData({ display, activityPrefs, t }) {
 
 		// Build lookup maps from actual data
 		const receivedMap = Object.fromEntries(
-			Object.entries(display.value.dateData?.received || {}).filter(e => e[0].substring(0, 4) == year)
+			Object.entries(display.value.dateData?.received || {}).filter((e) => e[0].substring(0, 4) == year)
 		);
 		const sentMap = Object.fromEntries(
-			Object.entries(display.value.dateData?.sent || {}).filter(e => e[0].substring(0, 4) == year)
+			Object.entries(display.value.dateData?.sent || {}).filter((e) => e[0].substring(0, 4) == year)
 		);
 
 		// Generate full year data with 0 for empty days
-		let r = [], s = [];
+		let r = [],
+			s = [];
 		for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
 			const key = localDateKey(d);
 			r.push([key, receivedMap[key] || 0]);
@@ -28,8 +29,8 @@ export function useActivityChartData({ display, activityPrefs, t }) {
 
 		// TODO: handle options.startOfWeek
 		return {
-			received: { label: t("stats.mailsReceived"), data: r },
-			sent: { label: t("stats.mailsSent"), data: s },
+			received: { label: t('stats.mailsReceived'), data: r },
+			sent: { label: t('stats.mailsSent'), data: s },
 		};
 	});
 

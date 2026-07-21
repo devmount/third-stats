@@ -8,15 +8,16 @@ export function useTagsChartData({ display, tags, options, t }) {
 	const tagsChartData = computed(() => {
 		const r = sortAndLimitObject(display.value.tags) || {};
 		const color = options.dark ? accentColors[2] : accentColors[3];
-		const labels = [], colors = [];
-		Object.keys(r).forEach(key => {
-			labels.push(tags.value.find(tag => tag.key === key)?.tag || 'undefined');
-			colors.push(tags.value.find(tag => tag.key === key)?.color || color);
+		const labels = [],
+			colors = [];
+		Object.keys(r).forEach((key) => {
+			labels.push(tags.value.find((tag) => tag.key === key)?.tag || 'undefined');
+			colors.push(tags.value.find((tag) => tag.key === key)?.color || color);
 		}, this);
 		return {
 			datasets: [
 				{
-					label: t("stats.mailsPerTag"),
+					label: t('stats.mailsPerTag'),
 					data: Object.values(r),
 					borderColor: options.tagColors ? colors : color,
 				},

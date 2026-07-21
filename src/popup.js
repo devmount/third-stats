@@ -8,12 +8,12 @@ app.provide('version', APP_VERSION);
 
 // internationalization
 import { createI18n } from 'vue-i18n';
-import { messages, pluralRules } from "@/translations.js";
+import { messages, pluralRules } from '@/translations.js';
 const i18n = createI18n({
 	legacy: false,
 	globalInjection: true,
 	locale: messenger.i18n.getUILanguage(),
-	fallbackLocale: "en",
+	fallbackLocale: 'en',
 	messages,
 	pluralRules,
 });

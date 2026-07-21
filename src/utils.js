@@ -2,23 +2,21 @@
 const twoDigit = (n) => n.toFixed(2);
 const oneDigit = (n) => n.toFixed(1);
 
-
 // helper class for object generation
 class NumberedObject {
-	constructor(n, m=null) {
+	constructor(n, m = null) {
 		const a = [...Array(n).keys()];
-		a.map(e => {
+		a.map((e) => {
 			this[e] = m === null ? 0 : Array.from({ length: m }).fill(0);
 		});
 	}
-};
+}
 
 // helper function for objects sum, given array of flat objects
 const sumObjects = (objs) => {
 	const res = objs.reduce((a, b) => {
 		for (let k in b) {
-			if (b.hasOwnProperty(k))
-				a[k] = (a[k] || 0) + b[k];
+			if (b.hasOwnProperty(k)) a[k] = (a[k] || 0) + b[k];
 		}
 		return a;
 	}, {});
@@ -29,8 +27,7 @@ const sumObjects = (objs) => {
 const sumObjectsObjects = (objs) => {
 	const res = objs.reduce((a, b) => {
 		for (let k in b) {
-			if (b.hasOwnProperty(k))
-				a[k] = a[k] ? sumObjects([a[k], b[k]]) : b[k];
+			if (b.hasOwnProperty(k)) a[k] = a[k] ? sumObjects([a[k], b[k]]) : b[k];
 		}
 		return a;
 	}, {});
@@ -42,10 +39,8 @@ const sumObjectsArrays = (objs) => {
 	const res = objs.reduce((a, b) => {
 		for (let k in b) {
 			if (b.hasOwnProperty(k)) {
-				if (!a[k])
-					a[k] = Array.from({ length: b[k].length }).fill(0);
-				for(let i=0; i<b[k].length; ++i)
-					a[k][i] = b[k][i] + a[k][i];
+				if (!a[k]) a[k] = Array.from({ length: b[k].length }).fill(0);
+				for (let i = 0; i < b[k].length; ++i) a[k][i] = b[k][i] + a[k][i];
 			}
 		}
 		return a;
@@ -54,44 +49,46 @@ const sumObjectsArrays = (objs) => {
 };
 
 // helper function to sort object properties by value, limit entries and return an object again
-const sortAndLimitObject = (obj, limit=0) => {
+const sortAndLimitObject = (obj, limit = 0) => {
 	if (limit <= 0) limit = Object.keys(obj).length;
-	let r = Object.entries(obj).sort(([,a],[,b]) => b-a).reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+	let r = Object.entries(obj)
+		.sort(([, a], [, b]) => b - a)
+		.reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
 	return Object.keys(r)
 		.slice(0, limit)
-		.reduce((result, key) => { result[key] = r[key]; return result; }, {});
+		.reduce((result, key) => {
+			result[key] = r[key];
+			return result;
+		}, {});
 };
 
 // helper function to sort object properties by value, limit entries and return an array
 const sortAndLimitObjectToArray = (obj, limit) => {
-	return Object.entries(obj).sort(([,a],[,b]) => b-a).slice(0, limit);
+	return Object.entries(obj)
+		.sort(([, a], [, b]) => b - a)
+		.slice(0, limit);
 };
 
 // helper function to see if array contains another array
-const arrayContainsArray = (arr, target) => target.every(v => arr.includes(v));
+const arrayContainsArray = (arr, target) => target.every((v) => arr.includes(v));
 
 // check if a contact is involved in a message
 // = <contact> is either author or recipient, CC or BCC of <message>
 const contactInvolved = (contact, message) => {
 	const author = extractEmailAddress(message.author);
-	const recipients = message.recipients.map(r => extractEmailAddress(r));
-	const ccs = message.ccList.map(r => extractEmailAddress(r));
-	const bccs = message.bccList.map(r => extractEmailAddress(r));
-	return (
-		contact == author
-		|| recipients.includes(contact)
-		|| ccs.includes(contact)
-		|| bccs.includes(contact)
-	);
+	const recipients = message.recipients.map((r) => extractEmailAddress(r));
+	const ccs = message.ccList.map((r) => extractEmailAddress(r));
+	const bccs = message.bccList.map((r) => extractEmailAddress(r));
+	return contact == author || recipients.includes(contact) || ccs.includes(contact) || bccs.includes(contact);
 };
 
 // check if a <message> is a self message
 // = sender and receivers all match configured <identities>
 const isSelfMessage = (message, identities) => {
 	const author = extractEmailAddress(message.author);
-	const recipients = message.recipients.map(r => extractEmailAddress(r));
-	const ccs = message.ccList.map(r => extractEmailAddress(r));
-	const bccs = message.bccList.map(r => extractEmailAddress(r));
+	const recipients = message.recipients.map((r) => extractEmailAddress(r));
+	const ccs = message.ccList.map((r) => extractEmailAddress(r));
+	const bccs = message.bccList.map((r) => extractEmailAddress(r));
 	// check author
 	if (!author) return false;
 	if (author && !identities.includes(author)) return false;
@@ -109,8 +106,8 @@ const isSelfMessage = (message, identities) => {
 const queryMessages = async function* (folderId, fromDate, toDate) {
 	// handle date filter
 	const dateFilterActive = fromDate && toDate;
-	const from = new Date(fromDate).setUTCHours(0,0,0,0);
-	const to = new Date(toDate).setUTCHours(23,59,59,999);
+	const from = new Date(fromDate).setUTCHours(0, 0, 0, 0);
+	const to = new Date(toDate).setUTCHours(23, 59, 59, 999);
 	try {
 		// paginate messages
 		let page = await messenger.messages.list(folderId);
@@ -129,7 +126,7 @@ const queryMessages = async function* (folderId, fromDate, toDate) {
 				}
 			}
 		}
-	} catch(error) {
+	} catch (error) {
 		await messenger.storage.local.set({ error: true });
 		console.error(error);
 	}
@@ -141,7 +138,7 @@ const traverseAccount = async (account) => {
 	// Recursive function to traverse all subfolders
 	function traverse(folders) {
 		if (!folders?.length) return;
-		folders.forEach(f => {
+		folders.forEach((f) => {
 			if (!f.isRoot) foldersList.push(f);
 			traverse(f.subFolders);
 		});
@@ -150,14 +147,14 @@ const traverseAccount = async (account) => {
 	// Start with root
 	const rootFolder = await messenger.folders.get(account.rootFolder.id, true);
 	traverse([rootFolder]);
-	
+
 	return foldersList;
 };
 
 // extract an email address from a given string
 const extractEmailAddress = (s) => {
-	if (s.lastIndexOf("<")>=0 && s.lastIndexOf(">")>=0) {
-		return s.substring(s.lastIndexOf("<") + 1, s.lastIndexOf(">")).toLowerCase();
+	if (s.lastIndexOf('<') >= 0 && s.lastIndexOf('>') >= 0) {
+		return s.substring(s.lastIndexOf('<') + 1, s.lastIndexOf('>')).toLowerCase();
 	} else {
 		const e = s.toLowerCase().match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
 		return e ? e[0] : '';
@@ -170,7 +167,7 @@ const weekNumber = (d) => {
 	d.setHours(0, 0, 0, 0);
 	d.setDate(d.getDate() + 4 - (d.getDay() || 7));
 	const yearStart = new Date(d.getFullYear(), 0, 1);
-	return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+	return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
 };
 
 // get the number of weeks for a given year
@@ -185,8 +182,8 @@ const weeksBetween = (d1, d2) => {
 	const minIsFirstWeekOfNextYear = d1.getMonth() == 11 && weekNumber(d1) == 1;
 	const maxIsLastWeekOfPrevYear = d2.getMonth() == 0 && weekNumber(d2) > 50;
 	const maxIsFirstWeekOfNextYear = d2.getMonth() == 11 && weekNumber(d2) == 1;
-	const minYear = minIsFirstWeekOfNextYear ? d1.getFullYear()+1 : d1.getFullYear();
-	const maxYear = maxIsLastWeekOfPrevYear ? d2.getFullYear()-1 : d2.getFullYear();
+	const minYear = minIsFirstWeekOfNextYear ? d1.getFullYear() + 1 : d1.getFullYear();
+	const maxYear = maxIsLastWeekOfPrevYear ? d2.getFullYear() - 1 : d2.getFullYear();
 	let weeks = [];
 	for (let y = minYear; y <= maxYear; ++y) {
 		for (let w = 1; w <= weeksInYear(y); ++w) {
@@ -200,11 +197,11 @@ const weeksBetween = (d1, d2) => {
 	}
 	// check first days of year still belonging to last week of previous year
 	if (minIsLastWeekOfPrevYear) {
-		weeks.unshift([d1.getFullYear()-1, weekNumber(d1) ]);
+		weeks.unshift([d1.getFullYear() - 1, weekNumber(d1)]);
 	}
 	// check last days of year already belonging to first week of next year
 	if (maxIsFirstWeekOfNextYear) {
-		weeks.push([d2.getFullYear()+1, weekNumber(d2) ]);
+		weeks.push([d2.getFullYear() + 1, weekNumber(d2)]);
 	}
 	return weeks;
 };
@@ -213,18 +210,18 @@ const weeksBetween = (d1, d2) => {
 const localStartOfWeek = () => {
 	const d = new Date();
 	const diff = d.getDate() - d.getDay();
-	return (new Date(d.setDate(diff))).getDay();
+	return new Date(d.setDate(diff)).getDay();
 };
 
 // get quarter number for given date
 const quarterNumber = (d) => {
 	const month = d.getMonth() + 1;
-	return (Math.ceil(month / 3));
+	return Math.ceil(month / 3);
 };
 
 // format given date as YYYYMMDD
 const yyyymmdd = (d) => {
-	return d.toISOString().replace(/-/g, '').slice(0,8);
+	return d.toISOString().replace(/-/g, '').slice(0, 8);
 };
 
 // format given date as YYYY-MM-DD using its local calendar date
@@ -237,84 +234,84 @@ const localDateKey = (d) => {
 };
 
 // return day of week in iso format
-const isoDayOfWeek = d => {
-  let wd = d.getDay();   // 0..6, from sunday
-  wd = (wd + 6) % 7 + 1; // 1..7 from monday
-  return String(wd);
+const isoDayOfWeek = (d) => {
+	let wd = d.getDay(); // 0..6, from sunday
+	wd = ((wd + 6) % 7) + 1; // 1..7 from monday
+	return String(wd);
 };
 
 const startOfToday = () => {
-  const d = new Date();
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+	const d = new Date();
+	return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
 };
 
 // formats given date <d> human readable, takes locale into account
-const formatDate = (d, locale="en") => {
+const formatDate = (d, locale = 'en') => {
 	const options = {
-		weekday: "long",
-		year:    "numeric",
-		month:   "long",
-		day:     "numeric",
-		hour:    "2-digit",
-		minute:  "2-digit"
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
 	};
-	return d ? (new Date(d)).toLocaleDateString(locale, options) : '';
+	return d ? new Date(d).toLocaleDateString(locale, options) : '';
 };
 
 // array of localized, short month names
-const monthNames = (locale="en") => {
-	let names = []
+const monthNames = (locale = 'en') => {
+	let names = [];
 	for (let m = 1; m <= 12; m++) {
-		let d = new Date(1970, m, 0) // choose a date to retrieve months from, starting in January
-		names.push(d.toLocaleDateString(locale, { month: "short" }))
+		let d = new Date(1970, m, 0); // choose a date to retrieve months from, starting in January
+		names.push(d.toLocaleDateString(locale, { month: 'short' }));
 	}
-	return names
+	return names;
 };
 
 // array of localized, short day of week names
-const weekdayNames = (locale="en") => {
-	let names = []
+const weekdayNames = (locale = 'en') => {
+	let names = [];
 	for (let wd = 1; wd <= 7; wd++) {
-		const d = new Date(1970, 1, wd) // choose a date to retrieve weekdays from, starting on a Sunday
-		names.push(d.toLocaleDateString(locale, { weekday: "short" }))
+		const d = new Date(1970, 1, wd); // choose a date to retrieve weekdays from, starting on a Sunday
+		names.push(d.toLocaleDateString(locale, { weekday: 'short' }));
 	}
-	return names
+	return names;
 };
 
 // format bytes and append unit
-const formatBytes = (bytes, decimals=2) => {
-	if (bytes === 0) return "0 Bytes";
+const formatBytes = (bytes, decimals = 2) => {
+	if (bytes === 0) return '0 Bytes';
 	const k = 1024;
 	const dm = decimals < 0 ? 0 : decimals;
-	const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 	const i = Math.floor(Math.log(bytes) / Math.log(k));
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
 
 // special pluralization rules
 const pluralPolish = (n) => {
 	if (n === 1) return 1;
 	const lastDigit = n % 10;
-	if (([2, 3, 4].indexOf(lastDigit) >= 0) && (n < 12 || n > 14)) return 2;
+	if ([2, 3, 4].indexOf(lastDigit) >= 0 && (n < 12 || n > 14)) return 2;
 	return 0;
 };
 const pluralUkrainian = (n) => {
 	const lastDigit = n % 10;
 	if (lastDigit === 1 && n !== 11) return 1;
-	if (([2, 3, 4].indexOf(lastDigit) >= 0) && (n < 12 || n > 14)) return 2;
+	if ([2, 3, 4].indexOf(lastDigit) >= 0 && (n < 12 || n > 14)) return 2;
 	return 0;
 };
 
-/** 
+/**
  * handle theme changes, returns true if dark was detected
- * 
+ *
  * @param {String} theme Supported themes are system|dark|light
  * @param {HTMLElement} element DOM element to add/remove classes on
  * @param {Array} darkClasses List of classes representing dark mode
  * @param {Array} lightClasses List of classes representing light mode
  * @returns {Boolean} True, if dark mode was set
  */
-const setTheme = (theme, element=document.documentElement, darkClasses=['dark'], lightClasses=['light']) => {
+const setTheme = (theme, element = document.documentElement, darkClasses = ['dark'], lightClasses = ['light']) => {
 	if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 		element.classList.remove(...lightClasses);
 		element.classList.add(...darkClasses);
@@ -328,13 +325,12 @@ const setTheme = (theme, element=document.documentElement, darkClasses=['dark'],
 
 // open given url in new tab
 // appends GET parameter if given
-const openTab = (url, get="") => {
+const openTab = (url, get = '') => {
 	messenger.tabs.create({
 		active: true,
-		url: get ? url + "?s=" + get : url,
+		url: get ? url + '?s=' + get : url,
 	});
 };
-
 
 export {
 	arrayContainsArray,
@@ -367,4 +363,4 @@ export {
 	weekNumber,
 	weeksBetween,
 	yyyymmdd,
-}
+};

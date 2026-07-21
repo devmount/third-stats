@@ -46,6 +46,6 @@ describe('useActivityChartData', () => {
 		// not shifted to the adjacent year as a UTC-based toISOString() key would
 		expect(keys[0]).toBe('2023-01-01');
 		expect(keys[keys.length - 1]).toBe('2023-12-31');
-		expect(keys.every(k => k.startsWith('2023-'))).toBe(true);
+		expect(keys.every((k) => k.startsWith('2023-'))).toBe(true);
 	});
 });

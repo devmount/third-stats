@@ -59,19 +59,30 @@ describe('quarterNumber', () => {
 
 describe('weeksBetween', () => {
 	it('prefixes the last week of the previous year when the range starts in it', () => {
-		expect(weeksBetween(new Date(2017, 0, 1), new Date(2017, 0, 15)))
-			.toEqual([[2016, 52], [2017, 1], [2017, 2]]);
+		expect(weeksBetween(new Date(2017, 0, 1), new Date(2017, 0, 15))).toEqual([
+			[2016, 52],
+			[2017, 1],
+			[2017, 2],
+		]);
 	});
 
 	it('handles a range spanning a year boundary', () => {
-		expect(weeksBetween(new Date(2018, 11, 25), new Date(2019, 0, 10)))
-			.toEqual([[2018, 52], [2019, 1], [2019, 2]]);
+		expect(weeksBetween(new Date(2018, 11, 25), new Date(2019, 0, 10))).toEqual([
+			[2018, 52],
+			[2019, 1],
+			[2019, 2],
+		]);
 	});
 });
 
 describe('sumObjects', () => {
 	it('sums overlapping keys and keeps disjoint ones', () => {
-		expect(sumObjects([{ a: 1, b: 2 }, { b: 3, c: 4 }])).toEqual({ a: 1, b: 5, c: 4 });
+		expect(
+			sumObjects([
+				{ a: 1, b: 2 },
+				{ b: 3, c: 4 },
+			])
+		).toEqual({ a: 1, b: 5, c: 4 });
 	});
 
 	it('returns an empty object for empty input', () => {
@@ -81,8 +92,9 @@ describe('sumObjects', () => {
 
 describe('sumObjectsObjects', () => {
 	it('sums nested objects key by key', () => {
-		expect(sumObjectsObjects([{ 2023: { 1: 1, 2: 2 } }, { 2023: { 2: 3, 3: 4 } }]))
-			.toEqual({ 2023: { 1: 1, 2: 5, 3: 4 } });
+		expect(sumObjectsObjects([{ 2023: { 1: 1, 2: 2 } }, { 2023: { 2: 3, 3: 4 } }])).toEqual({
+			2023: { 1: 1, 2: 5, 3: 4 },
+		});
 	});
 });
 
@@ -300,14 +312,16 @@ describe('sortAndLimitObject', () => {
 
 describe('sortAndLimitObjectToArray', () => {
 	it('returns sorted [key, value] pairs, limited to the given count', () => {
-		expect(sortAndLimitObjectToArray({ a: 1, b: 5, c: 3 }, 2)).toEqual([['b', 5], ['c', 3]]);
+		expect(sortAndLimitObjectToArray({ a: 1, b: 5, c: 3 }, 2)).toEqual([
+			['b', 5],
+			['c', 3],
+		]);
 	});
 });
 
 describe('sumObjectsArrays', () => {
 	it('sums arrays element-wise per key across objects', () => {
-		expect(sumObjectsArrays([{ a: [1, 2] }, { a: [3, 4], b: [1] }]))
-			.toEqual({ a: [4, 6], b: [1] });
+		expect(sumObjectsArrays([{ a: [1, 2] }, { a: [3, 4], b: [1] }])).toEqual({ a: [4, 6], b: [1] });
 	});
 });
 
@@ -322,8 +336,8 @@ describe('setTheme', () => {
 		const classes = new Set();
 		return {
 			classList: {
-				add: (...names) => names.forEach(n => classes.add(n)),
-				remove: (...names) => names.forEach(n => classes.delete(n)),
+				add: (...names) => names.forEach((n) => classes.add(n)),
+				remove: (...names) => names.forEach((n) => classes.delete(n)),
 				contains: (n) => classes.has(n),
 			},
 		};
@@ -437,9 +451,7 @@ describe('traverseAccount', () => {
 		const tree = {
 			isRoot: true,
 			subFolders: [
-				{ isRoot: false, path: '/Inbox', subFolders: [
-					{ isRoot: false, path: '/Inbox/Sub', subFolders: [] },
-				] },
+				{ isRoot: false, path: '/Inbox', subFolders: [{ isRoot: false, path: '/Inbox/Sub', subFolders: [] }] },
 				{ isRoot: false, path: '/Sent', subFolders: [] },
 			],
 		};
@@ -447,7 +459,7 @@ describe('traverseAccount', () => {
 		vi.stubGlobal('messenger', { folders: { get } });
 		const account = { rootFolder: { id: 'root-1' } };
 		const result = await traverseAccount(account);
-		expect(result.map(f => f.path)).toEqual(['/Inbox', '/Inbox/Sub', '/Sent']);
+		expect(result.map((f) => f.path)).toEqual(['/Inbox', '/Inbox/Sub', '/Sent']);
 		expect(get).toHaveBeenCalledWith('root-1', true);
 	});
 

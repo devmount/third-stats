@@ -24,8 +24,16 @@ describe('useTotalChartData', () => {
 		const maxDate = computed(() => new Date(2023, 3, 15));
 		const locale = ref('en');
 		return {
-			display, comparison, accounts, options, minYear, maxYear, minDate, maxDate,
-			t: stubT, locale,
+			display,
+			comparison,
+			accounts,
+			options,
+			minYear,
+			maxYear,
+			minDate,
+			maxDate,
+			t: stubT,
+			locale,
 			...overrides,
 		};
 	};

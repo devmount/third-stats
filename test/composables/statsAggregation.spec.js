@@ -62,7 +62,11 @@ describe('analyzeMessage', () => {
 	it('excludes a self message relative to the account identity list when selfMessagesMode is "sameAccount"', () => {
 		const data = createStatsData();
 		const message = baseMessage({ author: 'me@example.com', recipients: ['me@example.com'] });
-		const context = { activeContact: null, selfMessagesMode: 'sameAccount', allIdentities: ['someone-else@example.com'] };
+		const context = {
+			activeContact: null,
+			selfMessagesMode: 'sameAccount',
+			allIdentities: ['someone-else@example.com'],
+		};
 		const type = analyzeMessage(data, message, ['me@example.com'], context);
 		expect(type).toBeUndefined();
 		expect(data.numbers.total).toBe(0);
@@ -71,7 +75,11 @@ describe('analyzeMessage', () => {
 	it('excludes a self message relative to allIdentities when selfMessagesMode is not "sameAccount"', () => {
 		const data = createStatsData();
 		const message = baseMessage({ author: 'me@example.com', recipients: ['other-account@example.com'] });
-		const context = { activeContact: null, selfMessagesMode: 'all', allIdentities: ['me@example.com', 'other-account@example.com'] };
+		const context = {
+			activeContact: null,
+			selfMessagesMode: 'all',
+			allIdentities: ['me@example.com', 'other-account@example.com'],
+		};
 		const type = analyzeMessage(data, message, ['me@example.com'], context);
 		expect(type).toBeUndefined();
 	});

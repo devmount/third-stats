@@ -9,7 +9,7 @@ export function useLeaderChartData({ display, options, t }) {
 		return {
 			datasets: [
 				{
-					label: t("stats.mailsSent"),
+					label: t('stats.mailsSent'),
 					data: Object.values(s),
 					borderColor: accentColors[0],
 				},
@@ -28,7 +28,7 @@ export function useLeaderChartData({ display, options, t }) {
 		return {
 			datasets: [
 				{
-					label: t("stats.mailsReceived"),
+					label: t('stats.mailsReceived'),
 					data: Object.values(r),
 					borderColor: accentColors[1],
 				},
@@ -48,7 +48,7 @@ export function useLeaderChartData({ display, options, t }) {
 		return {
 			datasets: [
 				{
-					label: t("stats.junkMails"),
+					label: t('stats.junkMails'),
 					data: Object.values(r),
 					borderColor: color,
 				},

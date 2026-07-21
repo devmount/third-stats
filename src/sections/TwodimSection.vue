@@ -1,10 +1,6 @@
 <template>
 	<div class="tab-area">
-		<SectionTabHeader
-			:tab="tabTwodim"
-			:tabs="tabsTwodim"
-			border-variant="static-gradient"
-		/>
+		<SectionTabHeader :tab="tabTwodim" :tabs="tabsTwodim" border-variant="static-gradient" />
 		<div class="tab-content chart-group mt-1">
 			<!-- emails per weekday per hour received -->
 			<MatrixChart

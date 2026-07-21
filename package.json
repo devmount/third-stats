@@ -6,6 +6,8 @@
 		"build": "vite build",
 		"serve": "vite preview",
 		"lint": "oxlint",
+		"format": "prettier --write \"src/**/*.{js,vue}\" \"test/**/*.js\" vite.config.js vitest.config.js",
+		"format:check": "prettier --check \"src/**/*.{js,vue}\" \"test/**/*.js\" vite.config.js vitest.config.js",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"getlang": "localazy download",
@@ -24,6 +26,7 @@
 		"@localazy/cli": "^2.0.11",
 		"@vitejs/plugin-vue": "^6.0.8",
 		"oxlint": "^1.74.0",
+		"prettier": "^3.9.5",
 		"vite": "^8.1.5",
 		"vitest": "^4.1.10"
 	},

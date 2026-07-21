@@ -14,7 +14,7 @@ const props = defineProps({
 	// date to show live aging for
 	date: {
 		type: Number,
-	}
+	},
 });
 
 const now = ref(Date.now());
@@ -22,7 +22,9 @@ const repeater = ref();
 
 onMounted(() => {
 	// update timestamp every second
-	repeater.value = setInterval(() => { now.value = Date.now() }, 1000);
+	repeater.value = setInterval(() => {
+		now.value = Date.now();
+	}, 1000);
 });
 
 onBeforeUnmount(() => {
@@ -32,9 +34,9 @@ onBeforeUnmount(() => {
 // calculates the time between current and given timestamp with human readable time units
 const timePassedSinceDataRetrieval = computed(() => {
 	const secondsPast = (now.value - props.date) / 1000;
-	if (secondsPast < 60)     return parseInt(secondsPast) + t("stats.abbreviations.second");
-	if (secondsPast < 3600)   return parseInt(secondsPast/60) + t("stats.abbreviations.minute");
-	if (secondsPast <= 86400) return parseInt(secondsPast/3600) + t("stats.abbreviations.hour");
-	if (secondsPast > 86400)  return parseInt(secondsPast/86400) + t("stats.abbreviations.day");
+	if (secondsPast < 60) return parseInt(secondsPast) + t('stats.abbreviations.second');
+	if (secondsPast < 3600) return parseInt(secondsPast / 60) + t('stats.abbreviations.minute');
+	if (secondsPast <= 86400) return parseInt(secondsPast / 3600) + t('stats.abbreviations.hour');
+	if (secondsPast > 86400) return parseInt(secondsPast / 86400) + t('stats.abbreviations.day');
 });
 </script>

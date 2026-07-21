@@ -1,15 +1,15 @@
 <template>
-<div class="chart">
-	<h2 v-if="title" class="text-center">{{ title }}</h2>
-	<p v-if="description" class="text-gray text-center">{{ description }}</p>
-	<div class="chart-container">
-		<canvas :id="id"></canvas>
-		<div v-if="info" class="chart-info">
-			<div class="featured">{{ info.number }}</div>
-			<div class="text-gray">{{ info.label }}</div>
+	<div class="chart">
+		<h2 v-if="title" class="text-center">{{ title }}</h2>
+		<p v-if="description" class="text-gray text-center">{{ description }}</p>
+		<div class="chart-container">
+			<canvas :id="id"></canvas>
+			<div v-if="info" class="chart-info">
+				<div class="featured">{{ info.number }}</div>
+				<div class="text-gray">{{ info.label }}</div>
+			</div>
 		</div>
 	</div>
-</div>
 </template>
 
 <script setup>
@@ -30,20 +30,22 @@ const props = defineProps({
 // calculate opacity as two digit hex for given value based on max value
 const opacity = (value, max) => {
 	if (max == 0) return '00';
-	return Math.round(255*value/max).toString(16).padStart(2, "0");
+	return Math.round((255 * value) / max)
+		.toString(16)
+		.padStart(2, '0');
 };
 
 // calculate list of background colors for each data arc
 const dataColors = (data, color) => {
 	const colors = [];
 	const max = Math.max(...data);
-	data.forEach(d => colors.push(color + opacity(d, max)));
+	data.forEach((d) => colors.push(color + opacity(d, max)));
 	return colors;
 };
 
 // paint every segment depending on its data
 const colorize = (datasets) => {
-	datasets.map(d => {
+	datasets.map((d) => {
 		d.backgroundColor = dataColors(d.data, d.color);
 		d.borderColor = d.color;
 	});
@@ -53,7 +55,7 @@ const colorize = (datasets) => {
 // draw chart on canvas
 const draw = () => {
 	chart = new Chart(id, {
-		type: "doughnut",
+		type: 'doughnut',
 		data: {
 			datasets: colorize(props.datasets),
 			labels: props.labels,
@@ -70,19 +72,19 @@ const draw = () => {
 					intersect: true,
 					position: 'nearest',
 					callbacks: {
-						title: context => context[0].label,
-						label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
-						labelColor: context => {
+						title: (context) => context[0].label,
+						label: (context) => ' ' + context.formattedValue + ' ' + context.dataset.label,
+						labelColor: (context) => {
 							return {
 								borderWidth: 2,
 								borderColor: context.dataset.borderColor,
 								backgroundColor: context.dataset.borderColor + '33',
 							};
-						}
-					}
-				}
-			}
-		}
+						},
+					},
+				},
+			},
+		},
 	});
 };
 

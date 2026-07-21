@@ -99,22 +99,22 @@ const analyzeMessage = (data, message, identityList, context) => {
 	// check filter:contact
 	if (context.activeContact && !contactInvolved(context.activeContact, message)) return;
 	// check for self messages, if exclusion is enabled
-	if (context.selfMessagesMode && context.selfMessagesMode != "none") {
-		const ids = context.selfMessagesMode == "sameAccount" ? identityList : context.allIdentities;
+	if (context.selfMessagesMode && context.selfMessagesMode != 'none') {
+		const ids = context.selfMessagesMode == 'sameAccount' ? identityList : context.allIdentities;
 		if (isSelfMessage(message, ids)) return;
 	}
 	// now start analyses
-	let type = "";
+	let type = '';
 	const author = extractEmailAddress(message.author);
 	// numbers
 	data.numbers.total++;
 	if (message.read === false) data.numbers.unread++;
 	if (identityList.includes(author)) {
 		data.numbers.sent++;
-		type = "sent";
+		type = 'sent';
 	} else {
 		data.numbers.received++;
-		type = "received";
+		type = 'received';
 	}
 	if (message.junk) data.numbers.junk++;
 	data.numbers.junkScore += message.junkScore;
@@ -156,7 +156,7 @@ const analyzeMessage = (data, message, identityList, context) => {
 	}
 	// weeks
 	const wn = weekNumber(message.date);
-	const ywn = wn == 53 && mo == 0 ? y-1 : y; // adjust year for first days of January that are before week 1
+	const ywn = wn == 53 && mo == 0 ? y - 1 : y; // adjust year for first days of January that are before week 1
 	if (!(ywn in data.weeksData[type])) {
 		data.weeksData[type][ywn] = {};
 		data.weeksData[type][ywn][wn] = 1;
@@ -187,8 +187,8 @@ const analyzeMessage = (data, message, identityList, context) => {
 	// contacts (leaderboards)
 	switch (type) {
 		case 'sent':
-			const recipients = message.recipients.map(r => extractEmailAddress(r).toLowerCase());
-			recipients.forEach(r => {
+			const recipients = message.recipients.map((r) => extractEmailAddress(r).toLowerCase());
+			recipients.forEach((r) => {
 				if (!(r in data.contacts.sent)) {
 					data.contacts.sent[r] = 1;
 				} else {
@@ -225,7 +225,7 @@ const analyzeMessage = (data, message, identityList, context) => {
 	// tags
 	if (message.tags.length > 0) {
 		data.numbers.tagged++;
-		message.tags.forEach(tag => {
+		message.tags.forEach((tag) => {
 			if (!(tag in data.tags)) {
 				data.tags[tag] = 1;
 			} else {
@@ -241,77 +241,136 @@ const analyzeMessage = (data, message, identityList, context) => {
 const sumAccountsData = (accountsData, maxListCount) => {
 	let sum = createStatsData();
 	// meta
-	accountsData.map(a => {
-		if (!a.hasOwnProperty("meta")) a.meta = { timestamp: 0 };
+	accountsData.map((a) => {
+		if (!a.hasOwnProperty('meta')) a.meta = { timestamp: 0 };
 	});
-	sum.meta.timestamp = accountsData.reduce((p,c) => p < c.meta.timestamp ? p : c.meta.timestamp, Date.now());
+	sum.meta.timestamp = accountsData.reduce((p, c) => (p < c.meta.timestamp ? p : c.meta.timestamp), Date.now());
 	// numbers
-	sum.numbers.total = accountsData.reduce((p,c) => p+c.numbers.total, 0);
-	sum.numbers.unread = accountsData.reduce((p,c) => p+c.numbers.unread, 0);
-	sum.numbers.received = accountsData.reduce((p,c) => p+c.numbers.received, 0);
-	sum.numbers.sent = accountsData.reduce((p,c) => p+c.numbers.sent, 0);
-	sum.numbers.starred = accountsData.reduce((p,c) => p+(c.numbers.starred ?? 0), 0);
-	sum.numbers.tagged = accountsData.reduce((p,c) => p+(c.numbers.tagged ?? 0), 0);
-	sum.numbers.junk = accountsData.reduce((p,c) => p+c.numbers.junk, 0);
-	sum.numbers.junkScore = accountsData.reduce((p,c) => p+c.numbers.junkScore, 0)/accountsData.length;
-	sum.meta.start = accountsData.reduce((p,c) => p < c.meta.start ? p : c.meta.start, 0);
-	sum.meta.end = accountsData.reduce((p,c) => p >= c.meta.end ? p : c.meta.end, 0);
+	sum.numbers.total = accountsData.reduce((p, c) => p + c.numbers.total, 0);
+	sum.numbers.unread = accountsData.reduce((p, c) => p + c.numbers.unread, 0);
+	sum.numbers.received = accountsData.reduce((p, c) => p + c.numbers.received, 0);
+	sum.numbers.sent = accountsData.reduce((p, c) => p + c.numbers.sent, 0);
+	sum.numbers.starred = accountsData.reduce((p, c) => p + (c.numbers.starred ?? 0), 0);
+	sum.numbers.tagged = accountsData.reduce((p, c) => p + (c.numbers.tagged ?? 0), 0);
+	sum.numbers.junk = accountsData.reduce((p, c) => p + c.numbers.junk, 0);
+	sum.numbers.junkScore = accountsData.reduce((p, c) => p + c.numbers.junkScore, 0) / accountsData.length;
+	sum.meta.start = accountsData.reduce((p, c) => (p < c.meta.start ? p : c.meta.start), 0);
+	sum.meta.end = accountsData.reduce((p, c) => (p >= c.meta.end ? p : c.meta.end), 0);
 	// years
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.yearsData.received)])], [])
-		.map(y => { sum.yearsData.received[y] = accountsData.reduce((p,c) => c.yearsData.received[y] ? p+c.yearsData.received[y] : p, 0) });
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.yearsData.sent)])], [])
-		.map(y => { sum.yearsData.sent[y] = accountsData.reduce((p,c) => c.yearsData.sent[y] ? p+c.yearsData.sent[y] : p, 0) });
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.yearsData.received)])], [])
+		.map((y) => {
+			sum.yearsData.received[y] = accountsData.reduce(
+				(p, c) => (c.yearsData.received[y] ? p + c.yearsData.received[y] : p),
+				0
+			);
+		});
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.yearsData.sent)])], [])
+		.map((y) => {
+			sum.yearsData.sent[y] = accountsData.reduce((p, c) => (c.yearsData.sent[y] ? p + c.yearsData.sent[y] : p), 0);
+		});
 	// quarters
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.quartersData.received)])], [])
-		.map(y => { sum.quartersData.received[y] = sumObjects(accountsData.reduce((p,c) => c.quartersData.received[y] ? p.concat(c.quartersData.received[y]) : p, [])) });
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.quartersData.sent)])], [])
-		.map(y => { sum.quartersData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.quartersData.sent[y] ? p.concat(c.quartersData.sent[y]) : p, [])) });
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.quartersData.received)])], [])
+		.map((y) => {
+			sum.quartersData.received[y] = sumObjects(
+				accountsData.reduce((p, c) => (c.quartersData.received[y] ? p.concat(c.quartersData.received[y]) : p), [])
+			);
+		});
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.quartersData.sent)])], [])
+		.map((y) => {
+			sum.quartersData.sent[y] = sumObjects(
+				accountsData.reduce((p, c) => (c.quartersData.sent[y] ? p.concat(c.quartersData.sent[y]) : p), [])
+			);
+		});
 	// months
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.monthsData.received)])], [])
-		.map(y => { sum.monthsData.received[y] = sumObjects(accountsData.reduce((p,c) => c.monthsData.received[y] ? p.concat(c.monthsData.received[y]) : p, [])) });
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.monthsData.sent)])], [])
-		.map(y => { sum.monthsData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.monthsData.sent[y] ? p.concat(c.monthsData.sent[y]) : p, [])) });
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.monthsData.received)])], [])
+		.map((y) => {
+			sum.monthsData.received[y] = sumObjects(
+				accountsData.reduce((p, c) => (c.monthsData.received[y] ? p.concat(c.monthsData.received[y]) : p), [])
+			);
+		});
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.monthsData.sent)])], [])
+		.map((y) => {
+			sum.monthsData.sent[y] = sumObjects(
+				accountsData.reduce((p, c) => (c.monthsData.sent[y] ? p.concat(c.monthsData.sent[y]) : p), [])
+			);
+		});
 	// weeks
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.weeksData.received)])], [])
-		.map(y => { sum.weeksData.received[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.received[y] ? p.concat(c.weeksData.received[y]) : p, [])) });
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.weeksData.sent)])], [])
-		.map(y => { sum.weeksData.sent[y] = sumObjects(accountsData.reduce((p,c) => c.weeksData.sent[y] ? p.concat(c.weeksData.sent[y]) : p, [])) });
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.weeksData.received)])], [])
+		.map((y) => {
+			sum.weeksData.received[y] = sumObjects(
+				accountsData.reduce((p, c) => (c.weeksData.received[y] ? p.concat(c.weeksData.received[y]) : p), [])
+			);
+		});
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.weeksData.sent)])], [])
+		.map((y) => {
+			sum.weeksData.sent[y] = sumObjects(
+				accountsData.reduce((p, c) => (c.weeksData.sent[y] ? p.concat(c.weeksData.sent[y]) : p), [])
+			);
+		});
 	// dates
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.dateData.received)])], [])
-		.map(d => { sum.dateData.received[d] = accountsData.reduce((p,c) => c.dateData.received[d] ? p+c.dateData.received[d] : p, 0) })
-	accountsData.reduce((p,c) => [...new Set([...p ,...Object.keys(c.dateData.sent)])], [])
-		.map(d => { sum.dateData.sent[d] = accountsData.reduce((p,c) => c.dateData.sent[d] ? p+c.dateData.sent[d] : p, 0) })
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.dateData.received)])], [])
+		.map((d) => {
+			sum.dateData.received[d] = accountsData.reduce(
+				(p, c) => (c.dateData.received[d] ? p + c.dateData.received[d] : p),
+				0
+			);
+		});
+	accountsData
+		.reduce((p, c) => [...new Set([...p, ...Object.keys(c.dateData.sent)])], [])
+		.map((d) => {
+			sum.dateData.sent[d] = accountsData.reduce((p, c) => (c.dateData.sent[d] ? p + c.dateData.sent[d] : p), 0);
+		});
 	// daytime
 	for (let h = 0; h < 24; h++) {
-		sum.daytimeData.received[h] = accountsData.reduce((p,c) =>  p+c.daytimeData.received[h], 0);
-		sum.daytimeData.sent[h] = accountsData.reduce((p,c) =>  p+c.daytimeData.sent[h], 0);
+		sum.daytimeData.received[h] = accountsData.reduce((p, c) => p + c.daytimeData.received[h], 0);
+		sum.daytimeData.sent[h] = accountsData.reduce((p, c) => p + c.daytimeData.sent[h], 0);
 	}
 	// weekday
 	for (let d = 0; d < 7; d++) {
-		sum.weekdayData.received[d] = accountsData.reduce((p,c) =>  p+c.weekdayData.received[d], 0);
-		sum.weekdayData.sent[d] = accountsData.reduce((p,c) =>  p+c.weekdayData.sent[d], 0);
+		sum.weekdayData.received[d] = accountsData.reduce((p, c) => p + c.weekdayData.received[d], 0);
+		sum.weekdayData.sent[d] = accountsData.reduce((p, c) => p + c.weekdayData.sent[d], 0);
 	}
 	// month
 	for (let m = 0; m < 12; m++) {
-		sum.monthData.received[m] = accountsData.reduce((p,c) =>  p+c.monthData.received[m], 0);
-		sum.monthData.sent[m] = accountsData.reduce((p,c) =>  p+c.monthData.sent[m], 0);
+		sum.monthData.received[m] = accountsData.reduce((p, c) => p + c.monthData.received[m], 0);
+		sum.monthData.sent[m] = accountsData.reduce((p, c) => p + c.monthData.sent[m], 0);
 	}
 	// weekday per hour
 	for (let d = 0; d < 7; d++) {
 		for (let h = 0; h < 24; h++) {
-			sum.weekdayPerHourData.received[d][h] = accountsData.reduce((p,c) =>  p+c.weekdayPerHourData.received[d][h], 0);
-			sum.weekdayPerHourData.sent[d][h] = accountsData.reduce((p,c) =>  p+c.weekdayPerHourData.sent[d][h], 0);
+			sum.weekdayPerHourData.received[d][h] = accountsData.reduce((p, c) => p + c.weekdayPerHourData.received[d][h], 0);
+			sum.weekdayPerHourData.sent[d][h] = accountsData.reduce((p, c) => p + c.weekdayPerHourData.sent[d][h], 0);
 		}
 	}
 	// contacts
-	sum.contacts.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.received), [])), maxListCount);
-	sum.contacts.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.sent), [])), maxListCount);
-	sum.contacts.junk = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.contacts.junk ?? []), [])), maxListCount);
+	sum.contacts.received = sortAndLimitObject(
+		sumObjects(accountsData.reduce((p, c) => p.concat(c.contacts.received), [])),
+		maxListCount
+	);
+	sum.contacts.sent = sortAndLimitObject(
+		sumObjects(accountsData.reduce((p, c) => p.concat(c.contacts.sent), [])),
+		maxListCount
+	);
+	sum.contacts.junk = sortAndLimitObject(
+		sumObjects(accountsData.reduce((p, c) => p.concat(c.contacts.junk ?? []), [])),
+		maxListCount
+	);
 	// folders
-	sum.folders.received = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.received ?? []), [])));
-	sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.folders?.sent ?? []), [])));
+	sum.folders.received = sortAndLimitObject(
+		sumObjects(accountsData.reduce((p, c) => p.concat(c.folders?.received ?? []), []))
+	);
+	sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p, c) => p.concat(c.folders?.sent ?? []), [])));
 	// tags
-	sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p,c) => p.concat(c.tags ?? []), [])), maxListCount);
+	sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p, c) => p.concat(c.tags ?? []), [])), maxListCount);
 
 	return sum;
 };
@@ -324,25 +383,34 @@ const buildComparisonData = (accountsData, activeAccounts) => {
 		// years
 		comparisonData.yearsData[a.id] = sumObjects([accountsData[i].yearsData.received, accountsData[i].yearsData.sent]);
 		// quarters
-		comparisonData.quartersData[a.id] = sumObjectsObjects([accountsData[i].quartersData.received, accountsData[i].quartersData.sent]);
+		comparisonData.quartersData[a.id] = sumObjectsObjects([
+			accountsData[i].quartersData.received,
+			accountsData[i].quartersData.sent,
+		]);
 		// months
-		comparisonData.monthsData[a.id] = sumObjectsObjects([accountsData[i].monthsData.received, accountsData[i].monthsData.sent]);
+		comparisonData.monthsData[a.id] = sumObjectsObjects([
+			accountsData[i].monthsData.received,
+			accountsData[i].monthsData.sent,
+		]);
 		// weeks
-		comparisonData.weeksData[a.id] = sumObjectsObjects([accountsData[i].weeksData.received, accountsData[i].weeksData.sent]);
+		comparisonData.weeksData[a.id] = sumObjectsObjects([
+			accountsData[i].weeksData.received,
+			accountsData[i].weeksData.sent,
+		]);
 		// daytime
-		comparisonData.daytimeData[a.id] = sumObjects([accountsData[i].daytimeData.received, accountsData[i].daytimeData.sent]);
+		comparisonData.daytimeData[a.id] = sumObjects([
+			accountsData[i].daytimeData.received,
+			accountsData[i].daytimeData.sent,
+		]);
 		// weekday
-		comparisonData.weekdayData[a.id] = sumObjects([accountsData[i].weekdayData.received, accountsData[i].weekdayData.sent]);
+		comparisonData.weekdayData[a.id] = sumObjects([
+			accountsData[i].weekdayData.received,
+			accountsData[i].weekdayData.sent,
+		]);
 		// month
 		comparisonData.monthData[a.id] = sumObjects([accountsData[i].monthData.received, accountsData[i].monthData.sent]);
 	});
 	return comparisonData;
 };
 
-export {
-	analyzeMessage,
-	buildComparisonData,
-	createComparisonData,
-	createStatsData,
-	sumAccountsData,
-};
+export { analyzeMessage, buildComparisonData, createComparisonData, createStatsData, sumAccountsData };
