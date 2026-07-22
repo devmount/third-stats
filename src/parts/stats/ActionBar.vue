@@ -1,8 +1,9 @@
 <template>
-	<div class="action d-inline-flex gap-1 ml-2">
+	<div class="action action-bar">
 		<export-action />
 		<open-options-page-action
-			wrapper-class="tooltip-bottom d-inline-flex align-center ml-1"
+			tooltip-position="bottom"
+			wrapper-class="d-inline-flex align-center ml-1"
 			icon-class="icon-bold icon-gray-alt"
 		/>
 	</div>
@@ -12,3 +13,11 @@
 import ExportAction from '@/actions/ExportAction.vue';
 import OpenOptionsPageAction from '@/actions/OpenOptionsPageAction.vue';
 </script>
+
+<style scoped>
+.action-bar {
+	display: flex;
+	gap: .5rem;
+	margin-left: 3rem;
+}
+</style>

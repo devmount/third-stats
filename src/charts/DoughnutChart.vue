@@ -126,7 +126,7 @@ watch(
 			transform: translateX(-50%);
 			text-align: center;
 
-			.chart-info .featured {
+			.featured {
 				font-size: 3.25em;
 				line-height: 1em;
 				font-weight: 500;

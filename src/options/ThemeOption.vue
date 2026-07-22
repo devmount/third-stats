@@ -5,11 +5,11 @@
 			<span class="d-block text-gray text-small">{{ t('options.theme.description') }}</span>
 		</label>
 		<div class="action d-flex">
-			<select class="flex-grow" v-model="options.theme" id="theme">
+			<ts-select class="flex-grow" v-model="options.theme" id="theme">
 				<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
 					{{ t('options.theme.' + theme) }}
 				</option>
-			</select>
+			</ts-select>
 		</div>
 	</div>
 </template>

@@ -1,8 +1,8 @@
 <template>
 	<div class="filter-contact d-flex">
 		<label for="contact" class="align-center text-gray p-0-5">{{ t('stats.contact', 1) }}</label>
-		<div class="d-flex align-stretch tooltip-bottom">
-			<select
+		<div class="d-flex align-stretch">
+			<ts-select
 				id="contact"
 				v-model="active.contact"
 				:disabled="isLoading"
@@ -10,19 +10,19 @@
 				:class="{ disabled: isLoading }"
 			>
 				<option v-for="c in contacts" :key="c" :value="c">{{ c }}</option>
-			</select>
+			</ts-select>
 		</div>
 		<div
-			class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+			class="cursor-pointer d-inline-flex align-center"
 			:class="{ 'cursor-na': isLoading }"
-			:data-tooltip="t('stats.tooltips.clear')"
+			v-tooltip="{ text: t('stats.tooltips.clear'), position: 'bottom' }"
 			@click="!isLoading ? resetContact(true) : null"
 		>
-			<svg class="icon icon-bold icon-gray" :class="{ 'icon-hover-accent': !isLoading }" viewBox="0 0 24 24">
+			<ts-icon weight="bold" variant="gray" :hover-accent="!isLoading">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
 				<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-			</svg>
+			</ts-icon>
 		</div>
 	</div>
 </template>

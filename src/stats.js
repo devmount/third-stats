@@ -6,6 +6,10 @@ const app = createApp(Stats);
 // provide global properties
 app.provide('version', APP_VERSION);
 
+// shared UI components and directives
+import uiKit from '@/ui';
+app.use(uiKit);
+
 // internationalization
 import { createI18n } from 'vue-i18n';
 import { messages, pluralRules } from '@/translations.js';

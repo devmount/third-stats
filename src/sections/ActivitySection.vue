@@ -6,31 +6,33 @@
 				:class="{ 'cursor-pointer': preferences.sections.activity.year > minYear }"
 				@click.prevent="previousYear()"
 			>
-				<svg
-					class="icon icon-bold icon-gray-alt icon-hover-accent"
+				<ts-icon
+					weight="bold"
+					variant="gray-alt"
+					hover-accent
 					:class="{ 'v-hidden': preferences.sections.activity.year <= minYear }"
-					viewBox="0 0 24 24"
 				>
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
-				</svg>
+				</ts-icon>
 			</div>
-			<select v-model="preferences.sections.activity.year" name="year">
+			<ts-select v-model="preferences.sections.activity.year" name="year">
 				<option v-for="y in yearsList" :key="y" :value="y">{{ y }}</option>
-			</select>
+			</ts-select>
 			<div
 				class="d-inline-flex align-center"
 				:class="{ 'cursor-pointer': preferences.sections.activity.year < maxYear }"
 				@click.prevent="nextYear()"
 			>
-				<svg
-					class="icon icon-bold icon-gray-alt icon-hover-accent"
+				<ts-icon
+					weight="bold"
+					variant="gray-alt"
+					hover-accent
 					:class="{ 'v-hidden': preferences.sections.activity.year >= maxYear }"
-					viewBox="0 0 24 24"
 				>
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
-				</svg>
+				</ts-icon>
 			</div>
 		</div>
 		<section-tab-header v-model:tab="tabActivity" :tabs="tabsActivity" border-variant="static-gradient">

@@ -5,7 +5,7 @@
 			<header class="d-flex gap-0-5 mb-1-5">
 				<h3 class="flex-grow">
 					<span class="mr-1">{{ t('popup.nAccounts', accounts.length, [accounts.length]) }}</span>
-					<span v-if="loading" class="loader"></span>
+					<ts-loader v-if="loading" />
 				</h3>
 				<action-bar />
 			</header>

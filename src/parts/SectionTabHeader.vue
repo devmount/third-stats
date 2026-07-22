@@ -3,7 +3,7 @@
 		<li
 			v-for="(id, key) in tabs"
 			:key="key"
-			class="tab-item cursor-default tooltip tooltip-bottom"
+			class="tab-item cursor-default"
 			:class="[
 				tabItemClass,
 				{
@@ -11,7 +11,7 @@
 					'cursor-pointer text-hover-accent2': tab !== id,
 				},
 			]"
-			:data-tooltip="t('stats.charts.' + key + '.description')"
+			v-tooltip="{ text: t('stats.charts.' + key + '.description'), position: 'bottom' }"
 			@click="$emit('update:tab', id)"
 		>
 			<span
@@ -26,37 +26,33 @@
 		</li>
 		<li
 			v-if="showComparisonToggle"
-			class="tooltip tooltip-bottom px-1 ml-auto"
+			class="px-1 ml-auto"
 			:class="{
 				'cursor-pointer': !singleAccount,
 				'text-hover-accent2': !singleAccount,
 			}"
-			:data-tooltip="comparisonTooltip"
+			v-tooltip="{ text: comparisonTooltip, position: 'bottom' }"
 			@click="!singleAccount ? $emit('update:comparison', !comparison) : null"
 		>
-			<svg
-				class="icon icon-text"
-				:class="{
-					'icon-hover-accent': !singleAccount,
-					'icon-accent2': comparison && !singleAccount,
-					'icon-gray': singleAccount,
-				}"
-				viewBox="0 0 24 24"
+			<ts-icon
+				size="text"
+				:hover-accent="!singleAccount"
+				:variant="singleAccount ? 'gray' : comparison ? 'accent2' : null"
 			>
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<rect class="icon-part-accent2" x="3" y="3" width="6" height="6" rx="1" />
 				<rect class="icon-part-accent1" x="15" y="15" width="6" height="6" rx="1" />
 				<path class="icon-part-accent2-faded" d="M21 11v-3a2 2 0 0 0 -2 -2h-6l3 3m0 -6l-3 3" />
 				<path class="icon-part-accent1-faded" d="M3 13v3a2 2 0 0 0 2 2h6l-3 -3m0 6l3 -3" />
-			</svg>
+			</ts-icon>
 		</li>
 		<li
 			v-if="showExpandToggle"
-			class="resizer cursor-pointer tooltip tooltip-bottom text-hover-accent2 px-1"
-			:data-tooltip="!expand ? t('stats.tooltips.expand') : t('stats.tooltips.shrink')"
+			class="resizer cursor-pointer text-hover-accent2 px-1"
+			v-tooltip="{ text: !expand ? t('stats.tooltips.expand') : t('stats.tooltips.shrink'), position: 'bottom' }"
 			@click="$emit('update:expand', !expand)"
 		>
-			<svg v-show="!expand" class="icon icon-text" viewBox="0 0 24 24">
+			<ts-icon v-show="!expand" size="text">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<polyline points="16 4 20 4 20 8" />
 				<line x1="14" y1="10" x2="20" y2="4" />
@@ -66,8 +62,8 @@
 				<line x1="14" y1="14" x2="20" y2="20" />
 				<polyline points="8 4 4 4 4 8" />
 				<line x1="4" y1="4" x2="10" y2="10" />
-			</svg>
-			<svg v-show="expand" class="icon icon-text icon-arrows-minimize" viewBox="0 0 24 24">
+			</ts-icon>
+			<ts-icon v-show="expand" size="text" class="icon-arrows-minimize">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<polyline points="5 9 9 9 9 5" />
 				<line x1="3" y1="3" x2="9" y2="9" />
@@ -77,7 +73,7 @@
 				<line x1="15" y1="9" x2="21" y2="3" />
 				<polyline points="19 15 15 15 15 19" />
 				<line x1="15" y1="15" x2="21" y2="21" />
-			</svg>
+			</ts-icon>
 		</li>
 	</ul>
 </template>
@@ -123,3 +119,78 @@ const spanStyle = (id) => {
 	return '';
 };
 </script>
+
+<style scoped>
+.tab {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin-bottom: 0;
+	border-bottom: 1px solid;
+	padding-left: 1rem;
+}
+
+.tab .tab-item {
+	margin-top: 0;
+}
+
+.tab .tab-item > span {
+	border-bottom: 2px solid transparent;
+	color: inherit;
+	display: block;
+	margin-bottom: -1px;
+	padding: 0.5rem 1rem;
+	text-decoration: none;
+}
+
+.dark .tab {
+	border-bottom-color: var(--color-gray-800);
+	color: var(--color-gray-500);
+}
+
+.dark .tab .tab-item.active > span {
+	color: var(--color-white);
+}
+
+.dark .tab .tab-item.active > span.border-bottom-accent1 {
+	border-bottom-color: var(--color-pink);
+}
+
+.dark .tab .tab-item.active > span.border-bottom-accent2 {
+	border-bottom-color: var(--color-blue);
+}
+
+.dark .tab .tab-item.active > span.border-bottom-accent3 {
+	border-bottom-color: var(--color-gray-100);
+}
+
+.dark .tab .tab-item.active > span.border-bottom-gradient-accent2-accent1 {
+	border-image: linear-gradient(to right, var(--color-blue), var(--color-pink)) 100% 1;
+}
+
+.light .tab {
+	border-bottom-color: var(--color-gray-200);
+	color: var(--color-gray-600);
+}
+
+.light .tab .tab-item.active > span {
+	color: var(--color-black);
+}
+
+.light .tab .tab-item.active > span.border-bottom-accent1 {
+	border-bottom-color: var(--color-pink);
+}
+
+.light .tab .tab-item.active > span.border-bottom-accent2 {
+	border-bottom-color: var(--color-blue);
+}
+
+.light .tab .tab-item.active > span.border-bottom-accent3 {
+	border-bottom-color: var(--color-gray-900);
+}
+
+.light .tab .tab-item.active > span.border-bottom-gradient-accent2-accent1 {
+	border-image: linear-gradient(to right, var(--color-blue), var(--color-pink)) 100% 1;
+}
+</style>

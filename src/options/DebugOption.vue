@@ -5,11 +5,7 @@
 			<span class="d-block text-gray text-small">{{ t('options.debug.description') }}</span>
 		</label>
 		<div class="action">
-			<label class="switch">
-				<input type="checkbox" id="debug" v-model="options.debug" />
-				<span class="switch-label" :data-on="t('options.switch.on')" :data-off="t('options.switch.off')"></span>
-				<span class="switch-handle"></span>
-			</label>
+			<ts-switch v-model="options.debug" id="debug" />
 		</div>
 	</div>
 </template>

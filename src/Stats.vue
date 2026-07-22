@@ -3,10 +3,10 @@
 		<!-- progress indicator -->
 		<div class="progress position-fixed w-available top-0 right-0">
 			<div
-				class="h-0-25 text-center background-accent2 tooltip tooltip-bottom"
+				class="h-0-25 text-center background-accent2"
 				:class="{ 'transition-width': processingState > 0 && processingState < 100 }"
 				:style="'width:' + processingState + '%;'"
-				:data-tooltip="oneDigit(processingState) + '%'"
+				v-tooltip="{ text: oneDigit(processingState) + '%', position: 'bottom' }"
 			></div>
 		</div>
 		<div class="container pt-2 pb-6">
@@ -24,8 +24,8 @@
 				<div class="meta text-gray text-right">
 					<div
 						v-if="display.meta && display.meta.timestamp"
-						class="d-inline-block tooltip tooltip-bottom"
-						:data-tooltip="formatDate(display.meta.timestamp, locale)"
+						class="d-inline-block"
+						v-tooltip="{ text: formatDate(display.meta.timestamp, locale), position: 'bottom' }"
 					>
 						<live-age class="cursor-default" :date="display.meta.timestamp" />
 					</div>
@@ -82,58 +82,58 @@
 					</div>
 					<div class="d-flex justify-center">
 						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="previousNumbersUnit()">
-							<svg class="icon icon-small icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
+							<ts-icon size="small" weight="bold" variant="gray-alt" hover-accent>
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 								<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
-							</svg>
+							</ts-icon>
 						</div>
 						<div class="d-inline-flex">
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
+								class="cursor-pointer p-0-25 text-hover-accent2"
 								:class="{ 'text-gray': tabNumbers !== tabsNumbers.years }"
-								:data-tooltip="t('stats.mailsPerYear')"
+								v-tooltip="{ text: t('stats.mailsPerYear'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.years"
 							>
 								<span class="text-mono">{{ t('stats.abbreviations.year') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
+								class="cursor-pointer p-0-25 text-hover-accent2"
 								:class="{ 'text-gray': tabNumbers !== tabsNumbers.quarters }"
-								:data-tooltip="t('stats.mailsPerQuarter')"
+								v-tooltip="{ text: t('stats.mailsPerQuarter'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.quarters"
 							>
 								<span class="text-mono">{{ t('stats.abbreviations.quarter') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
+								class="cursor-pointer p-0-25 text-hover-accent2"
 								:class="{ 'text-gray': tabNumbers !== tabsNumbers.months }"
-								:data-tooltip="t('stats.mailsPerMonth')"
+								v-tooltip="{ text: t('stats.mailsPerMonth'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.months"
 							>
 								<span class="text-mono">{{ t('stats.abbreviations.month') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
+								class="cursor-pointer p-0-25 text-hover-accent2"
 								:class="{ 'text-gray': tabNumbers !== tabsNumbers.weeks }"
-								:data-tooltip="t('stats.mailsPerWeek')"
+								v-tooltip="{ text: t('stats.mailsPerWeek'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.weeks"
 							>
 								<span class="text-mono">{{ t('stats.abbreviations.week') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2 tooltip tooltip-bottom"
+								class="cursor-pointer p-0-25 text-hover-accent2"
 								:class="{ 'text-gray': tabNumbers !== tabsNumbers.days }"
-								:data-tooltip="t('stats.mailsPerDay')"
+								v-tooltip="{ text: t('stats.mailsPerDay'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.days"
 							>
 								<span class="text-mono">{{ t('stats.abbreviations.day') }}</span>
 							</span>
 						</div>
 						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="nextNumbersUnit()">
-							<svg class="icon icon-small icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
+							<ts-icon size="small" weight="bold" variant="gray-alt" hover-accent>
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 								<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
-							</svg>
+							</ts-icon>
 						</div>
 					</div>
 				</div>
@@ -152,22 +152,22 @@
 			</section>
 			<!-- still processing -->
 			<section v-if="isLoading && display.numbers.total == 0" class="mt-5">
-				<svg class="icon icon-huge icon-gray d-block m-0-auto icon-animated-color-transition" viewBox="0 0 24 24">
+				<ts-icon size="huge" variant="gray" animated-color-transition class="d-block m-0-auto">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
 					<polyline points="4 12 7 8 11 10 16 4 20 8" />
-				</svg>
+				</ts-icon>
 				<div class="text-center text-gray">
 					{{ t('stats.loadingInProgress') }}
 				</div>
 			</section>
 			<!-- empty account -->
 			<section v-if="!isLoading && display.numbers.total == 0" class="mt-5">
-				<svg class="icon icon-huge icon-gray d-block m-0-auto" viewBox="0 0 24 24">
+				<ts-icon size="huge" variant="gray" class="d-block m-0-auto">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<rect x="4" y="4" width="16" height="16" rx="2" />
 					<path d="M4 13h3l3 3h4l3 -3h3" />
-				</svg>
+				</ts-icon>
 				<div class="text-center text-gray">
 					{{ t('stats.accountEmpty') }}
 				</div>

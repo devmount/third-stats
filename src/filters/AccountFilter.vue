@@ -1,25 +1,25 @@
 <template>
-	<div class="filter-account d-flex">
-		<label for="account" class="align-center text-gray p-0-5">{{ t('stats.account') }}</label>
-		<select
+	<div class="filter-account">
+		<label for="account" class="text-gray p-0-5">{{ t('stats.account') }}</label>
+		<ts-select
 			v-model="active.account"
 			:disabled="isLoading"
-			class="align-stretch w-6"
+			class="w-6"
 			:class="{ disabled: isLoading }"
 			id="account"
 		>
 			<option v-if="accounts.length > 1 && options.cache" :value="'sum'">{{ t('stats.allAccounts') }}</option>
 			<option v-else disabled>{{ t('stats.allAccounts') }}</option>
 			<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
-		</select>
-		<div v-show="isLoading" class="align-center loader loader-accent2"></div>
+		</ts-select>
+		<ts-loader v-show="isLoading" accent2 />
 		<div
 			v-show="!isLoading"
-			class="refresh align-center cursor-pointer tooltip tooltip-bottom d-inline-flex"
-			:data-tooltip="t('stats.tooltips.refresh')"
+			class="refresh cursor-pointer d-inline-flex"
+			v-tooltip="{ text: t('stats.tooltips.refresh'), position: 'bottom' }"
 			@click="loadAccount(active.account, true)"
 		>
-			<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
+			<ts-icon weight="bold" variant="gray-alt" hover-accent>
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<path class="icon-part-accent2" d="M9 4.55a8 8 0 0 1 6 14.9m0 -4.45v5h5" />
 				<line class="icon-part-accent2" x1="5.63" y1="7.16" x2="5.63" y2="7.17" />
@@ -27,14 +27,14 @@
 				<line class="icon-part-accent2-faded" x1="4.63" y1="15.1" x2="4.63" y2="15.11" />
 				<line class="icon-part-accent2-faded" x1="7.16" y1="18.37" x2="7.16" y2="18.38" />
 				<line class="icon-part-accent2-faded" x1="11" y1="19.94" x2="11" y2="19.95" />
-			</svg>
+			</ts-icon>
 		</div>
 		<div
 			v-if="error.account"
-			class="align-center tooltip tooltip-bottom d-inline-flex ml-0-5"
-			:data-tooltip="t('stats.tooltips.error.processing')"
+			class="d-inline-flex ml-0-5"
+			v-tooltip="{ text: t('stats.tooltips.error.processing'), position: 'bottom' }"
 		>
-			<svg class="icon icon-bold icon-small icon-accent1-faded icon-hover-accent" viewBox="0 0 24 24">
+			<ts-icon weight="bold" size="small" variant="accent1-faded" hover-accent>
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 				<path
 					class="icon-part-accent1"
@@ -42,7 +42,7 @@
 				></path>
 				<path class="icon-part-accent1" d="M12 9v4"></path>
 				<path class="icon-part-accent1" d="M12 17h.01"></path>
-			</svg>
+			</ts-icon>
 		</div>
 	</div>
 </template>
@@ -55,3 +55,11 @@ const { accounts, active, error, isLoading, options, loadAccount } = inject('eng
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.filter-account {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>

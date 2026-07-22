@@ -1,37 +1,36 @@
 <template>
-	<div class="filter-folder d-flex">
-		<label for="folder" class="align-center text-gray p-0-5">{{ t('stats.folder') }}</label>
+	<div class="filter-folder">
+		<label for="folder" class="text-gray p-0-5">{{ t('stats.folder') }}</label>
 		<div
-			class="d-flex align-stretch tooltip-bottom"
-			:class="{ tooltip: !singleAccount }"
-			:data-tooltip="t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')])"
+			class="d-flex"
+			v-tooltip="
+				!singleAccount
+					? { text: t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')]), position: 'bottom' }
+					: null
+			"
 		>
-			<select
+			<ts-select
 				id="folder"
 				v-model="active.folder"
 				:disabled="isLoading || !singleAccount"
-				class="align-stretch w-6"
+				class="w-6"
 				:class="{ disabled: isLoading || !singleAccount }"
 			>
 				<option v-for="f in folders" :key="f.path" :value="f">{{ formatFolder(f) }}</option>
-			</select>
+			</ts-select>
 		</div>
 		<div
-			class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
+			class="cursor-pointer d-inline-flex align-center"
 			:class="{ 'cursor-na': isLoading || !singleAccount }"
-			:data-tooltip="t('stats.tooltips.clear')"
+			v-tooltip="{ text: t('stats.tooltips.clear'), position: 'bottom' }"
 			:disabled="isLoading || !singleAccount"
 			@click="!isLoading && singleAccount ? resetFolder(true) : null"
 		>
-			<svg
-				class="icon icon-bold icon-gray"
-				:class="{ 'icon-hover-accent': !isLoading && singleAccount }"
-				viewBox="0 0 24 24"
-			>
+			<ts-icon weight="bold" variant="gray" :hover-accent="!isLoading && singleAccount">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 				<line class="icon-part-accent2" x1="18" y1="6" x2="6" y2="18" />
 				<line class="icon-part-accent2" x1="6" y1="6" x2="18" y2="18" />
-			</svg>
+			</ts-icon>
 		</div>
 	</div>
 </template>
@@ -45,3 +44,11 @@ const { folders, active, isLoading, singleAccount, resetFolder } = inject('engin
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.filter-folder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>
