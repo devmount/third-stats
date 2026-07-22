@@ -7,31 +7,7 @@
 					<span class="mr-1">{{ t('popup.nAccounts', accounts.length, [accounts.length]) }}</span>
 					<span v-if="loading" class="loader"></span>
 				</h3>
-				<div
-					class="cursor-pointer tooltip tooltip-left transition-color"
-					:data-tooltip="t('popup.openAllStats')"
-					@click.prevent="openTab('index.stats.html', accounts.length > 1 ? 'sum' : accounts[0].id)"
-				>
-					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<polyline class="icon-part-accent2" points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
-						<polyline class="icon-part-accent1" points="4 12 7 8 11 10 16 4 20 8" />
-					</svg>
-				</div>
-				<div
-					class="cursor-pointer tooltip tooltip-left transition-color"
-					:data-tooltip="t('popup.openOptions')"
-					@click.prevent="openTab('index.options.html')"
-				>
-					<svg class="icon icon-small icon-hover-accent ml-auto" viewBox="0 0 24 24">
-						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-						<path
-							class="icon-part-accent2"
-							d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
-						/>
-						<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
-					</svg>
-				</div>
+				<action-bar />
 			</header>
 			<!-- list of all accounts -->
 			<section class="accounts">
@@ -47,7 +23,7 @@
 				>
 					<div class="position-relative z-5">
 						<h4>{{ a.name }}</h4>
-						<div class="text-small text-secondary">
+						<div class="text-tiny text-secondary">
 							<div>{{ t('popup.nFolders', [a.folderCount], a.folderCount) }}</div>
 							<div v-if="a.hasOwnProperty('messageCount')">
 								{{ t('popup.nMessages', [a.messageCount], a.messageCount) }}
@@ -74,16 +50,21 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, provide } from 'vue';
 import { openTab } from '@/utils.js';
 import { useI18n } from 'vue-i18n';
 import LineChart from '@/charts/LineChart.vue';
 import ProjectMeta from '@/parts/ProjectMeta.vue';
+import ActionBar from '@/parts/popup/ActionBar.vue';
 import { usePopupData } from '@/composables/usePopupData.js';
 
 const { t } = useI18n();
 
-const { accounts, loading, options, init } = usePopupData();
+// popup page data engine (see composables/usePopupData.js) -
+// provided here so action components can inject whichever slices they need directly
+const popupEngine = usePopupData();
+const { accounts, loading, options, init } = popupEngine;
+provide('engine', popupEngine);
 
 onMounted(() => init());
 </script>

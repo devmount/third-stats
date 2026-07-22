@@ -19,42 +19,7 @@
 				<!-- filter area -->
 				<filter-bar />
 				<!-- action buttons -->
-				<div class="action d-inline-flex gap-1 ml-2">
-					<!-- data export -->
-					<div
-						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center"
-						:class="{ 'cursor-na': isLoading }"
-						:data-tooltip="t('stats.tooltips.exportData')"
-						@click="!isLoading ? exportJson() : null"
-					>
-						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path class="icon-part-accent2" d="M14 3v4a1 1 0 0 0 1 1h4" />
-							<path
-								class="icon-part-accent2"
-								d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"
-							/>
-							<line class="icon-part-accent1" x1="9" y1="17" x2="9" y2="12" />
-							<line class="icon-part-accent1-faded" x1="12" y1="17" x2="12" y2="16" />
-							<line class="icon-part-accent1" x1="15" y1="17" x2="15" y2="14" />
-						</svg>
-					</div>
-					<!-- options launcher -->
-					<div
-						class="cursor-pointer tooltip tooltip-bottom d-inline-flex align-center ml-1"
-						:data-tooltip="t('popup.openOptions')"
-						@click.prevent="openTab('index.options.html')"
-					>
-						<svg class="icon icon-bold icon-gray-alt icon-hover-accent" viewBox="0 0 24 24">
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path
-								class="icon-part-accent2"
-								d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
-							/>
-							<circle class="icon-part-accent2-faded" cx="12" cy="12" r="3" />
-						</svg>
-					</div>
-				</div>
+				<action-bar />
 				<!-- meta infos -->
 				<div class="meta text-gray text-right">
 					<div
@@ -233,12 +198,13 @@ import { useI18n } from 'vue-i18n';
 
 // internal components
 import { tabsNumbers } from '@/definitions.js';
-import { formatDate, oneDigit, openTab, startOfToday, twoDigit } from '@/utils.js';
+import { formatDate, oneDigit, startOfToday, twoDigit } from '@/utils.js';
 import { useStatsData } from '@/composables/useStatsData.js';
 
 import LiveAge from '@/parts/LiveAge.vue';
 import ProjectMeta from '@/parts/ProjectMeta.vue';
 import FilterBar from '@/filters/FilterBar.vue';
+import ActionBar from '@/parts/stats/ActionBar.vue';
 import TotalSection from '@/sections/TotalSection.vue';
 import ActivitySection from '@/sections/ActivitySection.vue';
 import OnedimSection from '@/sections/OnedimSection.vue';
@@ -256,7 +222,7 @@ const tabNumbers = ref(tabsNumbers.weeks);
 // this composable owns accounts/identities/folders/tags/active/error/isLoading/progress/
 // preferences/options/display/comparison internally, so it must only be invoked here.
 const engine = useStatsData();
-const { display, isLoading, preferences, processingState, exportJson } = engine;
+const { display, isLoading, preferences, processingState } = engine;
 
 // provide the whole engine once here - every filter/section component injects
 // whichever slices it needs directly, instead of receiving them as props
