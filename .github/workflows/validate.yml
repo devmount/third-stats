@@ -1,4 +1,4 @@
-# This workflow will make sure the code is linted and valid
+# This workflow will make sure the code is linted, tested and valid
 
 name: Validate
 
@@ -19,4 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: npx --yes oxlint@1.50.0 --deny-warnings # change to the latest release
+      - run: npx --yes oxlint@latest --deny-warnings # change to the latest release
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run tests
+        run: pnpm test --coverage
