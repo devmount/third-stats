@@ -44,6 +44,10 @@
       "stats": "Grafy a údaje",
       "storage": "Ukladanie a vyrovnávacia pamäť"
     },
+    "includeSubfolders": {
+      "description": "Pri filtrovaní správ v priečinku budú zahrnuté aj správy z podpriečinkov.",
+      "label": "Zahrnúť podpriečinky"
+    },
     "liveCountUp": {
       "description": "Zobraziť aktuálny stav vypočítaných čísel pri spracovaní údajov štatistík",
       "info": "Povolenie tejto funkcie môže predĺžiť čas spracovania",

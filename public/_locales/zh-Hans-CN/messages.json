@@ -44,6 +44,10 @@
       "stats": "图表与资料",
       "storage": "存储与缓存"
     },
+    "includeSubfolders": {
+      "description": "筛选文件夹邮件时，将包含子文件夹中的邮件。",
+      "label": "包含子文件夹"
+    },
     "liveCountUp": {
       "description": "处理统计数据时显示计算数字的实时进度",
       "info": "启用此选项可能会增加处理时间",

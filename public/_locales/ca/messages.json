@@ -44,6 +44,10 @@
       "stats": "Gràfics i dades",
       "storage": "Emmagatzematge i memòria cau"
     },
+    "includeSubfolders": {
+      "description": "En filtrar missatges d'una carpeta, s'inclouran els missatges de les subcarpetes.",
+      "label": "Incloure subcarpetes"
+    },
     "liveCountUp": {
       "description": "Mostra el progrés en directe dels números calculats quan es processen les dades estadístiques",
       "info": "Habilitar això pot augmentar el temps de processament",

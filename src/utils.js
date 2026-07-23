@@ -163,6 +163,20 @@ const traverseAccount = async (account) => {
 	return foldersList;
 };
 
+// flatten all subfolders of a given folder into a single array
+const flattenSubfolders = (folder) => {
+	const list = [];
+	function traverse(folders) {
+		if (!folders?.length) return;
+		folders.forEach((f) => {
+			list.push(f);
+			traverse(f.subFolders);
+		});
+	}
+	traverse(folder.subFolders);
+	return list;
+};
+
 // extract an email address from a given string
 const extractEmailAddress = (s) => {
 	if (s.lastIndexOf('<') >= 0 && s.lastIndexOf('>') >= 0) {
@@ -358,6 +372,7 @@ export {
 	contactInvolved,
 	extractEmailAddress,
 	filterActiveAccounts,
+	flattenSubfolders,
 	formatBytes,
 	formatDate,
 	formatFolder,

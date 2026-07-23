@@ -44,6 +44,10 @@
       "stats": "Grafici e Dati",
       "storage": "Archiviazione e Cache"
     },
+    "includeSubfolders": {
+      "description": "Quando si filtrano i messaggi di una cartella, verranno inclusi anche i messaggi delle sottocartelle.",
+      "label": "Includi sottocartelle"
+    },
     "liveCountUp": {
       "description": "Mostra i progressi in tempo reale dei numeri calcolati durante l'elaborazione dei dati",
       "info": "L'attivazione di questa opzione può aumentare il tempo",

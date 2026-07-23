@@ -44,6 +44,10 @@
       "stats": "Wykresy & Dane",
       "storage": "Pamięć masowa & Podręczna"
     },
+    "includeSubfolders": {
+      "description": "Podczas filtrowania wiadomości z folderu uwzględnione zostaną również wiadomości z podfolderów.",
+      "label": "Uwzględnij podfoldery"
+    },
     "liveCountUp": {
       "description": "Pokaż na żywo postęp obliczonych liczb podczas przetwarzania danych statystycznych",
       "info": "Włączenie tego może wydłużyć czas przetwarzania",

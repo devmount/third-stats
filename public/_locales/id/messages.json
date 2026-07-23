@@ -44,6 +44,10 @@
       "stats": "Grafik & Data",
       "storage": "Penyimpanan & Cache"
     },
+    "includeSubfolders": {
+      "description": "Saat memfilter pesan dari sebuah folder, pesan dari subfolder juga akan disertakan.",
+      "label": "Sertakan Subfolder"
+    },
     "liveCountUp": {
       "description": "Tampilkan kemajuan langsung dari angka yang dihitung saat memproses data statistik",
       "info": "Mengaktifkan ini dapat meningkatkan waktu pemrosesan",

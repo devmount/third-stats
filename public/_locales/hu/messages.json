@@ -44,6 +44,10 @@
       "stats": "Ábrázolások és adatok",
       "storage": "Tárolás és gyorsítótár"
     },
+    "includeSubfolders": {
+      "description": "Ha egy mappa üzeneteit szűrjük, az almappák üzenetei is bekerülnek.",
+      "label": "Almappák belefoglalása"
+    },
     "liveCountUp": {
       "description": "A kiszámított számok élő előrehaladásának megjelenítése statisztikai adatok feldolgozásakor",
       "info": "Ennek engedélyezése növelheti a feldolgozási időt",

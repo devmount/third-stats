@@ -44,6 +44,10 @@
       "stats": "Kaaviot ja tiedot",
       "storage": "Tallennus ja välimuisti"
     },
+    "includeSubfolders": {
+      "description": "Kun viestejä suodatetaan kansion mukaan, myös alikansioiden viestit sisällytetään mukaan.",
+      "label": "Sisällytä alikansiot"
+    },
     "liveCountUp": {
       "description": "Näytä laskutoimitusten eteneminen reaaliajassa tilastotietoja käsiteltäessä.",
       "info": "Tämän toiminnon ottaminen käyttöön voi pidentää käsittelyaikaa",

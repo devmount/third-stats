@@ -44,6 +44,10 @@
       "stats": "Graphiques et Données",
       "storage": "Stockage et Cache"
     },
+    "includeSubfolders": {
+      "description": "Lors du filtrage des messages d'un dossier, les messages des sous-dossiers seront inclus.",
+      "label": "Inclure les sous-dossiers"
+    },
     "liveCountUp": {
       "description": "Afficher la progression en direct des nombres calculés lors du traitement des données statistiques",
       "info": "Activer cette option peut augmenter le temps de traitement",

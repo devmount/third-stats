@@ -40,6 +40,10 @@
       "stats": "Charts & Data",
       "storage": "Storage & Cache"
     },
+    "includeSubfolders": {
+      "description": "When filtering messages of a folder, messages of subfolders will be included.",
+      "label": "Include Subfolders"
+    },
     "liveCountUp": {
       "description": "Show live progress of calculated numbers when processing stats data",
       "info": "Enabling this may increase processing time",

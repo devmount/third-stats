@@ -44,6 +44,10 @@
       "stats": "Grafikler ve Veriler",
       "storage": "Depolama ve Önbellek"
     },
+    "includeSubfolders": {
+      "description": "Bir klasörün mesajları filtrelenirken, alt klasörlerdeki mesajlar da dahil edilecektir.",
+      "label": "Alt Klasörleri Dahil Et"
+    },
     "liveCountUp": {
       "description": "İstatistik verilerini işlerken hesaplanan sayıların canlı ilerlemesini göster",
       "info": "Bunu etkinleştirmek işlem süresini artırabilir",
