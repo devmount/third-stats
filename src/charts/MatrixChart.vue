@@ -1,11 +1,11 @@
 <template>
-<div class="chart matrix-chart">
-	<h2 v-if="title" class="text-center">{{ title }}</h2>
-	<p v-if="description" class="text-gray text-center">{{ description }}</p>
-	<div class="chart-container">
-		<canvas :id="cid"></canvas>
+	<div class="chart matrix-chart">
+		<h2 v-if="title">{{ title }}</h2>
+		<p v-if="description">{{ description }}</p>
+		<div class="chart-container">
+			<canvas :id="cid"></canvas>
+		</div>
 	</div>
-</div>
 </template>
 
 <script setup>
@@ -19,32 +19,32 @@ const { locale } = useI18n();
 let chart = null;
 
 const props = defineProps({
-	cid: String,         // chart ID, must be unique on page
-	title: String,       // chart title (optional)
+	cid: String, // chart ID, must be unique on page
+	title: String, // chart title (optional)
 	description: String, // chart description (optional)
-	color: String,       // cell color, gets transparized depending on value
-	spacing: String,     // cell spacing in px
-	rounding: String,    // border-radius in px
-	dimension: Object,   // {cols, rows}
-	parseTime: Boolean,  // if true, parse values as Date objects
-	datasets: Array,     // [{data: [[date, value], [date, value], ...], label: ''}, ...]
+	color: String, // cell color, gets transparized depending on value
+	spacing: String, // cell spacing in px
+	rounding: String, // border-radius in px
+	dimension: Object, // {cols, rows}
+	parseTime: Boolean, // if true, parse values as Date objects
+	datasets: Array, // [{data: [[date, value], [date, value], ...], label: ''}, ...]
 });
 
 const processedDatasets = computed(() => {
 	const data = props.datasets;
-	data.map(d => {
-		d.data = d.data.map(e => {
+	data.map((d) => {
+		d.data = d.data.map((e) => {
 			return {
 				x: props.parseTime ? e[0] : new Date(e[0]).getHours(),
 				y: isoDayOfWeek(new Date(e[0])),
 				d: props.parseTime
 					? new Date(e[0]).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' })
 					: new Date(e[0]).toLocaleDateString(locale.value, { weekday: 'long', hour: 'numeric' }),
-				v: e[1]
-			}
+				v: e[1],
+			};
 		});
-		const max = Math.max(...d.data.map(e => e.v));
-		d.backgroundColor = c => {
+		const max = Math.max(...d.data.map((e) => e.v));
+		d.backgroundColor = (c) => {
 			const value = c.dataset.data[c.dataIndex]?.v ?? 0;
 			const alpha = value / max;
 			return color(props.color).alpha(alpha).rgbString();
@@ -59,37 +59,37 @@ const processedDatasets = computed(() => {
 
 const draw = (localeObject) => {
 	chart = new Chart(props.cid, {
-		type: "matrix",
+		type: 'matrix',
 		data: {
-			datasets: processedDatasets.value
+			datasets: processedDatasets.value,
 		},
 		options: {
 			maintainAspectRatio: false,
 			animation: {
 				numbers: { duration: 0 },
 				colors: {
-					type: "color",
+					type: 'color',
 					duration: 500,
-					from: "transparent",
-				}
+					from: 'transparent',
+				},
 			},
 			plugins: {
 				legend: false,
 				tooltip: {
 					callbacks: {
-						title: tooltipItems => tooltipItems[0].dataset.data[tooltipItems[0].dataIndex].d,
-						label: context => {
+						title: (tooltipItems) => tooltipItems[0].dataset.data[tooltipItems[0].dataIndex].d,
+						label: (context) => {
 							const v = context.dataset.data[context.dataIndex];
-							return [' ' + v.v + ' ' + context.dataset.label];
+							return [` ${v.v} ${context.dataset.label}`];
 						},
 						labelColor: () => {
 							return {
 								borderWidth: 2,
 								borderColor: props.color,
-								backgroundColor: props.color + '33',
+								backgroundColor: `${props.color}33`,
 							};
 						},
-					}
+					},
 				},
 			},
 			scales: {
@@ -100,8 +100,8 @@ const draw = (localeObject) => {
 					type: 'time',
 					adapters: {
 						date: {
-							locale: localeObject
-						}
+							locale: localeObject,
+						},
 					},
 					offset: true,
 					time: {
@@ -110,8 +110,8 @@ const draw = (localeObject) => {
 						isoWeekday: true,
 						parser: 'i',
 						displayFormats: {
-							day: 'iiiiii'
-						}
+							day: 'iiiiii',
+						},
 					},
 					reverse: true,
 					position: 'left',
@@ -122,8 +122,8 @@ const draw = (localeObject) => {
 					grid: {
 						display: false,
 						drawBorder: false,
-						tickLength: 0
-					}
+						tickLength: 0,
+					},
 				},
 				x: {
 					border: {
@@ -132,18 +132,20 @@ const draw = (localeObject) => {
 					type: props.parseTime ? 'time' : 'linear',
 					adapters: {
 						date: {
-							locale: localeObject
-						}
+							locale: localeObject,
+						},
 					},
 					offset: false,
-					time: props.parseTime ? {
-						unit: 'month',
-						round: 'week',
-						isoWeekday: true,
-						displayFormats: {
-							month: 'MMM'
-						}
-					} : null,
+					time: props.parseTime
+						? {
+								unit: 'month',
+								round: 'week',
+								isoWeekday: true,
+								displayFormats: {
+									month: 'MMM',
+								},
+							}
+						: null,
 					ticks: {
 						maxRotation: 0,
 						stepSize: 1,
@@ -154,14 +156,14 @@ const draw = (localeObject) => {
 						drawBorder: false,
 						tickLength: 0,
 					},
-				}
+				},
 			},
 			layout: {
 				padding: {
-					right: props.parseTime ? 10 : 0
-				}
-			}
-		}
+					right: props.parseTime ? 10 : 0,
+				},
+			},
+		},
 	});
 };
 
@@ -172,7 +174,7 @@ onMounted(async () => {
 	}
 });
 
-	// update chart if data changes in an animatable way
+// update chart if data changes in an animatable way
 watch(
 	() => props.datasets,
 	(newData, previousData) => {
@@ -192,6 +194,10 @@ watch(
 	> h2,
 	> p {
 		flex: 0 1 auto;
+		text-align: center;
+	}
+	> p {
+		color: var(--color-text-gray);
 	}
 	> .chart-container {
 		position: relative;

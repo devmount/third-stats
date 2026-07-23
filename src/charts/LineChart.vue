@@ -1,17 +1,17 @@
 <template>
-<div class="chart">
-	<h2 v-if="title" class="text-center">{{ title }}</h2>
-	<p v-if="description" class="text-gray text-center">{{ description }}</p>
-	<div
-		class="chart-container"
-		:style="{
-			width: width ?? 'auto',
-			height: height ?? 'auto',
-		}"
-	>
-		<canvas :id="id"></canvas>
+	<div class="chart">
+		<h2 v-if="title">{{ title }}</h2>
+		<p v-if="description">{{ description }}</p>
+		<div
+			class="chart-container"
+			:style="{
+				width: width ?? 'auto',
+				height: height ?? 'auto',
+			}"
+		>
+			<canvas :id="id"></canvas>
+		</div>
 	</div>
-</div>
 </template>
 
 <script setup>
@@ -30,15 +30,15 @@ const props = defineProps({
 	abscissa: Boolean,
 	tooltips: {
 		type: Boolean,
-		default: true
+		default: true,
 	},
 	thickness: {
 		type: Number,
-		default: 2
+		default: 2,
 	},
 	unfinished: {
 		type: Boolean,
-		default: true
+		default: true,
 	},
 	width: String,
 	height: String,
@@ -46,16 +46,16 @@ const props = defineProps({
 
 const processedDatasets = computed(() => {
 	const data = props.datasets;
-	data.map(d => {
+	data.map((d) => {
 		// gradient for background
-		d.backgroundColor = context => {
+		d.backgroundColor = (context) => {
 			const { ctx, chartArea } = context.chart;
 			if (!chartArea) return null;
 			return transparentGradientLine(ctx, chartArea, d.borderColor);
 		};
 		// dashed line for last segment
 		d.segment = {
-			borderDash: ctx => props.unfinished && ctx.p0?.parsed.x == d.data.length-2 ? [10, 5] : undefined
+			borderDash: (ctx) => (props.unfinished && ctx.p0?.parsed.x == d.data.length - 2 ? [10, 5] : undefined),
 		};
 	});
 	return data;
@@ -63,7 +63,7 @@ const processedDatasets = computed(() => {
 
 const draw = () => {
 	chart = new Chart(id, {
-		type: "line",
+		type: 'line',
 		data: {
 			datasets: processedDatasets.value,
 			labels: props.labels,
@@ -76,22 +76,22 @@ const draw = () => {
 				line: {
 					borderWidth: props.thickness,
 					tension: 0.15,
-					pointRadius: props.labels.length == 1 ? 5 : 0
-				}
+					pointRadius: props.labels.length == 1 ? 5 : 0,
+				},
 			},
 			plugins: {
 				tooltip: {
 					enabled: props.tooltips,
 					callbacks: {
-						label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
-						labelColor: context => {
+						label: (context) => ` ${context.formattedValue} ${context.dataset.label}`,
+						labelColor: (context) => {
 							return {
 								borderWidth: 2,
 								borderColor: context.dataset.borderColor,
-								backgroundColor: context.dataset.borderColor + '33',
+								backgroundColor: `${context.dataset.borderColor}33`,
 							};
 						},
-					}
+					},
 				},
 			},
 			scales: {
@@ -110,7 +110,7 @@ const draw = () => {
 						maxRotation: 0,
 						autoSkipPadding: 10,
 					},
-					beginAtZero: true
+					beginAtZero: true,
 				},
 				y: {
 					border: {
@@ -122,16 +122,16 @@ const draw = () => {
 						display: false,
 						drawBorder: false,
 					},
-					beginAtZero: true
-				}
-			}
-		}
+					beginAtZero: true,
+				},
+			},
+		},
 	});
 };
 
 onMounted(() => {
 	if (props.labels && props.datasets) {
-		draw()
+		draw();
 	}
 });
 
@@ -139,11 +139,11 @@ onMounted(() => {
 watch(
 	() => props.datasets,
 	() => {
-		chart.data.labels = props.labels
-		chart.data.datasets = processedDatasets.value
+		chart.data.labels = props.labels;
+		chart.data.datasets = processedDatasets.value;
 		// show points if only one data column exists and therefore no line can be drawn
-		chart.options.datasets.line.pointRadius = props.labels.length == 1 ? 5 : 0
-		chart.update()
+		chart.options.datasets.line.pointRadius = props.labels.length == 1 ? 5 : 0;
+		chart.update();
 	}
 );
 
@@ -151,8 +151,8 @@ watch(
 watch(
 	() => props.ordinate,
 	(newValue) => {
-		chart.options.scales.y.display = newValue
-		chart.update()
+		chart.options.scales.y.display = newValue;
+		chart.update();
 	}
 );
 </script>
@@ -165,6 +165,10 @@ watch(
 	> h2,
 	> p {
 		flex: 0 1 auto;
+		text-align: center;
+	}
+	> p {
+		color: var(--color-text-gray);
 	}
 	> .chart-container {
 		position: relative;

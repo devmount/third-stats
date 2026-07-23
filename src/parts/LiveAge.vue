@@ -1,7 +1,5 @@
 <template>
-	<span
-		v-html="t('stats.dataCollected', ['<span class=\'text-normal\'>' + timePassedSinceDataRetrieval + '</span>'])"
-	></span>
+	<span v-html="output"></span>
 </template>
 
 <script setup>
@@ -14,7 +12,7 @@ const props = defineProps({
 	// date to show live aging for
 	date: {
 		type: Number,
-	}
+	},
 });
 
 const now = ref(Date.now());
@@ -22,7 +20,9 @@ const repeater = ref();
 
 onMounted(() => {
 	// update timestamp every second
-	repeater.value = setInterval(() => { now.value = Date.now() }, 1000);
+	repeater.value = setInterval(() => {
+		now.value = Date.now();
+	}, 1000);
 });
 
 onBeforeUnmount(() => {
@@ -32,9 +32,21 @@ onBeforeUnmount(() => {
 // calculates the time between current and given timestamp with human readable time units
 const timePassedSinceDataRetrieval = computed(() => {
 	const secondsPast = (now.value - props.date) / 1000;
-	if (secondsPast < 60)     return parseInt(secondsPast) + t("stats.abbreviations.second");
-	if (secondsPast < 3600)   return parseInt(secondsPast/60) + t("stats.abbreviations.minute");
-	if (secondsPast <= 86400) return parseInt(secondsPast/3600) + t("stats.abbreviations.hour");
-	if (secondsPast > 86400)  return parseInt(secondsPast/86400) + t("stats.abbreviations.day");
+	if (secondsPast < 60) return `${parseInt(secondsPast)}${t('stats.abbreviations.second')}`;
+	if (secondsPast < 3600) return `${parseInt(secondsPast / 60)}${t('stats.abbreviations.minute')}`;
+	if (secondsPast <= 86400) return `${parseInt(secondsPast / 3600)}${t('stats.abbreviations.hour')}`;
+	if (secondsPast > 86400) return `${parseInt(secondsPast / 86400)}${t('stats.abbreviations.day')}`;
 });
+
+const output = computed(() =>
+	t('stats.dataCollected', ["<span class='live-age-value'>" + timePassedSinceDataRetrieval.value + '</span>'])
+);
 </script>
+
+<style>
+/* not scoped: this class lives inside v-html-injected markup, which never receives
+   the component's scoped data-v attribute */
+.live-age-value {
+	color: var(--color-text);
+}
+</style>

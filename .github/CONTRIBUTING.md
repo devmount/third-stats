@@ -9,6 +9,7 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Provide Code via Pull Requests](#provide-code-via-pull-requests)
+    - [Coding Style](#coding-style)
     - [Git Commit Messages](#git-commit-messages)
   - [Providing Translations](#providing-translations)
   - [Beta-Testing](#beta-testing)
@@ -17,15 +18,28 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
 
 ### Reporting Bugs
 
-Before creating bug reports, please make sure there isn't already an existing issue describing your problem, for bugs are tracked as [GitHub issues](https://github.com/devmount/third-stats/issues). Simply create an issue and provide the necessary information by filling in [the bug-report template](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
+Before creating bug reports, please make sure there isn't already [an existing issue](https://github.com/devmount/third-stats/issues?q=state%3Aopen%20label%3A%22bug%22) describing your problem. Create the new issue and provide the necessary information by filling in [the bug-report template](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
 
 ### Suggesting Enhancements
 
-Enhancement suggestions are also tracked as [GitHub issues](https://github.com/devmount/third-stats/issues). Before creating enhancement suggestions, please check the existing issues as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please include as many details as possible. Fill in [the feature-request template](https://github.com/devmount/third-stats/issues/new?template=feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
+Enhancement suggestions are also tracked as [GitHub issues](https://github.com/devmount/third-stats/issues). Before creating enhancement suggestions, please check [the existing issues](https://github.com/devmount/third-stats/issues?q=state%3Aopen%20label%3A%enhancement%22) as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please include as many details as possible. Fill in [the feature-request template](https://github.com/devmount/third-stats/issues/new?template=feature_request.md), including the steps that you imagine you would take if the feature you're requesting existed.
 
 ### Provide Code via Pull Requests
 
-Simply fill in [the required template](PULL_REQUEST_TEMPLATE.md). Please do not include issue numbers in the PR title, but mention it in the PR body.
+Simply fill in [the required template](PULL_REQUEST_TEMPLATE.md). Please do not include issue numbers in the PR title, but add it in the PR body, e.g. via "Closes #1234".
+
+All code must pass the validation workflow automatically running when pushing to a PR. All tests must pass to protect against regressions.
+
+Always run `pnpm lint` and `pnpm format` before pushing to this repo.
+
+#### Coding Style
+
+Please always use the existing code as a guide for new code. Linter and formatter should cover most of the code styling automatically. Other than that
+
+- Custom components follow the PascalCalse when importing and dash-case when adding them to the markup.
+- Use destructuring where reasonable
+- Favor template literals over string concatenation where applicable
+- Modularize code where reasonable
 
 #### Git Commit Messages
 

@@ -1,11 +1,11 @@
 <template>
-<div class="chart">
-	<h2 v-if="title" class="text-center">{{ title }}</h2>
-	<p v-if="description" class="text-gray text-center">{{ description }}</p>
-	<div class="chart-container">
-		<canvas :id="id"></canvas>
+	<div class="chart">
+		<h2 v-if="title">{{ title }}</h2>
+		<p v-if="description">{{ description }}</p>
+		<div class="chart-container">
+			<canvas :id="id"></canvas>
+		</div>
 	</div>
-</div>
 </template>
 
 <script setup>
@@ -24,11 +24,10 @@ const props = defineProps({
 	ordinate: Boolean,
 });
 
-
 const processedDatasets = computed(() => {
 	const data = props.datasets;
-	data.map(d => {
-		d.backgroundColor = context => {
+	data.map((d) => {
+		d.backgroundColor = (context) => {
 			const { ctx, chartArea } = context.chart;
 			if (!chartArea) return null;
 			return transparentGradientBar(
@@ -44,7 +43,7 @@ const processedDatasets = computed(() => {
 
 const draw = () => {
 	chart = new Chart(id, {
-		type: "bar",
+		type: 'bar',
 		data: {
 			datasets: processedDatasets.value,
 			labels: props.labels,
@@ -58,8 +57,8 @@ const draw = () => {
 				bar: {
 					borderWidth: props.horizontal ? { right: 2 } : { top: 2 },
 					barPercentage: 1,
-					categoryPercentage: .6,
-				}
+					categoryPercentage: 0.6,
+				},
 			},
 			plugins: {
 				tooltip: {
@@ -67,16 +66,16 @@ const draw = () => {
 					intersect: true,
 					position: 'nearest',
 					callbacks: {
-						label: context => ' ' + context.formattedValue + ' ' + context.dataset.label,
-						labelColor: context => {
+						label: (context) => ` ${context.formattedValue} ${context.dataset.label}`,
+						labelColor: (context) => {
 							return {
 								borderWidth: 2,
 								borderColor: context.dataset.borderColor,
-								backgroundColor: context.dataset.borderColor + '33',
+								backgroundColor: `${context.dataset.borderColor}33`,
 							};
-						}
-					}
-				}
+						},
+					},
+				},
 			},
 			scales: {
 				x: {
@@ -110,9 +109,9 @@ const draw = () => {
 						autoSkipPadding: 0,
 					},
 					beginAtZero: true,
-				}
-			}
-		}
+				},
+			},
+		},
 	});
 };
 
@@ -150,6 +149,10 @@ watch(
 	> h2,
 	> p {
 		flex: 0 1 auto;
+		text-align: center;
+	}
+	> p {
+		color: var(--color-text-gray);
 	}
 	> .chart-container {
 		position: relative;
