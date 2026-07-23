@@ -39,7 +39,7 @@ const timePassedSinceDataRetrieval = computed(() => {
 });
 
 const output = computed(() =>
-	t('stats.dataCollected', ['<span class=\'live-age-value\'>' + timePassedSinceDataRetrieval.value + '</span>'])
+	t('stats.dataCollected', ["<span class='live-age-value'>" + timePassedSinceDataRetrieval.value + '</span>'])
 );
 </script>
 

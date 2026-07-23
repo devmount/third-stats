@@ -32,7 +32,7 @@ const classes = computed(() => ({
 	appearance: none;
 	border: 1px solid;
 	border-radius: 2px;
-	padding: .5rem;
+	padding: 0.5rem;
 	transition: all 0.2s ease;
 	cursor: pointer;
 	color: var(--color-white);
@@ -40,7 +40,7 @@ const classes = computed(() => ({
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: .5rem;
+	gap: 0.5rem;
 }
 
 .btn.disabled {
@@ -52,7 +52,7 @@ const classes = computed(() => ({
 }
 
 .btn.btn-thin {
-	padding: 0 .25rem;
+	padding: 0 0.25rem;
 }
 
 .btn.btn-outline {
