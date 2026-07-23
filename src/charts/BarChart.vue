@@ -4,16 +4,25 @@
 		<p v-if="description">{{ description }}</p>
 		<div class="chart-container">
 			<canvas :id="id"></canvas>
+			<div v-if="copiedFeedback" class="copy-feedback" :style="{ top: `${copiedFeedback.top}px` }">
+				{{ t('stats.addressCopied') }}
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { computed, onMounted, watch } from 'vue';
-import { Chart, transparentGradientBar } from '@/chart.config.js';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { Chart, getRelativePosition, transparentGradientBar } from '@/chart.config.js';
+
+const { t } = useI18n();
 
 let chart = null;
 const id = Math.random().toString(36).substring(7);
+// visible while a copied-label confirmation is shown, positioned next to the clicked label
+const copiedFeedback = ref(null);
+let copiedFeedbackTimeout = null;
 
 const props = defineProps({
 	title: String,
@@ -113,6 +122,55 @@ const draw = () => {
 			},
 		},
 	});
+	if (props.horizontal) {
+		chart.canvas.addEventListener('click', onLabelClick);
+		chart.canvas.addEventListener('mousemove', onLabelHover);
+		chart.canvas.addEventListener('mouseleave', resetCursor);
+	}
+};
+
+// resolves the labels[] index for the y-axis category label nearest a given mouse event,
+// or null if it's outside the label gutter to the left of the plot area. Chart.js
+// auto-skips labels to avoid overlap, so rather than resolving to whichever raw
+// category the pixel position mathematically falls on (which could be a hidden
+// label), this snaps to the closest currently-rendered tick, giving every visible
+// label a fair-sized click target spanning halfway to its neighbors.
+// (Chart.js only fires its own onClick for points inside the plot area, so this
+// hit-test is done manually against the raw canvas event)
+const labelIndexAt = (nativeEvent) => {
+	const { x, y } = getRelativePosition(nativeEvent, chart);
+	const { left, top, bottom } = chart.chartArea;
+	if (x >= left || y < top || y > bottom) return null;
+	const yScale = chart.scales.y;
+	const ticks = yScale.ticks;
+	if (!ticks.length) return null;
+	let nearest = ticks[0].value;
+	let nearestDistance = Math.abs(yScale.getPixelForValue(nearest) - y);
+	for (const tick of ticks) {
+		const distance = Math.abs(yScale.getPixelForValue(tick.value) - y);
+		if (distance < nearestDistance) {
+			nearest = tick.value;
+			nearestDistance = distance;
+		}
+	}
+	return props.labels[nearest] !== undefined ? nearest : null;
+};
+
+const resetCursor = () => {
+	chart.canvas.style.cursor = '';
+};
+
+const onLabelHover = (nativeEvent) => {
+	chart.canvas.style.cursor = labelIndexAt(nativeEvent) === null ? '' : 'pointer';
+};
+
+const onLabelClick = (nativeEvent) => {
+	const index = labelIndexAt(nativeEvent);
+	if (index === null) return;
+	navigator.clipboard.writeText(props.labels[index]);
+	clearTimeout(copiedFeedbackTimeout);
+	copiedFeedback.value = { top: chart.scales.y.getPixelForValue(index) };
+	copiedFeedbackTimeout = setTimeout(() => (copiedFeedback.value = null), 1200);
 };
 
 onMounted(() => {
@@ -158,5 +216,18 @@ watch(
 		position: relative;
 		flex: 1 1 auto;
 	}
+}
+
+.copy-feedback {
+	position: absolute;
+	left: 0.5rem;
+	transform: translateY(-50%);
+	padding: 0.25rem 0.5rem;
+	border-radius: 3px;
+	font-size: 0.75rem;
+	white-space: nowrap;
+	pointer-events: none;
+	color: var(--color-white);
+	background: rgba(var(--color-black-rgb), 0.75);
 }
 </style>

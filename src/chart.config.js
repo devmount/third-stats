@@ -17,7 +17,7 @@ import {
 } from 'chart.js';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import 'chartjs-adapter-date-fns';
-import { color } from 'chart.js/helpers';
+import { color, getRelativePosition } from 'chart.js/helpers';
 
 // register chart components
 Chart.register(
@@ -67,4 +67,4 @@ const transparentGradientBar = (ctx, chartArea, hexColor, horizontal = false) =>
 	return gradient;
 };
 
-export { Chart, color, transparentGradientLine, transparentGradientBar };
+export { Chart, color, getRelativePosition, transparentGradientLine, transparentGradientBar };
