@@ -2,7 +2,7 @@
 	<div class="entry">
 		<label for="debug">
 			{{ t('options.debug.label') }}
-			<span class="d-block text-gray text-small">{{ t('options.debug.description') }}</span>
+			<span class="description">{{ t('options.debug.description') }}</span>
 		</label>
 		<div class="action">
 			<ts-switch v-model="options.debug" id="debug" />

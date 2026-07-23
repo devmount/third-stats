@@ -155,8 +155,8 @@ export function useStatsData() {
 			options.dark = setTheme(
 				result.options.theme ?? defaultOptions.theme,
 				document.body,
-				['dark', 'background-normal'],
-				['light', 'background-highlight-contrast']
+				['dark', 'stats-bg'],
+				['light', 'stats-bg']
 			);
 			options.ordinate = result.options.ordinate ?? defaultOptions.ordinate;
 			options.tagColors = result.options.tagColors ?? defaultOptions.tagColors;

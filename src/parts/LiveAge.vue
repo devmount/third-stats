@@ -38,8 +38,15 @@ const timePassedSinceDataRetrieval = computed(() => {
 	if (secondsPast > 86400) return `${parseInt(secondsPast / 86400)}${t('stats.abbreviations.day')}`;
 });
 
-const output = computed(() => t(
-	'stats.dataCollected',
-	[`<span class='text-normal'>${timePassedSinceDataRetrieval}</span>`]
-))
+const output = computed(() =>
+	t('stats.dataCollected', ['<span class=\'live-age-value\'>' + timePassedSinceDataRetrieval.value + '</span>'])
+);
 </script>
+
+<style>
+/* not scoped: this class lives inside v-html-injected markup, which never receives
+   the component's scoped data-v attribute */
+.live-age-value {
+	color: var(--color-text);
+}
+</style>

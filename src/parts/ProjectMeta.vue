@@ -1,32 +1,20 @@
 <template>
 	<section>
 		<!-- title with version -->
-		<div class="text-gray text-small text-center">
+		<div class="version">
 			ThirdStats <code>{{ version }}</code>
 		</div>
 		<!-- cta -->
-		<div v-if="!compact" class="text-gray text-center mt-1">{{ t('cta.message') }}</div>
-		<div class="d-flex gap-1 justify-center mt-2">
-			<ts-button
-				as="a"
-				:href="links.donate"
-				outline
-				variant="accent1"
-				v-tooltip="compact ? t('cta.donate') : null"
-			>
+		<div v-if="!compact" class="cta-message">{{ t('cta.message') }}</div>
+		<div class="actions">
+			<ts-button as="a" :href="links.donate" outline variant="accent1" v-tooltip="compact ? t('cta.donate') : null">
 				<ts-icon size="tiny" variant="accent1">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
 				</ts-icon>
 				<span v-if="!compact">{{ t('cta.donate') }}</span>
 			</ts-button>
-			<ts-button
-				as="a"
-				:href="links.share"
-				outline
-				variant="accent2"
-				v-tooltip="compact ? t('cta.share') : null"
-			>
+			<ts-button as="a" :href="links.share" outline variant="accent2" v-tooltip="compact ? t('cta.share') : null">
 				<ts-icon size="tiny" variant="accent2">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
@@ -38,13 +26,7 @@
 				</ts-icon>
 				<span v-if="!compact">{{ t('cta.share') }}</span>
 			</ts-button>
-			<ts-button
-				as="a"
-				:href="links.star"
-				outline
-				variant="accent2"
-				v-tooltip="compact ? t('cta.star') : null"
-			>
+			<ts-button as="a" :href="links.star" outline variant="accent2" v-tooltip="compact ? t('cta.star') : null">
 				<ts-icon size="tiny" variant="accent2">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
@@ -53,13 +35,7 @@
 				</ts-icon>
 				<span v-if="!compact">{{ t('cta.star') }}</span>
 			</ts-button>
-			<ts-button
-				as="a"
-				:href="links.review"
-				outline
-				variant="accent2"
-				v-tooltip="compact ? t('cta.review') : null"
-			>
+			<ts-button as="a" :href="links.review" outline variant="accent2" v-tooltip="compact ? t('cta.review') : null">
 				<ts-icon size="tiny" variant="accent2">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
@@ -88,7 +64,7 @@
 		<!-- disclaimer -->
 		<div
 			v-if="!compact"
-			class="text-gray text-center mt-2"
+			class="disclaimer"
 			v-html="
 				t('stats.disclaimer', [
 					'https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md',
@@ -124,3 +100,27 @@ const props = defineProps({
 	},
 });
 </script>
+
+<style scoped>
+.version,
+.cta-message,
+.disclaimer {
+	color: var(--color-text-gray);
+	text-align: center;
+}
+
+.cta-message {
+	margin-top: 1rem;
+}
+
+.actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+.disclaimer {
+	margin-top: 2rem;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="tab-area">
 		<section-tab-header v-model:tab="tabLeader" :tabs="tabsLeader" :tab-color-class="leaderTabColorClass" />
-		<div class="tab-content mt-1">
+		<div class="tab-content">
 			<!-- contacts most emails received from -->
 			<bar-chart
 				v-if="tabLeader === tabsLeader.contactsReceived && receivedContactLeadersChartDataExists"
@@ -9,11 +9,8 @@
 				:labels="receivedContactLeadersChartData.labels"
 				:horizontal="true"
 			/>
-			<div
-				v-if="tabLeader === tabsLeader.contactsReceived && !receivedContactLeadersChartDataExists"
-				class="tab-empty text-center mt-5"
-			>
-				<ts-icon size="large" variant="gray" weight="thin" class="d-block m-0-auto">
+			<div v-if="tabLeader === tabsLeader.contactsReceived && !receivedContactLeadersChartDataExists" class="tab-empty">
+				<ts-icon size="large" variant="gray" weight="thin">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
 						d="M12.983 8.978c3.955 -.182 7.017 -1.446 7.017 -2.978c0 -1.657 -3.582 -3 -8 -3c-1.661 0 -3.204 .19 -4.483 .515m-2.783 1.228c-.471 .382 -.734 .808 -.734 1.257c0 1.22 1.944 2.271 4.734 2.74"
@@ -24,7 +21,7 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</ts-icon>
-				<div class="text-gray mt-1" v-html="t('stats.charts.contactsReceived.empty')"></div>
+				<div v-html="t('stats.charts.contactsReceived.empty')"></div>
 			</div>
 			<!-- contacts most emails sent to -->
 			<bar-chart
@@ -33,11 +30,8 @@
 				:labels="sentContactLeadersChartData.labels"
 				:horizontal="true"
 			/>
-			<div
-				v-if="tabLeader === tabsLeader.contactsSent && !sentContactLeadersChartDataExists"
-				class="tab-empty text-center mt-5"
-			>
-				<ts-icon size="large" variant="gray" weight="thin" class="d-block m-0-auto">
+			<div v-if="tabLeader === tabsLeader.contactsSent && !sentContactLeadersChartDataExists" class="tab-empty">
+				<ts-icon size="large" variant="gray" weight="thin">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
 						d="M12.983 8.978c3.955 -.182 7.017 -1.446 7.017 -2.978c0 -1.657 -3.582 -3 -8 -3c-1.661 0 -3.204 .19 -4.483 .515m-2.783 1.228c-.471 .382 -.734 .808 -.734 1.257c0 1.22 1.944 2.271 4.734 2.74"
@@ -48,7 +42,7 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</ts-icon>
-				<div class="text-gray mt-1" v-html="t('stats.charts.contactsSent.empty')"></div>
+				<div v-html="t('stats.charts.contactsSent.empty')"></div>
 			</div>
 			<!-- contacts flagged as junk -->
 			<bar-chart
@@ -57,11 +51,8 @@
 				:labels="junkContactLeadersChartData.labels"
 				:horizontal="true"
 			/>
-			<div
-				v-if="tabLeader === tabsLeader.contactsJunk && !junkContactLeadersChartDataExists"
-				class="tab-empty text-center mt-5"
-			>
-				<ts-icon size="large" variant="gray" weight="thin" class="d-block m-0-auto">
+			<div v-if="tabLeader === tabsLeader.contactsJunk && !junkContactLeadersChartDataExists" class="tab-empty">
+				<ts-icon size="large" variant="gray" weight="thin">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
 						d="M12.983 8.978c3.955 -.182 7.017 -1.446 7.017 -2.978c0 -1.657 -3.582 -3 -8 -3c-1.661 0 -3.204 .19 -4.483 .515m-2.783 1.228c-.471 .382 -.734 .808 -.734 1.257c0 1.22 1.944 2.271 4.734 2.74"
@@ -72,7 +63,7 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</ts-icon>
-				<div class="text-gray mt-1" v-html="t('stats.charts.contactsJunk.empty')"></div>
+				<div v-html="t('stats.charts.contactsJunk.empty')"></div>
 			</div>
 		</div>
 	</div>

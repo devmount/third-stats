@@ -1,10 +1,10 @@
 <template>
 	<div class="filter-account">
-		<label for="account" class="text-gray p-0-5">{{ t('stats.account') }}</label>
+		<label for="account" class="filter-label">{{ t('stats.account') }}</label>
 		<ts-select
 			v-model="active.account"
 			:disabled="isLoading"
-			class="w-6"
+			class="filter-select"
 			:class="{ disabled: isLoading }"
 			id="account"
 		>
@@ -15,7 +15,7 @@
 		<ts-loader v-show="isLoading" accent2 />
 		<div
 			v-show="!isLoading"
-			class="refresh cursor-pointer d-inline-flex"
+			class="refresh"
 			v-tooltip="{ text: t('stats.tooltips.refresh'), position: 'bottom' }"
 			@click="loadAccount(active.account, true)"
 		>
@@ -31,7 +31,7 @@
 		</div>
 		<div
 			v-if="error.account"
-			class="d-inline-flex ml-0-5"
+			class="error-icon"
 			v-tooltip="{ text: t('stats.tooltips.error.processing'), position: 'bottom' }"
 		>
 			<ts-icon weight="bold" size="small" variant="accent1-faded" hover-accent>
@@ -61,5 +61,24 @@ const { t } = useI18n();
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.filter-label {
+	color: var(--color-text-gray);
+	padding: 0.5rem;
+}
+
+.filter-select {
+	width: 6rem;
+}
+
+.refresh {
+	cursor: pointer;
+	display: inline-flex;
+}
+
+.error-icon {
+	display: inline-flex;
+	margin-left: 0.5rem;
 }
 </style>

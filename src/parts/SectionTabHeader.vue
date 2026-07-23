@@ -3,34 +3,19 @@
 		<li
 			v-for="(id, key) in tabs"
 			:key="key"
-			class="tab-item cursor-default"
-			:class="[
-				tabItemClass,
-				{
-					active: tab === id,
-					'cursor-pointer text-hover-accent2': tab !== id,
-				},
-			]"
+			class="tab-item"
+			:class="[tabItemClass, { active: tab === id }]"
 			v-tooltip="{ text: t(`stats.charts.${key}.description`), position: 'bottom' }"
 			@click="$emit('update:tab', id)"
 		>
-			<span
-				:class="[
-					tabColorClass ? 'transition-color transition-border-color' : 'transition-color transition-border-image',
-					spanClass(key, id),
-				]"
-				:style="spanStyle(id)"
-			>
+			<span class="tab-label" :class="spanClass(key, id)" :style="spanStyle(id)">
 				<slot name="label" :labelKey="key" :id="id">{{ t(`stats.charts.${key}.title`) }}</slot>
 			</span>
 		</li>
 		<li
 			v-if="showComparisonToggle"
-			class="px-1 ml-auto"
-			:class="{
-				'cursor-pointer': !singleAccount,
-				'text-hover-accent2': !singleAccount,
-			}"
+			class="comparison-toggle"
+			:class="{ enabled: !singleAccount }"
 			v-tooltip="{ text: comparisonTooltip, position: 'bottom' }"
 			@click="!singleAccount ? $emit('update:comparison', !comparison) : null"
 		>
@@ -48,7 +33,7 @@
 		</li>
 		<li
 			v-if="showExpandToggle"
-			class="resizer cursor-pointer text-hover-accent2 px-1"
+			class="resizer"
 			v-tooltip="{ text: !expand ? t('stats.tooltips.expand') : t('stats.tooltips.shrink'), position: 'bottom' }"
 			@click="$emit('update:expand', !expand)"
 		>
@@ -129,68 +114,84 @@ const spanStyle = (id) => {
 	margin-bottom: 0;
 	border-bottom: 1px solid;
 	padding-left: 1rem;
+	color: var(--color-text-gray);
+}
+
+.dark .tab {
+	border-bottom-color: var(--color-gray-800);
+}
+
+.light .tab {
+	border-bottom-color: var(--color-gray-200);
 }
 
 .tab .tab-item {
 	margin-top: 0;
+	cursor: default;
 }
 
-.tab .tab-item > span {
+.tab .tab-item:not(.active) {
+	cursor: pointer;
+}
+
+.tab .tab-item:not(.active):hover {
+	color: var(--color-blue);
+}
+
+.tab .tab-item > .tab-label {
 	border-bottom: 2px solid transparent;
 	color: inherit;
 	display: block;
 	margin-bottom: -1px;
 	padding: 0.5rem 1rem;
 	text-decoration: none;
+	transition:
+		color var(--transition-fast),
+		border-color var(--transition-fast),
+		border-image var(--transition-fast);
 }
 
-.dark .tab {
-	border-bottom-color: var(--color-gray-800);
-	color: var(--color-gray-500);
+.tab .tab-item.active > .tab-label {
+	color: var(--color-text-highlight);
 }
 
-.dark .tab .tab-item.active > span {
-	color: var(--color-white);
-}
-
-.dark .tab .tab-item.active > span.border-bottom-accent1 {
+.tab .tab-item.active > .tab-label.border-bottom-accent1 {
 	border-bottom-color: var(--color-pink);
 }
 
-.dark .tab .tab-item.active > span.border-bottom-accent2 {
+.tab .tab-item.active > .tab-label.border-bottom-accent2 {
 	border-bottom-color: var(--color-blue);
 }
 
-.dark .tab .tab-item.active > span.border-bottom-accent3 {
-	border-bottom-color: var(--color-gray-100);
+.tab .tab-item.active > .tab-label.border-bottom-accent3 {
+	border-bottom-color: var(--color-text);
 }
 
-.dark .tab .tab-item.active > span.border-bottom-gradient-accent2-accent1 {
+.tab .tab-item.active > .tab-label.border-bottom-gradient-accent2-accent1 {
 	border-image: linear-gradient(to right, var(--color-blue), var(--color-pink)) 100% 1;
 }
 
-.light .tab {
-	border-bottom-color: var(--color-gray-200);
-	color: var(--color-gray-600);
+.comparison-toggle {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-left: auto;
 }
 
-.light .tab .tab-item.active > span {
-	color: var(--color-black);
+.comparison-toggle.enabled {
+	cursor: pointer;
 }
 
-.light .tab .tab-item.active > span.border-bottom-accent1 {
-	border-bottom-color: var(--color-pink);
+.comparison-toggle.enabled:hover {
+	color: var(--color-blue);
 }
 
-.light .tab .tab-item.active > span.border-bottom-accent2 {
-	border-bottom-color: var(--color-blue);
+.resizer {
+	cursor: pointer;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 
-.light .tab .tab-item.active > span.border-bottom-accent3 {
-	border-bottom-color: var(--color-gray-900);
-}
-
-.light .tab .tab-item.active > span.border-bottom-gradient-accent2-accent1 {
-	border-image: linear-gradient(to right, var(--color-blue), var(--color-pink)) 100% 1;
+.resizer:hover {
+	color: var(--color-blue);
 }
 </style>

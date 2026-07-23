@@ -13,7 +13,7 @@
 			:accounts-color-gradient="accountsColorGradient"
 			show-expand-toggle
 		/>
-		<div class="tab-content mt-1">
+		<div class="tab-content">
 			<!-- emails per year over total time -->
 			<line-chart
 				v-if="tabTotal === tabsTotal.years && !preferences.sections.total.comparison"

@@ -2,7 +2,7 @@
 	<div class="entry">
 		<label for="cache">
 			{{ t('options.cache.label') }}
-			<span class="d-block text-gray text-small">{{ t('options.cache.description') }}</span>
+			<span class="description">{{ t('options.cache.description') }}</span>
 		</label>
 		<div class="action">
 			<ts-switch v-model="options.cache" id="cache" />

@@ -1,11 +1,7 @@
 <template>
-	<div class="action d-flex gap-0-5">
-		<open-stats-page-action tooltip-position="left" wrapper-class="transition-color" icon-class="icon-small ml-auto" />
-		<open-options-page-action
-			tooltip-position="left"
-			wrapper-class="transition-color"
-			icon-class="icon-small ml-auto"
-		/>
+	<div class="action">
+		<open-stats-page-action class="icon-link" tooltip-position="left" size="small" />
+		<open-options-page-action class="icon-link" tooltip-position="left" size="small" />
 	</div>
 </template>
 
@@ -13,3 +9,15 @@
 import OpenStatsPageAction from '@/actions/OpenStatsPageAction.vue';
 import OpenOptionsPageAction from '@/actions/OpenOptionsPageAction.vue';
 </script>
+
+<style scoped>
+.action {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.action :deep(.icon-link) {
+	margin-left: auto;
+	transition: color var(--transition-fast);
+}
+</style>

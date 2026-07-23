@@ -1,11 +1,7 @@
 <template>
 	<div class="action action-bar">
 		<export-action />
-		<open-options-page-action
-			tooltip-position="bottom"
-			wrapper-class="d-inline-flex align-center ml-1"
-			icon-class="icon-bold icon-gray-alt"
-		/>
+		<open-options-page-action class="icon-link" tooltip-position="bottom" weight="bold" variant="gray-alt" />
 	</div>
 </template>
 
@@ -17,7 +13,13 @@ import OpenOptionsPageAction from '@/actions/OpenOptionsPageAction.vue';
 <style scoped>
 .action-bar {
 	display: flex;
-	gap: .5rem;
+	gap: 0.5rem;
 	margin-left: 3rem;
+}
+
+.action-bar :deep(.icon-link) {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 1rem;
 }
 </style>

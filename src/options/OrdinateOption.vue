@@ -2,9 +2,9 @@
 	<div class="entry">
 		<label for="ordinate">
 			{{ t('options.ordinate.label') }}
-			<span class="d-block text-gray text-small">{{ t('options.ordinate.description') }}</span>
+			<span class="description">{{ t('options.ordinate.description') }}</span>
 		</label>
-		<div class="action d-flex">
+		<div class="action">
 			<ts-switch v-model="options.ordinate" id="ordinate" />
 		</div>
 	</div>

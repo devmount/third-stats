@@ -1,12 +1,12 @@
 <template>
 	<div class="chart">
-		<h2 v-if="title" class="text-center">{{ title }}</h2>
-		<p v-if="description" class="text-gray text-center">{{ description }}</p>
+		<h2 v-if="title">{{ title }}</h2>
+		<p v-if="description">{{ description }}</p>
 		<div class="chart-container">
 			<canvas :id="id"></canvas>
 			<div v-if="info" class="chart-info">
 				<div class="featured">{{ info.number }}</div>
-				<div class="text-gray">{{ info.label }}</div>
+				<div class="info-label">{{ info.label }}</div>
 			</div>
 		</div>
 	</div>
@@ -113,6 +113,11 @@ watch(
 	> h2,
 	> p {
 		flex: 0 1 auto;
+		text-align: center;
+	}
+
+	> p {
+		color: var(--color-text-gray);
 	}
 
 	> .chart-container {
@@ -130,6 +135,10 @@ watch(
 				font-size: 3.25em;
 				line-height: 1em;
 				font-weight: 500;
+			}
+
+			.info-label {
+				color: var(--color-text-gray);
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <template>
 	<div
-		class="cursor-pointer d-inline-flex align-center"
-		:class="{ 'cursor-na': isLoading }"
+		class="action-link"
+		:class="{ disabled: isLoading }"
 		v-tooltip="{ text: t('stats.tooltips.exportData'), position: 'bottom' }"
 		@click="!isLoading ? exportJson() : null"
 	>
@@ -24,3 +24,15 @@ const { isLoading, exportJson } = inject('engine');
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.action-link {
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.action-link.disabled {
+	cursor: not-allowed;
+}
+</style>

@@ -1,20 +1,20 @@
 <template>
-	<div class="filter-contact d-flex">
-		<label for="contact" class="align-center text-gray p-0-5">{{ t('stats.contact', 1) }}</label>
-		<div class="d-flex align-stretch">
+	<div class="filter-contact">
+		<label for="contact" class="filter-label">{{ t('stats.contact', 1) }}</label>
+		<div class="select-wrapper">
 			<ts-select
 				id="contact"
 				v-model="active.contact"
 				:disabled="isLoading"
-				class="align-stretch w-6"
+				class="filter-select"
 				:class="{ disabled: isLoading }"
 			>
 				<option v-for="c in contacts" :key="c" :value="c">{{ c }}</option>
 			</ts-select>
 		</div>
 		<div
-			class="cursor-pointer d-inline-flex align-center"
-			:class="{ 'cursor-na': isLoading }"
+			class="clear-button"
+			:class="{ disabled: isLoading }"
 			v-tooltip="{ text: t('stats.tooltips.clear'), position: 'bottom' }"
 			@click="!isLoading ? resetContact(true) : null"
 		>
@@ -35,3 +35,35 @@ const { contacts, active, isLoading, resetContact } = inject('engine');
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.filter-contact {
+	display: flex;
+}
+
+.filter-label {
+	align-self: center;
+	color: var(--color-text-gray);
+	padding: 0.5rem;
+}
+
+.select-wrapper {
+	display: flex;
+	align-self: stretch;
+}
+
+.filter-select {
+	width: 6rem;
+	align-self: stretch;
+}
+
+.clear-button {
+	cursor: pointer;
+	display: inline-flex;
+	align-self: center;
+}
+
+.clear-button.disabled {
+	cursor: not-allowed;
+}
+</style>

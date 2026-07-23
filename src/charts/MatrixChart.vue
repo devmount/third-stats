@@ -1,7 +1,7 @@
 <template>
 	<div class="chart matrix-chart">
-		<h2 v-if="title" class="text-center">{{ title }}</h2>
-		<p v-if="description" class="text-gray text-center">{{ description }}</p>
+		<h2 v-if="title">{{ title }}</h2>
+		<p v-if="description">{{ description }}</p>
 		<div class="chart-container">
 			<canvas :id="cid"></canvas>
 		</div>
@@ -194,6 +194,10 @@ watch(
 	> h2,
 	> p {
 		flex: 0 1 auto;
+		text-align: center;
+	}
+	> p {
+		color: var(--color-text-gray);
 	}
 	> .chart-container {
 		position: relative;

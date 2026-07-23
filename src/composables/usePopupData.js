@@ -44,8 +44,8 @@ export function usePopupData() {
 			options.dark = setTheme(
 				result.options.theme ?? defaultOptions.theme,
 				document.body,
-				['dark', 'background-normal'],
-				['light', 'background-modal']
+				['dark', 'popup-bg'],
+				['light', 'popup-bg']
 			);
 			options.accounts = result.options.accounts ?? defaultOptions.accounts;
 			options.cache = result.options.cache ?? defaultOptions.cache;

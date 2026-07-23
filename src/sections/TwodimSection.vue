@@ -1,7 +1,7 @@
 <template>
 	<div class="tab-area">
 		<section-tab-header :tab="tabTwodim" :tabs="tabsTwodim" border-variant="static-gradient" />
-		<div class="tab-content chart-group mt-1">
+		<div class="tab-content chart-group">
 			<!-- emails per weekday per hour received -->
 			<matrix-chart
 				cid="wd-per-hour-received"

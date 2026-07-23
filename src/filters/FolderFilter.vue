@@ -1,8 +1,8 @@
 <template>
 	<div class="filter-folder">
-		<label for="folder" class="text-gray p-0-5">{{ t('stats.folder') }}</label>
+		<label for="folder" class="filter-label">{{ t('stats.folder') }}</label>
 		<div
-			class="d-flex"
+			class="select-wrapper"
 			v-tooltip="
 				!singleAccount
 					? { text: t('stats.tooltips.folder.notAvailable', [t('stats.allAccounts')]), position: 'bottom' }
@@ -13,15 +13,15 @@
 				id="folder"
 				v-model="active.folder"
 				:disabled="isLoading || !singleAccount"
-				class="w-6"
+				class="filter-select"
 				:class="{ disabled: isLoading || !singleAccount }"
 			>
 				<option v-for="f in folders" :key="f.path" :value="f">{{ formatFolder(f) }}</option>
 			</ts-select>
 		</div>
 		<div
-			class="cursor-pointer d-inline-flex align-center"
-			:class="{ 'cursor-na': isLoading || !singleAccount }"
+			class="clear-button"
+			:class="{ disabled: isLoading || !singleAccount }"
 			v-tooltip="{ text: t('stats.tooltips.clear'), position: 'bottom' }"
 			:disabled="isLoading || !singleAccount"
 			@click="!isLoading && singleAccount ? resetFolder(true) : null"
@@ -50,5 +50,28 @@ const { t } = useI18n();
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.filter-label {
+	color: var(--color-text-gray);
+	padding: 0.5rem;
+}
+
+.select-wrapper {
+	display: flex;
+}
+
+.filter-select {
+	width: 6rem;
+}
+
+.clear-button {
+	cursor: pointer;
+	display: inline-flex;
+	align-self: center;
+}
+
+.clear-button.disabled {
+	cursor: not-allowed;
 }
 </style>

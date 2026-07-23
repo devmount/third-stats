@@ -1,9 +1,9 @@
 <template>
 	<div class="entry">
 		<label for="maxListCount">
-			<div class="d-flex align-items-end gap-0-5">
+			<div class="label-head">
 				{{ t('options.maxListCount.label') }}
-				<span class="text-gray mb--0-25" v-tooltip="t('options.note.refreshCacheRequired')">
+				<span class="note-icon" v-tooltip="t('options.note.refreshCacheRequired')">
 					<ts-icon size="tiny">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path
@@ -17,11 +17,11 @@
 					</ts-icon>
 				</span>
 			</div>
-			<div class="text-gray text-small">{{ t('options.maxListCount.description') }}</div>
+			<div class="description">{{ t('options.maxListCount.description') }}</div>
 		</label>
-		<ts-input-group class="action d-flex">
+		<ts-input-group class="action list-count-group">
 			<ts-char-input
-				class="flex-grow"
+				class="list-count-input"
 				id="maxListCount"
 				type="number"
 				v-model="options.maxListCount"
@@ -30,14 +30,14 @@
 				max="999"
 				@change="checkmaxListCount()"
 			/>
-			<div class="d-flex flex-direction-column button-group-vertical">
-				<ts-button @click="incrementmaxListCount()" class="h-1-25 py-0 px-0-5">
-					<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="d-block m-0-auto">
+			<div class="stepper button-group-vertical">
+				<ts-button @click="incrementmaxListCount()" class="stepper-button">
+					<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="stepper-icon">
 						<polyline points="6,12 12,6 18,12" />
 					</ts-icon>
 				</ts-button>
-				<ts-button @click="decrementmaxListCount()" class="h-1-25 py-0 px-0-5">
-					<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="d-block m-0-auto">
+				<ts-button @click="decrementmaxListCount()" class="stepper-button">
+					<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="stepper-icon">
 						<polyline points="6,5 12,11 18,5" />
 					</ts-icon>
 				</ts-button>
@@ -54,3 +54,31 @@ const { options, incrementmaxListCount, decrementmaxListCount, checkmaxListCount
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.list-count-group {
+	display: flex;
+}
+
+.list-count-input {
+	flex-grow: 1;
+}
+
+.stepper {
+	display: flex;
+	flex-direction: column;
+}
+
+.stepper-button {
+	height: 1.25rem;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
+.stepper-icon {
+	display: block;
+	margin: 0 auto;
+}
+</style>

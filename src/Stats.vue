@@ -1,19 +1,19 @@
 <template>
-	<div class="text-normal background-normal position-relative">
+	<div class="stats">
 		<!-- progress indicator -->
-		<div class="progress position-fixed w-available top-0 right-0">
+		<div class="progress">
 			<div
-				class="h-0-25 text-center background-accent2"
+				class="progress-bar"
 				:class="{ 'transition-width': processingState > 0 && processingState < 100 }"
 				:style="`width:${processingState}%;`"
 				v-tooltip="{ text: `${oneDigit(processingState)}%`, position: 'bottom' }"
 			></div>
 		</div>
-		<div class="container pt-2 pb-6">
+		<div class="container">
 			<!-- title heading and filter -->
 			<header id="header">
-				<h1 class="mr-2 d-flex align-items-center">
-					<img class="logo mr-1" src="/icon.svg" alt="ThirdStats Logo" />
+				<h1>
+					<img class="logo" src="/icon.svg" alt="ThirdStats Logo" />
 					{{ t('stats.title') }}
 				</h1>
 				<!-- filter area -->
@@ -21,115 +21,115 @@
 				<!-- action buttons -->
 				<action-bar />
 				<!-- meta infos -->
-				<div class="meta text-gray text-right">
+				<div class="meta">
 					<div
 						v-if="display.meta && display.meta.timestamp"
-						class="d-inline-block"
+						class="timestamp"
 						v-tooltip="{ text: formatDate(display.meta.timestamp, locale), position: 'bottom' }"
 					>
-						<live-age class="cursor-default" :date="display.meta.timestamp" />
+						<live-age :date="display.meta.timestamp" />
 					</div>
 				</div>
 			</header>
 			<!-- fetured numbers -->
-			<section class="numbers mx-auto mt-2">
+			<section class="numbers">
 				<!-- total -->
 				<div>
-					<div class="text-gray">{{ t('stats.mailsTotal') }}</div>
+					<div class="stat-label">{{ t('stats.mailsTotal') }}</div>
 					<div class="featured">{{ display.numbers.total.toLocaleString() }}</div>
-					<div class="text-gray">{{ t('stats.withinYears', [oneDigit(years)]) }}</div>
+					<div class="stat-label">{{ t('stats.withinYears', [oneDigit(years)]) }}</div>
 				</div>
 				<!-- unread -->
 				<div>
-					<div class="text-gray">{{ t('stats.mailsUnread') }}</div>
+					<div class="stat-label">{{ t('stats.mailsUnread') }}</div>
 					<div class="featured">{{ display.numbers.unread.toLocaleString() }}</div>
-					<div class="text-gray" v-if="display.numbers.unread == 0">{{ t('stats.niceWork') }}</div>
-					<div class="text-gray" v-else>{{ t('stats.percentOfReceived', [unreadPercentage]) }}</div>
+					<div class="stat-label" v-if="display.numbers.unread == 0">{{ t('stats.niceWork') }}</div>
+					<div class="stat-label" v-else>{{ t('stats.percentOfReceived', [unreadPercentage]) }}</div>
 				</div>
 				<!-- received -->
 				<div>
-					<div class="text-accent2">{{ t('stats.mailsReceived') }}</div>
-					<div class="featured text-accent2">{{ display.numbers.received.toLocaleString() }}</div>
-					<div class="text-gray">{{ t('stats.percentOfTotal', [receivedPercentage]) }}</div>
+					<div class="accent2">{{ t('stats.mailsReceived') }}</div>
+					<div class="featured accent2">{{ display.numbers.received.toLocaleString() }}</div>
+					<div class="stat-label">{{ t('stats.percentOfTotal', [receivedPercentage]) }}</div>
 				</div>
 				<!-- sent -->
 				<div>
-					<div class="text-accent1">{{ t('stats.mailsSent') }}</div>
-					<div class="featured text-accent1">{{ display.numbers.sent.toLocaleString() }}</div>
-					<div class="text-gray">{{ t('stats.percentOfTotal', [sentPercentage]) }}</div>
+					<div class="accent1">{{ t('stats.mailsSent') }}</div>
+					<div class="featured accent1">{{ display.numbers.sent.toLocaleString() }}</div>
+					<div class="stat-label">{{ t('stats.percentOfTotal', [sentPercentage]) }}</div>
 				</div>
 				<!-- per time unit -->
 				<div>
 					<div v-if="tabNumbers === tabsNumbers.years">
-						<div class="text-gray">{{ t('stats.mailsPerYear') }}</div>
+						<div class="stat-label">{{ t('stats.mailsPerYear') }}</div>
 						<div class="featured">{{ perYear }}</div>
 					</div>
 					<div v-if="tabNumbers === tabsNumbers.quarters">
-						<div class="text-gray">{{ t('stats.mailsPerQuarter') }}</div>
+						<div class="stat-label">{{ t('stats.mailsPerQuarter') }}</div>
 						<div class="featured">{{ perQuarter }}</div>
 					</div>
 					<div v-if="tabNumbers === tabsNumbers.months">
-						<div class="text-gray">{{ t('stats.mailsPerMonth') }}</div>
+						<div class="stat-label">{{ t('stats.mailsPerMonth') }}</div>
 						<div class="featured">{{ perMonth }}</div>
 					</div>
 					<div v-if="tabNumbers === tabsNumbers.weeks">
-						<div class="text-gray">{{ t('stats.mailsPerWeek') }}</div>
+						<div class="stat-label">{{ t('stats.mailsPerWeek') }}</div>
 						<div class="featured">{{ perWeek }}</div>
 					</div>
 					<div v-if="tabNumbers === tabsNumbers.days">
-						<div class="text-gray">{{ t('stats.mailsPerDay') }}</div>
+						<div class="stat-label">{{ t('stats.mailsPerDay') }}</div>
 						<div class="featured">{{ perDay }}</div>
 					</div>
-					<div class="d-flex justify-center">
-						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="previousNumbersUnit()">
+					<div class="unit-nav">
+						<div class="unit-step" @click.prevent="previousNumbersUnit()">
 							<ts-icon size="small" weight="bold" variant="gray-alt" hover-accent>
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 								<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
 							</ts-icon>
 						</div>
-						<div class="d-inline-flex">
+						<div class="unit-tabs">
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
-								:class="{ 'text-gray': tabNumbers !== tabsNumbers.years }"
+								class="unit-tab"
+								:class="{ inactive: tabNumbers !== tabsNumbers.years }"
 								v-tooltip="{ text: t('stats.mailsPerYear'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.years"
 							>
-								<span class="text-mono">{{ t('stats.abbreviations.year') }}</span>
+								<span class="unit-tab-label">{{ t('stats.abbreviations.year') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
-								:class="{ 'text-gray': tabNumbers !== tabsNumbers.quarters }"
+								class="unit-tab"
+								:class="{ inactive: tabNumbers !== tabsNumbers.quarters }"
 								v-tooltip="{ text: t('stats.mailsPerQuarter'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.quarters"
 							>
-								<span class="text-mono">{{ t('stats.abbreviations.quarter') }}</span>
+								<span class="unit-tab-label">{{ t('stats.abbreviations.quarter') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
-								:class="{ 'text-gray': tabNumbers !== tabsNumbers.months }"
+								class="unit-tab"
+								:class="{ inactive: tabNumbers !== tabsNumbers.months }"
 								v-tooltip="{ text: t('stats.mailsPerMonth'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.months"
 							>
-								<span class="text-mono">{{ t('stats.abbreviations.month') }}</span>
+								<span class="unit-tab-label">{{ t('stats.abbreviations.month') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
-								:class="{ 'text-gray': tabNumbers !== tabsNumbers.weeks }"
+								class="unit-tab"
+								:class="{ inactive: tabNumbers !== tabsNumbers.weeks }"
 								v-tooltip="{ text: t('stats.mailsPerWeek'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.weeks"
 							>
-								<span class="text-mono">{{ t('stats.abbreviations.week') }}</span>
+								<span class="unit-tab-label">{{ t('stats.abbreviations.week') }}</span>
 							</span>
 							<span
-								class="cursor-pointer p-0-25 text-hover-accent2"
-								:class="{ 'text-gray': tabNumbers !== tabsNumbers.days }"
+								class="unit-tab"
+								:class="{ inactive: tabNumbers !== tabsNumbers.days }"
 								v-tooltip="{ text: t('stats.mailsPerDay'), position: 'bottom' }"
 								@click="tabNumbers = tabsNumbers.days"
 							>
-								<span class="text-mono">{{ t('stats.abbreviations.day') }}</span>
+								<span class="unit-tab-label">{{ t('stats.abbreviations.day') }}</span>
 							</span>
 						</div>
-						<div class="d-inline-flex align-center cursor-pointer" @click.prevent="nextNumbersUnit()">
+						<div class="unit-step" @click.prevent="nextNumbersUnit()">
 							<ts-icon size="small" weight="bold" variant="gray-alt" hover-accent>
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 								<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
@@ -139,46 +139,46 @@
 				</div>
 				<!-- starred / tagged -->
 				<div>
-					<div class="text-gray">{{ t('stats.mailsStarred') }}</div>
+					<div class="stat-label">{{ t('stats.mailsStarred') }}</div>
 					<div class="featured">{{ starred.toLocaleString() }}</div>
-					<div class="text-gray">{{ t('stats.mailsTagged', [tagged]) }}</div>
+					<div class="stat-label">{{ t('stats.mailsTagged', [tagged]) }}</div>
 				</div>
 				<!-- junk / junkScore -->
 				<div>
-					<div class="text-gray">{{ t('stats.junkMails') }}</div>
+					<div class="stat-label">{{ t('stats.junkMails') }}</div>
 					<div class="featured">{{ junk.toLocaleString() }}</div>
-					<div class="text-gray">{{ t('stats.junkScore', [junkScore]) }}</div>
+					<div class="stat-label">{{ t('stats.junkScore', [junkScore]) }}</div>
 				</div>
 			</section>
 			<!-- still processing -->
-			<section v-if="isLoading && display.numbers.total == 0" class="mt-5">
-				<ts-icon size="huge" variant="gray" animated-color-transition class="d-block m-0-auto">
+			<section v-if="isLoading && display.numbers.total == 0" class="status-section">
+				<ts-icon size="huge" variant="gray" animated-color-transition>
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
 					<polyline points="4 12 7 8 11 10 16 4 20 8" />
 				</ts-icon>
-				<div class="text-center text-gray">
+				<div>
 					{{ t('stats.loadingInProgress') }}
 				</div>
 			</section>
 			<!-- empty account -->
-			<section v-if="!isLoading && display.numbers.total == 0" class="mt-5">
-				<ts-icon size="huge" variant="gray" class="d-block m-0-auto">
+			<section v-if="!isLoading && display.numbers.total == 0" class="status-section">
+				<ts-icon size="huge" variant="gray">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<rect x="4" y="4" width="16" height="16" rx="2" />
 					<path d="M4 13h3l3 3h4l3 -3h3" />
 				</ts-icon>
-				<div class="text-center text-gray">
+				<div>
 					{{ t('stats.accountEmpty') }}
 				</div>
 			</section>
 			<!-- charts -->
-			<section v-if="display.numbers.total > 0" class="charts mt-3">
+			<section v-if="display.numbers.total > 0" class="charts">
 				<div id="chart-area-top" class="chart-area" :class="{ 'first-column-only': preferences.sections.total.expand }">
 					<total-section />
 					<activity-section />
 				</div>
-				<div id="chart-area-main" class="chart-area mt-2">
+				<div id="chart-area-main" class="chart-area">
 					<onedim-section />
 					<twodim-section />
 					<leader-section />
@@ -187,7 +187,7 @@
 				</div>
 			</section>
 			<!-- footer -->
-			<project-meta class="mt-6" />
+			<project-meta class="credits" />
 		</div>
 	</div>
 </template>
@@ -330,16 +330,46 @@ body {
 	overflow-x: hidden;
 }
 
+body.stats-bg.dark {
+	background: var(--color-bg);
+}
+
+body.stats-bg.light {
+	background: var(--color-bg-highlight-contrast);
+}
+
 #stats {
 	min-height: 100vh;
+	color: var(--color-text);
+	background: var(--color-bg);
+	position: relative;
 
 	.container {
 		width: 100%;
 		height: 100%;
 		margin: 0 auto;
+		padding-top: 2rem;
 		padding-left: 1rem;
 		padding-right: 1rem;
+		padding-bottom: 6rem;
 		box-sizing: border-box;
+	}
+
+	.progress {
+		position: fixed;
+		width: 100%;
+		top: 0;
+		right: 0;
+
+		.progress-bar {
+			height: 0.25rem;
+			text-align: center;
+			background: var(--color-blue);
+
+			&.transition-width {
+				transition: width var(--transition-fast);
+			}
+		}
 	}
 }
 
@@ -416,9 +446,12 @@ body {
 		h1 {
 			grid-area: title;
 			margin: 0;
+			display: flex;
+			align-items: center;
 
 			.logo {
 				height: 48px;
+				margin-right: 1rem;
 			}
 		}
 		.filter {
@@ -440,6 +473,13 @@ body {
 		.meta {
 			grid-area: meta;
 			justify-self: end;
+			color: var(--color-text-gray);
+			text-align: right;
+
+			.timestamp {
+				display: inline-block;
+				cursor: default;
+			}
 		}
 	}
 
@@ -451,6 +491,8 @@ body {
 		display: grid;
 		column-gap: 1rem;
 		row-gap: 2rem;
+		margin: 0 auto;
+		margin-top: 2rem;
 
 		> div {
 			text-align: center;
@@ -461,7 +503,69 @@ body {
 				font-weight: 500;
 			}
 		}
+
+		.stat-label {
+			color: var(--color-text-gray);
+		}
+		.accent1 {
+			color: var(--color-pink);
+		}
+		.accent2 {
+			color: var(--color-blue);
+		}
+
+		.unit-nav {
+			display: flex;
+			justify-content: center;
+		}
+		.unit-step {
+			display: inline-flex;
+			align-items: center;
+			cursor: pointer;
+		}
+		.unit-tabs {
+			display: inline-flex;
+		}
+		.unit-tab {
+			cursor: pointer;
+			padding: 0.25rem;
+		}
+		.unit-tab:hover {
+			color: var(--color-blue);
+		}
+		.unit-tab.inactive {
+			color: var(--color-text-gray);
+		}
+		.unit-tab-label {
+			font-family: var(--font-mono);
+		}
 	}
+
+	.status-section {
+		margin-top: 5rem;
+
+		.icon {
+			display: block;
+			margin: 0 auto;
+		}
+		> div:last-child {
+			text-align: center;
+			color: var(--color-text-gray);
+		}
+	}
+
+	.charts {
+		margin-top: 3rem;
+	}
+
+	#chart-area-main {
+		margin-top: 2rem;
+	}
+
+	.credits {
+		margin-top: 6rem;
+	}
+
 	.charts .chart-area {
 		display: grid;
 		column-gap: 2rem;
@@ -471,6 +575,22 @@ body {
 		> *,
 		.tab-content:not(.chart-group) > *:not(.tab-empty) {
 			min-height: 380px;
+		}
+		.tab-content {
+			margin-top: 1rem;
+		}
+		.tab-empty {
+			text-align: center;
+			margin-top: 5rem;
+
+			.icon {
+				display: block;
+				margin: 0 auto;
+			}
+			> div:last-child {
+				color: var(--color-text-gray);
+				margin-top: 1rem;
+			}
 		}
 		.chart {
 			min-width: 0;

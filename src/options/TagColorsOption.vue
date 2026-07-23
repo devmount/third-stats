@@ -2,9 +2,9 @@
 	<div class="entry">
 		<label for="tagColors">
 			{{ t('options.tagColors.label') }}
-			<span class="d-block text-gray text-small">{{ t('options.tagColors.description') }}</span>
+			<span class="description">{{ t('options.tagColors.description') }}</span>
 		</label>
-		<div class="action d-flex">
+		<div class="action">
 			<ts-switch v-model="options.tagColors" id="tagColors" />
 		</div>
 	</div>

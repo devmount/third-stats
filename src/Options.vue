@@ -1,14 +1,14 @@
 <template>
-	<div class="text-normal" :class="{ embedded: !ownOptionsPage }">
-		<header v-if="ownOptionsPage" class="pt-2 mx-auto">
-			<h1 class="d-flex align-items-center">
-				<img class="logo mr-1" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo" />
+	<div :class="{ embedded: !ownOptionsPage }">
+		<header v-if="ownOptionsPage">
+			<h1>
+				<img class="logo" :src="`${publicPath}icon.svg`" alt="ThirdStats Logo" />
 				{{ t('options.title') }}
 			</h1>
 		</header>
-		<div class="container mx-auto">
+		<div class="container">
 			<!-- section related to ThirdStats appearance and UI -->
-			<section class="mb-3">
+			<section>
 				<h2>{{ t('options.headings.appearance') }}</h2>
 				<!-- option: theme -->
 				<theme-option />
@@ -22,16 +22,16 @@
 				<auto-refresh-option />
 			</section>
 			<!-- section related to charts and data retrieval -->
-			<section class="mb-3">
+			<section>
 				<h2>{{ t('options.headings.stats') }}</h2>
 				<!-- option: startOfWeek -->
 				<!-- <div class="entry">
 				<label for="start">
 					{{ t("options.startOfWeek.label") }}
-					<span class="d-block text-gray text-small">{{ t("options.startOfWeek.description") }}</span>
+					<span class="description">{{ t("options.startOfWeek.description") }}</span>
 				</label>
-				<div class="action d-flex">
-					<select class="flex-grow" v-model="options.startOfWeek" id="start">
+				<div class="action">
+					<select v-model="options.startOfWeek" id="start">
 						<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
 					</select>
 				</div>
@@ -46,7 +46,7 @@
 				<max-list-count-option />
 			</section>
 			<!-- section related to store processed data -->
-			<section class="mb-3">
+			<section>
 				<h2>{{ t('options.headings.storage') }}</h2>
 				<!-- option: cache -->
 				<cache-option />
@@ -58,13 +58,13 @@
 				<debug-option />
 			</section>
 		</div>
-		<hr class="mb-3" />
-		<footer class="mx-auto pb-3">
-			<label class="mb-0-5">{{ t('options.note.title') }}</label>
-			<div class="text-gray text-small mb-0-5">
+		<hr />
+		<footer>
+			<label>{{ t('options.note.title') }}</label>
+			<div class="note">
 				{{ t('options.note.reloadStatsPage') }}
 			</div>
-			<div class="d-flex align-items-center gap-0-5 mb-0-5 text-gray text-small">
+			<div class="note note-row">
 				<ts-icon size="small">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
@@ -74,7 +74,7 @@
 				</ts-icon>
 				{{ t('options.note.reloadWindowRequired') }}
 			</div>
-			<div class="d-flex align-items-center gap-0-5 text-gray text-small">
+			<div class="note note-row">
 				<ts-icon size="small">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path
@@ -89,7 +89,7 @@
 				{{ t('options.note.refreshCacheRequired') }}
 			</div>
 		</footer>
-		<project-meta class="mt-6 pb-6" />
+		<project-meta class="credits" />
 	</div>
 </template>
 
@@ -133,9 +133,18 @@ body {
 	min-height: 300px;
 }
 
+body.options-bg.dark {
+	background: var(--color-bg-alt);
+}
+
+body.options-bg.light {
+	background: var(--color-bg-highlight-contrast);
+}
+
 #options {
 	width: 100%;
 	min-height: 100vh;
+	color: var(--color-text);
 
 	header,
 	footer,
@@ -143,6 +152,16 @@ body {
 		width: calc(100% - 2rem);
 		max-width: 840px;
 		padding: 1rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	header {
+		padding-top: 2rem;
+	}
+
+	footer {
+		padding-bottom: 3rem;
 	}
 
 	&.embedded {
@@ -163,15 +182,50 @@ body {
 	header {
 		h1 {
 			margin: 0;
+			display: flex;
+			align-items: center;
 
 			.logo {
 				height: 48px;
+				margin-right: 1rem;
 			}
 		}
 	}
 
+	hr {
+		margin-bottom: 3rem;
+	}
+
+	footer {
+		> * {
+			margin-bottom: 0.5rem;
+		}
+
+		> *:last-child {
+			margin-bottom: 0;
+		}
+
+		.note {
+			color: var(--color-text-gray);
+			font-size: 0.875rem;
+		}
+
+		.note-row {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+	}
+
+	.credits {
+		margin-top: 6rem;
+		padding-bottom: 6rem;
+	}
+
 	.container {
 		> section {
+			margin-bottom: 3rem;
+
 			h2 {
 				font-weight: 300;
 			}
@@ -184,6 +238,38 @@ body {
 
 				.action {
 					align-self: center;
+				}
+
+				.description {
+					display: block;
+					color: var(--color-text-gray);
+					font-size: 0.875rem;
+				}
+
+				.label-head {
+					display: flex;
+					align-items: flex-end;
+					gap: 0.5rem;
+				}
+
+				.note-icon {
+					color: var(--color-text-gray);
+					margin-bottom: -0.25rem;
+				}
+
+				.hint {
+					display: flex;
+					align-items: center;
+					gap: 0.5rem;
+					color: var(--color-text-gray);
+				}
+
+				.hint-icon {
+					vertical-align: middle;
+				}
+
+				.small-text {
+					font-size: 0.875rem;
 				}
 			}
 		}

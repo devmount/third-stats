@@ -1,9 +1,9 @@
 <template>
 	<div class="entry">
 		<label>
-			<div class="d-flex align-items-end gap-0-5">
+			<div class="label-head">
 				{{ t('options.resetOptions.label') }}
-				<span class="text-gray mb--0-25" v-tooltip="t('options.note.reloadWindowRequired')">
+				<span class="note-icon" v-tooltip="t('options.note.reloadWindowRequired')">
 					<ts-icon size="tiny">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
@@ -12,7 +12,7 @@
 						<line x1="12" y1="15" x2="12.01" y2="15" />
 					</ts-icon>
 				</span>
-				<span class="text-gray mb--0-25" v-tooltip="t('options.note.refreshCacheRequired')">
+				<span class="note-icon" v-tooltip="t('options.note.refreshCacheRequired')">
 					<ts-icon size="tiny">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path
@@ -26,20 +26,20 @@
 					</ts-icon>
 				</span>
 			</div>
-			<div class="text-gray text-small">{{ t('options.resetOptions.description') }}</div>
+			<div class="description">{{ t('options.resetOptions.description') }}</div>
 		</label>
 		<div class="action">
-			<ts-button @click="resetOptions" class="mb-0-5">{{ t('options.resetOptions.label') }}</ts-button>
-			<div v-if="options.addresses && options.addresses.length > 0" class="d-flex gap-0-5 align-items-center text-gray">
+			<ts-button @click="resetOptions" class="reset-button">{{ t('options.resetOptions.label') }}</ts-button>
+			<div v-if="options.addresses && options.addresses.length > 0" class="hint">
 				<div>
-					<ts-icon size="small" class="text-middle">
+					<ts-icon size="small" class="hint-icon">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<line x1="12" y1="8" x2="12.01" y2="8" />
 						<rect x="4" y="4" width="16" height="16" rx="2" />
 						<polyline points="11 12 12 12 12 16 13 16" />
 					</ts-icon>
 				</div>
-				<span class="text-small">{{ t('options.resetOptions.removeIdentities') }}</span>
+				<span class="small-text">{{ t('options.resetOptions.removeIdentities') }}</span>
 			</div>
 		</div>
 	</div>
@@ -53,3 +53,9 @@ const { options, resetOptions } = inject('engine');
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.reset-button {
+	margin-bottom: 0.5rem;
+}
+</style>

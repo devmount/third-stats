@@ -1,9 +1,9 @@
 <template>
 	<div class="entry">
 		<label for="local">
-			<div class="d-flex align-items-end gap-0-5">
+			<div class="label-head">
 				{{ t('options.localIdentities.label') }}
-				<span class="text-gray mb--0-25" v-tooltip="t('options.note.refreshCacheRequired')">
+				<span class="note-icon" v-tooltip="t('options.note.refreshCacheRequired')">
 					<ts-icon size="tiny">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path
@@ -17,19 +17,19 @@
 					</ts-icon>
 				</span>
 			</div>
-			<div class="text-gray text-small">{{ t('options.localIdentities.description') }}</div>
+			<div class="description">{{ t('options.localIdentities.description') }}</div>
 		</label>
 		<div class="action">
-			<ts-input-group class="d-flex">
+			<ts-input-group class="address-group">
 				<ts-char-input
-					class="flex-grow"
+					class="address-input"
 					type="email"
 					v-model="input.address"
 					placeholder="hello@devmount.de"
 					id="local"
 				/>
-				<ts-button @click="addAddress" class="h-2-5">
-					<ts-icon size="small" weight="bold" class="d-block m-0-auto">
+				<ts-button @click="addAddress" class="add-button">
+					<ts-icon size="small" weight="bold" class="add-icon">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<line x1="12" y1="5" x2="12" y2="19" />
 						<line x1="5" y1="12" x2="19" y2="12" />
@@ -37,9 +37,9 @@
 				</ts-button>
 			</ts-input-group>
 			<div>
-				<ts-tag class="text-small" v-for="a in addressList" :key="a">
+				<ts-tag class="address-tag" v-for="a in addressList" :key="a">
 					{{ a }}
-					<ts-icon @click="removeAddress(a)" weight="bold" size="text" class="cursor-pointer">
+					<ts-icon @click="removeAddress(a)" weight="bold" size="text" class="remove-icon">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<line x1="18" y1="6" x2="6" y2="18" />
 						<line x1="6" y1="6" x2="18" y2="18" />
@@ -58,3 +58,30 @@ const { input, addressList, addAddress, removeAddress } = inject('engine');
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.address-group {
+	display: flex;
+}
+
+.address-input {
+	flex-grow: 1;
+}
+
+.add-button {
+	height: 2.5rem;
+}
+
+.add-icon {
+	display: block;
+	margin: 0 auto;
+}
+
+.address-tag {
+	font-size: 0.875rem;
+}
+
+.remove-icon {
+	cursor: pointer;
+}
+</style>

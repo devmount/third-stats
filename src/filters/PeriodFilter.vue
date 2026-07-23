@@ -1,9 +1,9 @@
 <template>
 	<div class="filter-period">
-		<label for="start" class="text-gray p-0-5">{{ t('stats.timePeriod') }}</label>
-		<ts-input-group class="d-flex">
+		<label for="start" class="filter-label">{{ t('stats.timePeriod') }}</label>
+		<ts-input-group class="period-group">
 			<div
-				class="d-flex"
+				class="period-field"
 				v-for="f in ['start', 'end']"
 				:key="f"
 				v-tooltip="{
@@ -19,8 +19,8 @@
 					type="text"
 					:id="f"
 					v-model="active.period[f]"
-					class="w-6"
-					:class="{ error: error.period[f].length > 0, 'cursor-na': isLoading }"
+					class="period-input"
+					:class="{ error: error.period[f].length > 0, disabled: isLoading }"
 					:disabled="isLoading"
 					placeholder="YYYY-MM-DD"
 					@blur="formatPeriod(f)"
@@ -32,20 +32,19 @@
 			</div>
 			<ts-button
 				variant="secondary"
-				class="w-3 h-2-5"
-				:class="{ 'cursor-na': isLoading }"
+				class="apply-button"
 				:disabled="isLoading"
 				@click="!isLoading ? updatePeriod() : null"
 			>
-				<ts-icon size="small" weight="bold" class="d-block m-0-auto">
+				<ts-icon size="small" weight="bold" class="apply-icon">
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<path d="M5 12l5 5l10 -10" />
 				</ts-icon>
 			</ts-button>
 		</ts-input-group>
 		<div
-			class="cursor-pointer d-inline-flex"
-			:class="{ 'cursor-na': isLoading }"
+			class="clear-button"
+			:class="{ disabled: isLoading }"
 			v-tooltip="{ text: t('stats.tooltips.clear'), position: 'bottom' }"
 			:disabled="isLoading"
 			@click="!isLoading ? resetPeriod(true) : null"
@@ -80,5 +79,41 @@ const examplePeriodFormatted = now.toISOString().slice(0, 10);
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.filter-label {
+	color: var(--color-text-gray);
+	padding: 0.5rem;
+}
+
+.period-group {
+	display: flex;
+}
+
+.period-field {
+	display: flex;
+}
+
+.period-input {
+	width: 6rem;
+}
+
+.apply-button {
+	width: 3rem;
+	height: 2.5rem;
+}
+
+.apply-icon {
+	display: block;
+	margin: 0 auto;
+}
+
+.clear-button {
+	cursor: pointer;
+	display: inline-flex;
+}
+
+.clear-button.disabled {
+	cursor: not-allowed;
 }
 </style>

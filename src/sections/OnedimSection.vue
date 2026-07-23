@@ -10,7 +10,7 @@
 			:single-account="singleAccount"
 			:accounts-color-gradient="accountsColorGradient"
 		/>
-		<div class="tab-content mt-1">
+		<div class="tab-content">
 			<!-- emails per time of day -->
 			<bar-chart
 				v-if="tabOnedim === tabsOnedim.daytime && !preferences.sections.onedim.comparison"

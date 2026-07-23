@@ -1,16 +1,16 @@
 <template>
-	<div v-show="!preferences.sections.total.expand" class="tab-area position-relative">
-		<div class="position-absolute top-0-5 right-0-5 d-flex gap-0-5">
+	<div v-show="!preferences.sections.total.expand" class="tab-area">
+		<div class="year-nav">
 			<div
-				class="d-inline-flex align-center"
-				:class="{ 'cursor-pointer': preferences.sections.activity.year > minYear }"
+				class="year-step"
+				:class="{ enabled: preferences.sections.activity.year > minYear }"
 				@click.prevent="previousYear()"
 			>
 				<ts-icon
 					weight="bold"
 					variant="gray-alt"
 					hover-accent
-					:class="{ 'v-hidden': preferences.sections.activity.year <= minYear }"
+					:class="{ hidden: preferences.sections.activity.year <= minYear }"
 				>
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline class="icon-part-accent2" points="15 6 9 12 15 18" />
@@ -20,15 +20,15 @@
 				<option v-for="y in yearsList" :key="y" :value="y">{{ y }}</option>
 			</ts-select>
 			<div
-				class="d-inline-flex align-center"
-				:class="{ 'cursor-pointer': preferences.sections.activity.year < maxYear }"
+				class="year-step"
+				:class="{ enabled: preferences.sections.activity.year < maxYear }"
 				@click.prevent="nextYear()"
 			>
 				<ts-icon
 					weight="bold"
 					variant="gray-alt"
 					hover-accent
-					:class="{ 'v-hidden': preferences.sections.activity.year >= maxYear }"
+					:class="{ hidden: preferences.sections.activity.year >= maxYear }"
 				>
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline class="icon-part-accent2" points="9 6 15 12 9 18" />
@@ -44,7 +44,7 @@
 				}}
 			</template>
 		</section-tab-header>
-		<div class="tab-content chart-group mt-1">
+		<div class="tab-content chart-group">
 			<!-- activity per day received -->
 			<matrix-chart
 				cid="activity-received"
@@ -86,3 +86,30 @@ const tabActivity = ref(tabsActivity.days);
 
 const { dateChartData } = useActivityChartData({ display, activityPrefs: preferences.sections.activity, t });
 </script>
+
+<style scoped>
+.tab-area {
+	position: relative;
+}
+
+.year-nav {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.year-step {
+	display: inline-flex;
+	align-self: center;
+}
+
+.year-step.enabled {
+	cursor: pointer;
+}
+
+.hidden {
+	visibility: hidden;
+}
+</style>

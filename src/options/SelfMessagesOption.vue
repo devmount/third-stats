@@ -1,9 +1,9 @@
 <template>
 	<div class="entry">
 		<label for="selfMessages">
-			<div class="d-flex align-items-end gap-0-5">
+			<div class="label-head">
 				{{ t('options.selfMessages.label') }}
-				<span class="text-gray mb--0-25" v-tooltip="t('options.note.refreshCacheRequired')">
+				<span class="note-icon" v-tooltip="t('options.note.refreshCacheRequired')">
 					<ts-icon size="tiny">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path
@@ -17,24 +17,24 @@
 					</ts-icon>
 				</span>
 			</div>
-			<div class="text-gray text-small">{{ t('options.selfMessages.description') }}</div>
+			<div class="description">{{ t('options.selfMessages.description') }}</div>
 		</label>
-		<div class="action d-flex flex-wrap">
-			<ts-select class="flex-grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
+		<div class="action self-messages-row">
+			<ts-select class="self-messages-select" v-model="options.selfMessages" id="selfMessages">
 				<option v-for="val in selfMessagesOptions" :key="val" :value="val">
 					{{ t(`options.selfMessages.values.${val}`) }}
 				</option>
 			</ts-select>
-			<div class="d-flex gap-0-5 align-items-center text-gray">
+			<div class="hint">
 				<div>
-					<ts-icon size="small" class="text-middle">
+					<ts-icon size="small" class="hint-icon">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<line x1="12" y1="8" x2="12.01" y2="8" />
 						<rect x="4" y="4" width="16" height="16" rx="2" />
 						<polyline points="11 12 12 12 12 16 13 16" />
 					</ts-icon>
 				</div>
-				<span class="text-small">{{ t(`options.selfMessages.info.${options.selfMessages}`) }}</span>
+				<span class="small-text">{{ t(`options.selfMessages.info.${options.selfMessages}`) }}</span>
 			</div>
 		</div>
 	</div>
@@ -48,3 +48,15 @@ const { options, selfMessagesOptions } = inject('engine');
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.self-messages-row {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.self-messages-select {
+	flex-grow: 1;
+	margin-bottom: 0.5rem;
+}
+</style>

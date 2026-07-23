@@ -1,7 +1,7 @@
 <template>
 	<div class="tab-area" v-if="display.folders">
 		<section-tab-header :tab="tabFolders" :tabs="tabsFolders" border-variant="static-gradient" />
-		<div class="tab-content mt-1">
+		<div class="tab-content">
 			<!-- folders emails received -->
 			<doughnut-chart
 				:info="{

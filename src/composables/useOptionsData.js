@@ -26,12 +26,7 @@ export function useOptionsData() {
 			// merge option objects to overwrite attributes by saved ones while keeping new attributes
 			options.value = { ...options.value, ...result.options };
 			// handle theme
-			setTheme(
-				options.value.theme,
-				document.body,
-				['dark', 'background-alt'],
-				['light', 'background-highlight-contrast']
-			);
+			setTheme(options.value.theme, document.body, ['dark', 'options-bg'], ['light', 'options-bg']);
 		}
 	};
 
@@ -169,7 +164,7 @@ export function useOptionsData() {
 		() => options.value,
 		(newOptions) => {
 			messenger.storage.local.set({ options: JSON.parse(JSON.stringify(newOptions)) });
-			setTheme(newOptions.theme, document.body, ['dark', 'background-alt'], ['light', 'background-highlight-contrast']);
+			setTheme(newOptions.theme, document.body, ['dark', 'options-bg'], ['light', 'options-bg']);
 		},
 		{
 			deep: true,

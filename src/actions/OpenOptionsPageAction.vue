@@ -1,11 +1,10 @@
 <template>
 	<div
-		class="cursor-pointer"
-		:class="wrapperClass"
+		class="action-link"
 		v-tooltip="{ text: t('popup.openOptions'), position: tooltipPosition }"
 		@click.prevent="openTab('index.options.html')"
 	>
-		<ts-icon hover-accent :class="iconClass">
+		<ts-icon :size="size" :weight="weight" :variant="variant" hover-accent>
 			<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 			<path
 				class="icon-part-accent2"
@@ -23,11 +22,17 @@ import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 defineProps({
-	// extra classes for the wrapper (flex alignment, spacing) - differs per caller
-	wrapperClass: { type: String, default: '' },
-	// extra classes for the icon (size, color) - differs per caller
-	iconClass: { type: String, default: '' },
+	// forwarded to ts-icon - differ per caller
+	size: { type: String, default: null },
+	weight: { type: String, default: null },
+	variant: { type: String, default: null },
 	// tooltip position - differs per caller
 	tooltipPosition: { type: String, default: null },
 });
 </script>
+
+<style scoped>
+.action-link {
+	cursor: pointer;
+}
+</style>

@@ -1,9 +1,9 @@
 <template>
 	<div class="entry">
 		<label for="autoRefresh">
-			<div class="d-flex align-items-end gap-0-5">
+			<div class="label-head">
 				{{ t('options.autoRefresh.label') }}
-				<span class="text-gray mb--0-25" v-tooltip="t('options.note.reloadWindowRequired')">
+				<span class="note-icon" v-tooltip="t('options.note.reloadWindowRequired')">
 					<ts-icon size="tiny">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
@@ -13,14 +13,14 @@
 					</ts-icon>
 				</span>
 			</div>
-			<div class="text-gray text-small">{{ t('options.autoRefresh.description') }}</div>
+			<div class="description">{{ t('options.autoRefresh.description') }}</div>
 		</label>
-		<div class="action d-flex align-items-center gap-1">
-			<ts-switch v-model="options.autoRefresh" id="autoRefresh" class="flex-no-shrink" />
-			<ts-input-group v-if="options.autoRefresh" class="action d-flex flex-grow">
-				<div class="d-flex flex-grow" :data-unit="t('stats.abbreviations.minute')">
+		<div class="action refresh-row">
+			<ts-switch v-model="options.autoRefresh" id="autoRefresh" class="refresh-switch" />
+			<ts-input-group v-if="options.autoRefresh" class="action interval-group">
+				<div class="interval-wrapper" :data-unit="t('stats.abbreviations.minute')">
 					<ts-char-input
-						class="flex-grow"
+						class="interval-input"
 						id="autoRefreshInterval"
 						type="number"
 						v-model="options.autoRefreshInterval"
@@ -29,14 +29,14 @@
 						@change="checkAutoRefreshInterval()"
 					/>
 				</div>
-				<div class="d-flex flex-direction-column button-group-vertical">
-					<ts-button @click="incrementAutoRefreshInterval()" class="h-1-25 py-0 px-0-5">
-						<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="d-block m-0-auto">
+				<div class="stepper button-group-vertical">
+					<ts-button @click="incrementAutoRefreshInterval()" class="stepper-button">
+						<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="stepper-icon">
 							<polyline points="6,12 12,6 18,12" />
 						</ts-icon>
 					</ts-button>
-					<ts-button @click="decrementAutoRefreshInterval()" class="h-1-25 py-0 px-0-5">
-						<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="d-block m-0-auto">
+					<ts-button @click="decrementAutoRefreshInterval()" class="stepper-button">
+						<ts-icon size="small" weight="bold" view-box="0 0 24 20" class="stepper-icon">
 							<polyline points="6,5 12,11 18,5" />
 						</ts-icon>
 					</ts-button>
@@ -55,3 +55,57 @@ const { options, incrementAutoRefreshInterval, decrementAutoRefreshInterval, che
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.refresh-row {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.refresh-switch {
+	flex-shrink: 0;
+}
+
+.interval-group {
+	display: flex;
+	flex-grow: 1;
+}
+
+.interval-wrapper {
+	display: flex;
+	flex-grow: 1;
+	position: relative;
+}
+
+.interval-wrapper::after {
+	position: absolute;
+	content: attr(data-unit);
+	right: 0.5rem;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 50;
+}
+
+.interval-input {
+	flex-grow: 1;
+}
+
+.stepper {
+	display: flex;
+	flex-direction: column;
+}
+
+.stepper-button {
+	height: 1.25rem;
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+}
+
+.stepper-icon {
+	display: block;
+	margin: 0 auto;
+}
+</style>

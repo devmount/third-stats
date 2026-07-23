@@ -2,10 +2,10 @@
 	<div class="entry">
 		<label for="theme">
 			{{ t('options.theme.label') }}
-			<span class="d-block text-gray text-small">{{ t('options.theme.description') }}</span>
+			<span class="description">{{ t('options.theme.description') }}</span>
 		</label>
-		<div class="action d-flex">
-			<ts-select class="flex-grow" v-model="options.theme" id="theme">
+		<div class="action theme-row">
+			<ts-select class="theme-select" v-model="options.theme" id="theme">
 				<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
 					{{ t(`options.theme.${theme}`) }}
 				</option>
@@ -22,3 +22,13 @@ const { options } = inject('engine');
 
 const { t } = useI18n();
 </script>
+
+<style scoped>
+.theme-row {
+	display: flex;
+}
+
+.theme-select {
+	flex-grow: 1;
+}
+</style>

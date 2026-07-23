@@ -1,29 +1,20 @@
 <template>
-	<div class="text-normal position-relative">
-		<div class="container pt-1">
+	<div class="popup">
+		<div class="container">
 			<!-- header containing number of accounts and linking to stats page -->
-			<header class="d-flex gap-0-5 mb-1-5">
-				<h3 class="flex-grow">
-					<span class="mr-1">{{ t('popup.nAccounts', accounts.length, [accounts.length]) }}</span>
+			<header>
+				<h3>
+					<span class="count">{{ t('popup.nAccounts', accounts.length, [accounts.length]) }}</span>
 					<ts-loader v-if="loading" />
 				</h3>
 				<action-bar />
 			</header>
 			<!-- list of all accounts -->
 			<section class="accounts">
-				<div
-					v-for="a in accounts"
-					:key="a.id"
-					class="background-hover-accent2 text-hover-highlight cursor-pointer shadow position-relative"
-					:class="{
-						'background-gray': options.dark,
-						'background-highlight-contrast': !options.dark,
-					}"
-					@click.prevent="openTab('index.stats.html', a.id)"
-				>
-					<div class="position-relative z-5">
+				<div v-for="a in accounts" :key="a.id" class="account" @click.prevent="openTab('index.stats.html', a.id)">
+					<div class="content">
 						<h4>{{ a.name }}</h4>
-						<div class="text-tiny text-secondary">
+						<div class="meta">
 							<div>{{ t('popup.nFolders', [a.folderCount], a.folderCount) }}</div>
 							<div v-if="a.hasOwnProperty('messageCount')">
 								{{ t('popup.nMessages', [a.messageCount], a.messageCount) }}
@@ -32,7 +23,7 @@
 					</div>
 					<line-chart
 						v-if="a.hasOwnProperty('messageCount') && a.messageCount > 0"
-						class="background-chart z-0"
+						class="background-chart"
 						:datasets="a.yearsData.datasets"
 						:labels="a.yearsData.labels"
 						:ordinate="false"
@@ -44,7 +35,7 @@
 					/>
 				</div>
 			</section>
-			<project-meta class="mt-2" :compact="true" />
+			<project-meta class="credits" :compact="true" />
 		</div>
 	</div>
 </template>
@@ -63,7 +54,7 @@ const { t } = useI18n();
 // popup page data engine (see composables/usePopupData.js) -
 // provided here so action components can inject whichever slices they need directly
 const popupEngine = usePopupData();
-const { accounts, loading, options, init } = popupEngine;
+const { accounts, loading, init } = popupEngine;
 provide('engine', popupEngine);
 
 onMounted(() => init());
@@ -79,24 +70,50 @@ body {
 	overflow-x: hidden;
 }
 
+body.popup-bg.dark {
+	background: var(--color-bg);
+}
+
+body.popup-bg.light {
+	background: var(--color-bg-modal);
+}
+
 #popup {
 	width: 100%;
 	height: 100%;
+	color: var(--color-text);
+	position: relative;
 
 	.container {
+		padding-top: 1rem;
 		padding-left: 20px;
 		padding-right: 20px;
 		padding-bottom: 20px;
+
+		header {
+			display: flex;
+			gap: 0.5rem;
+			margin-bottom: 1.5rem;
+		}
 
 		header h3 {
 			margin: 0;
 			font-weight: 400;
 			font-size: 20px;
+			flex-grow: 1;
+		}
+
+		.count {
+			margin-right: 1rem;
 		}
 
 		.loader {
 			height: 16px;
 			width: 16px;
+		}
+
+		.credits {
+			margin-top: 2rem;
 		}
 
 		.accounts {
@@ -109,6 +126,9 @@ body {
 				border-radius: 4px;
 				transition: all 0.2s;
 				overflow: hidden;
+				cursor: pointer;
+				position: relative;
+				box-shadow: var(--shadow-elevated);
 
 				h4 {
 					margin: 0;
@@ -118,13 +138,41 @@ body {
 					text-overflow: ellipsis;
 				}
 
+				.content {
+					position: relative;
+					z-index: 5;
+				}
+
+				.meta {
+					font-size: 0.75rem;
+					color: var(--color-text-secondary);
+				}
+
 				.background-chart {
 					position: absolute;
 					bottom: 0;
 					left: 0;
+					z-index: 0;
 				}
 			}
 		}
 	}
+}
+
+.dark .accounts > div {
+	background: var(--color-bg-gray);
+}
+
+.light .accounts > div {
+	background: var(--color-bg-highlight-contrast);
+}
+
+.accounts > div:hover {
+	background: var(--color-blue);
+}
+
+.accounts > div:hover,
+.accounts > div:hover * {
+	color: var(--color-text-highlight);
 }
 </style>
