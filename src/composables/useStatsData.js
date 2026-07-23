@@ -98,7 +98,7 @@ export function useStatsData() {
 				const o = result.options.oldValue;
 				// only update those options that changed
 				if (n.theme != o.theme) {
-					options.dark = setTheme(n.theme);
+					options.dark = setTheme(n.theme, document.body, ['dark', 'stats-bg'], ['light', 'stats-bg']);
 				}
 				if (n.ordinate != o.ordinate) {
 					options.ordinate = n.ordinate;
