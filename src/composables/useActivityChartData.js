@@ -27,7 +27,6 @@ export function useActivityChartData({ display, activityPrefs, t }) {
 			s.push([key, sentMap[key] || 0]);
 		}
 
-		// TODO: handle options.startOfWeek
 		return {
 			received: { label: t('stats.mailsReceived'), data: r },
 			sent: { label: t('stats.mailsSent'), data: s },

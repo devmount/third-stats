@@ -25,17 +25,7 @@
 			<section>
 				<h2>{{ t('options.headings.stats') }}</h2>
 				<!-- option: startOfWeek -->
-				<!-- <div class="entry">
-				<label for="start">
-					{{ t("options.startOfWeek.label") }}
-					<span class="description">{{ t("options.startOfWeek.description") }}</span>
-				</label>
-				<div class="action">
-					<select v-model="options.startOfWeek" id="start">
-						<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
-					</select>
-				</div>
-			</div> -->
+				<start-of-week-option />
 				<!-- option: addresses -->
 				<addresses-option />
 				<!-- option: account selection -->
@@ -103,6 +93,7 @@ import OrdinateOption from '@/options/OrdinateOption.vue';
 import TagColorsOption from '@/options/TagColorsOption.vue';
 import LiveCountUpOption from '@/options/LiveCountUpOption.vue';
 import AutoRefreshOption from '@/options/AutoRefreshOption.vue';
+import StartOfWeekOption from '@/options/StartOfWeekOption.vue';
 import AddressesOption from '@/options/AddressesOption.vue';
 import AccountsOption from '@/options/AccountsOption.vue';
 import SelfMessagesOption from '@/options/SelfMessagesOption.vue';

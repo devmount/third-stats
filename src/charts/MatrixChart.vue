@@ -11,7 +11,7 @@
 <script setup>
 import { computed, onMounted, watch } from 'vue';
 import { Chart, color } from '@/chart.config.js';
-import { isoDayOfWeek } from '@/utils.js';
+import { weekdayNames } from '@/utils.js';
 import { getDateFnsLocale } from '@/translations.js';
 import { useI18n } from 'vue-i18n';
 
@@ -28,7 +28,12 @@ const props = defineProps({
 	dimension: Object, // {cols, rows}
 	parseTime: Boolean, // if true, parse values as Date objects
 	datasets: Array, // [{data: [[date, value], [date, value], ...], label: ''}, ...]
+	weekdayLabels: Array, // 7 short weekday names, in the desired top-to-bottom row order
 });
+
+// Chart.js's category scale renders labels bottom-to-top on a vertical axis,
+// so the array needs reversing to make weekdayLabels[0] the top row
+const yAxisLabels = computed(() => [...(props.weekdayLabels || [])].reverse());
 
 const processedDatasets = computed(() => {
 	const data = props.datasets;
@@ -36,7 +41,7 @@ const processedDatasets = computed(() => {
 		d.data = d.data.map((e) => {
 			return {
 				x: props.parseTime ? e[0] : new Date(e[0]).getHours(),
-				y: isoDayOfWeek(new Date(e[0])),
+				y: weekdayNames(locale.value)[new Date(e[0]).getDay()],
 				d: props.parseTime
 					? new Date(e[0]).toLocaleDateString(locale.value, { year: 'numeric', month: 'long', day: 'numeric' })
 					: new Date(e[0]).toLocaleDateString(locale.value, { weekday: 'long', hour: 'numeric' }),
@@ -97,23 +102,9 @@ const draw = (localeObject) => {
 					border: {
 						display: false,
 					},
-					type: 'time',
-					adapters: {
-						date: {
-							locale: localeObject,
-						},
-					},
+					type: 'category',
+					labels: yAxisLabels.value,
 					offset: true,
-					time: {
-						unit: 'day',
-						round: 'day',
-						isoWeekday: true,
-						parser: 'i',
-						displayFormats: {
-							day: 'iiiiii',
-						},
-					},
-					reverse: true,
 					position: 'left',
 					ticks: {
 						maxRotation: 0,
@@ -182,6 +173,15 @@ watch(
 			chart.data.datasets = processedDatasets.value;
 			chart.update();
 		}
+	}
+);
+
+// update weekday row order if the start-of-week option changes
+watch(
+	() => yAxisLabels.value,
+	(newValue) => {
+		chart.options.scales.y.labels = newValue;
+		chart.update();
 	}
 );
 </script>

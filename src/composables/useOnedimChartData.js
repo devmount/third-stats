@@ -1,7 +1,7 @@
 // chart-data shaping for the "onedim" section (daytime/weekday/month bar charts)
 import { computed } from 'vue';
 import { accentColors } from '@/definitions.js';
-import { monthNames, weekdayNames } from '@/utils.js';
+import { monthNames, rotateArray, weekdayNames } from '@/utils.js';
 
 export function useOnedimChartData({ display, comparison, accounts, options, t, locale }) {
 	// prepare data for daytime bar chart
@@ -45,15 +45,9 @@ export function useOnedimChartData({ display, comparison, accounts, options, t, 
 
 	// prepare data for weekday bar chart
 	const weekdayChartData = computed(() => {
-		const r = Object.values(display.value.weekdayData.received);
-		const s = Object.values(display.value.weekdayData.sent);
-		let labels = [...weekdayNames(locale.value)];
-		// TODO: start week with user defined day of week
-		for (let d = 0; d < 1 /*options.startOfWeek*/; d++) {
-			r.push(r.shift());
-			s.push(s.shift());
-			labels.push(labels.shift());
-		}
+		const r = rotateArray(Object.values(display.value.weekdayData.received), options.startOfWeek);
+		const s = rotateArray(Object.values(display.value.weekdayData.sent), options.startOfWeek);
+		const labels = rotateArray(weekdayNames(locale.value), options.startOfWeek);
 		return {
 			datasets: [
 				{
@@ -73,18 +67,10 @@ export function useOnedimChartData({ display, comparison, accounts, options, t, 
 	// prepare comparison data for weekday bar chart
 	const weekdayComparedChartData = computed(() => {
 		let datasets = [];
-		let labels = [...weekdayNames(locale.value)];
-		// TODO: labels: start week with user defined day of week
-		for (let d = 0; d < 1 /*options.startOfWeek*/; d++) {
-			labels.push(labels.shift());
-		}
+		const labels = rotateArray(weekdayNames(locale.value), options.startOfWeek);
 		// compute dataset for each account
 		accounts.value.forEach((a) => {
-			const data = Object.values(comparison.value.weekdayData[a.id]);
-			// TODO: data: start week with user defined day of week
-			for (let d = 0; d < 1 /*options.startOfWeek*/; d++) {
-				data.push(data.shift());
-			}
+			const data = rotateArray(Object.values(comparison.value.weekdayData[a.id]), options.startOfWeek);
 			// add dataset for this account
 			datasets.push({
 				label: `${t('popup.nMessages', 2)} - ${a.name}`,
