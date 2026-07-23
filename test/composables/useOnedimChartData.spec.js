@@ -16,7 +16,7 @@ describe('useOnedimChartData', () => {
 		});
 		const comparison = ref({ daytimeData: {}, weekdayData: {}, monthData: {} });
 		const accounts = ref([]);
-		const options = { accountColors: {} };
+		const options = { accountColors: {}, startOfWeek: 1 };
 		const locale = ref('en');
 		return { display, comparison, accounts, options, t: stubT, locale, ...overrides };
 	};
@@ -46,12 +46,21 @@ describe('useOnedimChartData', () => {
 		});
 	});
 
-	it('weekdayChartData rotates data/labels so the week starts on Monday', () => {
+	it('weekdayChartData rotates data/labels according to options.startOfWeek', () => {
 		const ctx = buildContext();
 		const { weekdayChartData } = useOnedimChartData(ctx);
 
 		expect(weekdayChartData.value.labels).toEqual(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
 		expect(weekdayChartData.value.datasets[1].data).toEqual([2, 3, 4, 5, 6, 7, 1]); // received, rotated
+	});
+
+	it('weekdayChartData uses a different rotation when options.startOfWeek changes', () => {
+		const ctx = buildContext();
+		ctx.options.startOfWeek = 3;
+		const { weekdayChartData } = useOnedimChartData(ctx);
+
+		expect(weekdayChartData.value.labels).toEqual(['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue']);
+		expect(weekdayChartData.value.datasets[1].data).toEqual([4, 5, 6, 7, 1, 2, 3]); // received, rotated
 	});
 
 	it('weekdayComparedChartData rotates each account dataset the same way', () => {

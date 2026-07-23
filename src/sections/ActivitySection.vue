@@ -54,6 +54,7 @@
 				:dimension="{ cols: 53, rows: 7 }"
 				:parseTime="true"
 				:datasets="[dateChartData.received]"
+				:weekday-labels="weekdayLabels"
 			/>
 			<!-- activity per day sent -->
 			<matrix-chart
@@ -64,27 +65,32 @@
 				:parseTime="true"
 				:dimension="{ cols: 53, rows: 7 }"
 				:datasets="[dateChartData.sent]"
+				:weekday-labels="weekdayLabels"
 			/>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { ref, inject } from 'vue';
+import { ref, computed, inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { tabsActivity } from '@/definitions.js';
+import { rotateArray, weekdayNames } from '@/utils.js';
 import { useActivityChartData } from '@/composables/useActivityChartData.js';
 import MatrixChart from '@/charts/MatrixChart.vue';
 import SectionTabHeader from '@/parts/SectionTabHeader.vue';
 
-const { display, preferences, minYear, maxYear, yearsList, nextYear, previousYear } = inject('engine');
+const { display, preferences, options, minYear, maxYear, yearsList, nextYear, previousYear } = inject('engine');
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 // tab navigation local to this section
 const tabActivity = ref(tabsActivity.days);
 
 const { dateChartData } = useActivityChartData({ display, activityPrefs: preferences.sections.activity, t });
+
+// weekday row order for the matrix charts, respecting the configured start of week
+const weekdayLabels = computed(() => rotateArray(weekdayNames(locale.value), options.startOfWeek));
 </script>
 
 <style scoped>

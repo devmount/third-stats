@@ -29,7 +29,6 @@ export function useTwodimChartData({ display, t }) {
 			],
 			[]
 		);
-		// TODO: handle options.startOfWeek
 		return {
 			received: { label: t('stats.mailsReceived'), data: r },
 			sent: { label: t('stats.mailsSent'), data: s },

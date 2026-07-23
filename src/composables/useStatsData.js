@@ -163,7 +163,7 @@ export function useStatsData() {
 			options.liveCountUp = result.options.liveCountUp ?? defaultOptions.liveCountUp;
 			options.autoRefresh = result.options.autoRefresh ?? defaultOptions.autoRefresh;
 			options.autoRefreshInterval = result.options.autoRefreshInterval ?? defaultOptions.autoRefreshInterval;
-			// options.startOfWeek = result.options.startOfWeek ?? defaultOptions.startOfWeek;
+			options.startOfWeek = result.options.startOfWeek ?? defaultOptions.startOfWeek;
 			options.addresses = result.options.addresses
 				? result.options.addresses
 						.toLowerCase()

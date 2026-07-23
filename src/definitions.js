@@ -22,7 +22,6 @@ const defaultOptions = {
 	maxListCount: 20,
 	cache: true,
 	debug: false,
-	// startofWeek:
 };
 
 // tab navigation for stats page

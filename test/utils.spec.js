@@ -7,7 +7,6 @@ import {
 	formatBytes,
 	formatDate,
 	formatFolder,
-	isoDayOfWeek,
 	isSelfMessage,
 	localDateKey,
 	localStartOfWeek,
@@ -19,6 +18,7 @@ import {
 	pluralUkrainian,
 	quarterNumber,
 	queryMessages,
+	rotateArray,
 	setTheme,
 	sortAndLimitObject,
 	sortAndLimitObjectToArray,
@@ -295,14 +295,6 @@ describe('formatFolder', () => {
 	});
 });
 
-describe('isoDayOfWeek', () => {
-	it('maps Sunday to 7 and Monday to 1 (ISO 8601 numbering)', () => {
-		// Jan 1 2023 is a Sunday, Jan 2 2023 is a Monday
-		expect(isoDayOfWeek(new Date(2023, 0, 1))).toBe('7');
-		expect(isoDayOfWeek(new Date(2023, 0, 2))).toBe('1');
-	});
-});
-
 describe('localStartOfWeek', () => {
 	it('always resolves to the Sunday of the current week (getDay() 0)', () => {
 		// by construction (today's date minus today's weekday number), this can
@@ -326,6 +318,30 @@ describe('weekdayNames', () => {
 		expect(names).toHaveLength(7);
 		expect(names[0]).toBe('Sun');
 		expect(names[6]).toBe('Sat');
+	});
+});
+
+describe('rotateArray', () => {
+	it('moves the first n elements to the end, preserving order', () => {
+		expect(rotateArray(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], 1)).toEqual([
+			'Mon',
+			'Tue',
+			'Wed',
+			'Thu',
+			'Fri',
+			'Sat',
+			'Sun',
+		]);
+	});
+
+	it('returns the array unchanged when rotating by 0', () => {
+		expect(rotateArray([1, 2, 3], 0)).toEqual([1, 2, 3]);
+	});
+
+	it('does not mutate the input array', () => {
+		const input = [1, 2, 3];
+		rotateArray(input, 1);
+		expect(input).toEqual([1, 2, 3]);
 	});
 });
 

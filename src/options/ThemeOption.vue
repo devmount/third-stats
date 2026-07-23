@@ -4,8 +4,8 @@
 			{{ t('options.theme.label') }}
 			<span class="description">{{ t('options.theme.description') }}</span>
 		</label>
-		<div class="action theme-row">
-			<ts-select class="theme-select" v-model="options.theme" id="theme">
+		<div class="action action-row">
+			<ts-select class="action-select" v-model="options.theme" id="theme">
 				<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
 					{{ t(`options.theme.${theme}`) }}
 				</option>
@@ -24,11 +24,11 @@ const { t } = useI18n();
 </script>
 
 <style scoped>
-.theme-row {
+.action-row {
 	display: flex;
 }
 
-.theme-select {
+.action-select {
 	flex-grow: 1;
 }
 </style>

@@ -245,13 +245,6 @@ const localDateKey = (d) => {
 	return `${y}-${m}-${day}`;
 };
 
-// return day of week in iso format
-const isoDayOfWeek = (d) => {
-	let wd = d.getDay(); // 0..6, from sunday
-	wd = ((wd + 6) % 7) + 1; // 1..7 from monday
-	return String(wd);
-};
-
 const startOfToday = () => {
 	const d = new Date();
 	return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
@@ -288,13 +281,22 @@ const monthNames = (locale = 'en') => {
 };
 
 // array of localized, short day of week names
-const weekdayNames = (locale = 'en') => {
+const weekdayNames = (locale = 'en', weekdayFormat = 'short') => {
 	let names = [];
 	for (let wd = 1; wd <= 7; wd++) {
 		const d = new Date(1970, 1, wd); // choose a date to retrieve weekdays from, starting on a Sunday
-		names.push(d.toLocaleDateString(locale, { weekday: 'short' }));
+		names.push(d.toLocaleDateString(locale, { weekday: weekdayFormat }));
 	}
 	return names;
+};
+
+// rotate array to the left by <n> positions, moving the first <n> elements to the end
+const rotateArray = (arr, n) => {
+	const rotated = [...arr];
+	for (let i = 0; i < n; i++) {
+		rotated.push(rotated.shift());
+	}
+	return rotated;
 };
 
 // format bytes and append unit
@@ -359,7 +361,6 @@ export {
 	formatBytes,
 	formatDate,
 	formatFolder,
-	isoDayOfWeek,
 	isSelfMessage,
 	localDateKey,
 	localStartOfWeek,
@@ -371,6 +372,7 @@ export {
 	pluralUkrainian,
 	quarterNumber,
 	queryMessages,
+	rotateArray,
 	setTheme,
 	sortAndLimitObject,
 	sortAndLimitObjectToArray,
