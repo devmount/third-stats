@@ -130,6 +130,7 @@
     },
     "account": "บัญชีผู้ใช้",
     "accountEmpty": "บัญชีนี้ว่างเปล่า ไม่พบอีเมล",
+    "addressCopied": "คัดลอกไปยังคลิปบอร์ดแล้ว",
     "allAccounts": "บัญชีผู้ใช้ทั้งหมด",
     "charts": {
       "contactsJunk": {

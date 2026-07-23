@@ -130,6 +130,7 @@
     },
     "account": "アカウント",
     "accountEmpty": "このアカウントにはメールはありません。",
+    "addressCopied": "クリップボードにコピーしました",
     "allAccounts": "すべてのアカウント",
     "charts": {
       "contactsJunk": {

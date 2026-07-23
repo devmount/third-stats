@@ -130,6 +130,7 @@
     },
     "account": "Conto",
     "accountEmpty": "Questo account è vuoto, non ci sono email qui.",
+    "addressCopied": "Copiato negli appunti",
     "allAccounts": "Tutti i account",
     "charts": {
       "contactsJunk": {

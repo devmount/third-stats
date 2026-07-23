@@ -130,6 +130,7 @@
     },
     "account": "Аккаунт",
     "accountEmpty": "Пустой аккаунт, писем нет.",
+    "addressCopied": "Скопировано в буфер обмена",
     "allAccounts": "Все Аккаунты",
     "charts": {
       "contactsJunk": {

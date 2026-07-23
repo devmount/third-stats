@@ -126,6 +126,7 @@
     },
     "account": "Account",
     "accountEmpty": "This account is empty, no emails here.",
+    "addressCopied": "Copied to clipboard",
     "allAccounts": "All Accounts",
     "charts": {
       "contactsJunk": {

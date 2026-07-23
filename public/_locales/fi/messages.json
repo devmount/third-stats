@@ -130,6 +130,7 @@
     },
     "account": "Tili",
     "accountEmpty": "Tämä tili on tyhjä, sillä ei ole sähköposteja.",
+    "addressCopied": "Kopioitu leikepöydälle",
     "allAccounts": "Kaikki tilit",
     "charts": {
       "contactsJunk": {

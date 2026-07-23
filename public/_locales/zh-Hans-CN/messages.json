@@ -130,6 +130,7 @@
     },
     "account": "账号",
     "accountEmpty": "此账号为空，没有邮件。",
+    "addressCopied": "已复制到剪贴板",
     "allAccounts": "所有帐户",
     "charts": {
       "contactsJunk": {

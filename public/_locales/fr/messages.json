@@ -130,6 +130,7 @@
     },
     "account": "Compte",
     "accountEmpty": "Ce compte est vide, il n'y a pas d'emails.",
+    "addressCopied": "Copié dans le presse-papiers",
     "allAccounts": "Tous les comptes",
     "charts": {
       "contactsJunk": {

@@ -130,6 +130,7 @@
     },
     "account": "Konto",
     "accountEmpty": "To konto jest puste, nie ma żadnych e-maili.",
+    "addressCopied": "Skopiowano do schowka",
     "allAccounts": "Wszystkie konta",
     "charts": {
       "contactsJunk": {

@@ -130,6 +130,7 @@
     },
     "account": "帳號",
     "accountEmpty": "當前帳號為空，並沒有任何郵件。",
+    "addressCopied": "已複製到剪貼簿",
     "allAccounts": "所有帳號",
     "charts": {
       "contactsJunk": {

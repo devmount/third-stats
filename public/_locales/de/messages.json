@@ -130,6 +130,7 @@
     },
     "account": "Konto",
     "accountEmpty": "Dieses Konto ist leer und enthält keine E-Mails.",
+    "addressCopied": "In die Zwischenablage kopiert",
     "allAccounts": "Alle Konten",
     "charts": {
       "contactsJunk": {
