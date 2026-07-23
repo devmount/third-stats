@@ -44,6 +44,10 @@
       "stats": "Diagrammen en gegevens",
       "storage": "Opslag en cache"
     },
+    "includeSubfolders": {
+      "description": "Bij het filteren van berichten van een map worden ook berichten uit submappen opgenomen.",
+      "label": "Submappen opnemen"
+    },
     "liveCountUp": {
       "description": "Live-voortgang van berekende getallen weergeven bij het verwerken van statistische gegevens",
       "info": "Dit inschakelen kan de verwerkingstijd verlengen",

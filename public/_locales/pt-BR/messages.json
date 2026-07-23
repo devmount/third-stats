@@ -44,6 +44,10 @@
       "stats": "Gráficos e Dados",
       "storage": "Armazenamento e Cache"
     },
+    "includeSubfolders": {
+      "description": "Ao filtrar mensagens de uma pasta, as mensagens das subpastas também serão incluídas.",
+      "label": "Incluir subpastas"
+    },
     "liveCountUp": {
       "description": "Mostre o progresso ao vivo de números calculados ao processar dados de estatísticas",
       "info": "Ativar isso pode aumentar o tempo de processamento",

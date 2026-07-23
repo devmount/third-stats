@@ -44,6 +44,10 @@
       "stats": "Diagram & Data",
       "storage": "Lagring & Cache"
     },
+    "includeSubfolders": {
+      "description": "Vid filtrering av meddelanden i en mapp inkluderas även meddelanden i undermappar.",
+      "label": "Inkludera undermappar"
+    },
     "liveCountUp": {
       "description": "Visa direktförlopp för beräknade tal vid bearbetning av statistikdata",
       "info": "Aktivering av detta kan öka bearbetningstiden",

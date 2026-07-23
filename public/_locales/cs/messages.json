@@ -44,6 +44,10 @@
       "stats": "Grafy a data",
       "storage": "Úložiště a mezipaměť"
     },
+    "includeSubfolders": {
+      "description": "Při filtrování zpráv ve složce budou zahrnuty i zprávy z podsložek.",
+      "label": "Zahrnout podsložky"
+    },
     "liveCountUp": {
       "description": "Zobrazit aktuální průběh vypočítaných čísel při zpracování statistických dat",
       "info": "Tato aktivace může prodloužit dobu zpracování",
