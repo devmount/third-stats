@@ -15,14 +15,14 @@ on:
 
 jobs:
   oxlint:
-    name: Lint JS
+    name: Linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - run: npx --yes oxlint@latest --deny-warnings # change to the latest release
 
   test:
-    name: Test
+    name: Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
