@@ -28,6 +28,19 @@ describe('useActivityChartData', () => {
 		expect(dateChartData.value.received.data.every(([, count]) => count !== 9)).toBe(true);
 	});
 
+	it('excludes data belonging to a different year from the sent counts', () => {
+		const display = ref({
+			dateData: {
+				received: {},
+				sent: { '2022-12-31': 4, '2023-06-15': 6 },
+			},
+		});
+		const activityPrefs = reactive({ year: 2023 });
+		const { dateChartData } = useActivityChartData({ display, activityPrefs, t: stubT });
+		expect(dateChartData.value.sent.data.every(([, count]) => count !== 4)).toBe(true);
+		expect(dateChartData.value.sent.data.find(([key]) => key === '2023-06-15')[1]).toBe(6);
+	});
+
 	it('reacts to a change in the selected year', () => {
 		const display = ref({ dateData: { received: { '2024-01-01': 7 }, sent: {} } });
 		const activityPrefs = reactive({ year: 2023 });

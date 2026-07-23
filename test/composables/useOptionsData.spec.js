@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { useOptionsData } from '@/composables/useOptionsData.js';
 import { defaultOptions } from '@/definitions.js';
+import { createMockMessenger } from '../helpers/messenger.js';
 
 // the composable's internal deep watch on `options` fires (asynchronously, via Vue's
 // reactivity flush) on every mutation made below and calls messenger.storage.local.set()
@@ -8,11 +9,7 @@ import { defaultOptions } from '@/definitions.js';
 // watcher's side effects don't throw, regardless of exactly when its microtask fires
 // relative to a given test's completion
 const fakeElement = () => ({ classList: { add: () => {}, remove: () => {}, contains: () => false } });
-vi.stubGlobal('messenger', {
-	storage: { local: { set: vi.fn() } },
-	// only needed by resetOptions -> getAccounts
-	runtime: { getBackgroundPage: async () => ({ messenger: { accounts: { list: async () => [] } } }) },
-});
+vi.stubGlobal('messenger', createMockMessenger());
 vi.stubGlobal('document', { body: fakeElement(), documentElement: fakeElement() });
 vi.stubGlobal('window', { matchMedia: () => ({ matches: false }) });
 
@@ -147,5 +144,169 @@ describe('maxListCount increment/decrement/check', () => {
 		options.value.maxListCount = 20;
 		checkmaxListCount();
 		expect(options.value.maxListCount).toBe(20);
+	});
+});
+
+describe('getSettings', () => {
+	it('merges stored options over the defaults and applies the theme', async () => {
+		const messenger = createMockMessenger();
+		await messenger.storage.local.set({ options: { theme: 'dark', debug: true } });
+		vi.stubGlobal('messenger', messenger);
+
+		const { options, getSettings } = useOptionsData();
+		await getSettings();
+
+		expect(options.value.theme).toBe('dark');
+		expect(options.value.debug).toBe(true);
+		// untouched fields keep their default value - this is a merge, not a replace
+		expect(options.value.maxListCount).toBe(defaultOptions.maxListCount);
+	});
+
+	it('keeps the built-in defaults when nothing has been stored yet', async () => {
+		vi.stubGlobal('messenger', createMockMessenger());
+
+		const { options, getSettings } = useOptionsData();
+		await getSettings();
+
+		expect(options.value).toEqual(defaultOptions);
+	});
+});
+
+describe('getAccounts', () => {
+	it('defaults options.accounts to all account ids when none are configured yet', async () => {
+		const accountA = { id: 'a', name: 'A' };
+		const accountB = { id: 'b', name: 'B' };
+		vi.stubGlobal(
+			'messenger',
+			createMockMessenger({
+				runtime: {
+					getBackgroundPage: vi.fn(async () => ({
+						messenger: { accounts: { list: vi.fn(async () => [accountA, accountB]) } },
+					})),
+				},
+			})
+		);
+
+		const { options, allAccounts, getAccounts } = useOptionsData();
+		options.value.accounts = [];
+		await getAccounts();
+
+		expect(allAccounts.value).toEqual([accountA, accountB]);
+		expect(options.value.accounts).toEqual(['a', 'b']);
+	});
+
+	it('leaves an already-configured accounts selection untouched', async () => {
+		const accountA = { id: 'a', name: 'A' };
+		vi.stubGlobal(
+			'messenger',
+			createMockMessenger({
+				runtime: {
+					getBackgroundPage: vi.fn(async () => ({ messenger: { accounts: { list: vi.fn(async () => [accountA]) } } })),
+				},
+			})
+		);
+
+		const { options, getAccounts } = useOptionsData();
+		options.value.accounts = ['already-configured'];
+		await getAccounts();
+
+		expect(options.value.accounts).toEqual(['already-configured']);
+	});
+
+	it('assigns a default color only to accounts that do not already have one', async () => {
+		const accountA = { id: 'a', name: 'A' };
+		const accountB = { id: 'b', name: 'B' };
+		vi.stubGlobal(
+			'messenger',
+			createMockMessenger({
+				runtime: {
+					getBackgroundPage: vi.fn(async () => ({
+						messenger: { accounts: { list: vi.fn(async () => [accountA, accountB]) } },
+					})),
+				},
+			})
+		);
+
+		const { options, getAccounts } = useOptionsData();
+		options.value.accountColors = { a: '#custom' };
+		await getAccounts();
+
+		expect(options.value.accountColors.a).toBe('#custom');
+		expect(options.value.accountColors.b).toBeDefined();
+		expect(options.value.accountColors.b).not.toBe('#custom');
+	});
+});
+
+describe('getCacheSize', () => {
+	it('computes cache size as the byte difference between total storage and the options entry', async () => {
+		const messenger = createMockMessenger();
+		await messenger.storage.local.set({ options: { a: 1 } });
+		await messenger.storage.local.set({ extra: { b: 2 } });
+		vi.stubGlobal('messenger', messenger);
+
+		const { cacheSize, getCacheSize } = useOptionsData();
+		await getCacheSize();
+
+		// the "options" entry is a common prefix of both encoded strings, so the
+		// difference is exactly the byte length of the "extra" entry alone
+		const expected = new TextEncoder().encode('extra{"b":2}').length;
+		expect(cacheSize.value).toBe(expected);
+	});
+});
+
+describe('clearCache', () => {
+	it('wipes storage except for a freshly persisted options snapshot', async () => {
+		const messenger = createMockMessenger();
+		await messenger.storage.local.set({ options: { theme: 'dark' } });
+		await messenger.storage.local.set({ 'stats-acct1': { numbers: { total: 5 } } });
+		vi.stubGlobal('messenger', messenger);
+
+		const { options, cacheSize, clearCache } = useOptionsData();
+		options.value.theme = 'dark';
+		await clearCache();
+
+		const remaining = await messenger.storage.local.get();
+		expect(Object.keys(remaining)).toEqual(['options']);
+		expect(remaining.options).toEqual(options.value);
+		// only the just-restored options entry is left, so recomputed cache size is 0
+		expect(cacheSize.value).toBe(0);
+	});
+});
+
+describe('ownOptionsPage', () => {
+	it('is true when the options page was opened with the "s" URL parameter', () => {
+		vi.stubGlobal('window', { matchMedia: () => ({ matches: false }), location: { search: '?s=abc' } });
+		const { ownOptionsPage } = useOptionsData();
+		expect(ownOptionsPage.value).toBe(true);
+	});
+
+	it('is false without the "s" URL parameter', () => {
+		vi.stubGlobal('window', { matchMedia: () => ({ matches: false }), location: { search: '' } });
+		const { ownOptionsPage } = useOptionsData();
+		expect(ownOptionsPage.value).toBe(false);
+	});
+});
+
+describe('init', () => {
+	it('bootstraps settings, accounts and cache size in one call', async () => {
+		const account = { id: 'a', name: 'A' };
+		const messenger = createMockMessenger({
+			runtime: {
+				getBackgroundPage: vi.fn(async () => ({ messenger: { accounts: { list: vi.fn(async () => [account]) } } })),
+			},
+		});
+		await messenger.storage.local.set({ options: { theme: 'dark' } });
+		vi.stubGlobal('messenger', messenger);
+		vi.stubGlobal('window', { matchMedia: () => ({ matches: false }), location: { search: '' } });
+
+		const { options, allAccounts, cacheSize, init } = useOptionsData();
+		await init();
+		// getAccounts()/getCacheSize() are deliberately not awaited by init() itself -
+		// give their microtask chains a moment to settle before asserting
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(options.value.theme).toBe('dark');
+		expect(allAccounts.value).toEqual([account]);
+		expect(cacheSize.value).toBeGreaterThanOrEqual(0);
 	});
 });

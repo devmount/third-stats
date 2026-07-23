@@ -33,6 +33,7 @@ import {
 	weeksBetween,
 	yyyymmdd,
 } from '@/utils.js';
+import { createMockMessenger } from './helpers/messenger.js';
 
 afterEach(() => {
 	vi.unstubAllGlobals();
@@ -124,6 +125,11 @@ describe('contactInvolved', () => {
 	it('returns false when the contact is not involved', () => {
 		expect(contactInvolved('dave@example.com', message)).toBe(false);
 	});
+
+	it('matches a bcc', () => {
+		const withBcc = { ...message, bccList: ['dave@example.com'] };
+		expect(contactInvolved('dave@example.com', withBcc)).toBe(true);
+	});
 });
 
 describe('localDateKey', () => {
@@ -156,6 +162,41 @@ describe('isSelfMessage', () => {
 			recipients: ['Bob <bob@example.com>'],
 			ccList: [],
 			bccList: [],
+		};
+		expect(isSelfMessage(message, ['me@example.com'])).toBe(false);
+	});
+
+	it('is false when the author cannot be parsed at all', () => {
+		const message = { author: 'not-an-email', recipients: [], ccList: [], bccList: [] };
+		expect(isSelfMessage(message, ['me@example.com'])).toBe(false);
+	});
+
+	it('is false when a recipient is not in the given identities', () => {
+		const message = {
+			author: 'Me <me@example.com>',
+			recipients: ['Bob <bob@example.com>'],
+			ccList: [],
+			bccList: [],
+		};
+		expect(isSelfMessage(message, ['me@example.com'])).toBe(false);
+	});
+
+	it('is false when a cc is not in the given identities', () => {
+		const message = {
+			author: 'Me <me@example.com>',
+			recipients: ['Me <me@example.com>'],
+			ccList: ['Bob <bob@example.com>'],
+			bccList: [],
+		};
+		expect(isSelfMessage(message, ['me@example.com'])).toBe(false);
+	});
+
+	it('is false when a bcc is not in the given identities', () => {
+		const message = {
+			author: 'Me <me@example.com>',
+			recipients: ['Me <me@example.com>'],
+			ccList: [],
+			bccList: ['Bob <bob@example.com>'],
 		};
 		expect(isSelfMessage(message, ['me@example.com'])).toBe(false);
 	});
@@ -428,14 +469,14 @@ describe('setTheme', () => {
 describe('openTab', () => {
 	it('opens the given url with no query param when none is given', () => {
 		const create = vi.fn();
-		vi.stubGlobal('messenger', { tabs: { create } });
+		vi.stubGlobal('messenger', createMockMessenger({ tabs: { create } }));
 		openTab('index.html');
 		expect(create).toHaveBeenCalledWith({ active: true, url: 'index.html' });
 	});
 
 	it('appends the "s" query param when given', () => {
 		const create = vi.fn();
-		vi.stubGlobal('messenger', { tabs: { create } });
+		vi.stubGlobal('messenger', createMockMessenger({ tabs: { create } }));
 		openTab('index.html', 'abc');
 		expect(create).toHaveBeenCalledWith({ active: true, url: 'index.html?s=abc' });
 	});
@@ -446,7 +487,7 @@ describe('queryMessages', () => {
 
 	it('yields all messages from a single page', async () => {
 		const list = vi.fn().mockResolvedValue(page([{ id: 1 }, { id: 2 }], null));
-		vi.stubGlobal('messenger', { messages: { list } });
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list } }));
 		const result = [];
 		for await (const m of queryMessages('folder-1', null, null)) result.push(m);
 		expect(result).toEqual([{ id: 1 }, { id: 2 }]);
@@ -456,7 +497,7 @@ describe('queryMessages', () => {
 	it('paginates across multiple pages via continueList', async () => {
 		const list = vi.fn().mockResolvedValue(page([{ id: 1 }], 'page-2'));
 		const continueList = vi.fn().mockResolvedValue(page([{ id: 2 }], null));
-		vi.stubGlobal('messenger', { messages: { list, continueList } });
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list, continueList } }));
 		const result = [];
 		for await (const m of queryMessages('folder-1', null, null)) result.push(m);
 		expect(result).toEqual([{ id: 1 }, { id: 2 }]);
@@ -468,7 +509,7 @@ describe('queryMessages', () => {
 		const tooEarly = { id: 2, date: new Date('2022-01-01').getTime() };
 		const tooLate = { id: 3, date: new Date('2024-01-01').getTime() };
 		const list = vi.fn().mockResolvedValue(page([inRange, tooEarly, tooLate], null));
-		vi.stubGlobal('messenger', { messages: { list } });
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list } }));
 		const result = [];
 		for await (const m of queryMessages('folder-1', '2023-01-01', '2023-12-31')) result.push(m);
 		expect(result).toEqual([inRange]);
@@ -477,7 +518,7 @@ describe('queryMessages', () => {
 	it('does not filter by date when only one bound is given', async () => {
 		const messages = [{ id: 1, date: new Date('2010-01-01').getTime() }];
 		const list = vi.fn().mockResolvedValue(page(messages, null));
-		vi.stubGlobal('messenger', { messages: { list } });
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list } }));
 		const result = [];
 		for await (const m of queryMessages('folder-1', '2023-01-01', null)) result.push(m);
 		expect(result).toEqual(messages);
@@ -486,7 +527,7 @@ describe('queryMessages', () => {
 	it('records an error and stops iterating when the underlying API throws', async () => {
 		const list = vi.fn().mockRejectedValue(new Error('boom'));
 		const set = vi.fn().mockResolvedValue();
-		vi.stubGlobal('messenger', { messages: { list }, storage: { local: { set } } });
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list }, storage: { local: { set } } }));
 		vi.spyOn(console, 'error').mockImplementation(() => {});
 		const result = [];
 		for await (const m of queryMessages('folder-1', null, null)) result.push(m);
@@ -505,7 +546,7 @@ describe('traverseAccount', () => {
 			],
 		};
 		const get = vi.fn().mockResolvedValue(tree);
-		vi.stubGlobal('messenger', { folders: { get } });
+		vi.stubGlobal('messenger', createMockMessenger({ folders: { get } }));
 		const account = { rootFolder: { id: 'root-1' } };
 		const result = await traverseAccount(account);
 		expect(result.map((f) => f.path)).toEqual(['/Inbox', '/Inbox/Sub', '/Sent']);
@@ -514,7 +555,7 @@ describe('traverseAccount', () => {
 
 	it('returns an empty array when the account has no subfolders', async () => {
 		const get = vi.fn().mockResolvedValue({ isRoot: true, subFolders: [] });
-		vi.stubGlobal('messenger', { folders: { get } });
+		vi.stubGlobal('messenger', createMockMessenger({ folders: { get } }));
 		const result = await traverseAccount({ rootFolder: { id: 'root-1' } });
 		expect(result).toEqual([]);
 	});
