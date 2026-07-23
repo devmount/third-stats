@@ -16,6 +16,7 @@ const defaultOptions = {
 	autoRefreshInterval: 30,
 	startOfWeek: localStartOfWeek(),
 	addresses: '',
+	includeSubfolders: false,
 	accounts: [],
 	accountColors: {},
 	selfMessages: 'none',

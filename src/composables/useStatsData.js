@@ -7,6 +7,7 @@ import { useI18n } from 'vue-i18n';
 import { accentColors, defaultColors, defaultOptions } from '@/definitions.js';
 import {
 	filterActiveAccounts,
+	flattenSubfolders,
 	queryMessages,
 	setTheme,
 	sortAndLimitObject,
@@ -124,6 +125,9 @@ export function useStatsData() {
 						.split(',')
 						.map((x) => x.trim());
 				}
+				if (n.includeSubfolders != o.includeSubfolders) {
+					options.includeSubfolders = n.includeSubfolders;
+				}
 				if (JSON.stringify(n.accounts) != JSON.stringify(o.accounts)) {
 					options.accounts = n.accounts;
 				}
@@ -170,6 +174,7 @@ export function useStatsData() {
 						.split(',')
 						.map((x) => x.trim())
 				: defaultOptions.addresses;
+			options.includeSubfolders = result.options.includeSubfolders ?? defaultOptions.includeSubfolders;
 			options.accounts = result.options.accounts ?? defaultOptions.accounts;
 			options.accountColors = result.options.accountColors ?? defaultOptions.accountColors;
 			options.selfMessages = result.options.selfMessages ?? defaultOptions.selfMessages;
@@ -260,7 +265,12 @@ export function useStatsData() {
 			? a.identities.map((i) => i.email.toLowerCase())
 			: options.addresses;
 		// get all folders and subfolders from given account or selected folder of active account (filter field)
-		const foldersList = active.folder ? [JSON.parse(JSON.stringify(active.folder))] : await traverseAccount(a);
+		const foldersList = active.folder
+			? [
+					JSON.parse(JSON.stringify(active.folder)),
+					...(options.includeSubfolders ? flattenSubfolders(active.folder) : []),
+				]
+			: await traverseAccount(a);
 		// build folder list for filter selection, if not already present
 		if (!folders.value.length) {
 			folders.value = foldersList;

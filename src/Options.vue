@@ -28,6 +28,8 @@
 				<start-of-week-option />
 				<!-- option: addresses -->
 				<addresses-option />
+				<!-- option: includeSubfolders -->
+				<include-subfolders-option />
 				<!-- option: account selection -->
 				<accounts-option />
 				<!-- option: selfMessages -->
@@ -95,6 +97,7 @@ import LiveCountUpOption from '@/options/LiveCountUpOption.vue';
 import AutoRefreshOption from '@/options/AutoRefreshOption.vue';
 import StartOfWeekOption from '@/options/StartOfWeekOption.vue';
 import AddressesOption from '@/options/AddressesOption.vue';
+import IncludeSubfoldersOption from '@/options/IncludeSubfoldersOption.vue';
 import AccountsOption from '@/options/AccountsOption.vue';
 import SelfMessagesOption from '@/options/SelfMessagesOption.vue';
 import MaxListCountOption from '@/options/MaxListCountOption.vue';
