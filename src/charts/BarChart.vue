@@ -14,13 +14,13 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Chart, getRelativePosition, transparentGradientBar } from '@/chart.config.js';
+import { Chart, transparentGradientBar } from '@/chart.config.js';
 
 const { t } = useI18n();
 
 let chart = null;
 const id = Math.random().toString(36).substring(7);
-// visible while a copied-label confirmation is shown, positioned next to the clicked label
+// visible while a copied-address confirmation is shown, positioned next to the clicked bar
 const copiedFeedback = ref(null);
 let copiedFeedbackTimeout = null;
 
@@ -123,53 +123,35 @@ const draw = () => {
 		},
 	});
 	if (props.horizontal) {
-		chart.canvas.addEventListener('click', onLabelClick);
-		chart.canvas.addEventListener('mousemove', onLabelHover);
+		chart.canvas.addEventListener('click', onBarClick);
+		chart.canvas.addEventListener('mousemove', onBarHover);
 		chart.canvas.addEventListener('mouseleave', resetCursor);
 	}
 };
 
-// resolves the labels[] index for the y-axis category label nearest a given mouse event,
-// or null if it's outside the label gutter to the left of the plot area. Chart.js
-// auto-skips labels to avoid overlap, so rather than resolving to whichever raw
-// category the pixel position mathematically falls on (which could be a hidden
-// label), this snaps to the closest currently-rendered tick, giving every visible
-// label a fair-sized click target spanning halfway to its neighbors.
-// (Chart.js only fires its own onClick for points inside the plot area, so this
-// hit-test is done manually against the raw canvas event)
-const labelIndexAt = (nativeEvent) => {
-	const { x, y } = getRelativePosition(nativeEvent, chart);
-	const { left, top, bottom } = chart.chartArea;
-	if (x >= left || y < top || y > bottom) return null;
-	const yScale = chart.scales.y;
-	const ticks = yScale.ticks;
-	if (!ticks.length) return null;
-	let nearest = ticks[0].value;
-	let nearestDistance = Math.abs(yScale.getPixelForValue(nearest) - y);
-	for (const tick of ticks) {
-		const distance = Math.abs(yScale.getPixelForValue(tick.value) - y);
-		if (distance < nearestDistance) {
-			nearest = tick.value;
-			nearestDistance = distance;
-		}
-	}
-	return props.labels[nearest] !== undefined ? nearest : null;
+// finds the bar under/nearest a given mouse event, matching by row regardless of
+// exact x position within it, so the whole row is a fair-sized click target
+// (bars are never auto-skipped for space the way axis labels are, so unlike
+// hit-testing against tick positions, every row stays reliably clickable)
+const barElementAt = (nativeEvent) => {
+	const elements = chart.getElementsAtEventForMode(nativeEvent, 'index', { axis: 'y', intersect: false }, true);
+	return elements.length ? elements[0] : null;
 };
 
 const resetCursor = () => {
 	chart.canvas.style.cursor = '';
 };
 
-const onLabelHover = (nativeEvent) => {
-	chart.canvas.style.cursor = labelIndexAt(nativeEvent) === null ? '' : 'pointer';
+const onBarHover = (nativeEvent) => {
+	chart.canvas.style.cursor = barElementAt(nativeEvent) ? 'pointer' : '';
 };
 
-const onLabelClick = (nativeEvent) => {
-	const index = labelIndexAt(nativeEvent);
-	if (index === null) return;
-	navigator.clipboard.writeText(props.labels[index]);
+const onBarClick = (nativeEvent) => {
+	const hit = barElementAt(nativeEvent);
+	if (!hit) return;
+	navigator.clipboard.writeText(props.labels[hit.index]);
 	clearTimeout(copiedFeedbackTimeout);
-	copiedFeedback.value = { top: chart.scales.y.getPixelForValue(index) };
+	copiedFeedback.value = { top: hit.element.y };
 	copiedFeedbackTimeout = setTimeout(() => (copiedFeedback.value = null), 1200);
 };
 
