@@ -130,6 +130,7 @@
     },
     "account": "Rekening",
     "accountEmpty": "Deze rekening is leeg, geen e-mails hier.",
+    "addressCopied": "Gekopieerd naar klembord",
     "allAccounts": "Alle Rekeningen",
     "charts": {
       "contactsJunk": {

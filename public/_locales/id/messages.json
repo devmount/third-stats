@@ -130,6 +130,7 @@
     },
     "account": "Akun",
     "accountEmpty": "Akun ini kosong, tidak ada email di sini.",
+    "addressCopied": "Disalin ke clipboard",
     "allAccounts": "Semua Akun",
     "charts": {
       "contactsJunk": {

@@ -130,6 +130,7 @@
     },
     "account": "Účet",
     "accountEmpty": "Tento účet je prázdny, nie sú tu žiadne emaily.",
+    "addressCopied": "Skopírované do schránky",
     "allAccounts": "Všetky účty",
     "charts": {
       "contactsJunk": {

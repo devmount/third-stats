@@ -130,6 +130,7 @@
     },
     "account": "Compte",
     "accountEmpty": "Aquest compte està buit, no hi ha cap correu electrònic.",
+    "addressCopied": "Copiat al porta-retalls",
     "allAccounts": "Tots els comptes",
     "charts": {
       "contactsJunk": {

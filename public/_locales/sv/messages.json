@@ -130,6 +130,7 @@
     },
     "account": "Konto",
     "accountEmpty": "Detta konto är tomt, inga mejl hittas.",
+    "addressCopied": "Kopierat till urklipp",
     "allAccounts": "Alla Konton",
     "charts": {
       "contactsJunk": {

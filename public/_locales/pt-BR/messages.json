@@ -130,6 +130,7 @@
     },
     "account": "Conta",
     "accountEmpty": "Esta conta está vazia, sem e-mails por aqui.",
+    "addressCopied": "Copiado para a área de transferência",
     "allAccounts": "Todas as Contas",
     "charts": {
       "contactsJunk": {

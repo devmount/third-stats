@@ -130,6 +130,7 @@
     },
     "account": "Hesap",
     "accountEmpty": "Bu hesap boş, e-posta yok.",
+    "addressCopied": "Panoya kopyalandı",
     "allAccounts": "Tüm hesaplar",
     "charts": {
       "contactsJunk": {

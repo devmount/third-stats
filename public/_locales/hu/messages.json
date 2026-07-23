@@ -130,6 +130,7 @@
     },
     "account": "Fiók",
     "accountEmpty": "Ez a postafiók üres, itt nincsenek levelek.",
+    "addressCopied": "Vágólapra másolva",
     "allAccounts": "Minden postafiók",
     "charts": {
       "contactsJunk": {

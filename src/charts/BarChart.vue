@@ -4,16 +4,25 @@
 		<p v-if="description">{{ description }}</p>
 		<div class="chart-container">
 			<canvas :id="id"></canvas>
+			<div v-if="copiedFeedback" class="copy-feedback" :style="{ top: `${copiedFeedback.top}px` }">
+				{{ t('stats.addressCopied') }}
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Chart, transparentGradientBar } from '@/chart.config.js';
+
+const { t } = useI18n();
 
 let chart = null;
 const id = Math.random().toString(36).substring(7);
+// visible while a copied-address confirmation is shown, positioned next to the clicked bar
+const copiedFeedback = ref(null);
+let copiedFeedbackTimeout = null;
 
 const props = defineProps({
 	title: String,
@@ -113,6 +122,37 @@ const draw = () => {
 			},
 		},
 	});
+	if (props.horizontal) {
+		chart.canvas.addEventListener('click', onBarClick);
+		chart.canvas.addEventListener('mousemove', onBarHover);
+		chart.canvas.addEventListener('mouseleave', resetCursor);
+	}
+};
+
+// finds the bar under/nearest a given mouse event, matching by row regardless of
+// exact x position within it, so the whole row is a fair-sized click target
+// (bars are never auto-skipped for space the way axis labels are, so unlike
+// hit-testing against tick positions, every row stays reliably clickable)
+const barElementAt = (nativeEvent) => {
+	const elements = chart.getElementsAtEventForMode(nativeEvent, 'index', { axis: 'y', intersect: false }, true);
+	return elements.length ? elements[0] : null;
+};
+
+const resetCursor = () => {
+	chart.canvas.style.cursor = '';
+};
+
+const onBarHover = (nativeEvent) => {
+	chart.canvas.style.cursor = barElementAt(nativeEvent) ? 'pointer' : '';
+};
+
+const onBarClick = (nativeEvent) => {
+	const hit = barElementAt(nativeEvent);
+	if (!hit) return;
+	navigator.clipboard.writeText(props.labels[hit.index]);
+	clearTimeout(copiedFeedbackTimeout);
+	copiedFeedback.value = { top: hit.element.y };
+	copiedFeedbackTimeout = setTimeout(() => (copiedFeedback.value = null), 1200);
 };
 
 onMounted(() => {
@@ -158,5 +198,18 @@ watch(
 		position: relative;
 		flex: 1 1 auto;
 	}
+}
+
+.copy-feedback {
+	position: absolute;
+	left: 0.5rem;
+	transform: translateY(-50%);
+	padding: 0.25rem 0.5rem;
+	border-radius: 3px;
+	font-size: 0.75rem;
+	white-space: nowrap;
+	pointer-events: none;
+	color: var(--color-white);
+	background: rgba(var(--color-black-rgb), 0.75);
 }
 </style>

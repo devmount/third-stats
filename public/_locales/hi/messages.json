@@ -130,6 +130,7 @@
     },
     "account": "खाता",
     "accountEmpty": "इस खाते में कोई मेल नहीं है।",
+    "addressCopied": "क्लिपबोर्ड पर कॉपी किया गया",
     "allAccounts": "सभी खाते",
     "charts": {
       "contactsJunk": {
