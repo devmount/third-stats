@@ -10,7 +10,7 @@
 					text:
 						error.period[f].length > 0
 							? error.period[f].join('\n')
-							: t('stats.tooltips.period.' + f, [examplePeriodShort, examplePeriodFormatted]),
+							: t(`stats.tooltips.period.${f}`, [examplePeriodShort, examplePeriodFormatted]),
 					position: 'bottom',
 					error: error.period[f].length > 0,
 				}"

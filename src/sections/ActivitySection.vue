@@ -39,8 +39,8 @@
 			<template #label="{ labelKey }">
 				{{
 					preferences.sections.activity.year == new Date().getFullYear()
-						? t('stats.charts.' + labelKey + '.latestActivity')
-						: t('stats.charts.' + labelKey + '.title', [preferences.sections.activity.year])
+						? t(`stats.charts.${labelKey}.latestActivity`)
+						: t(`stats.charts.${labelKey}.title`, [preferences.sections.activity.year])
 				}}
 			</template>
 		</section-tab-header>

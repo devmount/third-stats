@@ -66,12 +66,12 @@ const draw = () => {
 					intersect: true,
 					position: 'nearest',
 					callbacks: {
-						label: (context) => ' ' + context.formattedValue + ' ' + context.dataset.label,
+						label: (context) => ` ${context.formattedValue} ${context.dataset.label}`,
 						labelColor: (context) => {
 							return {
 								borderWidth: 2,
 								borderColor: context.dataset.borderColor,
-								backgroundColor: context.dataset.borderColor + '33',
+								backgroundColor: `${context.dataset.borderColor}33`,
 							};
 						},
 					},

@@ -28,8 +28,8 @@
 				>
 					{{ a.name }}
 				</ts-checkbox>
-				<label :for="'color-' + a.name" class="cursor-pointer d-flex align-items-center gap-0-5">
-					<ts-color-input :id="'color-' + a.name" v-model="options.accountColors[a.id]" />
+				<label :for="`color-${a.name}`" class="cursor-pointer d-flex align-items-center gap-0-5">
+					<ts-color-input :id="`color-${a.name}`" v-model="options.accountColors[a.id]" />
 					<span class="text-mono text-tiny">{{ options.accountColors[a.id] }}</span>
 				</label>
 			</div>

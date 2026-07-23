@@ -32,7 +32,7 @@ export function useOnedimChartData({ display, comparison, accounts, options, t, 
 			const d = comparison.value.daytimeData[a.id];
 			// add dataset for this account
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: Object.values(d),
 				borderColor: options.accountColors[a.id],
 			});
@@ -87,7 +87,7 @@ export function useOnedimChartData({ display, comparison, accounts, options, t, 
 			}
 			// add dataset for this account
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: data,
 				borderColor: options.accountColors[a.id],
 			});
@@ -125,7 +125,7 @@ export function useOnedimChartData({ display, comparison, accounts, options, t, 
 		accounts.value.forEach((a) => {
 			// add dataset for this account
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: Object.values(comparison.value.monthData[a.id]),
 				borderColor: options.accountColors[a.id],
 			});

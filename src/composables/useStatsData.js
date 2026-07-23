@@ -345,7 +345,7 @@ export function useStatsData() {
 		// check id type
 		if (id === 'sum' && options.cache) {
 			// set tab title
-			document.title = 'ThirdStats: ' + t('stats.allAccounts');
+			document.title = `ThirdStats: ${t('stats.allAccounts')}`;
 			// deactivate list of folders
 			folders.value = [];
 			// iterate over all activated accounts
@@ -405,7 +405,7 @@ export function useStatsData() {
 			// load single account from id
 			const account = await messenger.accounts.get(id);
 			// set tab title
-			document.title = 'ThirdStats: ' + account.name;
+			document.title = `ThirdStats: ${account.name}`;
 			// (re)calculate list of folders
 			folders.value = await traverseAccount(account);
 			// only check storage if no refresh was requested cache is enabled
@@ -537,11 +537,11 @@ export function useStatsData() {
 			let s = active.period[key];
 			// complete year
 			if (s.length == 6) {
-				s = String(new Date().getFullYear()).slice(0, 2) + s;
+				s = `${String(new Date().getFullYear()).slice(0, 2)}${s}`;
 			}
 			// insert dashes
 			if (!s.includes('-')) {
-				s = s.slice(0, 4) + '-' + s.slice(4, 6) + '-' + s.slice(6);
+				s = `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6)}`;
 			}
 			// shorten to 10 characters
 			s = s.slice(0, 10);
@@ -596,7 +596,7 @@ export function useStatsData() {
 		messenger.downloads
 			.download({
 				url: URL.createObjectURL(data),
-				filename: yyyymmdd(new Date()) + '_third-stats-export.json',
+				filename: `${yyyymmdd(new Date())}_third-stats-export.json`,
 				saveAs: true,
 			})
 			.then(

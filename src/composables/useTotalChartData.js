@@ -54,7 +54,7 @@ export function useTotalChartData({
 			let data = [];
 			labels.map((y) => data.push(y in d ? d[y] : 0));
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: data,
 				borderColor: options.accountColors[a.id],
 			});
@@ -79,7 +79,7 @@ export function useTotalChartData({
 				// trim quarters after end date
 				if (y == maxYear.value && q > quarterNumber(maxDate.value)) break;
 				// organize labels and data
-				labels.push(y + ' ' + t('stats.abbreviations.quarter') + q);
+				labels.push(`${y} ${t('stats.abbreviations.quarter')}${q}`);
 				dr.push(y in r && q in r[y] ? r[y][q] : 0);
 				ds.push(y in s && q in s[y] ? s[y][q] : 0);
 			}
@@ -115,13 +115,13 @@ export function useTotalChartData({
 					// trim quarters after end date
 					if (y == maxYear.value && q > quarterNumber(maxDate.value)) break;
 					// generate labels in first iteration
-					if (i == 0) labels.push(y + ' ' + t('stats.abbreviations.quarter') + q);
+					if (i == 0) labels.push(`${y} ${t('stats.abbreviations.quarter')}${q}`);
 					// fill all data values, default to 0 if not existing for this combination
 					data.push(y in d && q in d[y] ? d[y][q] : 0);
 				}
 			}
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: data,
 				borderColor: options.accountColors[a.id],
 			});
@@ -146,7 +146,7 @@ export function useTotalChartData({
 				// trim months after end date
 				if (y == maxYear.value && m > maxDate.value.getMonth()) break;
 				// organize labels and data
-				labels.push(y + ' ' + monthNames(locale.value)[m]);
+				labels.push(`${y} ${monthNames(locale.value)[m]}`);
 				dr.push(y in r && m in r[y] ? r[y][m] : 0);
 				ds.push(y in s && m in s[y] ? s[y][m] : 0);
 			}
@@ -182,13 +182,13 @@ export function useTotalChartData({
 					// trim months after end date
 					if (y == maxYear.value && m > maxDate.value.getMonth()) break;
 					// generate labels in first iteration
-					if (i == 0) labels.push(y + ' ' + monthNames(locale.value)[m]);
+					if (i == 0) labels.push(`${y} ${monthNames(locale.value)[m]}`);
 					// fill all data values, default to 0 if not existing for this combination
 					data.push(y in d && m in d[y] ? d[y][m] : 0);
 				}
 			}
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: data,
 				borderColor: options.accountColors[a.id],
 			});
@@ -209,7 +209,7 @@ export function useTotalChartData({
 		weeksBetween(minDate.value, maxDate.value).forEach((week) => {
 			const [y, w] = week;
 			// organize labels and data
-			labels.push(y + ' ' + t('stats.abbreviations.calendarWeek') + w);
+			labels.push(`${y} ${t('stats.abbreviations.calendarWeek')}${w}`);
 			dr.push(y in r && w in r[y] ? r[y][w] : 0);
 			ds.push(y in s && w in s[y] ? s[y][w] : 0);
 		});
@@ -240,12 +240,12 @@ export function useTotalChartData({
 			weeksBetween(minDate.value, maxDate.value).forEach((week) => {
 				const [y, w] = week;
 				// generate labels in first iteration
-				if (i == 0) labels.push(y + ' ' + t('stats.abbreviations.calendarWeek') + w);
+				if (i == 0) labels.push(`${y} ${t('stats.abbreviations.calendarWeek')}${w}`);
 				// fill all data values, default to 0 if not existing for this combination
 				data.push(y in d && w in d[y] ? d[y][w] : 0);
 			});
 			datasets.push({
-				label: t('popup.nMessages', 2) + ' - ' + a.name,
+				label: `${t('popup.nMessages', 2)} - ${a.name}`,
 				data: data,
 				borderColor: options.accountColors[a.id],
 			});

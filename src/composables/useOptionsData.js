@@ -58,12 +58,12 @@ export function useOptionsData() {
 	const getCacheSize = async () => {
 		const allEntriesSize = new TextEncoder().encode(
 			Object.entries(await messenger.storage.local.get())
-				.map(([key, value]) => key + JSON.stringify(value))
+				.map(([key, value]) => `${key}${JSON.stringify(value)}`)
 				.join('')
 		).length;
 		const optionsSize = new TextEncoder().encode(
 			Object.entries(await messenger.storage.local.get('options'))
-				.map(([key, value]) => key + JSON.stringify(value))
+				.map(([key, value]) => `${key}${JSON.stringify(value)}`)
 				.join('')
 		).length;
 		cacheSize.value = allEntriesSize - optionsSize;
@@ -72,7 +72,7 @@ export function useOptionsData() {
 	// add configured email address to list of addresses
 	const addAddress = () => {
 		if (input.value.address) {
-			let addresses = options.value.addresses ? options.value.addresses + ',' : '';
+			let addresses = options.value.addresses ? `${options.value.addresses},` : '';
 			addresses += input.value.address;
 			options.value.addresses = addresses;
 			input.value.address = '';

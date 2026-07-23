@@ -39,7 +39,7 @@ const opacity = (value, max) => {
 const dataColors = (data, color) => {
 	const colors = [];
 	const max = Math.max(...data);
-	data.forEach((d) => colors.push(color + opacity(d, max)));
+	data.forEach((d) => colors.push(`${color}${opacity(d, max)}`));
 	return colors;
 };
 
@@ -73,12 +73,12 @@ const draw = () => {
 					position: 'nearest',
 					callbacks: {
 						title: (context) => context[0].label,
-						label: (context) => ' ' + context.formattedValue + ' ' + context.dataset.label,
+						label: (context) => ` ${context.formattedValue} ${context.dataset.label}`,
 						labelColor: (context) => {
 							return {
 								borderWidth: 2,
 								borderColor: context.dataset.borderColor,
-								backgroundColor: context.dataset.borderColor + '33',
+								backgroundColor: `${context.dataset.borderColor}33`,
 							};
 						},
 					},

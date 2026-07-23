@@ -11,7 +11,7 @@
 					'cursor-pointer text-hover-accent2': tab !== id,
 				},
 			]"
-			v-tooltip="{ text: t('stats.charts.' + key + '.description'), position: 'bottom' }"
+			v-tooltip="{ text: t(`stats.charts.${key}.description`), position: 'bottom' }"
 			@click="$emit('update:tab', id)"
 		>
 			<span
@@ -21,7 +21,7 @@
 				]"
 				:style="spanStyle(id)"
 			>
-				<slot name="label" :labelKey="key" :id="id">{{ t('stats.charts.' + key + '.title') }}</slot>
+				<slot name="label" :labelKey="key" :id="id">{{ t(`stats.charts.${key}.title`) }}</slot>
 			</span>
 		</li>
 		<li
@@ -114,7 +114,7 @@ const spanClass = (key, id) => {
 
 const spanStyle = (id) => {
 	if (props.borderVariant === 'gradient' && props.tab === id && props.comparison) {
-		return 'border-image: linear-gradient(to right, ' + props.accountsColorGradient + ') 100% 1';
+		return `border-image: linear-gradient(to right, ${props.accountsColorGradient}) 100% 1`;
 	}
 	return '';
 };

@@ -82,7 +82,7 @@ const filterActiveAccounts = (accountList, activeAccountIds) => {
 };
 
 // build the messenger.storage.local cache key for a given account's stats blob
-const statsCacheKey = (accountId) => 'stats-' + accountId;
+const statsCacheKey = (accountId) => `stats-${accountId}`;
 
 // check if a contact is involved in a message
 // = <contact> is either author or recipient, CC or BCC of <message>
@@ -261,7 +261,7 @@ const startOfToday = () => {
 // build <folder> name to match its hierarchy with preceding <indentSymbol>s
 const formatFolder = (folder, indentSymbol = '—') => {
 	const level = (folder.path.match(/\//g) || []).length;
-	return level <= 1 ? folder.name : indentSymbol.repeat(level - 1) + ' ' + folder.name;
+	return level <= 1 ? folder.name : `${indentSymbol.repeat(level - 1)} ${folder.name}`;
 };
 
 // formats given date <d> human readable, takes locale into account
@@ -304,7 +304,7 @@ const formatBytes = (bytes, decimals = 2) => {
 	const dm = decimals < 0 ? 0 : decimals;
 	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 	const i = Math.floor(Math.log(bytes) / Math.log(k));
-	return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+	return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
 
 // special pluralization rules
@@ -347,7 +347,7 @@ const setTheme = (theme, element = document.documentElement, darkClasses = ['dar
 const openTab = (url, get = '') => {
 	messenger.tabs.create({
 		active: true,
-		url: get ? url + '?s=' + get : url,
+		url: get ? `${url}?s=${get}` : url,
 	});
 };
 

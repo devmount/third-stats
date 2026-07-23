@@ -7,7 +7,7 @@
 		<div class="action d-flex">
 			<ts-select class="flex-grow" v-model="options.theme" id="theme">
 				<option v-for="theme in ['system', 'light', 'dark']" :key="theme" :value="theme">
-					{{ t('options.theme.' + theme) }}
+					{{ t(`options.theme.${theme}`) }}
 				</option>
 			</ts-select>
 		</div>

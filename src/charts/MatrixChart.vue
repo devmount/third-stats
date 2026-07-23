@@ -80,13 +80,13 @@ const draw = (localeObject) => {
 						title: (tooltipItems) => tooltipItems[0].dataset.data[tooltipItems[0].dataIndex].d,
 						label: (context) => {
 							const v = context.dataset.data[context.dataIndex];
-							return [' ' + v.v + ' ' + context.dataset.label];
+							return [` ${v.v} ${context.dataset.label}`];
 						},
 						labelColor: () => {
 							return {
 								borderWidth: 2,
 								borderColor: props.color,
-								backgroundColor: props.color + '33',
+								backgroundColor: `${props.color}33`,
 							};
 						},
 					},

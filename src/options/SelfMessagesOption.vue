@@ -22,7 +22,7 @@
 		<div class="action d-flex flex-wrap">
 			<ts-select class="flex-grow mb-0-5" v-model="options.selfMessages" id="selfMessages">
 				<option v-for="val in selfMessagesOptions" :key="val" :value="val">
-					{{ t('options.selfMessages.values.' + val) }}
+					{{ t(`options.selfMessages.values.${val}`) }}
 				</option>
 			</ts-select>
 			<div class="d-flex gap-0-5 align-items-center text-gray">
@@ -34,7 +34,7 @@
 						<polyline points="11 12 12 12 12 16 13 16" />
 					</ts-icon>
 				</div>
-				<span class="text-small">{{ t('options.selfMessages.info.' + options.selfMessages) }}</span>
+				<span class="text-small">{{ t(`options.selfMessages.info.${options.selfMessages}`) }}</span>
 			</div>
 		</div>
 	</div>

@@ -5,8 +5,8 @@
 			<div
 				class="h-0-25 text-center background-accent2"
 				:class="{ 'transition-width': processingState > 0 && processingState < 100 }"
-				:style="'width:' + processingState + '%;'"
-				v-tooltip="{ text: oneDigit(processingState) + '%', position: 'bottom' }"
+				:style="`width:${processingState}%;`"
+				v-tooltip="{ text: `${oneDigit(processingState)}%`, position: 'bottom' }"
 			></div>
 		</div>
 		<div class="container pt-2 pb-6">

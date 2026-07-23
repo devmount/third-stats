@@ -1,7 +1,5 @@
 <template>
-	<span
-		v-html="t('stats.dataCollected', ['<span class=\'text-normal\'>' + timePassedSinceDataRetrieval + '</span>'])"
-	></span>
+	<span v-html="output"></span>
 </template>
 
 <script setup>
@@ -34,9 +32,14 @@ onBeforeUnmount(() => {
 // calculates the time between current and given timestamp with human readable time units
 const timePassedSinceDataRetrieval = computed(() => {
 	const secondsPast = (now.value - props.date) / 1000;
-	if (secondsPast < 60) return parseInt(secondsPast) + t('stats.abbreviations.second');
-	if (secondsPast < 3600) return parseInt(secondsPast / 60) + t('stats.abbreviations.minute');
-	if (secondsPast <= 86400) return parseInt(secondsPast / 3600) + t('stats.abbreviations.hour');
-	if (secondsPast > 86400) return parseInt(secondsPast / 86400) + t('stats.abbreviations.day');
+	if (secondsPast < 60) return `${parseInt(secondsPast)}${t('stats.abbreviations.second')}`;
+	if (secondsPast < 3600) return `${parseInt(secondsPast / 60)}${t('stats.abbreviations.minute')}`;
+	if (secondsPast <= 86400) return `${parseInt(secondsPast / 3600)}${t('stats.abbreviations.hour')}`;
+	if (secondsPast > 86400) return `${parseInt(secondsPast / 86400)}${t('stats.abbreviations.day')}`;
 });
+
+const output = computed(() => t(
+	'stats.dataCollected',
+	[`<span class='text-normal'>${timePassedSinceDataRetrieval}</span>`]
+))
 </script>
