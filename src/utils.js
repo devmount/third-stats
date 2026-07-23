@@ -281,11 +281,11 @@ const monthNames = (locale = 'en') => {
 };
 
 // array of localized, short day of week names
-const weekdayNames = (locale = 'en') => {
+const weekdayNames = (locale = 'en', weekdayFormat = 'short') => {
 	let names = [];
 	for (let wd = 1; wd <= 7; wd++) {
 		const d = new Date(1970, 1, wd); // choose a date to retrieve weekdays from, starting on a Sunday
-		names.push(d.toLocaleDateString(locale, { weekday: 'short' }));
+		names.push(d.toLocaleDateString(locale, { weekday: weekdayFormat }));
 	}
 	return names;
 };

@@ -28,7 +28,7 @@ const props = defineProps({
 	dimension: Object, // {cols, rows}
 	parseTime: Boolean, // if true, parse values as Date objects
 	datasets: Array, // [{data: [[date, value], [date, value], ...], label: ''}, ...]
-	weekdayLabels: Array, // 7 short weekday names, in the desired top-to-bottom row order
+	weekdayLabels: Array, // 7 short weekday names, in top-to-bottom row order
 });
 
 // Chart.js's category scale renders labels bottom-to-top on a vertical axis,

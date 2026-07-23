@@ -4,9 +4,9 @@
 			{{ t('options.startOfWeek.label') }}
 			<span class="description">{{ t('options.startOfWeek.description') }}</span>
 		</label>
-		<div class="action">
-			<ts-select v-model="options.startOfWeek" id="start">
-				<option v-for="(name, pos) in weekdayNames(locale)" :key="pos" :value="pos">{{ name }}</option>
+		<div class="action action-row">
+			<ts-select class="action-select" v-model="options.startOfWeek" id="start">
+				<option v-for="(name, pos) in weekdayNames(locale, 'long')" :key="pos" :value="pos">{{ name }}</option>
 			</ts-select>
 		</div>
 	</div>
@@ -21,3 +21,13 @@ const { options } = inject('engine');
 
 const { t, locale } = useI18n();
 </script>
+
+<style scoped>
+.action-row {
+	display: flex;
+}
+
+.action-select {
+	flex-grow: 1;
+}
+</style>
