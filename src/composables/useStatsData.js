@@ -231,7 +231,13 @@ export function useStatsData() {
 			let n = 0,
 				s = 0,
 				r = 0;
-			for await (let m of queryMessages(folder.id, active.period.start, active.period.end)) {
+			for await (let m of queryMessages(
+				folder.id,
+				active.period.start,
+				active.period.end,
+				options.debug,
+				folder.path
+			)) {
 				const type = analyzeMessage(data, m, identityList, context);
 				// live update numbers section if corresponding option is enabled
 				if (options.liveCountUp) display.value.numbers = data.numbers;

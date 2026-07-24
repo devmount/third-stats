@@ -114,15 +114,47 @@ const isSelfMessage = (message, identities) => {
 	return true;
 };
 
+// milliseconds a single messenger.messages.list/continueList call may take before
+// it's considered hung (see https://github.com/devmount/third-stats/issues/445)
+const PAGE_FETCH_TIMEOUT_MS = 30000;
+
+// reject with an Error(<message>) if <promise> doesn't settle within <ms> milliseconds
+const withTimeout = (promise, ms, message) => {
+	let timer;
+	const timeout = new Promise((_, reject) => {
+		timer = setTimeout(() => reject(new Error(message)), ms);
+	});
+	return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+};
+
 // generator to query messages of given folder
-const queryMessages = async function* (folderId, fromDate, toDate) {
+// if <debug> is true, logs timing of each list/continueList page fetch and aborts
+// a single fetch that takes longer than PAGE_FETCH_TIMEOUT_MS, instead of hanging forever
+const queryMessages = async function* (folderId, fromDate, toDate, debug = false, folderPath = folderId) {
 	// handle date filter
 	const dateFilterActive = fromDate && toDate;
 	const from = new Date(fromDate).setUTCHours(0, 0, 0, 0);
 	const to = new Date(toDate).setUTCHours(23, 59, 59, 999);
+	let pageNum = 0;
+	const fetchPage = (call) => {
+		pageNum++;
+		if (debug) console.debug(`⏳ ${folderPath}: fetching page ${pageNum}...`);
+		const start = Date.now();
+		return withTimeout(
+			call,
+			PAGE_FETCH_TIMEOUT_MS,
+			`Timed out fetching page ${pageNum} of folder "${folderPath}" after ${PAGE_FETCH_TIMEOUT_MS}ms`
+		).then((page) => {
+			if (debug)
+				console.debug(
+					`✅ ${folderPath}: page ${pageNum} (${page.messages.length} messages) in ${Date.now() - start}ms`
+				);
+			return page;
+		});
+	};
 	try {
 		// paginate messages
-		let page = await messenger.messages.list(folderId);
+		let page = await fetchPage(messenger.messages.list(folderId));
 		for (let message of page.messages) {
 			const messagesOutsideDateFilter = message.date < from || message.date > to;
 			if (!(dateFilterActive && messagesOutsideDateFilter)) {
@@ -130,7 +162,7 @@ const queryMessages = async function* (folderId, fromDate, toDate) {
 			}
 		}
 		while (page.id) {
-			page = await messenger.messages.continueList(page.id);
+			page = await fetchPage(messenger.messages.continueList(page.id));
 			for (let message of page.messages) {
 				const messagesOutsideDateFilter = message.date < from || message.date > to;
 				if (!(dateFilterActive && messagesOutsideDateFilter)) {
