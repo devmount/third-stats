@@ -550,6 +550,49 @@ describe('queryMessages', () => {
 		expect(result).toEqual([]);
 		expect(set).toHaveBeenCalledWith({ error: true });
 	});
+
+	it('records an error and stops iterating when a page fetch hangs past the timeout (issue #445)', async () => {
+		vi.useFakeTimers();
+		const list = vi.fn(() => new Promise(() => {})); // never resolves, simulating a hung API call
+		const set = vi.fn().mockResolvedValue();
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list }, storage: { local: { set } } }));
+		vi.spyOn(console, 'error').mockImplementation(() => {});
+		const result = [];
+		const done = (async () => {
+			for await (const m of queryMessages('folder-1', null, null)) result.push(m);
+		})();
+		await vi.advanceTimersByTimeAsync(30000);
+		await done;
+		expect(result).toEqual([]);
+		expect(set).toHaveBeenCalledWith({ error: true });
+		vi.useRealTimers();
+	});
+
+	it('logs timing of each page fetch when debug is enabled', async () => {
+		const list = vi.fn().mockResolvedValue(page([{ id: 1 }], 'page-2'));
+		const continueList = vi.fn().mockResolvedValue(page([{ id: 2 }], null));
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list, continueList } }));
+		const debugSpy = vi.spyOn(console, 'debug').mockImplementation(() => {});
+		debugSpy.mockClear();
+		const result = [];
+		for await (const m of queryMessages('folder-1', null, null, true, '/Inbox')) result.push(m);
+		expect(result).toEqual([{ id: 1 }, { id: 2 }]);
+		expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining('/Inbox: fetching page 1'));
+		expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining('/Inbox: page 1 (1 messages)'));
+		expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining('/Inbox: fetching page 2'));
+		expect(debugSpy).toHaveBeenCalledWith(expect.stringContaining('/Inbox: page 2 (1 messages)'));
+		debugSpy.mockRestore();
+	});
+
+	it('does not log anything when debug is disabled', async () => {
+		const list = vi.fn().mockResolvedValue(page([{ id: 1 }], null));
+		vi.stubGlobal('messenger', createMockMessenger({ messages: { list } }));
+		const debugSpy = vi.spyOn(console, 'debug').mockImplementation(() => {});
+		debugSpy.mockClear();
+		for await (const m of queryMessages('folder-1', null, null)) void m;
+		expect(debugSpy).not.toHaveBeenCalled();
+		debugSpy.mockRestore();
+	});
 });
 
 describe('traverseAccount', () => {

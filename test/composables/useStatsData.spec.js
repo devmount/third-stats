@@ -81,7 +81,7 @@ const makeMessage = (overrides) => ({
 // its result (or that must not leak an in-flight messenger call past their own teardown)
 // need many microtask turns, not just one.
 const flushPending = async () => {
-	for (let i = 0; i < 20; i++) {
+	for (let i = 0; i < 40; i++) {
 		await nextTick();
 	}
 };
