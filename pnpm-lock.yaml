@@ -27,9 +27,6 @@ importers:
         specifier: ^11.4.8
         version: 11.4.8(vue@3.5.41)
     devDependencies:
-      '@localazy/cli':
-        specifier: ^2.0.12
-        version: 2.0.12
       '@vitejs/plugin-vue':
         specifier: ^6.0.8
         version: 6.0.8(vite@8.2.1)(vue@3.5.41)
@@ -100,11 +97,6 @@ packages:
 
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
-
-  '@localazy/cli@2.0.12':
-    resolution: {integrity: sha512-PwpPNZZBt5wQZ4g+v/q50w/p5QAazn0FSZajGqxob1/odgYAYAIP2WkzA4T5gNKEVEmq9fUKLyAPWQzJOwqKvg==}
-    engines: {node: '>=18.20.7', npm: '>=6.0.0'}
-    hasBin: true
 
   '@oxc-project/types@0.146.0':
     resolution: {integrity: sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA==}
@@ -329,12 +321,6 @@ packages:
 
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
-
-  '@sinonjs/text-encoding@0.7.2':
-    resolution: {integrity: sha512-sXXKG+uL9IrKqViTtao2Ws6dy0znu9sOaP1di/jKGW1M6VssO8vlpXCQcpZ+jisQ1tTFAC5Jo/EOzFbggBagFQ==}
-    deprecated: |-
-      Deprecated: no longer maintained and no longer used by Sinon packages. See
-        https://github.com/sinonjs/nise/issues/243 for replacement details.
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -785,18 +771,6 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  ws@8.18.0:
-    resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
 snapshots:
 
   '@babel/helper-string-parser@7.29.7': {}
@@ -842,14 +816,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   '@kurkle/color@0.3.4': {}
-
-  '@localazy/cli@2.0.12':
-    dependencies:
-      '@sinonjs/text-encoding': 0.7.2
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
 
   '@oxc-project/types@0.146.0': {}
 
@@ -956,8 +922,6 @@ snapshots:
     optional: true
 
   '@rolldown/pluginutils@1.0.1': {}
-
-  '@sinonjs/text-encoding@0.7.2': {}
 
   '@standard-schema/spec@1.1.0': {}
 
@@ -1362,5 +1326,3 @@ snapshots:
     dependencies:
       siginfo: 2.0.0
       stackback: 0.0.2
-
-  ws@8.18.0: {}
