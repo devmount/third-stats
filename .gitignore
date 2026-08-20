@@ -7,7 +7,6 @@ coverage
 
 # scripts and config
 deploy.sh
-localazy.json
 
 # local env files
 .env.local

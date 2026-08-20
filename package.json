@@ -10,9 +10,7 @@
 		"format:check": "prettier --check \"src/**/*.{js,vue,css}\" \"test/**/*.js\" vite.config.js vitest.config.js",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"test:coverage": "vitest run --coverage",
-		"getlang": "localazy download",
-		"setlang": "localazy upload existing"
+		"test:coverage": "vitest run --coverage"
 	},
 	"packageManager": "pnpm@11.9.0",
 	"dependencies": {
@@ -24,13 +22,12 @@
 		"vue-i18n": "^11.4.8"
 	},
 	"devDependencies": {
-		"@localazy/cli": "^2.0.12",
 		"@vitejs/plugin-vue": "^6.0.8",
-		"@vitest/coverage-v8": "^4.1.10",
-		"oxlint": "^1.78.0",
+		"@vitest/coverage-v8": "^4.1.11",
+		"oxlint": "^1.79.0",
 		"prettier": "^3.9.6",
 		"vite": "^8.2.1",
-		"vitest": "^4.1.10"
+		"vitest": "^4.1.11"
 	},
 	"browserslist": [
 		"Firefox ESR"

@@ -62,14 +62,10 @@ Please always use the existing code as a guide for new code. Linter and formatte
 
 You can add a new translation or improve an existing one by taking the following steps:
 
-1. Go to [Localazy](https://localazy.com)
-2. Click *Sign in* (upper right)
-3. Choose *Sign in with Github* (or another method you prefer)
-4. Click *Authorize Localazy*
-5. Open the [ThirdStats project](https://localazy.com/p/third-stats)
-6. Choose a language and start translating. As this project is public, you don't need any authentification, just start to translate ThridStats. You'll be made a trusted translator later.
+1. Go to the [locales](/public/_locales/) directory on GitHub
+2. Choose a language and start translating either directly on GitHub or fork the repo and create a Pull Request.
 
-If you run into any problems, leave a comment on [the corresponding issue #343](https://github.com/devmount/third-stats/issues/343) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
+If you run into any problems, leave [an issue](https://github.com/devmount/third-stats/issues/) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
 
 ### Beta-Testing
 
