@@ -437,6 +437,57 @@ describe('useStatsData - caching', () => {
 	});
 });
 
+describe('useStatsData - live stats cache sync', () => {
+	const setupSingleAccount = (messages) => {
+		const list = vi.fn(async () => ({ id: null, messages }));
+		const messenger = setupMessenger({
+			folders: { get: vi.fn(async () => ({ isRoot: true, subFolders: [inboxFolder] })) },
+			messages: { list },
+		});
+		return { messenger, list };
+	};
+
+	it('reacts to a background-written stats-<id> cache update by reloading from cache, not refetching', async () => {
+		const { messenger, list } = setupSingleAccount([makeMessage()]);
+		await messenger.storage.local.set({ options: { ...baseOptions, cache: true } });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		const callsBefore = list.mock.calls.length;
+
+		await messenger.storage.local.set({
+			[statsCacheKey(fakeAccount.id)]: {
+				numbers: { total: 42 },
+				meta: { start: new Date(2021, 0, 1), end: new Date(2021, 0, 2) },
+			},
+		});
+		await flushPending();
+
+		expect(engine.display.value.numbers.total).toBe(42);
+		expect(list.mock.calls.length).toBe(callsBefore); // cache re-read, not a refetch
+	});
+
+	it('ignores a background-written cache update while a filter is active', async () => {
+		const { messenger } = setupSingleAccount([makeMessage()]);
+		await messenger.storage.local.set({ options: { ...baseOptions, cache: true } });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		engine.active.folder = inboxFolder;
+		await flushPending();
+		const totalBefore = engine.display.value.numbers.total;
+
+		await messenger.storage.local.set({ [statsCacheKey(fakeAccount.id)]: { numbers: { total: 999 }, meta: {} } });
+		await flushPending();
+
+		expect(engine.display.value.numbers.total).toBe(totalBefore);
+	});
+});
+
 describe('useStatsData - summed view across accounts', () => {
 	it('combines numbers and builds per-account comparison data for the "sum" view', async () => {
 		const accountA = {
