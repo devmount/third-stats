@@ -6,6 +6,11 @@ import { accentColors } from '@/definitions.js';
 import { flattenSubfolders, queryMessages, sortAndLimitObject, statsCacheKey, traverseAccount } from '@/utils.js';
 import { analyzeMessage, createStatsData } from '@/composables/statsAggregation.js';
 
+// messenger.storage.local key set by backgroundEngine.js while a scheduled refresh is in
+// flight, and read by useStatsData.js to disable the manual refresh action meanwhile -
+// prevents a user-triggered reprocess from running concurrently against the same account
+export const PROCESSING_STORAGE_KEY = 'statsProcessing';
+
 // combines identities of every account in <accountList> with configured local
 // <addresses> (already-normalized lowercase array) - used for self-message context
 // and for the folder/contact filter dropdowns

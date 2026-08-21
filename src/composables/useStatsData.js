@@ -12,7 +12,11 @@ import {
 	createStatsData,
 	sumAccountsData,
 } from '@/composables/statsAggregation.js';
-import { buildAllIdentities, reprocessAccount as engineReprocessAccount } from '@/statsEngine.js';
+import {
+	buildAllIdentities,
+	PROCESSING_STORAGE_KEY,
+	reprocessAccount as engineReprocessAccount,
+} from '@/statsEngine.js';
 
 export function useStatsData() {
 	const { t } = useI18n();
@@ -55,6 +59,11 @@ export function useStatsData() {
 		current: 0, // indicator for progress on refreshing data, fraction [0-1]
 		max: 0, // upper limit for progress indicator
 	});
+
+	// true while the background script (src/backgroundEngine.js) is running a scheduled
+	// refresh - read-only here, synced from messenger.storage.local; used to disable the
+	// manual refresh action so it can't start a second concurrent pass over the same accounts
+	const backgroundBusy = ref(false);
 
 	// preferences for stats page configuration
 	const preferences = reactive({
@@ -147,6 +156,10 @@ export function useStatsData() {
 					const relevant = active.account === 'sum' || changedStatsKeys.includes(statsCacheKey(active.account));
 					if (relevant) loadAccount(active.account, false);
 				}
+			}
+			// mirror whether the background script is currently mid-refresh
+			if (area == 'local' && result?.[PROCESSING_STORAGE_KEY]) {
+				backgroundBusy.value = !!result[PROCESSING_STORAGE_KEY].newValue;
 			}
 		});
 	};
@@ -631,6 +644,9 @@ export function useStatsData() {
 		// check if error occured during previous processing
 		const { err } = await messenger.storage.local.get('error');
 		error.account = err;
+		// pick up whether a background refresh is already in flight when this page opens
+		const { [PROCESSING_STORAGE_KEY]: initialProcessing } = await messenger.storage.local.get(PROCESSING_STORAGE_KEY);
+		backgroundBusy.value = !!initialProcessing;
 		// periodic auto-refresh is scheduled by the background script (src/backgroundEngine.js)
 		// via messenger.alarms, independent of this page being open - see addStorageListener()
 		// above for how this page picks up the background-written cache updates live
@@ -644,6 +660,7 @@ export function useStatsData() {
 		error,
 		isLoading,
 		progress,
+		backgroundBusy,
 		preferences,
 		options,
 		display,

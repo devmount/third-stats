@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ALARM_NAME, initBackground, runScheduledRefresh, syncAlarm } from '@/backgroundEngine.js';
 import { defaultOptions } from '@/definitions.js';
+import { PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from './helpers/messenger.js';
 
@@ -168,6 +169,58 @@ describe('initBackground', () => {
 		await vi.waitFor(async () => {
 			const cached = await messenger.storage.local.get(statsCacheKey(fakeAccount.id));
 			expect(cached[statsCacheKey(fakeAccount.id)]?.numbers.total).toBe(1);
+		});
+	});
+});
+
+describe('runScheduledRefresh - processing indicator', () => {
+	it('sets the storage flag true while running and false once finished', async () => {
+		const messenger = setupMessenger();
+		vi.stubGlobal('messenger', messenger);
+		await messenger.storage.local.set({ options: { ...defaultOptions, cache: true } });
+		const seenDuringRun = [];
+		messenger.accounts.list.mockImplementation(async () => {
+			const { [PROCESSING_STORAGE_KEY]: flag } = await messenger.storage.local.get(PROCESSING_STORAGE_KEY);
+			seenDuringRun.push(flag);
+			return [fakeAccount];
+		});
+
+		await runScheduledRefresh();
+
+		expect(seenDuringRun).toEqual([true]); // true while the refresh was actually running
+		const { [PROCESSING_STORAGE_KEY]: finalFlag } = await messenger.storage.local.get(PROCESSING_STORAGE_KEY);
+		expect(finalFlag).toBe(false);
+	});
+
+	it('badges the spaces-toolbar icon while running and clears it once finished', async () => {
+		const messenger = setupMessenger();
+		vi.stubGlobal('messenger', messenger);
+		await messenger.storage.local.set({ options: { ...defaultOptions, cache: true } });
+
+		initBackground();
+		await vi.waitFor(() => expect(messenger.spaces.create).toHaveBeenCalled());
+		const spaceId = (await messenger.spaces.create.mock.results[0].value).id;
+
+		await runScheduledRefresh();
+
+		expect(messenger.spaces.update).toHaveBeenNthCalledWith(1, spaceId, {}, { badgeText: '•' });
+		expect(messenger.spaces.update).toHaveBeenNthCalledWith(2, spaceId, {}, { badgeText: '' });
+	});
+});
+
+describe('initBackground - stuck-flag recovery', () => {
+	it('resets a leftover "true" processing flag at startup', async () => {
+		const messenger = setupMessenger();
+		vi.stubGlobal('messenger', messenger);
+		// simulate a previous background-script lifetime that got killed mid-refresh,
+		// never reaching runScheduledRefresh's finally block
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: true });
+
+		initBackground();
+
+		await vi.waitFor(async () => {
+			const { [PROCESSING_STORAGE_KEY]: flag } = await messenger.storage.local.get(PROCESSING_STORAGE_KEY);
+			expect(flag).toBe(false);
 		});
 	});
 });

@@ -9,6 +9,7 @@ vi.mock('vue-i18n', () => ({
 
 import { useStatsData } from '@/composables/useStatsData.js';
 import { defaultOptions } from '@/definitions.js';
+import { PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from '../helpers/messenger.js';
 
@@ -485,6 +486,49 @@ describe('useStatsData - live stats cache sync', () => {
 		await flushPending();
 
 		expect(engine.display.value.numbers.total).toBe(totalBefore);
+	});
+});
+
+describe('useStatsData - backgroundBusy', () => {
+	it('picks up a background refresh already in flight when the page opens', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: true });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		expect(engine.backgroundBusy.value).toBe(true);
+	});
+
+	it('defaults to false when nothing has been stored yet', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		expect(engine.backgroundBusy.value).toBe(false);
+	});
+
+	it('reacts live to the background script setting and clearing the flag', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: true });
+		expect(engine.backgroundBusy.value).toBe(true);
+
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: false });
+		expect(engine.backgroundBusy.value).toBe(false);
 	});
 });
 

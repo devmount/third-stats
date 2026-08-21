@@ -86,7 +86,8 @@ export function createMockMessenger(overrides = {}) {
 			},
 		},
 		spaces: {
-			create: vi.fn(async () => {}),
+			create: vi.fn(async () => ({ id: 1, isBuiltIn: false, isSelfOwned: true, name: 'third_stats' })),
+			update: vi.fn(async () => {}),
 		},
 		i18n: {
 			getUILanguage: vi.fn(() => 'en'),
