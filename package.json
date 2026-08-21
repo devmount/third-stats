@@ -12,7 +12,7 @@
 		"test:watch": "vitest",
 		"test:coverage": "vitest run --coverage"
 	},
-	"packageManager": "pnpm@11.9.0",
+	"packageManager": "pnpm@11.22.0",
 	"dependencies": {
 		"chart.js": "^4.5.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
@@ -26,7 +26,7 @@
 		"@vitest/coverage-v8": "^4.1.11",
 		"oxlint": "^1.79.0",
 		"prettier": "^3.9.6",
-		"vite": "^8.2.1",
+		"vite": "^8.2.2",
 		"vitest": "^4.1.11"
 	},
 	"browserslist": [
