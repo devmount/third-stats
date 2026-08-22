@@ -14,6 +14,7 @@ import {
 } from '@/composables/statsAggregation.js';
 import {
 	buildAllIdentities,
+	PAGE_PROCESSING_STORAGE_KEY,
 	PROCESSING_STORAGE_KEY,
 	reprocessAccount as engineReprocessAccount,
 } from '@/statsEngine.js';
@@ -60,9 +61,9 @@ export function useStatsData() {
 		max: 0, // upper limit for progress indicator
 	});
 
-	// true while the background script (src/backgroundEngine.js) is running a scheduled
-	// refresh - read-only here, synced from messenger.storage.local; used to disable the
-	// manual refresh action so it can't start a second concurrent pass over the same accounts
+	// true while the background script (src/backgroundEngine.js) is running a scheduled refresh - read-only here, synced
+	// from messenger.storage.local and used to disable the manual refresh action so it can't start a second concurrent
+	// pass over the same accounts
 	const backgroundBusy = ref(false);
 
 	// preferences for stats page configuration
@@ -629,6 +630,12 @@ export function useStatsData() {
 		}
 	);
 
+	// mirror this page's own loading state to storage, so the background script can also badge
+	// the spaces-toolbar icon for page-driven activity, not just its own scheduled refreshes
+	watch(isLoading, (loading) => {
+		messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: loading });
+	});
+
 	// bootstraps the engine - call once from onMounted
 	const init = async () => {
 		// set initial tab title
@@ -647,9 +654,9 @@ export function useStatsData() {
 		// pick up whether a background refresh is already in flight when this page opens
 		const { [PROCESSING_STORAGE_KEY]: initialProcessing } = await messenger.storage.local.get(PROCESSING_STORAGE_KEY);
 		backgroundBusy.value = !!initialProcessing;
-		// periodic auto-refresh is scheduled by the background script (src/backgroundEngine.js)
-		// via messenger.alarms, independent of this page being open - see addStorageListener()
-		// above for how this page picks up the background-written cache updates live
+		// a page closed mid-refresh never gets to clear PAGE_PROCESSING_STORAGE_KEY itself, which
+		// would otherwise leave the spaces-toolbar badge stuck on - reset it opportunistically here
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: false });
 	};
 
 	return {

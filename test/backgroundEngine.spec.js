@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ALARM_NAME, initBackground, runScheduledRefresh, syncAlarm } from '@/backgroundEngine.js';
 import { defaultOptions } from '@/definitions.js';
-import { PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
+import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from './helpers/messenger.js';
 
@@ -205,6 +205,68 @@ describe('runScheduledRefresh - processing indicator', () => {
 
 		expect(messenger.spaces.update).toHaveBeenNthCalledWith(1, spaceId, {}, { badgeText: '•' });
 		expect(messenger.spaces.update).toHaveBeenNthCalledWith(2, spaceId, {}, { badgeText: '' });
+	});
+
+	it('also badges the icon when a Stats page sets the page-processing flag, independent of a scheduled refresh', async () => {
+		const messenger = setupMessenger();
+		vi.stubGlobal('messenger', messenger);
+
+		initBackground();
+		await vi.waitFor(() => expect(messenger.spaces.create).toHaveBeenCalled());
+		const spaceId = (await messenger.spaces.create.mock.results[0].value).id;
+
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: true });
+		await vi.waitFor(() => expect(messenger.spaces.update).toHaveBeenCalledWith(spaceId, {}, { badgeText: '•' }));
+
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: false });
+		await vi.waitFor(() => expect(messenger.spaces.update).toHaveBeenLastCalledWith(spaceId, {}, { badgeText: '' }));
+	});
+
+	it('keeps the badge on when the scheduled refresh finishes while a Stats page is still processing', async () => {
+		const messenger = setupMessenger();
+		vi.stubGlobal('messenger', messenger);
+		await messenger.storage.local.set({ options: { ...defaultOptions, cache: true } });
+
+		initBackground();
+		await vi.waitFor(() => expect(messenger.spaces.create).toHaveBeenCalled());
+		const spaceId = (await messenger.spaces.create.mock.results[0].value).id;
+
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: true });
+		await vi.waitFor(() => expect(messenger.spaces.update).toHaveBeenCalledWith(spaceId, {}, { badgeText: '•' }));
+
+		await runScheduledRefresh();
+
+		// the background run finished, but the page is still processing - badge must stay on
+		expect(messenger.spaces.update).toHaveBeenLastCalledWith(spaceId, {}, { badgeText: '•' });
+
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: false });
+		await vi.waitFor(() => expect(messenger.spaces.update).toHaveBeenLastCalledWith(spaceId, {}, { badgeText: '' }));
+	});
+});
+
+describe('registerSpacesIcon - reload recovery', () => {
+	it('falls back to querying the existing space when create() rejects because it already exists', async () => {
+		const messenger = setupMessenger({
+			spaces: {
+				create: vi.fn(async () => {
+					throw new Error('Failed to create space with name third_stats: Space already exists for this extension.');
+				}),
+				query: vi.fn(async () => [{ id: 7, isBuiltIn: false, isSelfOwned: true, name: 'third_stats' }]),
+			},
+		});
+		vi.stubGlobal('messenger', messenger);
+		await messenger.storage.local.set({ options: { ...defaultOptions, cache: true } });
+
+		initBackground();
+		await vi.waitFor(() =>
+			expect(messenger.spaces.query).toHaveBeenCalledWith({ name: 'third_stats', isSelfOwned: true })
+		);
+		expect(messenger.spaces.update).toHaveBeenCalledWith(7, {}, expect.objectContaining({ title: 'ThirdStats' }));
+
+		await runScheduledRefresh();
+
+		expect(messenger.spaces.update).toHaveBeenCalledWith(7, {}, { badgeText: '•' });
+		expect(messenger.spaces.update).toHaveBeenCalledWith(7, {}, { badgeText: '' });
 	});
 });
 

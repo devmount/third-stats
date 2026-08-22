@@ -9,7 +9,7 @@ vi.mock('vue-i18n', () => ({
 
 import { useStatsData } from '@/composables/useStatsData.js';
 import { defaultOptions } from '@/definitions.js';
-import { PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
+import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from '../helpers/messenger.js';
 
@@ -529,6 +529,44 @@ describe('useStatsData - backgroundBusy', () => {
 
 		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: false });
 		expect(engine.backgroundBusy.value).toBe(false);
+	});
+});
+
+describe('useStatsData - page processing flag', () => {
+	it('writes PAGE_PROCESSING_STORAGE_KEY true while reprocessing and false once done, so the background script can also badge for page-driven activity', async () => {
+		const list = vi.fn(async () => ({ id: null, messages: [makeMessage()] }));
+		const messenger = setupMessenger({
+			folders: { get: vi.fn(async () => ({ isRoot: true, subFolders: [inboxFolder] })) },
+			messages: { list },
+		});
+		await messenger.storage.local.set({ options: baseOptions });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		messenger.storage.local.set.mockClear();
+
+		await engine.loadAccount(fakeAccount.id, true);
+
+		const flagWrites = messenger.storage.local.set.mock.calls
+			.map(([items]) => items[PAGE_PROCESSING_STORAGE_KEY])
+			.filter((v) => v !== undefined);
+		expect(flagWrites).toEqual([true, false]);
+	});
+
+	it('resets a leftover "true" flag at startup, in case a previous page closed mid-refresh', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: true });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		const { [PAGE_PROCESSING_STORAGE_KEY]: flag } = await messenger.storage.local.get(PAGE_PROCESSING_STORAGE_KEY);
+		expect(flag).toBe(false);
 	});
 });
 

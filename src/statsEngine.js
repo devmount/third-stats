@@ -1,19 +1,19 @@
-// portable stats fetch/aggregate/cache orchestration - no Vue/DOM dependencies.
-// Callable identically from the Stats page (via useStatsData.js) and from the
-// background script (via backgroundEngine.js), so the "reprocess an account" logic
-// exists in exactly one place regardless of what triggered it.
+// Portable stats fetch/aggregate/cache - no Vue/DOM dependencies.
+// Callable from the Stats page (via useStatsData.js) and from the background script (via backgroundEngine.js)
 import { accentColors } from '@/definitions.js';
 import { flattenSubfolders, queryMessages, sortAndLimitObject, statsCacheKey, traverseAccount } from '@/utils.js';
 import { analyzeMessage, createStatsData } from '@/composables/statsAggregation.js';
 
-// messenger.storage.local key set by backgroundEngine.js while a scheduled refresh is in
-// flight, and read by useStatsData.js to disable the manual refresh action meanwhile -
-// prevents a user-triggered reprocess from running concurrently against the same account
+// messenger.storage.local key set by backgroundEngine.js while a scheduled refresh is in progress.
+// Prevents a user-triggered reprocess from running concurrently against the same account
 export const PROCESSING_STORAGE_KEY = 'statsProcessing';
 
-// combines identities of every account in <accountList> with configured local
-// <addresses> (already-normalized lowercase array) - used for self-message context
-// and for the folder/contact filter dropdowns
+// messenger.storage.local key set by useStatsData.js while the Stats page is processing (manual
+// refresh or filter change). backgroundEngine.js watches this to also badge the spaces-toolbar
+// icon for page-driven activity, not just its own scheduled refreshes
+export const PAGE_PROCESSING_STORAGE_KEY = 'statsPageProcessing';
+
+// combines identities of every account in <accountList> with configured local <addresses> (lowercase)
 export function buildAllIdentities(accountList, addresses) {
 	let activeIdentities = accountList.reduce((p, c) => p.concat(c.identities.map((i) => i.email.toLowerCase())), []);
 	if (addresses.length && accountList.some((a) => ['none', 'local'].includes(a.type))) {
@@ -117,10 +117,9 @@ export async function processAccount(account, addonOptions, filters = {}, hooks 
 	return { accountData, foldersList, error: err };
 }
 
-// fetch account <accountId>, reprocess its data, and persist to the stats-<id> cache
-// when addonOptions.cache is enabled and no filter is active. Returns
-// { accountData, foldersList, error } - this is the single entry point callable
-// identically from the Stats page and from the background script.
+// fetch account <accountId>, reprocess its data, and persist to the stats-<id> cache when addonOptions.cache is enabled
+// and no filter is active.
+// Returns { accountData, foldersList, error }
 // <filters> additionally accepts filterIsActive (boolean)
 export async function reprocessAccount(accountId, addonOptions, filters = {}, hooks = {}) {
 	const account = await messenger.accounts.get(accountId);
