@@ -1,3 +1,3 @@
-import { initBackground } from '@/backgroundEngine.js';
+import { initBackground } from '@/engines/backgroundEngine.js';
 
 initBackground();

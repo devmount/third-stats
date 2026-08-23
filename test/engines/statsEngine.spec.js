@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { buildAllIdentities, processAccount, processMessages, reprocessAccount } from '@/statsEngine.js';
+import { buildAllIdentities, processAccount, processMessages, reprocessAccount } from '@/engines/statsEngine.js';
 import { createStatsData } from '@/composables/statsAggregation.js';
 import { statsCacheKey } from '@/utils.js';
-import { createMockMessenger } from './helpers/messenger.js';
+import { createMockMessenger } from '../helpers/messenger.js';
 
 const fakeAccount = {
 	id: 'acc-1',

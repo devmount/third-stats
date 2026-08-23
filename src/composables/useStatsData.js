@@ -17,7 +17,7 @@ import {
 	PAGE_PROCESSING_STORAGE_KEY,
 	PROCESSING_STORAGE_KEY,
 	reprocessAccount as engineReprocessAccount,
-} from '@/statsEngine.js';
+} from '@/engines/statsEngine.js';
 
 export function useStatsData() {
 	const { t } = useI18n();
@@ -61,7 +61,7 @@ export function useStatsData() {
 		max: 0, // upper limit for progress indicator
 	});
 
-	// true while the background script (src/backgroundEngine.js) is running a scheduled refresh - read-only here, synced
+	// true while the background script (src/engines/backgroundEngine.js) is running a scheduled refresh - read-only here, synced
 	// from messenger.storage.local and used to disable the manual refresh action so it can't start a second concurrent
 	// pass over the same accounts
 	const backgroundBusy = ref(false);

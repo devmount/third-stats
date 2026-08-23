@@ -6,7 +6,7 @@ import {
 	PAGE_PROCESSING_STORAGE_KEY,
 	PROCESSING_STORAGE_KEY,
 	reprocessAccount,
-} from '@/statsEngine.js';
+} from '@/engines/statsEngine.js';
 
 export const ALARM_NAME = 'third-stats-refresh';
 

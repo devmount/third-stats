@@ -9,7 +9,7 @@ vi.mock('vue-i18n', () => ({
 
 import { useStatsData } from '@/composables/useStatsData.js';
 import { defaultOptions } from '@/definitions.js';
-import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/statsEngine.js';
+import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/engines/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from '../helpers/messenger.js';
 
