@@ -1,6 +1,5 @@
 // Thunderbird messenger.* data-fetch/aggregation engine for the stats page.
-// Call exactly once, from Stats.vue - this composable owns all its state internally;
-// invoking it a second time anywhere else would create an unsynced duplicate copy.
+// Call exactly once, from Stats.vue - it owns all its state internally; a second call elsewhere would create an unsynced duplicate.
 import { ref, reactive, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -61,9 +60,8 @@ export function useStatsData() {
 		max: 0, // upper limit for progress indicator
 	});
 
-	// true while the background script (src/engines/backgroundEngine.js) is running a scheduled refresh - read-only here, synced
-	// from messenger.storage.local and used to disable the manual refresh action so it can't start a second concurrent
-	// pass over the same accounts
+	// true while the background script is running a scheduled refresh - read-only here, synced from
+	// messenger.storage.local, and used to disable the manual refresh action to avoid a concurrent pass
 	const backgroundBusy = ref(false);
 
 	// preferences for stats page configuration
@@ -90,6 +88,47 @@ export function useStatsData() {
 
 	// subset of processed data to show data for account comparison view; data structure see createComparisonData
 	const comparison = ref(createComparisonData());
+
+	// smoothly animates display.value.numbers toward <target> instead of snapping to it, so the
+	// count-up stays visually continuous even when new numbers arrive in bursts (IMAP paging)
+	const NUMBERS_ANIMATION_DURATION_MS = 400;
+	const NUMBERS_ANIMATION_STEP_MS = 40;
+	const zeroNumbers = () => ({
+		total: 0,
+		unread: 0,
+		received: 0,
+		sent: 0,
+		starred: 0,
+		tagged: 0,
+		junk: 0,
+		junkScore: 0,
+	});
+	let numbersAnimationTimer = null;
+	// stops any in-flight number animation - call before any direct assignment to
+	// display.value(.numbers), or a later animation step could overwrite it with a stale value
+	const cancelNumbersAnimation = () => {
+		clearTimeout(numbersAnimationTimer);
+		numbersAnimationTimer = null;
+	};
+	// instantly (not animated) zeroes the count-up before (re)processing starts, so it always
+	// climbs up from zero instead of animating down from whatever total was on screen before
+	const resetLiveNumbers = () => {
+		cancelNumbersAnimation();
+		display.value.numbers = zeroNumbers();
+	};
+	const animateNumbersTo = (target) => {
+		cancelNumbersAnimation();
+		const start = { ...display.value.numbers };
+		const startTime = Date.now();
+		const step = () => {
+			const progress = Math.min((Date.now() - startTime) / NUMBERS_ANIMATION_DURATION_MS, 1);
+			display.value.numbers = Object.fromEntries(
+				Object.keys(target).map((key) => [key, Math.round(start[key] + (target[key] - start[key]) * progress)])
+			);
+			numbersAnimationTimer = progress < 1 ? setTimeout(step, NUMBERS_ANIMATION_STEP_MS) : null;
+		};
+		step();
+	};
 
 	// adds a listener for storage change events
 	// makes reactions on option changes possible
@@ -148,9 +187,8 @@ export function useStatsData() {
 					options.debug = n.debug;
 				}
 			}
-			// react to the background script writing a fresh stats-<id> cache entry while this page is open - re-run the
-			// cheap cache-read path (refresh=false) instead of leaving display/comparison stale until a manual reload or
-			// filter change
+			// react to the background script writing a fresh stats-<id> cache entry while this page is open -
+			// re-run the cheap cache-read path instead of leaving display/comparison stale until a manual reload
 			if (area == 'local' && !isLoading.value && !filterIsActive.value) {
 				const changedStatsKeys = Object.keys(result).filter((k) => k.startsWith('stats-'));
 				if (changedStatsKeys.length) {
@@ -236,7 +274,12 @@ export function useStatsData() {
 
 	// retrieve and process data of account with <id=accountId>
 	// gets called multiple times if processing was invoked for all accounts
-	const reprocessData = async (id) => {
+	// <onNumbers>, if given, receives live number updates instead of writing them to display.value.numbers -
+	// used when summing multiple accounts in parallel (see loadAccount), so updates get aggregated correctly
+	const reprocessData = async (id, onNumbers) => {
+		// only forward every 3rd message to the live count-up, to cut the number of
+		// triggered re-renders while still counting up smoothly
+		let messageCount = 0;
 		const {
 			accountData,
 			foldersList,
@@ -262,7 +305,10 @@ export function useStatsData() {
 			{
 				onMessage: options.liveCountUp
 					? (numbers) => {
-							display.value.numbers = numbers;
+							messageCount++;
+							if (messageCount % 3 !== 0) return;
+							if (onNumbers) onNumbers(numbers);
+							else animateNumbersTo(numbers);
 						}
 					: undefined,
 				onFolderDone: () => progress.current++,
@@ -275,6 +321,7 @@ export function useStatsData() {
 		error.account = hadError;
 		// directly display data if only one single account was processed
 		if (singleAccount.value) {
+			cancelNumbersAnimation();
 			display.value = JSON.parse(JSON.stringify(accountData));
 		}
 		// return processed account data
@@ -308,23 +355,65 @@ export function useStatsData() {
 			// init progress indicator
 			progress.current = 1;
 			progress.max = activeAccounts.reduce(async (p, c) => p + (await traverseAccount(c).length), 0);
+			// live numbers per account; summing these on every update (instead of each account
+			// overwriting display.value.numbers directly) keeps the live total monotonically increasing
+			const liveNumbers = {};
+			const updateLiveTotal = () => {
+				const summed = Object.values(liveNumbers).reduce(
+					(sum, n) => ({
+						total: sum.total + n.total,
+						unread: sum.unread + n.unread,
+						received: sum.received + n.received,
+						sent: sum.sent + n.sent,
+						starred: sum.starred + (n.starred ?? 0),
+						tagged: sum.tagged + (n.tagged ?? 0),
+						junk: sum.junk + n.junk,
+						junkScore: sum.junkScore + n.junkScore,
+					}),
+					zeroNumbers()
+				);
+				animateNumbersTo(summed);
+			};
+			// start every live count-up climbing from zero rather than dipping from whatever
+			// total (this account, or a previously viewed one) happened to be on screen already
+			if (options.liveCountUp) resetLiveNumbers();
+			// phase 1: check every account's cache concurrently, folding cached numbers into the
+			// live total in one batch once all reads are in, not one at a time as each resolves
+			const toReprocess = [];
 			await Promise.all(
 				activeAccounts.map(async (a) => {
-					// get data from storage
 					const result = await messenger.storage.local.get(statsCacheKey(a.id));
 					if (!refresh && result && result[statsCacheKey(a.id)]) {
 						// if no refresh requested and this accounts data was cached before, take data from cache
 						accountsData.push(JSON.parse(JSON.stringify(result[statsCacheKey(a.id)])));
 						progress.current += a.folderCount;
+						if (options.liveCountUp) liveNumbers[a.id] = result[statsCacheKey(a.id)].numbers;
 					} else {
-						// otherwise (re)process account
-						// Handle debug output
-						if (options.debug) {
-							console.debug(`Processing account ${a.name}`, a);
-						}
-						const data = await reprocessData(a.id);
-						accountsData.push(JSON.parse(JSON.stringify(data)));
+						toReprocess.push(a);
 					}
+				})
+			);
+			// fold in whatever came from cache (a no-op animation if nothing did, since we're
+			// already at zero from the reset above)
+			if (options.liveCountUp) updateLiveTotal();
+			// phase 2: (re)process whatever's left from scratch, live-updating the total as each
+			// account's messages come in
+			await Promise.all(
+				toReprocess.map(async (a) => {
+					// Handle debug output
+					if (options.debug) {
+						console.debug(`Processing account ${a.name}`, a);
+					}
+					const data = await reprocessData(
+						a.id,
+						options.liveCountUp
+							? (numbers) => {
+									liveNumbers[a.id] = numbers;
+									updateLiveTotal();
+								}
+							: undefined
+					);
+					accountsData.push(JSON.parse(JSON.stringify(data)));
 				})
 			);
 			// finish progress indicator
@@ -332,6 +421,7 @@ export function useStatsData() {
 			progress.max = 0;
 
 			// sum all values of all account objects
+			cancelNumbersAnimation();
 			display.value = sumAccountsData(accountsData, options.maxListCount);
 
 			// retrieve all values of account objects for comparison views
@@ -347,6 +437,7 @@ export function useStatsData() {
 			const result = options.cache ? await messenger.storage.local.get(statsCacheKey(id)) : null;
 			if (!refresh && result && result[statsCacheKey(id)]) {
 				// if cache is enabled and data already exists in storage, display it directly
+				cancelNumbersAnimation();
 				display.value = JSON.parse(JSON.stringify(result[statsCacheKey(id)]));
 			} else {
 				// otherwise retrieve it first/again and track progress by processed folder count
@@ -362,6 +453,9 @@ export function useStatsData() {
 						'color:inherit'
 					);
 				}
+				// start the live count-up climbing from zero rather than dipping from whatever
+				// total (a previous filter, or this account's last completed load) is on screen
+				if (options.liveCountUp) resetLiveNumbers();
 				await reprocessData(id);
 				progress.current = 0;
 				progress.max = 0;

@@ -618,4 +618,198 @@ describe('useStatsData - summed view across accounts', () => {
 		expect(engine.comparison.value.yearsData).toHaveProperty(accountA.id);
 		expect(engine.comparison.value.yearsData).toHaveProperty(accountB.id);
 	});
+
+	// regression test for bugs/381: with liveCountUp on, multiple uncached accounts are
+	// reprocessed concurrently (Promise.all), so their onMessage hooks fire interleaved.
+	// Before the fix, each hook wrote its own account-local numbers straight onto
+	// display.value.numbers, so a smaller/later account's from-zero count could overwrite
+	// a larger account's count, making the live total visibly jump backward.
+	it('never lets the live count-up total decrease while summing multiple uncached accounts', async () => {
+		const accountA = {
+			id: 'acc-a',
+			name: 'A',
+			type: 'imap',
+			identities: [{ email: 'a@example.com' }],
+			rootFolder: { id: 'root-a' },
+		};
+		const accountB = {
+			id: 'acc-b',
+			name: 'B',
+			type: 'imap',
+			identities: [{ email: 'b@example.com' }],
+			rootFolder: { id: 'root-b' },
+		};
+		const folderA = { ...inboxFolder, id: 'folder-a' };
+		const folderB = { ...inboxFolder, id: 'folder-b' };
+		// account A gets a single, immediately-resolved page of 4 messages and runs to
+		// completion quickly. Account B's page is deliberately split in two: its first
+		// message resolves right away, but its second message sits behind a manually-held
+		// continueList() page that is only released once account A has already finished.
+		// Under the old bug, that second onMessage call would overwrite the shared display
+		// total with account B's own (lower) raw total, right after account A had already
+		// pushed it higher - a visible backward jump. Message counts are chosen so the two
+		// accounts' raw totals never coincide (4 vs 1 vs 2), so a decrease can't hide behind
+		// two equal values the way it did with symmetric, lock-step message counts.
+		const messagesA = Array.from({ length: 4 }, () =>
+			makeMessage({ author: 'x@example.com', recipients: ['a@example.com'] })
+		);
+		const messagesB = Array.from({ length: 2 }, () =>
+			makeMessage({ author: 'y@example.com', recipients: ['b@example.com'] })
+		);
+
+		let resolveContinueB;
+		const continueBPage = new Promise((resolve) => {
+			resolveContinueB = resolve;
+		});
+
+		const messenger = createMockMessenger({
+			accounts: {
+				list: vi.fn(async () => [accountA, accountB]),
+				get: vi.fn(async (id) => (id === accountA.id ? accountA : accountB)),
+			},
+			folders: {
+				get: vi.fn(async (rootId) => ({ isRoot: true, subFolders: [rootId === 'root-a' ? folderA : folderB] })),
+			},
+			messages: {
+				list: vi.fn(async (folderId) =>
+					folderId === 'folder-a' ? { id: null, messages: messagesA } : { id: 'more-b', messages: [messagesB[0]] }
+				),
+				continueList: vi.fn(async (pageId) => (pageId === 'more-b' ? continueBPage : { id: null, messages: [] })),
+			},
+		});
+		await messenger.storage.local.set({ options: { ...baseOptions, cache: true, liveCountUp: true } });
+		vi.stubGlobal('messenger', messenger);
+		vi.stubGlobal('document', { body: fakeElement(), title: '' });
+		vi.stubGlobal('window', { location: { search: '?s=sum' } });
+
+		// live updates animate toward each new target over time (see animateNumbersTo) rather
+		// than snapping to it - fake timers let this test advance that animation deterministically
+		vi.useFakeTimers();
+		const engine = useStatsData();
+		// poll the raw value on every tick rather than watch()-ing it: Vue's reactive
+		// system dedupes a watch callback whenever the same (mutated-in-place) numbers
+		// object reference gets reassigned, or when the watched total happens to coincide
+		// with its previous value - both of which can mask exactly the backward jump this
+		// test is trying to catch. Reading the live value directly on every tick has no
+		// such blind spot. Interleaving a fake-timer advance with nextTick lets both the
+		// number animation and the underlying (microtask-driven) message processing progress.
+		const history = [];
+		const pollFor = async (ticks) => {
+			for (let i = 0; i < ticks; i++) {
+				await nextTick();
+				await vi.advanceTimersByTimeAsync(40);
+				history.push(engine.display.value.numbers.total);
+			}
+		};
+
+		await engine.init();
+		// let account A run all the way to completion (and its live update animation settle)
+		// while account B is still stuck waiting on its held-back second page. Live updates
+		// only forward every 3rd message (see reprocessData), so account A's 4th message
+		// never hits a checkpoint on its own - its live contribution tops out at 3, and the
+		// true total of 4 only shows up in the final sumAccountsData assignment once
+		// everything is done
+		await pollFor(40);
+		expect(history).toContain(3); // sanity: account A's live checkpoint was visibly reached
+
+		// now release account B's second message
+		resolveContinueB({ id: null, messages: [messagesB[1]] });
+		await pollFor(40);
+
+		for (let i = 1; i < history.length; i++) {
+			expect(history[i]).toBeGreaterThanOrEqual(history[i - 1]);
+		}
+		expect(engine.display.value.numbers.total).toBe(6);
+	});
+
+	// regression test: reprocessAccount() (statsEngine.js) writes each account's own
+	// stats-<id> cache entry as soon as that account finishes, and addStorageListener
+	// reacts to ANY such write - including this page's own - by re-running loadAccount('sum',
+	// false) once isLoading is false. If that redundant reload's per-account cache reads
+	// resolve one at a time (as they naturally do), the live total used to get rebuilt from
+	// an empty accumulator and briefly show just the first resolved account's total -
+	// undercutting the number already correctly on screen. updateLiveTotal()'s ratchet
+	// (never assign a lower total than what's already displayed) guards against this.
+	it('never lets a redundant reload triggered by its own cache writes undercut an already-shown total', async () => {
+		const accountA = {
+			id: 'acc-a',
+			name: 'A',
+			type: 'imap',
+			identities: [{ email: 'a@example.com' }],
+			rootFolder: { id: 'root-a' },
+		};
+		const accountB = {
+			id: 'acc-b',
+			name: 'B',
+			type: 'imap',
+			identities: [{ email: 'b@example.com' }],
+			rootFolder: { id: 'root-b' },
+		};
+		const folderA = { ...inboxFolder, id: 'folder-a' };
+		const folderB = { ...inboxFolder, id: 'folder-b' };
+		const msgA = makeMessage({ author: 'x@example.com', recipients: ['a@example.com'] });
+		const msgB = makeMessage({ author: 'y@example.com', recipients: ['b@example.com'] });
+
+		const messenger = createMockMessenger({
+			accounts: {
+				list: vi.fn(async () => [accountA, accountB]),
+				get: vi.fn(async (id) => (id === accountA.id ? accountA : accountB)),
+			},
+			folders: {
+				get: vi.fn(async (rootId) => ({ isRoot: true, subFolders: [rootId === 'root-a' ? folderA : folderB] })),
+			},
+			messages: {
+				list: vi.fn(async (folderId) => ({ id: null, messages: folderId === 'folder-a' ? [msgA] : [msgB] })),
+			},
+		});
+		await messenger.storage.local.set({ options: { ...baseOptions, cache: true, liveCountUp: true } });
+		// the reentrant reload's own two cache reads (one per account) would otherwise both
+		// resolve within the same tick in this synchronous mock, hiding the bug this test is
+		// after - delay account B's specifically, so its read genuinely lands after account
+		// A's, the way two real messenger.storage.local.get() IPC round-trips would stagger
+		let delayAccountBRead = false;
+		let resolveDelayedB;
+		const delayedBRead = new Promise((resolve) => {
+			resolveDelayedB = resolve;
+		});
+		const originalGet = messenger.storage.local.get;
+		messenger.storage.local.get = vi.fn(async (keys) => {
+			if (delayAccountBRead && keys === statsCacheKey(accountB.id)) await delayedBRead;
+			return originalGet(keys);
+		});
+		vi.stubGlobal('messenger', messenger);
+		vi.stubGlobal('document', { body: fakeElement(), title: '' });
+		vi.stubGlobal('window', { location: { search: '?s=sum' } });
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		expect(engine.display.value.numbers.total).toBe(2); // sanity: initial sum finished correctly
+
+		const history = [];
+		const pollFor = async (ticks) => {
+			for (let i = 0; i < ticks; i++) {
+				await nextTick();
+				history.push(engine.display.value.numbers.total);
+			}
+		};
+
+		// simulate a late-delivered storage.onChanged notification for this page's own
+		// earlier write - e.g. a duplicate/delayed delivery of the cache write reprocessData
+		// already made during the initial load above
+		delayAccountBRead = true;
+		const cached = await originalGet(statsCacheKey(accountA.id));
+		await messenger.storage.local.set({ [statsCacheKey(accountA.id)]: cached[statsCacheKey(accountA.id)] });
+		// let the reentrant reload pick up account A's (fast) read while B's is still held back
+		await pollFor(20);
+
+		// now release account B's read
+		resolveDelayedB();
+		await pollFor(20);
+
+		for (let i = 1; i < history.length; i++) {
+			expect(history[i]).toBeGreaterThanOrEqual(history[i - 1]);
+		}
+		expect(engine.display.value.numbers.total).toBe(2);
+	});
 });
