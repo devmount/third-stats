@@ -1,6 +1,5 @@
 // Thunderbird messenger.* data-fetch/aggregation engine for the stats page.
-// Call exactly once, from Stats.vue - this composable owns all its state internally;
-// invoking it a second time anywhere else would create an unsynced duplicate copy.
+// Call exactly once, from Stats.vue - it owns all its state internally; a second call elsewhere would create an unsynced duplicate.
 import { ref, reactive, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -61,9 +60,8 @@ export function useStatsData() {
 		max: 0, // upper limit for progress indicator
 	});
 
-	// true while the background script (src/engines/backgroundEngine.js) is running a scheduled refresh - read-only here, synced
-	// from messenger.storage.local and used to disable the manual refresh action so it can't start a second concurrent
-	// pass over the same accounts
+	// true while the background script is running a scheduled refresh - read-only here, synced from
+	// messenger.storage.local, and used to disable the manual refresh action to avoid a concurrent pass
 	const backgroundBusy = ref(false);
 
 	// preferences for stats page configuration
@@ -91,10 +89,8 @@ export function useStatsData() {
 	// subset of processed data to show data for account comparison view; data structure see createComparisonData
 	const comparison = ref(createComparisonData());
 
-	// smoothly animates display.value.numbers toward <target> instead of snapping straight to it,
-	// so the live count-up stays visually continuous even when new numbers arrive in bursts - e.g.
-	// messenger.messages.list()/continueList() fetch one IMAP page at a time, so many messages of an
-	// already-fetched page land in the same tick, followed by a real pause for the next page
+	// smoothly animates display.value.numbers toward <target> instead of snapping to it, so the
+	// count-up stays visually continuous even when new numbers arrive in bursts (IMAP paging)
 	const NUMBERS_ANIMATION_DURATION_MS = 400;
 	const NUMBERS_ANIMATION_STEP_MS = 40;
 	const zeroNumbers = () => ({
@@ -108,17 +104,14 @@ export function useStatsData() {
 		junkScore: 0,
 	});
 	let numbersAnimationTimer = null;
-	// stops any in-flight number animation - must be called before any direct assignment to
-	// display.value(.numbers), otherwise a still-running animation step can later overwrite it
-	// with a stale, no-longer-relevant in-between value
+	// stops any in-flight number animation - call before any direct assignment to
+	// display.value(.numbers), or a later animation step could overwrite it with a stale value
 	const cancelNumbersAnimation = () => {
 		clearTimeout(numbersAnimationTimer);
 		numbersAnimationTimer = null;
 	};
-	// instantly (not animated) zeroes the live count-up before (re)processing starts, so the
-	// very first animateNumbersTo() call below always climbs up from a known zero baseline -
-	// without this, it would animate down from whatever total was left on screen from before
-	// (the previous account, or this same account's last completed load) and then back up
+	// instantly (not animated) zeroes the count-up before (re)processing starts, so it always
+	// climbs up from zero instead of animating down from whatever total was on screen before
 	const resetLiveNumbers = () => {
 		cancelNumbersAnimation();
 		display.value.numbers = zeroNumbers();
@@ -194,9 +187,8 @@ export function useStatsData() {
 					options.debug = n.debug;
 				}
 			}
-			// react to the background script writing a fresh stats-<id> cache entry while this page is open - re-run the
-			// cheap cache-read path (refresh=false) instead of leaving display/comparison stale until a manual reload or
-			// filter change
+			// react to the background script writing a fresh stats-<id> cache entry while this page is open -
+			// re-run the cheap cache-read path instead of leaving display/comparison stale until a manual reload
 			if (area == 'local' && !isLoading.value && !filterIsActive.value) {
 				const changedStatsKeys = Object.keys(result).filter((k) => k.startsWith('stats-'));
 				if (changedStatsKeys.length) {
@@ -282,9 +274,8 @@ export function useStatsData() {
 
 	// retrieve and process data of account with <id=accountId>
 	// gets called multiple times if processing was invoked for all accounts
-	// <onNumbers>, if given, receives live number updates instead of writing them straight to
-	// display.value.numbers - used when summing multiple accounts in parallel (see loadAccount)
-	// so their concurrent updates get aggregated instead of overwriting each other
+	// <onNumbers>, if given, receives live number updates instead of writing them to display.value.numbers -
+	// used when summing multiple accounts in parallel (see loadAccount), so updates get aggregated correctly
 	const reprocessData = async (id, onNumbers) => {
 		// only forward every 3rd message to the live count-up, to cut the number of
 		// triggered re-renders while still counting up smoothly
@@ -364,9 +355,8 @@ export function useStatsData() {
 			// init progress indicator
 			progress.current = 1;
 			progress.max = activeAccounts.reduce(async (p, c) => p + (await traverseAccount(c).length), 0);
-			// live numbers per account, kept in sync while accounts are (re)processed in parallel below;
-			// summing these on every update (instead of letting each account's onMessage hook overwrite
-			// display.value.numbers directly) keeps the live count-up total monotonically increasing
+			// live numbers per account; summing these on every update (instead of each account
+			// overwriting display.value.numbers directly) keeps the live total monotonically increasing
 			const liveNumbers = {};
 			const updateLiveTotal = () => {
 				const summed = Object.values(liveNumbers).reduce(
@@ -387,11 +377,8 @@ export function useStatsData() {
 			// start every live count-up climbing from zero rather than dipping from whatever
 			// total (this account, or a previously viewed one) happened to be on screen already
 			if (options.liveCountUp) resetLiveNumbers();
-			// phase 1: check every account's cache concurrently, folding every cached account's
-			// numbers into the live total in a single batch once all reads are in - not one at a
-			// time as each individual read resolves. A pile of near-simultaneous cache reads (e.g.
-			// from a redundant reload retriggered by this page's own cache writes, see
-			// addStorageListener) would otherwise reveal a flickering, incomplete partial sum
+			// phase 1: check every account's cache concurrently, folding cached numbers into the
+			// live total in one batch once all reads are in, not one at a time as each resolves
 			const toReprocess = [];
 			await Promise.all(
 				activeAccounts.map(async (a) => {
