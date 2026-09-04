@@ -70,6 +70,25 @@ export function createMockMessenger(overrides = {}) {
 		},
 		runtime: {
 			getBackgroundPage: vi.fn(async () => ({ messenger: { accounts: { list: vi.fn(async () => []) } } })),
+			onInstalled: {
+				addListener: vi.fn(),
+			},
+			onStartup: {
+				addListener: vi.fn(),
+			},
+		},
+		alarms: {
+			create: vi.fn(),
+			clear: vi.fn(async () => true),
+			get: vi.fn(async () => null),
+			onAlarm: {
+				addListener: vi.fn(),
+			},
+		},
+		spaces: {
+			create: vi.fn(async () => ({ id: 1, isBuiltIn: false, isSelfOwned: true, name: 'third_stats' })),
+			update: vi.fn(async () => {}),
+			query: vi.fn(async () => []),
 		},
 		i18n: {
 			getUILanguage: vi.fn(() => 'en'),

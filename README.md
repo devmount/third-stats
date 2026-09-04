@@ -50,9 +50,11 @@ ThirdStats runs entirely locally and will never contact, send or sell data to, a
 ThirdStats features require [Thunderbird permissions](https://developer.thunderbird.net/add-ons/mailextensions/supported-webextension-api) to function, but will always seeks to minimise permissions where possible, and use granular permissions where available (Example: Thunderbird Permissions API does not currently provide for reading only message headers, instead of the entire email, including the body):
 
 - Accounts: Access accounts and identities (read-only)
+- Alarms: Schedule periodic background reprocessing of stats data. Can be disabled or adjusted in the add-on options.
 - Downloads: Export and download data as a file
 - Messages: Access messages to create statistics (read-only)
-- Storage: Store processed data (cache) for performance. Can be cleared or disabled at any time.
+- Messages Tags: Read the list of user-defined message tags (name and color) to enrich stats
+- Storage: Store options and processed data (cache) for performance. Can be cleared or disabled at any time.
 
 See the [Security Policy](./SECURITY.md) for details how ThirdStats values your privacy.
 

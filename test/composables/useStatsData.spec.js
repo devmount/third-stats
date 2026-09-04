@@ -9,6 +9,7 @@ vi.mock('vue-i18n', () => ({
 
 import { useStatsData } from '@/composables/useStatsData.js';
 import { defaultOptions } from '@/definitions.js';
+import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/engines/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from '../helpers/messenger.js';
 
@@ -434,6 +435,138 @@ describe('useStatsData - caching', () => {
 
 		expect(list).toHaveBeenCalled();
 		expect(engine.display.value.numbers.total).toBe(1);
+	});
+});
+
+describe('useStatsData - live stats cache sync', () => {
+	const setupSingleAccount = (messages) => {
+		const list = vi.fn(async () => ({ id: null, messages }));
+		const messenger = setupMessenger({
+			folders: { get: vi.fn(async () => ({ isRoot: true, subFolders: [inboxFolder] })) },
+			messages: { list },
+		});
+		return { messenger, list };
+	};
+
+	it('reacts to a background-written stats-<id> cache update by reloading from cache, not refetching', async () => {
+		const { messenger, list } = setupSingleAccount([makeMessage()]);
+		await messenger.storage.local.set({ options: { ...baseOptions, cache: true } });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		const callsBefore = list.mock.calls.length;
+
+		await messenger.storage.local.set({
+			[statsCacheKey(fakeAccount.id)]: {
+				numbers: { total: 42 },
+				meta: { start: new Date(2021, 0, 1), end: new Date(2021, 0, 2) },
+			},
+		});
+		await flushPending();
+
+		expect(engine.display.value.numbers.total).toBe(42);
+		expect(list.mock.calls.length).toBe(callsBefore); // cache re-read, not a refetch
+	});
+
+	it('ignores a background-written cache update while a filter is active', async () => {
+		const { messenger } = setupSingleAccount([makeMessage()]);
+		await messenger.storage.local.set({ options: { ...baseOptions, cache: true } });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		engine.active.folder = inboxFolder;
+		await flushPending();
+		const totalBefore = engine.display.value.numbers.total;
+
+		await messenger.storage.local.set({ [statsCacheKey(fakeAccount.id)]: { numbers: { total: 999 }, meta: {} } });
+		await flushPending();
+
+		expect(engine.display.value.numbers.total).toBe(totalBefore);
+	});
+});
+
+describe('useStatsData - backgroundBusy', () => {
+	it('picks up a background refresh already in flight when the page opens', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: true });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		expect(engine.backgroundBusy.value).toBe(true);
+	});
+
+	it('defaults to false when nothing has been stored yet', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		expect(engine.backgroundBusy.value).toBe(false);
+	});
+
+	it('reacts live to the background script setting and clearing the flag', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: true });
+		expect(engine.backgroundBusy.value).toBe(true);
+
+		await messenger.storage.local.set({ [PROCESSING_STORAGE_KEY]: false });
+		expect(engine.backgroundBusy.value).toBe(false);
+	});
+});
+
+describe('useStatsData - page processing flag', () => {
+	it('writes PAGE_PROCESSING_STORAGE_KEY true while reprocessing and false once done, so the background script can also badge for page-driven activity', async () => {
+		const list = vi.fn(async () => ({ id: null, messages: [makeMessage()] }));
+		const messenger = setupMessenger({
+			folders: { get: vi.fn(async () => ({ isRoot: true, subFolders: [inboxFolder] })) },
+			messages: { list },
+		});
+		await messenger.storage.local.set({ options: baseOptions });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+		messenger.storage.local.set.mockClear();
+
+		await engine.loadAccount(fakeAccount.id, true);
+
+		const flagWrites = messenger.storage.local.set.mock.calls
+			.map(([items]) => items[PAGE_PROCESSING_STORAGE_KEY])
+			.filter((v) => v !== undefined);
+		expect(flagWrites).toEqual([true, false]);
+	});
+
+	it('resets a leftover "true" flag at startup, in case a previous page closed mid-refresh', async () => {
+		const messenger = setupMessenger();
+		await messenger.storage.local.set({ options: baseOptions });
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: true });
+		stubEnvironment(messenger);
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		const { [PAGE_PROCESSING_STORAGE_KEY]: flag } = await messenger.storage.local.get(PAGE_PROCESSING_STORAGE_KEY);
+		expect(flag).toBe(false);
 	});
 });
 

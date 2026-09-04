@@ -3,18 +3,18 @@
 		<label for="account" class="filter-label">{{ t('stats.account') }}</label>
 		<ts-select
 			v-model="active.account"
-			:disabled="isLoading"
+			:disabled="isLoading || backgroundBusy"
 			class="filter-select"
-			:class="{ disabled: isLoading }"
+			:class="{ disabled: isLoading || backgroundBusy }"
 			id="account"
 		>
 			<option v-if="accounts.length > 1 && options.cache" :value="'sum'">{{ t('stats.allAccounts') }}</option>
 			<option v-else disabled>{{ t('stats.allAccounts') }}</option>
 			<option v-for="a in accounts" :key="a.id" :value="a.id">{{ a.name }}</option>
 		</ts-select>
-		<ts-loader v-show="isLoading" accent2 />
+		<ts-loader v-show="isLoading || backgroundBusy" accent2 />
 		<div
-			v-show="!isLoading"
+			v-show="!isLoading && !backgroundBusy"
 			class="refresh"
 			v-tooltip="{ text: t('stats.tooltips.refresh'), position: 'bottom' }"
 			@click="loadAccount(active.account, true)"
@@ -51,7 +51,7 @@
 import { inject } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-const { accounts, active, error, isLoading, options, loadAccount } = inject('engine');
+const { accounts, active, error, isLoading, backgroundBusy, options, loadAccount } = inject('engine');
 
 const { t } = useI18n();
 </script>

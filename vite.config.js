@@ -9,16 +9,22 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			'@': resolve(__dirname, './src'),
+			'@': resolve(import.meta.dirname, './src'),
 		},
 	},
 	build: {
 		minify: true, // set to false to make source code readable
 		rollupOptions: {
 			input: {
-				popup: resolve(__dirname, 'index.popup.html'),
-				stats: resolve(__dirname, 'index.stats.html'),
-				options: resolve(__dirname, 'index.options.html'),
+				popup: resolve(import.meta.dirname, 'index.popup.html'),
+				stats: resolve(import.meta.dirname, 'index.stats.html'),
+				options: resolve(import.meta.dirname, 'index.options.html'),
+				background: resolve(import.meta.dirname, 'src/background.js'),
+			},
+			output: {
+				// the background script's manifest.json reference needs a fixed, non-hashed path
+				entryFileNames: (chunkInfo) =>
+					chunkInfo.name === 'background' ? 'js/background.js' : 'assets/[name]-[hash].js',
 			},
 		},
 	},

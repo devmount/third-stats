@@ -20,7 +20,8 @@
 	"background": {
 		"scripts": [
 			"js/background.js"
-		]
+		],
+		"type": "module"
 	},
 	"options_ui": {
 		"page": "index.options.html",
@@ -31,7 +32,8 @@
 		"messagesRead",
 		"storage",
 		"downloads",
-		"messagesTagsList"
+		"messagesTagsList",
+		"alarms"
 	],
 	"icons": {
 		"64": "icon.svg",

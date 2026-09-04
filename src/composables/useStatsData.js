@@ -5,23 +5,19 @@ import { ref, reactive, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { accentColors, defaultColors, defaultOptions } from '@/definitions.js';
+import { filterActiveAccounts, setTheme, statsCacheKey, traverseAccount, yyyymmdd } from '@/utils.js';
 import {
-	filterActiveAccounts,
-	flattenSubfolders,
-	queryMessages,
-	setTheme,
-	sortAndLimitObject,
-	statsCacheKey,
-	traverseAccount,
-	yyyymmdd,
-} from '@/utils.js';
-import {
-	analyzeMessage,
 	buildComparisonData,
 	createComparisonData,
 	createStatsData,
 	sumAccountsData,
 } from '@/composables/statsAggregation.js';
+import {
+	buildAllIdentities,
+	PAGE_PROCESSING_STORAGE_KEY,
+	PROCESSING_STORAGE_KEY,
+	reprocessAccount as engineReprocessAccount,
+} from '@/engines/statsEngine.js';
 
 export function useStatsData() {
 	const { t } = useI18n();
@@ -64,6 +60,11 @@ export function useStatsData() {
 		current: 0, // indicator for progress on refreshing data, fraction [0-1]
 		max: 0, // upper limit for progress indicator
 	});
+
+	// true while the background script (src/engines/backgroundEngine.js) is running a scheduled refresh - read-only here, synced
+	// from messenger.storage.local and used to disable the manual refresh action so it can't start a second concurrent
+	// pass over the same accounts
+	const backgroundBusy = ref(false);
 
 	// preferences for stats page configuration
 	const preferences = reactive({
@@ -147,6 +148,20 @@ export function useStatsData() {
 					options.debug = n.debug;
 				}
 			}
+			// react to the background script writing a fresh stats-<id> cache entry while this page is open - re-run the
+			// cheap cache-read path (refresh=false) instead of leaving display/comparison stale until a manual reload or
+			// filter change
+			if (area == 'local' && !isLoading.value && !filterIsActive.value) {
+				const changedStatsKeys = Object.keys(result).filter((k) => k.startsWith('stats-'));
+				if (changedStatsKeys.length) {
+					const relevant = active.account === 'sum' || changedStatsKeys.includes(statsCacheKey(active.account));
+					if (relevant) loadAccount(active.account, false);
+				}
+			}
+			// mirror whether the background script is currently mid-refresh
+			if (area == 'local' && result?.[PROCESSING_STORAGE_KEY]) {
+				backgroundBusy.value = !!result[PROCESSING_STORAGE_KEY].newValue;
+			}
 		});
 	};
 
@@ -205,114 +220,12 @@ export function useStatsData() {
 		// store accounts
 		accounts.value = list;
 		// store identities of all activated accounts
-		let activeIdentities = list.reduce((p, c) => p.concat(c.identities.map((i) => i.email.toLowerCase())), []);
-		// add local identities if any local account is active
-		if (options.addresses.length && list.some((a) => ['none', 'local'].includes(a.type))) {
-			options.addresses.forEach((l) => activeIdentities.push(l.toLowerCase()));
-		}
-		identities.value = activeIdentities;
+		identities.value = buildAllIdentities(list, options.addresses);
 		// extract account id from url GET parameter
 		const uri = window.location.search.substring(1);
 		let id = new URLSearchParams(uri).get('s');
 		if (!id || (id == 'sum' && !options.cache) || (id == 'sum' && list.length <= 1)) id = list[0].id;
 		active.account = id;
-	};
-
-	// retrieve all messages of a given <folder> with accounts <identityList>
-	// store results in <data> object
-	const processMessages = async (data, folder, identityList) => {
-		// Only analyze existing, non-virtual folders
-		if (folder && !folder.isUnified && !folder.isVirtual) {
-			const context = {
-				activeContact: active.contact,
-				selfMessagesMode: options.selfMessages,
-				allIdentities: identities.value,
-			};
-			let n = 0,
-				s = 0,
-				r = 0;
-			for await (let m of queryMessages(
-				folder.id,
-				active.period.start,
-				active.period.end,
-				options.debug,
-				folder.path
-			)) {
-				const type = analyzeMessage(data, m, identityList, context);
-				// live update numbers section if corresponding option is enabled
-				if (options.liveCountUp) display.value.numbers = data.numbers;
-				if (options.debug) {
-					n++;
-					s += type === 'sent' ? 1 : 0;
-					r += type === 'received' ? 1 : 0;
-				}
-			}
-
-			// Handle debug output
-			if (options.debug) {
-				const totalOutput = String(n).padStart(6);
-				const receivedOutput = String(r).padStart(6);
-				const sentOutput = String(s).padStart(6);
-				console.debug(
-					`${totalOutput} %c${receivedOutput} %c${sentOutput}   %c📁 ${folder.path}`,
-					`color:${accentColors[1]}`,
-					`color:${accentColors[0]}`,
-					'color:inherit'
-				);
-			}
-		}
-	};
-
-	// analyze folders of a given account <a>
-	// return processed data object structured like createStatsData
-	const processAccount = async (a) => {
-		// get identities from account, or from preferences if it's a local account
-		const identities = !['none', 'local'].includes(a.type)
-			? a.identities.map((i) => i.email.toLowerCase())
-			: options.addresses;
-		// get all folders and subfolders from given account or selected folder of active account (filter field)
-		const foldersList = active.folder
-			? [
-					JSON.parse(JSON.stringify(active.folder)),
-					...(options.includeSubfolders ? flattenSubfolders(active.folder) : []),
-				]
-			: await traverseAccount(a);
-		// build folder list for filter selection, if not already present
-		if (!folders.value.length) {
-			folders.value = foldersList;
-		}
-		const accountData = createStatsData(active.period.start, active.period.end);
-		await Promise.all(
-			foldersList.map(async (f) => {
-				// analyze all messages in all folders
-				await processMessages(accountData, f, identities);
-				// increment current progress by 1 for each folder
-				progress.current++;
-			})
-		);
-		// post processing: sort and reduce size of lists to configured limit
-		accountData.contacts.received = sortAndLimitObject(accountData.contacts.received, options.maxListCount);
-		accountData.contacts.sent = sortAndLimitObject(accountData.contacts.sent, options.maxListCount);
-		accountData.contacts.junk = sortAndLimitObject(accountData.contacts.junk, options.maxListCount);
-		accountData.tags = sortAndLimitObject(accountData.tags, options.maxListCount);
-		// post processing: sort folders
-		accountData.folders.received = sortAndLimitObject(accountData.folders.received);
-		accountData.folders.sent = sortAndLimitObject(accountData.folders.sent);
-		// post processing: add timestamp of finished processing
-		accountData.meta.timestamp = Date.now();
-
-		// Handle debug output
-		if (options.debug) {
-			const debugIdentities = identities.length ? identities.join(', ') : 'None';
-			console.debug(`Detected identities: ${debugIdentities}`);
-		}
-
-		// check if error occured during processing
-		// any error is saved to local storage during processing
-		const { err } = await messenger.storage.local.get('error');
-		error.account = err;
-
-		return accountData;
 	};
 
 	// true, if at least one filter is set
@@ -323,20 +236,46 @@ export function useStatsData() {
 
 	// retrieve and process data of account with <id=accountId>
 	// gets called multiple times if processing was invoked for all accounts
-	const reprocessData = async (id, auto = false) => {
-		// get currently selected account
-		const account = await messenger.accounts.get(id);
-		// process data of this account again
-		const accountData = await processAccount(account);
-		// directly display data if only one single account was manually processed
-		if (singleAccount.value && !auto) {
-			display.value = JSON.parse(JSON.stringify(accountData));
+	const reprocessData = async (id) => {
+		const {
+			accountData,
+			foldersList,
+			error: hadError,
+		} = await engineReprocessAccount(
+			id,
+			{
+				addresses: options.addresses,
+				includeSubfolders: options.includeSubfolders,
+				selfMessages: options.selfMessages,
+				maxListCount: options.maxListCount,
+				cache: options.cache,
+				debug: options.debug,
+			},
+			{
+				activeFolder: active.folder,
+				activeContact: active.contact,
+				allIdentities: identities.value,
+				periodStart: active.period.start,
+				periodEnd: active.period.end,
+				filterIsActive: filterIsActive.value,
+			},
+			{
+				onMessage: options.liveCountUp
+					? (numbers) => {
+							display.value.numbers = numbers;
+						}
+					: undefined,
+				onFolderDone: () => progress.current++,
+			}
+		);
+		// build folder list for filter selection, if not already present
+		if (!folders.value.length) {
+			folders.value = foldersList;
 		}
-		// only store reprocessed data if cache is enabled and no filter is set
-		if (options.cache && !filterIsActive.value) {
-			const stats = {};
-			stats[statsCacheKey(id)] = JSON.parse(JSON.stringify(accountData));
-			await messenger.storage.local.set(stats);
+		error.account = hadError;
+		// directly display data if only one single account was processed
+		if (singleAccount.value) {
+			display.value = JSON.parse(JSON.stringify(accountData));
 		}
 		// return processed account data
 		return accountData;
@@ -354,8 +293,7 @@ export function useStatsData() {
 
 	// load data of given account <id=accountId> or all accounts <id='sum'>
 	// from cache <refresh=false> or reprocess from scratch <refresh=true>
-	// while reprocessing was invoked manually <auto=false> or automaticalle <auto=true>
-	const loadAccount = async (id, refresh, auto = false) => {
+	const loadAccount = async (id, refresh) => {
 		// start loading indication
 		isLoading.value = true;
 		// check id type
@@ -370,13 +308,6 @@ export function useStatsData() {
 			// init progress indicator
 			progress.current = 1;
 			progress.max = activeAccounts.reduce(async (p, c) => p + (await traverseAccount(c).length), 0);
-			// when auto processing remember displayed account key and disable live counts
-			let displayedAccountKey = null;
-			let liveCountUpDisabled = false;
-			if (auto && options.liveCountUp) {
-				liveCountUpDisabled = true;
-				options.liveCountUp = false;
-			}
 			await Promise.all(
 				activeAccounts.map(async (a) => {
 					// get data from storage
@@ -387,33 +318,21 @@ export function useStatsData() {
 						progress.current += a.folderCount;
 					} else {
 						// otherwise (re)process account
-						await messenger.storage.local.set({ error: false });
 						// Handle debug output
 						if (options.debug) {
 							console.debug(`Processing account ${a.name}`, a);
 						}
-						const data = await reprocessData(a.id, auto);
+						const data = await reprocessData(a.id);
 						accountsData.push(JSON.parse(JSON.stringify(data)));
-						// remember key of currently displayed account if auto processed
-						if (auto && active.account == a.id) {
-							displayedAccountKey = accountsData.length - 1;
-						}
 					}
 				})
 			);
-			// enable live counts again if set
-			if (auto && liveCountUpDisabled) {
-				options.liveCountUp = true;
-			}
 			// finish progress indicator
 			progress.current = 0;
 			progress.max = 0;
 
 			// sum all values of all account objects
-			const sum = sumAccountsData(accountsData, options.maxListCount);
-
-			// show summed stats or keep current view if processing was invoked automatically
-			display.value = auto && displayedAccountKey ? accountsData[displayedAccountKey] : sum;
+			display.value = sumAccountsData(accountsData, options.maxListCount);
 
 			// retrieve all values of account objects for comparison views
 			comparison.value = buildComparisonData(accountsData, activeAccounts);
@@ -443,7 +362,6 @@ export function useStatsData() {
 						'color:inherit'
 					);
 				}
-				await messenger.storage.local.set({ error: false });
 				await reprocessData(id);
 				progress.current = 0;
 				progress.max = 0;
@@ -712,6 +630,12 @@ export function useStatsData() {
 		}
 	);
 
+	// mirror this page's own loading state to storage, so the background script can also badge
+	// the spaces-toolbar icon for page-driven activity, not just its own scheduled refreshes
+	watch(isLoading, (loading) => {
+		messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: loading });
+	});
+
 	// bootstraps the engine - call once from onMounted
 	const init = async () => {
 		// set initial tab title
@@ -727,17 +651,12 @@ export function useStatsData() {
 		// check if error occured during previous processing
 		const { err } = await messenger.storage.local.get('error');
 		error.account = err;
-		// start auto-processing in intervals if activated
-		if (options.autoRefresh) {
-			setInterval(
-				() => {
-					if (!isLoading.value) {
-						loadAccount('sum', true, true);
-					}
-				},
-				Number(options.autoRefreshInterval) * 60 * 1000
-			); // convert minutes to seconds
-		}
+		// pick up whether a background refresh is already in flight when this page opens
+		const { [PROCESSING_STORAGE_KEY]: initialProcessing } = await messenger.storage.local.get(PROCESSING_STORAGE_KEY);
+		backgroundBusy.value = !!initialProcessing;
+		// a page closed mid-refresh never gets to clear PAGE_PROCESSING_STORAGE_KEY itself, which
+		// would otherwise leave the spaces-toolbar badge stuck on - reset it opportunistically here
+		await messenger.storage.local.set({ [PAGE_PROCESSING_STORAGE_KEY]: false });
 	};
 
 	return {
@@ -748,6 +667,7 @@ export function useStatsData() {
 		error,
 		isLoading,
 		progress,
+		backgroundBusy,
 		preferences,
 		options,
 		display,
