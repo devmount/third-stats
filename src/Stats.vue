@@ -151,7 +151,7 @@
 				</div>
 			</section>
 			<!-- still processing -->
-			<section v-if="isLoading && display.numbers.total == 0" class="status-section">
+			<section v-if="isLoading && display.numbers.total == 0 && !display.meta.timestamp" class="status-section">
 				<ts-icon size="huge" variant="gray" animated-color-transition>
 					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 					<polyline points="4 19 8 13 12 15 16 10 20 14 20 19 4 19" />
@@ -173,7 +173,7 @@
 				</div>
 			</section>
 			<!-- charts -->
-			<section v-if="display.numbers.total > 0" class="charts">
+			<section v-if="display.numbers.total > 0 || display.meta.timestamp" class="charts">
 				<div id="chart-area-top" class="chart-area" :class="{ 'first-column-only': preferences.sections.total.expand }">
 					<total-section />
 					<activity-section />

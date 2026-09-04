@@ -91,6 +91,52 @@ export function useStatsData() {
 	// subset of processed data to show data for account comparison view; data structure see createComparisonData
 	const comparison = ref(createComparisonData());
 
+	// smoothly animates display.value.numbers toward <target> instead of snapping straight to it,
+	// so the live count-up stays visually continuous even when new numbers arrive in bursts - e.g.
+	// messenger.messages.list()/continueList() fetch one IMAP page at a time, so many messages of an
+	// already-fetched page land in the same tick, followed by a real pause for the next page
+	const NUMBERS_ANIMATION_DURATION_MS = 400;
+	const NUMBERS_ANIMATION_STEP_MS = 40;
+	const zeroNumbers = () => ({
+		total: 0,
+		unread: 0,
+		received: 0,
+		sent: 0,
+		starred: 0,
+		tagged: 0,
+		junk: 0,
+		junkScore: 0,
+	});
+	let numbersAnimationTimer = null;
+	// stops any in-flight number animation - must be called before any direct assignment to
+	// display.value(.numbers), otherwise a still-running animation step can later overwrite it
+	// with a stale, no-longer-relevant in-between value
+	const cancelNumbersAnimation = () => {
+		clearTimeout(numbersAnimationTimer);
+		numbersAnimationTimer = null;
+	};
+	// instantly (not animated) zeroes the live count-up before (re)processing starts, so the
+	// very first animateNumbersTo() call below always climbs up from a known zero baseline -
+	// without this, it would animate down from whatever total was left on screen from before
+	// (the previous account, or this same account's last completed load) and then back up
+	const resetLiveNumbers = () => {
+		cancelNumbersAnimation();
+		display.value.numbers = zeroNumbers();
+	};
+	const animateNumbersTo = (target) => {
+		cancelNumbersAnimation();
+		const start = { ...display.value.numbers };
+		const startTime = Date.now();
+		const step = () => {
+			const progress = Math.min((Date.now() - startTime) / NUMBERS_ANIMATION_DURATION_MS, 1);
+			display.value.numbers = Object.fromEntries(
+				Object.keys(target).map((key) => [key, Math.round(start[key] + (target[key] - start[key]) * progress)])
+			);
+			numbersAnimationTimer = progress < 1 ? setTimeout(step, NUMBERS_ANIMATION_STEP_MS) : null;
+		};
+		step();
+	};
+
 	// adds a listener for storage change events
 	// makes reactions on option changes possible
 	const addStorageListener = () => {
@@ -271,7 +317,7 @@ export function useStatsData() {
 							messageCount++;
 							if (messageCount % 3 !== 0) return;
 							if (onNumbers) onNumbers(numbers);
-							else display.value.numbers = numbers;
+							else animateNumbersTo(numbers);
 						}
 					: undefined,
 				onFolderDone: () => progress.current++,
@@ -284,6 +330,7 @@ export function useStatsData() {
 		error.account = hadError;
 		// directly display data if only one single account was processed
 		if (singleAccount.value) {
+			cancelNumbersAnimation();
 			display.value = JSON.parse(JSON.stringify(accountData));
 		}
 		// return processed account data
@@ -322,7 +369,7 @@ export function useStatsData() {
 			// display.value.numbers directly) keeps the live count-up total monotonically increasing
 			const liveNumbers = {};
 			const updateLiveTotal = () => {
-				display.value.numbers = Object.values(liveNumbers).reduce(
+				const summed = Object.values(liveNumbers).reduce(
 					(sum, n) => ({
 						total: sum.total + n.total,
 						unread: sum.unread + n.unread,
@@ -333,9 +380,13 @@ export function useStatsData() {
 						junk: sum.junk + n.junk,
 						junkScore: sum.junkScore + n.junkScore,
 					}),
-					{ total: 0, unread: 0, received: 0, sent: 0, starred: 0, tagged: 0, junk: 0, junkScore: 0 }
+					zeroNumbers()
 				);
+				animateNumbersTo(summed);
 			};
+			// start every live count-up climbing from zero rather than dipping from whatever
+			// total (this account, or a previously viewed one) happened to be on screen already
+			if (options.liveCountUp) resetLiveNumbers();
 			// phase 1: check every account's cache concurrently, folding every cached account's
 			// numbers into the live total in a single batch once all reads are in - not one at a
 			// time as each individual read resolves. A pile of near-simultaneous cache reads (e.g.
@@ -355,10 +406,9 @@ export function useStatsData() {
 					}
 				})
 			);
-			// only touch the display here if something was actually found in cache - otherwise
-			// (e.g. a full refresh) leave the previous total on screen until phase 2 below has
-			// real progress to show, instead of flashing it down to zero for nothing
-			if (options.liveCountUp && Object.keys(liveNumbers).length) updateLiveTotal();
+			// fold in whatever came from cache (a no-op animation if nothing did, since we're
+			// already at zero from the reset above)
+			if (options.liveCountUp) updateLiveTotal();
 			// phase 2: (re)process whatever's left from scratch, live-updating the total as each
 			// account's messages come in
 			await Promise.all(
@@ -384,6 +434,7 @@ export function useStatsData() {
 			progress.max = 0;
 
 			// sum all values of all account objects
+			cancelNumbersAnimation();
 			display.value = sumAccountsData(accountsData, options.maxListCount);
 
 			// retrieve all values of account objects for comparison views
@@ -399,6 +450,7 @@ export function useStatsData() {
 			const result = options.cache ? await messenger.storage.local.get(statsCacheKey(id)) : null;
 			if (!refresh && result && result[statsCacheKey(id)]) {
 				// if cache is enabled and data already exists in storage, display it directly
+				cancelNumbersAnimation();
 				display.value = JSON.parse(JSON.stringify(result[statsCacheKey(id)]));
 			} else {
 				// otherwise retrieve it first/again and track progress by processed folder count
@@ -414,6 +466,9 @@ export function useStatsData() {
 						'color:inherit'
 					);
 				}
+				// start the live count-up climbing from zero rather than dipping from whatever
+				// total (a previous filter, or this account's last completed load) is on screen
+				if (options.liveCountUp) resetLiveNumbers();
 				await reprocessData(id);
 				progress.current = 0;
 				progress.max = 0;

@@ -682,27 +682,33 @@ describe('useStatsData - summed view across accounts', () => {
 		vi.stubGlobal('document', { body: fakeElement(), title: '' });
 		vi.stubGlobal('window', { location: { search: '?s=sum' } });
 
+		// live updates animate toward each new target over time (see animateNumbersTo) rather
+		// than snapping to it - fake timers let this test advance that animation deterministically
+		vi.useFakeTimers();
 		const engine = useStatsData();
 		// poll the raw value on every tick rather than watch()-ing it: Vue's reactive
 		// system dedupes a watch callback whenever the same (mutated-in-place) numbers
 		// object reference gets reassigned, or when the watched total happens to coincide
 		// with its previous value - both of which can mask exactly the backward jump this
 		// test is trying to catch. Reading the live value directly on every tick has no
-		// such blind spot.
+		// such blind spot. Interleaving a fake-timer advance with nextTick lets both the
+		// number animation and the underlying (microtask-driven) message processing progress.
 		const history = [];
 		const pollFor = async (ticks) => {
 			for (let i = 0; i < ticks; i++) {
 				await nextTick();
+				await vi.advanceTimersByTimeAsync(40);
 				history.push(engine.display.value.numbers.total);
 			}
 		};
 
 		await engine.init();
-		// let account A run all the way to completion while account B is still stuck
-		// waiting on its held-back second page. Live updates only forward every 3rd
-		// message (see reprocessData), so account A's 4th message never hits a checkpoint
-		// on its own - its live contribution tops out at 3, and the true total of 4 only
-		// shows up in the final sumAccountsData assignment once everything is done
+		// let account A run all the way to completion (and its live update animation settle)
+		// while account B is still stuck waiting on its held-back second page. Live updates
+		// only forward every 3rd message (see reprocessData), so account A's 4th message
+		// never hits a checkpoint on its own - its live contribution tops out at 3, and the
+		// true total of 4 only shows up in the final sumAccountsData assignment once
+		// everything is done
 		await pollFor(40);
 		expect(history).toContain(3); // sanity: account A's live checkpoint was visibly reached
 
