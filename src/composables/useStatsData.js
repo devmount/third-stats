@@ -236,7 +236,13 @@ export function useStatsData() {
 
 	// retrieve and process data of account with <id=accountId>
 	// gets called multiple times if processing was invoked for all accounts
-	const reprocessData = async (id) => {
+	// <onNumbers>, if given, receives live number updates instead of writing them straight to
+	// display.value.numbers - used when summing multiple accounts in parallel (see loadAccount)
+	// so their concurrent updates get aggregated instead of overwriting each other
+	const reprocessData = async (id, onNumbers) => {
+		// only forward every 3rd message to the live count-up, to cut the number of
+		// triggered re-renders while still counting up smoothly
+		let messageCount = 0;
 		const {
 			accountData,
 			foldersList,
@@ -262,7 +268,10 @@ export function useStatsData() {
 			{
 				onMessage: options.liveCountUp
 					? (numbers) => {
-							display.value.numbers = numbers;
+							messageCount++;
+							if (messageCount % 3 !== 0) return;
+							if (onNumbers) onNumbers(numbers);
+							else display.value.numbers = numbers;
 						}
 					: undefined,
 				onFolderDone: () => progress.current++,
@@ -308,23 +317,66 @@ export function useStatsData() {
 			// init progress indicator
 			progress.current = 1;
 			progress.max = activeAccounts.reduce(async (p, c) => p + (await traverseAccount(c).length), 0);
+			// live numbers per account, kept in sync while accounts are (re)processed in parallel below;
+			// summing these on every update (instead of letting each account's onMessage hook overwrite
+			// display.value.numbers directly) keeps the live count-up total monotonically increasing
+			const liveNumbers = {};
+			const updateLiveTotal = () => {
+				display.value.numbers = Object.values(liveNumbers).reduce(
+					(sum, n) => ({
+						total: sum.total + n.total,
+						unread: sum.unread + n.unread,
+						received: sum.received + n.received,
+						sent: sum.sent + n.sent,
+						starred: sum.starred + (n.starred ?? 0),
+						tagged: sum.tagged + (n.tagged ?? 0),
+						junk: sum.junk + n.junk,
+						junkScore: sum.junkScore + n.junkScore,
+					}),
+					{ total: 0, unread: 0, received: 0, sent: 0, starred: 0, tagged: 0, junk: 0, junkScore: 0 }
+				);
+			};
+			// phase 1: check every account's cache concurrently, folding every cached account's
+			// numbers into the live total in a single batch once all reads are in - not one at a
+			// time as each individual read resolves. A pile of near-simultaneous cache reads (e.g.
+			// from a redundant reload retriggered by this page's own cache writes, see
+			// addStorageListener) would otherwise reveal a flickering, incomplete partial sum
+			const toReprocess = [];
 			await Promise.all(
 				activeAccounts.map(async (a) => {
-					// get data from storage
 					const result = await messenger.storage.local.get(statsCacheKey(a.id));
 					if (!refresh && result && result[statsCacheKey(a.id)]) {
 						// if no refresh requested and this accounts data was cached before, take data from cache
 						accountsData.push(JSON.parse(JSON.stringify(result[statsCacheKey(a.id)])));
 						progress.current += a.folderCount;
+						if (options.liveCountUp) liveNumbers[a.id] = result[statsCacheKey(a.id)].numbers;
 					} else {
-						// otherwise (re)process account
-						// Handle debug output
-						if (options.debug) {
-							console.debug(`Processing account ${a.name}`, a);
-						}
-						const data = await reprocessData(a.id);
-						accountsData.push(JSON.parse(JSON.stringify(data)));
+						toReprocess.push(a);
 					}
+				})
+			);
+			// only touch the display here if something was actually found in cache - otherwise
+			// (e.g. a full refresh) leave the previous total on screen until phase 2 below has
+			// real progress to show, instead of flashing it down to zero for nothing
+			if (options.liveCountUp && Object.keys(liveNumbers).length) updateLiveTotal();
+			// phase 2: (re)process whatever's left from scratch, live-updating the total as each
+			// account's messages come in
+			await Promise.all(
+				toReprocess.map(async (a) => {
+					// Handle debug output
+					if (options.debug) {
+						console.debug(`Processing account ${a.name}`, a);
+					}
+					const data = await reprocessData(
+						a.id,
+						options.liveCountUp
+							? (numbers) => {
+									liveNumbers[a.id] = numbers;
+									updateLiveTotal();
+								}
+							: undefined
+					);
+					accountsData.push(JSON.parse(JSON.stringify(data)));
 				})
 			);
 			// finish progress indicator
