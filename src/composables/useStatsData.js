@@ -374,9 +374,6 @@ export function useStatsData() {
 				);
 				animateNumbersTo(summed);
 			};
-			// start every live count-up climbing from zero rather than dipping from whatever
-			// total (this account, or a previously viewed one) happened to be on screen already
-			if (options.liveCountUp) resetLiveNumbers();
 			// phase 1: check every account's cache concurrently, folding cached numbers into the
 			// live total in one batch once all reads are in, not one at a time as each resolves
 			const toReprocess = [];
@@ -393,9 +390,11 @@ export function useStatsData() {
 					}
 				})
 			);
-			// fold in whatever came from cache (a no-op animation if nothing did, since we're
-			// already at zero from the reset above)
-			if (options.liveCountUp) updateLiveTotal();
+			if (options.liveCountUp) {
+				// only reset to zero if something actually needs (re)processing
+				if (toReprocess.length) resetLiveNumbers();
+				updateLiveTotal();
+			}
 			// phase 2: (re)process whatever's left from scratch, live-updating the total as each
 			// account's messages come in
 			await Promise.all(

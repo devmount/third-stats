@@ -800,6 +800,10 @@ describe('useStatsData - summed view across accounts', () => {
 		delayAccountBRead = true;
 		const cached = await originalGet(statsCacheKey(accountA.id));
 		await messenger.storage.local.set({ [statsCacheKey(accountA.id)]: cached[statsCacheKey(accountA.id)] });
+		// a hard reset-to-zero at the start of the reentrant reload (if any) happens synchronously
+		// inside the listener callback invoked from within the set() call above - check right away,
+		// before any nextTick, so a transient flash-to-zero can't hide behind Vue's own batching
+		expect(engine.display.value.numbers.total).toBe(2);
 		// let the reentrant reload pick up account A's (fast) read while B's is still held back
 		await pollFor(20);
 
