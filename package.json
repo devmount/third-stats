@@ -10,7 +10,8 @@
 		"format:check": "prettier --check \"src/**/*.{js,vue,css}\" \"test/**/*.js\" vite.config.js vitest.config.js",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"test:coverage": "vitest run --coverage"
+		"test:coverage": "vitest run --coverage",
+		"lint:webext": "zip -q -r sca-source.zip . -x 'dist/*' -x 'node_modules/*' -x '.git/*' -x '*.sh' -x '*.xpi' -x '*.zip' -x 'coverage/*' -x 'test/*' -x '.schema-cache/*' -x '.lib-mozilla-hash-db-cache/*' -x '.lib-cdn-lookup-cache/*' -x '.experiments-cache/*' && webext-linter dist --sca-root sca-source.zip --checks-skip obfuscated-code"
 	},
 	"packageManager": "pnpm@11.22.0",
 	"dependencies": {
@@ -22,6 +23,7 @@
 		"vue-i18n": "^11.4.8"
 	},
 	"devDependencies": {
+		"@thunderbirdops/webext-linter": "github:thunderbird/webext-linter",
 		"@vitejs/plugin-vue": "^6.0.8",
 		"@vitest/coverage-v8": "^4.1.11",
 		"oxlint": "^1.79.0",
