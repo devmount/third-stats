@@ -5,6 +5,12 @@ node_modules
 dist
 coverage
 
+# webext-linter caches
+.schema-cache
+.lib-mozilla-hash-db-cache
+.lib-cdn-lookup-cache
+.experiments-cache
+
 # scripts and config
 deploy.sh
 

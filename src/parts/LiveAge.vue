@@ -1,5 +1,7 @@
 <template>
-	<span v-html="output"></span>
+	<i18n-t keypath="stats.dataCollected" tag="span">
+		<span class="live-age-value">{{ timePassedSinceDataRetrieval }}</span>
+	</i18n-t>
 </template>
 
 <script setup>
@@ -37,15 +39,9 @@ const timePassedSinceDataRetrieval = computed(() => {
 	if (secondsPast <= 86400) return `${parseInt(secondsPast / 3600)}${t('stats.abbreviations.hour')}`;
 	if (secondsPast > 86400) return `${parseInt(secondsPast / 86400)}${t('stats.abbreviations.day')}`;
 });
-
-const output = computed(() =>
-	t('stats.dataCollected', ["<span class='live-age-value'>" + timePassedSinceDataRetrieval.value + '</span>'])
-);
 </script>
 
-<style>
-/* not scoped: this class lives inside v-html-injected markup, which never receives
-   the component's scoped data-v attribute */
+<style scoped>
 .live-age-value {
 	color: var(--color-text);
 }
