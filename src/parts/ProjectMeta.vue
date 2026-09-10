@@ -62,15 +62,14 @@
 			</ts-button>
 		</div>
 		<!-- disclaimer -->
-		<div
-			v-if="!compact"
-			class="disclaimer"
-			v-html="
-				t('stats.disclaimer', [
-					'https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md',
-				])
-			"
-		></div>
+		<div v-if="!compact" class="disclaimer">
+			<p>{{ t('stats.disclaimer') }}</p>
+			<i18n-t keypath="stats.disclaimerCta" tag="p">
+				<template #link>
+					<a :href="links.bugReport" target="_blank">{{ t('stats.disclaimerLink') }}</a>
+				</template>
+			</i18n-t>
+		</div>
 	</section>
 </template>
 
@@ -90,6 +89,7 @@ const links = {
 	star: 'https://github.com/devmount/third-stats/stargazers',
 	review: 'https://addons.thunderbird.net/thunderbird/addon/thirdstats/#reviews',
 	translate: 'https://github.com/devmount/third-stats/issues/343',
+	bugReport: 'https://github.com/devmount/third-stats/issues/new?assignees=&labels=&template=bug_report.md',
 };
 
 const props = defineProps({
@@ -122,5 +122,9 @@ const props = defineProps({
 
 .disclaimer {
 	margin-top: 2rem;
+}
+
+.disclaimer p {
+	margin: 0;
 }
 </style>
