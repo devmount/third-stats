@@ -21,7 +21,7 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</ts-icon>
-				<div v-html="t('stats.charts.contactsReceived.empty')"></div>
+				<div>{{ t('stats.charts.contactsReceived.empty') }}</div>
 			</div>
 			<!-- contacts most emails sent to -->
 			<bar-chart
@@ -42,7 +42,7 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</ts-icon>
-				<div v-html="t('stats.charts.contactsSent.empty')"></div>
+				<div>{{ t('stats.charts.contactsSent.empty') }}</div>
 			</div>
 			<!-- contacts flagged as junk -->
 			<bar-chart
@@ -63,7 +63,7 @@
 					<path d="M4 12v6c0 1.657 3.582 3 8 3c3.217 0 5.991 -.712 7.261 -1.74m.739 -3.26v-4" />
 					<line x1="3" y1="3" x2="21" y2="21" />
 				</ts-icon>
-				<div v-html="t('stats.charts.contactsJunk.empty')"></div>
+				<div>{{ t('stats.charts.contactsJunk.empty') }}</div>
 			</div>
 		</div>
 	</div>
