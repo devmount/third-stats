@@ -5,7 +5,8 @@ node_modules
 dist
 coverage
 
-# webext-linter caches
+# webext-linter source copy and caches
+sca-source
 .schema-cache
 .lib-mozilla-hash-db-cache
 .lib-cdn-lookup-cache
