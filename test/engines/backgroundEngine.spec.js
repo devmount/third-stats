@@ -76,19 +76,14 @@ describe('syncAlarm', () => {
 		expect(messenger.alarms.create).not.toHaveBeenCalled();
 	});
 
-	it('falls back to defaultOptions when nothing has been stored yet', async () => {
+	it('falls back to defaultOptions (autoRefresh off) when nothing has been stored yet', async () => {
 		const messenger = setupMessenger();
 		vi.stubGlobal('messenger', messenger);
 
 		await syncAlarm();
 
-		if (defaultOptions.autoRefresh) {
-			expect(messenger.alarms.create).toHaveBeenCalledWith(ALARM_NAME, {
-				periodInMinutes: Number(defaultOptions.autoRefreshInterval),
-			});
-		} else {
-			expect(messenger.alarms.create).not.toHaveBeenCalled();
-		}
+		expect(messenger.alarms.clear).toHaveBeenCalledWith(ALARM_NAME);
+		expect(messenger.alarms.create).not.toHaveBeenCalled();
 	});
 });
 

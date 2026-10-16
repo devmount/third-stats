@@ -24,7 +24,7 @@
 						id="autoRefreshInterval"
 						type="number"
 						v-model="options.autoRefreshInterval"
-						placeholder="30"
+						placeholder="360"
 						min="5"
 						@change="checkAutoRefreshInterval()"
 					/>
