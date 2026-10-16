@@ -18,7 +18,7 @@
       "sumAndCompare": "Activating more than one account enables the 'All Accounts' stats filter option for sum and comparison view."
     },
     "autoRefresh": {
-      "description": "Enable automatic reprocessing of the stats data in the background. Set a time interval in minutes (minimum of 5).",
+      "description": "Enable automatic processing of the stats data in the background. If active, all folders will be rescanned even if the stats page is closed. Set a time interval in minutes (minimum of 30).",
       "label": "Automatic Processing"
     },
     "cache": {

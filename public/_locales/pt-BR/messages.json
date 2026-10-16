@@ -18,7 +18,7 @@
       "sumAndCompare": "Ativar mais de uma conta habilita a opção de filtro de estatísticas 'Todas as Contas' para visualização de soma e comparação."
     },
     "autoRefresh": {
-      "description": "Ative o reprocessamento automático dos dados estatísticos em segundo plano. Defina um intervalo de tempo em minutos (mínimo de 5).",
+      "description": "Ative o processamento automático dos dados estatísticos em segundo plano. Se estiver ativo, todas as pastas serão verificadas novamente mesmo que a página de estatísticas esteja fechada. Defina um intervalo de tempo em minutos (mínimo de 30).",
       "label": "Processamento automático"
     },
     "cache": {

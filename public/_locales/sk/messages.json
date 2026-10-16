@@ -18,7 +18,7 @@
       "sumAndCompare": "Aktiváciou viac ako jedného účtu aktivujete možnosť filtrovania štatistík \"Všetky účty\" pre zobrazenie súčtu a porovnania."
     },
     "autoRefresh": {
-      "description": "Povoliť automatické opätovné spracovanie údajov štatistík na pozadí. Nastavte časový interval v minútach (minimálne 5).",
+      "description": "Povoliť automatické spracovanie údajov štatistík na pozadí. Ak je aktívne, všetky priečinky sa znova prehľadajú, aj keď je stránka štatistík zatvorená. Nastavte časový interval v minútach (minimálne 30).",
       "label": "Automatické spracovanie"
     },
     "cache": {

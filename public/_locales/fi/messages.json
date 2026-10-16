@@ -18,7 +18,7 @@
       "sumAndCompare": "Useamman kuin yhden tilin aktivoiminen mahdollistaa ‘Kaikki tilit’ -suodatusvaihtoehdon kokonaistilastoissa ja vertailunäkymässä."
     },
     "autoRefresh": {
-      "description": "Ota käyttöön tilastotietojen automaattinen uudelleenkäsittely taustalla. Aseta aikaväli minuutteina (vähintään 5).",
+      "description": "Ota käyttöön tilastotietojen automaattinen käsittely taustalla. Kun asetus on käytössä, kaikki kansiot käydään läpi uudelleen, vaikka tilastosivu olisi suljettu. Aseta aikaväli minuutteina (vähintään 30).",
       "label": "Automaattinen käsittely"
     },
     "cache": {

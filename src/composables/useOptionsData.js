@@ -1,7 +1,7 @@
 // Thunderbird messenger.* data engine for the options page.
 // Call exactly once, from Options.vue - this composable owns all its state internally.
 import { ref, computed, watch } from 'vue';
-import { defaultColors, defaultOptions } from '@/definitions.js';
+import { defaultColors, defaultOptions, minAutoRefreshInterval } from '@/definitions.js';
 import { formatBytes, setTheme } from '@/utils.js';
 
 export function useOptionsData() {
@@ -87,17 +87,17 @@ export function useOptionsData() {
 		options.value.autoRefreshInterval++;
 	};
 
-	// decreases auto refresh interval down to limit 5
+	// decreases auto refresh interval down to minimum limit
 	const decrementAutoRefreshInterval = () => {
-		if (options.value.autoRefreshInterval > 5) {
+		if (options.value.autoRefreshInterval > minAutoRefreshInterval) {
 			options.value.autoRefreshInterval--;
 		}
 	};
 
 	// check auto refresh number input to stay in allowed range
 	const checkAutoRefreshInterval = () => {
-		if (options.value.autoRefreshInterval < 5) {
-			options.value.autoRefreshInterval = 5;
+		if (options.value.autoRefreshInterval < minAutoRefreshInterval) {
+			options.value.autoRefreshInterval = minAutoRefreshInterval;
 		}
 	};
 

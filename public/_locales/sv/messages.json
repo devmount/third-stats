@@ -18,7 +18,7 @@
       "sumAndCompare": "Aktivering av mer än ett konto aktiverar filteralternativet 'Alla Konton' för statistik för summa och jämförelse."
     },
     "autoRefresh": {
-      "description": "Aktivera automatisk upparbetning av statistikdata i bakgrunden. Ställ in ett tidsintervall i minuter (minst 5).",
+      "description": "Aktivera automatisk bearbetning av statistikdata i bakgrunden. Om aktivt genomsöks alla mappar på nytt även när statistiksidan är stängd. Ställ in ett tidsintervall i minuter (minst 30).",
       "label": "Automatisk Bearbetning"
     },
     "cache": {

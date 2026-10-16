@@ -18,7 +18,7 @@
       "sumAndCompare": "Birden fazla hesabı etkinleştirmek, toplam ve karşılaştırma görünümü için 'Tüm Hesaplar' istatistik filtresi seçeneğini etkinleştirir."
     },
     "autoRefresh": {
-      "description": "Arka planda istatistik verilerinin otomatik olarak yeniden işlenmesini etkinleştirin. Dakika olarak bir zaman aralığı ayarlayın (en az 5).",
+      "description": "Arka planda istatistik verilerinin otomatik olarak işlenmesini etkinleştirin. Etkinse, istatistik sayfası kapalı olsa bile tüm klasörler yeniden taranır. Dakika olarak bir zaman aralığı ayarlayın (en az 30).",
       "label": "Otomatik İşleme"
     },
     "cache": {

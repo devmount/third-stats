@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { useOptionsData } from '@/composables/useOptionsData.js';
-import { defaultOptions } from '@/definitions.js';
+import { defaultOptions, minAutoRefreshInterval } from '@/definitions.js';
 import { createMockMessenger } from '../helpers/messenger.js';
 
 // the composable's internal deep watch on `options` fires (asynchronously, via Vue's
@@ -92,23 +92,23 @@ describe('autoRefreshInterval increment/decrement/check', () => {
 		expect(options.value.autoRefreshInterval).toBe(1000);
 	});
 
-	it('decrements down to but not below the 5-minute floor', () => {
+	it('decrements down to but not below the minimum', () => {
 		const { options, decrementAutoRefreshInterval } = useOptionsData();
-		options.value.autoRefreshInterval = 6;
+		options.value.autoRefreshInterval = minAutoRefreshInterval + 1;
 		decrementAutoRefreshInterval();
-		expect(options.value.autoRefreshInterval).toBe(5);
+		expect(options.value.autoRefreshInterval).toBe(minAutoRefreshInterval);
 		decrementAutoRefreshInterval();
-		expect(options.value.autoRefreshInterval).toBe(5);
+		expect(options.value.autoRefreshInterval).toBe(minAutoRefreshInterval);
 	});
 
-	it('clamps a sub-5 value up to 5, leaves a valid value untouched', () => {
+	it('clamps a value below the minimum up to it, leaves a valid value untouched', () => {
 		const { options, checkAutoRefreshInterval } = useOptionsData();
-		options.value.autoRefreshInterval = 2;
+		options.value.autoRefreshInterval = minAutoRefreshInterval - 1;
 		checkAutoRefreshInterval();
-		expect(options.value.autoRefreshInterval).toBe(5);
-		options.value.autoRefreshInterval = 30;
+		expect(options.value.autoRefreshInterval).toBe(minAutoRefreshInterval);
+		options.value.autoRefreshInterval = minAutoRefreshInterval + 15;
 		checkAutoRefreshInterval();
-		expect(options.value.autoRefreshInterval).toBe(30);
+		expect(options.value.autoRefreshInterval).toBe(minAutoRefreshInterval + 15);
 	});
 });
 

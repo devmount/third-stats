@@ -24,8 +24,8 @@
 						id="autoRefreshInterval"
 						type="number"
 						v-model="options.autoRefreshInterval"
-						placeholder="30"
-						min="5"
+						placeholder="360"
+						:min="minAutoRefreshInterval"
 						@change="checkAutoRefreshInterval()"
 					/>
 				</div>
@@ -49,6 +49,7 @@
 <script setup>
 import { inject } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { minAutoRefreshInterval } from '@/definitions.js';
 
 const { options, incrementAutoRefreshInterval, decrementAutoRefreshInterval, checkAutoRefreshInterval } =
 	inject('engine');

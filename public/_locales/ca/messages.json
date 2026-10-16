@@ -18,7 +18,7 @@
       "sumAndCompare": "Si activeu més d'un compte, s'activa l'opció de filtre d'estadístiques \"Tots els comptes\" per a la visualització de suma i comparació."
     },
     "autoRefresh": {
-      "description": "Activa el reprocessament automàtic de les dades estadístiques en segon pla. Estableix un interval de temps en minuts (mínim de 5).",
+      "description": "Activa el processament automàtic de les dades estadístiques en segon pla. Si està actiu, totes les carpetes es tornaran a analitzar encara que la pàgina d'estadístiques estigui tancada. Estableix un interval de temps en minuts (mínim de 30).",
       "label": "Processament automàtic"
     },
     "cache": {

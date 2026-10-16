@@ -18,7 +18,7 @@
       "sumAndCompare": "Több fiók aktiválása engedélyezi az „Összes fiók” statisztika szűrő opciót összeg és összehasonlító nézethez."
     },
     "autoRefresh": {
-      "description": "Engedélyezze a statisztikai adatok automatikus újrafeldolgozását a háttérben. Állítson be egy időintervallumot percben (legalább 5).",
+      "description": "Engedélyezze a statisztikai adatok automatikus feldolgozását a háttérben. Ha aktív, az összes mappa újra átvizsgálásra kerül akkor is, ha a statisztikai oldal be van zárva. Állítson be egy időintervallumot percben (legalább 30).",
       "label": "Automatikus feldolgozás"
     },
     "cache": {

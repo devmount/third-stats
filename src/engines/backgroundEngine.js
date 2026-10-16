@@ -1,5 +1,5 @@
 // background-script: schedules periodic stats reprocessing via messenger.alarms independent from other pages
-import { defaultOptions } from '@/definitions.js';
+import { defaultOptions, minAutoRefreshInterval } from '@/definitions.js';
 import { filterActiveAccounts } from '@/utils.js';
 import {
 	buildAllIdentities,
@@ -60,7 +60,10 @@ export const syncAlarm = async () => {
 	const options = await getOptions();
 	await messenger.alarms.clear(ALARM_NAME);
 	if (options.autoRefresh) {
-		messenger.alarms.create(ALARM_NAME, { periodInMinutes: Number(options.autoRefreshInterval) });
+		// enforce the minimum also for intervals stored before it was raised
+		messenger.alarms.create(ALARM_NAME, {
+			periodInMinutes: Math.max(minAutoRefreshInterval, Number(options.autoRefreshInterval)),
+		});
 	}
 };
 

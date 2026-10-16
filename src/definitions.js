@@ -12,8 +12,8 @@ const defaultOptions = {
 	ordinate: true,
 	tagColors: false,
 	liveCountUp: true,
-	autoRefresh: true,
-	autoRefreshInterval: 30,
+	autoRefresh: false,
+	autoRefreshInterval: 360,
 	startOfWeek: localStartOfWeek(),
 	addresses: '',
 	includeSubfolders: false,
@@ -24,6 +24,9 @@ const defaultOptions = {
 	cache: true,
 	debug: false,
 };
+
+// lower limit in minutes for the automatic background processing interval
+const minAutoRefreshInterval = 30;
 
 // tab navigation for stats page
 const tabsNumbers = {
@@ -73,6 +76,7 @@ export {
 	accentColors,
 	defaultColors,
 	defaultOptions,
+	minAutoRefreshInterval,
 	tabsActivity,
 	tabsFolders,
 	tabsLeader,
