@@ -19,17 +19,17 @@
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"chartjs-chart-matrix": "^3.1.0",
 		"date-fns": "^4.4.0",
-		"vue": "^3.5.43",
-		"vue-i18n": "^11.4.13"
+		"vue": "^3.5.44",
+		"vue-i18n": "^11.4.14"
 	},
 	"devDependencies": {
 		"@thunderbirdops/webext-linter": "github:thunderbird/webext-linter#84f77fdcf92a0abcf768fd8222967a421956d42e",
-		"@vitejs/plugin-vue": "^6.0.9",
-		"@vitest/coverage-v8": "^5.0.3",
-		"oxlint": "^1.87.0",
-		"prettier": "^3.9.9",
-		"vite": "^8.3.3",
-		"vitest": "^5.0.3"
+		"@vitejs/plugin-vue": "^6.0.10",
+		"@vitest/coverage-v8": "^5.0.4",
+		"oxlint": "^1.88.0",
+		"prettier": "^3.9.10",
+		"vite": "^8.3.4",
+		"vitest": "^5.0.4"
 	},
 	"browserslist": [
 		"Firefox ESR"
