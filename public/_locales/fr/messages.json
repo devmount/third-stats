@@ -95,10 +95,6 @@
       "description": "Début de semaine personnalisé pour tous les graphiques liés à la semaine",
       "label": "Commencer la semaine le"
     },
-    "switch": {
-      "off": "Arrêt",
-      "on": "Marche"
-    },
     "tagColors": {
       "description": "Dessinez des graphiques sur les étiquettes en utilisant les couleurs d'étiquettes correspondantes.",
       "label": "Couleurs de l'étiquette"

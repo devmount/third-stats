@@ -95,10 +95,6 @@
       "description": "Inizio della settimana personalizzato per tutti i grafici relativi ai giorni feriali",
       "label": "Inizia la settimana"
     },
-    "switch": {
-      "off": "Off",
-      "on": "Sì"
-    },
     "tagColors": {
       "description": "Disegna grafici sui tag utilizzando i colori dei tag corrispondenti",
       "label": "Colori tag"

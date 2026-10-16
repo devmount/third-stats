@@ -95,10 +95,6 @@
       "description": "Inicio de semana personalizado para todos los gráficos relacionados con el día de la semana",
       "label": "La semana empieza el"
     },
-    "switch": {
-      "off": "Desactivar",
-      "on": "Activar"
-    },
     "tagColors": {
       "description": "Dibuja gráficos sobre etiquetas utilizando los colores de etiqueta correspondientes",
       "label": "Colores de etiqueta"

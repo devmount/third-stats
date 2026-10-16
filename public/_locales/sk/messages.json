@@ -95,10 +95,6 @@
       "description": "Vlastný začiatok týždňa pre všetky grafy týkajúce sa dní v týždni",
       "label": "Prvý deň týždňa"
     },
-    "switch": {
-      "off": "Vypnuté",
-      "on": "Zapnuté"
-    },
     "tagColors": {
       "description": "Vykreslí grafy o popisoch pomocou zodpovedajúcich farieb popisov",
       "label": "Farby popisu"

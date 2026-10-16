@@ -95,10 +95,6 @@
       "description": "自定義工作日相關圖表的週起始日",
       "label": "每一週的起始日為"
     },
-    "switch": {
-      "off": "關閉",
-      "on": "開啟"
-    },
     "tagColors": {
       "description": "使用相應的標籤顏色繪製關於標籤的圖表",
       "label": "標記顏色"

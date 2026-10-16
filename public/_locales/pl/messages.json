@@ -95,10 +95,6 @@
       "description": "Niestandardowy początek tygodnia dla wszystkich wykresów dotyczących dni tygodnia",
       "label": "Początek tygodnia"
     },
-    "switch": {
-      "off": "wył.",
-      "on": "wł."
-    },
     "tagColors": {
       "description": "Rysuj wykresy dotyczące znaczników, używając odpowiednich kolorów znaczników",
       "label": "Tag Kolory"

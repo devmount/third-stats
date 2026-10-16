@@ -95,10 +95,6 @@
       "description": "Awal minggu khusus untuk semua grafik terkait hari kerja",
       "label": "Mulai Minggu ini"
     },
-    "switch": {
-      "off": "Mati",
-      "on": "Aktif"
-    },
     "tagColors": {
       "description": "Menggambar bagan tentang tag menggunakan warna tag yang sesuai",
       "label": "Warna Tag"

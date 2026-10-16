@@ -95,10 +95,6 @@
       "description": "Inici de setmana personalitzat per a tots els gràfics relacionats amb els dies laborables",
       "label": "La setmana comença"
     },
-    "switch": {
-      "off": "Desactivar",
-      "on": "Activar"
-    },
     "tagColors": {
       "description": "Dibuixa gràfics sobre les etiquetes utilitzant els colors d'etiquetes corresponents",
       "label": "Etiqueta Colors"

@@ -95,10 +95,6 @@
       "description": "Mukautettu alkava viikonpäivä kaikille viikkokaavioille",
       "label": "Aloita viikko"
     },
-    "switch": {
-      "off": "Pois",
-      "on": "Päällä"
-    },
     "tagColors": {
       "description": "Renderöi tunnisteiden kaaviot käyttämällä vastaavia tunnisteiden värejä.",
       "label": "Tunnisteen värit"

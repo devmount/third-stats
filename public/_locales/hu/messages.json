@@ -95,10 +95,6 @@
       "description": "A hét egyéni kezdete az összes hétköznapi ábrázoláshoz",
       "label": "Kezdje a hetet"
     },
-    "switch": {
-      "off": "Ki",
-      "on": "Be"
-    },
     "tagColors": {
       "description": "Ábrázolás rajzolása a címke színeivel",
       "label": "Címke színe"

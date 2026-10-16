@@ -95,10 +95,6 @@
       "description": "Início de semana personalizado para todos os gráficos semanais.",
       "label": "Iniciar a semana em"
     },
-    "switch": {
-      "off": "Desligado",
-      "on": "Ligado"
-    },
     "tagColors": {
       "description": "Desenhe gráficos sobre as etiquetas usando as cores das etiquetas correspondentes",
       "label": "Cores da etiqueta"

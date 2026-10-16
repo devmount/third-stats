@@ -95,10 +95,6 @@
       "description": "Hafta içi tüm grafikler için özel hafta başlangıcı",
       "label": "Haftanın ilk günü"
     },
-    "switch": {
-      "off": "Kapat",
-      "on": "Aç"
-    },
     "tagColors": {
       "description": "İlgili etiket renklerini kullanarak etiketler hakkında çizelgeler çizin",
       "label": "Etiket Renkleri"

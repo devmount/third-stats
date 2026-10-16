@@ -95,10 +95,6 @@
       "description": "Benutzerdefinierter Wochenstart für alle wochentagsbezogenen Diagramme",
       "label": "Die Woche startet am"
     },
-    "switch": {
-      "off": "Aus",
-      "on": "An"
-    },
     "tagColors": {
       "description": "Diagramme zu Schlagworten sollen die entsprechenden Schlagwortfarben nutzen ",
       "label": "Farben von Schlagworten"

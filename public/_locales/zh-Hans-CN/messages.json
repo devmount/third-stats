@@ -95,10 +95,6 @@
       "description": "自订所有星期相关图表的开始日子",
       "label": "一周开始于"
     },
-    "switch": {
-      "off": "关",
-      "on": "开"
-    },
     "tagColors": {
       "description": "使用相应的标签颜色绘制关于标签的图表",
       "label": "标签颜色"

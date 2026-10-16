@@ -95,10 +95,6 @@
       "description": "Aangepast begin van de week voor alle weekdag-gerelateerde grafieken",
       "label": "Week starten op"
     },
-    "switch": {
-      "off": "UIT",
-      "on": "AAN"
-    },
     "tagColors": {
       "description": "Teken grafieken over tags met overeenkomstige tag kleuren",
       "label": "Tag Kleuren"

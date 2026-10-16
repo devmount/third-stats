@@ -95,10 +95,6 @@
       "description": "Anpassad start av vecka för alla veckodagsrelaterade diagram",
       "label": "Starta Veckan på"
     },
-    "switch": {
-      "off": "Av",
-      "on": "På"
-    },
     "tagColors": {
       "description": "Rita diagram om taggar med hjälp av motsvarande taggfärger",
       "label": "Taggfärger"

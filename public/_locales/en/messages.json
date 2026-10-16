@@ -91,10 +91,6 @@
       "description": "Custom start of week for all weekday related charts",
       "label": "Start the Week on"
     },
-    "switch": {
-      "off": "Off",
-      "on": "On"
-    },
     "tagColors": {
       "description": "Draw charts about tags using corresponding tag colors",
       "label": "Tag Colors"

@@ -95,10 +95,6 @@
       "description": "Inicio da semana para todos os gráficos relacionados coa semana",
       "label": "Comeza a semana o"
     },
-    "switch": {
-      "off": "Apagado",
-      "on": "Acendido"
-    },
     "tagColors": {
       "description": "Debuxa gráficos sobre as etiquetas utilizando as cores correspondentes",
       "label": "Etiqueta Cores"

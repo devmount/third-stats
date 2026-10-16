@@ -95,10 +95,6 @@
       "description": "Vlastní začátek týdne pro všechny grafy související s pracovními dny",
       "label": "Počáteční den týdne"
     },
-    "switch": {
-      "off": "Vypnuto",
-      "on": "Zapnuto"
-    },
     "tagColors": {
       "description": "Kreslit grafy o značkách odpovídajícími barvami",
       "label": "Barvy značek"
