@@ -18,7 +18,7 @@
       "sumAndCompare": "Als u meer dan één account activeert, is de optie 'Alle accounts' statistieken filter optie voor som- en vergelijkingsweergave."
     },
     "autoRefresh": {
-      "description": "Automatische herverwerking van de statistische gegevens op de achtergrond mogelijk maken. Stel een tijdsinterval in minuten in (minimaal 5).",
+      "description": "Automatische verwerking van de statistische gegevens op de achtergrond mogelijk maken. Indien actief, worden alle mappen opnieuw gescand, ook als de statistiekpagina gesloten is. Stel een tijdsinterval in minuten in (minimaal 30).",
       "label": "Automatische verwerking"
     },
     "cache": {

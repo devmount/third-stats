@@ -18,7 +18,7 @@
       "sumAndCompare": "Aktivací více než jednoho účtu povolíte filtr „Všechny účty“ pro zobrazení součtu a porovnání."
     },
     "autoRefresh": {
-      "description": "Povolte automatické přepracování statistických dat na pozadí. Nastavte časový interval v minutách (minimálně 5).",
+      "description": "Povolte automatické zpracování statistických dat na pozadí. Je-li aktivní, budou všechny složky znovu prohledány, i když je stránka statistik zavřená. Nastavte časový interval v minutách (minimálně 30).",
       "label": "Automatické zpracování"
     },
     "cache": {

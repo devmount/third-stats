@@ -18,7 +18,7 @@
       "sumAndCompare": "Mengaktifkan lebih dari satu akun memungkinkan opsi filter statistik 'Semua Akun' untuk tampilan jumlah dan perbandingan."
     },
     "autoRefresh": {
-      "description": "Aktifkan pemrosesan ulang otomatis data statistik di latar belakang. Tetapkan interval waktu dalam menit (minimal 5).",
+      "description": "Aktifkan pemrosesan otomatis data statistik di latar belakang. Jika aktif, semua folder akan dipindai ulang meskipun halaman statistik ditutup. Tetapkan interval waktu dalam menit (minimal 30).",
       "label": "Pemrosesan Otomatis"
     },
     "cache": {

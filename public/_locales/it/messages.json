@@ -18,7 +18,7 @@
       "sumAndCompare": "L'attivazione di più di un account abilita l'opzione di filtro delle statistiche \"Tutti gli account\" per la visualizzazione della somma e del confronto."
     },
     "autoRefresh": {
-      "description": "Abilita la rielaborazione automatica dei dati delle statistiche in background. Impostare un intervallo di tempo in minuti (minimo 5).",
+      "description": "Abilita l'elaborazione automatica dei dati delle statistiche in background. Se attiva, tutte le cartelle verranno scansionate di nuovo anche se la pagina delle statistiche è chiusa. Impostare un intervallo di tempo in minuti (minimo 30).",
       "label": "Elaborazione automatica"
     },
     "cache": {

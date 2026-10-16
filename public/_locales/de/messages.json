@@ -18,7 +18,7 @@
       "sumAndCompare": "Wenn mehr als ein Konto aktiviert ist, ist die Filteroption \"Alle Konten\" für Summen- und Vergleichsansicht verfügbar."
     },
     "autoRefresh": {
-      "description": "Aktiviert die automatische Berechnung der Statistikdaten im Hintergrund. Es kann das Zeitintervall in Minuten definiert werden (mindestens 5).",
+      "description": "Aktiviert die automatische Berechnung der Statistikdaten im Hintergrund. Wenn aktiv, werden alle Ordner neu durchsucht, auch wenn die Statistikseite geschlossen ist. Es kann das Zeitintervall in Minuten definiert werden (mindestens 30).",
       "label": "Automatische Berechnung"
     },
     "cache": {

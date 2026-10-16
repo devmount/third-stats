@@ -18,7 +18,7 @@
       "sumAndCompare": "Aktywowanie więcej niż jednego konta powoduje włączenie opcji filtrowania statystyk \"Wszystkie konta\" w widoku sum i porównań."
     },
     "autoRefresh": {
-      "description": "Włącz automatyczne ponowne przetwarzanie danych statystycznych w tle. Ustaw odstęp czasu w minutach (minimum 5).",
+      "description": "Włącz automatyczne przetwarzanie danych statystycznych w tle. Jeśli opcja jest aktywna, wszystkie foldery będą ponownie skanowane, nawet gdy strona statystyk jest zamknięta. Ustaw odstęp czasu w minutach (minimum 30).",
       "label": "Automatyczne przetwarzanie"
     },
     "cache": {

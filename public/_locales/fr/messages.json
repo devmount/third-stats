@@ -18,7 +18,7 @@
       "sumAndCompare": "L'activation de plusieurs comptes active l'option de filtre de statistiques «Tous les comptes» pour la vue de somme et de comparaison."
     },
     "autoRefresh": {
-      "description": "Activez le retraitement automatique des données statistiques en arrière-plan. Définissez un intervalle de temps en minutes (minimum de 5).",
+      "description": "Activez le traitement automatique des données statistiques en arrière-plan. Si cette option est active, tous les dossiers seront réanalysés même si la page des statistiques est fermée. Définissez un intervalle de temps en minutes (minimum de 30).",
       "label": "Traitement automatique"
     },
     "cache": {
