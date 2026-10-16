@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ALARM_NAME, initBackground, runScheduledRefresh, syncAlarm } from '@/engines/backgroundEngine.js';
-import { defaultOptions } from '@/definitions.js';
+import { defaultOptions, minAutoRefreshInterval } from '@/definitions.js';
 import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/engines/statsEngine.js';
 import { statsCacheKey } from '@/utils.js';
 import { createMockMessenger } from '../helpers/messenger.js';
@@ -65,6 +65,16 @@ describe('syncAlarm', () => {
 		expect(messenger.alarms.create).toHaveBeenCalledWith(ALARM_NAME, { periodInMinutes: 45 });
 	});
 
+	it('raises a stored interval below the minimum to the minimum', async () => {
+		const messenger = setupMessenger();
+		vi.stubGlobal('messenger', messenger);
+		await messenger.storage.local.set({ options: { ...defaultOptions, autoRefresh: true, autoRefreshInterval: 10 } });
+
+		await syncAlarm();
+
+		expect(messenger.alarms.create).toHaveBeenCalledWith(ALARM_NAME, { periodInMinutes: minAutoRefreshInterval });
+	});
+
 	it('only clears, never creates, when autoRefresh is disabled', async () => {
 		const messenger = setupMessenger();
 		vi.stubGlobal('messenger', messenger);
@@ -113,10 +123,10 @@ describe('initBackground', () => {
 		await vi.waitFor(() => expect(messenger.alarms.clear).toHaveBeenCalledWith(ALARM_NAME));
 		messenger.alarms.clear.mockClear();
 
-		await messenger.storage.local.set({ options: { ...defaultOptions, autoRefresh: true, autoRefreshInterval: 10 } });
+		await messenger.storage.local.set({ options: { ...defaultOptions, autoRefresh: true, autoRefreshInterval: 60 } });
 
 		await vi.waitFor(() => expect(messenger.alarms.clear).toHaveBeenCalledWith(ALARM_NAME));
-		expect(messenger.alarms.create).toHaveBeenCalledWith(ALARM_NAME, { periodInMinutes: 10 });
+		expect(messenger.alarms.create).toHaveBeenCalledWith(ALARM_NAME, { periodInMinutes: 60 });
 	});
 
 	it('ignores storage changes to keys other than "options"', async () => {

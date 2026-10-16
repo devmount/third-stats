@@ -25,6 +25,9 @@ const defaultOptions = {
 	debug: false,
 };
 
+// lower limit in minutes for the automatic background processing interval
+const minAutoRefreshInterval = 30;
+
 // tab navigation for stats page
 const tabsNumbers = {
 	years: 1,
@@ -73,6 +76,7 @@ export {
 	accentColors,
 	defaultColors,
 	defaultOptions,
+	minAutoRefreshInterval,
 	tabsActivity,
 	tabsFolders,
 	tabsLeader,
