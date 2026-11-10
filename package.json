@@ -13,23 +13,23 @@
 		"test:coverage": "vitest run --coverage",
 		"lint:webext": "rm -rf sca-source && rsync -a --exclude=/sca-source --exclude=/dist --exclude=/node_modules --exclude=/.git --exclude=/.claude --exclude='*.sh' --exclude='*.xpi' --exclude='*.zip' --exclude=/coverage --exclude=/test --exclude=/.schema-cache --exclude=/.lib-mozilla-hash-db-cache --exclude=/.lib-cdn-lookup-cache --exclude=/.experiments-cache ./ sca-source/ && webext-linter dist --sca-root sca-source --checks-skip obfuscated-code"
 	},
-	"packageManager": "pnpm@11.28.2",
+	"packageManager": "pnpm@11.28.9",
 	"dependencies": {
-		"chart.js": "^4.5.1",
+		"chart.js": "^4.6.1",
 		"chartjs-adapter-date-fns": "^3.0.0",
 		"chartjs-chart-matrix": "^3.1.0",
 		"date-fns": "^4.4.0",
-		"vue": "^3.5.44",
-		"vue-i18n": "^11.4.14"
+		"vue": "^3.5.45",
+		"vue-i18n": "^11.4.18"
 	},
 	"devDependencies": {
 		"@thunderbirdops/webext-linter": "github:thunderbird/webext-linter#84f77fdcf92a0abcf768fd8222967a421956d42e",
 		"@vitejs/plugin-vue": "^6.0.10",
-		"@vitest/coverage-v8": "^5.0.4",
-		"oxlint": "^1.88.0",
+		"@vitest/coverage-v8": "^5.1.0",
+		"oxlint": "^1.93.0",
 		"prettier": "^3.9.10",
-		"vite": "^8.3.4",
-		"vitest": "^5.0.4"
+		"vite": "^8.3.7",
+		"vitest": "^5.1.0"
 	},
 	"browserslist": [
 		"Firefox ESR"
