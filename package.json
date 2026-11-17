@@ -20,15 +20,15 @@
 		"chartjs-chart-matrix": "^3.1.0",
 		"date-fns": "^4.4.0",
 		"vue": "^3.5.45",
-		"vue-i18n": "^11.4.18"
+		"vue-i18n": "^11.4.20"
 	},
 	"devDependencies": {
 		"@thunderbirdops/webext-linter": "github:thunderbird/webext-linter#84f77fdcf92a0abcf768fd8222967a421956d42e",
-		"@vitejs/plugin-vue": "^6.0.10",
+		"@vitejs/plugin-vue": "^6.0.11",
 		"@vitest/coverage-v8": "^5.1.0",
-		"oxlint": "^1.93.0",
-		"prettier": "^3.9.10",
-		"vite": "^8.3.7",
+		"oxlint": "^1.94.0",
+		"prettier": "^3.10.1",
+		"vite": "^8.3.8",
 		"vitest": "^5.1.0"
 	},
 	"browserslist": [
