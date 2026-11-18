@@ -175,6 +175,31 @@ describe('processAccount', () => {
 		expect(done).toBe(2);
 	});
 
+	it('collects folder sizes per folder path and limits largest messages to maxListCount', async () => {
+		const sizedInbox = { name: 'Inbox', path: '/Inbox', accountId: 'acc-1' };
+		const sizedArchive = { name: 'Archive', path: '/Archive', accountId: 'acc-1' };
+		vi.stubGlobal(
+			'messenger',
+			createMockMessenger({
+				folders: { get: vi.fn(async () => ({ isRoot: true, subFolders: [inboxFolder] })) },
+				messages: {
+					list: vi.fn(async () => ({
+						id: null,
+						messages: [
+							makeMessage({ size: 100, subject: 'small', folder: sizedInbox }),
+							makeMessage({ size: 900, subject: 'big', folder: sizedArchive }),
+							makeMessage({ size: 500, subject: 'medium', folder: sizedInbox }),
+						],
+					})),
+				},
+			})
+		);
+
+		const { accountData } = await processAccount(fakeAccount, { addresses: [], maxListCount: 2 });
+		expect(accountData.folders.sizes).toEqual({ 'acc-1': { '/Inbox': 600, '/Archive': 900 } });
+		expect(accountData.largestMessages.map((m) => m.subject)).toEqual(['big', 'medium']);
+	});
+
 	it('post-processes contacts/tags/folders via sortAndLimitObject and sets meta.timestamp', async () => {
 		vi.useFakeTimers();
 		vi.setSystemTime(new Date(2024, 0, 1));

@@ -59,6 +59,71 @@ describe('analyzeMessage', () => {
 		expect(data.numbers.total).toBe(1);
 	});
 
+	const inbox = { name: 'Inbox', path: '/INBOX', accountId: 'acc-1' };
+
+	it('sums message sizes per account and folder path regardless of type', () => {
+		const data = createStatsData();
+		const archive = { name: 'Inbox', path: '/Archive/Inbox', accountId: 'acc-1' };
+		analyzeMessage(data, baseMessage({ size: 1000, folder: inbox }), ['me@example.com'], noopContext);
+		analyzeMessage(
+			data,
+			baseMessage({ size: 500, folder: inbox, author: 'me@example.com' }),
+			['me@example.com'],
+			noopContext
+		);
+		analyzeMessage(data, baseMessage({ size: 300, folder: archive }), ['me@example.com'], noopContext);
+		expect(data.folders.sizes).toEqual({ 'acc-1': { '/INBOX': 1500, '/Archive/Inbox': 300 } });
+	});
+
+	it('treats a message without size as 0 bytes and keeps it out of the largest list', () => {
+		const data = createStatsData();
+		analyzeMessage(data, baseMessage({ folder: inbox }), ['me@example.com'], noopContext);
+		expect(data.folders.sizes).toEqual({ 'acc-1': { '/INBOX': 0 } });
+		expect(data.largestMessages).toEqual([]);
+	});
+
+	it('keeps the largest messages sorted by size and limited to context.maxListCount', () => {
+		const data = createStatsData();
+		const context = { ...noopContext, maxListCount: 2 };
+		[100, 900, 500, 700].forEach((size) =>
+			analyzeMessage(
+				data,
+				baseMessage({ size, subject: `s${size}`, headerMessageId: `id${size}`, folder: inbox }),
+				['me@example.com'],
+				context
+			)
+		);
+		const entry = (size) => ({
+			size,
+			subject: `s${size}`,
+			author: 'bob@example.com',
+			folder: 'Inbox',
+			folderPath: '/INBOX',
+			accountId: 'acc-1',
+			date: new Date(2023, 5, 15, 10, 30).getTime(),
+			headerMessageId: `id${size}`,
+		});
+		expect(data.largestMessages).toEqual([entry(900), entry(700)]);
+	});
+
+	it('keeps 20 largest messages when maxListCount is unset or 0', () => {
+		for (const maxListCount of [undefined, 0]) {
+			const data = createStatsData();
+			for (let size = 1; size <= 25; size++) {
+				analyzeMessage(data, baseMessage({ size }), ['me@example.com'], { ...noopContext, maxListCount });
+			}
+			expect(data.largestMessages.map((m) => m.size)).toEqual(Array.from({ length: 20 }, (_, i) => 25 - i));
+		}
+	});
+
+	it('does not count size of a message skipped by the contact filter', () => {
+		const data = createStatsData();
+		const context = { ...noopContext, activeContact: 'someone-else@example.com' };
+		analyzeMessage(data, baseMessage({ size: 1000 }), ['me@example.com'], context);
+		expect(data.folders.sizes).toEqual({});
+		expect(data.largestMessages).toEqual([]);
+	});
+
 	it('excludes a self message relative to the account identity list when selfMessagesMode is "sameAccount"', () => {
 		const data = createStatsData();
 		const message = baseMessage({ author: 'me@example.com', recipients: ['me@example.com'] });
@@ -193,6 +258,35 @@ describe('sumAccountsData', () => {
 
 	it('does not throw for a single-account array', () => {
 		expect(() => sumAccountsData([accountA()], 20)).not.toThrow();
+	});
+
+	it('keeps folder sizes per account and merges largest messages, limited to maxListCount', () => {
+		const a = accountA();
+		a.folders.sizes = { 'acc-a': { '/INBOX': 1000, '/Archive': 200 } };
+		a.largestMessages = [
+			{ size: 800, subject: 'a1' },
+			{ size: 100, subject: 'a2' },
+		];
+		const b = accountB();
+		b.folders.sizes = { 'acc-b': { '/INBOX': 500 } };
+		b.largestMessages = [{ size: 300, subject: 'b1' }];
+		const sum = sumAccountsData([a, b], 2);
+		expect(sum.folders.sizes).toEqual({
+			'acc-a': { '/INBOX': 1000, '/Archive': 200 },
+			'acc-b': { '/INBOX': 500 },
+		});
+		expect(sum.largestMessages.map((m) => m.subject)).toEqual(['a1', 'b1']);
+	});
+
+	it('tolerates accounts cached before sizes existed', () => {
+		const a = accountA();
+		const b = accountB();
+		delete b.largestMessages;
+		a.folders.sizes = { 'acc-a': { '/INBOX': 1000 } };
+		a.largestMessages = [{ size: 800, subject: 'a1' }];
+		const sum = sumAccountsData([a, b], 20);
+		expect(sum.folders.sizes).toEqual({ 'acc-a': { '/INBOX': 1000 } });
+		expect(sum.largestMessages).toEqual([{ size: 800, subject: 'a1' }]);
 	});
 });
 

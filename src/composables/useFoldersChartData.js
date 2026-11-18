@@ -1,8 +1,12 @@
-// chart-data shaping for the "folders" section (emails per folder doughnut chart)
+// chart-data shaping for the "folders" section (emails per folder, folder size tree, largest emails)
 import { computed } from 'vue';
 import { accentColors } from '@/definitions.js';
+import { buildFolderTree } from '@/composables/folderTree.js';
 
-export function useFoldersChartData({ display, locale, t }) {
+export function useFoldersChartData({ display, locale, t, options, accountFolders }) {
+	// undefined means no limit, which is what Array.prototype.slice does with it
+	const listLimit = computed(() => (options?.maxListCount > 0 ? options.maxListCount : undefined));
+
 	// prepare data for emails per folder doughnut charts
 	const foldersChartData = computed(() => {
 		const r = display.value.folders.received,
@@ -34,7 +38,19 @@ export function useFoldersChartData({ display, locale, t }) {
 		};
 	});
 
+	// stats cached before sizes were collected have no folders.sizes, and the tree stays
+	// empty until the live folder hierarchy in <accountFolders> has been loaded
+	const folderTree = computed(() => buildFolderTree(accountFolders?.value ?? [], display.value.folders.sizes));
+	const folderTreeExists = computed(() => folderTree.value.length > 0);
+
+	const largestMessages = computed(() => (display.value.largestMessages ?? []).slice(0, listLimit.value));
+	const largestMessagesExist = computed(() => largestMessages.value.length > 0);
+
 	return {
 		foldersChartData,
+		folderTree,
+		folderTreeExists,
+		largestMessages,
+		largestMessagesExist,
 	};
 }

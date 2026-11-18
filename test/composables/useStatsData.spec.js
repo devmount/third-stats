@@ -7,6 +7,7 @@ vi.mock('vue-i18n', () => ({
 	useI18n: () => ({ t: (key) => key }),
 }));
 
+import { createStatsData } from '@/composables/statsAggregation.js';
 import { useStatsData } from '@/composables/useStatsData.js';
 import { defaultOptions } from '@/definitions.js';
 import { PAGE_PROCESSING_STORAGE_KEY, PROCESSING_STORAGE_KEY } from '@/engines/statsEngine.js';
@@ -617,6 +618,39 @@ describe('useStatsData - summed view across accounts', () => {
 		expect(engine.display.value.numbers.received).toBe(2);
 		expect(engine.comparison.value.yearsData).toHaveProperty(accountA.id);
 		expect(engine.comparison.value.yearsData).toHaveProperty(accountB.id);
+	});
+
+	it('reprocesses accounts whose cache predates folder sizes, and keeps using newer caches', async () => {
+		const accountA = { id: 'acc-a', name: 'A', type: 'imap', identities: [], rootFolder: { id: 'root-a' } };
+		const accountB = { id: 'acc-b', name: 'B', type: 'imap', identities: [], rootFolder: { id: 'root-b' } };
+		const folderA = { ...inboxFolder, id: 'folder-a' };
+		const folderB = { ...inboxFolder, id: 'folder-b' };
+		const messenger = createMockMessenger({
+			accounts: {
+				list: vi.fn(async () => [accountA, accountB]),
+				get: vi.fn(async (id) => (id === accountA.id ? accountA : accountB)),
+			},
+			folders: {
+				get: vi.fn(async (rootId) => ({ isRoot: true, subFolders: [rootId === 'root-a' ? folderA : folderB] })),
+			},
+			messages: { list: vi.fn(async () => ({ id: null, messages: [makeMessage()] })) },
+		});
+		const cachedBeforeSizes = createStatsData();
+		delete cachedBeforeSizes.folders.sizes;
+		await messenger.storage.local.set({
+			options: { ...baseOptions, cache: true },
+			[statsCacheKey(accountA.id)]: cachedBeforeSizes,
+			[statsCacheKey(accountB.id)]: createStatsData(),
+		});
+		vi.stubGlobal('messenger', messenger);
+		vi.stubGlobal('document', { body: fakeElement(), title: '' });
+		vi.stubGlobal('window', { location: { search: '?s=sum' } });
+
+		const engine = useStatsData();
+		await engine.init();
+		await flushPending();
+
+		expect(messenger.messages.list.mock.calls.map(([folderId]) => folderId)).toEqual(['folder-a']);
 	});
 
 	// regression test for bugs/381: with liveCountUp on, multiple uncached accounts are

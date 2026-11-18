@@ -23,7 +23,7 @@ export function buildAllIdentities(accountList, addresses) {
 }
 
 // retrieve all messages of a given <folder> with accounts <identityList>, updating <data>
-// <filters> = { activeContact, selfMessagesMode, allIdentities, periodStart, periodEnd, debug }
+// <filters> = { activeContact, selfMessagesMode, allIdentities, periodStart, periodEnd, maxListCount, debug }
 // <hooks> = { onMessage?: (numbers) => void }
 export async function processMessages(data, folder, identityList, filters = {}, hooks = {}) {
 	// Only analyze existing, non-virtual folders
@@ -32,6 +32,7 @@ export async function processMessages(data, folder, identityList, filters = {}, 
 			activeContact: filters.activeContact,
 			selfMessagesMode: filters.selfMessagesMode,
 			allIdentities: filters.allIdentities ?? [],
+			maxListCount: filters.maxListCount,
 		};
 		let n = 0,
 			s = 0,
@@ -84,6 +85,7 @@ export async function processAccount(account, addonOptions, filters = {}, hooks 
 		allIdentities: filters.allIdentities,
 		periodStart: filters.periodStart,
 		periodEnd: filters.periodEnd,
+		maxListCount: addonOptions.maxListCount,
 		debug: addonOptions.debug,
 	};
 	await Promise.all(

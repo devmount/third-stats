@@ -380,7 +380,8 @@ export function useStatsData() {
 			await Promise.all(
 				activeAccounts.map(async (a) => {
 					const result = await messenger.storage.local.get(statsCacheKey(a.id));
-					if (!refresh && result && result[statsCacheKey(a.id)]) {
+					// stats cached before folder sizes were collected are processed again
+					if (!refresh && result?.[statsCacheKey(a.id)]?.folders?.sizes) {
 						// if no refresh requested and this accounts data was cached before, take data from cache
 						accountsData.push(JSON.parse(JSON.stringify(result[statsCacheKey(a.id)])));
 						progress.current += a.folderCount;
@@ -619,7 +620,9 @@ export function useStatsData() {
 	// export displayed data
 	// provides a JSON file for download
 	const exportJson = () => {
-		const data = new Blob([JSON.stringify(display.value)], { type: 'text/plain;charset=utf-8' });
+		// email subjects are personal content and stay out of the shared file
+		const { largestMessages: _largestMessages, ...exportable } = display.value;
+		const data = new Blob([JSON.stringify(exportable)], { type: 'text/plain;charset=utf-8' });
 		messenger.downloads
 			.download({
 				url: URL.createObjectURL(data),

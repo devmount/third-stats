@@ -66,6 +66,8 @@ const tabsLeader = {
 
 const tabsFolders = {
 	foldersDistribution: 1,
+	foldersSize: 2,
+	largestEmails: 3,
 };
 
 const tabsTags = {

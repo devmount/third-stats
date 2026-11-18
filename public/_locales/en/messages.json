@@ -161,6 +161,26 @@
         "description": "Number of emails per folder",
         "title": "Folders distribution"
       },
+      "foldersSize": {
+        "description": "Size of the analyzed emails per account and folder, including subfolders",
+        "empty": "No folder sizes available yet. Refresh the stats to calculate them.",
+        "notFound": "Could not show this folder in Thunderbird",
+        "open": "Show {0} in Thunderbird",
+        "removed": "Removed folders",
+        "title": "Folder sizes"
+      },
+      "largestEmails": {
+        "date": "Date",
+        "description": "Emails with the largest size",
+        "empty": "No email sizes available yet. Refresh the stats to calculate them.",
+        "folder": "Folder",
+        "from": "From",
+        "noSubject": "(no subject)",
+        "notFound": "Email not found, it may have been deleted",
+        "size": "Size",
+        "subject": "Subject",
+        "title": "Largest emails"
+      },
       "month": {
         "description": "Number of emails per month of year",
         "title": "Month"
