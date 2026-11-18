@@ -399,6 +399,54 @@ const openTab = (url, get = '') => {
 	});
 };
 
+// opens the message with the given Message-ID header, returns false if it can't be found anymore
+// internal message ids are not usable here, they don't survive a Thunderbird restart
+const openMessage = async (headerMessageId) => {
+	try {
+		await messenger.messageDisplay.open({ headerMessageId });
+		return true;
+	} catch {
+		return false;
+	}
+};
+
+// shows the given folder in a mail tab and brings it to the front, returns false on failure
+// an existing mail tab is reused so repeated jumps don't pile up tabs
+const openFolder = async (folderId) => {
+	try {
+		const [mailTab] = [
+			...(await messenger.mailTabs.query({ currentWindow: true })),
+			...(await messenger.mailTabs.query({})),
+		];
+		if (!mailTab) {
+			await messenger.mailTabs.create({ displayedFolderId: folderId });
+			return true;
+		}
+		await messenger.mailTabs.update(mailTab.tabId, { displayedFolderId: folderId });
+		await messenger.tabs.update(mailTab.tabId, { active: true });
+		await messenger.windows.update(mailTab.windowId, { focused: true });
+		return true;
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
+};
+
+// returns the given <accounts> as [{ id, name, rootFolder }] with all subfolders included,
+// accounts whose folders can't be read are left out
+const loadAccountFolders = async (accounts) => {
+	const loaded = await Promise.all(
+		accounts.map(async (a) => {
+			try {
+				return { id: a.id, name: a.name, rootFolder: await messenger.folders.get(a.rootFolder.id, true) };
+			} catch {
+				return null;
+			}
+		})
+	);
+	return loaded.filter(Boolean);
+};
+
 export {
 	arrayContainsArray,
 	contactInvolved,
@@ -409,11 +457,14 @@ export {
 	formatDate,
 	formatFolder,
 	isSelfMessage,
+	loadAccountFolders,
 	localDateKey,
 	localStartOfWeek,
 	monthNames,
 	NumberedObject,
 	oneDigit,
+	openFolder,
+	openMessage,
 	openTab,
 	pluralPolish,
 	pluralUkrainian,

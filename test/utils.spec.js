@@ -8,11 +8,14 @@ import {
 	formatDate,
 	formatFolder,
 	isSelfMessage,
+	loadAccountFolders,
 	localDateKey,
 	localStartOfWeek,
 	monthNames,
 	NumberedObject,
 	oneDigit,
+	openFolder,
+	openMessage,
 	openTab,
 	pluralPolish,
 	pluralUkrainian,
@@ -495,6 +498,98 @@ describe('openTab', () => {
 		vi.stubGlobal('messenger', createMockMessenger({ tabs: { create } }));
 		openTab('index.html', 'abc');
 		expect(create).toHaveBeenCalledWith({ active: true, url: 'index.html?s=abc' });
+	});
+});
+
+describe('openMessage', () => {
+	it('opens the message identified by its Message-ID header and reports success', async () => {
+		const open = vi.fn().mockResolvedValue({ id: 7 });
+		vi.stubGlobal('messenger', createMockMessenger({ messageDisplay: { open } }));
+		expect(await openMessage('abc@example.com')).toBe(true);
+		expect(open).toHaveBeenCalledWith({ headerMessageId: 'abc@example.com' });
+	});
+
+	it('reports failure instead of throwing when the message no longer exists', async () => {
+		const open = vi.fn().mockRejectedValue(new Error('Unknown or invalid headerMessageId'));
+		vi.stubGlobal('messenger', createMockMessenger({ messageDisplay: { open } }));
+		expect(await openMessage('gone@example.com')).toBe(false);
+	});
+});
+
+describe('openFolder', () => {
+	const mockMailTabs = (existingTabs, overrides = {}) => {
+		const mailTabs = {
+			query: vi.fn(async (queryInfo) =>
+				queryInfo.currentWindow ? existingTabs.filter((t) => t.current) : existingTabs
+			),
+			update: vi.fn(async () => ({})),
+			create: vi.fn(async () => ({})),
+			...overrides,
+		};
+		const tabs = { update: vi.fn(async () => ({})) };
+		const windows = { update: vi.fn(async () => ({})) };
+		vi.stubGlobal('messenger', createMockMessenger({ mailTabs, tabs, windows }));
+		return { mailTabs, tabs, windows };
+	};
+
+	it('shows the folder in the mail tab of the current window and brings that tab to the front', async () => {
+		const api = mockMailTabs([
+			{ tabId: 3, windowId: 9 },
+			{ tabId: 5, windowId: 1, current: true },
+		]);
+		expect(await openFolder('acc-1://INBOX')).toBe(true);
+		expect(api.mailTabs.update).toHaveBeenCalledWith(5, { displayedFolderId: 'acc-1://INBOX' });
+		expect(api.tabs.update).toHaveBeenCalledWith(5, { active: true });
+		expect(api.windows.update).toHaveBeenCalledWith(1, { focused: true });
+		expect(api.mailTabs.create).not.toHaveBeenCalled();
+	});
+
+	it('falls back to a mail tab of another window', async () => {
+		const api = mockMailTabs([{ tabId: 3, windowId: 9 }]);
+		expect(await openFolder('acc-1://INBOX')).toBe(true);
+		expect(api.mailTabs.update).toHaveBeenCalledWith(3, { displayedFolderId: 'acc-1://INBOX' });
+		expect(api.windows.update).toHaveBeenCalledWith(9, { focused: true });
+	});
+
+	it('opens a new mail tab when none exists', async () => {
+		const api = mockMailTabs([]);
+		expect(await openFolder('acc-1://INBOX')).toBe(true);
+		expect(api.mailTabs.create).toHaveBeenCalledWith({ displayedFolderId: 'acc-1://INBOX' });
+		expect(api.mailTabs.update).not.toHaveBeenCalled();
+	});
+
+	it('reports failure instead of throwing when the folder no longer exists', async () => {
+		const failure = new Error('Folder not found');
+		const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+		mockMailTabs([{ tabId: 3, windowId: 9 }], { update: vi.fn().mockRejectedValue(failure) });
+		expect(await openFolder('acc-1://Gone')).toBe(false);
+		expect(logged).toHaveBeenCalledWith(failure);
+		logged.mockRestore();
+	});
+});
+
+describe('loadAccountFolders', () => {
+	it('returns each account with its full folder hierarchy', async () => {
+		const get = vi.fn(async (id) => ({ id, isRoot: true, subFolders: [{ id: `${id}/INBOX` }] }));
+		vi.stubGlobal('messenger', createMockMessenger({ folders: { get } }));
+		const result = await loadAccountFolders([{ id: 'acc-1', name: 'Work', rootFolder: { id: 'root-1' } }]);
+		expect(get).toHaveBeenCalledWith('root-1', true);
+		expect(result).toEqual([
+			{ id: 'acc-1', name: 'Work', rootFolder: { id: 'root-1', isRoot: true, subFolders: [{ id: 'root-1/INBOX' }] } },
+		]);
+	});
+
+	it('skips an account whose folders cannot be read', async () => {
+		const get = vi.fn(async (id) => {
+			if (id === 'root-bad') throw new Error('gone');
+			return { id, subFolders: [] };
+		});
+		vi.stubGlobal('messenger', createMockMessenger({ folders: { get } }));
+		const result = await loadAccountFolders([
+			{ id: 'acc-bad', name: 'Bad', rootFolder: { id: 'root-bad' } },
+			{ id: 'acc-1', name: 'Work', rootFolder: { id: 'root-1' } },
+		]);
+		expect(result.map((a) => a.id)).toEqual(['acc-1']);
 	});
 });
 

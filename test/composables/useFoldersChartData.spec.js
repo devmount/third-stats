@@ -35,4 +35,76 @@ describe('useFoldersChartData', () => {
 		expect(foldersChartData.value.datasets[0].data).toEqual([]);
 		expect(foldersChartData.value.datasets[1].data).toEqual([]);
 	});
+
+	it('builds the folder size tree from the loaded account folders', () => {
+		const display = ref({
+			folders: { received: {}, sent: {}, sizes: { 'acc-1': { '/INBOX': 500, '/INBOX/Sub': 100 } } },
+			largestMessages: [],
+		});
+		const accountFolders = ref([
+			{
+				id: 'acc-1',
+				name: 'Work',
+				rootFolder: {
+					subFolders: [
+						{
+							id: 'f1',
+							name: 'Inbox',
+							path: '/INBOX',
+							subFolders: [{ id: 'f2', name: 'Sub', path: '/INBOX/Sub', subFolders: [] }],
+						},
+					],
+				},
+			},
+		]);
+		const { folderTree, folderTreeExists } = useFoldersChartData({
+			display,
+			locale: ref('en'),
+			t: stubT,
+			accountFolders,
+		});
+		expect(folderTree.value.map((a) => [a.name, a.size])).toEqual([['Work', 600]]);
+		expect(folderTree.value[0].children[0].children[0]).toMatchObject({ name: 'Sub', size: 100 });
+		expect(folderTreeExists.value).toBe(true);
+	});
+
+	it('has no tree until the account folders are loaded', () => {
+		const display = ref({ folders: { received: {}, sent: {}, sizes: { 'acc-1': { '/INBOX': 500 } } } });
+		const { folderTree, folderTreeExists } = useFoldersChartData({
+			display,
+			locale: ref('en'),
+			t: stubT,
+			accountFolders: ref([]),
+		});
+		expect(folderTree.value).toEqual([]);
+		expect(folderTreeExists.value).toBe(false);
+	});
+
+	it('trims largest messages to options.maxListCount', () => {
+		const display = ref({
+			folders: { received: {}, sent: {}, sizes: {} },
+			largestMessages: [{ size: 3 }, { size: 2 }, { size: 1 }],
+		});
+		const { largestMessages, largestMessagesExist } = useFoldersChartData({
+			display,
+			locale: ref('en'),
+			t: stubT,
+			options: { maxListCount: 2 },
+		});
+		expect(largestMessages.value).toEqual([{ size: 3 }, { size: 2 }]);
+		expect(largestMessagesExist.value).toBe(true);
+	});
+
+	it('reports no size data for stats cached before sizes existed', () => {
+		const display = ref({ folders: { received: { Inbox: 1 }, sent: {} } });
+		const { folderTree, folderTreeExists, largestMessages, largestMessagesExist } = useFoldersChartData({
+			display,
+			locale: ref('en'),
+			t: stubT,
+		});
+		expect(folderTree.value).toEqual([]);
+		expect(folderTreeExists.value).toBe(false);
+		expect(largestMessages.value).toEqual([]);
+		expect(largestMessagesExist.value).toBe(false);
+	});
 });

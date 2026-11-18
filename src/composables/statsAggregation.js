@@ -75,7 +75,10 @@ const createStatsData = (periodStart, periodEnd) => ({
 	folders: {
 		received: {},
 		sent: {},
+		// bytes per account id and folder path, same-named folders must stay apart here
+		sizes: {},
 	},
+	largestMessages: [],
 	tags: {},
 });
 
@@ -91,9 +94,15 @@ const createComparisonData = () => ({
 	monthData: {},
 });
 
+const DEFAULT_LARGEST_MESSAGES = 20;
+
+const largestMessagesLimit = (maxListCount) => (maxListCount > 0 ? maxListCount : DEFAULT_LARGEST_MESSAGES);
+
+const bySizeDescending = (messages, limit) => messages.sort((a, b) => b.size - a.size).slice(0, limit);
+
 // Extract information of a single message <message> with accounts <identityList>
 // and update given <data> object.
-// <context> = { activeContact, selfMessagesMode, allIdentities }
+// <context> = { activeContact, selfMessagesMode, allIdentities, maxListCount? }
 // Returns string type 'sent'|'received'
 const analyzeMessage = (data, message, identityList, context) => {
 	// check filter:contact
@@ -219,6 +228,28 @@ const analyzeMessage = (data, message, identityList, context) => {
 		data.folders[type][f] = 1;
 	} else {
 		data.folders[type][f]++;
+	}
+	const size = message.size ?? 0;
+	const { accountId, path: folderPath } = message.folder;
+	const accountSizes = (data.folders.sizes[accountId] ??= {});
+	accountSizes[folderPath] = (accountSizes[folderPath] ?? 0) + size;
+	if (size > 0) {
+		const limit = largestMessagesLimit(context.maxListCount);
+		const largest = data.largestMessages;
+		// sorting on every message would be costly, most messages don't qualify
+		if (largest.length < limit || size > largest[largest.length - 1].size) {
+			largest.push({
+				size,
+				subject: message.subject,
+				author,
+				folder: f,
+				folderPath,
+				accountId,
+				date: message.date.getTime(),
+				headerMessageId: message.headerMessageId,
+			});
+			data.largestMessages = bySizeDescending(largest, limit);
+		}
 	}
 	// star
 	if (message.flagged === true) data.numbers.starred++;
@@ -369,6 +400,11 @@ const sumAccountsData = (accountsData, maxListCount) => {
 		sumObjects(accountsData.reduce((p, c) => p.concat(c.folders?.received ?? []), []))
 	);
 	sum.folders.sent = sortAndLimitObject(sumObjects(accountsData.reduce((p, c) => p.concat(c.folders?.sent ?? []), [])));
+	sum.folders.sizes = sumObjectsObjects(accountsData.map((a) => a.folders?.sizes ?? {}));
+	sum.largestMessages = bySizeDescending(
+		accountsData.flatMap((a) => a.largestMessages ?? []),
+		largestMessagesLimit(maxListCount)
+	);
 	// tags
 	sum.tags = sortAndLimitObject(sumObjects(accountsData.reduce((p, c) => p.concat(c.tags ?? []), [])), maxListCount);
 
