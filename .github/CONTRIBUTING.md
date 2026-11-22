@@ -1,6 +1,6 @@
 # Contributing to this project
 
-First off, thanks for taking the time to contribute! You are awesome! :tada::clap: Please read the following guidelines if you are planning to contribute to this project.
+First off, thanks for taking the time to contribute! You are awesome! :tada::clap: Please read the following guidelines if you are planning to contribute to this project and follow our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Table Of Contents
 
@@ -39,7 +39,7 @@ Enhancement suggestions are also tracked as [GitHub issues](https://github.com/d
 
 ### Provide Code via Pull Requests
 
-Make sure your pull request follows the [general guidelines](#general-guidelines) above and fill in [the required template](PULL_REQUEST_TEMPLATE.md). Please do not include issue numbers in the PR title, but add it in the PR body, e.g. via "Closes #1234".
+To set up a local development environment, follow the steps [in the README](../README.md#become-a-thirdstats-developer). Make sure your pull request follows the [general guidelines](#general-guidelines) above and fill in [the required template](PULL_REQUEST_TEMPLATE.md). Please do not include issue numbers in the PR title, but add it in the PR body, e.g. via "Closes #1234".
 
 All code must pass the validation workflow automatically running when pushing to a PR. All tests must pass to protect against regressions.
 
@@ -64,18 +64,20 @@ Linter and formatter should cover most of the code styling automatically. Other 
   - 🔨 when fixing a bug or issue
   - ⚡ when improving performance
   - 📜 when updating docs or readme
+  - 🌐 when updating translations
   - 🔑 when dealing with security
   - 🧹 when refactoring or improving code
   - ❌ when removing code or files
-  - 📦️ when updating dependencies
+  - 📦 when updating dependencies
   - ✅ when releasing a new version
 
 ### Providing Translations
 
 You can add a new translation or improve an existing one by taking the following steps:
 
-1. Go to the [locales](/public/_locales/) directory on GitHub
-2. Choose a language and start translating either directly on GitHub or fork the repo and create a Pull Request.
+1. Go to the [locales](/public/_locales/) directory, which contains a folder for each language
+2. To improve an existing translation, edit the `messages.json` of that language. To add a new language, create a folder named like its language code (e.g. `de` or `pt-BR`) and copy the file `public/_locales/en/messages.json` into it.
+3. Translate only the values and leave the keys untouched, then create a Pull Request.
 
 If you run into any problems, leave [an issue](https://github.com/devmount/third-stats/issues/) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
 
@@ -86,9 +88,9 @@ Testing and reporting bugs is a great way to help! Here's how:
 1. Download the [latest nightly build from the ThirdStats CDN](https://third-stats.cdn.devmount.com/) (XPI file)
 2. Start Thunderbird and install the XPI file by going to *Settings* > *Add-ons and Themes* > *Extensions* > *Gear* Button > *Install Add-on from file* > Choose the downloaded XPI file
 3. Now start using ThirdStats and check if...
-    - ThirdStats logo appears in the menu and the popup shows all active accounts
-    - add-on options page displays properly, all options can be changed, options can be reset
-    - stats page display properly, data is shown correctly, processing works, all filter work as expected
+   - ThirdStats logo appears in the menu and the popup shows all active accounts
+   - add-on options page displays properly, all options can be changed, options can be reset
+   - stats page displays properly, data is shown correctly, processing works, all filters work as expected
 
 If you run into any problems, leave a comment on [the corresponding issue #370](https://github.com/devmount/third-stats/issues/370) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
 
