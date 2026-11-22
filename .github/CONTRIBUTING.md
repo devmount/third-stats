@@ -7,6 +7,7 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
 - [Table Of Contents](#table-of-contents)
 - [General Guidelines](#general-guidelines)
 - [How to contribute](#how-to-contribute)
+  - [Asking Questions](#asking-questions)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Provide Code via Pull Requests](#provide-code-via-pull-requests)
@@ -29,6 +30,10 @@ These guidelines apply to every kind of contribution, be it code, documentation,
 
 ## How to contribute
 
+### Asking Questions
+
+Please don't use issues for questions. Ask them in [the discussions](https://github.com/devmount/third-stats/discussions) instead, where the community can help as well.
+
 ### Reporting Bugs
 
 Before creating bug reports, please make sure there isn't already [an existing issue](https://github.com/devmount/third-stats/issues?q=state%3Aopen%20label%3A%22bug%22) describing your problem. Create the new issue and provide the necessary information by filling in [the bug-report template](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
@@ -43,7 +48,7 @@ To set up a local development environment, follow the steps [in the README](../R
 
 All code must pass the validation workflow automatically running when pushing to a PR. All tests must pass to protect against regressions.
 
-Always run `pnpm lint`, `pnpm format` and `pnpm test` before pushing to this repo.
+Always run `pnpm lint`, `pnpm format` and `pnpm test` before pushing to this repo. Please fix all lint warnings.
 
 #### Coding Style
 
