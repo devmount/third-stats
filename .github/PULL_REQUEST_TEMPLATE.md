@@ -1,5 +1,6 @@
 <!--
 * Filling out the template is required.
+* Pull requests without a previously discussed issue will be closed.
 * All new code must have been tested to ensure against regressions
 -->
 
@@ -13,4 +14,4 @@
 
 ## Applicable Issues
 
-<!-- Enter any applicable Issues here -->
+<!-- Required: Reference the issue this change was discussed and agreed on in, e.g. "Closes #1234" -->
