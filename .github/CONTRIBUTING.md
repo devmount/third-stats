@@ -17,18 +17,15 @@ First off, thanks for taking the time to contribute! You are awesome! :tada::cla
 
 ## General Guidelines
 
-These guidelines apply to every kind of contribution, no matter if it's code, documentation, translations or anything else.
+These guidelines apply to every kind of contribution, be it code, documentation, translations or anything else.
 
-1. **You are responsible for what you submit.** No matter what tool you've used, you are expected to understand what you have submitted and you should be able to explain it at minimum at a high level without the use of AI.
-2. **Talk to the maintainer before submitting a patch OR submit a WIP patch.**
-   - **Reach out before you start working.** File an issue or respond to the issue you plan to work on and discuss the work with the maintainer to clarify any unclear or vague requirements. This is most important for significant changes like larger bugs or new features. Without this step, you risk submitting a patch that is rejected for any number of reasons, so it is best to align on a solution beforehand.
-   - **OR submit a WIP patch to start the discussion.** Sometimes a quick work-in-progress pull request is a good way to communicate your proposed solution. This option is more suitable for trivial fixes or existing and triaged bugs. Just be aware that your WIP patch may need to be scrapped to align with the direction the maintainer is envisioning.
-3. **Do not include unrelated refactoring or drive-by "improvements".** All code in a pull request should directly address the issue or issues being solved.
-4. **Avoid the creation of comprehension debt.** Submissions must follow the established architecture, formatting and code organization. They should use existing languages, frameworks and libraries where possible. Do not rewrite or refactor existing work, introduce new frameworks or major libraries without asking first. The maintainer has the final word on refactors and any languages, dependencies and tools used in this project.
-5. **Keep your changeset small.** Pull requests with less than 500 lines, across a minimum number of files, ensure that the changeset is appropriately targeted and reviewable.
-6. **Expect your level of effort to be mirrored.** If you spent 5 minutes having an agent write a document or patch, you should not expect a human to spend hours reviewing and critiquing your submission in detail. If an LLM was used to help generate a patch, please include the original thought (e.g. the prompt) that went into its creation.
-7. **Include tests and relevant documentation.** If there are no tests covering the affected area, propose adding them whenever possible.
-8. **Document your changes.** While working on your submission, you have naturally built a certain understanding of the problem and how it would be best addressed. Adding a short explanation of your understanding and the approach you've taken, either in the pull request description or in a comment on the related issue, makes it a lot easier for the reviewer to follow your thought process.
+1. **You are responsible for what you submit.** No matter which tools you used, you must understand your submission and be able to explain it, at least at a high level, without the use of AI.
+2. **Talk to the maintainer first OR submit a WIP patch.** Discuss your plans in a new or existing issue before you start, especially for larger bugs or new features, so your work doesn't get rejected. For trivial fixes or triaged bugs, a quick work-in-progress pull request can start the discussion instead, but be prepared that it may need to be scrapped.
+3. **Avoid comprehension debt.** Follow the established architecture, formatting and code organization, and use the existing languages, frameworks and libraries. Ask before rewriting existing work or adding new dependencies. The maintainer has the final word on these.
+4. **Keep your changeset small and focused.** Every change should directly address the issue being solved, so don't include unrelated refactoring or drive-by "improvements". Aim for less than 500 lines across as few files as possible to keep it reviewable.
+5. **Expect your level of effort to be mirrored.** If an agent wrote your patch in 5 minutes, don't expect a human to spend hours reviewing it. If an LLM was used, please include the original thought (e.g. the prompt) behind it.
+6. **Include tests and relevant documentation.** If the affected area has no tests, propose adding them.
+7. **Explain your changes.** Briefly describe your understanding of the problem and your approach in the pull request or the related issue. This makes reviewing a lot easier.
 
 ## How to contribute
 
