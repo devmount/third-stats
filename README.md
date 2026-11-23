@@ -84,14 +84,12 @@ Here is how you can set up a local development environment. This project require
 
 1. [Clone](https://help.github.com/en/articles/cloning-a-repository) this project with Git
 2. Install dependencies by running `pnpm install` within the cloned directory `third-stats/`
-3. Start the development server with `pnpm dev`
-4. Open development site by going to <http://localhost:5173> in your browser
+3. Run `pnpm dev` to build the add-on into the `dist/` directory and rebuild it automatically on every change
+4. Open Thunderbird, go to *Add-ons and Themes* > *Gear* button > *Debug Add-ons* > *This Thunderbird* > *Load Temporary Add-on*
+5. Choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
+6. After making changes, click the button *Reload* in the add-on tile to load the rebuilt version
 
-Note that this tool uses [Thunderbird's WebExtension APIs](https://webextension-api.thunderbird.net/). This means that some JavaScript objects won't be available in your browser as development environment. If you want to test your changes in Thunderbird, do the following:
-
-5. Save all your changes and run `pnpm build` to create a production build in the `dist/` directory
-6. Open Thunderbird, go to *Add-ons and Themes* > *Gear* button > *Debug Add-ons* > *This Thunderbird* > *Load Temporary Add-on*
-7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
+This project uses [Thunderbird's WebExtension APIs](https://webextension-api.thunderbird.net/), which are only available inside Thunderbird. Run `pnpm build` to create a one-time production build in the `dist/` directory.
 
 Before creating a pull request, run `pnpm lint`, `pnpm format` and `pnpm test` to make sure everything passes.
 

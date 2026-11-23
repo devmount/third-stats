@@ -12,12 +12,12 @@ ThirdStats is a Thunderbird add-on (MailExtension) for visualized email account 
 - `public/_locales/<code>/messages.json` contains the translations, `public/manifest.json` the add-on manifest
 - `test/` contains the Vitest tests, mirroring the structure of `src/`
 
-Thunderbird WebExtension APIs (`messenger.*`) are not available in the browser dev server, test those changes with a production build loaded as a temporary add-on in Thunderbird.
+Thunderbird WebExtension APIs (`messenger.*`) are only available inside Thunderbird, so changes are tested by loading `dist/` as a temporary add-on there.
 
 ## Commands
 
 - `pnpm install` to install dependencies
-- `pnpm dev` to start the dev server, `pnpm build` to create a production build in `dist/`
+- `pnpm dev` to build into `dist/` and rebuild on every change, `pnpm build` to create a one-time production build
 - `pnpm lint` to lint (fix all warnings, CI treats them as errors)
 - `pnpm format` to format code
 - `pnpm test` to run the tests
