@@ -82,7 +82,9 @@ You can add a new translation or improve an existing one by taking the following
 
 1. Go to the [locales](/public/_locales/) directory, which contains a folder for each language
 2. To improve an existing translation, edit the `messages.json` of that language. To add a new language, create a folder named like its language code (e.g. `de` or `pt-BR`) and copy the file `public/_locales/en/messages.json` into it.
-3. Translate only the values and leave the keys untouched, then create a Pull Request.
+3. Translate only the values and leave the keys untouched.
+4. (Optional) For a new language, also register it in `src/translations.js` (import, `messages` and `getDateFnsLocale`), add it to the language lists in `test/translations.spec.js` and to the language list in the README. If you're unsure about this step, the maintainer will do it for you.
+5. Create a Pull Request referencing the related issue.
 
 If you run into any problems, leave [an issue](https://github.com/devmount/third-stats/issues/) or start [a discussion thread](https://github.com/devmount/third-stats/discussions).
 

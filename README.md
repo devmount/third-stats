@@ -50,7 +50,7 @@ Here is what ThirdStats looks like on the Thunderbird default dark theme and lig
 
 ThirdStats runs entirely locally and will never contact, send or sell data to, any third-parties.
 
-ThirdStats features require [Thunderbird permissions](https://developer.thunderbird.net/add-ons/mailextensions/supported-webextension-api) to function, but will always seeks to minimise permissions where possible, and use granular permissions where available (Example: Thunderbird Permissions API does not currently provide for reading only message headers, instead of the entire email, including the body):
+ThirdStats features require [Thunderbird permissions](https://developer.thunderbird.net/add-ons/mailextensions/supported-webextension-api) to function, but will always seek to minimise permissions where possible, and use granular permissions where available (Example: Thunderbird Permissions API does not currently provide for reading only message headers, instead of the entire email, including the body):
 
 - Accounts: Access accounts and identities (read-only)
 - Alarms: Schedule periodic background reprocessing of stats data. Can be disabled or adjusted in the add-on options.
