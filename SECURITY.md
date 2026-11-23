@@ -6,7 +6,7 @@ The latest stable version of ThirdStats is being supported with security updates
 
 ## Reporting a Vulnerability
 
-To report a vulnerability, please issue [a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md).
+Please do not report vulnerabilities via public issues. Instead, report them privately via [GitHub's private vulnerability reporting](https://github.com/devmount/third-stats/security/advisories/new). You will receive a response as soon as possible, and the issue will be disclosed publicly once a fix is released.
 
 ## FAQ
 
