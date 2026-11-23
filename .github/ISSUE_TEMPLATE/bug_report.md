@@ -1,13 +1,14 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-
+labels: bug
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Describe the bug
+<!-- A clear and concise description of what the bug is. -->
 
-**To Reproduce**
+## To Reproduce
+
 Steps to reproduce the behavior:
 
 1. Go to '...'
@@ -15,16 +16,21 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Expected behavior
+<!-- A clear and concise description of what you expected to happen. -->
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Actual behavior
+<!-- A clear and concise description of what happened instead. Exact text of any warnings or errors. -->
 
-**System (please complete the following information):**
+## Screenshots
+<!-- If applicable, add screenshots to help explain your problem. -->
 
-- OS: [e.g. Windows 10]
-- Thunderbird Version [e.g. 91.0 (64-Bit)]
+## System
+<!-- Please fill out the following information so we're able to see if it is a system specific error. -->
 
-**Additional context**
-Add any other context about the problem here.
+- OS: <!-- e.g. Ubuntu 24.04 -->
+- Thunderbird version: <!-- e.g. 140.0 (64-Bit) -->
+- ThirdStats version: <!-- e.g. 1.13.0 -->
+
+## Additional context
+<!-- Add any other context about the problem here. -->

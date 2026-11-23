@@ -18,12 +18,12 @@ ThirdStats is a Thunderbird add-on for beautifully visualized email account stat
 
 Install ThirdStats from the Thunderbird Add-ons repository:
 
-1. Start Thunderbird, open the main menu and click on Add-ons
+1. Start Thunderbird, open the main menu and click on *Add-ons and Themes*
 2. Search for *ThirdStats*
 3. Click *Add to Thunderbird* and give necessary permissions
 4. Open the ThirdStats Popup in the upper right corner of the main toolbar and enjoy your email account stats
 
-To properly recognize emails as *sent*, make sure to configure all email adresses you write from as Thunderbird identities for your email account. You can do so under *account settings* > select your account > click button *more identities* at the bottom and add or modify identities as you need.
+To properly recognize emails as *sent*, make sure to configure all email addresses you write from as Thunderbird identities for your email account. You can do so under *account settings* > select your account > click button *more identities* at the bottom and add or modify identities as you need.
 
 Also keep in mind, that the processing of large mailboxes can take a lot of time.
 
@@ -36,10 +36,13 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Filter stats for a specific folder, date range or contact
 - Compare different email accounts with each other and define their color
 - Set Options for account selection, theme, caching system and a lot more customizations
+- Keep stats up to date with optional automatic background processing
 - Enjoy the responsive stats page adapting to different viewport sizes
-- Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, Finish, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish, Ukrainian and Uzbek
+- Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, Finnish, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish, Ukrainian and Uzbek
 
-Here is how ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
+See what's new in each version on the [releases page](https://github.com/devmount/third-stats/releases).
+
+Here is what ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
 ![thirdstats_screenshot_version_1.8.0](https://user-images.githubusercontent.com/5441654/127223215-46bfd30f-7e77-401d-92a3-20bcd7bbee5a.png)
 
@@ -47,7 +50,7 @@ Here is how ThirdStats looks like on the Thunderbird default dark theme and ligh
 
 ThirdStats runs entirely locally and will never contact, send or sell data to, any third-parties.
 
-ThirdStats features require [Thunderbird permissions](https://developer.thunderbird.net/add-ons/mailextensions/supported-webextension-api) to function, but will always seeks to minimise permissions where possible, and use granular permissions where available (Example: Thunderbird Permissions API does not currently provide for reading only message headers, instead of the entire email, including the body):
+ThirdStats features require [Thunderbird permissions](https://developer.thunderbird.net/add-ons/mailextensions/supported-webextension-api) to function, but will always seek to minimise permissions where possible, and use granular permissions where available (Example: Thunderbird Permissions API does not currently provide for reading only message headers, instead of the entire email, including the body):
 
 - Accounts: Access accounts and identities (read-only)
 - Alarms: Schedule periodic background reprocessing of stats data. Can be disabled or adjusted in the add-on options.
@@ -71,28 +74,28 @@ Contributions are very welcome! See the [Contribution Guidelines](./.github/CONT
 
 ### Become a tester
 
-Cutting edge alpha releases of ThirdStats can be found on the [dedicated ThirdStats CDN](https://third-stats.cdn.devmount.com/). You can manually install these alpha releases and test them as you like.
+Cutting edge nightly builds of ThirdStats can be found on the [dedicated ThirdStats CDN](https://third-stats.cdn.devmount.com/). You can manually install these nightly builds and test them as you like. See the [beta-testing guide](./.github/CONTRIBUTING.md#beta-testing) for details.
 
-If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md). If you have ideas for additional features, please [issue a feature request](https://github.com/devmount/third-stats/issues/new?template=feature_request.md).
+If you encounter any problem, please [issue a bug report](https://github.com/devmount/third-stats/issues/new?template=bug_report.md). If you have ideas for additional features, please [issue a feature request](https://github.com/devmount/third-stats/issues/new?template=feature_request.md). For questions, start [a discussion thread](https://github.com/devmount/third-stats/discussions).
 
 ### Become a ThirdStats developer
 
-Here is how you can set up a local development environment. This project uses [pnpm](https://pnpm.io/installation#using-npm) as package manager.
+Here is how you can set up a local development environment. This project requires [Node.js](https://nodejs.org/) 24 or newer and uses [pnpm](https://pnpm.io/installation#using-npm) as package manager.
 
 1. [Clone](https://help.github.com/en/articles/cloning-a-repository) this project with Git
 2. Install dependencies by running `pnpm install` within the cloned directory `third-stats/`
-3. Start the development server with `pnpm dev`
-4. Open development site by going to <http://localhost:8080> in your browser
+3. Run `pnpm dev` to build the add-on into the `dist/` directory and rebuild it automatically on every change
+4. Open Thunderbird, go to *Add-ons and Themes* > *Gear* button > *Debug Add-ons* > *This Thunderbird* > *Load Temporary Add-on*
+5. Choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
+6. After making changes, click the button *Reload* in the add-on tile to load the rebuilt version
 
-Note that this tool uses [Thunderbirds WebExtension APIs](https://thunderbird-webextensions.readthedocs.io/en/latest/index.html). This means that some JavaScript objects won't be available in your browser as development environment. If you want to test your changes in Thunderbird, do the following:
+This project uses [Thunderbird's WebExtension APIs](https://webextension-api.thunderbird.net/), which are only available inside Thunderbird. Run `pnpm build` to create a one-time production build in the `dist/` directory.
 
-5. Save all your changes and run `pnpm build` to create a production build in the `dist/` directory
-6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
-7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
+Before creating a pull request, run `pnpm lint`, `pnpm format` and `pnpm test` to make sure everything passes.
 
 ## Special Thanks
 
-Many thanks especially to those who helped translating this add-on and making it more accessable for people around the globe:
+Many thanks especially to those who helped translating this add-on and making it more accessible for people around the globe:
 
 - Brazilian Portuguese: [@TenisonJr](https://github.com/TenisonJr)
 - Catalan: [@altmas5](https://github.com/altmas5) [@Leos1113](https://github.com/Leos1113)
@@ -114,7 +117,7 @@ Many thanks especially to those who helped translating this add-on and making it
 - Thai: [@kerlos](https://github.com/kerlos)
 - Turkish: [@tosbaha](https://github.com/tosbaha)
 
-## Licence
+## License
 
 This Thunderbird add-on is licensed under [MIT License](./LICENSE).
 

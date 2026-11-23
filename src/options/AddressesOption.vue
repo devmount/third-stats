@@ -25,7 +25,7 @@
 					class="address-input"
 					type="email"
 					v-model="input.address"
-					placeholder="hello@devmount.de"
+					placeholder="hello@devmount.com"
 					id="local"
 				/>
 				<ts-button @click="addAddress" class="add-button">
