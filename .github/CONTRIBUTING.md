@@ -24,7 +24,7 @@ These guidelines apply to every kind of contribution, be it code, documentation,
 2. **Talk to the maintainer first.** Discuss your plans in a new or existing issue and wait for the maintainer to agree on a solution before you start working. Pull requests without a previously discussed issue will be closed.
 3. **Avoid comprehension debt.** Follow the established architecture, formatting and code organization, and use the existing languages, frameworks and libraries. Ask before rewriting existing work or adding new dependencies. The maintainer has the final word on these.
 4. **Keep your changeset small and focused.** Every change should directly address the issue being solved, so don't include unrelated refactoring or drive-by "improvements". Aim for less than 500 lines across as few files as possible to keep it reviewable.
-5. **Expect your level of effort to be mirrored.** If an agent wrote your patch in 5 minutes, don't expect a human to spend hours reviewing it. If an LLM was used, please include the original thought (e.g. the prompt) behind it.
+5. **Expect your level of effort to be mirrored.** If an agent wrote your patch in 5 minutes, don't expect a human to spend hours reviewing it. If an LLM was used, please disclose how much was LLM generated and what was manual work.
 6. **Include tests and relevant documentation.** If the affected area has no tests, propose adding them.
 7. **Explain your changes.** Briefly describe your understanding of the problem and your approach in the pull request or the related issue. This makes reviewing a lot easier.
 
