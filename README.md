@@ -18,7 +18,7 @@ ThirdStats is a Thunderbird add-on for beautifully visualized email account stat
 
 Install ThirdStats from the Thunderbird Add-ons repository:
 
-1. Start Thunderbird, open the main menu and click on Add-ons
+1. Start Thunderbird, open the main menu and click on *Add-ons and Themes*
 2. Search for *ThirdStats*
 3. Click *Add to Thunderbird* and give necessary permissions
 4. Open the ThirdStats Popup in the upper right corner of the main toolbar and enjoy your email account stats
@@ -36,8 +36,11 @@ Also keep in mind, that the processing of large mailboxes can take a lot of time
 - Filter stats for a specific folder, date range or contact
 - Compare different email accounts with each other and define their color
 - Set Options for account selection, theme, caching system and a lot more customizations
+- Keep stats up to date with optional automatic background processing
 - Enjoy the responsive stats page adapting to different viewport sizes
 - Have language support for Brazilian Portuguese, Catalan, Chinese, Czech, Dutch, English, Finnish, French, Galician, German, Hindi, Hungarian, Indonesian, Italian, Japanese, Polish, Portuguese, Russian, Slovak, Spanish, Swedish, Thai, Turkish, Ukrainian and Uzbek
+
+See what's new in each version on the [releases page](https://github.com/devmount/third-stats/releases).
 
 Here is what ThirdStats looks like on the Thunderbird default dark theme and light theme on Windows:
 
@@ -87,7 +90,7 @@ Here is how you can set up a local development environment. This project require
 Note that this tool uses [Thunderbird's WebExtension APIs](https://webextension-api.thunderbird.net/). This means that some JavaScript objects won't be available in your browser as development environment. If you want to test your changes in Thunderbird, do the following:
 
 5. Save all your changes and run `pnpm build` to create a production build in the `dist/` directory
-6. Open Thunderbird, go to main menu > add-ons > gear menu > debug add-ons > This Thunderbird > Load temporary add-on
+6. Open Thunderbird, go to *Add-ons and Themes* > *Gear* button > *Debug Add-ons* > *This Thunderbird* > *Load Temporary Add-on*
 7. Now choose the manifest file inside the `dist/` directory and your modified add-on will be loaded for the current Thunderbird session. You can check the web console by clicking the button *Inspect* in the add-on tile.
 
 Before creating a pull request, run `pnpm lint`, `pnpm format` and `pnpm test` to make sure everything passes.
